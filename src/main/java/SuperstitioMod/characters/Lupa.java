@@ -1,12 +1,11 @@
 package SuperstitioMod.characters;
 
 import SuperstitioMod.SuperstitioModSetup;
-import SuperstitioMod.cards.Lupa.base.BaseSkill_Lupa;
-import SuperstitioMod.cards.Lupa.base.Defend_Lupa;
-import SuperstitioMod.cards.Lupa.base.Strike_Lupa;
+import SuperstitioMod.cards.Lupa.BaseCard.BaseSkill_Lupa;
+import SuperstitioMod.cards.Lupa.BaseCard.Defend_Lupa;
+import SuperstitioMod.cards.Lupa.BaseCard.Strike_Lupa;
 import SuperstitioMod.relics.Sensitive;
 import basemod.abstracts.CustomPlayer;
-import basemod.helpers.RelicType;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.evacipated.cardcrawl.modthespire.lib.SpireEnum;

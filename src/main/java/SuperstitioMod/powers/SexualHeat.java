@@ -1,6 +1,7 @@
 package SuperstitioMod.powers;
 
 import SuperstitioMod.SuperstitioModSetup;
+import SuperstitioMod.utils.PowerUtility;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
@@ -17,8 +18,6 @@ import com.megacrit.cardcrawl.helpers.ImageMaster;
 import com.megacrit.cardcrawl.localization.PowerStrings;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import com.megacrit.cardcrawl.powers.AbstractPower;
-import com.megacrit.cardcrawl.vfx.combat.PowerBuffEffect;
-import com.megacrit.cardcrawl.vfx.combat.PowerDebuffEffect;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -74,16 +73,6 @@ public class SexualHeat extends AbstractPower {
         this.barTextColor = BarTextColor;
         this.barOrginColor = PINK;
         this.barOrgasmShadowColor = Color.YELLOW;
-    }
-
-    private static void BubbleMessage(AbstractPower power, boolean isDeBuffVer, String message) {
-        if (isDeBuffVer) {
-            AbstractDungeon.effectList.add(new PowerDebuffEffect(power.owner.hb.cX - power.owner.animX,
-                    power.owner.hb.cY + power.owner.hb.height / 2.0f, message));
-        } else {
-            AbstractDungeon.effectList.add(new PowerBuffEffect(power.owner.hb.cX - power.owner.animX,
-                    power.owner.hb.cY + power.owner.hb.height / 2.0f, message));
-        }
     }
 
     private float barWidth() {
@@ -170,14 +159,14 @@ public class SexualHeat extends AbstractPower {
             @Override
             public void update() {
                 this.isDone = true;
-                BubbleMessage(power, false, powerStrings.DESCRIPTIONS[IsOrgasm ? 3 : 2]);
+                PowerUtility.BubbleMessage(power, false, powerStrings.DESCRIPTIONS[IsOrgasm ? 3 : 2]);
                 updateDescription();
             }
         });
     }
 
     private void EndOrgasm() {
-        BubbleMessage(this, true, powerStrings.DESCRIPTIONS[4]);
+        PowerUtility.BubbleMessage(this, true, powerStrings.DESCRIPTIONS[4]);
         this.HandCardsCostToOrigin();
         this.InOrgasm = false;
         this.LastOrgasmTime = 0;

@@ -14,5 +14,14 @@
   "SuperstitioMod:CalmDown": {
     "NAME": "冷静",
     "DESCRIPTION": "抽 !M! 张牌。"
+  },
+  "SuperstitioMod:Ku_Koro": {
+    "NAME": "咕杀",
+    "DESCRIPTION":
+      "每次受到 攻击伤害 时，获得 1 随机 状态 牌。所有 消耗 牌会回到 抽牌堆 。"
+  },
+  "SuperstitioMod:Handjob": {
+    "NAME": "手交",
+    "DESCRIPTION": "造成 !D! 点伤害。"
   }
 }

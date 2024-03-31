@@ -8,5 +8,11 @@
       "连续高潮",
       "高潮结束"
     ]
+  },
+  "SuperstitioMod:Ku_KoroPower": {
+    "NAME": "咕杀",
+    "DESCRIPTIONS": [
+      "每次受到 攻击伤害 时，获得 1 随机 状态 牌。所有 消耗 牌会回到 抽牌堆 。"
+    ]
   }
 }

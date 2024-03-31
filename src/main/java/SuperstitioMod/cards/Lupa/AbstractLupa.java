@@ -37,11 +37,18 @@ public abstract class AbstractLupa extends CustomCard {
      * 当需要自定义卡牌存储的二级目录名时
      */
     public AbstractLupa(String id, CardType cardType, int cost, CardRarity cardRarity, CardTarget cardTarget, String customCardType) {
-        super(id, CardCrawlGame.languagePack.getCardStrings(id).NAME,
+        super(
+                id,
+                CardCrawlGame.languagePack.getCardStrings(id).NAME,
                 Objects.equals(customCardType, "default")
                         ? getImgPath("", "default")
                         : getImgPath(customCardType, SuperstitioModSetup.getIdOnly(id)),
-                cost, CardCrawlGame.languagePack.getCardStrings(id).DESCRIPTION, cardType, Lupa.Enums.LUPA_CARD, cardRarity, cardTarget);
+                cost,
+                CardCrawlGame.languagePack.getCardStrings(id).DESCRIPTION,
+                cardType,
+                Lupa.Enums.LUPA_CARD,
+                cardRarity,
+                cardTarget);
 
         String pattern = ""; // 正则表达式模式，匹配冒号后的所有字符
         this.cardStrings = CardCrawlGame.languagePack.getCardStrings(id);

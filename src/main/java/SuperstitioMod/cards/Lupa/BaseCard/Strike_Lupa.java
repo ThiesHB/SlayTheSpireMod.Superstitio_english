@@ -1,10 +1,8 @@
-package SuperstitioMod.cards.Lupa.base;
+package SuperstitioMod.cards.Lupa.BaseCard;
 
 import SuperstitioMod.SuperstitioModSetup;
 import SuperstitioMod.cards.Lupa.AbstractLupa;
-import SuperstitioMod.cards.Lupa.Skill.CalmDown;
 import com.megacrit.cardcrawl.actions.AbstractGameAction;
-import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 

@@ -1,9 +1,11 @@
 package SuperstitioMod;
 
-import SuperstitioMod.cards.Lupa.Skill.CalmDown;
-import SuperstitioMod.cards.Lupa.base.BaseSkill_Lupa;
-import SuperstitioMod.cards.Lupa.base.Defend_Lupa;
-import SuperstitioMod.cards.Lupa.base.Strike_Lupa;
+import SuperstitioMod.cards.Lupa.AttackCard.Handjob;
+import SuperstitioMod.cards.Lupa.PowerCard.Ku_Koro;
+import SuperstitioMod.cards.Lupa.SkillCard.CalmDown;
+import SuperstitioMod.cards.Lupa.BaseCard.BaseSkill_Lupa;
+import SuperstitioMod.cards.Lupa.BaseCard.Defend_Lupa;
+import SuperstitioMod.cards.Lupa.BaseCard.Strike_Lupa;
 import SuperstitioMod.characters.Lupa;
 import SuperstitioMod.relics.Sensitive;
 import basemod.BaseMod;
@@ -37,7 +39,7 @@ public class SuperstitioModSetup implements EditStringsSubscriber, EditRelicsSub
 
         OnCardUseSubscriber, OnPowersModifiedSubscriber, PostDrawSubscriber, PostEnergyRechargeSubscriber {
 
-    private static final String MOD_ID = "SuperstitioMod";
+    public static final String MOD_ID = "SuperstitioMod";
     public static final Logger logger = LogManager.getLogger(SuperstitioModSetup.class.getName());
     public static final Color MY_COLOR = new Color(79.0F / 255.0F, 185.0F / 255.0F, 9.0F / 255.0F, 1.0F);
     //选英雄界面的角色图标、选英雄时的背景图片
@@ -139,6 +141,8 @@ public class SuperstitioModSetup implements EditStringsSubscriber, EditRelicsSub
         BaseMod.addCard(new Defend_Lupa());
         BaseMod.addCard(new BaseSkill_Lupa());
         BaseMod.addCard(new CalmDown());
+        BaseMod.addCard(new Ku_Koro());
+        BaseMod.addCard(new Handjob());
     }
 
     @Override
