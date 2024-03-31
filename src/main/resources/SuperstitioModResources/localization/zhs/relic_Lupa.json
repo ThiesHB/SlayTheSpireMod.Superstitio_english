@@ -1,0 +1,8 @@
+﻿{
+  "SuperstitioMod:SensitiveRelic": {
+    "NAME": "敏感",
+    "DESCRIPTIONS": [
+      "你的身体非常敏感，你使用的每个 [E] 会带来 %d 点 #y 快感"
+    ]
+  }
+}

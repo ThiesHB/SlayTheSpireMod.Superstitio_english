@@ -1,0 +1,18 @@
+﻿{
+  "SuperstitioMod:Strike_Lupa": {
+    "NAME": "口交",
+    "DESCRIPTION": "造成 !D! 点伤害。"
+  },
+  "SuperstitioMod:Defend_Lupa": {
+    "NAME": "容纳",
+    "DESCRIPTION": "获得 !B! 点格挡。"
+  },
+  "SuperstitioMod:BaseSkill_Lupa": {
+    "NAME": "自慰",
+    "DESCRIPTION": "获得 !M! 点快感。"
+  },
+  "SuperstitioMod:CalmDown": {
+    "NAME": "冷静",
+    "DESCRIPTION": "抽 !M! 张牌。"
+  }
+}
