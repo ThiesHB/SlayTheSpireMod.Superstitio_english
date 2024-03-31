@@ -6,35 +6,38 @@ import SuperstitioMod.powers.SexualHeat;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 
-public class CalmDown extends AbstractLupa {
-    public static final String ID = SuperstitioModSetup.MakeTextID(CalmDown.class.getSimpleName());
+/**
+ * 抵消敌人的攻击，转换为精液
+ */
+public class ExposeSelf extends AbstractLupa {
+    public static final String ID = SuperstitioModSetup.MakeTextID(ExposeSelf.class.getSimpleName());
 
     public static final CardType CARD_TYPE = CardType.SKILL;
 
-    public static final CardRarity CARD_RARITY = CardRarity.COMMON;
+    public static final CardRarity CARD_RARITY = CardRarity.UNCOMMON;
 
     public static final CardTarget CARD_TARGET = CardTarget.SELF;
 
-    private static final int COST = 0;
-    private static final int MagicNumber = 2;
-    private static final int UPGRADE_MagicNumber = 1;
+    private static final int COST = 1;
+    private static final int BLOCK = 6;
+    private static final int UPGRADE_BLOCK = 3;
 
-    public CalmDown() {
+    public ExposeSelf() {
         super(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET, "default");
-        this.setupMagicNumber(MagicNumber);
+        this.setupBlock(BLOCK);
     }
 
     @Override
     public void use(AbstractPlayer player, AbstractMonster monster) {
-        this.drawCards(MagicNumber);
-        this.gainPowerToPlayer(new SexualHeat(player, -SexualHeat.HEAT_REDUCE_RATE));
+        this.gainBlock();
+        this.gainPowerToPlayer(new SuperstitioMod.powers.ExposeSelf(player,1));
     }
 
     @Override
     public void upgrade() {
         if (!this.upgraded) {
             upgradeName();
-            upgradeMagicNumber(UPGRADE_MagicNumber);
+            upgradeBlock(UPGRADE_BLOCK);
         }
     }
 }

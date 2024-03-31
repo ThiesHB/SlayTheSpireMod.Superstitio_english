@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.megacrit.cardcrawl.actions.AbstractGameAction;
 import com.megacrit.cardcrawl.actions.common.DrawCardAction;
 import com.megacrit.cardcrawl.actions.common.ReducePowerAction;
+import com.megacrit.cardcrawl.actions.common.RemoveSpecificPowerAction;
 import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.core.AbstractCreature;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
@@ -27,7 +28,7 @@ public class SexualHeat extends AbstractPower {
     public static final String POWER_ID = SuperstitioModSetup.MakeTextID(SexualHeat.class.getSimpleName() + "Power");
     private static final PowerStrings powerStrings = CardCrawlGame.languagePack.getPowerStrings(POWER_ID);
     private static final int HEAT_REQUIRED = 10;
-    private static final int HEAT_REDUCE_RATE = 4;
+    public static final int HEAT_REDUCE_RATE = 4;
     private static final int DRAW_CARD = 1;
 
     //绘制相关
@@ -251,5 +252,11 @@ public class SexualHeat extends AbstractPower {
             });
             this.addToBot(new ReducePowerAction(this.owner, this.owner, POWER_ID, reduceAmount));
         }
+    }
+
+    @Override
+    public void atEndOfTurn(boolean isPlayer) {
+        EndOrgasm();
+        this.addToBot(new RemoveSpecificPowerAction(this.owner, this.owner, POWER_ID));
     }
 }

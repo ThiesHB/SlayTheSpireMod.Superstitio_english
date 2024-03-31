@@ -24,13 +24,13 @@ public class Sensitive extends CustomRelic {
 
     @Override
     public void onPlayCard(AbstractCard card, AbstractMonster monster) {
-        int amount = 0;
+        int amount = 1;
         if (card.costForTurn >= 1)
-            amount = card.costForTurn;
+            amount += card.costForTurn;
         if (card.costForTurn == -1)
-            amount = AbstractDungeon.player.energy.energy;
-        if (amount != 0)
-            this.addToBot(new ApplyPowerAction(AbstractDungeon.player, AbstractDungeon.player, new SexualHeat(AbstractDungeon.player, amount)));
+            amount += AbstractDungeon.player.energy.energy;
+        //if (amount != 0)
+        this.addToTop(new ApplyPowerAction(AbstractDungeon.player, AbstractDungeon.player, new SexualHeat(AbstractDungeon.player, amount)));
     }
 
     @Override

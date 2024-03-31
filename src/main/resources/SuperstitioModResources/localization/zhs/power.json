@@ -12,7 +12,19 @@
   "SuperstitioMod:Ku_KoroPower": {
     "NAME": "咕杀",
     "DESCRIPTIONS": [
-      "每次受到 攻击伤害 时，获得 1 随机 状态 牌。所有 消耗 牌会回到 抽牌堆 。"
+      "每次受到 攻击伤害 时，获得 1 随机 状态 牌。 NL 所有 消耗 牌会回到 抽牌堆 。"
+    ]
+  },
+  "SuperstitioMod:ExposeSelfPower": {
+    "NAME": "自我露出",
+    "DESCRIPTIONS": [
+      "到 下回合 开始前 ，失去防御时，获得失去数值一半的 精液 。 NL 精液 会在 一回合 后转换为 临时生命。 "
+    ]
+  },
+  "SuperstitioMod:SemenPower": {
+    "NAME": "精液",
+    "DESCRIPTIONS": [
+      " 本回合 结束时，转化为等量的 临时生命 。"
     ]
   }
 }

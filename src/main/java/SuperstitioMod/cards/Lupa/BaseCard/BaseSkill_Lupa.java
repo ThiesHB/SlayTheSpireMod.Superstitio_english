@@ -8,7 +8,6 @@ import com.megacrit.cardcrawl.monsters.AbstractMonster;
 
 public class BaseSkill_Lupa extends AbstractLupa {
     public static final String ID = SuperstitioModSetup.MakeTextID(BaseSkill_Lupa.class.getSimpleName());
-    //从.json文件中提取键名为Strike_Lupa的信息
 
     public static final CardType CARD_TYPE = CardType.SKILL;
 

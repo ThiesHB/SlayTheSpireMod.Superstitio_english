@@ -1,11 +1,17 @@
 package SuperstitioMod;
 
-import SuperstitioMod.cards.Lupa.AttackCard.Handjob;
+import SuperstitioMod.cards.Lupa.AttackCard.BlindfoldWithMilk;
+import SuperstitioMod.cards.Lupa.AttackCard.FootJob;
+import SuperstitioMod.cards.Lupa.AttackCard.HandJob;
 import SuperstitioMod.cards.Lupa.PowerCard.Ku_Koro;
+import SuperstitioMod.cards.Lupa.PowerCard.SelfBind;
+import SuperstitioMod.cards.Lupa.PowerCard.SexToy;
 import SuperstitioMod.cards.Lupa.SkillCard.CalmDown;
 import SuperstitioMod.cards.Lupa.BaseCard.BaseSkill_Lupa;
 import SuperstitioMod.cards.Lupa.BaseCard.Defend_Lupa;
 import SuperstitioMod.cards.Lupa.BaseCard.Strike_Lupa;
+import SuperstitioMod.cards.Lupa.SkillCard.ExposeSelf;
+import SuperstitioMod.cards.Lupa.SkillCard.Tease;
 import SuperstitioMod.characters.Lupa;
 import SuperstitioMod.relics.Sensitive;
 import basemod.BaseMod;
@@ -63,13 +69,13 @@ public class SuperstitioModSetup implements EditStringsSubscriber, EditRelicsSub
     // 在卡牌预览界面的能量图标
     private static final String BIG_ORB = getImgFilesPath() + "char/card_orb.png";
     // 小尺寸的能量图标（战斗中，牌堆预览）
-    private static final String ENEYGY_ORB = getImgFilesPath() + "char/cost_orb.png";
+    private static final String ENERGY_ORB = getImgFilesPath() + "char/cost_orb.png";
 
     public SuperstitioModSetup() {
         BaseMod.subscribe(this);
         // 这里注册颜色
         BaseMod.addColor(Lupa.Enums.LUPA_CARD, MY_COLOR, MY_COLOR, MY_COLOR, MY_COLOR, MY_COLOR, MY_COLOR, MY_COLOR, BG_ATTACK_512, BG_SKILL_512,
-                BG_POWER_512, ENEYGY_ORB, BG_ATTACK_1024, BG_SKILL_1024, BG_POWER_1024, BIG_ORB, SMALL_ORB);
+                BG_POWER_512, ENERGY_ORB, BG_ATTACK_1024, BG_SKILL_1024, BG_POWER_1024, BIG_ORB, SMALL_ORB);
     }
 
     public static void initialize() {
@@ -142,7 +148,13 @@ public class SuperstitioModSetup implements EditStringsSubscriber, EditRelicsSub
         BaseMod.addCard(new BaseSkill_Lupa());
         BaseMod.addCard(new CalmDown());
         BaseMod.addCard(new Ku_Koro());
-        BaseMod.addCard(new Handjob());
+        BaseMod.addCard(new HandJob());
+        BaseMod.addCard(new Tease());
+        BaseMod.addCard(new ExposeSelf());
+        BaseMod.addCard(new FootJob());
+        BaseMod.addCard(new BlindfoldWithMilk());
+        BaseMod.addCard(new SexToy());
+        BaseMod.addCard(new SelfBind());
     }
 
     @Override

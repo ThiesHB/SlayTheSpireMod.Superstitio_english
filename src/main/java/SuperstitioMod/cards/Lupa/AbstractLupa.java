@@ -3,22 +3,30 @@ package SuperstitioMod.cards.Lupa;
 import SuperstitioMod.SuperstitioModSetup;
 import SuperstitioMod.characters.Lupa;
 import basemod.abstracts.CustomCard;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.evacipated.cardcrawl.modthespire.lib.SpirePatch;
+import com.evacipated.cardcrawl.modthespire.lib.SpirePrefixPatch;
 import com.megacrit.cardcrawl.actions.AbstractGameAction;
 import com.megacrit.cardcrawl.actions.common.*;
 import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.cards.DamageInfo;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
+import com.megacrit.cardcrawl.core.Settings;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
+import com.megacrit.cardcrawl.helpers.FontHelper;
 import com.megacrit.cardcrawl.localization.CardStrings;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import com.megacrit.cardcrawl.powers.AbstractPower;
+import com.megacrit.cardcrawl.screens.SingleCardViewPopup;
 
+import java.lang.reflect.Field;
 import java.util.Objects;
 
 public abstract class AbstractLupa extends CustomCard {
-    protected CardStrings cardStrings;
+    private final static float DESC_LINE_WIDTH = 418.0f * Settings.scale;
 
     //调用父类的构造方法，传参为super(卡牌ID，卡牌名称，图片地址，能量花费，卡牌描述，卡牌类型，卡牌颜色，卡牌稀有度，卡牌目标)
+    protected CardStrings cardStrings;
 
     /**
      * 普通的方法
@@ -50,7 +58,6 @@ public abstract class AbstractLupa extends CustomCard {
                 cardRarity,
                 cardTarget);
 
-        String pattern = ""; // 正则表达式模式，匹配冒号后的所有字符
         this.cardStrings = CardCrawlGame.languagePack.getCardStrings(id);
     }
 
@@ -92,6 +99,17 @@ public abstract class AbstractLupa extends CustomCard {
         return type;
     }
 
+    private static void renderQuote(final SpriteBatch sb, AbstractLupa card) {
+        String flavorText = card.cardStrings.EXTENDED_DESCRIPTION[0];
+        if (flavorText != null) {
+            FontHelper.renderWrappedText(sb, FontHelper.SRV_quoteFont, flavorText, Settings.WIDTH / 2.0f,
+                    Settings.HEIGHT / 2.0f - 430.0f * Settings.scale, DESC_LINE_WIDTH, Settings.CREAM_COLOR, 1.0f);
+        } else {
+            FontHelper.renderWrappedText(sb, FontHelper.SRV_quoteFont, "\"Missing quote...\"", Settings.WIDTH / 2.0f,
+                    Settings.HEIGHT / 2.0f - 430.0f * Settings.scale, DESC_LINE_WIDTH, Settings.CREAM_COLOR, 1.0f);
+        }
+    }
+
     protected void setupDamage(final int amount) {
         this.baseDamage = amount;
         this.damage = amount;
@@ -129,5 +147,35 @@ public abstract class AbstractLupa extends CustomCard {
 
     public void gainPowerToPlayer(final AbstractPower power) {
         this.addToBot(new ApplyPowerAction(AbstractDungeon.player, AbstractDungeon.player, power));
+    }
+
+    @SpirePatch(
+            clz = SingleCardViewPopup.class,
+            method = "renderCardBack",
+            paramtypez = {
+                    SpriteBatch.class,
+            }
+    )
+    public static class CardRenderPatch {
+        @SpirePrefixPatch
+        public static void Prefix(SingleCardViewPopup __instance, SpriteBatch sb) {
+            Field privateField = null;
+            try {
+                privateField = SingleCardViewPopup.class.getDeclaredField("card");
+            } catch (NoSuchFieldException e) {
+                return;
+            }
+            privateField.setAccessible(true); // 允许访问私有字段
+            AbstractCard fieldValue = null; // 获得私有字段值
+            try {
+                fieldValue = (AbstractCard) privateField.get(__instance);
+            } catch (IllegalAccessException e) {
+                return;
+            }
+            if (fieldValue instanceof AbstractLupa) {
+                AbstractLupa lupa_card = (AbstractLupa) fieldValue;
+                renderQuote(sb, lupa_card);
+            }
+        }
     }
 }

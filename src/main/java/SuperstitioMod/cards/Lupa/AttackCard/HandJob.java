@@ -6,21 +6,20 @@ import com.megacrit.cardcrawl.actions.AbstractGameAction;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 
-public class Handjob extends AbstractLupa {
-    public static final String ID = SuperstitioModSetup.MakeTextID(Handjob.class.getSimpleName());
-    //从.json文件中提取键名为Strike_Lupa的信息
+public class HandJob extends AbstractLupa {
+    public static final String ID = SuperstitioModSetup.MakeTextID(HandJob.class.getSimpleName());
 
     public static final CardType CARD_TYPE = CardType.ATTACK;
 
     public static final CardRarity CARD_RARITY = CardRarity.UNCOMMON;
 
-    public static final CardTarget CARD_TARGET = CardTarget.SELF;
+    public static final CardTarget CARD_TARGET = CardTarget.ENEMY;
 
-    private static final int COST = 0;
-    private static final int ATTACK_DMG = 6;
-    private static final int UPGRADE_PLUS_DMG = 3;
+    private static final int COST = 2;
+    private static final int ATTACK_DMG = 20;
+    private static final int UPGRADE_PLUS_DMG = 4;
 
-    public Handjob() {
+    public HandJob() {
         super(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET, "default");
         this.setupDamage(ATTACK_DMG);
     }
