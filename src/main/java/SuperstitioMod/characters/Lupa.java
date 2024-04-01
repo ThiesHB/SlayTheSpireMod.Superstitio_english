@@ -5,6 +5,7 @@ import SuperstitioMod.cards.Lupa.BaseCard.BaseSkill_Lupa;
 import SuperstitioMod.cards.Lupa.BaseCard.Defend_Lupa;
 import SuperstitioMod.cards.Lupa.BaseCard.Strike_Lupa;
 import SuperstitioMod.relics.Sensitive;
+import SuperstitioMod.relics.SorM;
 import basemod.abstracts.CustomPlayer;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -105,6 +106,7 @@ public class Lupa extends CustomPlayer {
     public ArrayList<String> getStartingRelics() {
         ArrayList<String> retVal = new ArrayList<>();
         retVal.add(Sensitive.ID);
+        retVal.add(SorM.ID);
         return retVal;
     }
 

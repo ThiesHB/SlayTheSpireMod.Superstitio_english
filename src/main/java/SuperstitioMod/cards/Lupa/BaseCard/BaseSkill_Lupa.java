@@ -16,21 +16,20 @@ public class BaseSkill_Lupa extends AbstractLupa {
     public static final CardTarget CARD_TARGET = CardTarget.SELF;
 
     private static final int COST = 0;
-    private static final int MagicNumber = 3;
+    private static final int MAGICNumber = 3;
     private static final int UPGRADE_MagicNumber = 2;
     private static final int DRAWCard = 1;
 
 
     public BaseSkill_Lupa() {
-        super(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET, "base");
-        this.tags.add(CardTags.STARTER_DEFEND);
-        this.setupMagicNumber(MagicNumber);
+        super(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET, "default");
+        this.setupMagicNumber(MAGICNumber);
     }
 
     @Override
     public void use(AbstractPlayer player, AbstractMonster monster) {
         this.drawCards(DRAWCard);
-        this.gainPowerToPlayer(new SexualHeat(player, MagicNumber));
+        this.gainPowerToPlayer(new SexualHeat(player, this.magicNumber));
     }
 
     @Override

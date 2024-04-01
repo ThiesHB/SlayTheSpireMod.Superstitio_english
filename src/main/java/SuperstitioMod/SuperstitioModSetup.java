@@ -1,41 +1,42 @@
 package SuperstitioMod;
 
-import SuperstitioMod.cards.Lupa.AttackCard.BlindfoldWithMilk;
-import SuperstitioMod.cards.Lupa.AttackCard.FootJob;
-import SuperstitioMod.cards.Lupa.AttackCard.HandJob;
-import SuperstitioMod.cards.Lupa.PowerCard.Ku_Koro;
-import SuperstitioMod.cards.Lupa.PowerCard.SelfBind;
-import SuperstitioMod.cards.Lupa.PowerCard.SexToy;
-import SuperstitioMod.cards.Lupa.SkillCard.CalmDown;
-import SuperstitioMod.cards.Lupa.BaseCard.BaseSkill_Lupa;
-import SuperstitioMod.cards.Lupa.BaseCard.Defend_Lupa;
-import SuperstitioMod.cards.Lupa.BaseCard.Strike_Lupa;
-import SuperstitioMod.cards.Lupa.SkillCard.ExposeSelf;
-import SuperstitioMod.cards.Lupa.SkillCard.Tease;
+import SuperstitioMod.cards.Lupa.AbstractLupa;
+import SuperstitioMod.cards.Lupa.CardStringsWithFlavor;
 import SuperstitioMod.characters.Lupa;
 import SuperstitioMod.relics.Sensitive;
+import basemod.AutoAdd;
 import basemod.BaseMod;
-import basemod.helpers.RelicType;
+import basemod.Pair;
+import basemod.abstracts.CustomRelic;
 import basemod.interfaces.*;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
+import com.evacipated.cardcrawl.mod.stslib.Keyword;
 import com.evacipated.cardcrawl.modthespire.lib.SpireInitializer;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.core.AbstractCreature;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.core.Settings;
-import com.megacrit.cardcrawl.localization.CardStrings;
 import com.megacrit.cardcrawl.localization.CharacterStrings;
 import com.megacrit.cardcrawl.localization.PowerStrings;
 import com.megacrit.cardcrawl.localization.RelicStrings;
 import com.megacrit.cardcrawl.powers.AbstractPower;
 import com.megacrit.cardcrawl.relics.AbstractRelic;
 import com.megacrit.cardcrawl.rooms.AbstractRoom;
+import com.megacrit.cardcrawl.unlock.UnlockTracker;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.lang.reflect.Type;
+import java.nio.charset.StandardCharsets;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
+import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
 
 
 @SpireInitializer
@@ -45,7 +46,7 @@ public class SuperstitioModSetup implements EditStringsSubscriber, EditRelicsSub
 
         OnCardUseSubscriber, OnPowersModifiedSubscriber, PostDrawSubscriber, PostEnergyRechargeSubscriber {
 
-    public static final String MOD_ID = "SuperstitioMod";
+    public static final String MOD_NAME = "Superstitio";
     public static final Logger logger = LogManager.getLogger(SuperstitioModSetup.class.getName());
     public static final Color MY_COLOR = new Color(79.0F / 255.0F, 185.0F / 255.0F, 9.0F / 255.0F, 1.0F);
     //选英雄界面的角色图标、选英雄时的背景图片
@@ -70,6 +71,7 @@ public class SuperstitioModSetup implements EditStringsSubscriber, EditRelicsSub
     private static final String BIG_ORB = getImgFilesPath() + "char/card_orb.png";
     // 小尺寸的能量图标（战斗中，牌堆预览）
     private static final String ENERGY_ORB = getImgFilesPath() + "char/cost_orb.png";
+    public static Map<String, CardStringsWithFlavor> cards = new HashMap<>();
 
     public SuperstitioModSetup() {
         BaseMod.subscribe(this);
@@ -98,13 +100,13 @@ public class SuperstitioModSetup implements EditStringsSubscriber, EditRelicsSub
         return getModID() + "Resources/" + ret + filename + ".json";
     }
 
-    private static String getModID() {
-        return MOD_ID;
-    }
-
 //    public static String getCardPath(String resourcePath) {
 //        return getImgFilesPath()+"cards/" + resourcePath + ".png";
 //    }
+
+    private static String getModID() {
+        return MOD_NAME + "Mod";
+    }
 
     public static String getImgFilesPath() {
         return getModID() + "Resources/img/";
@@ -134,6 +136,44 @@ public class SuperstitioModSetup implements EditStringsSubscriber, EditRelicsSub
         return getModID() + ":" + idText;
     }
 
+    private static void loadCardStringWithFlavorJsonStrings(String filepath) {
+        logger.info("loadJsonStrings: " + CardStringsWithFlavor.class.getTypeName());
+        String jsonString = Gdx.files.internal(filepath).readString(String.valueOf(StandardCharsets.UTF_8));
+        String jsonString2 = null;
+        {
+            int startIndex = jsonString.indexOf('{');
+            int endIndex = jsonString.lastIndexOf('}');
+
+            if (startIndex != -1 && endIndex != -1 && startIndex < endIndex)
+                 jsonString2 = jsonString.substring(startIndex , endIndex+ 1);
+        }
+        if (jsonString2 == null)
+            return;
+        logger.info("jsonString: " + jsonString2);
+        Type typeToken = new TypeToken<Map<String, CardStringsWithFlavor>>() {}.getType();
+        Gson gson = new Gson();
+        logger.info(gson.fromJson(jsonString2, typeToken).toString());
+        Map<String, CardStringsWithFlavor> map = gson.fromJson(jsonString2, typeToken);
+        map.forEach((key, cardString) -> {
+            logger.info("loadKey: " + key);
+            cards.put(key, cardString);
+        });
+
+    }
+
+    /**
+     * 只输出后面的id，不携带模组信息
+     *
+     * @param complexId 带有模组信息的ID，如“xxxMod:xxx”
+     * @return 只输出冒号后面的部分
+     */
+    public static String getIdOnly(String complexId) {
+        Matcher matcher = Pattern.compile(":(.*)").matcher(complexId);
+        if (matcher.find())
+            return matcher.group(1).trim();
+        return complexId;
+    }
+
     @Override
     public void receiveEditCharacters() {
         //添加角色到MOD中
@@ -143,18 +183,10 @@ public class SuperstitioModSetup implements EditStringsSubscriber, EditRelicsSub
     @Override
     public void receiveEditCards() {
         //将卡牌添加
-        BaseMod.addCard(new Strike_Lupa());
-        BaseMod.addCard(new Defend_Lupa());
-        BaseMod.addCard(new BaseSkill_Lupa());
-        BaseMod.addCard(new CalmDown());
-        BaseMod.addCard(new Ku_Koro());
-        BaseMod.addCard(new HandJob());
-        BaseMod.addCard(new Tease());
-        BaseMod.addCard(new ExposeSelf());
-        BaseMod.addCard(new FootJob());
-        BaseMod.addCard(new BlindfoldWithMilk());
-        BaseMod.addCard(new SexToy());
-        BaseMod.addCard(new SelfBind());
+        new AutoAdd(MOD_NAME.toLowerCase())
+                .packageFilter(AbstractLupa.class)
+                .setDefaultSeen(true)
+                .cards();
     }
 
     @Override
@@ -163,14 +195,23 @@ public class SuperstitioModSetup implements EditStringsSubscriber, EditRelicsSub
 
     @Override
     public void receiveEditRelics() {
-        BaseMod.addRelic(new Sensitive(), RelicType.SHARED);
+        // This finds and adds all relics inheriting from CustomRelic that are in the same package
+        // as MyRelic, keeping all as unseen except those annotated with @AutoAdd.Seen
+        new AutoAdd(MOD_NAME.toLowerCase())
+                .packageFilter(Sensitive.class)
+                .any(CustomRelic.class, (info, relic) -> {
+                    BaseMod.addRelicToCustomPool(relic, Lupa.Enums.LUPA_CARD);
+                    if (info.seen) {
+                        UnlockTracker.markRelicAsSeen(relic.relicId);
+                    }
+                });
     }
 
     @Override
     public void receiveEditStrings() {
         logger.info("You seeing this?");
         logger.info("Beginning to edit strings for mod with ID: " + getModID());
-        BaseMod.loadCustomStringsFile(CardStrings.class, makeLocPath(Settings.language, "card_Lupa"));
+        SuperstitioModSetup.loadCardStringWithFlavorJsonStrings(makeLocPath(Settings.language, "card_Lupa"));
         BaseMod.loadCustomStringsFile(CharacterStrings.class, makeLocPath(Settings.language, "character_Lupa"));
         BaseMod.loadCustomStringsFile(RelicStrings.class, makeLocPath(Settings.language, "relic_Lupa"));
         BaseMod.loadCustomStringsFile(PowerStrings.class, makeLocPath(Settings.language, "power"));
@@ -184,16 +225,15 @@ public class SuperstitioModSetup implements EditStringsSubscriber, EditRelicsSub
 
     @Override
     public void receiveEditKeywords() {
-//        Gson gson = new Gson();
-//        String json = Gdx.files.internal(makeLocPath(Settings.language, "DefaultMod-Keyword-Strings")).readString(String.valueOf(StandardCharsets
-//        .UTF_8));
-//        Keyword[] keywords = gson.fromJson(json, Keyword[].class);
-//        if (keywords != null) {
-//
-//            for (Keyword keyword : keywords) {
-//                BaseMod.addKeyword(getModID().toLowerCase(), keyword.PROPER_NAME, keyword.NAMES, keyword.DESCRIPTION);
-//            }
-//        }
+        Gson gson = new Gson();
+        String json = Gdx.files.internal(makeLocPath(Settings.language, "keyword")).readString(String.valueOf(StandardCharsets
+        .UTF_8));
+        Keyword[] keywords = gson.fromJson(json, Keyword[].class);
+        if (keywords != null) {
+            for (Keyword keyword : keywords) {
+                BaseMod.addKeyword(getModID().toLowerCase(), keyword.PROPER_NAME, keyword.NAMES, keyword.DESCRIPTION);
+            }
+        }
 
     }
 
@@ -244,25 +284,14 @@ public class SuperstitioModSetup implements EditStringsSubscriber, EditRelicsSub
     }
 
     @Override
-    public void receivePostPowerApplySubscriber(AbstractPower abstractPower, AbstractCreature abstractCreature, AbstractCreature abstractCreature1) {
+    public void receivePostPowerApplySubscriber(AbstractPower abstractPower, AbstractCreature abstractCreature, AbstractCreature
+            abstractCreature1) {
 
     }
 
     @Override
     public void receiveRelicGet(AbstractRelic abstractRelic) {
 
-    }
-
-    /**
-     * 只输出后面的id，不携带模组信息
-     * @param complexId 带有模组信息的ID，如“xxxMod:xxx”
-     * @return 只输出冒号后面的部分
-     */
-    public static String getIdOnly(String complexId){
-        Matcher matcher =Pattern.compile(":(.*)").matcher(complexId);
-        if (matcher.find())
-            return matcher.group(1).trim();
-       return complexId;
     }
 
 }

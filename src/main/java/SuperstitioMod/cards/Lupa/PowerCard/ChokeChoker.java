@@ -8,8 +8,8 @@ import com.megacrit.cardcrawl.powers.DexterityPower;
 import com.megacrit.cardcrawl.powers.StrengthPower;
 
 
-public class SelfBind extends AbstractLupa {
-    public static final String ID = SuperstitioModSetup.MakeTextID(SelfBind.class.getSimpleName());
+public class ChokeChoker extends AbstractLupa {
+    public static final String ID = SuperstitioModSetup.MakeTextID(ChokeChoker.class.getSimpleName());
 
     public static final CardType CARD_TYPE = CardType.POWER;
 
@@ -23,7 +23,7 @@ public class SelfBind extends AbstractLupa {
     private static final int UPGRADE_MagicNumber = 2;
     private static final int DECREASENum = 1;
 
-    public SelfBind() {
+    public ChokeChoker() {
         super(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET, "default");
         this.setupMagicNumber(MAGICNumber);
     }

@@ -19,7 +19,7 @@ public class Defend_Lupa extends AbstractLupa {
     private static final int UPGRADE_PLUS_BLOCK = 3;
 
     public Defend_Lupa() {
-        super(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET, "base");
+        super(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET, "default");
         this.tags.add(CardTags.STARTER_DEFEND);
         this.setupBlock(BLOCK);
     }

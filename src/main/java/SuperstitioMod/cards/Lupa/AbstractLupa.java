@@ -5,6 +5,7 @@ import SuperstitioMod.characters.Lupa;
 import basemod.abstracts.CustomCard;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.evacipated.cardcrawl.modthespire.lib.SpirePatch;
+import com.evacipated.cardcrawl.modthespire.lib.SpirePostfixPatch;
 import com.evacipated.cardcrawl.modthespire.lib.SpirePrefixPatch;
 import com.megacrit.cardcrawl.actions.AbstractGameAction;
 import com.megacrit.cardcrawl.actions.common.*;
@@ -26,7 +27,7 @@ public abstract class AbstractLupa extends CustomCard {
     private final static float DESC_LINE_WIDTH = 418.0f * Settings.scale;
 
     //调用父类的构造方法，传参为super(卡牌ID，卡牌名称，图片地址，能量花费，卡牌描述，卡牌类型，卡牌颜色，卡牌稀有度，卡牌目标)
-    protected CardStrings cardStrings;
+    protected CardStringsWithFlavor cardStrings;
 
     /**
      * 普通的方法
@@ -45,20 +46,33 @@ public abstract class AbstractLupa extends CustomCard {
      * 当需要自定义卡牌存储的二级目录名时
      */
     public AbstractLupa(String id, CardType cardType, int cost, CardRarity cardRarity, CardTarget cardTarget, String customCardType) {
+        this(id, cardType, cost, cardRarity, cardTarget, Lupa.Enums.LUPA_CARD, customCardType);
+    }
+
+    public AbstractLupa(String id, CardType cardType, int cost, CardRarity cardRarity, CardTarget cardTarget,CardColor cardColor, String customCardType) {
         super(
                 id,
-                CardCrawlGame.languagePack.getCardStrings(id).NAME,
+                getCardStringsWithFlavor(id).NAME,
                 Objects.equals(customCardType, "default")
                         ? getImgPath("", "default")
                         : getImgPath(customCardType, SuperstitioModSetup.getIdOnly(id)),
                 cost,
-                CardCrawlGame.languagePack.getCardStrings(id).DESCRIPTION,
+                getCardStringsWithFlavor(id).DESCRIPTION,
                 cardType,
-                Lupa.Enums.LUPA_CARD,
+                cardColor,
                 cardRarity,
                 cardTarget);
 
-        this.cardStrings = CardCrawlGame.languagePack.getCardStrings(id);
+        this.cardStrings = getCardStringsWithFlavor(id);
+    }
+
+    public static CardStringsWithFlavor getCardStringsWithFlavor(String cardName) {
+        if (SuperstitioModSetup.cards.containsKey(cardName)) {
+            return SuperstitioModSetup.cards.get(cardName);
+        } else {
+            SuperstitioModSetup.logger.info("[ERROR] CardString: " + cardName + " not found");
+            return CardStringsWithFlavor.getMockCardStringWithFlavor();
+        }
     }
 
     public static String getImgPath(final String tag, final String id) {
@@ -68,7 +82,7 @@ public abstract class AbstractLupa extends CustomCard {
         } else {
             path = SuperstitioModSetup.getImgFilesPath() + "cards_Lupa/" + tag + "/" + id + ".png";
         }
-        SuperstitioModSetup.logger.info("loadCardImg:" + path);
+        //SuperstitioModSetup.logger.info("loadCardImg:" + path);
         return path;
     }
 
@@ -100,7 +114,7 @@ public abstract class AbstractLupa extends CustomCard {
     }
 
     private static void renderQuote(final SpriteBatch sb, AbstractLupa card) {
-        String flavorText = card.cardStrings.EXTENDED_DESCRIPTION[0];
+        String flavorText = card.cardStrings.FLAVOR;
         if (flavorText != null) {
             FontHelper.renderWrappedText(sb, FontHelper.SRV_quoteFont, flavorText, Settings.WIDTH / 2.0f,
                     Settings.HEIGHT / 2.0f - 430.0f * Settings.scale, DESC_LINE_WIDTH, Settings.CREAM_COLOR, 1.0f);
@@ -151,14 +165,14 @@ public abstract class AbstractLupa extends CustomCard {
 
     @SpirePatch(
             clz = SingleCardViewPopup.class,
-            method = "renderCardBack",
+            method = "render",
             paramtypez = {
                     SpriteBatch.class,
             }
     )
     public static class CardRenderPatch {
-        @SpirePrefixPatch
-        public static void Prefix(SingleCardViewPopup __instance, SpriteBatch sb) {
+        @SpirePostfixPatch
+        public static void Postfix(SingleCardViewPopup __instance, SpriteBatch sb) {
             Field privateField = null;
             try {
                 privateField = SingleCardViewPopup.class.getDeclaredField("card");

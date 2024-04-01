@@ -1,11 +1,14 @@
 package SuperstitioMod.powers;
 
 import SuperstitioMod.SuperstitioModSetup;
+import SuperstitioMod.powers.interFace.OnOrgasm;
 import SuperstitioMod.utils.PowerUtility;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.evacipated.cardcrawl.mod.stslib.powers.StunMonsterPower;
 import com.megacrit.cardcrawl.actions.AbstractGameAction;
+import com.megacrit.cardcrawl.actions.common.ApplyPowerAction;
 import com.megacrit.cardcrawl.actions.common.DrawCardAction;
 import com.megacrit.cardcrawl.actions.common.ReducePowerAction;
 import com.megacrit.cardcrawl.actions.common.RemoveSpecificPowerAction;
@@ -26,9 +29,9 @@ import java.util.Objects;
 
 public class SexualHeat extends AbstractPower {
     public static final String POWER_ID = SuperstitioModSetup.MakeTextID(SexualHeat.class.getSimpleName() + "Power");
+    public static final int HEAT_REDUCE_RATE = 4;
     private static final PowerStrings powerStrings = CardCrawlGame.languagePack.getPowerStrings(POWER_ID);
     private static final int HEAT_REQUIRED = 10;
-    public static final int HEAT_REDUCE_RATE = 4;
     private static final int DRAW_CARD = 1;
 
     //绘制相关
@@ -55,10 +58,13 @@ public class SexualHeat extends AbstractPower {
         this.name = SexualHeat.powerStrings.NAME;
         this.ID = POWER_ID;
         this.owner = owner;
-        this.type = PowerType.BUFF;
+        if (this.owner.isPlayer)
+            this.type = PowerType.BUFF;
+        else
+            this.type = PowerType.DEBUFF;
 
         this.amount = amount;
-        if (AbstractDungeon.player.powers.stream().noneMatch(abstractPower -> Objects.equals(abstractPower.ID, SexualHeat.POWER_ID)))
+        if (this.owner.powers.stream().noneMatch(abstractPower -> Objects.equals(abstractPower.ID, SexualHeat.POWER_ID)))
             CheckOrgasm();
 
         // 添加一大一小两张能力图
@@ -127,9 +133,12 @@ public class SexualHeat extends AbstractPower {
 
     @Override
     public void updateDescription() {
-        this.description = String.format(SexualHeat.powerStrings.DESCRIPTIONS[0], HEAT_REQUIRED, DRAW_CARD, HEAT_REDUCE_RATE);
+        if (this.owner.isPlayer)
+            this.description = String.format(SexualHeat.powerStrings.DESCRIPTIONS[0], HEAT_REQUIRED, DRAW_CARD, HEAT_REDUCE_RATE);
+        else
+            this.description = String.format(SexualHeat.powerStrings.DESCRIPTIONS[1], HEAT_REQUIRED, HEAT_REDUCE_RATE);
         if (this.InOrgasm) {
-            this.description = this.description + String.format(SexualHeat.powerStrings.DESCRIPTIONS[1], this.getOrgasmTimes());
+            this.description = this.description + String.format(SexualHeat.powerStrings.DESCRIPTIONS[2], this.getOrgasmTimes());
         }
     }
 
@@ -152,7 +161,17 @@ public class SexualHeat extends AbstractPower {
 
     private void StartOrgasm() {
         InOrgasm = true;
-        HandCardsCheaper();
+        Orgasm();
+        this.owner.powers.forEach(power -> {
+            if (power instanceof OnOrgasm) {
+                OnOrgasm onOrgasmPower = (OnOrgasm) power;
+                onOrgasmPower.onOrgasm(this);
+            }
+        });
+    }
+
+    private void Orgasm() {
+        this.flash();
         this.addToBot(new DrawCardAction(DRAW_CARD));
         AbstractPower power = this;
         boolean IsOrgasm = InOrgasm;
@@ -160,17 +179,22 @@ public class SexualHeat extends AbstractPower {
             @Override
             public void update() {
                 this.isDone = true;
-                PowerUtility.BubbleMessage(power, false, powerStrings.DESCRIPTIONS[IsOrgasm ? 3 : 2]);
+                PowerUtility.BubbleMessage(power, false, powerStrings.DESCRIPTIONS[IsOrgasm ? 4 : 3]);
                 updateDescription();
             }
         });
+        if (this.owner.isPlayer)
+            HandCardsCheaper();
+        else
+            this.addToBot(new ApplyPowerAction(this.owner, this.owner, new StunMonsterPower((AbstractMonster) this.owner)));
     }
 
     private void EndOrgasm() {
-        PowerUtility.BubbleMessage(this, true, powerStrings.DESCRIPTIONS[4]);
-        this.HandCardsCostToOrigin();
+        PowerUtility.BubbleMessage(this, true, powerStrings.DESCRIPTIONS[5]);
         this.InOrgasm = false;
         this.LastOrgasmTime = 0;
+        if (this.owner.isPlayer)
+            HandCardsCostToOrigin();
     }
 
     private void HandCardsCheaper() {
@@ -181,7 +205,7 @@ public class SexualHeat extends AbstractPower {
 
     @Override
     public void onCardDraw(AbstractCard card) {
-        if (this.InOrgasm)
+        if (this.InOrgasm && this.owner.isPlayer)
             this.CardCostCheaper(card);
     }
 
@@ -234,9 +258,10 @@ public class SexualHeat extends AbstractPower {
 
     @Override
     public void onPlayCard(AbstractCard card, AbstractMonster monster) {
-        if (this.InOrgasm) {
+        if (this.InOrgasm && this.owner.isPlayer) {
             if (getOriginCost(card) < card.costForTurn)
                 return;
+
             int reduceAmount = (getOriginCost(card) - card.costForTurn) * HEAT_REDUCE_RATE;
             int a = this.amount;
             this.addToBot(new AbstractGameAction() {

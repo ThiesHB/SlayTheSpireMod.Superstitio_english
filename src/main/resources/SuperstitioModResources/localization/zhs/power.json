@@ -2,8 +2,9 @@
   "SuperstitioMod:SexualHeatPower": {
     "NAME": "快感",
     "DESCRIPTIONS": [
-      "超过 %d 点之后，进入高潮状态。每高潮一次，抽 %d 张牌，所有卡牌耗能临时减少 [E] 。在高潮状态下，每使用一张牌 #y 快感 减少 %d 。",
-      " NL #y 高潮中，连续高潮: %d 次。",
+      "每累计 #b%d 点迎来一次高潮。高潮时，抽 #b%d 张牌，所有卡牌耗能临时减少 [E] 。打出卡后，高潮减免的每点 [E] 减少 #b%d #y快感。",
+      "每累计 #b%d 点迎来一次高潮。高潮时，被眩晕。",
+      " NL #y高潮 中，连续高潮: #b%d 次。",
       "高潮！",
       "连续高潮",
       "高潮结束"
@@ -12,19 +13,26 @@
   "SuperstitioMod:Ku_KoroPower": {
     "NAME": "咕杀",
     "DESCRIPTIONS": [
-      "每次受到 攻击伤害 时，获得 1 随机 状态 牌。 NL 所有 消耗 牌会回到 抽牌堆 。"
+      "每次受到 #y攻击伤害 时，获得 #b1 随机 #y状态 牌。 NL 所有 #y消耗 牌会回到 抽牌堆 。"
     ]
   },
   "SuperstitioMod:ExposeSelfPower": {
     "NAME": "自我露出",
     "DESCRIPTIONS": [
-      "到 下回合 开始前 ，失去防御时，获得失去数值一半的 精液 。 NL 精液 会在 一回合 后转换为 临时生命。 "
+      "到 下回合 开始前 ，失去 #y格挡 时，获得失去数值一半的 #y精液 。 NL #y精液 会在 回合结束时 转换为 #y临时生命 。 "
     ]
   },
   "SuperstitioMod:SemenPower": {
     "NAME": "精液",
     "DESCRIPTIONS": [
-      " 本回合 结束时，转化为等量的 临时生命 。"
+      " 本回合 结束时，转化为等量的 #y临时生命 。"
+    ]
+  },
+  "SuperstitioMod:SexToyPower": {
+    "NAME": "情趣玩具",
+    "DESCRIPTIONS": [
+      "回合开始时， 每有 #b%d 个 #y情趣玩具 会提供 #b1 点 #y快感。 NL 当前携带的 #y情趣玩具 ：",
+      " NL %s ： #b%d ；"
     ]
   }
 }

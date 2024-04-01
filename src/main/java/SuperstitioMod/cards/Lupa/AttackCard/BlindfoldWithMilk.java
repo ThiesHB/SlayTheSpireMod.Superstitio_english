@@ -3,6 +3,7 @@ package SuperstitioMod.cards.Lupa.AttackCard;
 import SuperstitioMod.SuperstitioModSetup;
 import SuperstitioMod.cards.Lupa.AbstractLupa;
 import com.megacrit.cardcrawl.actions.AbstractGameAction;
+import com.megacrit.cardcrawl.actions.common.RollMoveAction;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 
@@ -27,6 +28,19 @@ public class BlindfoldWithMilk extends AbstractLupa {
     @Override
     public void use(AbstractPlayer player, AbstractMonster monster) {
         damageToEnemy(monster, AbstractGameAction.AttackEffect.BLUNT_LIGHT);
+        if (!monster.isDeadOrEscaped()) {
+            {
+                this.addToBot(new AbstractGameAction() {
+                                  @Override
+                                  public void update() {
+                                      monster.rollMove();
+                                      monster.createIntent();
+                                      this.isDone = true;
+                                  }
+                              }
+                );
+            }
+        }
     }
 
     @Override

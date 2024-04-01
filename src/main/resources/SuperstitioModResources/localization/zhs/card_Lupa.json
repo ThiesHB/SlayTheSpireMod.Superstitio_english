@@ -1,86 +1,85 @@
 ﻿{
   "SuperstitioMod:Strike_Lupa": {
     "NAME": "口交",
-    "DESCRIPTION": "造成 !D! 点 伤害。",
-    "EXTENDED_DESCRIPTION": [
-      "用嘴。"
-    ]
+    "DESCRIPTION": "造成 !D! 点 伤害 。",
+    "FLAVOR": "用嘴。"
   },
   "SuperstitioMod:Defend_Lupa": {
     "NAME": "容纳",
-    "DESCRIPTION": "获得 !B! 点 格挡。",
-    "EXTENDED_DESCRIPTION": [
-      "这边请。"
-    ]
+    "DESCRIPTION": "获得 !B! 点 格挡 。",
+    "FLAVOR": "这边请。"
   },
   "SuperstitioMod:BaseSkill_Lupa": {
     "NAME": "自慰",
-    "DESCRIPTION": "获得 !M! 点 快感。 NL 抽 1 张牌。",
-    "EXTENDED_DESCRIPTION": [
-      "何以解忧？聊以自慰。"
-    ]
+    "DESCRIPTION": "获得 !M! 点 superstitiomod:快感 。 NL 抽 1 张牌。",
+    "FLAVOR": "何以解忧？聊以自慰。"
   },
   "SuperstitioMod:CalmDown": {
     "NAME": "冷静",
-    "DESCRIPTION": "抽 !M! 张牌。减少 4 点 快感。",
-    "EXTENDED_DESCRIPTION": [
-      "冥想。"
-    ]
+    "DESCRIPTION": "抽 !M! 张牌。 NL 减少 4 点 superstitiomod:快感 。",
+    "FLAVOR": "冥想。"
   },
   "SuperstitioMod:Ku_Koro": {
     "NAME": "咕杀",
-    "DESCRIPTION": "每次受到 攻击伤害 时，获得 1 随机 状态 牌。 NL 所有 消耗 牌会回到 抽牌堆 。",
-    "EXTENDED_DESCRIPTION": [
-      "咕……杀了我……"
-    ]
+    "DESCRIPTION": "每次受到 攻击伤害 时，获得 #b1 随机 状态 牌。 NL 所有 消耗 牌会回到 抽牌堆 。",
+    "FLAVOR": "咕……杀了我……"
   },
   "SuperstitioMod:HandJob": {
     "NAME": "手交",
-    "DESCRIPTION": "造成 !D! 点伤害。",
-    "EXTENDED_DESCRIPTION": [
-      "用手。"
-    ]
+    "DESCRIPTION": "造成 !D! 点伤害 。",
+    "FLAVOR": "用手。"
   },
   "SuperstitioMod:Tease": {
     "NAME": "挑逗",
-    "DESCRIPTION": "目标 失去 !M! % 最大生命值，失去的 生命值 转化为 格挡 ， 目标 获得 壁垒 。 NL 消耗 。",
-    "EXTENDED_DESCRIPTION": [
-      "让敌人硬邦邦。"
-    ]
+    "DESCRIPTION": "目标 失去上限的 !M! % 生命 ， NL 失去的 生命 转化为 格挡 ， NL 获得 *壁垒 。 NL 消耗 。",
+    "FLAVOR": "让敌人硬邦邦。"
   },
   "SuperstitioMod:ExposeSelf": {
     "NAME": "自我暴露",
-    "DESCRIPTION": "获得 !B! 点 格挡 。 NL 到 下回合 开始前 ，失去格挡时，获得失去数值一半的 精液 。 NL 精液 会在 一回合 后转换为 临时生命。 ",
-    "EXTENDED_DESCRIPTION": [
-      "要做爱，不作战。"
-    ]
+    "DESCRIPTION": "获得 !B! 点 格挡 。 NL 到 下回合 开始前 ，失去 格挡 时， NL 获得失去数值一半的 superstitiomod:精液 。",
+    "FLAVOR": "要做爱，不作战。"
   },
   "SuperstitioMod:FootJob": {
     "NAME": "足交",
-    "DESCRIPTION": "造成 !D! 点伤害。",
-    "EXTENDED_DESCRIPTION": [
-      "用脚。"
-    ]
+    "DESCRIPTION": "造成 !D! 点 伤害 。",
+    "FLAVOR": "用脚。"
   },
   "SuperstitioMod:BlindfoldWithMilk": {
     "NAME": "以乳蒙眼",
-    "DESCRIPTION": "造成 !D! 点伤害。",
-    "EXTENDED_DESCRIPTION": [
-      "这招如何？"
-    ]
+    "DESCRIPTION": "造成 !D! 点 伤害 。 NL 目标跳过一个动作。",
+    "FLAVOR": "这招如何？"
   },
   "SuperstitioMod:SexToy": {
     "NAME": "情趣玩具",
-    "DESCRIPTION": "",
+    "DESCRIPTION": "装备 !M! 个 随机 superstitiomod:情趣玩具 。",
+    "FLAVOR": "越多越好！",
     "EXTENDED_DESCRIPTION": [
-      "越多越好！"
+      "跳蛋,震动棒,肛塞"
     ]
   },
   "SuperstitioMod:SelfBind": {
     "NAME": "自缚",
+    "DESCRIPTION": "获得 !M! 点 力量 。 NL 失去 1 点 敏捷 。",
+    "FLAVOR": "加强魅惑，降低行动❤"
+  },
+  "SuperstitioMod:CultaeForm": {
+    "NAME": "异神形态",
     "DESCRIPTION": "",
-    "EXTENDED_DESCRIPTION": [
-      "紧紧勒入❤"
-    ]
+    "FLAVOR": ""
+  },
+  "SuperstitioMod:Unbirth": {
+    "NAME": "胎内回归",
+    "DESCRIPTION": "获得 !D! 格挡 。 NL 把目标所有的 负面效果 封印成 *分娩 。 NL 消耗 。",
+    "FLAVOR": "我会包容你的一切：你的欲望、你的梦想、你的爱……请把你的一切交给我。"
+  },
+  "SuperstitioMod:ReBirth": {
+    "NAME": "分娩",
+    "DESCRIPTION": "获得 !D! 格挡 。 NL 打出卡牌后，自身获得卡上的所有 负面效果 。 NL 消耗 。",
+    "FLAVOR": "重获新生吧。"
+  },
+  "SuperstitioMod:ChokeChoker": {
+    "NAME": "窒息项圈",
+    "DESCRIPTION": "进入窒息状态。",
+    "FLAVOR": "为了更高的快感。"
   }
 }

@@ -13,9 +13,6 @@ import com.megacrit.cardcrawl.helpers.ImageMaster;
 import com.megacrit.cardcrawl.localization.PowerStrings;
 import com.megacrit.cardcrawl.powers.AbstractPower;
 
-/**
- * 每次受到攻击伤害时，获得1随机状态牌。所有消耗牌会回到抽牌堆
- */
 public class Semen extends AbstractPower {
     public static final String POWER_ID = SuperstitioModSetup.MakeTextID(Semen.class.getSimpleName() + "Power");
     private static final PowerStrings powerStrings = CardCrawlGame.languagePack.getPowerStrings(POWER_ID);
