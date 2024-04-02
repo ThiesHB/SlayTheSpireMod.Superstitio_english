@@ -2,6 +2,7 @@ package SuperstitioMod.cards.Lupa.PowerCard;
 
 import SuperstitioMod.SuperstitioModSetup;
 import SuperstitioMod.cards.Lupa.AbstractLupa;
+import SuperstitioMod.powers.SexualHeatNeededModifier;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import com.megacrit.cardcrawl.powers.DexterityPower;
@@ -20,8 +21,7 @@ public class ChokeChoker extends AbstractLupa {
     private static final int COST = 1;
 
     private static final int MAGICNumber = 2;
-    private static final int UPGRADE_MagicNumber = 2;
-    private static final int DECREASENum = 1;
+    private static final int UPGRADE_MagicNumber = 1;
 
     public ChokeChoker() {
         super(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET, "default");
@@ -30,8 +30,8 @@ public class ChokeChoker extends AbstractLupa {
 
     @Override
     public void use(AbstractPlayer player, AbstractMonster monster) {
-        gainPowerToPlayer(new StrengthPower(player, this.magicNumber));
-        gainPowerToPlayer(new DexterityPower(player, -DECREASENum));
+        gainPowerToPlayer(new SuperstitioMod.powers.ChokeChoker(player));
+        gainPowerToPlayer(new SexualHeatNeededModifier(player, this.magicNumber));
     }
 
     @Override

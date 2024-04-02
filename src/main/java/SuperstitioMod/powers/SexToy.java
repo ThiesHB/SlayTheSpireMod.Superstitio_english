@@ -53,10 +53,10 @@ public class SexToy extends AbstractPower {
 
     @Override
     public void onApplyPower(AbstractPower power, AbstractCreature target, AbstractCreature source) {
-        SexToy sexToyPower = (SexToy) power;
-        if (sexToyPower == null)
+        if (!(power instanceof SexToy)) {
             return;
-        this.sexToyNames = PowerUtility.mergeAndSumMaps(this.sexToyNames, sexToyPower.sexToyNames);
+        }
+        this.sexToyNames = PowerUtility.mergeAndSumMaps(this.sexToyNames, ((SexToy)power).sexToyNames);
         updateDescription();
     }
 }

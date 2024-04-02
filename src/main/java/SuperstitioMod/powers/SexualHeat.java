@@ -26,33 +26,30 @@ import com.megacrit.cardcrawl.powers.AbstractPower;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
+import java.util.UUID;
 
 public class SexualHeat extends AbstractPower {
     public static final String POWER_ID = SuperstitioModSetup.MakeTextID(SexualHeat.class.getSimpleName() + "Power");
-    public static final int HEAT_REDUCE_RATE = 4;
+    public static final int HeatReduce_PerCard_Origin = 6;
+    public static final int HEAT_REQUIREDOrigin = 10;
     private static final PowerStrings powerStrings = CardCrawlGame.languagePack.getPowerStrings(POWER_ID);
-    private static final int HEAT_REQUIRED = 10;
-    private static final int DRAW_CARD = 1;
-
+    private static final int DRAW_CARD_INContinueOrgasm = 1;
     //绘制相关
     private static final float BAR_HEIGHT = 20.0f * Settings.scale;
     private static final float BG_OFFSET_X = 31.0f * Settings.scale;
     private static final float BAR_OFFSET_Y = -28.0f * Settings.scale;
     private static final float TEXT_OFFSET_Y = 11.0f * Settings.scale;
-
     private static final Color PINK = new Color(1f, 0.7529f, 0.7961f, 1.0f);
-
     private static final Color BarTextColor = new Color(1.0f, 1.0f, 1.0f, 1.0f);
-    private static final int maxBarAmount = HEAT_REQUIRED;
-    private final Map<AbstractCard, Integer> costMap = new HashMap<>();
+    private final Map<UUID, Integer> costMap = new HashMap<>();
     public Color barBgColor;
     public Color barShadowColor;
     public Color barTextColor;
     public Color barOrginColor;
     public Color barOrgasmShadowColor;
-    private boolean InOrgasm = false;
-    private int LastOrgasmTime = 0;
-
+    public int orgasmTime = 0;
+    private int HeatReduce_PerCard = HeatReduce_PerCard_Origin;
+    private int heatRequired = HEAT_REQUIREDOrigin;
 
     public SexualHeat(final AbstractCreature owner, final int amount) {
         this.name = SexualHeat.powerStrings.NAME;
@@ -82,8 +79,12 @@ public class SexualHeat extends AbstractPower {
         this.barOrgasmShadowColor = Color.YELLOW;
     }
 
+    public boolean isInOrgasm() {
+        return orgasmTime != 0;
+    }
+
     private float barWidth() {
-        return this.owner.hb.width * (this.amount % maxBarAmount) / maxBarAmount;
+        return this.owner.hb.width * (this.amount % getHeatRequired()) / getHeatRequired();
     }
 
     @Override
@@ -96,8 +97,13 @@ public class SexualHeat extends AbstractPower {
         this.renderOrgasmText(sb, OwnerY);
     }
 
+    @Override
+    public void onRemove() {
+        this.EndOrgasm();
+    }
+
     private void renderAmountBarBackGround(final SpriteBatch sb, final float x, final float y) {
-        if (this.InOrgasm) {
+        if (this.isInOrgasm()) {
             sb.setColor(this.barOrgasmShadowColor);
         } else {
             sb.setColor(this.barShadowColor);
@@ -106,7 +112,7 @@ public class SexualHeat extends AbstractPower {
         sb.draw(ImageMaster.HB_SHADOW_B, x, y - BG_OFFSET_X + 3.0f * Settings.scale, this.owner.hb.width, BAR_HEIGHT);
         sb.draw(ImageMaster.HB_SHADOW_R, x + this.owner.hb.width, y - BG_OFFSET_X + 3.0f * Settings.scale, BAR_HEIGHT, BAR_HEIGHT);
         sb.setColor(this.barBgColor);
-        if (this.amount == HEAT_REQUIRED) {
+        if (this.amount == getHeatRequired()) {
             return;
         }
         sb.draw(ImageMaster.HEALTH_BAR_L, x - BAR_HEIGHT, y + BAR_OFFSET_Y, BAR_HEIGHT, BAR_HEIGHT);
@@ -117,7 +123,7 @@ public class SexualHeat extends AbstractPower {
 
     private void renderOrgasmText(final SpriteBatch sb, final float y) {
         final float tmp = this.barTextColor.a;
-        FontHelper.renderFontCentered(sb, FontHelper.healthInfoFont, this.amount + "/" + HEAT_REQUIRED + "(" + this.getOrgasmTimes() + ")",
+        FontHelper.renderFontCentered(sb, FontHelper.healthInfoFont, this.amount + "/" + getHeatRequired() + "(" + this.orgasmTime + ")",
                 this.owner.hb.cX, y + BAR_OFFSET_Y + TEXT_OFFSET_Y, this.barTextColor);
         this.barTextColor.a = tmp;
     }
@@ -134,52 +140,73 @@ public class SexualHeat extends AbstractPower {
     @Override
     public void updateDescription() {
         if (this.owner.isPlayer)
-            this.description = String.format(SexualHeat.powerStrings.DESCRIPTIONS[0], HEAT_REQUIRED, DRAW_CARD, HEAT_REDUCE_RATE);
+            this.description = String.format(SexualHeat.powerStrings.DESCRIPTIONS[0], getHeatRequired());
         else
-            this.description = String.format(SexualHeat.powerStrings.DESCRIPTIONS[1], HEAT_REQUIRED, HEAT_REDUCE_RATE);
-        if (this.InOrgasm) {
-            this.description = this.description + String.format(SexualHeat.powerStrings.DESCRIPTIONS[2], this.getOrgasmTimes());
+            this.description = String.format(SexualHeat.powerStrings.DESCRIPTIONS[1], getHeatRequired());
+        if (this.isInOrgasm()) {
+            this.description = this.description + String.format(SexualHeat.powerStrings.DESCRIPTIONS[2], this.orgasmTime);
         }
     }
 
     @Override
     public void stackPower(final int stackAmount) {
         super.stackPower(stackAmount);
+        if (this.amount < 0)
+            this.amount = 0;
         CheckOrgasm();
+        CheckEndOrgasm();
     }
 
     private void CheckOrgasm() {
-        int shouldOrgasm = this.amount / HEAT_REQUIRED;
-        if (LastOrgasmTime < shouldOrgasm) {
-            int d = shouldOrgasm - LastOrgasmTime;
-            LastOrgasmTime = shouldOrgasm;
-            for (int i = 0; i < d; i++) {
-                this.StartOrgasm();
-            }
-        }
+        this.owner.powers.forEach(power -> {
+            if (!(power instanceof OnOrgasm))
+                return;
+            OnOrgasm onOrgasmPower = (OnOrgasm) power;
+            onOrgasmPower.onCheckOrgasm(this);
+        });
+
+        int shouldOrgasm = this.amount / getHeatRequired();
+        if (orgasmTime >= shouldOrgasm) return;
+        this.StartOrgasm();
     }
 
     private void StartOrgasm() {
-        InOrgasm = true;
+        boolean shouldOrgasm = true;
+        for (AbstractPower abstractPower : this.owner.powers) {
+            if (!(abstractPower instanceof OnOrgasm))
+                continue;
+            OnOrgasm onOrgasmPower = (OnOrgasm) abstractPower;
+            if (onOrgasmPower.shouldOrgasm(this))
+                continue;
+            shouldOrgasm = false;
+            break;
+        }
+        if (!shouldOrgasm)
+            return;
+
         Orgasm();
         this.owner.powers.forEach(power -> {
-            if (power instanceof OnOrgasm) {
-                OnOrgasm onOrgasmPower = (OnOrgasm) power;
-                onOrgasmPower.onOrgasm(this);
-            }
+            if (!(power instanceof OnOrgasm))
+                return;
+            OnOrgasm onOrgasmPower = (OnOrgasm) power;
+            onOrgasmPower.afterOrgasm(this);
         });
+
+        CheckOrgasm();
     }
 
     private void Orgasm() {
-        this.flash();
-        this.addToBot(new DrawCardAction(DRAW_CARD));
+        //this.flash();
+        orgasmTime++;
+        boolean IsContinueOrgasm = orgasmTime > 1;
+        if (IsContinueOrgasm)
+            this.addToBot(new DrawCardAction(DRAW_CARD_INContinueOrgasm));
         AbstractPower power = this;
-        boolean IsOrgasm = InOrgasm;
         this.addToBot(new AbstractGameAction() {
             @Override
             public void update() {
                 this.isDone = true;
-                PowerUtility.BubbleMessage(power, false, powerStrings.DESCRIPTIONS[IsOrgasm ? 4 : 3]);
+                PowerUtility.BubbleMessageHigher(power, false, powerStrings.DESCRIPTIONS[IsContinueOrgasm ? 4 : 3]);
                 updateDescription();
             }
         });
@@ -189,10 +216,14 @@ public class SexualHeat extends AbstractPower {
             this.addToBot(new ApplyPowerAction(this.owner, this.owner, new StunMonsterPower((AbstractMonster) this.owner)));
     }
 
+    private void CheckEndOrgasm() {
+        if (amount <= 0)
+            EndOrgasm();
+    }
+
     private void EndOrgasm() {
-        PowerUtility.BubbleMessage(this, true, powerStrings.DESCRIPTIONS[5]);
-        this.InOrgasm = false;
-        this.LastOrgasmTime = 0;
+        PowerUtility.BubbleMessageHigher(this, true, powerStrings.DESCRIPTIONS[5]);
+        this.orgasmTime = 0;
         if (this.owner.isPlayer)
             HandCardsCostToOrigin();
     }
@@ -201,87 +232,107 @@ public class SexualHeat extends AbstractPower {
         for (final AbstractCard card : AbstractDungeon.player.hand.group) {
             this.CardCostCheaper(card);
         }
+        for (final AbstractCard card : AbstractDungeon.player.drawPile.group) {
+            this.CardCostCheaper(card);
+        }
+        for (final AbstractCard card : AbstractDungeon.player.discardPile.group) {
+            this.CardCostCheaper(card);
+        }
     }
 
     @Override
     public void onCardDraw(AbstractCard card) {
-        if (this.InOrgasm && this.owner.isPlayer)
+        if (this.isInOrgasm() && this.owner.isPlayer)
             this.CardCostCheaper(card);
     }
 
-    /**
-     * 只会返回当前最高的连续高潮次数，直到清零。
-     */
-    public int getOrgasmTimes() {
-        if (!this.InOrgasm)
-            return 0;
-        return LastOrgasmTime;
-    }
+//    /**
+//     * 只会返回当前最高的连续高潮次数，直到清零。
+//     */
+//    public int getOrgasmTimes() {
+//        return orgasmTime;
+//    }
 
     private void CardCostCheaper(AbstractCard card) {
         if (card.costForTurn <= 0)
             return;
-        costMap.computeIfAbsent(card, c -> c.costForTurn);
-        if (getOriginCost(card) >= this.getOrgasmTimes()) {
-            final int newCost = getOriginCost(card) - this.getOrgasmTimes();
-            if (card.costForTurn != newCost) {
-                card.costForTurn = newCost;
-                card.isCostModified = true;
-            }
-        } else {
-            card.freeToPlayOnce = true;
-            card.isCostModified = true;
-        }
+        if (costMap.keySet().stream().noneMatch(uuidInMap -> card.uuid == uuidInMap))
+            costMap.put(card.uuid, card.costForTurn);
+        final int newCost = getOriginCost(card) - this.orgasmTime;
+        if (card.costForTurn == newCost)
+            return;
+        card.costForTurn = Math.max(newCost, 0);
+        card.isCostModified = true;
+        card.flash();
     }
 
     private void HandCardsCostToOrigin() {
-        costMap.forEach((card, integer) -> {
-            if (card == null)
-                return;
-            card.costForTurn = getOriginCost(card);
-            card.isCostModified = false;
-        });
-        AbstractDungeon.player.hand.group.forEach(card -> {
-            if (card == null)
-                return;
-            card.costForTurn = getOriginCost(card);
-            card.isCostModified = false;
-        });
+        AbstractDungeon.player.hand.group.forEach(this::ACardCostToOrigin);
+        AbstractDungeon.player.discardPile.group.forEach(this::ACardCostToOrigin);
+        AbstractDungeon.player.drawPile.group.forEach(this::ACardCostToOrigin);
         costMap.clear();
     }
 
+    private void ACardCostToOrigin(AbstractCard card) {
+        if (card == null)
+            return;
+        if (!costMap.containsKey(card.uuid))
+            return;
+        card.flash();
+        card.costForTurn = getOriginCost(card);
+        card.isCostModified = false;
+    }
+
     private int getOriginCost(AbstractCard card) {
-        if (costMap.get(card) == null)
+        if (costMap.get(card.uuid) == null)
             return card.cost;
-        return costMap.get(card);
+        return costMap.get(card.uuid);
     }
 
     @Override
     public void onPlayCard(AbstractCard card, AbstractMonster monster) {
-        if (this.InOrgasm && this.owner.isPlayer) {
-            if (getOriginCost(card) < card.costForTurn)
-                return;
+        if (!this.isInOrgasm() || !this.owner.isPlayer)
+            return;
+        if (getOriginCost(card) < card.costForTurn)
+            return;
+        int reduceAmount = (getOriginCost(card) - card.costForTurn) * getHeatReduce_PerCard();
+        if (reduceAmount <= 0)
+            return;
+        Squirt(reduceAmount);
+    }
 
-            int reduceAmount = (getOriginCost(card) - card.costForTurn) * HEAT_REDUCE_RATE;
-            int a = this.amount;
-            this.addToBot(new AbstractGameAction() {
-                @Override
-                public void update() {
-                    if (a <= reduceAmount) {
-                        SuperstitioModSetup.logger.info("即将还原费用：");
-                        costMap.forEach((c, integer) -> SuperstitioModSetup.logger.info(c.name + String.format("%d", getOriginCost(c))));
-                        EndOrgasm();
-                    }
-                    this.isDone = true;
-                }
-            });
-            this.addToBot(new ReducePowerAction(this.owner, this.owner, POWER_ID, reduceAmount));
-        }
+    private void Squirt(int reduceAmount) {
+        this.owner.powers.forEach(power -> {
+            if (!(power instanceof OnOrgasm))
+                return;
+            OnOrgasm onOrgasmPower = (OnOrgasm) power;
+            onOrgasmPower.beforeSquirt(this);
+        });
+        PowerUtility.BubbleMessageHigher(this, true, powerStrings.DESCRIPTIONS[6]);
+        this.addToBot(new ReducePowerAction(this.owner, this.owner, POWER_ID, reduceAmount));
     }
 
     @Override
     public void atEndOfTurn(boolean isPlayer) {
-        EndOrgasm();
         this.addToBot(new RemoveSpecificPowerAction(this.owner, this.owner, POWER_ID));
+    }
+
+    private int getHeatRequired() {
+        return heatRequired;
+    }
+
+    public void setHeatRequired(int heatRequired) {
+        if (heatRequired > 0)
+            this.heatRequired = heatRequired;
+        else
+            this.heatRequired = 1;
+    }
+
+    public int getHeatReduce_PerCard() {
+        return HeatReduce_PerCard;
+    }
+
+    public void setHeatReduce_PerCard(int heatReduce_PerCard) {
+        HeatReduce_PerCard = heatReduce_PerCard;
     }
 }

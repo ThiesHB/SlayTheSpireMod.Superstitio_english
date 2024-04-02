@@ -4,7 +4,42 @@
     "NAMES": [
       "快感"
     ],
-    "DESCRIPTION": "每累计一定点数迎来一次高潮。 NL 你高潮时，抽 #b1 张牌，所有卡牌耗能临时减少 [E] 。 NL 打出卡后，高潮减免的每点 [E] 都会减少 #y快感 。 NL 敌人则会在高潮后眩晕。"
+    "DESCRIPTION": "每累计一定点数迎来一次 #y高潮 。"
+  },
+  {
+    "PROPER_NAME": "高潮",
+    "NAMES": [
+      "高潮"
+    ],
+    "DESCRIPTION": " 你 #y高潮 时，所有卡牌耗能临时减少 [E] ， NL 敌人则会在 #y高潮 后 眩晕 。 NL 打出耗能降低的卡视作 #y潮吹 。"
+  },
+  {
+    "PROPER_NAME": "连续高潮",
+    "NAMES": [
+      "连续高潮"
+    ],
+    "DESCRIPTION": " #y高潮 情况下，再积累 #y快感 就会 #y连续高潮 。 NL #y连续高潮 时，抽 #b1 张牌。"
+  },
+  {
+    "PROPER_NAME": "潮吹",
+    "NAMES": [
+      "潮吹"
+    ],
+    "DESCRIPTION": " 根据减免的 [E] 降低 #y快感 。"
+  },
+  {
+    "PROPER_NAME": "快感修正",
+    "NAMES": [
+      "快感修正"
+    ],
+    "DESCRIPTION": " 增加或减少 #y高潮 所需的 #y快感 数量 。"
+  },
+  {
+    "PROPER_NAME": "潮吹修正",
+    "NAMES": [
+      "潮吹修正"
+    ],
+    "DESCRIPTION": " 增加或减少 潮吹 消耗的 #y快感 数量 。"
   },
   {
     "PROPER_NAME": "精液",

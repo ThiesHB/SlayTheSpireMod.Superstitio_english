@@ -21,7 +21,7 @@
   },
   "SuperstitioMod:Ku_Koro": {
     "NAME": "咕杀",
-    "DESCRIPTION": "每次受到 攻击伤害 时，获得 #b1 随机 状态 牌。 NL 所有 消耗 牌会回到 抽牌堆 。",
+    "DESCRIPTION": "每次受到 攻击伤害 时，获得 1 张 随机 状态 牌。 NL 所有 消耗 牌会回到 抽牌堆 。",
     "FLAVOR": "咕……杀了我……"
   },
   "SuperstitioMod:HandJob": {
@@ -69,17 +69,22 @@
   },
   "SuperstitioMod:Unbirth": {
     "NAME": "胎内回归",
-    "DESCRIPTION": "获得 !D! 格挡 。 NL 把目标所有的 负面效果 封印成 *分娩 。 NL 消耗 。",
+    "DESCRIPTION": "获得 !B! 格挡 。 NL 把目标所有的 负面效果 封印成 *分娩 。 NL 消耗 。",
     "FLAVOR": "我会包容你的一切：你的欲望、你的梦想、你的爱……请把你的一切交给我。"
   },
   "SuperstitioMod:ReBirth": {
     "NAME": "分娩",
-    "DESCRIPTION": "获得 !D! 格挡 。 NL 打出卡牌后，自身获得卡上的所有 负面效果 。 NL 消耗 。",
+    "DESCRIPTION": "获得 !B! 格挡 。 NL 打出卡牌后，自身获得卡牌上的所有 负面效果 。 NL 消耗 。",
     "FLAVOR": "重获新生吧。"
   },
   "SuperstitioMod:ChokeChoker": {
     "NAME": "窒息项圈",
-    "DESCRIPTION": "进入窒息状态。",
+    "DESCRIPTION": "获得窒息状态，获得 !M! 点 superstitiomod:快感修正 。",
     "FLAVOR": "为了更高的快感。"
+  },
+  "SuperstitioMod:Samsara": {
+    "NAME": "轮转",
+    "DESCRIPTION": "回合结束时，保留所有的手牌。 NL 每当你使用卡牌，抽 1 张牌。 NL 在抽牌堆中添加 !M! 张 *伤口 。",
+    "FLAVOR": "一切都只是轮回的一部分，何不放肆一点？"
   }
 }

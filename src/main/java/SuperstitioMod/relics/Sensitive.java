@@ -3,13 +3,15 @@ package SuperstitioMod.relics;
 import SuperstitioMod.SuperstitioModSetup;
 import SuperstitioMod.powers.SexualHeat;
 import basemod.abstracts.CustomRelic;
+import basemod.abstracts.CustomSavable;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.megacrit.cardcrawl.actions.common.ApplyPowerAction;
 import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.helpers.ImageMaster;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 
-public class Sensitive extends CustomRelic {
+public class Sensitive extends CustomRelic{
     public static final String ID = SuperstitioModSetup.MakeTextID(Sensitive.class.getSimpleName() + "Relic");
     private static final String IMG_PATH = SuperstitioModSetup.getImgFilesPath() + "relics/default_relic.png";
     // 遗物类型

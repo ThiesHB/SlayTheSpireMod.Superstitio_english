@@ -19,6 +19,8 @@ public class CalmDown extends AbstractLupa {
     private static final int MagicNumber = 2;
     private static final int UPGRADE_MagicNumber = 1;
 
+    private static final int HeatReduce = 4;
+
     public CalmDown() {
         super(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET, "default");
         this.setupMagicNumber(MagicNumber);
@@ -27,7 +29,7 @@ public class CalmDown extends AbstractLupa {
     @Override
     public void use(AbstractPlayer player, AbstractMonster monster) {
         this.drawCards(MagicNumber);
-        this.gainPowerToPlayer(new SexualHeat(player, -SexualHeat.HEAT_REDUCE_RATE));
+        this.gainPowerToPlayer(new SexualHeat(player, -HeatReduce));
     }
 
     @Override
