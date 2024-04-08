@@ -20,7 +20,7 @@ public class FootJob extends AbstractLupa {
     private static final int UPGRADE_PLUS_DMG = 3;
 
     public FootJob() {
-        super(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET, "default");
+        super(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET);
         this.setupDamage(ATTACK_DMG);
     }
 

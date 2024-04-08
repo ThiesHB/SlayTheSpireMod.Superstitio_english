@@ -20,15 +20,13 @@ public class ReBirth extends AbstractLupa {
     public static final CardTarget CARD_TARGET = CardTarget.SELF;
 
     private static final int COST = 0;
-
+    private static final int BLOCK = 3;
+    private static final int UPGRADE_PLUS_BLOCK = 2;
     public ArrayList<AbstractPower> sealPower = new ArrayList<>();
     public AbstractMonster sealMonster = null;
 
-    private static final int BLOCK = 3;
-    private static final int UPGRADE_PLUS_BLOCK = 2;
-
     public ReBirth() {
-        super(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET, CardColor.COLORLESS, "default");
+        super(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET, CardColor.COLORLESS);
         this.exhaust = true;
         this.setupBlock(BLOCK);
     }
@@ -60,14 +58,12 @@ public class ReBirth extends AbstractLupa {
 
     @Override
     public AbstractCard makeCopy() {
-        ReBirth newCard = (ReBirth)super.makeCopy();
-        if (newCard != null)
-        {
+        ReBirth newCard = (ReBirth) super.makeCopy();
+        if (newCard != null) {
             newCard.sealMonster = this.sealMonster;
             newCard.sealPower = this.sealPower;
             return newCard;
-        }
-        else
+        } else
             return super.makeCopy();
     }
 }

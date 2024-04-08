@@ -6,8 +6,8 @@ import SuperstitioMod.powers.SexualHeat;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 
-public class BaseSkill_Lupa extends AbstractLupa {
-    public static final String ID = SuperstitioModSetup.MakeTextID(BaseSkill_Lupa.class.getSimpleName());
+public class Masturbate extends AbstractLupa {
+    public static final String ID = SuperstitioModSetup.MakeTextID(Masturbate.class.getSimpleName());
 
     public static final CardType CARD_TYPE = CardType.SKILL;
 
@@ -21,8 +21,8 @@ public class BaseSkill_Lupa extends AbstractLupa {
     private static final int DRAWCard = 1;
 
 
-    public BaseSkill_Lupa() {
-        super(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET, "default");
+    public Masturbate() {
+        super(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET,"base");
         this.setupMagicNumber(MAGICNumber);
     }
 

@@ -23,7 +23,7 @@ public class ExposeSelf extends AbstractLupa {
     private static final int UPGRADE_BLOCK = 3;
 
     public ExposeSelf() {
-        super(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET, "default");
+        super(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET);
         this.setupBlock(BLOCK);
     }
 

@@ -24,7 +24,7 @@ public class ChokeChoker extends AbstractLupa {
     private static final int UPGRADE_MagicNumber = 1;
 
     public ChokeChoker() {
-        super(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET, "default");
+        super(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET);
         this.setupMagicNumber(MAGICNumber);
     }
 

@@ -6,7 +6,6 @@ import SuperstitioMod.characters.Lupa;
 import SuperstitioMod.relics.Sensitive;
 import basemod.AutoAdd;
 import basemod.BaseMod;
-import basemod.Pair;
 import basemod.abstracts.CustomRelic;
 import basemod.interfaces.*;
 import com.badlogic.gdx.Gdx;
@@ -19,6 +18,7 @@ import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.core.AbstractCreature;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.core.Settings;
+import com.megacrit.cardcrawl.helpers.GameDictionary;
 import com.megacrit.cardcrawl.localization.CharacterStrings;
 import com.megacrit.cardcrawl.localization.PowerStrings;
 import com.megacrit.cardcrawl.localization.RelicStrings;
@@ -33,8 +33,6 @@ import java.lang.reflect.Type;
 import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Objects;
-import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -145,12 +143,13 @@ public class SuperstitioModSetup implements EditStringsSubscriber, EditRelicsSub
             int endIndex = jsonString.lastIndexOf('}');
 
             if (startIndex != -1 && endIndex != -1 && startIndex < endIndex)
-                 jsonString2 = jsonString.substring(startIndex , endIndex+ 1);
+                jsonString2 = jsonString.substring(startIndex, endIndex + 1);
         }
         if (jsonString2 == null)
             return;
         logger.info("jsonString: " + jsonString2);
-        Type typeToken = new TypeToken<Map<String, CardStringsWithFlavor>>() {}.getType();
+        Type typeToken = new TypeToken<Map<String, CardStringsWithFlavor>>() {
+        }.getType();
         Gson gson = new Gson();
         logger.info(gson.fromJson(jsonString2, typeToken).toString());
         Map<String, CardStringsWithFlavor> map = gson.fromJson(jsonString2, typeToken);
@@ -215,7 +214,6 @@ public class SuperstitioModSetup implements EditStringsSubscriber, EditRelicsSub
         BaseMod.loadCustomStringsFile(CharacterStrings.class, makeLocPath(Settings.language, "character_Lupa"));
         BaseMod.loadCustomStringsFile(RelicStrings.class, makeLocPath(Settings.language, "relic_Lupa"));
         BaseMod.loadCustomStringsFile(PowerStrings.class, makeLocPath(Settings.language, "power"));
-//        logger.info("card strings path: " + makeLocPath(Settings.language, "DefaultMod-Card-Strings"));
 //        BaseMod.loadCustomStringsFile(EventStrings.class, makeLocPath(Settings.language, "DefaultMod-Event-Strings"));
 //        BaseMod.loadCustomStringsFile(PotionStrings.class, makeLocPath(Settings.language, "DefaultMod-Potion-Strings"));
 //        BaseMod.loadCustomStringsFile(OrbStrings.class, makeLocPath(Settings.language, "DefaultMod-Orb-Strings"));
@@ -227,11 +225,22 @@ public class SuperstitioModSetup implements EditStringsSubscriber, EditRelicsSub
     public void receiveEditKeywords() {
         Gson gson = new Gson();
         String json = Gdx.files.internal(makeLocPath(Settings.language, "keyword")).readString(String.valueOf(StandardCharsets
-        .UTF_8));
+                .UTF_8));
         Keyword[] keywords = gson.fromJson(json, Keyword[].class);
         if (keywords != null) {
             for (Keyword keyword : keywords) {
                 BaseMod.addKeyword(getModID().toLowerCase(), keyword.PROPER_NAME, keyword.NAMES, keyword.DESCRIPTION);
+            }
+        }
+
+        Gson gsonForDefault = new Gson();
+        Keyword[] keywordsForDefault =
+                gsonForDefault.fromJson(Gdx.files.internal(makeLocPath(Settings.language, "keywordForDefault")).readString(String.valueOf(StandardCharsets
+                .UTF_8)), Keyword[].class);
+        if (keywordsForDefault != null) {
+            for (Keyword keyword : keywordsForDefault) {
+                GameDictionary.keywords.remove(keyword.PROPER_NAME);
+                GameDictionary.keywords.put(keyword.PROPER_NAME,keyword.DESCRIPTION);
             }
         }
 

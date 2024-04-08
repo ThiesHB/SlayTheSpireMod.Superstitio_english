@@ -1,15 +1,25 @@
 ﻿{
-  "SuperstitioMod:Strike_Lupa": {
+  "SuperstitioMod:BlowJob": {
     "NAME": "口交",
     "DESCRIPTION": "造成 !D! 点 伤害 。",
     "FLAVOR": "用嘴。"
   },
-  "SuperstitioMod:Defend_Lupa": {
-    "NAME": "容纳",
+  "SuperstitioMod:HandJob": {
+    "NAME": "手交",
+    "DESCRIPTION": "造成 !D! 点伤害 。",
+    "FLAVOR": "用手。"
+  },
+  "SuperstitioMod:FootJob": {
+    "NAME": "足交",
+    "DESCRIPTION": "造成 !D! 点 伤害 。",
+    "FLAVOR": "用脚。"
+  },
+  "SuperstitioMod:Invite": {
+    "NAME": "邀请",
     "DESCRIPTION": "获得 !B! 点 格挡 。",
     "FLAVOR": "这边请。"
   },
-  "SuperstitioMod:BaseSkill_Lupa": {
+  "SuperstitioMod:Masturbate": {
     "NAME": "自慰",
     "DESCRIPTION": "获得 !M! 点 superstitiomod:快感 。 NL 抽 1 张牌。",
     "FLAVOR": "何以解忧？聊以自慰。"
@@ -24,11 +34,6 @@
     "DESCRIPTION": "每次受到 攻击伤害 时，获得 1 张 随机 状态 牌。 NL 所有 消耗 牌会回到 抽牌堆 。",
     "FLAVOR": "咕……杀了我……"
   },
-  "SuperstitioMod:HandJob": {
-    "NAME": "手交",
-    "DESCRIPTION": "造成 !D! 点伤害 。",
-    "FLAVOR": "用手。"
-  },
   "SuperstitioMod:Tease": {
     "NAME": "挑逗",
     "DESCRIPTION": "目标 失去上限的 !M! % 生命 ， NL 失去的 生命 转化为 格挡 ， NL 获得 *壁垒 。 NL 消耗 。",
@@ -38,11 +43,6 @@
     "NAME": "自我暴露",
     "DESCRIPTION": "获得 !B! 点 格挡 。 NL 到 下回合 开始前 ，失去 格挡 时， NL 获得失去数值一半的 superstitiomod:精液 。",
     "FLAVOR": "要做爱，不作战。"
-  },
-  "SuperstitioMod:FootJob": {
-    "NAME": "足交",
-    "DESCRIPTION": "造成 !D! 点 伤害 。",
-    "FLAVOR": "用脚。"
   },
   "SuperstitioMod:BlindfoldWithMilk": {
     "NAME": "以乳蒙眼",
@@ -67,7 +67,7 @@
     "DESCRIPTION": "",
     "FLAVOR": ""
   },
-  "SuperstitioMod:Unbirth": {
+  "SuperstitioMod:UnBirth": {
     "NAME": "胎内回归",
     "DESCRIPTION": "获得 !B! 格挡 。 NL 把目标所有的 负面效果 封印成 *分娩 。 NL 消耗 。",
     "FLAVOR": "我会包容你的一切：你的欲望、你的梦想、你的爱……请把你的一切交给我。"

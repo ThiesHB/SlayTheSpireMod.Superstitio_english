@@ -6,16 +6,13 @@ import basemod.abstracts.CustomCard;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.evacipated.cardcrawl.modthespire.lib.SpirePatch;
 import com.evacipated.cardcrawl.modthespire.lib.SpirePostfixPatch;
-import com.evacipated.cardcrawl.modthespire.lib.SpirePrefixPatch;
 import com.megacrit.cardcrawl.actions.AbstractGameAction;
 import com.megacrit.cardcrawl.actions.common.*;
 import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.cards.DamageInfo;
-import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.core.Settings;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.helpers.FontHelper;
-import com.megacrit.cardcrawl.localization.CardStrings;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import com.megacrit.cardcrawl.powers.AbstractPower;
 import com.megacrit.cardcrawl.screens.SingleCardViewPopup;
@@ -49,7 +46,12 @@ public abstract class AbstractLupa extends CustomCard {
         this(id, cardType, cost, cardRarity, cardTarget, Lupa.Enums.LUPA_CARD, customCardType);
     }
 
-    public AbstractLupa(String id, CardType cardType, int cost, CardRarity cardRarity, CardTarget cardTarget,CardColor cardColor, String customCardType) {
+    public AbstractLupa(String id, CardType cardType, int cost, CardRarity cardRarity, CardTarget cardTarget, CardColor cardColor) {
+        this(id, cardType, cost, cardRarity, cardTarget, cardColor, CardTypeToString(cardType));
+    }
+
+    public AbstractLupa(String id, CardType cardType, int cost, CardRarity cardRarity, CardTarget cardTarget, CardColor cardColor,
+                        String customCardType) {
         super(
                 id,
                 getCardStringsWithFlavor(id).NAME,
@@ -62,7 +64,7 @@ public abstract class AbstractLupa extends CustomCard {
                 cardColor,
                 cardRarity,
                 cardTarget);
-
+        SuperstitioModSetup.logger.info("loadCard" + id);
         this.cardStrings = getCardStringsWithFlavor(id);
     }
 

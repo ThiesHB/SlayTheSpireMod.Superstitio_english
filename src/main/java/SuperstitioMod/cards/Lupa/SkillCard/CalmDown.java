@@ -22,7 +22,7 @@ public class CalmDown extends AbstractLupa {
     private static final int HeatReduce = 4;
 
     public CalmDown() {
-        super(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET, "default");
+        super(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET);
         this.setupMagicNumber(MagicNumber);
     }
 

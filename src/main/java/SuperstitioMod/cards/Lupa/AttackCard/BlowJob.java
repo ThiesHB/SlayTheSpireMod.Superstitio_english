@@ -6,8 +6,8 @@ import com.megacrit.cardcrawl.actions.AbstractGameAction;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 
-public class HandJob extends AbstractLupa {
-    public static final String ID = SuperstitioModSetup.MakeTextID(HandJob.class.getSimpleName());
+public class BlowJob extends AbstractLupa {
+    public static final String ID = SuperstitioModSetup.MakeTextID(BlowJob.class.getSimpleName());
 
     public static final CardType CARD_TYPE = CardType.ATTACK;
 
@@ -17,16 +17,15 @@ public class HandJob extends AbstractLupa {
 
     private static final int COST = 2;
     private static final int ATTACK_DMG = 20;
-    private static final int UPGRADE_PLUS_DMG = 4;
-
-    public HandJob() {
-        super(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET, "default");
+    private static final int UPGRADE_PLUS_DMG = 5;
+    public BlowJob() {
+        super(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET);
         this.setupDamage(ATTACK_DMG);
     }
 
     @Override
     public void use(AbstractPlayer player, AbstractMonster monster) {
-        damageToEnemy(monster, AbstractGameAction.AttackEffect.BLUNT_LIGHT);
+        damageToEnemy(monster,AbstractGameAction.AttackEffect.SLASH_HORIZONTAL);
     }
 
     @Override

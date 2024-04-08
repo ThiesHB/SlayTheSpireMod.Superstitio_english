@@ -5,8 +5,8 @@ import SuperstitioMod.cards.Lupa.AbstractLupa;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 
-public class Defend_Lupa extends AbstractLupa {
-    public static final String ID = SuperstitioModSetup.MakeTextID(Defend_Lupa.class.getSimpleName());
+public class Invite extends AbstractLupa {
+    public static final String ID = SuperstitioModSetup.MakeTextID(Invite.class.getSimpleName());
 
     public static final CardType CARD_TYPE = CardType.SKILL;
 
@@ -18,8 +18,8 @@ public class Defend_Lupa extends AbstractLupa {
     private static final int BLOCK = 5;
     private static final int UPGRADE_PLUS_BLOCK = 3;
 
-    public Defend_Lupa() {
-        super(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET, "default");
+    public Invite() {
+        super(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET,"base");
         this.tags.add(CardTags.STARTER_DEFEND);
         this.setupBlock(BLOCK);
     }

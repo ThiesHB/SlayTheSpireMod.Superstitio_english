@@ -1,9 +1,9 @@
 package SuperstitioMod.characters;
 
 import SuperstitioMod.SuperstitioModSetup;
-import SuperstitioMod.cards.Lupa.BaseCard.BaseSkill_Lupa;
-import SuperstitioMod.cards.Lupa.BaseCard.Defend_Lupa;
-import SuperstitioMod.cards.Lupa.BaseCard.Strike_Lupa;
+import SuperstitioMod.cards.Lupa.BaseCard.HandJob;
+import SuperstitioMod.cards.Lupa.BaseCard.Masturbate;
+import SuperstitioMod.cards.Lupa.BaseCard.Invite;
 import SuperstitioMod.relics.Sensitive;
 import SuperstitioMod.relics.SorM;
 import basemod.abstracts.CustomPlayer;
@@ -90,14 +90,14 @@ public class Lupa extends CustomPlayer {
         SuperstitioModSetup.logger.info("Begin loading starter Deck Strings");
         for (int x = 0; x < 4; x++) {
             //SuperstitioModSetup.logger.info("Add"+Strike_Lupa.ID);
-            retVal.add(Strike_Lupa.ID);
+            retVal.add(HandJob.ID);
         }
         for (int x = 0; x < 4; x++) {
             //SuperstitioModSetup.logger.info("Add"+Defend_Lupa.ID);
-            retVal.add(Defend_Lupa.ID);
+            retVal.add(Invite.ID);
         }
-        //SuperstitioModSetup.logger.info("Add"+BaseSkill_Lupa.ID);
-        retVal.add(BaseSkill_Lupa.ID);
+        //SuperstitioModSetup.logger.info("Add"+BlowJob.ID);
+        retVal.add(Masturbate.ID);
         return retVal;
     }
 
@@ -141,7 +141,7 @@ public class Lupa extends CustomPlayer {
     // 翻牌事件出现的你的职业牌（一般设为打击）
     @Override
     public AbstractCard getStartCardForEvent() {
-        return new Strike_Lupa();
+        return new HandJob();
     }
 
     // 卡牌轨迹颜色

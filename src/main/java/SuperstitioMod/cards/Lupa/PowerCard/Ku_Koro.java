@@ -20,7 +20,7 @@ public class Ku_Koro extends AbstractLupa {
     private static final int COST_UPGRADE = 0;
 
     public Ku_Koro() {
-        super(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET, "default");
+        super(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET);
     }
 
     @Override
