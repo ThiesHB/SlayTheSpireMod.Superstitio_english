@@ -3,6 +3,7 @@ package SuperstitioMod.powers;
 import SuperstitioMod.SuperstitioModSetup;
 import SuperstitioMod.powers.interFace.OnOrgasm;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.megacrit.cardcrawl.actions.common.RemoveSpecificPowerAction;
 import com.megacrit.cardcrawl.core.AbstractCreature;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.helpers.ImageMaster;
@@ -23,8 +24,8 @@ public class SexualHeatNeededModifier extends AbstractPower implements OnOrgasm 
 
         this.amount = amount;
         // 添加一大一小两张能力图
-        String path128 = SuperstitioModSetup.getImgFilesPath() + "powers/default84.png";
-        String path48 = SuperstitioModSetup.getImgFilesPath() + "powers/default32.png";
+        String path128 = SuperstitioModSetup.makeImgFilesPath_Power("default84");
+        String path48 = SuperstitioModSetup.makeImgFilesPath_Power("default32");
         this.region128 = new TextureAtlas.AtlasRegion(ImageMaster.loadImage(path128), 0, 0, 84, 84);
         this.region48 = new TextureAtlas.AtlasRegion(ImageMaster.loadImage(path48), 0, 0, 32, 32);
 
@@ -32,6 +33,10 @@ public class SexualHeatNeededModifier extends AbstractPower implements OnOrgasm 
 
     }
 
+    @Override
+    public void atEndOfTurn(boolean isPlayer) {
+        this.addToBot(new RemoveSpecificPowerAction(this.owner, this.owner, POWER_ID));
+    }
 
     @Override
     public void updateDescription() {

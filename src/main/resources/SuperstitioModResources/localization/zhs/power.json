@@ -14,15 +14,15 @@
   "SuperstitioMod:SexualHeatNeededModifierPower": {
     "NAME": "快感修正",
     "DESCRIPTIONS": [
-      "高潮所需的快感降低了 #b%d 点。",
-      "高潮所需的快感提高了 #b%d 点。"
+      "本回合高潮所需的快感降低了 #b%d 点。",
+      "本回合高潮所需的快感提高了 #b%d 点。"
     ]
   },
   "SuperstitioMod:SexualHeatLoseModifierPower": {
     "NAME": "潮吹修正",
     "DESCRIPTIONS": [
-      "潮吹减少的快感降低 #b%d 点每 [E] 。",
-      "潮吹减少的快感提高 #b%d 点每 [E] 。"
+      "本回合潮吹减少的快感降低 #b%d 点每 [E] 。",
+      "本回合潮吹减少的快感提高 #b%d 点每 [E] 。"
     ]
   },
   "SuperstitioMod:Ku_KoroPower": {
@@ -53,7 +53,7 @@
   "SuperstitioMod:ChokeChokerPower": {
     "NAME": "窒息项圈",
     "DESCRIPTIONS": [
-      "窒息项圈。具体效果是什么我还没有想好，但是肯定是一个不算做DEBUFF的负面BUFF。"
+      "回合开始时，获得 %d  #y快感修正 和 %d #y勒脖。"
     ]
   },
   "SuperstitioMod:SamsaraPower": {

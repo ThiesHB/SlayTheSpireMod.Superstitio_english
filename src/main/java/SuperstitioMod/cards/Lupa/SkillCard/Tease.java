@@ -1,19 +1,16 @@
 package SuperstitioMod.cards.Lupa.SkillCard;
 
 import SuperstitioMod.SuperstitioModSetup;
-import SuperstitioMod.cards.Lupa.AbstractLupa;
+import SuperstitioMod.cards.Lupa.AbstractLupaCard;
 import com.megacrit.cardcrawl.actions.AbstractGameAction;
 import com.megacrit.cardcrawl.actions.common.ApplyPowerAction;
 import com.megacrit.cardcrawl.actions.common.GainBlockAction;
-import com.megacrit.cardcrawl.actions.common.LoseHPAction;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
-import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import com.megacrit.cardcrawl.powers.BarricadePower;
 import com.megacrit.cardcrawl.powers.FrailPower;
-import com.megacrit.cardcrawl.powers.WeakPower;
 
-public class Tease extends AbstractLupa {
+public class Tease extends AbstractLupaCard {
     public static final String ID = SuperstitioModSetup.MakeTextID(Tease.class.getSimpleName());
 
     public static final CardType CARD_TYPE = CardType.SKILL;
@@ -34,8 +31,13 @@ public class Tease extends AbstractLupa {
     @Override
     public void use(AbstractPlayer player, AbstractMonster monster) {
         int amount = (int) (monster.maxHealth * MagicNumber / 100f);
-        this.addToBot(new LoseHPAction(monster, player, amount, AbstractGameAction.AttackEffect.SMASH));
-        this.addToBot(new ApplyPowerAction(monster, player, new FrailPower(monster,1,false)));
+        this.addToBot(new AbstractGameAction() {
+            @Override
+            public void update() {
+                monster.decreaseMaxHealth(amount);
+            }
+        });
+        this.addToBot(new ApplyPowerAction(monster, player, new FrailPower(monster, 1, false)));
         this.addToBot(new GainBlockAction(monster, amount));
         this.addToBot(new ApplyPowerAction(monster, player, new BarricadePower(monster)));
     }

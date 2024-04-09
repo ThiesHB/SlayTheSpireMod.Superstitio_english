@@ -1,7 +1,7 @@
 package SuperstitioMod.cards.Lupa.PowerCard;
 
 import SuperstitioMod.SuperstitioModSetup;
-import SuperstitioMod.cards.Lupa.AbstractLupa;
+import SuperstitioMod.cards.Lupa.AbstractLupaCard;
 import com.megacrit.cardcrawl.actions.common.MakeTempCardInDrawPileAction;
 import com.megacrit.cardcrawl.cards.status.Wound;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
@@ -9,7 +9,7 @@ import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import com.megacrit.cardcrawl.powers.EquilibriumPower;
 
 
-public class Samsara extends AbstractLupa {
+public class Samsara extends AbstractLupaCard {
     public static final String ID = SuperstitioModSetup.MakeTextID(Samsara.class.getSimpleName());
 
     public static final CardType CARD_TYPE = CardType.POWER;

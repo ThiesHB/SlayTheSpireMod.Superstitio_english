@@ -1,15 +1,14 @@
 package SuperstitioMod.cards.Lupa.PowerCard;
 
 import SuperstitioMod.SuperstitioModSetup;
-import SuperstitioMod.cards.Lupa.AbstractLupa;
-import SuperstitioMod.powers.SexualHeatNeededModifier;
+import SuperstitioMod.cards.Lupa.AbstractLupaCard;
+import SuperstitioMod.cards.Lupa.SexType.CumPlaceHelper;
+import com.megacrit.cardcrawl.actions.AbstractGameAction;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
-import com.megacrit.cardcrawl.powers.DexterityPower;
-import com.megacrit.cardcrawl.powers.StrengthPower;
 
 
-public class ChokeChoker extends AbstractLupa {
+public class ChokeChoker extends AbstractLupaCard {
     public static final String ID = SuperstitioModSetup.MakeTextID(ChokeChoker.class.getSimpleName());
 
     public static final CardType CARD_TYPE = CardType.POWER;
@@ -30,8 +29,16 @@ public class ChokeChoker extends AbstractLupa {
 
     @Override
     public void use(AbstractPlayer player, AbstractMonster monster) {
-        gainPowerToPlayer(new SuperstitioMod.powers.ChokeChoker(player));
-        gainPowerToPlayer(new SexualHeatNeededModifier(player, this.magicNumber));
+        SuperstitioMod.powers.ChokeChoker power = new SuperstitioMod.powers.ChokeChoker(player, this.magicNumber);
+        this.addToBot(new AbstractGameAction() {
+            @Override
+            public void update() {
+                power.AddPowers();
+            }
+        });
+        gainPowerToPlayer(new SuperstitioMod.powers.ChokeChoker(player, this.magicNumber));
+        CumPlaceHelper.addToSequence(this);
+        //gainPowerToPlayer(new SexualHeatNeededModifier(player, this.magicNumber));
     }
 
     @Override

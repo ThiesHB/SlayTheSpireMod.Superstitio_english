@@ -2,8 +2,8 @@ package SuperstitioMod.characters;
 
 import SuperstitioMod.SuperstitioModSetup;
 import SuperstitioMod.cards.Lupa.BaseCard.HandJob;
-import SuperstitioMod.cards.Lupa.BaseCard.Masturbate;
 import SuperstitioMod.cards.Lupa.BaseCard.Invite;
+import SuperstitioMod.cards.Lupa.BaseCard.Masturbate;
 import SuperstitioMod.relics.Sensitive;
 import SuperstitioMod.relics.SorM;
 import basemod.abstracts.CustomPlayer;
@@ -32,32 +32,37 @@ import static SuperstitioMod.characters.Lupa.Enums.LUPA_Character;
 // 继承CustomPlayer类
 public class Lupa extends CustomPlayer {
     public static final String ID = SuperstitioModSetup.MakeTextID("Lupa");
+
+    // 人物立绘
+    private static final String LUPA_CHARACTER = SuperstitioModSetup.makeImgFilesPath_Character_Lupa("character");
     // 火堆的人物立绘（行动前）
-    private static final String MY_CHARACTER_SHOULDER_1 = SuperstitioModSetup.getImgFilesPath() + "char/shoulder1.png";
+    private static final String LUPA_CHARACTER_SHOULDER_1 = SuperstitioModSetup.makeImgFilesPath_Character_Lupa("shoulder1");
     // 火堆的人物立绘（行动后）
-    private static final String MY_CHARACTER_SHOULDER_2 = SuperstitioModSetup.getImgFilesPath() + "char/shoulder2.png";
+    private static final String LUPA_CHARACTER_SHOULDER_2 = SuperstitioModSetup.makeImgFilesPath_Character_Lupa("shoulder2");
     // 人物死亡图像
-    private static final String CORPSE_IMAGE = SuperstitioModSetup.getImgFilesPath() + "char/corpse.png";
+    private static final String LUPA_CORPSE_IMAGE = SuperstitioModSetup.makeImgFilesPath_Character_Lupa("corpse");
+    private static final String EnergyBall_Path = "EnergyBall_Lupa/";
+    private static final String EnergyBall_VFX_Path = SuperstitioModSetup.makeImgFilesPath_UI(EnergyBall_Path + "vfx");
     // 战斗界面左下角能量图标的每个图层
-    private static final String[] ORB_TEXTURES = new String[]{
-            SuperstitioModSetup.getImgFilesPath() + "UI/orb/layer5.png",
-            SuperstitioModSetup.getImgFilesPath() + "UI/orb/layer4.png",
-            SuperstitioModSetup.getImgFilesPath() + "UI/orb/layer3.png",
-            SuperstitioModSetup.getImgFilesPath() + "UI/orb/layer2.png",
-            SuperstitioModSetup.getImgFilesPath() + "UI/orb/layer1.png",
-            SuperstitioModSetup.getImgFilesPath() + "UI/orb/layer6.png",
-            SuperstitioModSetup.getImgFilesPath() + "UI/orb/layer5d.png",
-            SuperstitioModSetup.getImgFilesPath() + "UI/orb/layer4d.png",
-            SuperstitioModSetup.getImgFilesPath() + "UI/orb/layer3d.png",
-            SuperstitioModSetup.getImgFilesPath() + "UI/orb/layer2d.png",
-            SuperstitioModSetup.getImgFilesPath() + "UI/orb/layer1d.png"};
+    private static final String[] EnergyBall_TEXTURES = new String[]{
+            SuperstitioModSetup.makeImgFilesPath_UI(EnergyBall_Path + "layer5"),
+            SuperstitioModSetup.makeImgFilesPath_UI(EnergyBall_Path + "layer4"),
+            SuperstitioModSetup.makeImgFilesPath_UI(EnergyBall_Path + "layer3"),
+            SuperstitioModSetup.makeImgFilesPath_UI(EnergyBall_Path + "layer2"),
+            SuperstitioModSetup.makeImgFilesPath_UI(EnergyBall_Path + "layer1"),
+            SuperstitioModSetup.makeImgFilesPath_UI(EnergyBall_Path + "layer6"),
+            SuperstitioModSetup.makeImgFilesPath_UI(EnergyBall_Path + "layer5d"),
+            SuperstitioModSetup.makeImgFilesPath_UI(EnergyBall_Path + "layer4d"),
+            SuperstitioModSetup.makeImgFilesPath_UI(EnergyBall_Path + "layer3d"),
+            SuperstitioModSetup.makeImgFilesPath_UI(EnergyBall_Path + "layer2d"),
+            SuperstitioModSetup.makeImgFilesPath_UI(EnergyBall_Path + "layer1d")};
     // 每个图层的旋转速度
     private static final float[] LAYER_SPEED = new float[]{-40.0F, -32.0F, 20.0F, -20.0F, 0.0F, -10.0F, -8.0F, 5.0F, -5.0F, 0.0F};
     // 人物的本地化文本，如卡牌的本地化文本一样，如何书写见下
     private static final CharacterStrings characterStrings = CardCrawlGame.languagePack.getCharacterString(ID);
 
     public Lupa(String name) {
-        super(name, LUPA_Character, ORB_TEXTURES, SuperstitioModSetup.getImgFilesPath() + "UI/orb/vfx.png", LAYER_SPEED, null, null);
+        super(name, LUPA_Character, EnergyBall_TEXTURES, EnergyBall_VFX_Path, LAYER_SPEED, null, null);
 
 
         // 人物对话气泡的大小，如果游戏中尺寸不对在这里修改（libgdx的坐标轴左下为原点）
@@ -66,8 +71,9 @@ public class Lupa extends CustomPlayer {
 
 
         // 初始化你的人物，如果你的人物只有一张图，那么第一个参数填写你人物图片的路径。
-        this.initializeClass(SuperstitioModSetup.getImgFilesPath() + "char/character.png", // 人物图片
-                MY_CHARACTER_SHOULDER_2, MY_CHARACTER_SHOULDER_1, CORPSE_IMAGE, // 人物死亡图像
+        this.initializeClass(
+                LUPA_CHARACTER, // 人物图片
+                LUPA_CHARACTER_SHOULDER_2, LUPA_CHARACTER_SHOULDER_1, LUPA_CORPSE_IMAGE, // 人物死亡图像
                 this.getLoadout(), 0.0F, 0.0F, 200.0F, 220.0F, // 人物碰撞箱大小，越大的人物模型这个越大
                 new EnergyManager(3) // 初始每回合的能量
         );
@@ -173,9 +179,9 @@ public class Lupa extends CustomPlayer {
     public ArrayList<CutscenePanel> getCutscenePanels() {
         ArrayList<CutscenePanel> panels = new ArrayList<>();
         // 有两个参数的，第二个参数表示出现图片时播放的音效
-        panels.add(new CutscenePanel(SuperstitioModSetup.getImgFilesPath() + "char/Victory1.png", "ATTACK_MAGIC_FAST_1"));
-        panels.add(new CutscenePanel(SuperstitioModSetup.getImgFilesPath() + "char/Victory2.png"));
-        panels.add(new CutscenePanel(SuperstitioModSetup.getImgFilesPath() + "char/Victory3.png"));
+        panels.add(new CutscenePanel(SuperstitioModSetup.makeImgFilesPath_Character_Lupa("Victory1"), "ATTACK_MAGIC_FAST_1"));
+        panels.add(new CutscenePanel(SuperstitioModSetup.makeImgFilesPath_Character_Lupa("Victory2")));
+        panels.add(new CutscenePanel(SuperstitioModSetup.makeImgFilesPath_Character_Lupa("Victory3")));
         return panels;
     }
 

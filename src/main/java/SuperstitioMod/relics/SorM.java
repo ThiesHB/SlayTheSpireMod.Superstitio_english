@@ -18,7 +18,7 @@ import com.megacrit.cardcrawl.rooms.AbstractRoom;
  */
 public class SorM extends CustomRelic implements ClickableRelic, CustomSavable<Integer> {
     public static final String ID = SuperstitioModSetup.MakeTextID(SorM.class.getSimpleName() + "Relic");
-    private static final String IMG_PATH = SuperstitioModSetup.getImgFilesPath() + "relics/default_relic.png";
+    private static final String IMG_PATH = SuperstitioModSetup.makeImgFilesPath_Relic("default_relic");
     // 遗物类型
     private static final RelicTier RELIC_TIER = RelicTier.STARTER;
     // 点击音效
@@ -64,10 +64,12 @@ public class SorM extends CustomRelic implements ClickableRelic, CustomSavable<I
 
     @Override
     public void onLoseHp(int damageAmount) {
+        if (AbstractDungeon.getCurrRoom() == null || AbstractDungeon.getCurrRoom().phase != AbstractRoom.RoomPhase.COMBAT) return;
         if (!MasochismMode) return;
         if (damageAmount < MasochismModeRate) return;
         AddSexualHeat(damageAmount / MasochismModeRate);
         this.flash();
+
     }
 
     @Override

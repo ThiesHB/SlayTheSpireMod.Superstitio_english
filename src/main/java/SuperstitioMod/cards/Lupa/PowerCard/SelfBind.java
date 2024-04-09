@@ -1,14 +1,14 @@
 package SuperstitioMod.cards.Lupa.PowerCard;
 
 import SuperstitioMod.SuperstitioModSetup;
-import SuperstitioMod.cards.Lupa.AbstractLupa;
+import SuperstitioMod.cards.Lupa.AbstractLupaCard;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import com.megacrit.cardcrawl.powers.DexterityPower;
 import com.megacrit.cardcrawl.powers.StrengthPower;
 
 
-public class SelfBind extends AbstractLupa {
+public class SelfBind extends AbstractLupaCard {
     public static final String ID = SuperstitioModSetup.MakeTextID(SelfBind.class.getSimpleName());
 
     public static final CardType CARD_TYPE = CardType.POWER;

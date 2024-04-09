@@ -3,6 +3,7 @@ package SuperstitioMod.cards.Lupa;
 import SuperstitioMod.SuperstitioModSetup;
 import SuperstitioMod.characters.Lupa;
 import basemod.abstracts.CustomCard;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.evacipated.cardcrawl.modthespire.lib.SpirePatch;
 import com.evacipated.cardcrawl.modthespire.lib.SpirePostfixPatch;
@@ -20,7 +21,7 @@ import com.megacrit.cardcrawl.screens.SingleCardViewPopup;
 import java.lang.reflect.Field;
 import java.util.Objects;
 
-public abstract class AbstractLupa extends CustomCard {
+public abstract class AbstractLupaCard extends CustomCard {
     private final static float DESC_LINE_WIDTH = 418.0f * Settings.scale;
 
     //调用父类的构造方法，传参为super(卡牌ID，卡牌名称，图片地址，能量花费，卡牌描述，卡牌类型，卡牌颜色，卡牌稀有度，卡牌目标)
@@ -35,29 +36,27 @@ public abstract class AbstractLupa extends CustomCard {
      * @param cardRarity 卡牌稀有度
      * @param cardTarget 卡牌目标
      */
-    public AbstractLupa(String id, CardType cardType, int cost, CardRarity cardRarity, CardTarget cardTarget) {
+    public AbstractLupaCard(String id, CardType cardType, int cost, CardRarity cardRarity, CardTarget cardTarget) {
         this(id, cardType, cost, cardRarity, cardTarget, CardTypeToString(cardType));
     }
 
     /**
      * 当需要自定义卡牌存储的二级目录名时
      */
-    public AbstractLupa(String id, CardType cardType, int cost, CardRarity cardRarity, CardTarget cardTarget, String customCardType) {
+    public AbstractLupaCard(String id, CardType cardType, int cost, CardRarity cardRarity, CardTarget cardTarget, String customCardType) {
         this(id, cardType, cost, cardRarity, cardTarget, Lupa.Enums.LUPA_CARD, customCardType);
     }
 
-    public AbstractLupa(String id, CardType cardType, int cost, CardRarity cardRarity, CardTarget cardTarget, CardColor cardColor) {
+    public AbstractLupaCard(String id, CardType cardType, int cost, CardRarity cardRarity, CardTarget cardTarget, CardColor cardColor) {
         this(id, cardType, cost, cardRarity, cardTarget, cardColor, CardTypeToString(cardType));
     }
 
-    public AbstractLupa(String id, CardType cardType, int cost, CardRarity cardRarity, CardTarget cardTarget, CardColor cardColor,
-                        String customCardType) {
+    public AbstractLupaCard(String id, CardType cardType, int cost, CardRarity cardRarity, CardTarget cardTarget, CardColor cardColor,
+                            String customCardType) {
         super(
                 id,
                 getCardStringsWithFlavor(id).NAME,
-                Objects.equals(customCardType, "default")
-                        ? getImgPath("", "default")
-                        : getImgPath(customCardType, SuperstitioModSetup.getIdOnly(id)),
+                getImgPath(customCardType, SuperstitioModSetup.getIdOnly(id)),
                 cost,
                 getCardStringsWithFlavor(id).DESCRIPTION,
                 cardType,
@@ -80,12 +79,15 @@ public abstract class AbstractLupa extends CustomCard {
     public static String getImgPath(final String tag, final String id) {
         String path;
         if (Objects.equals(tag, "")) {
-            path = SuperstitioModSetup.getImgFilesPath() + "cards_Lupa/" + id + ".png";
+            path = SuperstitioModSetup.makeImgFilesPath_LupaCard(id);
         } else {
-            path = SuperstitioModSetup.getImgFilesPath() + "cards_Lupa/" + tag + "/" + id + ".png";
+            path = SuperstitioModSetup.makeImgFilesPath_LupaCard(tag, id);
         }
-        //SuperstitioModSetup.logger.info("loadCardImg:" + path);
-        return path;
+        if (Gdx.files.internal(path).exists())
+            //SuperstitioModSetup.logger.info("loadCardImg:" + path);
+            return path;
+        SuperstitioModSetup.logger.info("Can't find " + id + ". Use default img instead.");
+        return SuperstitioModSetup.makeImgFilesPath_LupaCard("cards_Lupa", "default");
     }
 
     public static String CardTypeToString(final AbstractCard.CardType t) {
@@ -115,7 +117,7 @@ public abstract class AbstractLupa extends CustomCard {
         return type;
     }
 
-    private static void renderQuote(final SpriteBatch sb, AbstractLupa card) {
+    private static void renderQuote(final SpriteBatch sb, AbstractLupaCard card) {
         String flavorText = card.cardStrings.FLAVOR;
         if (flavorText != null) {
             FontHelper.renderWrappedText(sb, FontHelper.SRV_quoteFont, flavorText, Settings.WIDTH / 2.0f,
@@ -143,6 +145,10 @@ public abstract class AbstractLupa extends CustomCard {
 
     public void damageToEnemy(final AbstractMonster monster, final AbstractGameAction.AttackEffect effect) {
         this.addToBot(new DamageAction(monster, new DamageInfo(AbstractDungeon.player, this.damage), effect));
+    }
+
+    public void damageToEnemy(final AbstractMonster monster, int damageAmount, final AbstractGameAction.AttackEffect effect) {
+        this.addToBot(new DamageAction(monster, new DamageInfo(AbstractDungeon.player, damageAmount), effect));
     }
 
     public void damageToAllEnemies(final AbstractGameAction.AttackEffect effect) {
@@ -188,9 +194,8 @@ public abstract class AbstractLupa extends CustomCard {
             } catch (IllegalAccessException e) {
                 return;
             }
-            if (fieldValue instanceof AbstractLupa) {
-                AbstractLupa lupa_card = (AbstractLupa) fieldValue;
-                renderQuote(sb, lupa_card);
+            if (fieldValue instanceof AbstractLupaCard) {
+                renderQuote(sb, (AbstractLupaCard) fieldValue);
             }
         }
     }

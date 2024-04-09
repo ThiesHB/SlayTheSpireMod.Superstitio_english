@@ -1,11 +1,11 @@
 package SuperstitioMod.cards.Lupa.BaseCard;
 
 import SuperstitioMod.SuperstitioModSetup;
-import SuperstitioMod.cards.Lupa.AbstractLupa;
+import SuperstitioMod.cards.Lupa.AbstractLupaCard;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 
-public class Invite extends AbstractLupa {
+public class Invite extends AbstractLupaCard {
     public static final String ID = SuperstitioModSetup.MakeTextID(Invite.class.getSimpleName());
 
     public static final CardType CARD_TYPE = CardType.SKILL;

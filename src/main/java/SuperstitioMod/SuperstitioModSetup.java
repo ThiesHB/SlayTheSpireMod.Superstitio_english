@@ -1,6 +1,6 @@
 package SuperstitioMod;
 
-import SuperstitioMod.cards.Lupa.AbstractLupa;
+import SuperstitioMod.cards.Lupa.AbstractLupaCard;
 import SuperstitioMod.cards.Lupa.CardStringsWithFlavor;
 import SuperstitioMod.characters.Lupa;
 import SuperstitioMod.relics.Sensitive;
@@ -106,28 +106,54 @@ public class SuperstitioModSetup implements EditStringsSubscriber, EditRelicsSub
         return MOD_NAME + "Mod";
     }
 
-    public static String getImgFilesPath() {
-        return getModID() + "Resources/img/";
+    private static String getImgFilesPath() {
+        return getModID() + "Resources/img";
     }
 
-    public static String getRelicPath(String resourcePath) {
-        return getImgFilesPath() + "relics/" + resourcePath + ".png";
+    private static String makeImgFilesPath(String... resourcePaths) {
+        StringBuilder totalPath = new StringBuilder();
+        for (String resourcePath : resourcePaths)
+            totalPath.append("/").append(resourcePath);
+        return getImgFilesPath() + totalPath + ".png";
     }
 
-    public static String getRelicOutlinePath(String resourcePath) {
-        return getImgFilesPath() + "relics/outline/" + resourcePath + ".png";
+    public static String makeImgFilesPath_LupaCard(String... resourcePaths) {
+        StringBuilder totalPath = new StringBuilder();
+        for (String resourcePath : resourcePaths)
+            totalPath.append("/").append(resourcePath);
+        return makeImgFilesPath("cards_Lupa" + totalPath);
     }
 
-    public static String getOrbPath(String resourcePath) {
-        return getImgFilesPath() + "orbs/" + resourcePath;
+//    public static String makeImgFilesPath_LupaCard(String resourcePath1, String resourcePath2) {
+//        return makeImgFilesPath("cards_Lupa/" + resourcePath1 + "/" + resourcePath2);
+//    }
+
+    public static String makeImgFilesPath_Relic(String resourcePath) {
+        return makeImgFilesPath("relics", resourcePath);
+    }
+    public static String makeImgFilesPath_UI(String resourcePath) {
+        return makeImgFilesPath("UI", resourcePath);
     }
 
-    public static String getPowerPath(String resourcePath) {
-        return getImgFilesPath() + "powers/" + resourcePath;
+    public static String makeImgFilesPath_Character_Lupa(String resourcePath) {
+        return makeImgFilesPath("character_lupa", resourcePath);
     }
 
-    public static String getEventPath(String resourcePath) {
-        return getImgFilesPath() + "events/" + resourcePath;
+
+    public static String makeImgFilesPath_RelicOutline(String resourcePath) {
+        return makeImgFilesPath("relics/outline", resourcePath);
+    }
+
+    public static String makeImgFilesPath_Orb(String resourcePath) {
+        return makeImgFilesPath("orbs", resourcePath);
+    }
+
+    public static String makeImgFilesPath_Power(String resourcePath) {
+        return makeImgFilesPath("powers", resourcePath);
+    }
+
+    public static String makeImgFilesPath_Event(String resourcePath) {
+        return makeImgFilesPath("events", resourcePath);
     }
 
     public static String MakeTextID(String idText) {
@@ -183,7 +209,7 @@ public class SuperstitioModSetup implements EditStringsSubscriber, EditRelicsSub
     public void receiveEditCards() {
         //将卡牌添加
         new AutoAdd(MOD_NAME.toLowerCase())
-                .packageFilter(AbstractLupa.class)
+                .packageFilter(AbstractLupaCard.class)
                 .setDefaultSeen(true)
                 .cards();
     }
@@ -236,11 +262,11 @@ public class SuperstitioModSetup implements EditStringsSubscriber, EditRelicsSub
         Gson gsonForDefault = new Gson();
         Keyword[] keywordsForDefault =
                 gsonForDefault.fromJson(Gdx.files.internal(makeLocPath(Settings.language, "keywordForDefault")).readString(String.valueOf(StandardCharsets
-                .UTF_8)), Keyword[].class);
+                        .UTF_8)), Keyword[].class);
         if (keywordsForDefault != null) {
             for (Keyword keyword : keywordsForDefault) {
                 GameDictionary.keywords.remove(keyword.PROPER_NAME);
-                GameDictionary.keywords.put(keyword.PROPER_NAME,keyword.DESCRIPTION);
+                GameDictionary.keywords.put(keyword.PROPER_NAME, keyword.DESCRIPTION);
             }
         }
 
@@ -302,5 +328,114 @@ public class SuperstitioModSetup implements EditStringsSubscriber, EditRelicsSub
     public void receiveRelicGet(AbstractRelic abstractRelic) {
 
     }
+
+
+//    private void initializeConfig() {
+//        final UIStrings configStrings = CardCrawlGame.languagePack.getUIString("downfall:ConfigMenuText");
+//        final Texture badgeTexture = new Texture(assetPath("images/badge.png"));
+//        this.settingsPanel = new ModPanel();
+//        int configPos = 750;
+//        final int configStep = 40;
+//        final ModLabeledToggleButton characterCrossoverBtn = new ModLabeledToggleButton(configStrings.TEXT[4], 350.0f, (float)configPos, Settings
+//        .CREAM_COLOR, FontHelper.charDescFont, downfallMod.crossoverCharacters, this.settingsPanel, label -> {}, button -> {
+//            downfallMod.crossoverCharacters = button.enabled;
+//            CardCrawlGame.mainMenuScreen.charSelectScreen.options.clear();
+//            CardCrawlGame.mainMenuScreen.charSelectScreen.initialize();
+//            saveData();
+//            return;
+//        });
+//        this.settingsPanel.addUIElement((IUIElement)characterCrossoverBtn);
+//        configPos -= configStep;
+//        final ModLabeledToggleButton characterModCrossoverBtn = new ModLabeledToggleButton(configStrings.TEXT[5], 350.0f, (float)configPos,
+//        Settings.CREAM_COLOR, FontHelper.charDescFont, downfallMod.crossoverModCharacters, this.settingsPanel, label -> {}, button -> {
+//            downfallMod.crossoverModCharacters = button.enabled;
+//            CardCrawlGame.mainMenuScreen.charSelectScreen.options.clear();
+//            CardCrawlGame.mainMenuScreen.charSelectScreen.initialize();
+//            saveData();
+//            return;
+//        });
+//        configPos -= configStep;
+//        final ModLabeledToggleButton contentSharingBtnRelics = new ModLabeledToggleButton(configStrings.TEXT[0], 350.0f, (float)configPos,
+//        Settings.CREAM_COLOR, FontHelper.charDescFont, downfallMod.contentSharing_relics, this.settingsPanel, label -> {}, button -> {
+//            downfallMod.contentSharing_relics = button.enabled;
+//            saveData();
+//            return;
+//        });
+//        configPos -= configStep;
+//        final ModLabeledToggleButton contentSharingBtnEvents = new ModLabeledToggleButton(configStrings.TEXT[2], 350.0f, (float)configPos,
+//        Settings.CREAM_COLOR, FontHelper.charDescFont, downfallMod.contentSharing_events, this.settingsPanel, label -> {}, button -> {
+//            downfallMod.contentSharing_events = button.enabled;
+//            saveData();
+//            return;
+//        });
+//        configPos -= configStep;
+//        final ModLabeledToggleButton contentSharingBtnPotions = new ModLabeledToggleButton(configStrings.TEXT[1], 350.0f, (float)configPos,
+//        Settings.CREAM_COLOR, FontHelper.charDescFont, downfallMod.contentSharing_potions, this.settingsPanel, label -> {}, button -> {
+//            downfallMod.contentSharing_potions = button.enabled;
+//            saveData();
+//            return;
+//        });
+//        configPos -= configStep;
+//        final ModLabeledToggleButton contentSharingBtnColorless = new ModLabeledToggleButton(configStrings.TEXT[3], 350.0f, (float)configPos,
+//        Settings.CREAM_COLOR, FontHelper.charDescFont, downfallMod.contentSharing_colorlessCards, this.settingsPanel, label -> {}, button -> {
+//            downfallMod.contentSharing_colorlessCards = button.enabled;
+//            saveData();
+//            return;
+//        });
+//        configPos -= configStep;
+//        final ModLabeledToggleButton contentSharingBtnCurses = new ModLabeledToggleButton(configStrings.TEXT[6], 350.0f, (float)configPos,
+//        Settings.CREAM_COLOR, FontHelper.charDescFont, downfallMod.contentSharing_curses, this.settingsPanel, label -> {}, button -> {
+//            downfallMod.contentSharing_curses = button.enabled;
+//            saveData();
+//            return;
+//        });
+//        configPos -= configStep;
+//        final ModLabeledToggleButton normalMapBtn = new ModLabeledToggleButton(configStrings.TEXT[7], 350.0f, (float)configPos, Settings
+//        .CREAM_COLOR, FontHelper.charDescFont, downfallMod.normalMapLayout, this.settingsPanel, label -> {}, button -> {
+//            downfallMod.normalMapLayout = button.enabled;
+//            saveData();
+//            return;
+//        });
+//        configPos -= configStep;
+//        final ModLabeledToggleButton sneckoNoModConfig = new ModLabeledToggleButton(configStrings.TEXT[10], 350.0f, (float)configPos, Settings
+//        .CREAM_COLOR, FontHelper.charDescFont, downfallMod.sneckoNoModCharacters, this.settingsPanel, label -> {}, button -> {
+//            downfallMod.sneckoNoModCharacters = button.enabled;
+//            saveData();
+//            return;
+//        });
+//        configPos -= configStep;
+//        final ModLabeledToggleButton unlockAllBtn = new ModLabeledToggleButton(configStrings.TEXT[8], 350.0f, (float)configPos, Settings
+//        .CREAM_COLOR, FontHelper.charDescFont, downfallMod.unlockEverything, this.settingsPanel, label -> {}, button -> {
+//            downfallMod.unlockEverything = button.enabled;
+//            saveData();
+//            return;
+//        });
+//        configPos -= configStep;
+//        final ModLabeledToggleButton noMusicBtn = new ModLabeledToggleButton(configStrings.TEXT[11], 350.0f, (float)configPos, Settings
+//        .CREAM_COLOR, FontHelper.charDescFont, downfallMod.noMusic, this.settingsPanel, label -> {}, button -> {
+//            downfallMod.noMusic = button.enabled;
+//            saveData();
+//            return;
+//        });
+//        configPos -= configStep;
+//        final ModLabeledToggleButton unlockAllSkinBtn = new ModLabeledToggleButton(configStrings.TEXT[12], 350.0f, (float)configPos, Settings
+//        .CREAM_COLOR, FontHelper.charDescFont, reskinContent.unlockAllReskin, this.settingsPanel, label -> {}, button -> {
+//            reskinContent.unlockAllReskin = button.enabled;
+//            reskinContent.unlockAllReskin();
+//            return;
+//        });
+//        this.settingsPanel.addUIElement((IUIElement)contentSharingBtnCurses);
+//        this.settingsPanel.addUIElement((IUIElement)contentSharingBtnEvents);
+//        this.settingsPanel.addUIElement((IUIElement)contentSharingBtnPotions);
+//        this.settingsPanel.addUIElement((IUIElement)contentSharingBtnRelics);
+//        this.settingsPanel.addUIElement((IUIElement)contentSharingBtnColorless);
+//        this.settingsPanel.addUIElement((IUIElement)normalMapBtn);
+//        this.settingsPanel.addUIElement((IUIElement)sneckoNoModConfig);
+//        this.settingsPanel.addUIElement((IUIElement)unlockAllBtn);
+//        this.settingsPanel.addUIElement((IUIElement)noMusicBtn);
+//        this.settingsPanel.addUIElement((IUIElement)unlockAllSkinBtn);
+//        this.settingsPanel.addUIElement((IUIElement)characterModCrossoverBtn);
+//        BaseMod.registerModBadge(badgeTexture, "downfall", "Downfall Team", "A very evil Expansion.", this.settingsPanel);
+//    }
 
 }

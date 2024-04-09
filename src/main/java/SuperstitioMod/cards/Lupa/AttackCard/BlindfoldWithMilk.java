@@ -1,13 +1,12 @@
 package SuperstitioMod.cards.Lupa.AttackCard;
 
 import SuperstitioMod.SuperstitioModSetup;
-import SuperstitioMod.cards.Lupa.AbstractLupa;
+import SuperstitioMod.cards.Lupa.AbstractLupaCard;
 import com.megacrit.cardcrawl.actions.AbstractGameAction;
-import com.megacrit.cardcrawl.actions.common.RollMoveAction;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 
-public class BlindfoldWithMilk extends AbstractLupa {
+public class BlindfoldWithMilk extends AbstractLupaCard {
     public static final String ID = SuperstitioModSetup.MakeTextID(BlindfoldWithMilk.class.getSimpleName());
 
     public static final CardType CARD_TYPE = CardType.ATTACK;

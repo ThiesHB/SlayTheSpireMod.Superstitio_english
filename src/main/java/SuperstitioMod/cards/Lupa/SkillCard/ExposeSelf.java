@@ -1,15 +1,14 @@
 package SuperstitioMod.cards.Lupa.SkillCard;
 
 import SuperstitioMod.SuperstitioModSetup;
-import SuperstitioMod.cards.Lupa.AbstractLupa;
-import SuperstitioMod.powers.SexualHeat;
+import SuperstitioMod.cards.Lupa.AbstractLupaCard;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 
 /**
  * 抵消敌人的攻击，转换为精液
  */
-public class ExposeSelf extends AbstractLupa {
+public class ExposeSelf extends AbstractLupaCard {
     public static final String ID = SuperstitioModSetup.MakeTextID(ExposeSelf.class.getSimpleName());
 
     public static final CardType CARD_TYPE = CardType.SKILL;

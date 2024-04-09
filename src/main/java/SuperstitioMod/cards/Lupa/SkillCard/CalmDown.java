@@ -1,12 +1,12 @@
 package SuperstitioMod.cards.Lupa.SkillCard;
 
 import SuperstitioMod.SuperstitioModSetup;
-import SuperstitioMod.cards.Lupa.AbstractLupa;
+import SuperstitioMod.cards.Lupa.AbstractLupaCard;
 import SuperstitioMod.powers.SexualHeat;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 
-public class CalmDown extends AbstractLupa {
+public class CalmDown extends AbstractLupaCard {
     public static final String ID = SuperstitioModSetup.MakeTextID(CalmDown.class.getSimpleName());
 
     public static final CardType CARD_TYPE = CardType.SKILL;

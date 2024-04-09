@@ -1,18 +1,33 @@
 ﻿{
   "SuperstitioMod:BlowJob": {
     "NAME": "口交",
-    "DESCRIPTION": "造成 !D! 点 伤害 。",
+    "DESCRIPTION": "造成 !D! 点 伤害 。 NL superstitiomod:外射 。",
     "FLAVOR": "用嘴。"
   },
   "SuperstitioMod:HandJob": {
     "NAME": "手交",
-    "DESCRIPTION": "造成 !D! 点伤害 。",
+    "DESCRIPTION": "造成 !D! 点 伤害 。 NL superstitiomod:外射 。",
     "FLAVOR": "用手。"
   },
   "SuperstitioMod:FootJob": {
     "NAME": "足交",
-    "DESCRIPTION": "造成 !D! 点 伤害 。",
+    "DESCRIPTION": "造成 !D! 点 伤害 。 NL superstitiomod:外射 。",
     "FLAVOR": "用脚。"
+  },
+  "SuperstitioMod:NippleFuck": {
+    "NAME": "乳孔交",
+    "DESCRIPTION": "造成 2 次 !D! 点 伤害 。 NL superstitiomod:内射 。",
+    "FLAVOR": "大奶子特权。"
+  },
+  "SuperstitioMod:EarFuck": {
+    "NAME": "耳交",
+    "DESCRIPTION": "造成 2 次 !D! 点 伤害 。 NL superstitiomod:内射 。",
+    "FLAVOR": "也许是脑交。"
+  },
+  "SuperstitioMod:EyeFuck": {
+    "NAME": "眼交",
+    "DESCRIPTION": "造成 2 次 !D! 点 伤害 。 NL superstitiomod:内射 。",
+    "FLAVOR": "也许是脑交。"
   },
   "SuperstitioMod:Invite": {
     "NAME": "邀请",
@@ -69,22 +84,37 @@
   },
   "SuperstitioMod:UnBirth": {
     "NAME": "胎内回归",
-    "DESCRIPTION": "获得 !B! 格挡 。 NL 把目标所有的 负面效果 封印成 *分娩 。 NL 消耗 。",
+    "DESCRIPTION": "获得 !B! 格挡 。 NL 把目标所有的 负面效果 封印成 *分娩 。",
     "FLAVOR": "我会包容你的一切：你的欲望、你的梦想、你的爱……请把你的一切交给我。"
   },
   "SuperstitioMod:ReBirth": {
     "NAME": "分娩",
-    "DESCRIPTION": "获得 !B! 格挡 。 NL 打出卡牌后，自身获得卡牌上的所有 负面效果 。 NL 消耗 。",
+    "DESCRIPTION": "获得 !B! 临时生命 。 NL 打出卡牌后，自身获得卡牌上的所有 负面效果 。 NL 消耗 。",
     "FLAVOR": "重获新生吧。"
   },
   "SuperstitioMod:ChokeChoker": {
     "NAME": "窒息项圈",
-    "DESCRIPTION": "获得窒息状态，获得 !M! 点 superstitiomod:快感修正 。",
+    "DESCRIPTION": "每打出1张牌，受到1点伤害。本回合和之后每回合获得 !M! superstitiomod:快感修正 。",
     "FLAVOR": "为了更高的快感。"
   },
   "SuperstitioMod:Samsara": {
     "NAME": "轮转",
     "DESCRIPTION": "回合结束时，保留所有的手牌。 NL 每当你使用卡牌，抽 1 张牌。 NL 在抽牌堆中添加 !M! 张 *伤口 。",
     "FLAVOR": "一切都只是轮回的一部分，何不放肆一点？"
+  },
+  "SuperstitioMod:CoitalVocal": {
+    "NAME": "叫床",
+    "DESCRIPTION": " 保留 。 NL 对全体敌人造成 !D! 点伤害， NL 根据手牌的平均耗能减少 !M! 伤害每 [E] 。",
+    "FLAVOR": "兴之所至。"
+  },
+  "SuperstitioMod:SexTypeCard": {
+    "NAME": "特殊卡",
+    "DESCRIPTION": "回合结束时，保留所有的手牌。 NL 每当你使用卡牌，抽 1 张牌。 NL 在抽牌堆中添加 !M! 张 *伤口 。",
+    "FLAVOR": "特殊卡",
+    "EXTENDED_DESCRIPTION": [
+      "",
+      "",
+      ""
+    ]
   }
 }

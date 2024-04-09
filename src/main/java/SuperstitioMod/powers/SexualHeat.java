@@ -65,8 +65,8 @@ public class SexualHeat extends AbstractPower {
             CheckOrgasm();
 
         // 添加一大一小两张能力图
-        String path128 = SuperstitioModSetup.getImgFilesPath() + "powers/default84.png";
-        String path48 = SuperstitioModSetup.getImgFilesPath() + "powers/default32.png";
+        String path128 = SuperstitioModSetup.makeImgFilesPath_Power("default84");
+        String path48 = SuperstitioModSetup.makeImgFilesPath_Power("default32");
         this.region128 = new TextureAtlas.AtlasRegion(ImageMaster.loadImage(path128), 0, 0, 84, 84);
         this.region48 = new TextureAtlas.AtlasRegion(ImageMaster.loadImage(path48), 0, 0, 32, 32);
 
@@ -222,7 +222,8 @@ public class SexualHeat extends AbstractPower {
     }
 
     private void EndOrgasm() {
-        PowerUtility.BubbleMessageHigher(this, true, powerStrings.DESCRIPTIONS[5]);
+        if (isInOrgasm())
+            PowerUtility.BubbleMessageHigher(this, true, powerStrings.DESCRIPTIONS[5]);
         this.orgasmTime = 0;
         if (this.owner.isPlayer)
             HandCardsCostToOrigin();
@@ -298,6 +299,7 @@ public class SexualHeat extends AbstractPower {
         int reduceAmount = (getOriginCost(card) - card.costForTurn) * getHeatReduce_PerCard();
         if (reduceAmount <= 0)
             return;
+        ACardCostToOrigin(card);
         Squirt(reduceAmount);
     }
 

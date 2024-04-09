@@ -32,14 +32,14 @@
     "NAMES": [
       "快感修正"
     ],
-    "DESCRIPTION": " 增加或减少 #y高潮 所需的 #y快感 数量 。"
+    "DESCRIPTION": " 本回合增加或减少 #y高潮 所需的 #y快感 数量 。"
   },
   {
     "PROPER_NAME": "潮吹修正",
     "NAMES": [
       "潮吹修正"
     ],
-    "DESCRIPTION": " 增加或减少 潮吹 消耗的 #y快感 数量 。"
+    "DESCRIPTION": " 本回合增加或减少 潮吹 消耗的 #y快感 数量 。"
   },
   {
     "PROPER_NAME": "精液",
@@ -54,5 +54,19 @@
       "情趣玩具"
     ],
     "DESCRIPTION": "回合开始时， #y情趣玩具 会提供 #y快感 。"
+  },
+  {
+    "PROPER_NAME": "内射",
+    "NAMES": [
+      "内射"
+    ],
+    "DESCRIPTION": "会射在身体里面 。"
+  },
+  {
+    "PROPER_NAME": "外射",
+    "NAMES": [
+      "外射"
+    ],
+    "DESCRIPTION": "会射在身体表面 。"
   }
 ]

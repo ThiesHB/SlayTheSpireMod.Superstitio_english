@@ -1,16 +1,18 @@
 package SuperstitioMod.cards.Lupa.TempCard;
 
 import SuperstitioMod.SuperstitioModSetup;
-import SuperstitioMod.cards.Lupa.AbstractLupa;
+import SuperstitioMod.cards.Lupa.AbstractLupaCard;
+import com.evacipated.cardcrawl.mod.stslib.actions.tempHp.AddTemporaryHPAction;
 import com.megacrit.cardcrawl.actions.common.ApplyPowerAction;
 import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
+import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import com.megacrit.cardcrawl.powers.AbstractPower;
 
 import java.util.ArrayList;
 
-public class ReBirth extends AbstractLupa {
+public class ReBirth extends AbstractLupaCard {
     public static final String ID = SuperstitioModSetup.MakeTextID(ReBirth.class.getSimpleName());
 
     public static final CardType CARD_TYPE = CardType.SKILL;
@@ -42,7 +44,8 @@ public class ReBirth extends AbstractLupa {
 
     @Override
     public void use(AbstractPlayer player, AbstractMonster monster) {
-        this.gainBlock();
+        //this.gainBlock();
+        this.addToBot(new AddTemporaryHPAction(AbstractDungeon.player, AbstractDungeon.player, this.block));
         sealPower.forEach(power -> {
             addToBot(new ApplyPowerAction(player, sealMonster == null ? player : sealMonster, power));
         });

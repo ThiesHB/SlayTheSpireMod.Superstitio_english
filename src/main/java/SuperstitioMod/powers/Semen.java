@@ -25,8 +25,8 @@ public class Semen extends AbstractPower {
 
         this.amount = amount;
         // 添加一大一小两张能力图
-        String path128 = SuperstitioModSetup.getImgFilesPath() + "powers/default84.png";
-        String path48 = SuperstitioModSetup.getImgFilesPath() + "powers/default32.png";
+        String path128 = SuperstitioModSetup.makeImgFilesPath_Power("default84");
+        String path48 = SuperstitioModSetup.makeImgFilesPath_Power("default32");
         this.region128 = new TextureAtlas.AtlasRegion(ImageMaster.loadImage(path128), 0, 0, 84, 84);
         this.region48 = new TextureAtlas.AtlasRegion(ImageMaster.loadImage(path48), 0, 0, 32, 32);
 

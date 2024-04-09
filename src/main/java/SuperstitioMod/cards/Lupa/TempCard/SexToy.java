@@ -1,13 +1,13 @@
 package SuperstitioMod.cards.Lupa.TempCard;
 
 import SuperstitioMod.SuperstitioModSetup;
-import SuperstitioMod.cards.Lupa.AbstractLupa;
+import SuperstitioMod.cards.Lupa.AbstractLupaCard;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 
 
-public class SexToy extends AbstractLupa {
+public class SexToy extends AbstractLupaCard {
     public static final String ID = SuperstitioModSetup.MakeTextID(SexToy.class.getSimpleName());
 
     public static final CardType CARD_TYPE = CardType.POWER;
@@ -22,7 +22,7 @@ public class SexToy extends AbstractLupa {
     private static final String[] sexToyNames = getCardStringsWithFlavor(SexToy.ID).EXTENDED_DESCRIPTION[0].split(",");
 
     public SexToy() {
-        super(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET, CardColor.COLORLESS, "default");
+        super(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET, CardColor.COLORLESS);
         this.setupMagicNumber(MagicNumber);
     }
 

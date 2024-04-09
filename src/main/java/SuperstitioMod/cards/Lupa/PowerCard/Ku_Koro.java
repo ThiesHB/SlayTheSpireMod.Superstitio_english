@@ -1,12 +1,12 @@
 package SuperstitioMod.cards.Lupa.PowerCard;
 
 import SuperstitioMod.SuperstitioModSetup;
-import SuperstitioMod.cards.Lupa.AbstractLupa;
+import SuperstitioMod.cards.Lupa.AbstractLupaCard;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 
 //咕杀/くっころ
-public class Ku_Koro extends AbstractLupa {
+public class Ku_Koro extends AbstractLupaCard {
     public static final String ID = SuperstitioModSetup.MakeTextID(Ku_Koro.class.getSimpleName());
 
     public static final CardType CARD_TYPE = CardType.POWER;
