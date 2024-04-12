@@ -72,6 +72,9 @@ public class SexualHeat extends AbstractPower {
 
         this.updateDescription();
 
+        this.hitbox = new Hitbox(this.owner.hb.width + BAR_HEIGHT * 3f, BAR_HEIGHT * 1.5f);
+        this.hitbox.move(this.owner.hb.cX, this.owner.hb.cY + this.owner.hb.height + BAR_OFFSET_Y);
+
         this.barBgColor = new Color(0.0f, 0.0f, 0.0f, 0.3f);
         this.barShadowColor = this.barBgColor;
         this.barTextColor = BarTextColor;
@@ -88,8 +91,35 @@ public class SexualHeat extends AbstractPower {
     }
 
     @Override
+    public void update(int slot) {
+        super.update(slot);
+        this.hitbox.update();
+        if (this.hitbox.hovered) {
+            TipHelper.renderGenericTip(this.hitbox.cX + 96.0F * Settings.scale,
+                    this.hitbox.cY + 64.0F * Settings.scale, this.name, this.description);
+        }
+
+        this.fontScale = MathHelper.scaleLerpSnap(this.fontScale, 0.7F);
+    }
+
+//    @SpirePatch(clz = AbstractPlayer.class, method = "render", paramtypes = {"com.badlogic.gdx.graphics.g2d" +
+//            ".SpriteBatch"})
+//    public static class PowerRenderPatch {
+//        public static void Postfix(final AbstractPlayer this.owner, final SpriteBatch sb) {
+//            Optional<AbstractPower> sexualHeatPowerOp =
+//                    this.owner.powers.stream().filter(power -> Objects.equals(power.ID, SexualHeat.POWER_ID))
+//                    .findFirst();
+//            if (!sexualHeatPowerOp.isPresent()) return;
+//            if (!(sexualHeatPowerOp.get() instanceof SexualHeat)) return;
+//
+//            SexualHeat sexualHeatPower = (SexualHeat) sexualHeatPowerOp.get();
+//
+//
+//        }
+//    }
+
+    @Override
     public void renderAmount(SpriteBatch sb, float x, float y, Color c) {
-        super.renderAmount(sb, x, y, c);
         float OwnerX = this.owner.hb.cX - this.owner.hb.width / 2.0F;
         float OwnerY = this.owner.hb.cY + this.owner.hb.height;
         this.renderAmountBarBackGround(sb, OwnerX, OwnerY);
@@ -150,11 +180,38 @@ public class SexualHeat extends AbstractPower {
 
     @Override
     public void stackPower(final int stackAmount) {
-        super.stackPower(stackAmount);
+//        AbstractPower power = this;
+//        String name = this.name;
+//        this.addToTop(new AbstractGameAction() {
+//            @Override
+//            public void update() {
+//                this.isDone = true;
+//                PowerUtility.BubbleMessage(power, false, name);
+//            }
+//        });
         if (this.amount < 0)
             this.amount = 0;
+        super.stackPower(stackAmount);
         CheckOrgasm();
+        //updateDescription();
+    }
+
+    @Override
+    public void reducePower(int reduceAmount) {
+//        AbstractPower power = this;
+//        String name = this.name;
+//        this.addToTop(new AbstractGameAction() {
+//            @Override
+//            public void update() {
+//                this.isDone = true;
+//                PowerUtility.BubbleMessage(power, true, name);
+//            }
+//        });
+        if (this.amount < 0)
+            this.amount = 0;
+        super.reducePower(reduceAmount);
         CheckEndOrgasm();
+        //updateDescription();
     }
 
     private void CheckOrgasm() {
@@ -206,8 +263,8 @@ public class SexualHeat extends AbstractPower {
             @Override
             public void update() {
                 this.isDone = true;
-                PowerUtility.BubbleMessageHigher(power, false, powerStrings.DESCRIPTIONS[IsContinueOrgasm ? 4 : 3]);
-                updateDescription();
+                PowerUtility.BubbleMessageHigher(power, false, powerStrings.DESCRIPTIONS[IsContinueOrgasm ? 4 :
+                        3]);
             }
         });
         if (this.owner.isPlayer)
