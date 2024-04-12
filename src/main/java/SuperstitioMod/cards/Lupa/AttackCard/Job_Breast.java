@@ -2,12 +2,13 @@ package SuperstitioMod.cards.Lupa.AttackCard;
 
 import SuperstitioMod.SuperstitioModSetup;
 import SuperstitioMod.cards.Lupa.AbstractLupaCard;
+import SuperstitioMod.utils.CardUtility;
 import com.megacrit.cardcrawl.actions.AbstractGameAction;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
-
-public class FootJob extends AbstractLupaCard {
-    public static final String ID = SuperstitioModSetup.MakeTextID(FootJob.class.getSimpleName());
+//TODO
+public class Job_Breast extends AbstractLupaCard {
+    public static final String ID = SuperstitioModSetup.MakeTextID(Job_Breast.class.getSimpleName());
 
     public static final CardType CARD_TYPE = CardType.ATTACK;
 
@@ -17,9 +18,9 @@ public class FootJob extends AbstractLupaCard {
 
     private static final int COST = 1;
     private static final int ATTACK_DMG = 9;
-    private static final int UPGRADE_PLUS_DMG = 3;
+    private static final int UPGRADE_PLUS_DMG = 4;
 
-    public FootJob() {
+    public Job_Breast() {
         super(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET);
         this.setupDamage(ATTACK_DMG);
     }
@@ -27,6 +28,7 @@ public class FootJob extends AbstractLupaCard {
     @Override
     public void use(AbstractPlayer player, AbstractMonster monster) {
         damageToEnemy(monster, AbstractGameAction.AttackEffect.BLUNT_LIGHT);
+        CardUtility.gainSexMark_Outside(this.cardStrings.EXTENDED_DESCRIPTION[0]);
     }
 
     @Override

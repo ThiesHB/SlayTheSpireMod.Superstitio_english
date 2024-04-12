@@ -2,7 +2,6 @@ package SuperstitioMod.cards.Lupa.PowerCard;
 
 import SuperstitioMod.SuperstitioModSetup;
 import SuperstitioMod.cards.Lupa.AbstractLupaCard;
-import SuperstitioMod.cards.Lupa.SexType.CumPlaceHelper;
 import com.megacrit.cardcrawl.actions.AbstractGameAction;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
@@ -37,7 +36,7 @@ public class ChokeChoker extends AbstractLupaCard {
             }
         });
         gainPowerToPlayer(new SuperstitioMod.powers.ChokeChoker(player, this.magicNumber));
-        CumPlaceHelper.addToSequence(this);
+        //CumPlaceHelper.addToSequence(this);
         //gainPowerToPlayer(new SexualHeatNeededModifier(player, this.magicNumber));
     }
 

@@ -38,8 +38,10 @@ import java.util.regex.Pattern;
 
 
 @SpireInitializer
-public class SuperstitioModSetup implements EditStringsSubscriber, EditRelicsSubscriber, EditCardsSubscriber, EditKeywordsSubscriber,
-        EditCharactersSubscriber, AddAudioSubscriber, PostInitializeSubscriber, PostExhaustSubscriber, StartGameSubscriber, PostUpdateSubscriber,
+public class SuperstitioModSetup implements EditStringsSubscriber, EditRelicsSubscriber, EditCardsSubscriber,
+        EditKeywordsSubscriber,
+        EditCharactersSubscriber, AddAudioSubscriber, PostInitializeSubscriber, PostExhaustSubscriber,
+        StartGameSubscriber, PostUpdateSubscriber,
         RelicGetSubscriber, PostPowerApplySubscriber, PostBattleSubscriber, PostDungeonInitializeSubscriber,
 
         OnCardUseSubscriber, OnPowersModifiedSubscriber, PostDrawSubscriber, PostEnergyRechargeSubscriber {
@@ -48,33 +50,34 @@ public class SuperstitioModSetup implements EditStringsSubscriber, EditRelicsSub
     public static final Logger logger = LogManager.getLogger(SuperstitioModSetup.class.getName());
     public static final Color MY_COLOR = new Color(79.0F / 255.0F, 185.0F / 255.0F, 9.0F / 255.0F, 1.0F);
     //选英雄界面的角色图标、选英雄时的背景图片
-    private static final String MY_CHARACTER_BUTTON = getImgFilesPath() + "char/Character_Button.png";
+    private static final String MY_CHARACTER_BUTTON = makeImgFilesPath_Character_Lupa("Character_Button");
     // 人物选择界面的立绘
-    private static final String MY_CHARACTER_PORTRAIT = getImgFilesPath() + "char/Character_Portrait.png";
+    private static final String MY_CHARACTER_PORTRAIT = makeImgFilesPath_Character_Lupa("Character_Portrait");
     // 攻击牌的背景（小尺寸）
-    private static final String BG_ATTACK_512 = getImgFilesPath() + "512/bg_attack_512.png";
+    private static final String BG_ATTACK_512 = makeImgFilesPath("512", "bg_attack_512");
     // 能力牌的背景（小尺寸）
-    private static final String BG_POWER_512 = getImgFilesPath() + "512/bg_power_512.png";
+    private static final String BG_POWER_512 = makeImgFilesPath("512", "bg_power_512");
     // 技能牌的背景（小尺寸）
-    private static final String BG_SKILL_512 = getImgFilesPath() + "512/bg_skill_512.png";
+    private static final String BG_SKILL_512 = makeImgFilesPath("512", "bg_skill_512");
     // 在卡牌和遗物描述中的能量图标
-    private static final String SMALL_ORB = getImgFilesPath() + "char/small_orb.png";
+    private static final String SMALL_ORB = makeImgFilesPath_Character_Lupa("small_orb");
     // 攻击牌的背景（大尺寸）
-    private static final String BG_ATTACK_1024 = getImgFilesPath() + "1024/bg_attack.png";
+    private static final String BG_ATTACK_1024 = makeImgFilesPath("1024", "bg_attack");
     // 能力牌的背景（大尺寸）
-    private static final String BG_POWER_1024 = getImgFilesPath() + "1024/bg_power.png";
+    private static final String BG_POWER_1024 = makeImgFilesPath("1024", "bg_power");
     // 技能牌的背景（大尺寸）
-    private static final String BG_SKILL_1024 = getImgFilesPath() + "1024/bg_skill.png";
+    private static final String BG_SKILL_1024 = makeImgFilesPath("1024", "bg_skill");
     // 在卡牌预览界面的能量图标
-    private static final String BIG_ORB = getImgFilesPath() + "char/card_orb.png";
+    private static final String BIG_ORB = makeImgFilesPath_Character_Lupa("card_orb");
     // 小尺寸的能量图标（战斗中，牌堆预览）
-    private static final String ENERGY_ORB = getImgFilesPath() + "char/cost_orb.png";
+    private static final String ENERGY_ORB = makeImgFilesPath_Character_Lupa("cost_orb");
     public static Map<String, CardStringsWithFlavor> cards = new HashMap<>();
 
     public SuperstitioModSetup() {
         BaseMod.subscribe(this);
         // 这里注册颜色
-        BaseMod.addColor(Lupa.Enums.LUPA_CARD, MY_COLOR, MY_COLOR, MY_COLOR, MY_COLOR, MY_COLOR, MY_COLOR, MY_COLOR, BG_ATTACK_512, BG_SKILL_512,
+        BaseMod.addColor(Lupa.Enums.LUPA_CARD, MY_COLOR, MY_COLOR, MY_COLOR, MY_COLOR, MY_COLOR, MY_COLOR,
+                MY_COLOR, BG_ATTACK_512, BG_SKILL_512,
                 BG_POWER_512, ENERGY_ORB, BG_ATTACK_1024, BG_SKILL_1024, BG_POWER_1024, BIG_ORB, SMALL_ORB);
     }
 
@@ -131,6 +134,7 @@ public class SuperstitioModSetup implements EditStringsSubscriber, EditRelicsSub
     public static String makeImgFilesPath_Relic(String resourcePath) {
         return makeImgFilesPath("relics", resourcePath);
     }
+
     public static String makeImgFilesPath_UI(String resourcePath) {
         return makeImgFilesPath("UI", resourcePath);
     }
@@ -202,7 +206,8 @@ public class SuperstitioModSetup implements EditStringsSubscriber, EditRelicsSub
     @Override
     public void receiveEditCharacters() {
         //添加角色到MOD中
-        BaseMod.addCharacter(new Lupa(CardCrawlGame.playerName), MY_CHARACTER_BUTTON, MY_CHARACTER_PORTRAIT, Lupa.Enums.LUPA_Character);
+        BaseMod.addCharacter(new Lupa(CardCrawlGame.playerName), MY_CHARACTER_BUTTON, MY_CHARACTER_PORTRAIT,
+                Lupa.Enums.LUPA_Character);
     }
 
     @Override
@@ -240,9 +245,12 @@ public class SuperstitioModSetup implements EditStringsSubscriber, EditRelicsSub
         BaseMod.loadCustomStringsFile(CharacterStrings.class, makeLocPath(Settings.language, "character_Lupa"));
         BaseMod.loadCustomStringsFile(RelicStrings.class, makeLocPath(Settings.language, "relic_Lupa"));
         BaseMod.loadCustomStringsFile(PowerStrings.class, makeLocPath(Settings.language, "power"));
-//        BaseMod.loadCustomStringsFile(EventStrings.class, makeLocPath(Settings.language, "DefaultMod-Event-Strings"));
-//        BaseMod.loadCustomStringsFile(PotionStrings.class, makeLocPath(Settings.language, "DefaultMod-Potion-Strings"));
-//        BaseMod.loadCustomStringsFile(OrbStrings.class, makeLocPath(Settings.language, "DefaultMod-Orb-Strings"));
+//        BaseMod.loadCustomStringsFile(EventStrings.class, makeLocPath(Settings.language,
+//        "DefaultMod-Event-Strings"));
+//        BaseMod.loadCustomStringsFile(PotionStrings.class, makeLocPath(Settings.language,
+//        "DefaultMod-Potion-Strings"));
+//        BaseMod.loadCustomStringsFile(OrbStrings.class, makeLocPath(Settings.language,
+//        "DefaultMod-Orb-Strings"));
 //        BaseMod.loadCustomStringsFile(UIStrings.class, makeLocPath(Settings.language, "UIStrings"));
         logger.info("Done editing strings");
     }
@@ -250,12 +258,14 @@ public class SuperstitioModSetup implements EditStringsSubscriber, EditRelicsSub
     @Override
     public void receiveEditKeywords() {
         Gson gson = new Gson();
-        String json = Gdx.files.internal(makeLocPath(Settings.language, "keyword")).readString(String.valueOf(StandardCharsets
-                .UTF_8));
+        String json =
+                Gdx.files.internal(makeLocPath(Settings.language, "keyword")).readString(String.valueOf(StandardCharsets
+                        .UTF_8));
         Keyword[] keywords = gson.fromJson(json, Keyword[].class);
         if (keywords != null) {
             for (Keyword keyword : keywords) {
-                BaseMod.addKeyword(getModID().toLowerCase(), keyword.PROPER_NAME, keyword.NAMES, keyword.DESCRIPTION);
+                BaseMod.addKeyword(getModID().toLowerCase(), keyword.PROPER_NAME, keyword.NAMES,
+                        keyword.DESCRIPTION);
             }
         }
 
@@ -290,43 +300,35 @@ public class SuperstitioModSetup implements EditStringsSubscriber, EditRelicsSub
 
     @Override
     public void receiveCardUsed(AbstractCard abstractCard) {
-
     }
 
     @Override
     public void receivePowersModified() {
-
     }
 
     @Override
     public void receivePostBattle(AbstractRoom abstractRoom) {
-
     }
 
     @Override
     public void receivePostDraw(AbstractCard abstractCard) {
-
     }
 
     @Override
     public void receivePostDungeonInitialize() {
-
     }
 
     @Override
     public void receivePostEnergyRecharge() {
-
     }
 
     @Override
-    public void receivePostPowerApplySubscriber(AbstractPower abstractPower, AbstractCreature abstractCreature, AbstractCreature
-            abstractCreature1) {
-
+    public void receivePostPowerApplySubscriber(
+            AbstractPower abstractPower, AbstractCreature abstractCreature, AbstractCreature abstractCreature1) {
     }
 
     @Override
     public void receiveRelicGet(AbstractRelic abstractRelic) {
-
     }
 
 
@@ -336,8 +338,10 @@ public class SuperstitioModSetup implements EditStringsSubscriber, EditRelicsSub
 //        this.settingsPanel = new ModPanel();
 //        int configPos = 750;
 //        final int configStep = 40;
-//        final ModLabeledToggleButton characterCrossoverBtn = new ModLabeledToggleButton(configStrings.TEXT[4], 350.0f, (float)configPos, Settings
-//        .CREAM_COLOR, FontHelper.charDescFont, downfallMod.crossoverCharacters, this.settingsPanel, label -> {}, button -> {
+//        final ModLabeledToggleButton characterCrossoverBtn = new ModLabeledToggleButton(configStrings.TEXT[4],
+//        350.0f, (float)configPos, Settings
+//        .CREAM_COLOR, FontHelper.charDescFont, downfallMod.crossoverCharacters, this.settingsPanel, label ->
+//        {}, button -> {
 //            downfallMod.crossoverCharacters = button.enabled;
 //            CardCrawlGame.mainMenuScreen.charSelectScreen.options.clear();
 //            CardCrawlGame.mainMenuScreen.charSelectScreen.initialize();
@@ -346,8 +350,10 @@ public class SuperstitioModSetup implements EditStringsSubscriber, EditRelicsSub
 //        });
 //        this.settingsPanel.addUIElement((IUIElement)characterCrossoverBtn);
 //        configPos -= configStep;
-//        final ModLabeledToggleButton characterModCrossoverBtn = new ModLabeledToggleButton(configStrings.TEXT[5], 350.0f, (float)configPos,
-//        Settings.CREAM_COLOR, FontHelper.charDescFont, downfallMod.crossoverModCharacters, this.settingsPanel, label -> {}, button -> {
+//        final ModLabeledToggleButton characterModCrossoverBtn = new ModLabeledToggleButton(configStrings
+//        .TEXT[5], 350.0f, (float)configPos,
+//        Settings.CREAM_COLOR, FontHelper.charDescFont, downfallMod.crossoverModCharacters, this.settingsPanel,
+//        label -> {}, button -> {
 //            downfallMod.crossoverModCharacters = button.enabled;
 //            CardCrawlGame.mainMenuScreen.charSelectScreen.options.clear();
 //            CardCrawlGame.mainMenuScreen.charSelectScreen.initialize();
@@ -355,71 +361,90 @@ public class SuperstitioModSetup implements EditStringsSubscriber, EditRelicsSub
 //            return;
 //        });
 //        configPos -= configStep;
-//        final ModLabeledToggleButton contentSharingBtnRelics = new ModLabeledToggleButton(configStrings.TEXT[0], 350.0f, (float)configPos,
-//        Settings.CREAM_COLOR, FontHelper.charDescFont, downfallMod.contentSharing_relics, this.settingsPanel, label -> {}, button -> {
+//        final ModLabeledToggleButton contentSharingBtnRelics = new ModLabeledToggleButton(configStrings
+//        .TEXT[0], 350.0f, (float)configPos,
+//        Settings.CREAM_COLOR, FontHelper.charDescFont, downfallMod.contentSharing_relics, this.settingsPanel,
+//        label -> {}, button -> {
 //            downfallMod.contentSharing_relics = button.enabled;
 //            saveData();
 //            return;
 //        });
 //        configPos -= configStep;
-//        final ModLabeledToggleButton contentSharingBtnEvents = new ModLabeledToggleButton(configStrings.TEXT[2], 350.0f, (float)configPos,
-//        Settings.CREAM_COLOR, FontHelper.charDescFont, downfallMod.contentSharing_events, this.settingsPanel, label -> {}, button -> {
+//        final ModLabeledToggleButton contentSharingBtnEvents = new ModLabeledToggleButton(configStrings
+//        .TEXT[2], 350.0f, (float)configPos,
+//        Settings.CREAM_COLOR, FontHelper.charDescFont, downfallMod.contentSharing_events, this.settingsPanel,
+//        label -> {}, button -> {
 //            downfallMod.contentSharing_events = button.enabled;
 //            saveData();
 //            return;
 //        });
 //        configPos -= configStep;
-//        final ModLabeledToggleButton contentSharingBtnPotions = new ModLabeledToggleButton(configStrings.TEXT[1], 350.0f, (float)configPos,
-//        Settings.CREAM_COLOR, FontHelper.charDescFont, downfallMod.contentSharing_potions, this.settingsPanel, label -> {}, button -> {
+//        final ModLabeledToggleButton contentSharingBtnPotions = new ModLabeledToggleButton(configStrings
+//        .TEXT[1], 350.0f, (float)configPos,
+//        Settings.CREAM_COLOR, FontHelper.charDescFont, downfallMod.contentSharing_potions, this.settingsPanel,
+//        label -> {}, button -> {
 //            downfallMod.contentSharing_potions = button.enabled;
 //            saveData();
 //            return;
 //        });
 //        configPos -= configStep;
-//        final ModLabeledToggleButton contentSharingBtnColorless = new ModLabeledToggleButton(configStrings.TEXT[3], 350.0f, (float)configPos,
-//        Settings.CREAM_COLOR, FontHelper.charDescFont, downfallMod.contentSharing_colorlessCards, this.settingsPanel, label -> {}, button -> {
+//        final ModLabeledToggleButton contentSharingBtnColorless = new ModLabeledToggleButton(configStrings
+//        .TEXT[3], 350.0f, (float)configPos,
+//        Settings.CREAM_COLOR, FontHelper.charDescFont, downfallMod.contentSharing_colorlessCards, this
+//        .settingsPanel, label -> {}, button -> {
 //            downfallMod.contentSharing_colorlessCards = button.enabled;
 //            saveData();
 //            return;
 //        });
 //        configPos -= configStep;
-//        final ModLabeledToggleButton contentSharingBtnCurses = new ModLabeledToggleButton(configStrings.TEXT[6], 350.0f, (float)configPos,
-//        Settings.CREAM_COLOR, FontHelper.charDescFont, downfallMod.contentSharing_curses, this.settingsPanel, label -> {}, button -> {
+//        final ModLabeledToggleButton contentSharingBtnCurses = new ModLabeledToggleButton(configStrings
+//        .TEXT[6], 350.0f, (float)configPos,
+//        Settings.CREAM_COLOR, FontHelper.charDescFont, downfallMod.contentSharing_curses, this.settingsPanel,
+//        label -> {}, button -> {
 //            downfallMod.contentSharing_curses = button.enabled;
 //            saveData();
 //            return;
 //        });
 //        configPos -= configStep;
-//        final ModLabeledToggleButton normalMapBtn = new ModLabeledToggleButton(configStrings.TEXT[7], 350.0f, (float)configPos, Settings
-//        .CREAM_COLOR, FontHelper.charDescFont, downfallMod.normalMapLayout, this.settingsPanel, label -> {}, button -> {
+//        final ModLabeledToggleButton normalMapBtn = new ModLabeledToggleButton(configStrings.TEXT[7], 350.0f,
+//        (float)configPos, Settings
+//        .CREAM_COLOR, FontHelper.charDescFont, downfallMod.normalMapLayout, this.settingsPanel, label -> {},
+//        button -> {
 //            downfallMod.normalMapLayout = button.enabled;
 //            saveData();
 //            return;
 //        });
 //        configPos -= configStep;
-//        final ModLabeledToggleButton sneckoNoModConfig = new ModLabeledToggleButton(configStrings.TEXT[10], 350.0f, (float)configPos, Settings
-//        .CREAM_COLOR, FontHelper.charDescFont, downfallMod.sneckoNoModCharacters, this.settingsPanel, label -> {}, button -> {
+//        final ModLabeledToggleButton sneckoNoModConfig = new ModLabeledToggleButton(configStrings.TEXT[10],
+//        350.0f, (float)configPos, Settings
+//        .CREAM_COLOR, FontHelper.charDescFont, downfallMod.sneckoNoModCharacters, this.settingsPanel, label ->
+//        {}, button -> {
 //            downfallMod.sneckoNoModCharacters = button.enabled;
 //            saveData();
 //            return;
 //        });
 //        configPos -= configStep;
-//        final ModLabeledToggleButton unlockAllBtn = new ModLabeledToggleButton(configStrings.TEXT[8], 350.0f, (float)configPos, Settings
-//        .CREAM_COLOR, FontHelper.charDescFont, downfallMod.unlockEverything, this.settingsPanel, label -> {}, button -> {
+//        final ModLabeledToggleButton unlockAllBtn = new ModLabeledToggleButton(configStrings.TEXT[8], 350.0f,
+//        (float)configPos, Settings
+//        .CREAM_COLOR, FontHelper.charDescFont, downfallMod.unlockEverything, this.settingsPanel, label -> {},
+//        button -> {
 //            downfallMod.unlockEverything = button.enabled;
 //            saveData();
 //            return;
 //        });
 //        configPos -= configStep;
-//        final ModLabeledToggleButton noMusicBtn = new ModLabeledToggleButton(configStrings.TEXT[11], 350.0f, (float)configPos, Settings
+//        final ModLabeledToggleButton noMusicBtn = new ModLabeledToggleButton(configStrings.TEXT[11], 350.0f,
+//        (float)configPos, Settings
 //        .CREAM_COLOR, FontHelper.charDescFont, downfallMod.noMusic, this.settingsPanel, label -> {}, button -> {
 //            downfallMod.noMusic = button.enabled;
 //            saveData();
 //            return;
 //        });
 //        configPos -= configStep;
-//        final ModLabeledToggleButton unlockAllSkinBtn = new ModLabeledToggleButton(configStrings.TEXT[12], 350.0f, (float)configPos, Settings
-//        .CREAM_COLOR, FontHelper.charDescFont, reskinContent.unlockAllReskin, this.settingsPanel, label -> {}, button -> {
+//        final ModLabeledToggleButton unlockAllSkinBtn = new ModLabeledToggleButton(configStrings.TEXT[12], 350
+//        .0f, (float)configPos, Settings
+//        .CREAM_COLOR, FontHelper.charDescFont, reskinContent.unlockAllReskin, this.settingsPanel, label -> {},
+//        button -> {
 //            reskinContent.unlockAllReskin = button.enabled;
 //            reskinContent.unlockAllReskin();
 //            return;
@@ -435,7 +460,8 @@ public class SuperstitioModSetup implements EditStringsSubscriber, EditRelicsSub
 //        this.settingsPanel.addUIElement((IUIElement)noMusicBtn);
 //        this.settingsPanel.addUIElement((IUIElement)unlockAllSkinBtn);
 //        this.settingsPanel.addUIElement((IUIElement)characterModCrossoverBtn);
-//        BaseMod.registerModBadge(badgeTexture, "downfall", "Downfall Team", "A very evil Expansion.", this.settingsPanel);
+//        BaseMod.registerModBadge(badgeTexture, "downfall", "Downfall Team", "A very evil Expansion.", this
+//        .settingsPanel);
 //    }
 
 }

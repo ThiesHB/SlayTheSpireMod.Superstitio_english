@@ -1,35 +1,36 @@
 package SuperstitioMod.powers;
 
 import SuperstitioMod.SuperstitioModSetup;
+import SuperstitioMod.powers.interFace.InvisiblePower_StillRenderAmount;
 import SuperstitioMod.powers.interFace.OnOrgasm;
 import SuperstitioMod.utils.PowerUtility;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.evacipated.cardcrawl.mod.stslib.powers.StunMonsterPower;
+import com.evacipated.cardcrawl.mod.stslib.powers.interfaces.InvisiblePower;
+import com.evacipated.cardcrawl.modthespire.lib.SpirePatch;
 import com.megacrit.cardcrawl.actions.AbstractGameAction;
 import com.megacrit.cardcrawl.actions.common.ApplyPowerAction;
 import com.megacrit.cardcrawl.actions.common.DrawCardAction;
 import com.megacrit.cardcrawl.actions.common.ReducePowerAction;
 import com.megacrit.cardcrawl.actions.common.RemoveSpecificPowerAction;
 import com.megacrit.cardcrawl.cards.AbstractCard;
+import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.core.AbstractCreature;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.core.Settings;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
-import com.megacrit.cardcrawl.helpers.FontHelper;
-import com.megacrit.cardcrawl.helpers.ImageMaster;
+import com.megacrit.cardcrawl.helpers.*;
 import com.megacrit.cardcrawl.localization.PowerStrings;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import com.megacrit.cardcrawl.powers.AbstractPower;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Objects;
-import java.util.UUID;
+import java.util.*;
 
-public class SexualHeat extends AbstractPower {
-    public static final String POWER_ID = SuperstitioModSetup.MakeTextID(SexualHeat.class.getSimpleName() + "Power");
+public class SexualHeat extends AbstractPower implements InvisiblePower_StillRenderAmount {
+    public static final String POWER_ID = SuperstitioModSetup.MakeTextID(SexualHeat.class.getSimpleName() +
+            "Power");
     public static final int HeatReduce_PerCard_Origin = 6;
     public static final int HEAT_REQUIREDOrigin = 10;
     private static final PowerStrings powerStrings = CardCrawlGame.languagePack.getPowerStrings(POWER_ID);
@@ -51,6 +52,8 @@ public class SexualHeat extends AbstractPower {
     private int HeatReduce_PerCard = HeatReduce_PerCard_Origin;
     private int heatRequired = HEAT_REQUIREDOrigin;
 
+    public Hitbox hitbox;
+
     public SexualHeat(final AbstractCreature owner, final int amount) {
         this.name = SexualHeat.powerStrings.NAME;
         this.ID = POWER_ID;
@@ -61,7 +64,8 @@ public class SexualHeat extends AbstractPower {
             this.type = PowerType.DEBUFF;
 
         this.amount = amount;
-        if (this.owner.powers.stream().noneMatch(abstractPower -> Objects.equals(abstractPower.ID, SexualHeat.POWER_ID)))
+        if (this.owner.powers.stream().noneMatch(abstractPower -> Objects.equals(abstractPower.ID,
+                SexualHeat.POWER_ID)))
             CheckOrgasm();
 
         // 添加一大一小两张能力图
@@ -138,13 +142,13 @@ public class SexualHeat extends AbstractPower {
         } else {
             sb.setColor(this.barShadowColor);
         }
-        sb.draw(ImageMaster.HB_SHADOW_L, x - BAR_HEIGHT, y - BG_OFFSET_X + 3.0f * Settings.scale, BAR_HEIGHT, BAR_HEIGHT);
-        sb.draw(ImageMaster.HB_SHADOW_B, x, y - BG_OFFSET_X + 3.0f * Settings.scale, this.owner.hb.width, BAR_HEIGHT);
-        sb.draw(ImageMaster.HB_SHADOW_R, x + this.owner.hb.width, y - BG_OFFSET_X + 3.0f * Settings.scale, BAR_HEIGHT, BAR_HEIGHT);
+        sb.draw(ImageMaster.HB_SHADOW_L, x - BAR_HEIGHT, y - BG_OFFSET_X + 3.0f * Settings.scale, BAR_HEIGHT,
+                BAR_HEIGHT);
+        sb.draw(ImageMaster.HB_SHADOW_B, x, y - BG_OFFSET_X + 3.0f * Settings.scale, this.owner.hb.width,
+                BAR_HEIGHT);
+        sb.draw(ImageMaster.HB_SHADOW_R, x + this.owner.hb.width, y - BG_OFFSET_X + 3.0f * Settings.scale,
+                BAR_HEIGHT, BAR_HEIGHT);
         sb.setColor(this.barBgColor);
-        if (this.amount == getHeatRequired()) {
-            return;
-        }
         sb.draw(ImageMaster.HEALTH_BAR_L, x - BAR_HEIGHT, y + BAR_OFFSET_Y, BAR_HEIGHT, BAR_HEIGHT);
         sb.draw(ImageMaster.HEALTH_BAR_B, x, y + BAR_OFFSET_Y, this.owner.hb.width, BAR_HEIGHT);
         sb.draw(ImageMaster.HEALTH_BAR_R, x + this.owner.hb.width, y + BAR_OFFSET_Y, BAR_HEIGHT, BAR_HEIGHT);
@@ -153,7 +157,8 @@ public class SexualHeat extends AbstractPower {
 
     private void renderOrgasmText(final SpriteBatch sb, final float y) {
         final float tmp = this.barTextColor.a;
-        FontHelper.renderFontCentered(sb, FontHelper.healthInfoFont, this.amount + "/" + getHeatRequired() + "(" + this.orgasmTime + ")",
+        FontHelper.renderFontCentered(sb, FontHelper.healthInfoFont,
+                this.amount + "/" + getHeatRequired() + "(" + this.orgasmTime + ")",
                 this.owner.hb.cX, y + BAR_OFFSET_Y + TEXT_OFFSET_Y, this.barTextColor);
         this.barTextColor.a = tmp;
     }
@@ -174,7 +179,8 @@ public class SexualHeat extends AbstractPower {
         else
             this.description = String.format(SexualHeat.powerStrings.DESCRIPTIONS[1], getHeatRequired());
         if (this.isInOrgasm()) {
-            this.description = this.description + String.format(SexualHeat.powerStrings.DESCRIPTIONS[2], this.orgasmTime);
+            this.description = this.description + String.format(SexualHeat.powerStrings.DESCRIPTIONS[2],
+                    this.orgasmTime);
         }
     }
 
@@ -270,7 +276,8 @@ public class SexualHeat extends AbstractPower {
         if (this.owner.isPlayer)
             HandCardsCheaper();
         else
-            this.addToBot(new ApplyPowerAction(this.owner, this.owner, new StunMonsterPower((AbstractMonster) this.owner)));
+            this.addToBot(new ApplyPowerAction(this.owner, this.owner,
+                    new StunMonsterPower((AbstractMonster) this.owner)));
     }
 
     private void CheckEndOrgasm() {

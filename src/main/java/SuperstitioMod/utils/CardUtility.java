@@ -1,10 +1,12 @@
 package SuperstitioMod.utils;
 
 import SuperstitioMod.SuperstitioModSetup;
+import SuperstitioMod.powers.SexMark_Inside;
+import SuperstitioMod.powers.SexMark_Outside;
+import com.megacrit.cardcrawl.actions.common.ApplyPowerAction;
 import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.helpers.CardLibrary;
-import com.megacrit.cardcrawl.powers.AbstractPower;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -49,5 +51,16 @@ public class CardUtility {
         return !card.cardID.contains(SuperstitioModSetup.MakeTextID(""));
     }
 
+    public static void gainSexMark_Inside(String sexName) {
+        AbstractDungeon.actionManager.addToBottom(
+                new ApplyPowerAction(AbstractDungeon.player, AbstractDungeon.player,
+                        new SexMark_Inside(AbstractDungeon.player, sexName)));
+    }
+
+    public static void gainSexMark_Outside(String sexName) {
+        AbstractDungeon.actionManager.addToBottom(
+                new ApplyPowerAction(AbstractDungeon.player, AbstractDungeon.player,
+                        new SexMark_Outside(AbstractDungeon.player, sexName)));
+    }
 
 }

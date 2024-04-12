@@ -1,7 +1,7 @@
 package SuperstitioMod.characters;
 
 import SuperstitioMod.SuperstitioModSetup;
-import SuperstitioMod.cards.Lupa.BaseCard.HandJob;
+import SuperstitioMod.cards.Lupa.BaseCard.Job_Hand;
 import SuperstitioMod.cards.Lupa.BaseCard.Invite;
 import SuperstitioMod.cards.Lupa.BaseCard.Masturbate;
 import SuperstitioMod.relics.Sensitive;
@@ -96,7 +96,7 @@ public class Lupa extends CustomPlayer {
         SuperstitioModSetup.logger.info("Begin loading starter Deck Strings");
         for (int x = 0; x < 4; x++) {
             //SuperstitioModSetup.logger.info("Add"+Strike_Lupa.ID);
-            retVal.add(HandJob.ID);
+            retVal.add(Job_Hand.ID);
         }
         for (int x = 0; x < 4; x++) {
             //SuperstitioModSetup.logger.info("Add"+Defend_Lupa.ID);
@@ -135,7 +135,7 @@ public class Lupa extends CustomPlayer {
     // 人物名字（出现在游戏左上角）
     @Override
     public String getTitle(PlayerClass playerClass) {
-        return characterStrings.NAMES[0];
+        return characterStrings.NAMES[1];
     }
 
     // 你的卡牌颜色（这个枚举在最下方创建）
@@ -147,7 +147,7 @@ public class Lupa extends CustomPlayer {
     // 翻牌事件出现的你的职业牌（一般设为打击）
     @Override
     public AbstractCard getStartCardForEvent() {
-        return new HandJob();
+        return new Job_Hand();
     }
 
     // 卡牌轨迹颜色
@@ -218,7 +218,7 @@ public class Lupa extends CustomPlayer {
     // 吸血鬼事件文本，主要是他（索引为0）和她（索引为1）的区别（机器人另外）
     @Override
     public String getVampireText() {
-        return Vampires.DESCRIPTIONS[0];
+        return Vampires.DESCRIPTIONS[1];
     }
 
     // 卡牌选择界面选择该牌的颜色

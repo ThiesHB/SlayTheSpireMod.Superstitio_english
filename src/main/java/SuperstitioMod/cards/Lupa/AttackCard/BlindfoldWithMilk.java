@@ -17,7 +17,7 @@ public class BlindfoldWithMilk extends AbstractLupaCard {
 
     private static final int COST = 2;
     private static final int ATTACK_DMG = 20;
-    private static final int UPGRADE_PLUS_DMG = 4;
+    private static final int UPGRADE_PLUS_DMG = 8;
 
     public BlindfoldWithMilk() {
         super(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET);

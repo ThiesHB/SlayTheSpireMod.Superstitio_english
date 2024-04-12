@@ -2,30 +2,33 @@ package SuperstitioMod.cards.Lupa.AttackCard;
 
 import SuperstitioMod.SuperstitioModSetup;
 import SuperstitioMod.cards.Lupa.AbstractLupaCard;
+import SuperstitioMod.utils.CardUtility;
 import com.megacrit.cardcrawl.actions.AbstractGameAction;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
-
-public class BlowJob extends AbstractLupaCard {
-    public static final String ID = SuperstitioModSetup.MakeTextID(BlowJob.class.getSimpleName());
+//TODO
+public class Fuck_Throat extends AbstractLupaCard {
+    public static final String ID = SuperstitioModSetup.MakeTextID(Fuck_Throat.class.getSimpleName());
 
     public static final CardType CARD_TYPE = CardType.ATTACK;
 
-    public static final CardRarity CARD_RARITY = CardRarity.UNCOMMON;
+    public static final CardRarity CARD_RARITY = CardRarity.COMMON;
 
     public static final CardTarget CARD_TARGET = CardTarget.ENEMY;
 
-    private static final int COST = 2;
-    private static final int ATTACK_DMG = 20;
-    private static final int UPGRADE_PLUS_DMG = 5;
-    public BlowJob() {
+    private static final int COST = 1;
+    private static final int ATTACK_DMG = 9;
+    private static final int UPGRADE_PLUS_DMG = 4;
+
+    public Fuck_Throat() {
         super(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET);
         this.setupDamage(ATTACK_DMG);
     }
 
     @Override
     public void use(AbstractPlayer player, AbstractMonster monster) {
-        damageToEnemy(monster,AbstractGameAction.AttackEffect.SLASH_HORIZONTAL);
+        damageToEnemy(monster, AbstractGameAction.AttackEffect.BLUNT_LIGHT);
+        CardUtility.gainSexMark_Inside(this.name);
     }
 
     @Override

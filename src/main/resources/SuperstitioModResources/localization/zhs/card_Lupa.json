@@ -1,33 +1,102 @@
 ﻿{
-  "SuperstitioMod:BlowJob": {
+  "SuperstitioMod:Job_Armpit": {
+    "NAME": "腋交",
+    "DESCRIPTION": "造成 !D! 点 伤害 。 NL superstitiomod:外射 。",
+    "FLAVOR": "",
+    "EXTENDED_DESCRIPTION": [
+      "腋下"
+    ]
+  },
+  "SuperstitioMod:Job_Blow": {
     "NAME": "口交",
     "DESCRIPTION": "造成 !D! 点 伤害 。 NL superstitiomod:外射 。",
-    "FLAVOR": "用嘴。"
+    "FLAVOR": "用嘴。",
+    "EXTENDED_DESCRIPTION": [
+      "脸"
+    ]
   },
-  "SuperstitioMod:HandJob": {
+  "SuperstitioMod:Job_Breast": {
+    "NAME": "乳交",
+    "DESCRIPTION": "造成 !D! 点 伤害 。 NL superstitiomod:外射 。",
+    "FLAVOR": "",
+    "EXTENDED_DESCRIPTION": [
+      "胸口"
+    ]
+  },
+  "SuperstitioMod:Job_Foot": {
+    "NAME": "足交",
+    "DESCRIPTION": "造成 2次 !D! 点 伤害 。 NL superstitiomod:外射 。",
+    "FLAVOR": "用脚。",
+    "EXTENDED_DESCRIPTION": [
+      "鞋"
+    ]
+  },
+  "SuperstitioMod:Job_Groin": {
+    "NAME": "股交",
+    "DESCRIPTION": "造成 !D! 点 伤害 。 NL superstitiomod:外射 。",
+    "FLAVOR": "",
+    "EXTENDED_DESCRIPTION": [
+      "腹股沟"
+    ]
+  },
+  "SuperstitioMod:Job_Hair": {
+    "NAME": "头发交",
+    "DESCRIPTION": "造成 !D! 点 伤害 。 NL superstitiomod:外射 。",
+    "FLAVOR": "",
+    "EXTENDED_DESCRIPTION": [
+      "头发"
+    ]
+  },
+  "SuperstitioMod:Job_Hand": {
     "NAME": "手交",
     "DESCRIPTION": "造成 !D! 点 伤害 。 NL superstitiomod:外射 。",
-    "FLAVOR": "用手。"
+    "FLAVOR": "用手。",
+    "EXTENDED_DESCRIPTION": [
+      "手"
+    ]
   },
-  "SuperstitioMod:FootJob": {
-    "NAME": "足交",
+  "SuperstitioMod:Job_PoplitealFossa": {
+    "NAME": "腿弯交",
     "DESCRIPTION": "造成 !D! 点 伤害 。 NL superstitiomod:外射 。",
-    "FLAVOR": "用脚。"
+    "FLAVOR": "",
+    "EXTENDED_DESCRIPTION": [
+      "腿弯"
+    ]
   },
-  "SuperstitioMod:NippleFuck": {
-    "NAME": "乳孔交",
+  "SuperstitioMod:Fuck_Anal": {
+    "NAME": "肛奸",
+    "DESCRIPTION": "NL superstitiomod:内射 。",
+    "FLAVOR": ""
+  },
+  "SuperstitioMod:Fuck_Ear": {
+    "NAME": "耳奸",
     "DESCRIPTION": "造成 2 次 !D! 点 伤害 。 NL superstitiomod:内射 。",
+    "FLAVOR": "也许是脑交。"
+  },
+  "SuperstitioMod:Fuck_Eye": {
+    "NAME": "眼奸",
+    "DESCRIPTION": "造成 2 次 !D! 点 伤害 。 NL superstitiomod:内射 。",
+    "FLAVOR": "也许是脑交。"
+  },
+  "SuperstitioMod:Fuck_Navel": {
+    "NAME": "肚脐奸",
+    "DESCRIPTION": "。 NL superstitiomod:内射 。",
+    "FLAVOR": ""
+  },
+  "SuperstitioMod:Fuck_Nipple": {
+    "NAME": "乳孔奸",
+    "DESCRIPTION": "对随机敌人 造成 2 次 !D! 点 伤害 。 NL superstitiomod:内射 。",
     "FLAVOR": "大奶子特权。"
   },
-  "SuperstitioMod:EarFuck": {
-    "NAME": "耳交",
-    "DESCRIPTION": "造成 2 次 !D! 点 伤害 。 NL superstitiomod:内射 。",
-    "FLAVOR": "也许是脑交。"
+  "SuperstitioMod:Fuck_Throat": {
+    "NAME": "喉咙奸",
+    "DESCRIPTION": "。 NL superstitiomod:内射 。",
+    "FLAVOR": ""
   },
-  "SuperstitioMod:EyeFuck": {
-    "NAME": "眼交",
-    "DESCRIPTION": "造成 2 次 !D! 点 伤害 。 NL superstitiomod:内射 。",
-    "FLAVOR": "也许是脑交。"
+  "SuperstitioMod:Fuck_Vaginal": {
+    "NAME": "阴道奸",
+    "DESCRIPTION": "造成 !D! 点伤害， NL 根据手牌平均耗能减少 !M! 伤害每 [E] 。 NL superstitiomod:内射 。",
+    "FLAVOR": ""
   },
   "SuperstitioMod:Invite": {
     "NAME": "邀请",
@@ -104,7 +173,7 @@
   },
   "SuperstitioMod:CoitalVocal": {
     "NAME": "叫床",
-    "DESCRIPTION": " 保留 。 NL 对全体敌人造成 !D! 点伤害， NL 根据手牌的平均耗能减少 !M! 伤害每 [E] 。",
+    "DESCRIPTION": " 保留 。 NL 获得 在场敌人+1数量次的 !B! 格挡 。",
     "FLAVOR": "兴之所至。"
   },
   "SuperstitioMod:SexTypeCard": {
@@ -116,5 +185,10 @@
       "",
       ""
     ]
+  },
+  "SuperstitioMod:TimeStop": {
+    "NAME": "时间静滞",
+    "DESCRIPTION": "本回合 superstitiomod:快感 不改变。下回合开始时，释放吸收的 superstitiomod:快感 并且翻 2 倍。",
+    "FLAVOR": "兴之所至。"
   }
 }

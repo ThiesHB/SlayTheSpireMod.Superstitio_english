@@ -87,7 +87,7 @@ public abstract class AbstractLupaCard extends CustomCard {
             //SuperstitioModSetup.logger.info("loadCardImg:" + path);
             return path;
         SuperstitioModSetup.logger.info("Can't find " + id + ". Use default img instead.");
-        return SuperstitioModSetup.makeImgFilesPath_LupaCard("cards_Lupa", "default");
+        return SuperstitioModSetup.makeImgFilesPath_LupaCard("default");
     }
 
     public static String CardTypeToString(final AbstractCard.CardType t) {

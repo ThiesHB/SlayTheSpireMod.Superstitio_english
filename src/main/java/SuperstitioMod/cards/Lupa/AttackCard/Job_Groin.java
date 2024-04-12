@@ -2,12 +2,13 @@ package SuperstitioMod.cards.Lupa.AttackCard;
 
 import SuperstitioMod.SuperstitioModSetup;
 import SuperstitioMod.cards.Lupa.AbstractLupaCard;
+import SuperstitioMod.utils.CardUtility;
 import com.megacrit.cardcrawl.actions.AbstractGameAction;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 
-public class EyeFuck extends AbstractLupaCard {
-    public static final String ID = SuperstitioModSetup.MakeTextID(EyeFuck.class.getSimpleName());
+public class Job_Groin extends AbstractLupaCard {
+    public static final String ID = SuperstitioModSetup.MakeTextID(Job_Groin.class.getSimpleName());
 
     public static final CardType CARD_TYPE = CardType.ATTACK;
 
@@ -16,10 +17,10 @@ public class EyeFuck extends AbstractLupaCard {
     public static final CardTarget CARD_TARGET = CardTarget.ENEMY;
 
     private static final int COST = 1;
-    private static final int ATTACK_DMG = 4;
-    private static final int UPGRADE_PLUS_DMG = 2;
+    private static final int ATTACK_DMG = 9;
+    private static final int UPGRADE_PLUS_DMG = 4;
 
-    public EyeFuck() {
+    public Job_Groin() {
         super(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET);
         this.setupDamage(ATTACK_DMG);
     }
@@ -27,7 +28,7 @@ public class EyeFuck extends AbstractLupaCard {
     @Override
     public void use(AbstractPlayer player, AbstractMonster monster) {
         damageToEnemy(monster, AbstractGameAction.AttackEffect.BLUNT_LIGHT);
-        damageToEnemy(monster, AbstractGameAction.AttackEffect.BLUNT_LIGHT);
+        CardUtility.gainSexMark_Outside(this.cardStrings.EXTENDED_DESCRIPTION[0]);
     }
 
     @Override
