@@ -6,19 +6,19 @@ import SuperstitioMod.utils.CardUtility;
 import com.megacrit.cardcrawl.actions.AbstractGameAction;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
-//TODO
+
 public class Job_Breast extends AbstractLupaCard {
     public static final String ID = SuperstitioModSetup.MakeTextID(Job_Breast.class.getSimpleName());
 
     public static final CardType CARD_TYPE = CardType.ATTACK;
 
-    public static final CardRarity CARD_RARITY = CardRarity.COMMON;
+    public static final CardRarity CARD_RARITY = CardRarity.UNCOMMON;
 
     public static final CardTarget CARD_TARGET = CardTarget.ENEMY;
 
-    private static final int COST = 1;
-    private static final int ATTACK_DMG = 9;
-    private static final int UPGRADE_PLUS_DMG = 4;
+    private static final int COST = 2;
+    private static final int ATTACK_DMG = 18;
+    private static final int UPGRADE_PLUS_DMG = 7;
 
     public Job_Breast() {
         super(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET);

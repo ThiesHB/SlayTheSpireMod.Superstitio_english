@@ -40,6 +40,6 @@ public class SexMark_Outside extends SexMark {
         for (String sexName : this.sexNames) {
             names.append(sexName);
         }
-        this.description = String.format(SexMark_Outside.powerStrings.DESCRIPTIONS[0], names, MARKNeeded);
+        this.description = String.format(SexMark_Outside.powerStrings.DESCRIPTIONS[0], names, MARKNeeded, TemporaryHP);
     }
 }

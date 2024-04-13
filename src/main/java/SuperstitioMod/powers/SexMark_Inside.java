@@ -45,7 +45,7 @@ public class SexMark_Inside extends SexMark {
         for (String sexName : this.sexNames) {
             names.append(sexName);
         }
-        this.description = String.format(SexMark_Inside.powerStrings.DESCRIPTIONS[0], names, MARKNeeded);
+        this.description = String.format(SexMark_Inside.powerStrings.DESCRIPTIONS[0], names, MARKNeeded, AOEDamage);
     }
 
     @Override

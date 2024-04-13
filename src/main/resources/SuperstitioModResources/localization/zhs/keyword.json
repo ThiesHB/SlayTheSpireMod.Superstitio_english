@@ -56,17 +56,19 @@
     "DESCRIPTION": "回合开始时， #y情趣玩具 会提供 #y快感 。"
   },
   {
-    "PROPER_NAME": "内射",
+    "PROPER_NAME": "插入动作",
     "NAMES": [
-      "内射"
+      "内射",
+      "插入动作"
     ],
-    "DESCRIPTION": "会射在身体里面 。"
+    "DESCRIPTION": "射在身体里面 。凑齐不同动作后，造成全体伤害。"
   },
   {
-    "PROPER_NAME": "外射",
+    "PROPER_NAME": "精液覆身",
     "NAMES": [
-      "外射"
+      "外射",
+      "精液覆身"
     ],
-    "DESCRIPTION": "会射在身体表面 。"
+    "DESCRIPTION": "射在身体表面 。凑齐不同部位后，获得临时生命。"
   }
 ]
