@@ -8,6 +8,7 @@ import basemod.helpers.CardModifierManager;
 import com.megacrit.cardcrawl.actions.AbstractGameAction;
 import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
+import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import com.megacrit.cardcrawl.powers.FrailPower;
 
@@ -47,8 +48,8 @@ public class Fuck_Ear extends AbstractLupaCard {
         CardModifierManager.addModifier(card, new RetainMod());
         if (upgraded)
             card.upgrade();
-        makeTempCardInBattle(card,BattleCardPlace.Hand);
-        gainPowerToPlayer(new FrailPower(player, 1, false));
+        makeTempCardInBattle(card, BattleCardPlace.Hand);
+        gainPowerToPlayer(new FrailPower(AbstractDungeon.player, 1, false));
         CardUtility.gainSexMark_Inside(this.name);
     }
 
@@ -57,7 +58,8 @@ public class Fuck_Ear extends AbstractLupaCard {
         if (!this.upgraded) {
             upgradeName();
             upgradeDamage(UPGRADE_PLUS_DMG);
-            this.cardsToPreview.upgrade();
+            if (cardsToPreview != null)
+                this.cardsToPreview.upgrade();
         }
     }
 }

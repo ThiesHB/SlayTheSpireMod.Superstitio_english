@@ -12,7 +12,7 @@ public class Endure extends AbstractLupaCard {
 
     public static final CardType CARD_TYPE = CardType.SKILL;
 
-    public static final CardRarity CARD_RARITY = CardRarity.BASIC;
+    public static final CardRarity CARD_RARITY = CardRarity.UNCOMMON;
 
     public static final CardTarget CARD_TARGET = CardTarget.SELF;
 
@@ -29,7 +29,7 @@ public class Endure extends AbstractLupaCard {
     @Override
     public void use(AbstractPlayer player, AbstractMonster monster) {
         this.gainPowerToPlayer(new DelaySexualHeat(player,this.magicNumber));
-        this.drawCards(1);
+        this.drawCards(2);
     }
 
     @Override

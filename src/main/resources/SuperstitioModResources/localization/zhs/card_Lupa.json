@@ -135,7 +135,7 @@
   },
   "SuperstitioMod:SexToy": {
     "NAME": "情趣玩具",
-    "DESCRIPTION": "装备 !M! 个 随机 superstitiomod:情趣玩具 。",
+    "DESCRIPTION": "给自己或敌人装备 !M! 个 随机 superstitiomod:情趣玩具 。",
     "FLAVOR": "越多越好！",
     "EXTENDED_DESCRIPTION": [
       "跳蛋,震动棒,肛塞"
@@ -188,7 +188,7 @@
   },
   "SuperstitioMod:TimeStop": {
     "NAME": "时间静滞",
-    "DESCRIPTION": "本回合 superstitiomod:快感 不改变。 NL 下回合开始时，释放期间产生的 superstitiomod:快感 并且翻 2 倍。",
+    "DESCRIPTION": "本回合 superstitiomod:快感 不改变，且不再抽卡。 NL 下回合开始时，释放期间产生的 superstitiomod:快感 的 2 倍。",
     "FLAVOR": "兴之所至。"
   },
   "SuperstitioMod:BellyStrike": {
@@ -198,7 +198,7 @@
   },
   "SuperstitioMod:Endure": {
     "NAME": "忍耐",
-    "DESCRIPTION": "下回合获得 !M! superstitiomod:快感 。 NL 抽一张卡。",
+    "DESCRIPTION": "下回合获得 !M! superstitiomod:快感 。 NL 抽 2 张牌。",
     "FLAVOR": ""
   }
 }

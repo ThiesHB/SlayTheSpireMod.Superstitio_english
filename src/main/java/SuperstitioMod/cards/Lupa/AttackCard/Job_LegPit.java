@@ -8,8 +8,8 @@ import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 
 //TODO
-public class Job_PoplitealFossa extends AbstractLupaCard {
-    public static final String ID = SuperstitioModSetup.MakeTextID(Job_PoplitealFossa.class.getSimpleName());
+public class Job_LegPit extends AbstractLupaCard {
+    public static final String ID = SuperstitioModSetup.MakeTextID(Job_LegPit.class.getSimpleName());
 
     public static final CardType CARD_TYPE = CardType.ATTACK;
 
@@ -21,7 +21,7 @@ public class Job_PoplitealFossa extends AbstractLupaCard {
     private static final int ATTACK_DMG = 9;
     private static final int UPGRADE_PLUS_DMG = 4;
 
-    public Job_PoplitealFossa() {
+    public Job_LegPit() {
         super(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET);
         this.setupDamage(ATTACK_DMG);
     }

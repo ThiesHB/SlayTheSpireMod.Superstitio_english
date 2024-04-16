@@ -10,7 +10,7 @@ public class CoitalVocal extends AbstractLupaCard {
     public static final String ID =
             SuperstitioModSetup.MakeTextID(CoitalVocal.class.getSimpleName());
 
-    public static final CardType CARD_TYPE = CardType.ATTACK;
+    public static final CardType CARD_TYPE = CardType.SKILL;
 
     public static final CardRarity CARD_RARITY = CardRarity.COMMON;
 

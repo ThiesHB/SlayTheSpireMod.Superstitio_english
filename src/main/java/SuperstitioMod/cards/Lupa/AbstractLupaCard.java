@@ -1,7 +1,11 @@
 package SuperstitioMod.cards.Lupa;
 
 import SuperstitioMod.SuperstitioModSetup;
+import SuperstitioMod.cards.ChooseSelfOrEnemy.AttractAction;
+import SuperstitioMod.cards.ChooseSelfOrEnemy.ChooseSelfOrEnemyTarget;
+import SuperstitioMod.cards.ChooseSelfOrEnemy.ChooseTargetPatch;
 import SuperstitioMod.characters.Lupa;
+import SuperstitioMod.utils.EventHelper;
 import basemod.abstracts.CustomCard;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -21,11 +25,12 @@ import com.megacrit.cardcrawl.screens.SingleCardViewPopup;
 import java.lang.reflect.Field;
 import java.util.Objects;
 
-public abstract class AbstractLupaCard extends CustomCard {
+public abstract class AbstractLupaCard extends CustomCard implements ChooseSelfOrEnemyTarget, EventHelper.CustomSubscriber {
     private final static float DESC_LINE_WIDTH = 418.0f * Settings.scale;
-
     //调用父类的构造方法，传参为super(卡牌ID，卡牌名称，图片地址，能量花费，卡牌描述，卡牌类型，卡牌颜色，卡牌稀有度，卡牌目标)
     protected CardStringsWithFlavor cardStrings;
+    private boolean isTargetSelfOrEnemy;
+    private int showAttractNum;
 
     /**
      * 普通的方法
@@ -51,6 +56,8 @@ public abstract class AbstractLupaCard extends CustomCard {
         this(id, cardType, cost, cardRarity, cardTarget, cardColor, CardTypeToString(cardType));
     }
 
+    ;
+
     public AbstractLupaCard(String id, CardType cardType, int cost, CardRarity cardRarity, CardTarget cardTarget, CardColor cardColor,
                             String customCardType) {
         super(
@@ -65,7 +72,10 @@ public abstract class AbstractLupaCard extends CustomCard {
                 cardTarget);
         SuperstitioModSetup.logger.info("loadCard" + id);
         this.cardStrings = getCardStringsWithFlavor(id);
+        this.setShowAttractNum(0);
     }
+
+    ;
 
     public static CardStringsWithFlavor getCardStringsWithFlavor(String cardName) {
         if (SuperstitioModSetup.cards.containsKey(cardName)) {
@@ -76,6 +86,8 @@ public abstract class AbstractLupaCard extends CustomCard {
         }
     }
 
+    ;
+
     public static String getImgPath(final String tag, final String id) {
         String path;
         if (Objects.equals(tag, "")) {
@@ -84,11 +96,12 @@ public abstract class AbstractLupaCard extends CustomCard {
             path = SuperstitioModSetup.makeImgFilesPath_LupaCard(tag, id);
         }
         if (Gdx.files.internal(path).exists())
-            //SuperstitioModSetup.logger.info("loadCardImg:" + path);
             return path;
         SuperstitioModSetup.logger.info("Can't find " + id + ". Use default img instead.");
         return SuperstitioModSetup.makeImgFilesPath_LupaCard("default");
     }
+
+    ;
 
     public static String CardTypeToString(final AbstractCard.CardType t) {
         String type;
@@ -146,6 +159,31 @@ public abstract class AbstractLupaCard extends CustomCard {
         makeTempCardInBattle(card, battleCardPlace, 1);
     }
 
+    public boolean isTargetSelf(final AbstractMonster m) {
+        return m instanceof ChooseTargetPatch.Target;
+    }
+
+    @Override
+    public boolean checkIsTargetSelfOrEnemy() {
+        return isTargetSelfOrEnemy;
+    }
+
+    @Override
+    public void setTarget_SelfOrEnemy() {
+        this.isTargetSelfOrEnemy = true;
+        this.target = CardTarget.ENEMY;
+    }
+
+    @Override
+    public int getShowAttractNum() {
+        return showAttractNum;
+    }
+
+    @Override
+    public void setShowAttractNum(int showAttractNum) {
+        this.showAttractNum = showAttractNum;
+    }
+
     protected void setupDamage(final int amount) {
         this.baseDamage = amount;
         this.damage = amount;
@@ -159,6 +197,14 @@ public abstract class AbstractLupaCard extends CustomCard {
     protected void setupMagicNumber(final int amount) {
         this.baseMagicNumber = amount;
         this.magicNumber = amount;
+    }
+
+    public void attractCards(final int amt) {
+        this.addToBot((AbstractGameAction) new AttractAction(amt));
+    }
+
+    public void receiveBattleStart() {
+        EventHelper.Subscribe(this);
     }
 
     public void damageToEnemy(final AbstractMonster monster, final AbstractGameAction.AttackEffect effect) {
@@ -187,6 +233,10 @@ public abstract class AbstractLupaCard extends CustomCard {
 
     public void gainPowerToPlayer(final AbstractPower power) {
         this.addToBot(new ApplyPowerAction(AbstractDungeon.player, AbstractDungeon.player, power));
+    }
+
+    public void applyPowerToEnemy(final AbstractPower power, AbstractMonster monster) {
+        this.addToBot(new ApplyPowerAction(monster, AbstractDungeon.player, power));
     }
 
     public void reducePowerToPlayer(final String powerID, int amount) {

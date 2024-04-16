@@ -11,27 +11,13 @@ import com.megacrit.cardcrawl.localization.PowerStrings;
 import com.megacrit.cardcrawl.powers.AbstractPower;
 import com.megacrit.cardcrawl.powers.ChokePower;
 
-public class ChokeChoker extends AbstractPower implements NonStackablePower {
+public class ChokeChoker extends AbstractLupaPower implements NonStackablePower {
     public static final String POWER_ID = SuperstitioModSetup.MakeTextID(ChokeChoker.class.getSimpleName() + "Power");
     public static final int ChokeAmount = 3;
     private static final PowerStrings powerStrings = CardCrawlGame.languagePack.getPowerStrings(POWER_ID);
 
     public ChokeChoker(final AbstractCreature owner, int amount) {
-        this.name = ChokeChoker.powerStrings.NAME;
-        this.ID = POWER_ID;
-        this.owner = owner;
-
-        this.type = PowerType.BUFF;
-
-        this.amount = amount;
-        // 添加一大一小两张能力图
-        String path128 = SuperstitioModSetup.makeImgFilesPath_Power("default84");
-        String path48 = SuperstitioModSetup.makeImgFilesPath_Power("default32");
-        this.region128 = new TextureAtlas.AtlasRegion(ImageMaster.loadImage(path128), 0, 0, 84, 84);
-        this.region48 = new TextureAtlas.AtlasRegion(ImageMaster.loadImage(path48), 0, 0, 32, 32);
-
-        this.updateDescription();
-
+        super(POWER_ID,powerStrings,owner,amount);
     }
 
 

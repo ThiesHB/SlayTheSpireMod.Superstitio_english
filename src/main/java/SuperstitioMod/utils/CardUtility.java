@@ -73,4 +73,18 @@ public class CardUtility {
         return cards;
     }
 
+    public static AbstractCard makeStatEquivalentCopy(final AbstractCard c) {
+        final AbstractCard card = c.makeStatEquivalentCopy();
+        card.retain = c.retain;
+        card.selfRetain = c.selfRetain;
+        card.purgeOnUse = c.purgeOnUse;
+        card.isEthereal = c.isEthereal;
+        card.exhaust = c.exhaust;
+        card.glowColor = c.glowColor;
+        card.rawDescription = c.rawDescription;
+        card.cardsToPreview = c.cardsToPreview;
+        card.initializeDescription();
+        return card;
+    }
+
 }

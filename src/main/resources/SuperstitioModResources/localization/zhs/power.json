@@ -65,19 +65,19 @@
   "SuperstitioMod:TimeStopPower": {
     "NAME": "时间静滞",
     "DESCRIPTIONS": [
-      "本回合快感不改变。回合开始时，释放吸收的快感 %d 并且翻 %d 倍。"
+      "持续 %d 回合。当前回合快感不改变。回合开始时，释放吸收的快感并且翻 %d 倍。"
     ]
   },
   "SuperstitioMod:SexMark_OutsidePower": {
     "NAME": "精液覆身",
     "DESCRIPTIONS": [
-      "当前：%s ， NL 收集%d个即可获得%d临时生命。"
+      "当前：%s ， NL 收集 %d 个即可获得 %d 临时生命。（数值取决于战斗中的内射和外射牌数量）"
     ]
   },
   "SuperstitioMod:SexMark_InsidePower": {
     "NAME": "插入动作",
     "DESCRIPTIONS": [
-      "当前：%s ， NL 收集%d个即可造成%d全体伤害。"
+      "当前：%s ， NL 收集 %d 个即可造成 %d 全体伤害。（数值取决于战斗中的内射和外射牌数量）"
     ]
   },
   "SuperstitioMod:DelaySexualHeatPower": {

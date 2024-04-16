@@ -2,7 +2,9 @@ package SuperstitioMod.cards.Lupa.SkillCard;
 
 import SuperstitioMod.SuperstitioModSetup;
 import SuperstitioMod.cards.Lupa.AbstractLupaCard;
+import com.megacrit.cardcrawl.actions.common.ApplyPowerAction;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
+import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import com.megacrit.cardcrawl.powers.NoDrawPower;
 
@@ -11,7 +13,7 @@ public class TimeStop extends AbstractLupaCard {
 
     public static final CardType CARD_TYPE = CardType.SKILL;
 
-    public static final CardRarity CARD_RARITY = CardRarity.BASIC;
+    public static final CardRarity CARD_RARITY = CardRarity.RARE;
 
     public static final CardTarget CARD_TARGET = CardTarget.SELF;
 
@@ -26,7 +28,7 @@ public class TimeStop extends AbstractLupaCard {
 
     @Override
     public void use(AbstractPlayer player, AbstractMonster monster) {
-        this.gainPowerToPlayer(new SuperstitioMod.powers.TimeStop(player,1));
+        this.addToTop(new ApplyPowerAction(AbstractDungeon.player, AbstractDungeon.player, new SuperstitioMod.powers.TimeStop(player,1)));
         this.gainPowerToPlayer(new NoDrawPower(player));
     }
 

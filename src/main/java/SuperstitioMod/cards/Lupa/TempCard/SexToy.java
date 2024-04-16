@@ -6,6 +6,8 @@ import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 
+import java.util.stream.IntStream;
+
 
 public class SexToy extends AbstractLupaCard {
     public static final String ID = SuperstitioModSetup.MakeTextID(SexToy.class.getSimpleName());
@@ -24,6 +26,7 @@ public class SexToy extends AbstractLupaCard {
     public SexToy() {
         super(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET, CardColor.COLORLESS);
         this.setupMagicNumber(MagicNumber);
+        this.setTarget_SelfOrEnemy();
     }
 
     public static String getRandomSexToyName() {
@@ -32,8 +35,13 @@ public class SexToy extends AbstractLupaCard {
 
     @Override
     public void use(AbstractPlayer player, AbstractMonster monster) {
-        for (int i = 0; i < this.magicNumber; i++) {
-            gainPowerToPlayer(new SuperstitioMod.powers.SexToy(player, 1, getRandomSexToyName()));
+        int bound = this.magicNumber;
+        if (this.isTargetSelf(monster)) {
+            IntStream.range(0, bound).forEach(i ->
+                    gainPowerToPlayer(new SuperstitioMod.powers.SexToy(AbstractDungeon.player, 1, getRandomSexToyName())));
+        } else {
+            IntStream.range(0, bound).forEach(i ->
+                    applyPowerToEnemy(new SuperstitioMod.powers.SexToy(monster, 1, getRandomSexToyName()), monster));
         }
     }
 

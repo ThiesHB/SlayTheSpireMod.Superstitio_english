@@ -8,6 +8,8 @@ import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import com.megacrit.cardcrawl.powers.AbstractPower;
+import com.megacrit.cardcrawl.powers.DexterityPower;
+import com.megacrit.cardcrawl.powers.StrengthPower;
 
 import java.util.ArrayList;
 
@@ -36,7 +38,7 @@ public class UnBirth extends AbstractLupaCard {
         this.gainBlock();
         ArrayList<AbstractPower> sealPower = new ArrayList<>();
         monster.powers.forEach(power -> {
-            if (power.type == AbstractPower.PowerType.DEBUFF) {
+            if (power.type == AbstractPower.PowerType.DEBUFF||power instanceof StrengthPower||power instanceof DexterityPower) {
                 power.owner = player;
                 sealPower.add(power);
                 this.addToBot(new AbstractGameAction() {

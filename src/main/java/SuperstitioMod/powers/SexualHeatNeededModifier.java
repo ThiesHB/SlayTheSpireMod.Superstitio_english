@@ -2,35 +2,19 @@ package SuperstitioMod.powers;
 
 import SuperstitioMod.SuperstitioModSetup;
 import SuperstitioMod.powers.interFace.OnOrgasm;
-import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.megacrit.cardcrawl.actions.common.RemoveSpecificPowerAction;
 import com.megacrit.cardcrawl.core.AbstractCreature;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
-import com.megacrit.cardcrawl.helpers.ImageMaster;
 import com.megacrit.cardcrawl.localization.PowerStrings;
-import com.megacrit.cardcrawl.powers.AbstractPower;
 
-public class SexualHeatNeededModifier extends AbstractPower implements OnOrgasm {
+public class SexualHeatNeededModifier extends AbstractLupaPower implements OnOrgasm {
     public static final String POWER_ID = SuperstitioModSetup.MakeTextID(SexualHeatNeededModifier.class.getSimpleName() + "Power");
     private static final PowerStrings powerStrings = CardCrawlGame.languagePack.getPowerStrings(POWER_ID);
 
     public SexualHeatNeededModifier(final AbstractCreature owner, int amount) {
-        this.name = SexualHeatNeededModifier.powerStrings.NAME;
-        this.ID = POWER_ID;
-        this.owner = owner;
         //大于0会降低高潮需求，小于0会提高高潮需求
-        this.type = this.amount < 0 ? PowerType.DEBUFF : PowerType.BUFF;
+        super(POWER_ID, powerStrings, owner, amount, amount < 0 ? PowerType.DEBUFF : PowerType.BUFF);
         this.canGoNegative = true;
-
-        this.amount = amount;
-        // 添加一大一小两张能力图
-        String path128 = SuperstitioModSetup.makeImgFilesPath_Power("default84");
-        String path48 = SuperstitioModSetup.makeImgFilesPath_Power("default32");
-        this.region128 = new TextureAtlas.AtlasRegion(ImageMaster.loadImage(path128), 0, 0, 84, 84);
-        this.region48 = new TextureAtlas.AtlasRegion(ImageMaster.loadImage(path48), 0, 0, 32, 32);
-
-        this.updateDescription();
-
     }
 
     @Override

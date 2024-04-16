@@ -6,7 +6,10 @@ import com.megacrit.cardcrawl.actions.AbstractGameAction;
 import com.megacrit.cardcrawl.actions.common.DamageAction;
 import com.megacrit.cardcrawl.cards.DamageInfo;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
+import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
+import com.megacrit.cardcrawl.powers.LoseStrengthPower;
+import com.megacrit.cardcrawl.powers.StrengthPower;
 
 //TODO
 public class BellyStrike extends AbstractLupaCard {
@@ -16,25 +19,29 @@ public class BellyStrike extends AbstractLupaCard {
 
     public static final CardRarity CARD_RARITY = CardRarity.COMMON;
 
-    public static final CardTarget CARD_TARGET = CardTarget.SELF_AND_ENEMY;
+    public static final CardTarget CARD_TARGET = CardTarget.SELF;
 
     private static final int COST = 1;
-    private static final int ATTACK_DMG = 9;
+    private static final int ATTACK_DMG = 12;
     private static final int UPGRADE_PLUS_DMG = 4;
 
     public BellyStrike() {
         super(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET);
         this.setupDamage(ATTACK_DMG);
         this.tags.add(CardTags.STRIKE);
+        this.setTarget_SelfOrEnemy();
     }
 
     @Override
     public void use(AbstractPlayer player, AbstractMonster monster) {
-        if (monster != null)
-            damageToEnemy(monster, AbstractGameAction.AttackEffect.BLUNT_LIGHT);
-        else {
-            this.addToBot(new DamageAction(player, new DamageInfo(player, this.damage),
+        if (this.isTargetSelf(monster)) {
+            addToBot(new DamageAction(AbstractDungeon.player, new DamageInfo(AbstractDungeon.player, this.damage),
                     AbstractGameAction.AttackEffect.BLUNT_LIGHT));
+            gainPowerToPlayer(new StrengthPower(monster, 2));
+        } else {
+            damageToEnemy(monster, AbstractGameAction.AttackEffect.BLUNT_LIGHT);
+            applyPowerToEnemy(new StrengthPower(monster, 2), monster);
+            applyPowerToEnemy(new LoseStrengthPower(monster, 2), monster);
         }
     }
 

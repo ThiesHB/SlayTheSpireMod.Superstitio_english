@@ -11,7 +11,7 @@ public class SexMark_Outside extends SexMark {
             "Power");
     public static final int MARKNeeded = 5;
 
-    public static final int TemporaryHP = 10;
+    public static final int TemporaryHPRate = 2;
     private static final PowerStrings powerStrings = CardCrawlGame.languagePack.getPowerStrings(POWER_ID);
 
     public SexMark_Outside(final AbstractCreature owner, final String sexName) {
@@ -26,7 +26,7 @@ public class SexMark_Outside extends SexMark {
     @Override
     protected void Trigger() {
         super.Trigger();
-        this.addToBot(new AddTemporaryHPAction(this.owner, this.owner, TemporaryHP));
+        this.addToBot(new AddTemporaryHPAction(this.owner, this.owner, TemporaryHPRate * FindJobAndFuckCard()));
     }
 
     @Override
@@ -35,6 +35,6 @@ public class SexMark_Outside extends SexMark {
         for (String sexName : this.sexNames) {
             names.append(sexName);
         }
-        this.description = String.format(SexMark_Outside.powerStrings.DESCRIPTIONS[0], names, MARKNeeded, TemporaryHP);
+        this.description = String.format(SexMark_Outside.powerStrings.DESCRIPTIONS[0], names, MARKNeeded, TemporaryHPRate * FindJobAndFuckCard());
     }
 }

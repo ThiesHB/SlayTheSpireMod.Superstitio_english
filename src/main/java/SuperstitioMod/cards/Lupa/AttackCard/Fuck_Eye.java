@@ -8,6 +8,7 @@ import basemod.helpers.CardModifierManager;
 import com.megacrit.cardcrawl.actions.AbstractGameAction;
 import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
+import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import com.megacrit.cardcrawl.powers.WeakPower;
 
@@ -31,7 +32,7 @@ public class Fuck_Eye extends AbstractLupaCard {
         this.setupDamage(ATTACK_DMG);
         this.setupBlock(BLOCK);
         AbstractCard card = new Fuck_Ear(false);
-        CardModifierManager.addModifier(card,new RetainMod());
+        CardModifierManager.addModifier(card, new RetainMod());
         this.cardsToPreview = card;
         this.exhaust = true;
     }
@@ -51,8 +52,8 @@ public class Fuck_Eye extends AbstractLupaCard {
         CardModifierManager.addModifier(card, new RetainMod());
         if (upgraded)
             card.upgrade();
-        makeTempCardInBattle(card,BattleCardPlace.Hand);
-        gainPowerToPlayer(new WeakPower(player, 1, false));
+        makeTempCardInBattle(card, BattleCardPlace.Hand);
+        gainPowerToPlayer(new WeakPower(AbstractDungeon.player, 1, false));
         CardUtility.gainSexMark_Inside(this.name);
     }
 
@@ -62,7 +63,8 @@ public class Fuck_Eye extends AbstractLupaCard {
             upgradeName();
             upgradeDamage(UPGRADE_PLUS_DMG);
             upgradeBlock(UPGRADE_BLOCK);
-            this.cardsToPreview.upgrade();
+            if (cardsToPreview != null)
+                this.cardsToPreview.upgrade();
         }
     }
 }

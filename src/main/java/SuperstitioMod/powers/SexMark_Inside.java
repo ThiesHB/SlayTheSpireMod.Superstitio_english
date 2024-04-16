@@ -15,7 +15,7 @@ public class SexMark_Inside extends SexMark {
             "Power");
     public static final int MARKNeeded = 5;
 
-    public static final int AOEDamage = 10;
+    public static final int AOEDamageRate = 2;
     private static final PowerStrings powerStrings = CardCrawlGame.languagePack.getPowerStrings(POWER_ID);
 
     public SexMark_Inside(final AbstractCreature owner, final String sexName) {
@@ -27,7 +27,7 @@ public class SexMark_Inside extends SexMark {
         super.Trigger();
         this.addToBot(new DamageAllEnemiesAction(
                 AbstractDungeon.player,
-                AOEDamage,
+                AOEDamageRate * FindJobAndFuckCard(),
                 DamageInfo.DamageType.HP_LOSS,
                 AbstractGameAction.AttackEffect.LIGHTNING));
     }
@@ -43,7 +43,7 @@ public class SexMark_Inside extends SexMark {
         for (String sexName : this.sexNames) {
             names.append(sexName);
         }
-        this.description = String.format(SexMark_Inside.powerStrings.DESCRIPTIONS[0], names, MARKNeeded, AOEDamage);
+        this.description = String.format(SexMark_Inside.powerStrings.DESCRIPTIONS[0], names, MARKNeeded, AOEDamageRate * FindJobAndFuckCard());
     }
 
     @Override

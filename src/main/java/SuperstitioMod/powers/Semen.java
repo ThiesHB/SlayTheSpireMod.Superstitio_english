@@ -11,24 +11,12 @@ import com.megacrit.cardcrawl.helpers.ImageMaster;
 import com.megacrit.cardcrawl.localization.PowerStrings;
 import com.megacrit.cardcrawl.powers.AbstractPower;
 
-public class Semen extends AbstractPower {
+public class Semen extends AbstractLupaPower {
     public static final String POWER_ID = SuperstitioModSetup.MakeTextID(Semen.class.getSimpleName() + "Power");
     private static final PowerStrings powerStrings = CardCrawlGame.languagePack.getPowerStrings(POWER_ID);
 
     public Semen(final AbstractCreature owner, int amount) {
-        this.name = Semen.powerStrings.NAME;
-        this.ID = POWER_ID;
-        this.owner = owner;
-        this.type = PowerType.BUFF;
-
-        this.amount = amount;
-        // 添加一大一小两张能力图
-        String path128 = SuperstitioModSetup.makeImgFilesPath_Power("default84");
-        String path48 = SuperstitioModSetup.makeImgFilesPath_Power("default32");
-        this.region128 = new TextureAtlas.AtlasRegion(ImageMaster.loadImage(path128), 0, 0, 84, 84);
-        this.region48 = new TextureAtlas.AtlasRegion(ImageMaster.loadImage(path48), 0, 0, 32, 32);
-
-        this.updateDescription();
+        super(POWER_ID,powerStrings,owner,amount);
     }
 
 

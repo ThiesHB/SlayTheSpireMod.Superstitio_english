@@ -8,6 +8,8 @@ import java.util.Optional;
 
 public interface HasTempDecreaseCostEffect {
 
-    public abstract Optional<TempDecreaseCost> getEffectHolder();
+    public abstract Optional<TempDecreaseCost> getEffectHold();
+
+    public abstract void setEffectHold(TempDecreaseCost power);
 //    public abstract void TempCost_OnPlayCard(AbstractCard card, AbstractMonster m);
 }
