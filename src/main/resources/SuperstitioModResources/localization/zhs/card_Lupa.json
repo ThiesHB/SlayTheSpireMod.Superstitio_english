@@ -16,7 +16,7 @@
     ]
   },
   "SuperstitioMod:Job_Breast": {
-    "NAME": "乳交",
+    "NAME": "胸交",
     "DESCRIPTION": "造成 !D! 伤害 。 NL superstitiomod:外射 。",
     "FLAVOR": "",
     "EXTENDED_DESCRIPTION": [
@@ -40,7 +40,7 @@
     ]
   },
   "SuperstitioMod:Job_Hair": {
-    "NAME": "头发交",
+    "NAME": "发交",
     "DESCRIPTION": "造成 !D! 伤害 。 NL 把带有 消耗 的 自身复制 加入手牌。 NL superstitiomod:外射 。 NL 虚无 。",
     "FLAVOR": "",
     "EXTENDED_DESCRIPTION": [
@@ -56,7 +56,7 @@
     ]
   },
   "SuperstitioMod:Job_PoplitealFossa": {
-    "NAME": "腿弯交",
+    "NAME": "腿交",
     "DESCRIPTION": "造成 !D! 伤害 。 NL superstitiomod:外射 。",
     "FLAVOR": "",
     "EXTENDED_DESCRIPTION": [
@@ -79,22 +79,22 @@
     "FLAVOR": "也许是脑交。"
   },
   "SuperstitioMod:Fuck_Navel": {
-    "NAME": "肚脐奸",
+    "NAME": "脐奸",
     "DESCRIPTION": "。 NL superstitiomod:内射 。",
     "FLAVOR": ""
   },
   "SuperstitioMod:Fuck_Nipple": {
-    "NAME": "乳孔奸",
+    "NAME": "乳奸",
     "DESCRIPTION": "对随机敌人 造成 2 次 !D! 伤害 。 NL superstitiomod:内射 。",
     "FLAVOR": "大奶子特权。"
   },
   "SuperstitioMod:Fuck_Throat": {
-    "NAME": "喉咙奸",
+    "NAME": "喉奸",
     "DESCRIPTION": "造成 !D! 伤害。 NL 获得 !M! 的 [E] 。 NL superstitiomod:内射 。",
     "FLAVOR": ""
   },
   "SuperstitioMod:Fuck_Vaginal": {
-    "NAME": "阴道奸",
+    "NAME": "阴奸",
     "DESCRIPTION": "造成 !D! 伤害， NL 根据手牌平均耗能减少 !M! 伤害每 [E] 。 NL superstitiomod:内射 。",
     "FLAVOR": ""
   },
@@ -153,12 +153,12 @@
   },
   "SuperstitioMod:UnBirth": {
     "NAME": "胎内回归",
-    "DESCRIPTION": "获得 !B! 格挡 。 NL 把目标所有的 负面效果 封印成 *分娩 。",
+    "DESCRIPTION": "获得 !B! 格挡 。 NL 把目标所有的 负面效果 和 力量 、 敏捷 封印成 *分娩 。",
     "FLAVOR": "我会包容你的一切：你的欲望、你的梦想、你的爱……请把你的一切交给我。"
   },
   "SuperstitioMod:ReBirth": {
     "NAME": "分娩",
-    "DESCRIPTION": "获得 !B! 临时生命 。 NL 打出卡牌后，自身获得卡牌上的所有 负面效果 。 NL 消耗 。",
+    "DESCRIPTION": "获得 !B! 临时生命 。 NL 打出卡牌后，自身获得卡牌封印的所有 效果 。 NL 消耗 。",
     "FLAVOR": "重获新生吧。"
   },
   "SuperstitioMod:ChokeChoker": {
@@ -176,23 +176,13 @@
     "DESCRIPTION": " 保留 。 NL 获得 在场敌人+1数量次的 !B! 格挡 。",
     "FLAVOR": "兴之所至。"
   },
-  "SuperstitioMod:SexTypeCard": {
-    "NAME": "特殊卡",
-    "DESCRIPTION": "回合结束时，保留所有的手牌。 NL 每当你使用卡牌，抽 1 张牌。 NL 在抽牌堆中添加 !M! 张 *伤口 。",
-    "FLAVOR": "特殊卡",
-    "EXTENDED_DESCRIPTION": [
-      "",
-      "",
-      ""
-    ]
-  },
   "SuperstitioMod:TimeStop": {
     "NAME": "时间静滞",
     "DESCRIPTION": "本回合 superstitiomod:快感 不改变，且不再抽卡。 NL 下回合开始时，释放期间产生的 superstitiomod:快感 的 2 倍。",
     "FLAVOR": "兴之所至。"
   },
   "SuperstitioMod:BellyStrike": {
-    "NAME": "腹击",
+    "NAME": "腹部打击",
     "DESCRIPTION": "。",
     "FLAVOR": ""
   },

@@ -284,7 +284,7 @@ public class SuperstitioModSetup implements EditStringsSubscriber, EditRelicsSub
                             return value;
                         }).apply(s);
                         list[i] = apply;
-                        SuperstitioModSetup.logger.info(apply);
+                        //SuperstitioModSetup.logger.info(apply);
                     }
 
                     field.set(obj, list);
