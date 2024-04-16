@@ -1,6 +1,7 @@
 package SuperstitioMod.powers;
 
 import SuperstitioMod.SuperstitioModSetup;
+import SuperstitioMod.powers.interFace.HasTempDecreaseCostEffect;
 import SuperstitioMod.powers.interFace.InvisiblePower_StillRenderAmount;
 import SuperstitioMod.powers.interFace.OnOrgasm;
 import SuperstitioMod.utils.PowerUtility;
@@ -8,27 +9,24 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.evacipated.cardcrawl.mod.stslib.powers.StunMonsterPower;
-import com.evacipated.cardcrawl.mod.stslib.powers.interfaces.InvisiblePower;
-import com.evacipated.cardcrawl.modthespire.lib.SpirePatch;
 import com.megacrit.cardcrawl.actions.AbstractGameAction;
 import com.megacrit.cardcrawl.actions.common.ApplyPowerAction;
 import com.megacrit.cardcrawl.actions.common.DrawCardAction;
 import com.megacrit.cardcrawl.actions.common.ReducePowerAction;
 import com.megacrit.cardcrawl.actions.common.RemoveSpecificPowerAction;
 import com.megacrit.cardcrawl.cards.AbstractCard;
-import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.core.AbstractCreature;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.core.Settings;
-import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.helpers.*;
 import com.megacrit.cardcrawl.localization.PowerStrings;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import com.megacrit.cardcrawl.powers.AbstractPower;
 
-import java.util.*;
+import java.util.Objects;
+import java.util.Optional;
 
-public class SexualHeat extends AbstractPower implements InvisiblePower_StillRenderAmount {
+public class SexualHeat extends AbstractPower implements InvisiblePower_StillRenderAmount, HasTempDecreaseCostEffect {
     public static final String POWER_ID = SuperstitioModSetup.MakeTextID(SexualHeat.class.getSimpleName() +
             "Power");
     public static final int HeatReduce_PerCard_Origin = 6;
@@ -42,17 +40,16 @@ public class SexualHeat extends AbstractPower implements InvisiblePower_StillRen
     private static final float TEXT_OFFSET_Y = 11.0f * Settings.scale;
     private static final Color PINK = new Color(1f, 0.7529f, 0.7961f, 1.0f);
     private static final Color BarTextColor = new Color(1.0f, 1.0f, 1.0f, 1.0f);
-    private final Map<UUID, Integer> costMap = new HashMap<>();
     public Color barBgColor;
     public Color barShadowColor;
     public Color barTextColor;
     public Color barOrginColor;
     public Color barOrgasmShadowColor;
     public int orgasmTime = 0;
+    public Hitbox hitbox;
+    private TempDecreaseCost effectHolder;
     private int HeatReduce_PerCard = HeatReduce_PerCard_Origin;
     private int heatRequired = HEAT_REQUIREDOrigin;
-
-    public Hitbox hitbox;
 
     public SexualHeat(final AbstractCreature owner, final int amount) {
         this.name = SexualHeat.powerStrings.NAME;
@@ -106,22 +103,6 @@ public class SexualHeat extends AbstractPower implements InvisiblePower_StillRen
         this.fontScale = MathHelper.scaleLerpSnap(this.fontScale, 0.7F);
     }
 
-//    @SpirePatch(clz = AbstractPlayer.class, method = "render", paramtypes = {"com.badlogic.gdx.graphics.g2d" +
-//            ".SpriteBatch"})
-//    public static class PowerRenderPatch {
-//        public static void Postfix(final AbstractPlayer this.owner, final SpriteBatch sb) {
-//            Optional<AbstractPower> sexualHeatPowerOp =
-//                    this.owner.powers.stream().filter(power -> Objects.equals(power.ID, SexualHeat.POWER_ID))
-//                    .findFirst();
-//            if (!sexualHeatPowerOp.isPresent()) return;
-//            if (!(sexualHeatPowerOp.get() instanceof SexualHeat)) return;
-//
-//            SexualHeat sexualHeatPower = (SexualHeat) sexualHeatPowerOp.get();
-//
-//
-//        }
-//    }
-
     @Override
     public void renderAmount(SpriteBatch sb, float x, float y, Color c) {
         float OwnerX = this.owner.hb.cX - this.owner.hb.width / 2.0F;
@@ -133,7 +114,7 @@ public class SexualHeat extends AbstractPower implements InvisiblePower_StillRen
 
     @Override
     public void onRemove() {
-        this.EndOrgasm();
+        EndOrgasm();
     }
 
     private void renderAmountBarBackGround(final SpriteBatch sb, final float x, final float y) {
@@ -186,38 +167,18 @@ public class SexualHeat extends AbstractPower implements InvisiblePower_StillRen
 
     @Override
     public void stackPower(final int stackAmount) {
-//        AbstractPower power = this;
-//        String name = this.name;
-//        this.addToTop(new AbstractGameAction() {
-//            @Override
-//            public void update() {
-//                this.isDone = true;
-//                PowerUtility.BubbleMessage(power, false, name);
-//            }
-//        });
         if (this.amount < 0)
             this.amount = 0;
         super.stackPower(stackAmount);
         CheckOrgasm();
-        //updateDescription();
     }
 
     @Override
     public void reducePower(int reduceAmount) {
-//        AbstractPower power = this;
-//        String name = this.name;
-//        this.addToTop(new AbstractGameAction() {
-//            @Override
-//            public void update() {
-//                this.isDone = true;
-//                PowerUtility.BubbleMessage(power, true, name);
-//            }
-//        });
         if (this.amount < 0)
             this.amount = 0;
         super.reducePower(reduceAmount);
         CheckEndOrgasm();
-        //updateDescription();
     }
 
     private void CheckOrgasm() {
@@ -273,9 +234,14 @@ public class SexualHeat extends AbstractPower implements InvisiblePower_StillRen
                         3]);
             }
         });
-        if (this.owner.isPlayer)
-            HandCardsCheaper();
-        else
+        if (this.owner.isPlayer) {
+            if (this.effectHolder != null) {
+                this.effectHolder.remove();
+            }
+            TempDecreaseCost p = new TempDecreaseCost(this.owner, this, orgasmTime);
+            this.addToTop(new ApplyPowerAction(this.owner, this.owner, p));
+            this.effectHolder = p;
+        } else
             this.addToBot(new ApplyPowerAction(this.owner, this.owner,
                     new StunMonsterPower((AbstractMonster) this.owner)));
     }
@@ -289,26 +255,8 @@ public class SexualHeat extends AbstractPower implements InvisiblePower_StillRen
         if (isInOrgasm())
             PowerUtility.BubbleMessageHigher(this, true, powerStrings.DESCRIPTIONS[5]);
         this.orgasmTime = 0;
-        if (this.owner.isPlayer)
-            HandCardsCostToOrigin();
-    }
-
-    private void HandCardsCheaper() {
-        for (final AbstractCard card : AbstractDungeon.player.hand.group) {
-            this.CardCostCheaper(card);
-        }
-        for (final AbstractCard card : AbstractDungeon.player.drawPile.group) {
-            this.CardCostCheaper(card);
-        }
-        for (final AbstractCard card : AbstractDungeon.player.discardPile.group) {
-            this.CardCostCheaper(card);
-        }
-    }
-
-    @Override
-    public void onCardDraw(AbstractCard card) {
-        if (this.isInOrgasm() && this.owner.isPlayer)
-            this.CardCostCheaper(card);
+        if (this.owner.isPlayer && this.effectHolder != null)
+            this.effectHolder.remove();
     }
 
 //    /**
@@ -318,52 +266,15 @@ public class SexualHeat extends AbstractPower implements InvisiblePower_StillRen
 //        return orgasmTime;
 //    }
 
-    private void CardCostCheaper(AbstractCard card) {
-        if (card.costForTurn <= 0)
-            return;
-        if (costMap.keySet().stream().noneMatch(uuidInMap -> card.uuid == uuidInMap))
-            costMap.put(card.uuid, card.costForTurn);
-        final int newCost = getOriginCost(card) - this.orgasmTime;
-        if (card.costForTurn == newCost)
-            return;
-        card.costForTurn = Math.max(newCost, 0);
-        card.isCostModified = true;
-        card.flash();
-    }
-
-    private void HandCardsCostToOrigin() {
-        AbstractDungeon.player.hand.group.forEach(this::ACardCostToOrigin);
-        AbstractDungeon.player.discardPile.group.forEach(this::ACardCostToOrigin);
-        AbstractDungeon.player.drawPile.group.forEach(this::ACardCostToOrigin);
-        costMap.clear();
-    }
-
-    private void ACardCostToOrigin(AbstractCard card) {
-        if (card == null)
-            return;
-        if (!costMap.containsKey(card.uuid))
-            return;
-        card.flash();
-        card.costForTurn = getOriginCost(card);
-        card.isCostModified = false;
-    }
-
-    private int getOriginCost(AbstractCard card) {
-        if (costMap.get(card.uuid) == null)
-            return card.cost;
-        return costMap.get(card.uuid);
-    }
 
     @Override
-    public void onPlayCard(AbstractCard card, AbstractMonster monster) {
+    public void onPlayCard(AbstractCard card, AbstractMonster m) {
         if (!this.isInOrgasm() || !this.owner.isPlayer)
             return;
-        if (getOriginCost(card) < card.costForTurn)
-            return;
-        int reduceAmount = (getOriginCost(card) - card.costForTurn) * getHeatReduce_PerCard();
+        int reduceAmount = (TempDecreaseCost.getActivateOne(owner).getOriginCost(card) - card.costForTurn) * getHeatReduce_PerCard();
         if (reduceAmount <= 0)
             return;
-        ACardCostToOrigin(card);
+
         Squirt(reduceAmount);
     }
 
@@ -380,7 +291,8 @@ public class SexualHeat extends AbstractPower implements InvisiblePower_StillRen
 
     @Override
     public void atEndOfTurn(boolean isPlayer) {
-        this.addToBot(new RemoveSpecificPowerAction(this.owner, this.owner, POWER_ID));
+        if (isPlayer)
+            this.addToBot(new RemoveSpecificPowerAction(this.owner, this.owner, POWER_ID));
     }
 
     private int getHeatRequired() {
@@ -400,5 +312,12 @@ public class SexualHeat extends AbstractPower implements InvisiblePower_StillRen
 
     public void setHeatReduce_PerCard(int heatReduce_PerCard) {
         HeatReduce_PerCard = heatReduce_PerCard;
+    }
+
+    @Override
+    public Optional<TempDecreaseCost> getEffectHolder() {
+        if (effectHolder == null)
+            return Optional.empty();
+        return Optional.of(effectHolder);
     }
 }

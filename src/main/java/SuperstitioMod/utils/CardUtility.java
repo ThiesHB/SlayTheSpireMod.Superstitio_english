@@ -8,6 +8,7 @@ import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.helpers.CardLibrary;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -61,6 +62,15 @@ public class CardUtility {
         AbstractDungeon.actionManager.addToBottom(
                 new ApplyPowerAction(AbstractDungeon.player, AbstractDungeon.player,
                         new SexMark_Outside(AbstractDungeon.player, sexName)));
+    }
+
+    public static ArrayList<AbstractCard> AllCardInBattle() {
+        ArrayList<AbstractCard> cards = new ArrayList<>();
+        cards.add(AbstractDungeon.player.cardInUse);
+        cards.addAll(AbstractDungeon.player.hand.group);
+        cards.addAll(AbstractDungeon.player.discardPile.group);
+        cards.addAll(AbstractDungeon.player.drawPile.group);
+        return cards;
     }
 
 }

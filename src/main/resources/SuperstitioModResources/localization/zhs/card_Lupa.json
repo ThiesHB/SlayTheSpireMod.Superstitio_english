@@ -1,7 +1,7 @@
 ﻿{
   "SuperstitioMod:Job_Armpit": {
     "NAME": "腋交",
-    "DESCRIPTION": "造成 !D! 点 伤害 。 NL superstitiomod:外射 。",
+    "DESCRIPTION": "造成 !D! 伤害 。 NL superstitiomod:外射 。",
     "FLAVOR": "",
     "EXTENDED_DESCRIPTION": [
       "腋下"
@@ -9,7 +9,7 @@
   },
   "SuperstitioMod:Job_Blow": {
     "NAME": "口交",
-    "DESCRIPTION": "造成 !D! 点 伤害 。 NL superstitiomod:外射 。",
+    "DESCRIPTION": "造成 !D! 伤害 。 NL superstitiomod:外射 。",
     "FLAVOR": "用嘴。",
     "EXTENDED_DESCRIPTION": [
       "脸"
@@ -17,7 +17,7 @@
   },
   "SuperstitioMod:Job_Breast": {
     "NAME": "乳交",
-    "DESCRIPTION": "造成 !D! 点 伤害 。 NL superstitiomod:外射 。",
+    "DESCRIPTION": "造成 !D! 伤害 。 NL superstitiomod:外射 。",
     "FLAVOR": "",
     "EXTENDED_DESCRIPTION": [
       "胸口"
@@ -25,7 +25,7 @@
   },
   "SuperstitioMod:Job_Foot": {
     "NAME": "足交",
-    "DESCRIPTION": "造成 2次 !D! 点 伤害 。 NL superstitiomod:外射 。",
+    "DESCRIPTION": "造成 2次 !D! 伤害 。 NL superstitiomod:外射 。",
     "FLAVOR": "用脚。",
     "EXTENDED_DESCRIPTION": [
       "鞋"
@@ -33,7 +33,7 @@
   },
   "SuperstitioMod:Job_Groin": {
     "NAME": "股交",
-    "DESCRIPTION": "造成 !D! 点 伤害 。 NL superstitiomod:外射 。",
+    "DESCRIPTION": "造成 !D! 伤害 。 NL superstitiomod:外射 。",
     "FLAVOR": "",
     "EXTENDED_DESCRIPTION": [
       "腹股沟"
@@ -41,7 +41,7 @@
   },
   "SuperstitioMod:Job_Hair": {
     "NAME": "头发交",
-    "DESCRIPTION": "造成 !D! 点 伤害 。 NL superstitiomod:外射 。",
+    "DESCRIPTION": "造成 !D! 伤害 。 NL 把带有 消耗 的 自身复制 加入手牌。 NL superstitiomod:外射 。 NL 虚无 。",
     "FLAVOR": "",
     "EXTENDED_DESCRIPTION": [
       "头发"
@@ -49,7 +49,7 @@
   },
   "SuperstitioMod:Job_Hand": {
     "NAME": "手交",
-    "DESCRIPTION": "造成 !D! 点 伤害 。 NL superstitiomod:外射 。",
+    "DESCRIPTION": "造成 !D! 伤害 。 NL superstitiomod:外射 。",
     "FLAVOR": "用手。",
     "EXTENDED_DESCRIPTION": [
       "手"
@@ -57,7 +57,7 @@
   },
   "SuperstitioMod:Job_PoplitealFossa": {
     "NAME": "腿弯交",
-    "DESCRIPTION": "造成 !D! 点 伤害 。 NL superstitiomod:外射 。",
+    "DESCRIPTION": "造成 !D! 伤害 。 NL superstitiomod:外射 。",
     "FLAVOR": "",
     "EXTENDED_DESCRIPTION": [
       "腿弯"
@@ -70,12 +70,12 @@
   },
   "SuperstitioMod:Fuck_Ear": {
     "NAME": "耳奸",
-    "DESCRIPTION": "造成 2 次 !D! 点 伤害 。 NL superstitiomod:内射 。",
-    "FLAVOR": "也许是脑交。"
+    "DESCRIPTION": "造成 2 次 !D! 伤害 。 NL 把 带有 保留 的 *眼奸 加入手牌。 NL 获得 1 脆弱 。 NL superstitiomod:内射 。 NL 消耗 。",
+    "FLAVOR": "是脑交！"
   },
   "SuperstitioMod:Fuck_Eye": {
     "NAME": "眼奸",
-    "DESCRIPTION": "造成 4 次 !D! 点 伤害 。 NL 获得 1 虚弱 NL superstitiomod:内射 。",
+    "DESCRIPTION": "造成 2 次 !D! 伤害 ， NL 获得 !B! 点 格挡 。 NL 把 带有 保留 的 *耳奸 加入手牌。 NL 获得 1 虚弱 。 NL superstitiomod:内射 。 NL 消耗 。",
     "FLAVOR": "也许是脑交。"
   },
   "SuperstitioMod:Fuck_Navel": {
@@ -85,17 +85,17 @@
   },
   "SuperstitioMod:Fuck_Nipple": {
     "NAME": "乳孔奸",
-    "DESCRIPTION": "对随机敌人 造成 2 次 !D! 点 伤害 。 NL superstitiomod:内射 。",
+    "DESCRIPTION": "对随机敌人 造成 2 次 !D! 伤害 。 NL superstitiomod:内射 。",
     "FLAVOR": "大奶子特权。"
   },
   "SuperstitioMod:Fuck_Throat": {
     "NAME": "喉咙奸",
-    "DESCRIPTION": "。 NL superstitiomod:内射 。",
+    "DESCRIPTION": "造成 !D! 伤害。 NL 获得 !M! 的 [E] 。 NL superstitiomod:内射 。",
     "FLAVOR": ""
   },
   "SuperstitioMod:Fuck_Vaginal": {
     "NAME": "阴道奸",
-    "DESCRIPTION": "造成 !D! 点伤害， NL 根据手牌平均耗能减少 !M! 伤害每 [E] 。 NL superstitiomod:内射 。",
+    "DESCRIPTION": "造成 !D! 伤害， NL 根据手牌平均耗能减少 !M! 伤害每 [E] 。 NL superstitiomod:内射 。",
     "FLAVOR": ""
   },
   "SuperstitioMod:Invite": {
@@ -130,7 +130,7 @@
   },
   "SuperstitioMod:BlindfoldWithMilk": {
     "NAME": "以乳蒙眼",
-    "DESCRIPTION": "造成 !D! 点 伤害 。 NL 目标跳过一个动作。",
+    "DESCRIPTION": "造成 !D! 伤害 。 NL 目标跳过一个动作。",
     "FLAVOR": "这招如何？"
   },
   "SuperstitioMod:SexToy": {
@@ -188,7 +188,17 @@
   },
   "SuperstitioMod:TimeStop": {
     "NAME": "时间静滞",
-    "DESCRIPTION": "本回合 superstitiomod:快感 不改变。下回合开始时，释放吸收的 superstitiomod:快感 并且翻 2 倍。",
+    "DESCRIPTION": "本回合 superstitiomod:快感 不改变。 NL 下回合开始时，释放期间产生的 superstitiomod:快感 并且翻 2 倍。",
     "FLAVOR": "兴之所至。"
+  },
+  "SuperstitioMod:BellyStrike": {
+    "NAME": "腹击",
+    "DESCRIPTION": "。",
+    "FLAVOR": ""
+  },
+  "SuperstitioMod:Endure": {
+    "NAME": "忍耐",
+    "DESCRIPTION": "下回合获得 !M! superstitiomod:快感 。 NL 抽一张卡。",
+    "FLAVOR": ""
   }
 }

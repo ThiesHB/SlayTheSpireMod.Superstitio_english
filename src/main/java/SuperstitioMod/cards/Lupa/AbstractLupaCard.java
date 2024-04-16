@@ -128,6 +128,24 @@ public abstract class AbstractLupaCard extends CustomCard {
         }
     }
 
+    public static void makeTempCardInBattle(AbstractCard card, BattleCardPlace battleCardPlace, int amount) {
+        switch (battleCardPlace) {
+            case Hand:
+                AbstractDungeon.actionManager.addToBottom(new MakeTempCardInHandAction(card, amount));
+                break;
+            case Discard:
+                AbstractDungeon.actionManager.addToBottom(new MakeTempCardInDrawPileAction(card, amount, true, true));
+                break;
+            case DrawPile:
+                AbstractDungeon.actionManager.addToBottom(new MakeTempCardInDiscardAction(card, amount));
+                break;
+        }
+    }
+
+    public static void makeTempCardInBattle(AbstractCard card, BattleCardPlace battleCardPlace) {
+        makeTempCardInBattle(card, battleCardPlace, 1);
+    }
+
     protected void setupDamage(final int amount) {
         this.baseDamage = amount;
         this.damage = amount;
@@ -169,6 +187,20 @@ public abstract class AbstractLupaCard extends CustomCard {
 
     public void gainPowerToPlayer(final AbstractPower power) {
         this.addToBot(new ApplyPowerAction(AbstractDungeon.player, AbstractDungeon.player, power));
+    }
+
+    public void reducePowerToPlayer(final String powerID, int amount) {
+        this.addToBot(new ReducePowerAction(AbstractDungeon.player, AbstractDungeon.player, powerID, amount));
+    }
+
+
+    public enum BattleCardPlace {
+        Hand,
+        DrawPile,
+        Discard;
+
+        private BattleCardPlace() {
+        }
     }
 
     @SpirePatch(

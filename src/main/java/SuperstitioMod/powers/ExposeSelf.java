@@ -51,7 +51,7 @@ public class ExposeSelf extends AbstractPower implements OnLoseBlockPower {
 
     @Override
     public void atStartOfTurn() {
-        if (this.amount == 0) {
+        if (this.amount == 1) {
             this.addToBot(new RemoveSpecificPowerAction(this.owner, this.owner, POWER_ID));
         } else {
             this.addToBot(new ReducePowerAction(this.owner, this.owner, POWER_ID, 1));

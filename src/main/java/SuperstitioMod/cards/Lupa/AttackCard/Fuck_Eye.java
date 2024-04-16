@@ -2,11 +2,10 @@ package SuperstitioMod.cards.Lupa.AttackCard;
 
 import SuperstitioMod.SuperstitioModSetup;
 import SuperstitioMod.cards.Lupa.AbstractLupaCard;
-import SuperstitioMod.cards.Lupa.TempCard.ReBirth;
 import SuperstitioMod.utils.CardUtility;
-import basemod.abstracts.AbstractCardModifier;
+import basemod.cardmods.RetainMod;
+import basemod.helpers.CardModifierManager;
 import com.megacrit.cardcrawl.actions.AbstractGameAction;
-import com.megacrit.cardcrawl.actions.common.MakeTempCardInHandAction;
 import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
@@ -31,7 +30,9 @@ public class Fuck_Eye extends AbstractLupaCard {
         super(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET);
         this.setupDamage(ATTACK_DMG);
         this.setupBlock(BLOCK);
-        this.cardsToPreview = new Fuck_Ear(false);
+        AbstractCard card = new Fuck_Ear(false);
+        CardModifierManager.addModifier(card,new RetainMod());
+        this.cardsToPreview = card;
         this.exhaust = true;
     }
 
@@ -47,10 +48,10 @@ public class Fuck_Eye extends AbstractLupaCard {
         damageToEnemy(monster, AbstractGameAction.AttackEffect.BLUNT_LIGHT);
         gainBlock();
         AbstractCard card = new Fuck_Ear();
-        card.retain = true;
+        CardModifierManager.addModifier(card, new RetainMod());
         if (upgraded)
             card.upgrade();
-        this.addToBot(new MakeTempCardInHandAction(card));
+        makeTempCardInBattle(card,BattleCardPlace.Hand);
         gainPowerToPlayer(new WeakPower(player, 1, false));
         CardUtility.gainSexMark_Inside(this.name);
     }

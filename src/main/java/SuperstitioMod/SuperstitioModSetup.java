@@ -4,13 +4,14 @@ import SuperstitioMod.cards.Lupa.AbstractLupaCard;
 import SuperstitioMod.cards.Lupa.CardStringsWithFlavor;
 import SuperstitioMod.characters.Lupa;
 import SuperstitioMod.relics.Sensitive;
-import basemod.AutoAdd;
-import basemod.BaseMod;
+import basemod.*;
 import basemod.abstracts.CustomRelic;
 import basemod.interfaces.*;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.Texture;
 import com.evacipated.cardcrawl.mod.stslib.Keyword;
+import com.evacipated.cardcrawl.modthespire.lib.SpireConfig;
 import com.evacipated.cardcrawl.modthespire.lib.SpireInitializer;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -18,10 +19,10 @@ import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.core.AbstractCreature;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.core.Settings;
+import com.megacrit.cardcrawl.helpers.FontHelper;
 import com.megacrit.cardcrawl.helpers.GameDictionary;
-import com.megacrit.cardcrawl.localization.CharacterStrings;
-import com.megacrit.cardcrawl.localization.PowerStrings;
-import com.megacrit.cardcrawl.localization.RelicStrings;
+import com.megacrit.cardcrawl.helpers.ImageMaster;
+import com.megacrit.cardcrawl.localization.*;
 import com.megacrit.cardcrawl.powers.AbstractPower;
 import com.megacrit.cardcrawl.relics.AbstractRelic;
 import com.megacrit.cardcrawl.rooms.AbstractRoom;
@@ -29,10 +30,14 @@ import com.megacrit.cardcrawl.unlock.UnlockTracker;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.lang.reflect.Field;
 import java.lang.reflect.Type;
 import java.nio.charset.StandardCharsets;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Properties;
+import java.util.function.Function;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -49,29 +54,33 @@ public class SuperstitioModSetup implements EditStringsSubscriber, EditRelicsSub
     public static final String MOD_NAME = "Superstitio";
     public static final Logger logger = LogManager.getLogger(SuperstitioModSetup.class.getName());
     public static final Color MY_COLOR = new Color(79.0F / 255.0F, 185.0F / 255.0F, 9.0F / 255.0F, 1.0F);
+    private static final String ENABLE_NSFW_STRING = "enableSFW";
+    public static boolean enableSFW;
     //选英雄界面的角色图标、选英雄时的背景图片
     private static final String MY_CHARACTER_BUTTON = makeImgFilesPath_Character_Lupa("Character_Button");
     // 人物选择界面的立绘
     private static final String MY_CHARACTER_PORTRAIT = makeImgFilesPath_Character_Lupa("Character_Portrait");
+    // 在卡牌和遗物描述中的能量图标
+    private static final String SMALL_ORB = makeImgFilesPath_Character_Lupa("small_orb");
+    // 在卡牌预览界面的能量图标
+    private static final String BIG_ORB = makeImgFilesPath_Character_Lupa("card_orb");
+    // 小尺寸的能量图标（战斗中，牌堆预览）
+    private static final String ENERGY_ORB = makeImgFilesPath_Character_Lupa("cost_orb");
     // 攻击牌的背景（小尺寸）
     private static final String BG_ATTACK_512 = makeImgFilesPath("512", "bg_attack_512");
     // 能力牌的背景（小尺寸）
     private static final String BG_POWER_512 = makeImgFilesPath("512", "bg_power_512");
     // 技能牌的背景（小尺寸）
     private static final String BG_SKILL_512 = makeImgFilesPath("512", "bg_skill_512");
-    // 在卡牌和遗物描述中的能量图标
-    private static final String SMALL_ORB = makeImgFilesPath_Character_Lupa("small_orb");
     // 攻击牌的背景（大尺寸）
     private static final String BG_ATTACK_1024 = makeImgFilesPath("1024", "bg_attack");
     // 能力牌的背景（大尺寸）
     private static final String BG_POWER_1024 = makeImgFilesPath("1024", "bg_power");
     // 技能牌的背景（大尺寸）
     private static final String BG_SKILL_1024 = makeImgFilesPath("1024", "bg_skill");
-    // 在卡牌预览界面的能量图标
-    private static final String BIG_ORB = makeImgFilesPath_Character_Lupa("card_orb");
-    // 小尺寸的能量图标（战斗中，牌堆预览）
-    private static final String ENERGY_ORB = makeImgFilesPath_Character_Lupa("cost_orb");
+    public static SpireConfig config = null;
     public static Map<String, CardStringsWithFlavor> cards = new HashMap<>();
+    public static Properties theDefaultDefaultSettings = new Properties();
 
     public SuperstitioModSetup() {
         BaseMod.subscribe(this);
@@ -79,13 +88,25 @@ public class SuperstitioModSetup implements EditStringsSubscriber, EditRelicsSub
         BaseMod.addColor(Lupa.Enums.LUPA_CARD, MY_COLOR, MY_COLOR, MY_COLOR, MY_COLOR, MY_COLOR, MY_COLOR,
                 MY_COLOR, BG_ATTACK_512, BG_SKILL_512,
                 BG_POWER_512, ENERGY_ORB, BG_ATTACK_1024, BG_SKILL_1024, BG_POWER_1024, BIG_ORB, SMALL_ORB);
+
+        SuperstitioModSetup.logger.info("Done subscribing");
+        SuperstitioModSetup.logger.info("Adding mod settings");
+
+        SuperstitioModSetup.theDefaultDefaultSettings.setProperty(ENABLE_NSFW_STRING, "TRUE");
+        try {
+            (SuperstitioModSetup.config = new SpireConfig(getModID(), getModID() + "Config", SuperstitioModSetup.theDefaultDefaultSettings)).load();
+            SuperstitioModSetup.enableSFW = SuperstitioModSetup.config.getBool(ENABLE_NSFW_STRING);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
     }
 
     public static void initialize() {
         new SuperstitioModSetup();
     }
 
-    private static String makeLocPath(Settings.GameLanguage language, String filename) {
+    private static String makeLocalizationPath(Settings.GameLanguage language, String filename) {
         String ret = "localization/";
         switch (language) {
             case ZHS:
@@ -98,7 +119,7 @@ public class SuperstitioModSetup implements EditStringsSubscriber, EditRelicsSub
                 ret = ret + "eng/";
         }
 
-        return getModID() + "Resources/" + ret + filename + ".json";
+        return getResourcesFilesPath() + ret + filename + ".json";
     }
 
 //    public static String getCardPath(String resourcePath) {
@@ -109,8 +130,15 @@ public class SuperstitioModSetup implements EditStringsSubscriber, EditRelicsSub
         return MOD_NAME + "Mod";
     }
 
+    private static String getResourcesFilesPath() {
+        return getModID() + "Resources/";
+    }
+
     private static String getImgFilesPath() {
-        return getModID() + "Resources/img";
+        if (!enableSFW)
+            return getResourcesFilesPath() + "img";
+        else
+            return getResourcesFilesPath() + "imgSFW";
     }
 
     private static String makeImgFilesPath(String... resourcePaths) {
@@ -177,16 +205,13 @@ public class SuperstitioModSetup implements EditStringsSubscriber, EditRelicsSub
         }
         if (jsonString2 == null)
             return;
-        logger.info("jsonString: " + jsonString2);
+        //logger.info("jsonString: " + jsonString2);
         Type typeToken = new TypeToken<Map<String, CardStringsWithFlavor>>() {
         }.getType();
         Gson gson = new Gson();
-        logger.info(gson.fromJson(jsonString2, typeToken).toString());
+        //logger.info(gson.fromJson(jsonString2, typeToken).toString());
         Map<String, CardStringsWithFlavor> map = gson.fromJson(jsonString2, typeToken);
-        map.forEach((key, cardString) -> {
-            logger.info("loadKey: " + key);
-            cards.put(key, cardString);
-        });
+        cards.putAll(map);
 
     }
 
@@ -202,6 +227,74 @@ public class SuperstitioModSetup implements EditStringsSubscriber, EditRelicsSub
             return matcher.group(1).trim();
         return complexId;
     }
+
+    private void SFWWordReplace() {
+        cards.forEach((s, cardStringsWithFlavor) -> cardStringsWithFlavor.FLAVOR = "");
+        Map<String, RelicStrings> relicsStrings = ReflectionHacks.getPrivateStatic(LocalizedStrings.class, "relics");
+        Map<String, PowerStrings> powersStrings = ReflectionHacks.getPrivateStatic(LocalizedStrings.class, "powers");
+
+        WordReplace[] wordReplaces = makeWordReplace();
+
+        for (WordReplace wordReplace : wordReplaces) {
+            cards.forEach((s, Strings) -> replaceStringsInObj(Strings, wordReplace));
+        }
+        for (WordReplace wordReplace : wordReplaces) {
+            relicsStrings.forEach((s, Strings) -> replaceStringsInObj(Strings, wordReplace));
+        }
+        for (WordReplace wordReplace : wordReplaces) {
+            powersStrings.forEach((s, Strings) -> replaceStringsInObj(Strings, wordReplace));
+        }
+
+        ReflectionHacks.setPrivateStaticFinal(LocalizedStrings.class, "relics", relicsStrings);
+        ReflectionHacks.setPrivateStaticFinal(LocalizedStrings.class, "powers", powersStrings);
+
+
+    }
+
+    private WordReplace[] makeWordReplace() {
+        Gson gson = new Gson();
+        String json =
+                Gdx.files.internal(makeLocalizationPath(Settings.language, "SFW_replace")).readString(String.valueOf(StandardCharsets
+                        .UTF_8));
+        return gson.fromJson(json, WordReplace[].class);
+    }
+
+    private void replaceStringsInObj(Object obj, WordReplace wordReplace) {
+        for (Field field : obj.getClass().getDeclaredFields()) {
+            field.setAccessible(true);
+            try {
+                if (field.get(obj) instanceof String) {
+                    String value = (String) field.get(obj);
+                    if (value == null || !value.contains(wordReplace.WordOrigin))
+                        continue;
+                    value = value.replace(wordReplace.WordOrigin, wordReplace.WordReplace);
+                    field.set(obj, value);
+
+                } else if (field.get(obj) instanceof String[]) {
+                    String[] values = (String[]) field.get(obj);
+                    if (values == null || values.length == 0)
+                        continue;
+                    String[] list = new String[values.length];
+                    for (int i = 0, valuesLength = values.length; i < valuesLength; i++) {
+                        String s = values[i];
+                        String apply = ((Function<String, String>) value -> {
+                            if (value != null && value.contains(wordReplace.WordOrigin)) {
+                                value = value.replace(wordReplace.WordOrigin, wordReplace.WordReplace);
+                            }
+                            return value;
+                        }).apply(s);
+                        list[i] = apply;
+                        SuperstitioModSetup.logger.info(apply);
+                    }
+
+                    field.set(obj, list);
+                }
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
 
     @Override
     public void receiveEditCharacters() {
@@ -241,37 +334,51 @@ public class SuperstitioModSetup implements EditStringsSubscriber, EditRelicsSub
     public void receiveEditStrings() {
         logger.info("You seeing this?");
         logger.info("Beginning to edit strings for mod with ID: " + getModID());
-        SuperstitioModSetup.loadCardStringWithFlavorJsonStrings(makeLocPath(Settings.language, "card_Lupa"));
-        BaseMod.loadCustomStringsFile(CharacterStrings.class, makeLocPath(Settings.language, "character_Lupa"));
-        BaseMod.loadCustomStringsFile(RelicStrings.class, makeLocPath(Settings.language, "relic_Lupa"));
-        BaseMod.loadCustomStringsFile(PowerStrings.class, makeLocPath(Settings.language, "power"));
+        SuperstitioModSetup.loadCardStringWithFlavorJsonStrings(makeLocalizationPath(Settings.language, "card_Lupa"));
+        if (enableSFW)
+            BaseMod.loadCustomStringsFile(CharacterStrings.class, makeLocalizationPath(Settings.language, "character_LupaSFW"));
+        else
+            BaseMod.loadCustomStringsFile(CharacterStrings.class, makeLocalizationPath(Settings.language, "character_Lupa"));
+        BaseMod.loadCustomStringsFile(RelicStrings.class, makeLocalizationPath(Settings.language, "relic_Lupa"));
+        BaseMod.loadCustomStringsFile(PowerStrings.class, makeLocalizationPath(Settings.language, "power"));
 //        BaseMod.loadCustomStringsFile(EventStrings.class, makeLocPath(Settings.language,
 //        "DefaultMod-Event-Strings"));
 //        BaseMod.loadCustomStringsFile(PotionStrings.class, makeLocPath(Settings.language,
 //        "DefaultMod-Potion-Strings"));
 //        BaseMod.loadCustomStringsFile(OrbStrings.class, makeLocPath(Settings.language,
 //        "DefaultMod-Orb-Strings"));
-//        BaseMod.loadCustomStringsFile(UIStrings.class, makeLocPath(Settings.language, "UIStrings"));
+        BaseMod.loadCustomStringsFile(UIStrings.class, makeLocalizationPath(Settings.language, "UIStrings"));
         logger.info("Done editing strings");
+        if (enableSFW)
+            SFWWordReplace();
     }
 
     @Override
     public void receiveEditKeywords() {
         Gson gson = new Gson();
         String json =
-                Gdx.files.internal(makeLocPath(Settings.language, "keyword")).readString(String.valueOf(StandardCharsets
+                Gdx.files.internal(makeLocalizationPath(Settings.language, "keyword")).readString(String.valueOf(StandardCharsets
                         .UTF_8));
         Keyword[] keywords = gson.fromJson(json, Keyword[].class);
+
+        if (enableSFW) {
+            WordReplace[] wordReplaces = makeWordReplace();
+            for (WordReplace wordReplace : wordReplaces) {
+                Arrays.stream(keywords).forEach(keyword -> replaceStringsInObj(keyword, wordReplace));
+            }
+        }
         if (keywords != null) {
             for (Keyword keyword : keywords) {
-                BaseMod.addKeyword(getModID().toLowerCase(), keyword.PROPER_NAME, keyword.NAMES,
-                        keyword.DESCRIPTION);
+                BaseMod.addKeyword(getModID().toLowerCase(), keyword.PROPER_NAME, keyword.NAMES, keyword.DESCRIPTION);
             }
         }
 
+        if (enableSFW)
+            return;
+
         Gson gsonForDefault = new Gson();
         Keyword[] keywordsForDefault =
-                gsonForDefault.fromJson(Gdx.files.internal(makeLocPath(Settings.language, "keywordForDefault")).readString(String.valueOf(StandardCharsets
+                gsonForDefault.fromJson(Gdx.files.internal(makeLocalizationPath(Settings.language, "keywordForDefault")).readString(String.valueOf(StandardCharsets
                         .UTF_8)), Keyword[].class);
         if (keywordsForDefault != null) {
             for (Keyword keyword : keywordsForDefault) {
@@ -288,6 +395,60 @@ public class SuperstitioModSetup implements EditStringsSubscriber, EditRelicsSub
 
     @Override
     public void receivePostInitialize() {
+        logger.info("Loading badge image and mod options");
+        final Texture badgeTexture = ImageMaster.loadImage(makeImgFilesPath_UI("ModIcon"));
+        final ModPanel settingsPanel = new ModPanel();
+        float settingXPos;
+        final float startingXPos = settingXPos = 350.0f;
+        final float xSpacing = 250.0f;
+        float settingYPos = 750.0f;
+        final float lineSpacing = 50.0f;
+        final UIStrings UIStrings = CardCrawlGame.languagePack.getUIString(MakeTextID("OptionsMenu"));
+        final String[] SettingText = UIStrings.TEXT;
+        final ModLabeledToggleButton enableSFWButton = new ModLabeledToggleButton(SettingText[0], settingXPos, settingYPos,
+                Settings.CREAM_COLOR, FontHelper.charDescFont, SuperstitioModSetup.enableSFW, settingsPanel, label -> {
+        }, button -> {
+            SuperstitioModSetup.enableSFW = button.enabled;
+            try {
+                SuperstitioModSetup.config.setBool(ENABLE_NSFW_STRING, SuperstitioModSetup.enableSFW);
+                SuperstitioModSetup.config.save();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return;
+        });
+        settingsPanel.addUIElement((IUIElement) enableSFWButton);
+//        settingXPos = startingXPos;
+//        settingYPos -= lineSpacing;
+//        final ModLabeledToggleButton ignoreUnlocksButton = new ModLabeledToggleButton(SettingText[1], 350.0f, settingYPos, Settings.CREAM_COLOR,
+//                FontHelper.charDescFont, LoadoutMod.ignoreUnlock, settingsPanel, label -> {
+//        }, button -> {
+//            LoadoutMod.ignoreUnlock = button.enabled;
+//            try {
+//                LoadoutMod.config.setBool("ignoreUnlockProgress", LoadoutMod.ignoreUnlock);
+//                LoadoutMod.config.save();
+//            } catch (Exception e2) {
+//                e2.printStackTrace();
+//            }
+//            return;
+//        });
+//        settingsPanel.addUIElement((IUIElement) ignoreUnlocksButton);
+//        settingYPos -= lineSpacing;
+//        final ModLabeledToggleButton enableStarterPoolButton = new ModLabeledToggleButton(StringUtils.chop(RelicViewScreen.TEXT[1]), SettingText[2]
+//                , settingXPos, settingYPos, Settings.CREAM_COLOR, FontHelper.charDescFont, LoadoutMod.enableStarterPool, settingsPanel, label -> {
+//        }, button -> {
+//            LoadoutMod.enableStarterPool = button.enabled;
+//            try {
+//                LoadoutMod.config.setBool("enableStarterPool", LoadoutMod.enableStarterPool);
+//                LoadoutMod.config.save();
+//            } catch (Exception e3) {
+//                e3.printStackTrace();
+//            }
+//            return;
+//        });
+//        settingsPanel.addUIElement((IUIElement) enableStarterPoolButton);
+//        settingXPos += xSpacing;
+        BaseMod.registerModBadge(badgeTexture, MOD_NAME + " Mod", "Creeper_of_Fire", "A NSFW mod", settingsPanel);
     }
 
     @Override

@@ -2,15 +2,10 @@ package SuperstitioMod.powers;
 
 import SuperstitioMod.SuperstitioModSetup;
 import SuperstitioMod.powers.interFace.InvisiblePower_StillRenderAmount;
-import SuperstitioMod.utils.PowerUtility;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-import com.evacipated.cardcrawl.mod.stslib.powers.interfaces.InvisiblePower;
-import com.evacipated.cardcrawl.modthespire.lib.SpirePatch;
-import com.megacrit.cardcrawl.actions.AbstractGameAction;
 import com.megacrit.cardcrawl.actions.common.RemoveSpecificPowerAction;
-import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.core.AbstractCreature;
 import com.megacrit.cardcrawl.core.Settings;
 import com.megacrit.cardcrawl.helpers.Hitbox;
@@ -19,21 +14,19 @@ import com.megacrit.cardcrawl.helpers.MathHelper;
 import com.megacrit.cardcrawl.helpers.TipHelper;
 import com.megacrit.cardcrawl.powers.AbstractPower;
 
-import java.util.*;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
+import java.util.HashSet;
+import java.util.Objects;
+import java.util.Optional;
+import java.util.Set;
 
 public abstract class SexMark extends AbstractPower implements InvisiblePower_StillRenderAmount {
     public static final String POWER_ID = SuperstitioModSetup.MakeTextID(SexMark.class.getSimpleName() + "Power");
     public static final int MARKNeeded = 5;
-    public Set<String> sexNames = new HashSet<>();
-    public Hitbox hitbox;
     protected static final float BAR_RADIUS = 50.0f * Settings.scale;
     protected static final float BAR_Blank = 20.0f * Settings.scale;
-
-    protected abstract float Height();
-
     private static final Color BALLColor = new Color(1f, 0.7529f, 0.7961f, 1.0f);
+    public Set<String> sexNames = new HashSet<>();
+    public Hitbox hitbox;
 
     public SexMark(String name, String id, final AbstractCreature owner, final String sexName) {
         this.name = name;
@@ -58,7 +51,7 @@ public abstract class SexMark extends AbstractPower implements InvisiblePower_St
 
         Optional<SexMark> sexMark =
                 this.owner.powers.stream()
-                        .filter(power -> Objects.equals(power.ID, id))
+                        .filter(power -> Objects.equals(power.ID, this.ID)&& power instanceof SexMark)
                         .map(power -> (SexMark) power).findFirst();
         if (!sexMark.isPresent()) {
             return;
@@ -66,6 +59,7 @@ public abstract class SexMark extends AbstractPower implements InvisiblePower_St
         sexMark.get().sexNames.add(sexName);
     }
 
+    protected abstract float Height();
 
     private boolean isTrigger(Set<String> sexNames) {
         return sexNames.size() >= MARKNeeded;

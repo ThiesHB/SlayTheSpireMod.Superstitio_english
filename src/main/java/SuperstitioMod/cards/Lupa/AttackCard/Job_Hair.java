@@ -3,10 +3,13 @@ package SuperstitioMod.cards.Lupa.AttackCard;
 import SuperstitioMod.SuperstitioModSetup;
 import SuperstitioMod.cards.Lupa.AbstractLupaCard;
 import SuperstitioMod.utils.CardUtility;
+import basemod.cardmods.ExhaustMod;
+import basemod.helpers.CardModifierManager;
 import com.megacrit.cardcrawl.actions.AbstractGameAction;
+import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
-//TODO
+
 public class Job_Hair extends AbstractLupaCard {
     public static final String ID = SuperstitioModSetup.MakeTextID(Job_Hair.class.getSimpleName());
 
@@ -23,11 +26,18 @@ public class Job_Hair extends AbstractLupaCard {
     public Job_Hair() {
         super(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET);
         this.setupDamage(ATTACK_DMG);
+        this.isEthereal = true;
     }
 
     @Override
     public void use(AbstractPlayer player, AbstractMonster monster) {
         damageToEnemy(monster, AbstractGameAction.AttackEffect.BLUNT_LIGHT);
+        AbstractCard card = new Job_Hair();
+        CardModifierManager.addModifier(card, new ExhaustMod());
+        this.cardsToPreview = card;
+        if (upgraded)
+            card.upgrade();
+        makeTempCardInBattle(card, BattleCardPlace.Hand);
         CardUtility.gainSexMark_Outside(this.cardStrings.EXTENDED_DESCRIPTION[0]);
     }
 

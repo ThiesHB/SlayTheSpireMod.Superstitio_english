@@ -2,14 +2,9 @@ package SuperstitioMod.powers;
 
 import SuperstitioMod.SuperstitioModSetup;
 import com.evacipated.cardcrawl.mod.stslib.actions.tempHp.AddTemporaryHPAction;
-import com.evacipated.cardcrawl.mod.stslib.powers.interfaces.InvisiblePower;
-import com.evacipated.cardcrawl.mod.stslib.powers.interfaces.NonStackablePower;
-import com.megacrit.cardcrawl.actions.common.ApplyPowerAction;
 import com.megacrit.cardcrawl.core.AbstractCreature;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.localization.PowerStrings;
-
-import java.util.stream.Stream;
 
 public class SexMark_Outside extends SexMark {
     public static final String POWER_ID = SuperstitioModSetup.MakeTextID(SexMark_Outside.class.getSimpleName() +

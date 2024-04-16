@@ -2,8 +2,6 @@ package SuperstitioMod.cards.Lupa.SkillCard;
 
 import SuperstitioMod.SuperstitioModSetup;
 import SuperstitioMod.cards.Lupa.AbstractLupaCard;
-import SuperstitioMod.powers.SexualHeat;
-import com.megacrit.cardcrawl.actions.common.ApplyPowerAction;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import com.megacrit.cardcrawl.powers.NoDrawPower;
@@ -28,7 +26,7 @@ public class TimeStop extends AbstractLupaCard {
 
     @Override
     public void use(AbstractPlayer player, AbstractMonster monster) {
-        this.gainPowerToPlayer(new SuperstitioMod.powers.TimeStop(player));
+        this.gainPowerToPlayer(new SuperstitioMod.powers.TimeStop(player,1));
         this.gainPowerToPlayer(new NoDrawPower(player));
     }
 

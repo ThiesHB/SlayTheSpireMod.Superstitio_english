@@ -71,13 +71,25 @@
   "SuperstitioMod:SexMark_OutsidePower": {
     "NAME": "精液覆身",
     "DESCRIPTIONS": [
-      "当前：%s ，收集%d个即可获得%d临时生命。"
+      "当前：%s ， NL 收集%d个即可获得%d临时生命。"
     ]
   },
   "SuperstitioMod:SexMark_InsidePower": {
     "NAME": "插入动作",
     "DESCRIPTIONS": [
-      "当前：%s ，收集%d个即可造成%d全体伤害。"
+      "当前：%s ， NL 收集%d个即可造成%d全体伤害。"
+    ]
+  },
+  "SuperstitioMod:DelaySexualHeatPower": {
+    "NAME": "延迟快感",
+    "DESCRIPTIONS": [
+      "下回合抽卡后，获得 %d 快感。"
+    ]
+  },
+  "SuperstitioMod:TempDecreaseCostPower": {
+    "NAME": "临时能量减免",
+    "DESCRIPTIONS": [
+      "所有的卡牌的能量消耗减少 %d 点。"
     ]
   }
 }

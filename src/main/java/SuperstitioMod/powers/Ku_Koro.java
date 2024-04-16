@@ -1,19 +1,19 @@
 package SuperstitioMod.powers;
 
 import SuperstitioMod.SuperstitioModSetup;
+import SuperstitioMod.cards.Lupa.AbstractLupaCard;
 import SuperstitioMod.utils.CardUtility;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-import com.megacrit.cardcrawl.actions.common.MakeTempCardInDrawPileAction;
-import com.megacrit.cardcrawl.actions.common.MakeTempCardInHandAction;
 import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.cards.DamageInfo;
 import com.megacrit.cardcrawl.core.AbstractCreature;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
-import com.megacrit.cardcrawl.helpers.CardLibrary;
 import com.megacrit.cardcrawl.helpers.ImageMaster;
 import com.megacrit.cardcrawl.localization.PowerStrings;
 import com.megacrit.cardcrawl.powers.AbstractPower;
+
+import static SuperstitioMod.cards.Lupa.AbstractLupaCard.makeTempCardInBattle;
 
 /**
  * 每次受到攻击伤害时，获得1随机状态牌。所有消耗牌会回到抽牌堆
@@ -47,14 +47,14 @@ public class Ku_Koro extends AbstractPower {
 
     @Override
     public void onExhaust(AbstractCard card) {
-        this.addToBot(new MakeTempCardInDrawPileAction(card, 1, true, true));
+        AbstractLupaCard.makeTempCardInBattle(card, AbstractLupaCard.BattleCardPlace.Discard);
     }
 
     @Override
     public int onAttacked(DamageInfo info, int damageAmount) {
         if (damageAmount > 0 && info.owner != AbstractDungeon.player && info.type == DamageInfo.DamageType.NORMAL) {
             final AbstractCard card = CardUtility.getRandomCurseCard(true,true);
-            this.addToBot(new MakeTempCardInHandAction(card, true));
+            AbstractLupaCard.makeTempCardInBattle(card, AbstractLupaCard.BattleCardPlace.Hand);
         }
 
         return super.onAttacked(info, damageAmount);
