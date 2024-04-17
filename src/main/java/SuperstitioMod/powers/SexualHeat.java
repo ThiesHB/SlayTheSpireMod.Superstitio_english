@@ -1,14 +1,13 @@
 package SuperstitioMod.powers;
 
 import SuperstitioMod.SuperstitioModSetup;
-import SuperstitioMod.actions.TempDecreaseCostApplyAction;
 import SuperstitioMod.powers.interFace.HasTempDecreaseCostEffect;
 import SuperstitioMod.powers.interFace.InvisiblePower_StillRenderAmount;
 import SuperstitioMod.powers.interFace.OnOrgasm;
+import SuperstitioMod.powers.interFace.OnPostApplyThisPower;
 import SuperstitioMod.utils.PowerUtility;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.evacipated.cardcrawl.mod.stslib.powers.StunMonsterPower;
 import com.megacrit.cardcrawl.actions.AbstractGameAction;
 import com.megacrit.cardcrawl.actions.common.ApplyPowerAction;
@@ -24,10 +23,9 @@ import com.megacrit.cardcrawl.localization.PowerStrings;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import com.megacrit.cardcrawl.powers.AbstractPower;
 
-import java.util.Objects;
 import java.util.Optional;
 
-public class SexualHeat extends AbstractLupaPower implements InvisiblePower_StillRenderAmount, HasTempDecreaseCostEffect {
+public class SexualHeat extends AbstractLupaPower implements InvisiblePower_StillRenderAmount, HasTempDecreaseCostEffect, OnPostApplyThisPower {
     public static final String POWER_ID = SuperstitioModSetup.MakeTextID(SexualHeat.class.getSimpleName() +
             "Power");
     public static final int HeatReduce_PerCard_Origin = 6;
@@ -48,18 +46,11 @@ public class SexualHeat extends AbstractLupaPower implements InvisiblePower_Stil
     public Color barOrgasmShadowColor;
     public int orgasmTime = 0;
     public Hitbox hitbox;
-    private TempDecreaseCost effectHold;
     private int HeatReduce_PerCard = HeatReduce_PerCard_Origin;
     private int heatRequired = HEAT_REQUIREDOrigin;
 
     public SexualHeat(final AbstractCreature owner, final int amount) {
-        super(POWER_ID,powerStrings.NAME,owner,amount,owner.isPlayer ? PowerType.BUFF : PowerType.DEBUFF,false);
-
-        if (this.owner.powers.stream().noneMatch(abstractPower -> Objects.equals(abstractPower.ID,
-                SexualHeat.POWER_ID)))
-            CheckOrgasm();
-
-        updateDescription();
+        super(POWER_ID, powerStrings.NAME, owner, amount, owner.isPlayer ? PowerType.BUFF : PowerType.DEBUFF, false);
 
         this.hitbox = new Hitbox(this.owner.hb.width + BAR_HEIGHT * 3f, BAR_HEIGHT * 1.5f);
         this.hitbox.move(this.owner.hb.cX, this.owner.hb.cY + this.owner.hb.height + BAR_OFFSET_Y);
@@ -69,6 +60,19 @@ public class SexualHeat extends AbstractLupaPower implements InvisiblePower_Stil
         this.barTextColor = BarTextColor;
         this.barOrginColor = PINK;
         this.barOrgasmShadowColor = Color.YELLOW;
+    }
+
+    @Override
+    public String IDAsHolder() {
+        return POWER_ID;
+    }
+
+    @Override
+    public void InitializePostApplyThisPower() {
+//        if (this.owner.powers.stream().noneMatch(abstractPower -> Objects.equals(abstractPower.ID,
+//                SexualHeat.POWER_ID)))
+        CheckOrgasm();
+        updateDescription();
     }
 
     public boolean isInOrgasm() {
@@ -223,10 +227,18 @@ public class SexualHeat extends AbstractLupaPower implements InvisiblePower_Stil
             }
         });
         if (this.owner.isPlayer) {
-            if (this.effectHold != null) {
-                this.effectHold.remove();
-            }
-            this.addToTop(new TempDecreaseCostApplyAction(orgasmTime,this));
+//            if (this.effectHold != null) {
+//                this.effectHold.remove();
+//            }
+            SexualHeat p = this;
+            this.addToBot(new AbstractGameAction() {
+                @Override
+                public void update() {
+                    TempDecreaseCost.RemoveAllByHolder(p);
+                    isDone = true;
+                }
+            });
+            this.addToBot(new ApplyPowerAction(this.owner, this.owner, new TempDecreaseCost(this.owner, orgasmTime, this), orgasmTime));
         } else
             this.addToBot(new ApplyPowerAction(this.owner, this.owner,
                     new StunMonsterPower((AbstractMonster) this.owner)));
@@ -241,8 +253,16 @@ public class SexualHeat extends AbstractLupaPower implements InvisiblePower_Stil
         if (isInOrgasm())
             PowerUtility.BubbleMessageHigher(this, true, powerStrings.DESCRIPTIONS[5]);
         this.orgasmTime = 0;
-        if (this.owner.isPlayer && this.effectHold != null)
-            this.effectHold.remove();
+        if (this.owner.isPlayer) {
+            SexualHeat p = this;
+            this.addToBot(new AbstractGameAction() {
+                @Override
+                public void update() {
+                    TempDecreaseCost.RemoveAllByHolder(p);
+                    isDone = true;
+                }
+            });
+        }
     }
 
 //    /**
@@ -256,8 +276,7 @@ public class SexualHeat extends AbstractLupaPower implements InvisiblePower_Stil
     @Override
     public void onPlayCard(AbstractCard card, AbstractMonster m) {
         if (!this.isInOrgasm() || !this.owner.isPlayer) return;
-        if (this.effectHold == null) return;
-        if (!this.effectHold.activate) return;
+        if (!this.getActiveEffectHold().isPresent()) return;
         int reduceAmount = (TempDecreaseCost.getActivateOne(owner).getOriginCost(card) - card.costForTurn) * getHeatReduce_PerCard();
         if (reduceAmount <= 0)
             return;
@@ -302,14 +321,7 @@ public class SexualHeat extends AbstractLupaPower implements InvisiblePower_Stil
     }
 
     @Override
-    public Optional<TempDecreaseCost> getEffectHold() {
-        if (effectHold == null)
-            return Optional.empty();
-        return Optional.of(effectHold);
-    }
-
-    @Override
-    public void setEffectHold(TempDecreaseCost power) {
-        effectHold = power;
+    public Optional<TempDecreaseCost> getActiveEffectHold() {
+        return TempDecreaseCost.AllCostModifierPowerByHolder(this).filter(TempDecreaseCost::isActive).findAny();
     }
 }

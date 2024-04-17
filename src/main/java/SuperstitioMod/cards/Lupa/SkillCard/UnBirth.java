@@ -35,7 +35,7 @@ public class UnBirth extends AbstractLupaCard {
 
     @Override
     public void use(AbstractPlayer player, AbstractMonster monster) {
-        this.gainBlock();
+        this.addToBot_gainBlock();
         ArrayList<AbstractPower> sealPower = new ArrayList<>();
         monster.powers.forEach(power -> {
             if (power.type == AbstractPower.PowerType.DEBUFF||power instanceof StrengthPower||power instanceof DexterityPower) {

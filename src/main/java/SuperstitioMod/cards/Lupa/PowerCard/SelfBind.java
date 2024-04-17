@@ -30,8 +30,8 @@ public class SelfBind extends AbstractLupaCard {
 
     @Override
     public void use(AbstractPlayer player, AbstractMonster monster) {
-        gainPowerToPlayer(new StrengthPower(player, this.magicNumber));
-        gainPowerToPlayer(new DexterityPower(player, -DECREASENum));
+        addToBot_gainPowerToPlayer(new StrengthPower(player, this.magicNumber));
+        addToBot_gainPowerToPlayer(new DexterityPower(player, -DECREASENum));
     }
 
     @Override

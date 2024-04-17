@@ -30,9 +30,9 @@ public class Fuck_Throat extends AbstractLupaCard {
 
     @Override
     public void use(AbstractPlayer player, AbstractMonster monster) {
-        damageToEnemy(monster, AbstractGameAction.AttackEffect.BLUNT_LIGHT);
+        addToBot_damageToEnemy(monster, AbstractGameAction.AttackEffect.BLUNT_LIGHT);
         this.addToBot(new GainEnergyAction(this.magicNumber));
-        CardUtility.gainSexMark_Inside(this.name);
+        CardUtility.addToTop_gainSexMark_Inside(this.name);
     }
 
     @Override

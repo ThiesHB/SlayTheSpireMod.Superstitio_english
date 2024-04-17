@@ -2,7 +2,7 @@
   "SuperstitioMod:SensitiveRelic": {
     "NAME": "敏感",
     "DESCRIPTIONS": [
-      "你打出的每张牌以及你使用的每个 [E] 均会立即带来 #b%d 点  #ysuperstitiomod:快感 。 NL 特殊机制： #ysuperstitiomod:高潮 、 #ysuperstitiomod:潮吹  、 #ysuperstitiomod:连续高潮。"
+      "你打出的每张牌以及你使用的每个 [E] 均会立即带来 #b%d 点  #ysuperstitiomod:快感 。 NL 特殊机制： #ysuperstitiomod:高潮 、 #ysuperstitiomod:潮吹  、 #ysuperstitiomod:连续高潮 。"
     ],
     "FLAVOR": "你的身体非常敏感。"
   },
@@ -12,7 +12,7 @@
       "M性格: 受到超过每 #b%d 点伤害获得1点 #ysuperstitiomod:快感 。 NL S性格: 造成超过每 #b%d 点伤害获得1点 #ysuperstitiomod:快感 。 NL 战斗外右键切换性格。",
       "处于M性格。 NL 受到超过每 #b%d 点伤害获得1点 #ysuperstitiomod:快感 。 NL 战斗外右键切换为S性格。",
       "处于S性格。 NL 造成超过每 #b%d 点伤害获得1点 #ysuperstitiomod:快感 。 NL 战斗外右键切换为M性格。",
-      "处于SM双重性格。 NL 受到超过每 #b%d 点伤害获得1点 #ysuperstitiomod:快感 ， NL 造成超过每 #b%d 点伤害获得1点 #ysuperstitiomod:快感 。"
+      "处于双重性格。 NL 受到超过每 #b%d 点伤害获得1点 #ysuperstitiomod:快感 ， NL 造成超过每 #b%d 点伤害获得1点 #ysuperstitiomod:快感 。"
     ],
     "FLAVOR": "我两个都一样的操操……操x99——啊！"
   }

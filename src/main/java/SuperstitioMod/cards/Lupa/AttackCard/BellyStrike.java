@@ -25,11 +25,14 @@ public class BellyStrike extends AbstractLupaCard {
     private static final int ATTACK_DMG = 12;
     private static final int UPGRADE_PLUS_DMG = 4;
 
+    private static final int MAGIC_Number = 2;
+
     public BellyStrike() {
         super(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET);
         this.setupDamage(ATTACK_DMG);
         this.tags.add(CardTags.STRIKE);
         this.setTarget_SelfOrEnemy();
+        this.setupMagicNumber(MAGIC_Number);
     }
 
     @Override
@@ -37,11 +40,11 @@ public class BellyStrike extends AbstractLupaCard {
         if (this.isTargetSelf(monster)) {
             addToBot(new DamageAction(AbstractDungeon.player, new DamageInfo(AbstractDungeon.player, this.damage),
                     AbstractGameAction.AttackEffect.BLUNT_LIGHT));
-            gainPowerToPlayer(new StrengthPower(monster, 2));
+            addToBot_gainPowerToPlayer(new StrengthPower(monster, magicNumber));
         } else {
-            damageToEnemy(monster, AbstractGameAction.AttackEffect.BLUNT_LIGHT);
-            applyPowerToEnemy(new StrengthPower(monster, 2), monster);
-            applyPowerToEnemy(new LoseStrengthPower(monster, 2), monster);
+            addToBot_damageToEnemy(monster, AbstractGameAction.AttackEffect.BLUNT_LIGHT);
+            addToBot_applyPowerToEnemy(new StrengthPower(monster, magicNumber), monster);
+            addToBot_applyPowerToEnemy(new LoseStrengthPower(monster, magicNumber), monster);
         }
     }
 

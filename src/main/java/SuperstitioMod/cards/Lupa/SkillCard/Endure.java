@@ -5,7 +5,6 @@ import SuperstitioMod.cards.Lupa.AbstractLupaCard;
 import SuperstitioMod.powers.DelaySexualHeat;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
-import com.megacrit.cardcrawl.powers.NoDrawPower;
 
 public class Endure extends AbstractLupaCard {
     public static final String ID = SuperstitioModSetup.MakeTextID(Endure.class.getSimpleName());
@@ -28,8 +27,8 @@ public class Endure extends AbstractLupaCard {
 
     @Override
     public void use(AbstractPlayer player, AbstractMonster monster) {
-        this.gainPowerToPlayer(new DelaySexualHeat(player,this.magicNumber));
-        this.drawCards(2);
+        this.addToBot_gainPowerToPlayer(new DelaySexualHeat(player,this.magicNumber));
+        this.addToBot_drawCards(2);
     }
 
     @Override

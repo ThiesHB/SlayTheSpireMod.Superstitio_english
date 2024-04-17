@@ -52,13 +52,13 @@ public class CardUtility {
         return !card.cardID.contains(SuperstitioModSetup.MakeTextID(""));
     }
 
-    public static void gainSexMark_Inside(String sexName) {
-        AbstractDungeon.actionManager.addToBottom(
+    public static void addToTop_gainSexMark_Inside(String sexName) {
+        AbstractDungeon.actionManager.addToTop(
                 new ApplyPowerAction(AbstractDungeon.player, AbstractDungeon.player,
                         new SexMark_Inside(AbstractDungeon.player, sexName)));
     }
 
-    public static void gainSexMark_Outside(String sexName) {
+    public static void addToTop_gainSexMark_Outside(String sexName) {
         AbstractDungeon.actionManager.addToBottom(
                 new ApplyPowerAction(AbstractDungeon.player, AbstractDungeon.player,
                         new SexMark_Outside(AbstractDungeon.player, sexName)));
@@ -67,6 +67,14 @@ public class CardUtility {
     public static ArrayList<AbstractCard> AllCardInBattle() {
         ArrayList<AbstractCard> cards = new ArrayList<>();
         cards.add(AbstractDungeon.player.cardInUse);
+        cards.addAll(AbstractDungeon.player.hand.group);
+        cards.addAll(AbstractDungeon.player.discardPile.group);
+        cards.addAll(AbstractDungeon.player.drawPile.group);
+        return cards;
+    }
+
+    public static ArrayList<AbstractCard> AllCardInBattle_ButWithoutCardInUse() {
+        ArrayList<AbstractCard> cards = new ArrayList<>();
         cards.addAll(AbstractDungeon.player.hand.group);
         cards.addAll(AbstractDungeon.player.discardPile.group);
         cards.addAll(AbstractDungeon.player.drawPile.group);

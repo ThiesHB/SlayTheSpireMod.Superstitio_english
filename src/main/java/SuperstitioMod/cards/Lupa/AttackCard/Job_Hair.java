@@ -31,14 +31,14 @@ public class Job_Hair extends AbstractLupaCard {
 
     @Override
     public void use(AbstractPlayer player, AbstractMonster monster) {
-        damageToEnemy(monster, AbstractGameAction.AttackEffect.BLUNT_LIGHT);
+        addToBot_damageToEnemy(monster, AbstractGameAction.AttackEffect.BLUNT_LIGHT);
         AbstractCard card = new Job_Hair();
         CardModifierManager.addModifier(card, new ExhaustMod());
         this.cardsToPreview = card;
         if (upgraded)
             card.upgrade();
         makeTempCardInBattle(card, BattleCardPlace.Hand);
-        CardUtility.gainSexMark_Outside(this.cardStrings.EXTENDED_DESCRIPTION[0]);
+        CardUtility.addToTop_gainSexMark_Outside(this.cardStrings.EXTENDED_DESCRIPTION[0]);
     }
 
     @Override

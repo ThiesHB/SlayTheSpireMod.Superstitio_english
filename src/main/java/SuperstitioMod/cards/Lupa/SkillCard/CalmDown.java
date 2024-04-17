@@ -28,8 +28,8 @@ public class CalmDown extends AbstractLupaCard {
 
     @Override
     public void use(AbstractPlayer player, AbstractMonster monster) {
-        this.drawCards(MagicNumber);
-        this.reducePowerToPlayer(SexualHeat.POWER_ID, HeatReduce);
+        this.addToBot_drawCards(MagicNumber);
+        this.addToBot_reducePowerToPlayer(SexualHeat.POWER_ID, HeatReduce);
     }
 
     @Override

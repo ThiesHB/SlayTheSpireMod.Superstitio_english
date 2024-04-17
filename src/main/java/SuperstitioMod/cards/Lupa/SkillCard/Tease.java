@@ -37,9 +37,9 @@ public class Tease extends AbstractLupaCard {
                 monster.decreaseMaxHealth(amount);
             }
         });
-        this.addToBot(new ApplyPowerAction(monster, player, new FrailPower(monster, 1, false)));
+        addToBot_applyPowerToEnemy(new FrailPower(monster, 1, false),monster);
         this.addToBot(new GainBlockAction(monster, amount));
-        this.addToBot(new ApplyPowerAction(monster, player, new BarricadePower(monster)));
+        addToBot_applyPowerToEnemy(new BarricadePower(monster),monster);
     }
 
     @Override

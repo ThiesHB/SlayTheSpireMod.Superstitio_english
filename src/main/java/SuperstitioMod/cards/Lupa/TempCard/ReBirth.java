@@ -22,8 +22,8 @@ public class ReBirth extends AbstractLupaCard {
     public static final CardTarget CARD_TARGET = CardTarget.SELF;
 
     private static final int COST = 0;
-    private static final int BLOCK = 3;
-    private static final int UPGRADE_PLUS_BLOCK = 2;
+    private static final int BLOCK = 5;
+    private static final int UPGRADE_PLUS_BLOCK = 3;
     public ArrayList<AbstractPower> sealPower = new ArrayList<>();
     public AbstractMonster sealMonster = null;
 
@@ -46,9 +46,9 @@ public class ReBirth extends AbstractLupaCard {
     public void use(AbstractPlayer player, AbstractMonster monster) {
         //this.gainBlock();
         this.addToBot(new AddTemporaryHPAction(AbstractDungeon.player, AbstractDungeon.player, this.block));
-        sealPower.forEach(power -> {
+        for (AbstractPower power : sealPower) {
             addToBot(new ApplyPowerAction(player, sealMonster == null ? player : sealMonster, power));
-        });
+        }
     }
 
     @Override

@@ -39,7 +39,7 @@ public class CoitalVocal extends AbstractLupaCard {
                 (int) AbstractDungeon.getMonsters().monsters.stream()
                         .filter(m -> !monster.isDeadOrEscaped()).count();
         for (int i = 0; i < monsterNum+1; i++) {
-            gainBlock();
+            addToBot_gainBlock();
         }
     }
 }

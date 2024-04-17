@@ -26,31 +26,36 @@ public class Fuck_Ear extends AbstractLupaCard {
     private static final int UPGRADE_PLUS_DMG = 1;
 
     public Fuck_Ear() {
-        super(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET);
-        this.setupDamage(ATTACK_DMG);
-        AbstractCard card = new Fuck_Eye(false);
-        CardModifierManager.addModifier(card, new RetainMod());
-        this.cardsToPreview = card;
-        this.exhaust = true;
+        this(false);
+//        AbstractCard card = new Fuck_Eye(false);
+//        CardModifierManager.removeSpecificModifier(card, new RetainMod(), false);
+        this.cardsToPreview = new Fuck_Eye(false);
     }
 
     public Fuck_Ear(boolean blank) {
         super(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET);
         this.setupDamage(ATTACK_DMG);
         this.exhaust = true;
+//        CardModifierManager.addModifier(this, new RetainMod());
     }
 
     @Override
     public void use(AbstractPlayer player, AbstractMonster monster) {
-        damageToEnemy(monster, AbstractGameAction.AttackEffect.BLUNT_LIGHT);
-        damageToEnemy(monster, AbstractGameAction.AttackEffect.BLUNT_LIGHT);
+        addToBot_damageToEnemy(monster, AbstractGameAction.AttackEffect.BLUNT_LIGHT);
+        addToBot_damageToEnemy(monster, AbstractGameAction.AttackEffect.BLUNT_LIGHT);
         AbstractCard card = new Fuck_Eye();
-        CardModifierManager.addModifier(card, new RetainMod());
+//        CardModifierManager.removeSpecificModifier(card, new RetainMod(), false);
         if (upgraded)
             card.upgrade();
         makeTempCardInBattle(card, BattleCardPlace.Hand);
-        gainPowerToPlayer(new FrailPower(AbstractDungeon.player, 1, false));
-        CardUtility.gainSexMark_Inside(this.name);
+        addToBot_gainPowerToPlayer(new FrailPower(AbstractDungeon.player, 1, false));
+        CardUtility.addToTop_gainSexMark_Inside(this.name);
+    }
+
+    @Override
+    public void triggerWhenDrawn() {
+        if (!CardModifierManager.hasModifier(this, RetainMod.ID))
+            CardModifierManager.addModifier(this, new RetainMod());
     }
 
     @Override

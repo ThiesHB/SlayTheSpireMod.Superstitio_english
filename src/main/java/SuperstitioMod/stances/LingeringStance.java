@@ -21,7 +21,7 @@ import com.megacrit.cardcrawl.vfx.stance.StanceChangeParticleGenerator;
 
 public class LingeringStance extends AbstractStance {
     public static final String STANCE_ID = "Lingering";
-    private static final StanceStrings stanceString= CardCrawlGame.languagePack.getStanceString(STANCE_ID);;
+    private static final StanceStrings stanceString= CardCrawlGame.languagePack.getStanceString(STANCE_ID);
     private static long sfxId = -1L;
 
     public LingeringStance() {

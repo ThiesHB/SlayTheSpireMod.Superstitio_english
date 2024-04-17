@@ -5,7 +5,7 @@
   },
   {
     "WordOrigin": "高潮",
-    "WordReplace": "怒意"
+    "WordReplace": "狂暴"
   },
   {
     "WordOrigin": "潮吹",
@@ -28,6 +28,10 @@
     "WordReplace": "结下束缚"
   },
   {
+    "WordOrigin": "邀请",
+    "WordReplace": "防御"
+  },
+  {
     "WordOrigin": "胎内回归",
     "WordReplace": "力量汲取"
   },
@@ -38,6 +42,10 @@
   {
     "WordOrigin": "情趣玩具",
     "WordReplace": "神圣旗帜"
+  },
+  {
+    "WordOrigin": "窒息项圈",
+    "WordReplace": "怒火中烧"
   },
   {
     "WordOrigin": "自我暴露",
@@ -142,5 +150,13 @@
   {
     "WordOrigin": "敏感",
     "WordReplace": "炽热"
+  },
+  {
+    "WordOrigin": "S性格",
+    "WordReplace": "进攻人格"
+  },
+  {
+    "WordOrigin": "M性格",
+    "WordReplace": "反击人格"
   }
 ]

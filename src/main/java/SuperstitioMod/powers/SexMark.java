@@ -1,6 +1,7 @@
 package SuperstitioMod.powers;
 
 import SuperstitioMod.powers.interFace.InvisiblePower_StillRenderAmount;
+import SuperstitioMod.powers.interFace.OnPostApplyThisPower;
 import SuperstitioMod.utils.CardUtility;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -17,7 +18,7 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
 
-public abstract class SexMark extends AbstractLupaPower implements InvisiblePower_StillRenderAmount {
+public abstract class SexMark extends AbstractLupaPower implements InvisiblePower_StillRenderAmount, OnPostApplyThisPower {
     public static final int MARKNeeded = 5;
     protected static final float BAR_RADIUS = 50.0f * Settings.scale;
     protected static final float BAR_Blank = 20.0f * Settings.scale;
@@ -25,26 +26,33 @@ public abstract class SexMark extends AbstractLupaPower implements InvisiblePowe
     public Set<String> sexNames = new HashSet<>();
     public Hitbox hitbox;
 
+    public String tempSexName;
+
     public SexMark(String name, String id, final AbstractCreature owner, final String sexName) {
         super(id, name, owner, 1, PowerType.BUFF, false);
 
         this.hitbox = new Hitbox((BAR_RADIUS + BAR_Blank) * MARKNeeded, BAR_RADIUS);
         this.hitbox.move(this.owner.hb.cX, Height() + this.owner.hb.height / 2 + BAR_RADIUS * 3);
-
-        Optional<SexMark> sexMark =
-                this.owner.powers.stream()
-                        .filter(power -> Objects.equals(power.ID, this.ID) && power instanceof SexMark)
-                        .map(power -> (SexMark) power).findFirst();
-        if (!sexMark.isPresent()) {
-            return;
-        }
-        sexMark.get().sexNames.add(sexName);
-        this.updateDescription();
-
+        this.tempSexName = sexName;
+        this.sexNames.add(tempSexName);
     }
 
     public static int FindJobAndFuckCard() {
-        return (int) CardUtility.AllCardInBattle().stream().filter(card -> card.name.contains("Job") || card.name.contains("Fuck")).count();
+        return (int) CardUtility.AllCardInBattle_ButWithoutCardInUse().stream()
+                .filter(card -> card.cardID.contains("Job") || card.cardID.contains("Fuck")).count();
+    }
+
+    @Override
+    public void InitializePostApplyThisPower() {
+        Optional<SexMark> sexMark =
+                this.owner.powers.stream()
+                        .filter(power -> Objects.equals(power.ID, this.ID) && power instanceof SexMark)
+                        .map(power -> (SexMark) power).findAny();
+        sexMark.ifPresent(mark -> {
+            mark.sexNames.add(tempSexName);
+//            SuperstitioModSetup.logger.info(mark+"  "+tempSexName);
+        });
+        this.updateDescription();
     }
 
     protected abstract float Height();
@@ -87,24 +95,10 @@ public abstract class SexMark extends AbstractLupaPower implements InvisiblePowe
         }
     }
 
-//    private void Bubble(boolean isDebuff) {
-////        AbstractPower power = this;
-////        String name = this.name;
-////        this.addToTop(new AbstractGameAction() {
-////            @Override
-////            public void update() {
-////                this.isDone = true;
-////                PowerUtility.BubbleMessage(power, isDebuff, name);
-////            }
-////        });
-//
-//    }
-
     @Override
     public void stackPower(final int stackAmount) {
         if (this.amount < 0)
             this.amount = 0;
-        //Bubble(false);
         super.stackPower(stackAmount);
         updateDescription();
         if (isTrigger(this.sexNames)) Trigger();
@@ -114,17 +108,7 @@ public abstract class SexMark extends AbstractLupaPower implements InvisiblePowe
     public void reducePower(int reduceAmount) {
         if (this.amount < 0)
             this.amount = 0;
-        // Bubble(true);
         super.reducePower(reduceAmount);
         updateDescription();
     }
-
-//    public void renderAmountBar(final SpriteBatch sb, final float x, final float y) {
-//        sb.setColor(this.barOrginColor);
-//        sb.draw(ImageMaster.HEALTH_BAR_L, x - BAR_HEIGHT, y + BAR_OFFSET_Y, BAR_HEIGHT,
-//                BAR_HEIGHT);
-//        sb.draw(ImageMaster.HEALTH_BAR_B, x, y + BAR_OFFSET_Y, this.barWidth(), BAR_HEIGHT);
-//        sb.draw(ImageMaster.HEALTH_BAR_R, x + this.barWidth(), y + BAR_OFFSET_Y, BAR_HEIGHT,
-//                BAR_HEIGHT);
-//    }
 }

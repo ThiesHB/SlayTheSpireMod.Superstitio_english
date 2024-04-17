@@ -26,7 +26,7 @@ public class Invite extends AbstractLupaCard {
 
     @Override
     public void use(AbstractPlayer player, AbstractMonster monster) {
-        gainBlock();
+        addToBot_gainBlock();
     }
 
     @Override

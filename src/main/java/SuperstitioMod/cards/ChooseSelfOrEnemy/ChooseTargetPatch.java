@@ -2,9 +2,6 @@ package SuperstitioMod.cards.ChooseSelfOrEnemy;
 
 import SuperstitioMod.SuperstitioModSetup;
 import SuperstitioMod.cards.Lupa.AbstractLupaCard;
-import SuperstitioMod.utils.CardUtility;
-import SuperstitioMod.utils.EventHelper;
-import basemod.BaseMod;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.evacipated.cardcrawl.modthespire.lib.*;
@@ -12,7 +9,6 @@ import com.megacrit.cardcrawl.actions.common.DamageAllEnemiesAction;
 import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.cards.DamageInfo;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
-import com.megacrit.cardcrawl.core.Settings;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import javassist.CtBehavior;
@@ -22,12 +18,10 @@ import java.util.Arrays;
 public class ChooseTargetPatch {
     public static Target Chosen;
     public static boolean isChoosing;
-    public static boolean isShowingCards;
 
     static {
         ChooseTargetPatch.Chosen = new Target();
         ChooseTargetPatch.isChoosing = false;
-        ChooseTargetPatch.isShowingCards = false;
     }
 
     public static void checkCard(final AbstractCard card) {
@@ -49,50 +43,17 @@ public class ChooseTargetPatch {
         SuperstitioModSetup.logger.info("have added monster");
     }
 
-    public static void showAttractNum(final AbstractCard card) {
-        if (!(card instanceof AbstractLupaCard))
-            return;
-        final AbstractLupaCard c = (AbstractLupaCard) card;
-        SuperstitioModSetup.logger.info(String.format("%s attract number is %d", c, c.getShowAttractNum()));
-        if (c.getShowAttractNum() <= 0 || ChooseTargetPatch.isShowingCards)
-            return;
-        for (int i = 0; i < c.getShowAttractNum(); ++i) {
-            final int index = AbstractDungeon.player.discardPile.size() - i - 1;
-            if (index < 0 || i > 5) {
-                break;
-            }
-            if (i + AbstractDungeon.player.hand.size() - 1 >= BaseMod.MAX_HAND_SIZE) {
-                break;
-            }
-            final AbstractCard target = CardUtility.makeStatEquivalentCopy(AbstractDungeon.player.discardPile.group.get(index));
-            target.drawScale = 0.6f;
-            target.targetDrawScale = 0.6f;
-            target.current_x = Settings.WIDTH + AbstractCard.IMG_WIDTH;
-            target.target_x = Settings.WIDTH - 200.0f * Settings.scale;
-            target.current_y = (150.0f + 30.0f * i) * Settings.scale;
-            target.target_y = (150.0f + 30.0f * i) * Settings.scale;
-            EventHelper.showCards.add(0, target);
-        }
-        ChooseTargetPatch.isShowingCards = true;
-        SuperstitioModSetup.logger.info("have added cards");
-    }
-
     public static void releaseCard() {
         if (ChooseTargetPatch.isChoosing) {
             AbstractDungeon.getMonsters().monsters.remove(ChooseTargetPatch.Chosen);
             ChooseTargetPatch.isChoosing = false;
             SuperstitioModSetup.logger.info("have removed monster");
         }
-        if (ChooseTargetPatch.isShowingCards) {
-            EventHelper.showCards.clear();
-            ChooseTargetPatch.isShowingCards = false;
-            SuperstitioModSetup.logger.info("have cleared cards");
-        }
     }
 
     public static class Target extends AbstractMonster {
         public Target() {
-            super("", "Apology Slime", 1, 0.0f, 0.0f, 200.0f, 200.0f, (String) null);
+            super("", "Apology Slime", 1, 0.0f, 0.0f, 200.0f, 200.0f, null);
             this.setMove((byte) 1, AbstractMonster.Intent.DEBUG, 0);
         }
 
@@ -128,28 +89,6 @@ public class ChooseTargetPatch {
         }
     }
 
-    @SpirePatch(clz = AbstractPlayer.class, method = "updateInput")
-    public static class ShowAttractNumPatch1 {
-        @SpireInsertPatch(locator = Locator.class)
-        public static void Insert(final AbstractPlayer _inst) {
-            ChooseTargetPatch.showAttractNum(_inst.hoveredCard);
-        }
-
-        public static class Locator extends SpireInsertLocator {
-            public int[] Locate(final CtBehavior ctMethodToPatch) throws Exception {
-                final Matcher.MethodCallMatcher matcher = new Matcher.MethodCallMatcher((Class) AbstractCard.class, "flash");
-                return LineFinder.findInOrder(ctMethodToPatch, (Matcher) matcher);
-            }
-        }
-    }
-
-    @SpirePatch(clz = AbstractPlayer.class, method = "manuallySelectCard")
-    public static class ShowAttractNumPatch2 {
-        public static void Postfix(final AbstractPlayer _inst, final AbstractCard card) {
-            ChooseTargetPatch.showAttractNum(card);
-        }
-    }
-
     @SpirePatch(clz = AbstractPlayer.class, method = "playCard")
     public static class RemoveTargetPatch1 {
         public static void Postfix(final AbstractPlayer _inst) {
@@ -175,8 +114,8 @@ public class ChooseTargetPatch {
 
         public static class Locator extends SpireInsertLocator {
             public int[] Locate(final CtBehavior ctMethodToPatch) throws Exception {
-                final Matcher.MethodCallMatcher matcher = new Matcher.MethodCallMatcher((Class) AbstractPlayer.class, "drawCurvedLine");
-                return LineFinder.findInOrder(ctMethodToPatch, (Matcher) matcher);
+                final Matcher.MethodCallMatcher matcher = new Matcher.MethodCallMatcher(AbstractPlayer.class, "drawCurvedLine");
+                return LineFinder.findInOrder(ctMethodToPatch, matcher);
             }
         }
     }
@@ -194,8 +133,8 @@ public class ChooseTargetPatch {
 
         public static class Locator extends SpireInsertLocator {
             public int[] Locate(final CtBehavior ctMethodToPatch) throws Exception {
-                final Matcher.MethodCallMatcher matcher = new Matcher.MethodCallMatcher((Class) AbstractMonster.class, "damage");
-                return LineFinder.findInOrder(ctMethodToPatch, (Matcher) matcher);
+                final Matcher.MethodCallMatcher matcher = new Matcher.MethodCallMatcher(AbstractMonster.class, "damage");
+                return LineFinder.findInOrder(ctMethodToPatch, matcher);
             }
         }
     }

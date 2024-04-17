@@ -26,8 +26,8 @@ public class Job_Blow extends AbstractLupaCard {
 
     @Override
     public void use(AbstractPlayer player, AbstractMonster monster) {
-        damageToEnemy(monster,AbstractGameAction.AttackEffect.SLASH_HORIZONTAL);
-        CardUtility.gainSexMark_Outside(this.cardStrings.EXTENDED_DESCRIPTION[0]);
+        addToBot_damageToEnemy(monster,AbstractGameAction.AttackEffect.SLASH_HORIZONTAL);
+        CardUtility.addToTop_gainSexMark_Outside(this.cardStrings.EXTENDED_DESCRIPTION[0]);
     }
 
     @Override

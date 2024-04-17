@@ -26,7 +26,7 @@ public class BlindfoldWithMilk extends AbstractLupaCard {
 
     @Override
     public void use(AbstractPlayer player, AbstractMonster monster) {
-        damageToEnemy(monster, AbstractGameAction.AttackEffect.BLUNT_LIGHT);
+        addToBot_damageToEnemy(monster, AbstractGameAction.AttackEffect.BLUNT_LIGHT);
         if (!monster.isDeadOrEscaped()) {
             {
                 this.addToBot(new AbstractGameAction() {

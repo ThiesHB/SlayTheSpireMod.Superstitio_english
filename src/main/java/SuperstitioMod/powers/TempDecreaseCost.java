@@ -2,17 +2,16 @@ package SuperstitioMod.powers;
 
 import SuperstitioMod.SuperstitioModSetup;
 import SuperstitioMod.powers.interFace.HasTempDecreaseCostEffect;
+import SuperstitioMod.powers.interFace.OnPostApplyThisPower;
 import SuperstitioMod.utils.CardUtility;
-import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.evacipated.cardcrawl.mod.stslib.powers.interfaces.NonStackablePower;
+import com.megacrit.cardcrawl.actions.AbstractGameAction;
 import com.megacrit.cardcrawl.actions.common.RemoveSpecificPowerAction;
 import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.core.AbstractCreature;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
-import com.megacrit.cardcrawl.helpers.ImageMaster;
 import com.megacrit.cardcrawl.localization.PowerStrings;
-import com.megacrit.cardcrawl.powers.AbstractPower;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -23,17 +22,17 @@ import java.util.stream.Stream;
 /**
  * 请使用TempDecreaseCostApplyAction进行添加
  */
-public class TempDecreaseCost extends AbstractLupaPower implements NonStackablePower {
+public class TempDecreaseCost extends AbstractLupaPower implements NonStackablePower, OnPostApplyThisPower {
     public static final String POWER_ID = SuperstitioModSetup.MakeTextID(TempDecreaseCost.class.getSimpleName() + "Power");
     private static final PowerStrings powerStrings = CardCrawlGame.languagePack.getPowerStrings(POWER_ID);
     private final Map<UUID, Integer> costMap = new HashMap<>();
+    private final HasTempDecreaseCostEffect holder;
     public int order = 0;
-    public boolean activate = false;
+    private boolean active = false;
 
     public TempDecreaseCost(final AbstractCreature owner, int amount, HasTempDecreaseCostEffect holder) {
-        super(POWER_ID,powerStrings,owner,amount,owner.isPlayer ? PowerType.BUFF : PowerType.DEBUFF);
-        holder.setEffectHold(this);
-
+        super(POWER_ID, powerStrings, owner, amount, owner.isPlayer ? PowerType.BUFF : PowerType.DEBUFF);
+        this.holder = holder;
     }
 
     public static Stream<TempDecreaseCost> getAllTempDecreaseCost(AbstractCreature owner) {
@@ -42,37 +41,43 @@ public class TempDecreaseCost extends AbstractLupaPower implements NonStackableP
                 .map(power -> (TempDecreaseCost) power);
     }
 
+    public static void RemoveAllByHolder(HasTempDecreaseCostEffect aimHolder) {
+        AllCostModifierPowerByHolder(aimHolder).forEach(TempDecreaseCost::remove);
+    }
+
+    public static Stream<TempDecreaseCost> AllCostModifierPowerByHolder(HasTempDecreaseCostEffect aimHolder) {
+        return getAllTempDecreaseCost().filter(power -> Objects.equals(power.holder.IDAsHolder(), aimHolder.IDAsHolder()));
+    }
+
     public static Stream<TempDecreaseCost> getAllTempDecreaseCost() {
         return getAllTempDecreaseCost(AbstractDungeon.player);
     }
 
     public static TempDecreaseCost getActivateOne(AbstractCreature owner) {
-        return getAllTempDecreaseCost(owner).filter(power -> power.activate).findAny().orElse(null);
+        return getAllTempDecreaseCost(owner).filter(TempDecreaseCost::isActive).findAny().orElse(null);
     }
 
     public static void tryActivateLowestOrder() {
         getAllTempDecreaseCost().filter(TempDecreaseCost::ifIsTheMinOrder).findAny().ifPresent(TempDecreaseCost::activateEffect);
     }
 
-    public int compareOrder(TempDecreaseCost power) {
-        return Integer.compare(this.order, power.order);
+    public static void addToBot_TryActivateLowestOrder() {
+        AbstractDungeon.actionManager.addToBottom(new AbstractGameAction() {
+            @Override
+            public void update() {
+                tryActivateLowestOrder();
+                isDone = true;
+            }
+        });
     }
 
-//    private Stream<TempDecreaseCost> getAllTempDecreaseCost() {
-//        return this.owner.powers.stream()
-//                .filter(power -> Objects.equals(power.ID, this.ID) && power instanceof TempDecreaseCost)
-//                .map(power -> (TempDecreaseCost) power);
-//    }
+    @Override
+    public void onRemove() {
+        super.onRemove();
+    }
 
     public boolean ifIsTheMinOrder() {
-        return getAllTempDecreaseCost().noneMatch(power -> power.order > this.order);
-    }
-
-    private void activateEffect() {
-        if (this.activate)
-            return;
-        this.activate = true;
-        AllCardsCheaper();
+        return getAllTempDecreaseCost().noneMatch(power -> power.amount != 0 && power.order > this.order);
     }
 
 //    private void removeEffectIfActivate() {
@@ -80,20 +85,43 @@ public class TempDecreaseCost extends AbstractLupaPower implements NonStackableP
 //        this.amount = 0;
 //    }
 
+
+    private void activateEffect() {
+        SuperstitioModSetup.logger.info("remove TempCostModifier");
+        this.setActive();
+        tryUseEffect();
+        updateDescription();
+    }
+
+    /**
+     * 可以随意使用
+     */
+    public void tryUseEffect() {
+        if (!this.isActive()) return;
+        if (this.amount == 0) return;
+        AllCardsCheaper();
+    }
+
     public void remove() {
-        SuperstitioModSetup.logger.info("remove TempCost");
-        if (this.activate && this.amount != 0) {
+        SuperstitioModSetup.logger.info("remove TempCostModifier");
+        if (this.isActive() && this.amount != 0) {
             AllCardsCostToOrigin();
-            tryActivateLowestOrder();
         }
         this.addToBot(new RemoveSpecificPowerAction(this.owner, this.owner, this));
+        this.amount = 0;
+        this.active = false;
+        addToBot_TryActivateLowestOrder();
     }
 
     @Override
     public void updateDescription() {
-        this.description = String.format(TempDecreaseCost.powerStrings.DESCRIPTIONS[0], amount);
+        this.description = String.format(TempDecreaseCost.powerStrings.DESCRIPTIONS[0]
+                + (!isActive() ? TempDecreaseCost.powerStrings.DESCRIPTIONS[1] : ""), amount);
     }
 
+    /**
+     * 无可用性检测
+     */
     private void AllCardsCheaper() {
         CardUtility.AllCardInBattle().forEach(this::CardCostCheaper);
     }
@@ -141,15 +169,24 @@ public class TempDecreaseCost extends AbstractLupaPower implements NonStackableP
 
     @Override
     public void onCardDraw(AbstractCard card) {
-        if (!this.activate) return;
+        if (!this.isActive()) return;
 
         this.CardCostCheaper(card);
     }
 
-//    @Override
-//    public void onPlayCard(AbstractCard card, AbstractMonster m) {
-//        if (!this.activate) return;
-////        holder.TempCost_OnPlayCard(card, m);
-//        //ACardCostToOrigin(card);
-//    }
+    @Override
+    public void InitializePostApplyThisPower() {
+        this.order = TempDecreaseCost.getAllTempDecreaseCost().map(p -> p.order).min(Integer::compareTo).orElse(0);
+//        if (TempDecreaseCost.getAllTempDecreaseCost().findAny().isPresent()
+//                || TempDecreaseCost.getAllTempDecreaseCost().noneMatch(TempDecreaseCost::isActive))
+        TempDecreaseCost.addToBot_TryActivateLowestOrder();
+    }
+
+    public boolean isActive() {
+        return active;
+    }
+
+    private void setActive() {
+        this.active = true;
+    }
 }

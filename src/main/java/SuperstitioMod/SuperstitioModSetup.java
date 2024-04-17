@@ -3,6 +3,7 @@ package SuperstitioMod;
 import SuperstitioMod.cards.Lupa.AbstractLupaCard;
 import SuperstitioMod.cards.Lupa.CardStringsWithFlavor;
 import SuperstitioMod.characters.Lupa;
+import SuperstitioMod.powers.interFace.OnPostApplyThisPower;
 import SuperstitioMod.relics.Sensitive;
 import basemod.*;
 import basemod.abstracts.CustomRelic;
@@ -48,7 +49,7 @@ public class SuperstitioModSetup implements EditStringsSubscriber, EditRelicsSub
         EditCharactersSubscriber, AddAudioSubscriber, PostInitializeSubscriber, PostExhaustSubscriber,
         StartGameSubscriber, PostUpdateSubscriber,
         RelicGetSubscriber, PostPowerApplySubscriber, PostBattleSubscriber, PostDungeonInitializeSubscriber,
-
+        OnStartBattleSubscriber,
         OnCardUseSubscriber, OnPowersModifiedSubscriber, PostDrawSubscriber, PostEnergyRechargeSubscriber {
 
     public static final String MOD_NAME = "Superstitio";
@@ -415,9 +416,8 @@ public class SuperstitioModSetup implements EditStringsSubscriber, EditRelicsSub
             } catch (Exception e) {
                 e.printStackTrace();
             }
-            return;
         });
-        settingsPanel.addUIElement((IUIElement) enableSFWButton);
+        settingsPanel.addUIElement(enableSFWButton);
 //        settingXPos = startingXPos;
 //        settingYPos -= lineSpacing;
 //        final ModLabeledToggleButton ignoreUnlocksButton = new ModLabeledToggleButton(SettingText[1], 350.0f, settingYPos, Settings.CREAM_COLOR,
@@ -486,143 +486,16 @@ public class SuperstitioModSetup implements EditStringsSubscriber, EditRelicsSub
     @Override
     public void receivePostPowerApplySubscriber(
             AbstractPower abstractPower, AbstractCreature abstractCreature, AbstractCreature abstractCreature1) {
+        if (abstractPower instanceof OnPostApplyThisPower)
+            ((OnPostApplyThisPower) abstractPower).InitializePostApplyThisPower();
     }
 
     @Override
     public void receiveRelicGet(AbstractRelic abstractRelic) {
     }
 
-
-//    private void initializeConfig() {
-//        final UIStrings configStrings = CardCrawlGame.languagePack.getUIString("downfall:ConfigMenuText");
-//        final Texture badgeTexture = new Texture(assetPath("images/badge.png"));
-//        this.settingsPanel = new ModPanel();
-//        int configPos = 750;
-//        final int configStep = 40;
-//        final ModLabeledToggleButton characterCrossoverBtn = new ModLabeledToggleButton(configStrings.TEXT[4],
-//        350.0f, (float)configPos, Settings
-//        .CREAM_COLOR, FontHelper.charDescFont, downfallMod.crossoverCharacters, this.settingsPanel, label ->
-//        {}, button -> {
-//            downfallMod.crossoverCharacters = button.enabled;
-//            CardCrawlGame.mainMenuScreen.charSelectScreen.options.clear();
-//            CardCrawlGame.mainMenuScreen.charSelectScreen.initialize();
-//            saveData();
-//            return;
-//        });
-//        this.settingsPanel.addUIElement((IUIElement)characterCrossoverBtn);
-//        configPos -= configStep;
-//        final ModLabeledToggleButton characterModCrossoverBtn = new ModLabeledToggleButton(configStrings
-//        .TEXT[5], 350.0f, (float)configPos,
-//        Settings.CREAM_COLOR, FontHelper.charDescFont, downfallMod.crossoverModCharacters, this.settingsPanel,
-//        label -> {}, button -> {
-//            downfallMod.crossoverModCharacters = button.enabled;
-//            CardCrawlGame.mainMenuScreen.charSelectScreen.options.clear();
-//            CardCrawlGame.mainMenuScreen.charSelectScreen.initialize();
-//            saveData();
-//            return;
-//        });
-//        configPos -= configStep;
-//        final ModLabeledToggleButton contentSharingBtnRelics = new ModLabeledToggleButton(configStrings
-//        .TEXT[0], 350.0f, (float)configPos,
-//        Settings.CREAM_COLOR, FontHelper.charDescFont, downfallMod.contentSharing_relics, this.settingsPanel,
-//        label -> {}, button -> {
-//            downfallMod.contentSharing_relics = button.enabled;
-//            saveData();
-//            return;
-//        });
-//        configPos -= configStep;
-//        final ModLabeledToggleButton contentSharingBtnEvents = new ModLabeledToggleButton(configStrings
-//        .TEXT[2], 350.0f, (float)configPos,
-//        Settings.CREAM_COLOR, FontHelper.charDescFont, downfallMod.contentSharing_events, this.settingsPanel,
-//        label -> {}, button -> {
-//            downfallMod.contentSharing_events = button.enabled;
-//            saveData();
-//            return;
-//        });
-//        configPos -= configStep;
-//        final ModLabeledToggleButton contentSharingBtnPotions = new ModLabeledToggleButton(configStrings
-//        .TEXT[1], 350.0f, (float)configPos,
-//        Settings.CREAM_COLOR, FontHelper.charDescFont, downfallMod.contentSharing_potions, this.settingsPanel,
-//        label -> {}, button -> {
-//            downfallMod.contentSharing_potions = button.enabled;
-//            saveData();
-//            return;
-//        });
-//        configPos -= configStep;
-//        final ModLabeledToggleButton contentSharingBtnColorless = new ModLabeledToggleButton(configStrings
-//        .TEXT[3], 350.0f, (float)configPos,
-//        Settings.CREAM_COLOR, FontHelper.charDescFont, downfallMod.contentSharing_colorlessCards, this
-//        .settingsPanel, label -> {}, button -> {
-//            downfallMod.contentSharing_colorlessCards = button.enabled;
-//            saveData();
-//            return;
-//        });
-//        configPos -= configStep;
-//        final ModLabeledToggleButton contentSharingBtnCurses = new ModLabeledToggleButton(configStrings
-//        .TEXT[6], 350.0f, (float)configPos,
-//        Settings.CREAM_COLOR, FontHelper.charDescFont, downfallMod.contentSharing_curses, this.settingsPanel,
-//        label -> {}, button -> {
-//            downfallMod.contentSharing_curses = button.enabled;
-//            saveData();
-//            return;
-//        });
-//        configPos -= configStep;
-//        final ModLabeledToggleButton normalMapBtn = new ModLabeledToggleButton(configStrings.TEXT[7], 350.0f,
-//        (float)configPos, Settings
-//        .CREAM_COLOR, FontHelper.charDescFont, downfallMod.normalMapLayout, this.settingsPanel, label -> {},
-//        button -> {
-//            downfallMod.normalMapLayout = button.enabled;
-//            saveData();
-//            return;
-//        });
-//        configPos -= configStep;
-//        final ModLabeledToggleButton sneckoNoModConfig = new ModLabeledToggleButton(configStrings.TEXT[10],
-//        350.0f, (float)configPos, Settings
-//        .CREAM_COLOR, FontHelper.charDescFont, downfallMod.sneckoNoModCharacters, this.settingsPanel, label ->
-//        {}, button -> {
-//            downfallMod.sneckoNoModCharacters = button.enabled;
-//            saveData();
-//            return;
-//        });
-//        configPos -= configStep;
-//        final ModLabeledToggleButton unlockAllBtn = new ModLabeledToggleButton(configStrings.TEXT[8], 350.0f,
-//        (float)configPos, Settings
-//        .CREAM_COLOR, FontHelper.charDescFont, downfallMod.unlockEverything, this.settingsPanel, label -> {},
-//        button -> {
-//            downfallMod.unlockEverything = button.enabled;
-//            saveData();
-//            return;
-//        });
-//        configPos -= configStep;
-//        final ModLabeledToggleButton noMusicBtn = new ModLabeledToggleButton(configStrings.TEXT[11], 350.0f,
-//        (float)configPos, Settings
-//        .CREAM_COLOR, FontHelper.charDescFont, downfallMod.noMusic, this.settingsPanel, label -> {}, button -> {
-//            downfallMod.noMusic = button.enabled;
-//            saveData();
-//            return;
-//        });
-//        configPos -= configStep;
-//        final ModLabeledToggleButton unlockAllSkinBtn = new ModLabeledToggleButton(configStrings.TEXT[12], 350
-//        .0f, (float)configPos, Settings
-//        .CREAM_COLOR, FontHelper.charDescFont, reskinContent.unlockAllReskin, this.settingsPanel, label -> {},
-//        button -> {
-//            reskinContent.unlockAllReskin = button.enabled;
-//            reskinContent.unlockAllReskin();
-//            return;
-//        });
-//        this.settingsPanel.addUIElement((IUIElement)contentSharingBtnCurses);
-//        this.settingsPanel.addUIElement((IUIElement)contentSharingBtnEvents);
-//        this.settingsPanel.addUIElement((IUIElement)contentSharingBtnPotions);
-//        this.settingsPanel.addUIElement((IUIElement)contentSharingBtnRelics);
-//        this.settingsPanel.addUIElement((IUIElement)contentSharingBtnColorless);
-//        this.settingsPanel.addUIElement((IUIElement)normalMapBtn);
-//        this.settingsPanel.addUIElement((IUIElement)sneckoNoModConfig);
-//        this.settingsPanel.addUIElement((IUIElement)unlockAllBtn);
-//        this.settingsPanel.addUIElement((IUIElement)noMusicBtn);
-//        this.settingsPanel.addUIElement((IUIElement)unlockAllSkinBtn);
-//        this.settingsPanel.addUIElement((IUIElement)characterModCrossoverBtn);
-//        BaseMod.registerModBadge(badgeTexture, "downfall", "Downfall Team", "A very evil Expansion.", this
-//        .settingsPanel);
-//    }
+    @Override
+    public void receiveOnBattleStart(AbstractRoom abstractRoom) {
+    }
 
 }

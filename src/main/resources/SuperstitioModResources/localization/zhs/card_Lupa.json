@@ -55,7 +55,7 @@
       "手"
     ]
   },
-  "SuperstitioMod:Job_PoplitealFossa": {
+  "SuperstitioMod:Job_LegPit": {
     "NAME": "腿交",
     "DESCRIPTION": "造成 !D! 伤害 。 NL superstitiomod:外射 。",
     "FLAVOR": "",
@@ -70,12 +70,12 @@
   },
   "SuperstitioMod:Fuck_Ear": {
     "NAME": "耳奸",
-    "DESCRIPTION": "造成 2 次 !D! 伤害 。 NL 把 带有 保留 的 *眼奸 加入手牌。 NL 获得 1 脆弱 。 NL superstitiomod:内射 。 NL 消耗 。",
+    "DESCRIPTION": "抽到时获得 保留。 NL 造成 2 次 !D! 伤害 。 NL 把 *眼奸 加入手牌。 NL 获得 1 脆弱 。 NL superstitiomod:内射 。 NL 消耗 。",
     "FLAVOR": "是脑交！"
   },
   "SuperstitioMod:Fuck_Eye": {
     "NAME": "眼奸",
-    "DESCRIPTION": "造成 2 次 !D! 伤害 ， NL 获得 !B! 点 格挡 。 NL 把 带有 保留 的 *耳奸 加入手牌。 NL 获得 1 虚弱 。 NL superstitiomod:内射 。 NL 消耗 。",
+    "DESCRIPTION": "抽到时获得 保留。 NL 造成 2 次 !D! 伤害 ， NL 获得 !B! 点 格挡 。 NL 把 *耳奸 加入手牌。 NL 获得 1 虚弱 。 NL superstitiomod:内射 。 NL 消耗 。",
     "FLAVOR": "也许是脑交。"
   },
   "SuperstitioMod:Fuck_Navel": {
@@ -163,7 +163,7 @@
   },
   "SuperstitioMod:ChokeChoker": {
     "NAME": "窒息项圈",
-    "DESCRIPTION": "每打出1张牌，受到1点伤害。本回合和之后每回合获得 !M! superstitiomod:快感修正 。",
+    "DESCRIPTION": "每打出1张牌，受到1点伤害。 NL 本回合和之后每回合获得 !M! superstitiomod:快感修正 。",
     "FLAVOR": "为了更高的快感。"
   },
   "SuperstitioMod:Samsara": {
@@ -190,5 +190,13 @@
     "NAME": "忍耐",
     "DESCRIPTION": "下回合获得 !M! superstitiomod:快感 。 NL 抽 2 张牌。",
     "FLAVOR": ""
+  },
+  "SuperstitioMod:Omniscience_TempName": {
+    "NAME": "Omniscience_TempName",
+    "DESCRIPTION": "从抽牌堆中选择最多 !M! 张牌并 消耗 。 NL 消耗 。",
+    "FLAVOR": "",
+    "EXTENDED_DESCRIPTION": [
+      "选择 %d 张牌并消耗。"
+    ]
   }
 }

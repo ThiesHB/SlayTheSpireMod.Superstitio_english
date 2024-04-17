@@ -18,9 +18,10 @@ public class Fuck_Vaginal extends AbstractLupaCard {
     public static final CardTarget CARD_TARGET = CardTarget.ENEMY;
 
     private static final int COST = 1;
-    private static final int ATTACK_DMG = 12;
+    private static final int ATTACK_DMG = 14;
     private static final int UPGRADE_PLUS_DMG = 4;
-    private static final int Magic_Number = 3;
+    private static final int Magic_Number = 5;
+
     public Fuck_Vaginal() {
         super(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET);
         setupDamage(ATTACK_DMG);
@@ -42,7 +43,7 @@ public class Fuck_Vaginal extends AbstractLupaCard {
         float damageDown = this.magicNumber;
         if (!AbstractDungeon.player.hand.group.isEmpty())
             damageDown = (float) totalCost * damageDown / AbstractDungeon.player.hand.group.size();
-        if (damageDown * this.magicNumber >= 1)
+        if (damageDown >= 1)
             this.isDamageModified = true;
         this.baseDamage = (int) (this.getOriginDamage() - damageDown);
 
@@ -59,8 +60,8 @@ public class Fuck_Vaginal extends AbstractLupaCard {
     @Override
     public void use(final AbstractPlayer player, final AbstractMonster monster) {
         this.calculateCardDamage(null);
-        damageToEnemy(monster,AbstractGameAction.AttackEffect.BLUNT_HEAVY);
-        CardUtility.gainSexMark_Inside(this.name);
+        addToBot_damageToEnemy(monster, AbstractGameAction.AttackEffect.BLUNT_HEAVY);
+        CardUtility.addToTop_gainSexMark_Inside(this.name);
     }
 
     @Override

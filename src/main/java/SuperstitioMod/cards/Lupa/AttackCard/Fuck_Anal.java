@@ -27,8 +27,8 @@ public class Fuck_Anal extends AbstractLupaCard {
 
     @Override
     public void use(AbstractPlayer player, AbstractMonster monster) {
-        damageToEnemy(monster, AbstractGameAction.AttackEffect.BLUNT_LIGHT);
-        CardUtility.gainSexMark_Inside(this.name);
+        addToBot_damageToEnemy(monster, AbstractGameAction.AttackEffect.BLUNT_LIGHT);
+        CardUtility.addToTop_gainSexMark_Inside(this.name);
     }
 
     @Override

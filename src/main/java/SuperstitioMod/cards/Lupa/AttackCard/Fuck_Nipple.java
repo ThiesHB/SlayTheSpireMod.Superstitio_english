@@ -17,7 +17,7 @@ public class Fuck_Nipple extends AbstractLupaCard {
 
     public static final CardRarity CARD_RARITY = CardRarity.COMMON;
 
-    public static final CardTarget CARD_TARGET = CardTarget.ENEMY;
+    public static final CardTarget CARD_TARGET = CardTarget.ALL_ENEMY;
 
     private static final int COST = 1;
     private static final int ATTACK_DMG = 5;
@@ -34,7 +34,7 @@ public class Fuck_Nipple extends AbstractLupaCard {
                 AbstractGameAction.AttackEffect.BLUNT_LIGHT));
         this.addToBot(new DamageRandomEnemyAction(new DamageInfo(AbstractDungeon.player, this.damage),
                 AbstractGameAction.AttackEffect.BLUNT_LIGHT));
-        CardUtility.gainSexMark_Inside(this.name);
+        CardUtility.addToTop_gainSexMark_Inside(this.name);
     }
 
     @Override

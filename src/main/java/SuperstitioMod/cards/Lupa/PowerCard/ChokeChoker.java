@@ -35,7 +35,7 @@ public class ChokeChoker extends AbstractLupaCard {
                 power.AddPowers();
             }
         });
-        gainPowerToPlayer(new SuperstitioMod.powers.ChokeChoker(player, this.magicNumber));
+        addToBot_gainPowerToPlayer(new SuperstitioMod.powers.ChokeChoker(player, this.magicNumber));
         //CumPlaceHelper.addToSequence(this);
         //gainPowerToPlayer(new SexualHeatNeededModifier(player, this.magicNumber));
     }

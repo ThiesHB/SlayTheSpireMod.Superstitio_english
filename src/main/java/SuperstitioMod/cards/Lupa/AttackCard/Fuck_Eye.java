@@ -28,33 +28,38 @@ public class Fuck_Eye extends AbstractLupaCard {
     private static final int UPGRADE_BLOCK = 1;
 
     public Fuck_Eye() {
-        super(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET);
-        this.setupDamage(ATTACK_DMG);
-        this.setupBlock(BLOCK);
-        AbstractCard card = new Fuck_Ear(false);
-        CardModifierManager.addModifier(card, new RetainMod());
-        this.cardsToPreview = card;
-        this.exhaust = true;
+        this(false);
+//        AbstractCard card = new Fuck_Ear(false);
+//        CardModifierManager.removeSpecificModifier(card, new RetainMod(), false);
+        this.cardsToPreview = new Fuck_Ear(false);
     }
 
     public Fuck_Eye(boolean blank) {
         super(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET);
         this.setupDamage(ATTACK_DMG);
+        this.setupBlock(BLOCK);
         this.exhaust = true;
+//        CardModifierManager.addModifier(this, new RetainMod());
     }
 
     @Override
     public void use(AbstractPlayer player, AbstractMonster monster) {
-        damageToEnemy(monster, AbstractGameAction.AttackEffect.BLUNT_LIGHT);
-        damageToEnemy(monster, AbstractGameAction.AttackEffect.BLUNT_LIGHT);
-        gainBlock();
+        addToBot_damageToEnemy(monster, AbstractGameAction.AttackEffect.BLUNT_LIGHT);
+        addToBot_damageToEnemy(monster, AbstractGameAction.AttackEffect.BLUNT_LIGHT);
+        addToBot_gainBlock();
         AbstractCard card = new Fuck_Ear();
-        CardModifierManager.addModifier(card, new RetainMod());
+//        CardModifierManager.removeSpecificModifier(card, new RetainMod(), false);
         if (upgraded)
             card.upgrade();
         makeTempCardInBattle(card, BattleCardPlace.Hand);
-        gainPowerToPlayer(new WeakPower(AbstractDungeon.player, 1, false));
-        CardUtility.gainSexMark_Inside(this.name);
+        addToBot_gainPowerToPlayer(new WeakPower(AbstractDungeon.player, 1, false));
+        CardUtility.addToTop_gainSexMark_Inside(this.name);
+    }
+
+    @Override
+    public void triggerWhenDrawn() {
+        if (!CardModifierManager.hasModifier(this, RetainMod.ID))
+            CardModifierManager.addModifier(this, new RetainMod());
     }
 
     @Override
