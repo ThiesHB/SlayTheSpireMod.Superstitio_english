@@ -1,6 +1,7 @@
 package SuperstitioMod.cards.Lupa.SkillCard;
 
 import SuperstitioMod.SuperstitioModSetup;
+import SuperstitioMod.actions.AbstractAutoDoneAction;
 import SuperstitioMod.cards.Lupa.AbstractLupaCard;
 import com.megacrit.cardcrawl.actions.AbstractGameAction;
 import com.megacrit.cardcrawl.actions.common.ApplyPowerAction;
@@ -31,9 +32,9 @@ public class Tease extends AbstractLupaCard {
     @Override
     public void use(AbstractPlayer player, AbstractMonster monster) {
         int amount = (int) (monster.maxHealth * MagicNumber / 100f);
-        this.addToBot(new AbstractGameAction() {
+        this.addToBot(new AbstractAutoDoneAction() {
             @Override
-            public void update() {
+            public void autoDoneUpdate() {
                 monster.decreaseMaxHealth(amount);
             }
         });

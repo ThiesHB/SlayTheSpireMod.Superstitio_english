@@ -37,8 +37,8 @@
       "到 下回合 开始前 ，失去 #y格挡 时，获得失去数值一半的 #y精液 。 NL #y精液 会在 回合结束时 转换为 #y临时生命 。 "
     ]
   },
-  "SuperstitioMod:SemenPower": {
-    "NAME": "精液",
+  "SuperstitioMod:DrySemenPower": {
+    "NAME": "干涸精液",
     "DESCRIPTIONS": [
       " 本回合 结束时，转化为等量的 #y临时生命 。"
     ]
@@ -91,6 +91,12 @@
     "DESCRIPTIONS": [
       "所有牌的能量消耗减少 %d 点。",
       " NL 效果未启动。"
+    ]
+  },
+  "SuperstitioMod:OnApplyDamage_ThenRemoveLoseStrengthPower": {
+    "NAME": "M性格：渴求",
+    "DESCRIPTIONS": [
+      "下次受伤后移除所有的临时力量。"
     ]
   }
 }

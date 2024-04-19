@@ -25,7 +25,7 @@ public class Ku_Koro extends AbstractLupaCard {
 
     @Override
     public void use(AbstractPlayer player, AbstractMonster monster) {
-        addToBot_gainPowerToPlayer(new SuperstitioMod.powers.Ku_Koro(player));
+        addToBot_applyPowerToPlayer(new SuperstitioMod.powers.Ku_Koro(player));
     }
 
     @Override

@@ -1,7 +1,7 @@
 ﻿{
   "SuperstitioMod:Job_Armpit": {
     "NAME": "腋交",
-    "DESCRIPTION": "造成 !D! 伤害 。 NL superstitiomod:外射 。",
+    "DESCRIPTION": "造成 !D! 点 伤害 。 NL superstitiomod:外射 。",
     "FLAVOR": "",
     "EXTENDED_DESCRIPTION": [
       "腋下"
@@ -9,7 +9,7 @@
   },
   "SuperstitioMod:Job_Blow": {
     "NAME": "口交",
-    "DESCRIPTION": "造成 !D! 伤害 。 NL superstitiomod:外射 。",
+    "DESCRIPTION": "造成 !D! 点 伤害 。 NL superstitiomod:外射 。",
     "FLAVOR": "用嘴。",
     "EXTENDED_DESCRIPTION": [
       "脸"
@@ -17,7 +17,7 @@
   },
   "SuperstitioMod:Job_Breast": {
     "NAME": "胸交",
-    "DESCRIPTION": "造成 !D! 伤害 。 NL superstitiomod:外射 。",
+    "DESCRIPTION": "造成 !D! 点 伤害 。 NL superstitiomod:外射 。",
     "FLAVOR": "",
     "EXTENDED_DESCRIPTION": [
       "胸口"
@@ -25,7 +25,7 @@
   },
   "SuperstitioMod:Job_Foot": {
     "NAME": "足交",
-    "DESCRIPTION": "造成 2次 !D! 伤害 。 NL superstitiomod:外射 。",
+    "DESCRIPTION": "造成 2 次 !D! 点 伤害 。 NL superstitiomod:外射 。",
     "FLAVOR": "用脚。",
     "EXTENDED_DESCRIPTION": [
       "鞋"
@@ -33,7 +33,7 @@
   },
   "SuperstitioMod:Job_Groin": {
     "NAME": "股交",
-    "DESCRIPTION": "造成 !D! 伤害 。 NL superstitiomod:外射 。",
+    "DESCRIPTION": "造成 !D! 点 伤害 。 NL superstitiomod:外射 。",
     "FLAVOR": "",
     "EXTENDED_DESCRIPTION": [
       "腹股沟"
@@ -41,7 +41,7 @@
   },
   "SuperstitioMod:Job_Hair": {
     "NAME": "发交",
-    "DESCRIPTION": "造成 !D! 伤害 。 NL 把带有 消耗 的 自身复制 加入手牌。 NL superstitiomod:外射 。 NL 虚无 。",
+    "DESCRIPTION": "造成 !D! 点 伤害 。 NL 把带有 消耗 的 复制 加入手牌， NL 复制品减少 !M! 伤害。 NL superstitiomod:外射 。 NL 虚无 。",
     "FLAVOR": "",
     "EXTENDED_DESCRIPTION": [
       "头发"
@@ -49,7 +49,7 @@
   },
   "SuperstitioMod:Job_Hand": {
     "NAME": "手交",
-    "DESCRIPTION": "造成 !D! 伤害 。 NL superstitiomod:外射 。",
+    "DESCRIPTION": "造成 !D! 点 伤害 。 NL superstitiomod:外射 。",
     "FLAVOR": "用手。",
     "EXTENDED_DESCRIPTION": [
       "手"
@@ -57,7 +57,7 @@
   },
   "SuperstitioMod:Job_LegPit": {
     "NAME": "腿交",
-    "DESCRIPTION": "造成 !D! 伤害 。 NL superstitiomod:外射 。",
+    "DESCRIPTION": "造成 2 次 !D! 点 伤害 。 NL superstitiomod:高潮 中，每造成未被格挡的伤害，抽 1 张牌。 NL superstitiomod:外射 。",
     "FLAVOR": "",
     "EXTENDED_DESCRIPTION": [
       "腿弯"
@@ -65,37 +65,37 @@
   },
   "SuperstitioMod:Fuck_Anal": {
     "NAME": "肛奸",
-    "DESCRIPTION": "NL superstitiomod:内射 。",
+    "DESCRIPTION": "造成 !D! 点 伤害 。 NL 你的下一次攻击造成 !M! 点 额外伤害 。 NL superstitiomod:内射 。",
     "FLAVOR": ""
   },
   "SuperstitioMod:Fuck_Ear": {
     "NAME": "耳奸",
-    "DESCRIPTION": "抽到时获得 保留。 NL 造成 2 次 !D! 伤害 。 NL 把 *眼奸 加入手牌。 NL 获得 1 脆弱 。 NL superstitiomod:内射 。 NL 消耗 。",
+    "DESCRIPTION": "抽到时获得 保留。 NL 造成 2 次 !D! 点 伤害 。 NL 把 *眼奸 加入手牌。 NL 获得 1 脆弱 。 NL superstitiomod:内射 。 NL 消耗 。",
     "FLAVOR": "是脑交！"
   },
   "SuperstitioMod:Fuck_Eye": {
     "NAME": "眼奸",
-    "DESCRIPTION": "抽到时获得 保留。 NL 造成 2 次 !D! 伤害 ， NL 获得 !B! 点 格挡 。 NL 把 *耳奸 加入手牌。 NL 获得 1 虚弱 。 NL superstitiomod:内射 。 NL 消耗 。",
+    "DESCRIPTION": "抽到时获得 保留。 NL 造成 2 次 !D! 点 伤害 。 NL 获得 !B! 点 格挡 。 NL 把 *耳奸 加入手牌。 NL 获得 1 虚弱 。 NL superstitiomod:内射 。 NL 消耗 。",
     "FLAVOR": "也许是脑交。"
   },
   "SuperstitioMod:Fuck_Navel": {
     "NAME": "脐奸",
-    "DESCRIPTION": "。 NL superstitiomod:内射 。",
+    "DESCRIPTION": "造成 !D! 点 伤害 ， NL 在手牌中时，每高潮一次，提高 !M! 点伤害。 NL superstitiomod:内射 。",
     "FLAVOR": ""
   },
   "SuperstitioMod:Fuck_Nipple": {
     "NAME": "乳奸",
-    "DESCRIPTION": "对随机敌人 造成 2 次 !D! 伤害 。 NL superstitiomod:内射 。",
+    "DESCRIPTION": "对随机敌人 造成 2 次 !D! 点 伤害 。 NL superstitiomod:内射 。",
     "FLAVOR": "大奶子特权。"
   },
   "SuperstitioMod:Fuck_Throat": {
     "NAME": "喉奸",
-    "DESCRIPTION": "造成 !D! 伤害。 NL 获得 !M! 的 [E] 。 NL superstitiomod:内射 。",
+    "DESCRIPTION": "造成 !D! 点 伤害 。 NL 获得 !M! 的 [E] 。 NL superstitiomod:内射 。",
     "FLAVOR": ""
   },
   "SuperstitioMod:Fuck_Vaginal": {
     "NAME": "阴奸",
-    "DESCRIPTION": "造成 !D! 伤害， NL 根据手牌平均耗能减少 !M! 伤害每 [E] 。 NL superstitiomod:内射 。",
+    "DESCRIPTION": "造成 !D! 点 伤害 ， NL 根据手牌平均耗能，减少 !M! 伤害每 [E] 。 NL superstitiomod:内射 。",
     "FLAVOR": ""
   },
   "SuperstitioMod:Invite": {
@@ -125,17 +125,17 @@
   },
   "SuperstitioMod:ExposeSelf": {
     "NAME": "自我暴露",
-    "DESCRIPTION": "获得 !B! 点 格挡 。 NL 到 下回合 开始前 ，失去 格挡 时， NL 获得失去数值一半的 superstitiomod:精液 。",
+    "DESCRIPTION": "获得 !B! 点 格挡 。 NL 到 下回合 开始前 ，失去 格挡 时， NL 获得失去数值一半的 superstitiomod:干涸精液 。",
     "FLAVOR": "要做爱，不作战。"
   },
   "SuperstitioMod:BlindfoldWithMilk": {
     "NAME": "以乳蒙眼",
-    "DESCRIPTION": "造成 !D! 伤害 。 NL 目标跳过一个动作。",
+    "DESCRIPTION": "造成 !D! 点 伤害 。 NL 目标跳过一个动作。",
     "FLAVOR": "这招如何？"
   },
   "SuperstitioMod:SexToy": {
     "NAME": "情趣玩具",
-    "DESCRIPTION": "给自己或敌人装备 !M! 个 随机 superstitiomod:情趣玩具 。",
+    "DESCRIPTION": "给目标装备 !M! 个 随机 superstitiomod:情趣玩具 。",
     "FLAVOR": "越多越好！",
     "EXTENDED_DESCRIPTION": [
       "跳蛋,震动棒,肛塞"
@@ -153,7 +153,7 @@
   },
   "SuperstitioMod:UnBirth": {
     "NAME": "胎内回归",
-    "DESCRIPTION": "获得 !B! 格挡 。 NL 把目标所有的 负面效果 和 力量 、 敏捷 封印成 *分娩 。",
+    "DESCRIPTION": "获得 !B! 格挡 。 NL 把敌人所有的 负面效果 和 力量 、 敏捷 封印成 *分娩 。",
     "FLAVOR": "我会包容你的一切：你的欲望、你的梦想、你的爱……请把你的一切交给我。"
   },
   "SuperstitioMod:ReBirth": {
@@ -163,7 +163,7 @@
   },
   "SuperstitioMod:ChokeChoker": {
     "NAME": "窒息项圈",
-    "DESCRIPTION": "每打出1张牌，受到1点伤害。 NL 本回合和之后每回合获得 !M! superstitiomod:快感修正 。",
+    "DESCRIPTION": "每打出1张牌，受到 !M! 点伤害。 NL 本回合和之后每回合获得 !M! superstitiomod:快感修正 。",
     "FLAVOR": "为了更高的快感。"
   },
   "SuperstitioMod:Samsara": {
@@ -183,7 +183,7 @@
   },
   "SuperstitioMod:BellyStrike": {
     "NAME": "腹部打击",
-    "DESCRIPTION": "。",
+    "DESCRIPTION": "对目标造成 !D! 伤害，给予 !M! 临时力量 。 NL superstitiomod:受虐者 ： 造成未被格挡的伤害时， 临时力量 变为永久。",
     "FLAVOR": ""
   },
   "SuperstitioMod:Endure": {

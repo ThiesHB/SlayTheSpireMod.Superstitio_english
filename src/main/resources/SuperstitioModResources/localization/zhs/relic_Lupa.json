@@ -15,5 +15,26 @@
       "处于双重性格。 NL 受到超过每 #b%d 点伤害获得1点 #ysuperstitiomod:快感 ， NL 造成超过每 #b%d 点伤害获得1点 #ysuperstitiomod:快感 。"
     ],
     "FLAVOR": "我两个都一样的操操……操x99——啊！"
+  },
+  "SuperstitioMod:NippleRingsRelic": {
+    "NAME": "乳环",
+    "DESCRIPTIONS": [
+      "每次 #ysuperstitiomod:高潮 时，获得 2 临时 力量 。"
+    ],
+    "FLAVOR": "会让人更有吸引力，特别是乳头勃起时。"
+  },
+  "SuperstitioMod:ProstitutionRelic": {
+    "NAME": "嫖资",
+    "DESCRIPTIONS": [
+      "打出 %d 次 #ysuperstitiomod:内射 或 #ysuperstitiomod:外射 牌时，获得 %d 金币 。"
+    ],
+    "FLAVOR": "肉体交易，物美价廉。"
+  },
+  "SuperstitioMod:EjaculationMasterRelic": {
+    "NAME": "潮吹大师",
+    "DESCRIPTIONS": [
+      "战斗中，每 %d 次 #ysuperstitiomod:高潮 时，抽 %d 张卡。"
+    ],
+    "FLAVOR": "看我喷的多远！"
   }
 }

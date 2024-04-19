@@ -14,9 +14,14 @@ public interface OnOrgasm {
     void afterOrgasm(SexualHeat SexualHeatPower);
 
     /**
-     * 调用时已经判断高潮成立，如果返回false则禁止本次高潮
+     * 高潮结束后的处理
      */
-    boolean shouldOrgasm(SexualHeat SexualHeatPower);
+    void afterEndOrgasm(SexualHeat SexualHeatPower);
+
+    /**
+     * 调用时已经判断高潮成立，如果返回true则禁止本次高潮
+     */
+    boolean preventOrgasm(SexualHeat SexualHeatPower);
 
     /**
      * 潮吹之前

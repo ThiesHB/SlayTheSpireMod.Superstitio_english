@@ -27,7 +27,7 @@ public class Endure extends AbstractLupaCard {
 
     @Override
     public void use(AbstractPlayer player, AbstractMonster monster) {
-        this.addToBot_gainPowerToPlayer(new DelaySexualHeat(player,this.magicNumber));
+        this.addToBot_applyPowerToPlayer(new DelaySexualHeat(player,this.magicNumber));
         this.addToBot_drawCards(2);
     }
 

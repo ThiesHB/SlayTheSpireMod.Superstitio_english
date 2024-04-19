@@ -20,7 +20,7 @@ public class SorM extends CustomRelic implements ClickableRelic, CustomSavable<I
     public static final String ID = SuperstitioModSetup.MakeTextID(SorM.class.getSimpleName() + "Relic");
     private static final String IMG_PATH = SuperstitioModSetup.makeImgFilesPath_Relic("default_relic");
     // 遗物类型
-    private static final RelicTier RELIC_TIER = RelicTier.STARTER;
+    private static final RelicTier RELIC_TIER = RelicTier.SPECIAL;
     // 点击音效
     private static final LandingSound LANDING_SOUND = LandingSound.FLAT;
     private static final int SadismModeRate = 10;
@@ -107,9 +107,8 @@ public class SorM extends CustomRelic implements ClickableRelic, CustomSavable<I
 
     @Override
     public void onRightClick() {
-        updateDesAndImg();
-        this.flash();
         if (AbstractDungeon.getCurrRoom() != null && AbstractDungeon.getCurrRoom().phase == AbstractRoom.RoomPhase.COMBAT) return;
+        this.flash();
         if (ClickTime >= 99) {
             MasochismMode = true;
             SadismMode = true;
@@ -118,6 +117,7 @@ public class SorM extends CustomRelic implements ClickableRelic, CustomSavable<I
         ClickTime++;
         MasochismMode = !MasochismMode;
         SadismMode = !SadismMode;
+        updateDesAndImg();
     }
 
     @Override

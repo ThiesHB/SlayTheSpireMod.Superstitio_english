@@ -29,7 +29,7 @@ public class ExposeSelf extends AbstractLupaCard {
     @Override
     public void use(AbstractPlayer player, AbstractMonster monster) {
         this.addToBot_gainBlock();
-        this.addToBot_gainPowerToPlayer(new SuperstitioMod.powers.ExposeSelf(player,1));
+        this.addToBot_applyPowerToPlayer(new SuperstitioMod.powers.ExposeSelf(player,1));
     }
 
     @Override

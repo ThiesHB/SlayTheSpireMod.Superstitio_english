@@ -38,7 +38,7 @@ public class SexToy extends AbstractLupaCard {
         int bound = this.magicNumber;
         if (this.isTargetSelf(monster)) {
             IntStream.range(0, bound).forEach(i ->
-                    addToBot_gainPowerToPlayer(new SuperstitioMod.powers.SexToy(AbstractDungeon.player, 1, getRandomSexToyName())));
+                    addToBot_applyPowerToPlayer(new SuperstitioMod.powers.SexToy(AbstractDungeon.player, 1, getRandomSexToyName())));
         } else {
             IntStream.range(0, bound).forEach(i ->
                     addToBot_applyPowerToEnemy(new SuperstitioMod.powers.SexToy(monster, 1, getRandomSexToyName()), monster));

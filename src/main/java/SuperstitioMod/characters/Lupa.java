@@ -1,9 +1,10 @@
 package SuperstitioMod.characters;
 
 import SuperstitioMod.SuperstitioModSetup;
-import SuperstitioMod.cards.Lupa.BaseCard.Job_Hand;
 import SuperstitioMod.cards.Lupa.BaseCard.Invite;
+import SuperstitioMod.cards.Lupa.BaseCard.Job_Hand;
 import SuperstitioMod.cards.Lupa.BaseCard.Masturbate;
+import SuperstitioMod.relics.EjaculationMaster;
 import SuperstitioMod.relics.Sensitive;
 import SuperstitioMod.relics.SorM;
 import basemod.abstracts.CustomPlayer;
@@ -108,9 +109,10 @@ public class Lupa extends CustomPlayer {
     }
 
     @Override
-    // 初始遗物的ID，可以先写个原版遗物凑数
+    // 初始遗物
     public ArrayList<String> getStartingRelics() {
         ArrayList<String> retVal = new ArrayList<>();
+        retVal.add(EjaculationMaster.ID);
         retVal.add(Sensitive.ID);
         retVal.add(SorM.ID);
         return retVal;

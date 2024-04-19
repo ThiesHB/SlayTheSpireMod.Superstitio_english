@@ -29,7 +29,7 @@ public class Masturbate extends AbstractLupaCard {
     @Override
     public void use(AbstractPlayer player, AbstractMonster monster) {
         this.addToBot_drawCards(DRAWCard);
-        this.addToBot_gainPowerToPlayer(new SexualHeat(player, this.magicNumber));
+        this.addToBot_applyPowerToPlayer(new SexualHeat(player, this.magicNumber));
     }
 
     @Override

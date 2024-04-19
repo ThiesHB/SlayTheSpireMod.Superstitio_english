@@ -3,6 +3,7 @@ package SuperstitioMod;
 import SuperstitioMod.cards.Lupa.AbstractLupaCard;
 import SuperstitioMod.cards.Lupa.CardStringsWithFlavor;
 import SuperstitioMod.characters.Lupa;
+import SuperstitioMod.powers.TempDecreaseCost;
 import SuperstitioMod.powers.interFace.OnPostApplyThisPower;
 import SuperstitioMod.relics.Sensitive;
 import basemod.*;
@@ -496,6 +497,8 @@ public class SuperstitioModSetup implements EditStringsSubscriber, EditRelicsSub
 
     @Override
     public void receiveOnBattleStart(AbstractRoom abstractRoom) {
+        TempDecreaseCost.costMap.clear();
+        InBattleDataManager.Initialize();
     }
 
 }

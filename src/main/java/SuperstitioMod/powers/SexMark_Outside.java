@@ -1,7 +1,7 @@
 package SuperstitioMod.powers;
 
 import SuperstitioMod.SuperstitioModSetup;
-import com.evacipated.cardcrawl.mod.stslib.actions.tempHp.AddTemporaryHPAction;
+import com.megacrit.cardcrawl.actions.common.ApplyPowerAction;
 import com.megacrit.cardcrawl.core.AbstractCreature;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.localization.PowerStrings;
@@ -26,7 +26,7 @@ public class SexMark_Outside extends SexMark {
     @Override
     protected void Trigger() {
         super.Trigger();
-        this.addToBot(new AddTemporaryHPAction(this.owner, this.owner, TemporaryHPRate * FindJobAndFuckCard()));
+        this.addToBot(new ApplyPowerAction(this.owner, this.owner, new DrySemen(this.owner, TemporaryHPRate * FindJobAndFuckCard())));
     }
 
     @Override

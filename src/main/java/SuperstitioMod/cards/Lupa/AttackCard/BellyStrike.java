@@ -1,9 +1,11 @@
 package SuperstitioMod.cards.Lupa.AttackCard;
 
 import SuperstitioMod.SuperstitioModSetup;
+import SuperstitioMod.actions.AbstractAutoDoneAction;
 import SuperstitioMod.cards.Lupa.AbstractLupaCard;
 import com.megacrit.cardcrawl.actions.AbstractGameAction;
 import com.megacrit.cardcrawl.actions.common.DamageAction;
+import com.megacrit.cardcrawl.actions.common.RemoveSpecificPowerAction;
 import com.megacrit.cardcrawl.cards.DamageInfo;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
@@ -17,7 +19,7 @@ public class BellyStrike extends AbstractLupaCard {
 
     public static final CardType CARD_TYPE = CardType.ATTACK;
 
-    public static final CardRarity CARD_RARITY = CardRarity.COMMON;
+    public static final CardRarity CARD_RARITY = CardRarity.UNCOMMON;
 
     public static final CardTarget CARD_TARGET = CardTarget.SELF;
 
@@ -38,13 +40,21 @@ public class BellyStrike extends AbstractLupaCard {
     @Override
     public void use(AbstractPlayer player, AbstractMonster monster) {
         if (this.isTargetSelf(monster)) {
+            addToBot_applyPowerToEnemy(new LoseStrengthPower(monster, magicNumber), monster);
             addToBot(new DamageAction(AbstractDungeon.player, new DamageInfo(AbstractDungeon.player, this.damage),
                     AbstractGameAction.AttackEffect.BLUNT_LIGHT));
-            addToBot_gainPowerToPlayer(new StrengthPower(monster, magicNumber));
+            addToBot_applyPowerToPlayer(new StrengthPower(monster, magicNumber));
+            addToBot(new AbstractAutoDoneAction() {
+                @Override
+                public void autoDoneUpdate() {
+                    if (AbstractDungeon.player.lastDamageTaken > 0)
+                        this.addToBot(new RemoveSpecificPowerAction(AbstractDungeon.player, AbstractDungeon.player, LoseStrengthPower.POWER_ID));
+                }
+            });
         } else {
+            addToBot_applyPowerToEnemy(new LoseStrengthPower(monster, magicNumber), monster);
             addToBot_damageToEnemy(monster, AbstractGameAction.AttackEffect.BLUNT_LIGHT);
             addToBot_applyPowerToEnemy(new StrengthPower(monster, magicNumber), monster);
-            addToBot_applyPowerToEnemy(new LoseStrengthPower(monster, magicNumber), monster);
         }
     }
 

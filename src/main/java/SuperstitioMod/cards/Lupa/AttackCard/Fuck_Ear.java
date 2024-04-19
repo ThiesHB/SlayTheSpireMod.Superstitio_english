@@ -2,6 +2,7 @@ package SuperstitioMod.cards.Lupa.AttackCard;
 
 import SuperstitioMod.SuperstitioModSetup;
 import SuperstitioMod.cards.Lupa.AbstractLupaCard;
+import SuperstitioMod.cards.Lupa.AbstractLupaCard_FuckJob;
 import SuperstitioMod.utils.CardUtility;
 import basemod.cardmods.RetainMod;
 import basemod.helpers.CardModifierManager;
@@ -12,7 +13,7 @@ import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import com.megacrit.cardcrawl.powers.FrailPower;
 
-public class Fuck_Ear extends AbstractLupaCard {
+public class Fuck_Ear extends AbstractLupaCard_FuckJob {
     public static final String ID = SuperstitioModSetup.MakeTextID(Fuck_Ear.class.getSimpleName());
 
     public static final CardType CARD_TYPE = CardType.ATTACK;
@@ -48,7 +49,7 @@ public class Fuck_Ear extends AbstractLupaCard {
         if (upgraded)
             card.upgrade();
         makeTempCardInBattle(card, BattleCardPlace.Hand);
-        addToBot_gainPowerToPlayer(new FrailPower(AbstractDungeon.player, 1, false));
+        addToBot_applyPowerToPlayer(new FrailPower(AbstractDungeon.player, 1, false));
         CardUtility.addToTop_gainSexMark_Inside(this.name);
     }
 

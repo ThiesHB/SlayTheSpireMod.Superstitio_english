@@ -1,6 +1,7 @@
 package SuperstitioMod.cards.Lupa;
 
 import SuperstitioMod.SuperstitioModSetup;
+import SuperstitioMod.actions.AbstractAutoDoneAction;
 import SuperstitioMod.cards.ChooseSelfOrEnemy.ChooseSelfOrEnemyTarget;
 import SuperstitioMod.cards.ChooseSelfOrEnemy.ChooseTargetPatch;
 import SuperstitioMod.characters.Lupa;
@@ -23,6 +24,7 @@ import com.megacrit.cardcrawl.screens.SingleCardViewPopup;
 
 import java.lang.reflect.Field;
 import java.util.Objects;
+import java.util.Optional;
 
 public abstract class AbstractLupaCard extends CustomCard implements ChooseSelfOrEnemyTarget {
     private final static float DESC_LINE_WIDTH = 418.0f * Settings.scale;
@@ -143,13 +145,11 @@ public abstract class AbstractLupaCard extends CustomCard implements ChooseSelfO
                 break;
         }
 
-        AbstractDungeon.actionManager.addToBottom(new AbstractGameAction() {
+        AbstractDungeon.actionManager.addToBottom(new AbstractAutoDoneAction() {
             @Override
-            public void update() {
-                TempDecreaseCost power = TempDecreaseCost.getActivateOne(AbstractDungeon.player);
-                if (power != null)
-                    power.tryUseEffect();
-                isDone = true;
+            public void autoDoneUpdate() {
+                Optional<TempDecreaseCost> power = TempDecreaseCost.getActivateOne(AbstractDungeon.player);
+                power.ifPresent(TempDecreaseCost::tryUseEffect);
             }
         });
     }
@@ -212,7 +212,11 @@ public abstract class AbstractLupaCard extends CustomCard implements ChooseSelfO
         this.addToBot(new DrawCardAction(amount));
     }
 
-    public void addToBot_gainPowerToPlayer(final AbstractPower power) {
+    public void addToBot_drawCards() {
+        this.addToBot(new DrawCardAction(1));
+    }
+
+    public void addToBot_applyPowerToPlayer(final AbstractPower power) {
         this.addToBot(new ApplyPowerAction(AbstractDungeon.player, AbstractDungeon.player, power));
     }
 
@@ -262,4 +266,19 @@ public abstract class AbstractLupaCard extends CustomCard implements ChooseSelfO
             }
         }
     }
+
+    protected void setCostToCostMapForTurn(int amount){
+        if (TempDecreaseCost.costMap.containsKey(this.uuid)){
+            TempDecreaseCost.costMap.put(this.uuid,amount);
+        }
+        this.setCostForTurn(amount);
+    }
+
+    protected void setCostToCostMapForBattle(int amount){
+        if (TempDecreaseCost.costMap.containsKey(this.uuid)){
+            TempDecreaseCost.costMap.put(this.uuid,amount);
+        }
+        this.updateCost(amount);
+    }
+
 }

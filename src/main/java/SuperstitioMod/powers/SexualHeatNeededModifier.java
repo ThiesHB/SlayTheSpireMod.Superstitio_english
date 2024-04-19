@@ -37,8 +37,13 @@ public class SexualHeatNeededModifier extends AbstractLupaPower implements OnOrg
     }
 
     @Override
-    public boolean shouldOrgasm(SexualHeat SexualHeatPower) {
-        return true;
+    public void afterEndOrgasm(SexualHeat SexualHeatPower) {
+
+    }
+
+    @Override
+    public boolean preventOrgasm(SexualHeat SexualHeatPower) {
+        return false;
     }
 
     @Override

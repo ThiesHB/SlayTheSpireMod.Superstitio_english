@@ -1,11 +1,11 @@
 package SuperstitioMod.powers;
 
 import SuperstitioMod.SuperstitioModSetup;
+import SuperstitioMod.actions.AbstractAutoDoneAction;
 import SuperstitioMod.powers.interFace.HasTempDecreaseCostEffect;
 import SuperstitioMod.powers.interFace.OnPostApplyThisPower;
 import SuperstitioMod.utils.CardUtility;
 import com.evacipated.cardcrawl.mod.stslib.powers.interfaces.NonStackablePower;
-import com.megacrit.cardcrawl.actions.AbstractGameAction;
 import com.megacrit.cardcrawl.actions.common.RemoveSpecificPowerAction;
 import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.core.AbstractCreature;
@@ -13,19 +13,14 @@ import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.localization.PowerStrings;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Objects;
-import java.util.UUID;
+import java.util.*;
 import java.util.stream.Stream;
 
-/**
- * 请使用TempDecreaseCostApplyAction进行添加
- */
+
 public class TempDecreaseCost extends AbstractLupaPower implements NonStackablePower, OnPostApplyThisPower {
     public static final String POWER_ID = SuperstitioModSetup.MakeTextID(TempDecreaseCost.class.getSimpleName() + "Power");
+    public static final Map<UUID, Integer> costMap = new HashMap<>();
     private static final PowerStrings powerStrings = CardCrawlGame.languagePack.getPowerStrings(POWER_ID);
-    private final Map<UUID, Integer> costMap = new HashMap<>();
     private final HasTempDecreaseCostEffect holder;
     public int order = 0;
     private boolean active = false;
@@ -53,8 +48,8 @@ public class TempDecreaseCost extends AbstractLupaPower implements NonStackableP
         return getAllTempDecreaseCost(AbstractDungeon.player);
     }
 
-    public static TempDecreaseCost getActivateOne(AbstractCreature owner) {
-        return getAllTempDecreaseCost(owner).filter(TempDecreaseCost::isActive).findAny().orElse(null);
+    public static Optional<TempDecreaseCost> getActivateOne(AbstractCreature owner) {
+        return getAllTempDecreaseCost(owner).filter(TempDecreaseCost::isActive).findAny();
     }
 
     public static void tryActivateLowestOrder() {
@@ -62,29 +57,17 @@ public class TempDecreaseCost extends AbstractLupaPower implements NonStackableP
     }
 
     public static void addToBot_TryActivateLowestOrder() {
-        AbstractDungeon.actionManager.addToBottom(new AbstractGameAction() {
+        AbstractDungeon.actionManager.addToBottom(new AbstractAutoDoneAction() {
             @Override
-            public void update() {
+            public void autoDoneUpdate() {
                 tryActivateLowestOrder();
-                isDone = true;
             }
         });
-    }
-
-    @Override
-    public void onRemove() {
-        super.onRemove();
     }
 
     public boolean ifIsTheMinOrder() {
         return getAllTempDecreaseCost().noneMatch(power -> power.amount != 0 && power.order > this.order);
     }
-
-//    private void removeEffectIfActivate() {
-//
-//        this.amount = 0;
-//    }
-
 
     private void activateEffect() {
         SuperstitioModSetup.logger.info("remove TempCostModifier");
@@ -138,7 +121,7 @@ public class TempDecreaseCost extends AbstractLupaPower implements NonStackableP
             return;
         card.setCostForTurn(Math.max(newCost, 0));
         card.isCostModifiedForTurn = true;
-        card.flash();
+        CardUtility.flashIfInHand(card);
     }
 
     private void AllCardsCostToOrigin() {
@@ -152,7 +135,7 @@ public class TempDecreaseCost extends AbstractLupaPower implements NonStackableP
         if (getOriginCost(card) < card.costForTurn) return;
         if (!costMap.containsKey(card.uuid))
             return;
-        card.flash();
+        CardUtility.flashIfInHand(card);
 
         SuperstitioModSetup.logger.info("card" + card.costForTurn + "costmap" + getOriginCost(card));
         card.setCostForTurn(getOriginCost(card));

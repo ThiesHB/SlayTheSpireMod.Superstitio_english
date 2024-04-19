@@ -95,4 +95,9 @@ public class CardUtility {
         return card;
     }
 
+    public static void flashIfInHand(AbstractCard card){
+        if (AbstractDungeon.player.hand.contains(card))
+            card.flash();
+    }
+
 }

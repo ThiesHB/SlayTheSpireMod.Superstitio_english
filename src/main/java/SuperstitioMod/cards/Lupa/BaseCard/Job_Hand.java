@@ -2,12 +2,13 @@ package SuperstitioMod.cards.Lupa.BaseCard;
 
 import SuperstitioMod.SuperstitioModSetup;
 import SuperstitioMod.cards.Lupa.AbstractLupaCard;
+import SuperstitioMod.cards.Lupa.AbstractLupaCard_FuckJob;
 import SuperstitioMod.utils.CardUtility;
 import com.megacrit.cardcrawl.actions.AbstractGameAction;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 
-public class Job_Hand extends AbstractLupaCard {
+public class Job_Hand extends AbstractLupaCard_FuckJob {
     public static final String ID = SuperstitioModSetup.MakeTextID(Job_Hand.class.getSimpleName());
 
     public static final CardType CARD_TYPE = CardType.ATTACK;

@@ -3,9 +3,14 @@ package SuperstitioMod.powers;
 import SuperstitioMod.SuperstitioModSetup;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.megacrit.cardcrawl.actions.AbstractGameAction;
+import com.megacrit.cardcrawl.actions.common.*;
+import com.megacrit.cardcrawl.cards.DamageInfo;
 import com.megacrit.cardcrawl.core.AbstractCreature;
+import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.helpers.ImageMaster;
 import com.megacrit.cardcrawl.localization.PowerStrings;
+import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import com.megacrit.cardcrawl.powers.AbstractPower;
 
 public abstract class AbstractLupaPower extends AbstractPower {
@@ -60,5 +65,13 @@ public abstract class AbstractLupaPower extends AbstractPower {
     private enum IconSize {
         Big,
         Small
+    }
+
+    public void addToBot_applyPowerToOwner(final AbstractPower power) {
+        this.addToBot(new ApplyPowerAction(this.owner, this.owner, power));
+    }
+
+    public void addToBot_reducePowerToOwner(final String powerID, int amount) {
+        this.addToBot(new ReducePowerAction(this.owner, this.owner, powerID, amount));
     }
 }

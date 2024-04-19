@@ -38,12 +38,17 @@ public class SexualHeatLoseModifier extends AbstractLupaPower implements OnOrgas
     }
 
     @Override
-    public boolean shouldOrgasm(SexualHeat SexualHeatPower) {
-        return true;
+    public void afterEndOrgasm(SexualHeat SexualHeatPower) {
+
+    }
+
+    @Override
+    public boolean preventOrgasm(SexualHeat SexualHeatPower) {
+        return false;
     }
 
     @Override
     public void beforeSquirt(SexualHeat SexualHeatPower) {
-        SexualHeatPower.setHeatReduce_PerCard(SexualHeat.HeatReduce_PerCard_Origin - this.amount);
+        SexualHeatPower.setHeatReducePerCard(SexualHeat.HeatReducePerCard_Origin - this.amount);
     }
 }

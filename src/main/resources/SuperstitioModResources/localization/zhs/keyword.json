@@ -42,9 +42,9 @@
     "DESCRIPTION": " 本回合增加或减少 潮吹 消耗的 #y快感 数量 。"
   },
   {
-    "PROPER_NAME": "精液",
+    "PROPER_NAME": "干涸精液",
     "NAMES": [
-      "精液"
+      "干涸精液"
     ],
     "DESCRIPTION": "回合结束时，转化为等量的 #y临时生命 。"
   },
@@ -70,5 +70,19 @@
       "精液覆身"
     ],
     "DESCRIPTION": " NL 凑齐不同部位后，获得临时生命。"
+  },
+  {
+    "PROPER_NAME": "施虐者",
+    "NAMES": [
+      "施虐者"
+    ],
+    "DESCRIPTION": "对敌人使用时额外触发的效果。"
+  },
+  {
+    "PROPER_NAME": "受虐者",
+    "NAMES": [
+      "受虐者"
+    ],
+    "DESCRIPTION": "对自己使用时额外触发的效果。"
   }
 ]

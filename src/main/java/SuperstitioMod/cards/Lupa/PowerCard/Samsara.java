@@ -29,8 +29,8 @@ public class Samsara extends AbstractLupaCard {
 
     @Override
     public void use(AbstractPlayer player, AbstractMonster monster) {
-        addToBot_gainPowerToPlayer(new EquilibriumPower(player, 99));
-        addToBot_gainPowerToPlayer(new SuperstitioMod.powers.Samsara(player));
+        addToBot_applyPowerToPlayer(new EquilibriumPower(player, 99));
+        addToBot_applyPowerToPlayer(new SuperstitioMod.powers.Samsara(player));
         makeTempCardInBattle(new Wound(),BattleCardPlace.DrawPile,this.magicNumber);
     }
 

@@ -16,13 +16,8 @@ import javassist.CtBehavior;
 import java.util.Arrays;
 
 public class ChooseTargetPatch {
-    public static Target Chosen;
-    public static boolean isChoosing;
-
-    static {
-        ChooseTargetPatch.Chosen = new Target();
-        ChooseTargetPatch.isChoosing = false;
-    }
+    public static Target Chosen = new Target();
+    public static boolean isChoosing = false;
 
     public static void checkCard(final AbstractCard card) {
         if (!(card instanceof AbstractLupaCard))

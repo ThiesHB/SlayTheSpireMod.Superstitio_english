@@ -1,6 +1,7 @@
 package SuperstitioMod.cards.Lupa.PowerCard;
 
 import SuperstitioMod.SuperstitioModSetup;
+import SuperstitioMod.actions.AbstractAutoDoneAction;
 import SuperstitioMod.cards.Lupa.AbstractLupaCard;
 import com.megacrit.cardcrawl.actions.AbstractGameAction;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
@@ -12,7 +13,7 @@ public class ChokeChoker extends AbstractLupaCard {
 
     public static final CardType CARD_TYPE = CardType.POWER;
 
-    public static final CardRarity CARD_RARITY = CardRarity.COMMON;
+    public static final CardRarity CARD_RARITY = CardRarity.UNCOMMON;
 
     public static final CardTarget CARD_TARGET = CardTarget.SELF;
 
@@ -20,6 +21,7 @@ public class ChokeChoker extends AbstractLupaCard {
 
     private static final int MAGICNumber = 2;
     private static final int UPGRADE_MagicNumber = 1;
+
 
     public ChokeChoker() {
         super(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET);
@@ -29,13 +31,13 @@ public class ChokeChoker extends AbstractLupaCard {
     @Override
     public void use(AbstractPlayer player, AbstractMonster monster) {
         SuperstitioMod.powers.ChokeChoker power = new SuperstitioMod.powers.ChokeChoker(player, this.magicNumber);
-        this.addToBot(new AbstractGameAction() {
+        this.addToBot(new AbstractAutoDoneAction() {
             @Override
-            public void update() {
+            public void autoDoneUpdate() {
                 power.AddPowers();
             }
         });
-        addToBot_gainPowerToPlayer(new SuperstitioMod.powers.ChokeChoker(player, this.magicNumber));
+        addToBot_applyPowerToPlayer(new SuperstitioMod.powers.ChokeChoker(player, this.magicNumber));
         //CumPlaceHelper.addToSequence(this);
         //gainPowerToPlayer(new SexualHeatNeededModifier(player, this.magicNumber));
     }

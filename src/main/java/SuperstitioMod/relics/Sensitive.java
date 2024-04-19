@@ -13,7 +13,7 @@ public class Sensitive extends CustomRelic {
     public static final String ID = SuperstitioModSetup.MakeTextID(Sensitive.class.getSimpleName() + "Relic");
     private static final String IMG_PATH = SuperstitioModSetup.makeImgFilesPath_Relic("default_relic");
     // 遗物类型
-    private static final RelicTier RELIC_TIER = RelicTier.STARTER;
+    private static final RelicTier RELIC_TIER = RelicTier.SPECIAL;
     // 点击音效
     private static final LandingSound LANDING_SOUND = LandingSound.FLAT;
     private static final int SexualHeatRate = 1;

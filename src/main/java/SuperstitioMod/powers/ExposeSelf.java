@@ -1,7 +1,6 @@
 package SuperstitioMod.powers;
 
 import SuperstitioMod.SuperstitioModSetup;
-import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.evacipated.cardcrawl.mod.stslib.powers.interfaces.OnLoseBlockPower;
 import com.megacrit.cardcrawl.actions.common.ApplyPowerAction;
 import com.megacrit.cardcrawl.actions.common.ReducePowerAction;
@@ -10,9 +9,7 @@ import com.megacrit.cardcrawl.cards.DamageInfo;
 import com.megacrit.cardcrawl.core.AbstractCreature;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
-import com.megacrit.cardcrawl.helpers.ImageMaster;
 import com.megacrit.cardcrawl.localization.PowerStrings;
-import com.megacrit.cardcrawl.powers.AbstractPower;
 
 public class ExposeSelf extends AbstractLupaPower implements OnLoseBlockPower {
     public static final String POWER_ID = SuperstitioModSetup.MakeTextID(ExposeSelf.class.getSimpleName() + "Power");
@@ -33,7 +30,7 @@ public class ExposeSelf extends AbstractLupaPower implements OnLoseBlockPower {
     @Override
     public int onLoseBlock(DamageInfo damageInfo, int i) {
         this.addToBot(new ApplyPowerAction(
-                AbstractDungeon.player, AbstractDungeon.player, new Semen(AbstractDungeon.player, i)));
+                AbstractDungeon.player, AbstractDungeon.player, new DrySemen(AbstractDungeon.player, i)));
         return i;
     }
 
