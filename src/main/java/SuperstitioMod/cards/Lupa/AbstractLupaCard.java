@@ -132,15 +132,15 @@ public abstract class AbstractLupaCard extends CustomCard implements ChooseSelfO
         }
     }
 
-    public static void makeTempCardInBattle(AbstractCard card, BattleCardPlace battleCardPlace, int amount) {
+    public static void addToBot_makeTempCardInBattle(AbstractCard card, BattleCardPlace battleCardPlace, int amount) {
         switch (battleCardPlace) {
             case Hand:
                 AbstractDungeon.actionManager.addToBottom(new MakeTempCardInHandAction(card, amount));
                 break;
-            case Discard:
+            case DrawPile:
                 AbstractDungeon.actionManager.addToBottom(new MakeTempCardInDrawPileAction(card, amount, true, true));
                 break;
-            case DrawPile:
+            case Discard:
                 AbstractDungeon.actionManager.addToBottom(new MakeTempCardInDiscardAction(card, amount));
                 break;
         }
@@ -154,8 +154,8 @@ public abstract class AbstractLupaCard extends CustomCard implements ChooseSelfO
         });
     }
 
-    public static void makeTempCardInBattle(AbstractCard card, BattleCardPlace battleCardPlace) {
-        makeTempCardInBattle(card, battleCardPlace, 1);
+    public static void addToBot_makeTempCardInBattle(AbstractCard card, BattleCardPlace battleCardPlace) {
+        addToBot_makeTempCardInBattle(card, battleCardPlace, 1);
     }
 
     public boolean isTargetSelf(final AbstractMonster m) {
@@ -267,14 +267,14 @@ public abstract class AbstractLupaCard extends CustomCard implements ChooseSelfO
         }
     }
 
-    protected void setCostToCostMapForTurn(int amount){
+    protected void setCostToCostMap_ForTurn(int amount){
         if (TempDecreaseCost.costMap.containsKey(this.uuid)){
             TempDecreaseCost.costMap.put(this.uuid,amount);
         }
         this.setCostForTurn(amount);
     }
 
-    protected void setCostToCostMapForBattle(int amount){
+    protected void setCostToCostMap_ForBattle(int amount){
         if (TempDecreaseCost.costMap.containsKey(this.uuid)){
             TempDecreaseCost.costMap.put(this.uuid,amount);
         }

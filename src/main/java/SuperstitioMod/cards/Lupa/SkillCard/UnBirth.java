@@ -52,7 +52,7 @@ public class UnBirth extends AbstractLupaCard {
         AbstractCard card = new ReBirth(sealPower, monster);
         if (this.upgraded)
             card.upgrade();
-        makeTempCardInBattle(card, BattleCardPlace.Hand);
+        addToBot_makeTempCardInBattle(card, BattleCardPlace.Hand);
     }
 
     @Override

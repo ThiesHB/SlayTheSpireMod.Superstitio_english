@@ -4,7 +4,6 @@ import SuperstitioMod.InBattleDataManager;
 import SuperstitioMod.SuperstitioModSetup;
 import SuperstitioMod.actions.AbstractAutoDoneAction;
 import SuperstitioMod.powers.interFace.HasTempDecreaseCostEffect;
-import SuperstitioMod.powers.interFace.InvisiblePower_StillRenderAmount;
 import SuperstitioMod.powers.interFace.OnOrgasm;
 import SuperstitioMod.powers.interFace.OnPostApplyThisPower;
 import SuperstitioMod.utils.CardUtility;
@@ -21,7 +20,6 @@ import com.megacrit.cardcrawl.core.AbstractCreature;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.core.Settings;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
-import com.megacrit.cardcrawl.helpers.*;
 import com.megacrit.cardcrawl.localization.PowerStrings;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import com.megacrit.cardcrawl.powers.AbstractPower;
@@ -31,7 +29,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-public class SexualHeat extends AbstractLupaPower implements InvisiblePower_StillRenderAmount, HasTempDecreaseCostEffect, OnPostApplyThisPower {
+public class SexualHeat extends AbstractWithBarPower implements HasTempDecreaseCostEffect, OnPostApplyThisPower {
     public static final String POWER_ID = SuperstitioModSetup.MakeTextID(SexualHeat.class.getSimpleName() +
             "Power");
     public static final int HeatReducePerCard_Origin = 6;
@@ -39,32 +37,15 @@ public class SexualHeat extends AbstractLupaPower implements InvisiblePower_Stil
     private static final PowerStrings powerStrings = CardCrawlGame.languagePack.getPowerStrings(POWER_ID);
     private static final int DRAW_CARD_INContinueOrgasm = 1;
     //绘制相关
-    private static final float BAR_HEIGHT = 20.0f * Settings.scale;
-    private static final float BG_OFFSET_X = 31.0f * Settings.scale;
-    private static final float BAR_OFFSET_Y = -28.0f * Settings.scale;
-    private static final float TEXT_OFFSET_Y = 11.0f * Settings.scale;
     private static final Color PINK = new Color(1f, 0.7529f, 0.7961f, 1.0f);
     private static final Color BarTextColor = new Color(1.0f, 1.0f, 1.0f, 1.0f);
-    public Color barBgColor;
-    public Color barShadowColor;
-    public Color barTextColor;
-    public Color barOrginColor;
     public Color barOrgasmShadowColor;
     public int orgasmTime = 0;
-    public Hitbox hitbox;
     private int HeatReduce_PerCard = HeatReducePerCard_Origin;
     private int heatRequired = HEAT_REQUIREDOrigin;
 
     public SexualHeat(final AbstractCreature owner, final int amount) {
         super(POWER_ID, powerStrings.NAME, owner, amount, owner.isPlayer ? PowerType.BUFF : PowerType.DEBUFF, false);
-
-        this.hitbox = new Hitbox(this.owner.hb.width + BAR_HEIGHT * 3f, BAR_HEIGHT * 1.5f);
-        this.hitbox.move(this.owner.hb.cX, this.owner.hb.cY + this.owner.hb.height + BAR_OFFSET_Y);
-
-        this.barBgColor = new Color(0.0f, 0.0f, 0.0f, 0.3f);
-        this.barShadowColor = this.barBgColor;
-        this.barTextColor = BarTextColor;
-        this.barOrginColor = PINK;
         this.barOrgasmShadowColor = Color.YELLOW;
     }
 
@@ -92,70 +73,20 @@ public class SexualHeat extends AbstractLupaPower implements InvisiblePower_Stil
         return orgasmTime != 0;
     }
 
-    private float barWidth() {
-        return this.owner.hb.width * (this.amount % getHeatRequired()) / getHeatRequired();
-    }
-
-    @Override
-    public void update(int slot) {
-        super.update(slot);
-        this.hitbox.update();
-        if (this.hitbox.hovered) {
-            TipHelper.renderGenericTip(this.hitbox.cX + 96.0F * Settings.scale,
-                    this.hitbox.cY + 64.0F * Settings.scale, this.name, this.description);
-        }
-
-        this.fontScale = MathHelper.scaleLerpSnap(this.fontScale, 0.7F);
-    }
-
-    @Override
-    public void renderAmount(SpriteBatch sb, float x, float y, Color c) {
-        float OwnerX = this.owner.hb.cX - this.owner.hb.width / 2.0F;
-        float OwnerY = this.owner.hb.cY + this.owner.hb.height;
-        this.renderAmountBarBackGround(sb, OwnerX, OwnerY);
-        this.renderAmountBar(sb, OwnerX, OwnerY);
-        this.renderOrgasmText(sb, OwnerY);
-    }
 
     @Override
     public void onRemove() {
         EndOrgasm();
     }
 
-    private void renderAmountBarBackGround(final SpriteBatch sb, final float x, final float y) {
+    @Override
+    public void renderAmount(SpriteBatch sb, float x, float y, Color c) {
         if (this.isInOrgasm()) {
-            sb.setColor(this.barOrgasmShadowColor);
+            this.barShadowColor = this.barOrgasmShadowColor.cpy();
         } else {
-            sb.setColor(this.barShadowColor);
+            this.barShadowColor = setupBarShadowColor().cpy();
         }
-        sb.draw(ImageMaster.HB_SHADOW_L, x - BAR_HEIGHT, y - BG_OFFSET_X + 3.0f * Settings.scale, BAR_HEIGHT,
-                BAR_HEIGHT);
-        sb.draw(ImageMaster.HB_SHADOW_B, x, y - BG_OFFSET_X + 3.0f * Settings.scale, this.owner.hb.width,
-                BAR_HEIGHT);
-        sb.draw(ImageMaster.HB_SHADOW_R, x + this.owner.hb.width, y - BG_OFFSET_X + 3.0f * Settings.scale,
-                BAR_HEIGHT, BAR_HEIGHT);
-        sb.setColor(this.barBgColor);
-        sb.draw(ImageMaster.HEALTH_BAR_L, x - BAR_HEIGHT, y + BAR_OFFSET_Y, BAR_HEIGHT, BAR_HEIGHT);
-        sb.draw(ImageMaster.HEALTH_BAR_B, x, y + BAR_OFFSET_Y, this.owner.hb.width, BAR_HEIGHT);
-        sb.draw(ImageMaster.HEALTH_BAR_R, x + this.owner.hb.width, y + BAR_OFFSET_Y, BAR_HEIGHT, BAR_HEIGHT);
-
-    }
-
-    private void renderOrgasmText(final SpriteBatch sb, final float y) {
-        final float tmp = this.barTextColor.a;
-        FontHelper.renderFontCentered(sb, FontHelper.healthInfoFont,
-                this.amount + "/" + getHeatRequired() + "(" + this.orgasmTime + ")",
-                this.owner.hb.cX, y + BAR_OFFSET_Y + TEXT_OFFSET_Y, this.barTextColor);
-        this.barTextColor.a = tmp;
-    }
-
-    private void renderAmountBar(final SpriteBatch sb, final float x, final float y) {
-        sb.setColor(this.barOrginColor);
-        sb.draw(ImageMaster.HEALTH_BAR_L, x - BAR_HEIGHT, y + BAR_OFFSET_Y, BAR_HEIGHT,
-                BAR_HEIGHT);
-        sb.draw(ImageMaster.HEALTH_BAR_B, x, y + BAR_OFFSET_Y, this.barWidth(), BAR_HEIGHT);
-        sb.draw(ImageMaster.HEALTH_BAR_R, x + this.barWidth(), y + BAR_OFFSET_Y, BAR_HEIGHT,
-                BAR_HEIGHT);
+        super.renderAmount(sb, x, y, c);
     }
 
     @Override
@@ -207,7 +138,7 @@ public class SexualHeat extends AbstractLupaPower implements InvisiblePower_Stil
     private Stream<OnOrgasm> AllOnOrgasm() {
         ArrayList<OnOrgasm> onOrgasms =
                 this.owner.powers.stream().filter(OnOrgasm.class::isInstance).map(power -> (OnOrgasm) power).collect(Collectors.toCollection(ArrayList::new));
-        if (this.owner.isPlayer){
+        if (this.owner.isPlayer) {
             onOrgasms.addAll(CardUtility.AllCardInBattle().stream().filter(OnOrgasm.class::isInstance).map(card -> (OnOrgasm) card).collect(Collectors.toList()));
             onOrgasms.addAll(AbstractDungeon.player.relics.stream().filter(OnOrgasm.class::isInstance).map(relic -> (OnOrgasm) relic).collect(Collectors.toList()));
         }
@@ -249,7 +180,7 @@ public class SexualHeat extends AbstractLupaPower implements InvisiblePower_Stil
     private void EndOrgasm() {
         if (isInOrgasm())
             PowerUtility.BubbleMessageHigher(this, true, powerStrings.DESCRIPTIONS[5]);
-        AllOnOrgasm().forEach(power -> power.afterOrgasm(this));
+        AllOnOrgasm().forEach(power -> power.afterEndOrgasm(this));
         this.orgasmTime = 0;
         if (this.owner.isPlayer) {
             SexualHeat p = this;
@@ -308,5 +239,35 @@ public class SexualHeat extends AbstractLupaPower implements InvisiblePower_Stil
     @Override
     public Optional<TempDecreaseCost> getActiveEffectHold() {
         return TempDecreaseCost.AllCostModifierPowerByHolder(this).filter(TempDecreaseCost::isActive).findAny();
+    }
+
+    @Override
+    protected float Height() {
+        return 0 * Settings.scale;
+    }
+
+    @Override
+    protected Color setupBarBgColor() {
+        return new Color(0f, 0f, 0f, 0.3f);
+    }
+
+    @Override
+    protected Color setupBarShadowColor() {
+        return new Color(0f, 0f, 0f, 0.3f);
+    }
+
+    @Override
+    protected Color setupBarTextColor() {
+        return BarTextColor;
+    }
+
+    @Override
+    protected Color setupBarOrginColor() {
+        return PINK;
+    }
+
+    @Override
+    protected int maxBarAmount() {
+        return getHeatRequired();
     }
 }

@@ -1,9 +1,7 @@
 package SuperstitioMod.cards.Lupa.AttackCard;
 
 import SuperstitioMod.SuperstitioModSetup;
-import SuperstitioMod.cards.Lupa.AbstractLupaCard;
 import SuperstitioMod.cards.Lupa.AbstractLupaCard_FuckJob;
-import SuperstitioMod.utils.CardUtility;
 import com.megacrit.cardcrawl.actions.AbstractGameAction;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
@@ -34,7 +32,7 @@ public class Fuck_Anal extends AbstractLupaCard_FuckJob {
     public void use(AbstractPlayer player, AbstractMonster monster) {
         addToBot_damageToEnemy(monster, AbstractGameAction.AttackEffect.BLUNT_LIGHT);
         addToBot_applyPowerToPlayer(new VigorPower(AbstractDungeon.player, this.magicNumber));
-        CardUtility.addToTop_gainSexMark_Inside(this.name);
+        AbstractLupaCard_FuckJob.addToTop_gainSexMark_Inside(this.name);
     }
 
     @Override

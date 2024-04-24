@@ -1,9 +1,7 @@
 package SuperstitioMod.cards.Lupa.AttackCard;
 
 import SuperstitioMod.SuperstitioModSetup;
-import SuperstitioMod.cards.Lupa.AbstractLupaCard;
 import SuperstitioMod.cards.Lupa.AbstractLupaCard_FuckJob;
-import SuperstitioMod.utils.CardUtility;
 import com.megacrit.cardcrawl.actions.AbstractGameAction;
 import com.megacrit.cardcrawl.actions.common.DamageRandomEnemyAction;
 import com.megacrit.cardcrawl.cards.DamageInfo;
@@ -35,7 +33,7 @@ public class Fuck_Nipple extends AbstractLupaCard_FuckJob {
                 AbstractGameAction.AttackEffect.BLUNT_LIGHT));
         this.addToBot(new DamageRandomEnemyAction(new DamageInfo(AbstractDungeon.player, this.damage),
                 AbstractGameAction.AttackEffect.BLUNT_LIGHT));
-        CardUtility.addToTop_gainSexMark_Inside(this.name);
+        AbstractLupaCard_FuckJob.addToTop_gainSexMark_Inside(this.name);
     }
 
     @Override

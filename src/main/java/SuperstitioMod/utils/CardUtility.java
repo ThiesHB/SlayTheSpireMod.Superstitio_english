@@ -1,9 +1,6 @@
 package SuperstitioMod.utils;
 
 import SuperstitioMod.SuperstitioModSetup;
-import SuperstitioMod.powers.SexMark_Inside;
-import SuperstitioMod.powers.SexMark_Outside;
-import com.megacrit.cardcrawl.actions.common.ApplyPowerAction;
 import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.helpers.CardLibrary;
@@ -24,7 +21,7 @@ public class CardUtility {
         List<AbstractCard> list = getCardsListForMod(ThisMod, Vanilla).stream()
                 .filter(card -> card.type == AbstractCard.CardType.STATUS)
                 .collect(Collectors.toList());
-        return list.get(AbstractDungeon.cardRandomRng.random(list.size() - 1));
+        return list.get(AbstractDungeon.cardRandomRng.random(list.size() - 1)).makeCopy();
     }
 
     public static List<AbstractCard> getCardsListForMod(boolean ThisMod, boolean Vanilla) {
@@ -52,18 +49,6 @@ public class CardUtility {
         return !card.cardID.contains(SuperstitioModSetup.MakeTextID(""));
     }
 
-    public static void addToTop_gainSexMark_Inside(String sexName) {
-        AbstractDungeon.actionManager.addToTop(
-                new ApplyPowerAction(AbstractDungeon.player, AbstractDungeon.player,
-                        new SexMark_Inside(AbstractDungeon.player, sexName)));
-    }
-
-    public static void addToTop_gainSexMark_Outside(String sexName) {
-        AbstractDungeon.actionManager.addToBottom(
-                new ApplyPowerAction(AbstractDungeon.player, AbstractDungeon.player,
-                        new SexMark_Outside(AbstractDungeon.player, sexName)));
-    }
-
     public static ArrayList<AbstractCard> AllCardInBattle() {
         ArrayList<AbstractCard> cards = new ArrayList<>();
         cards.add(AbstractDungeon.player.cardInUse);
@@ -81,19 +66,19 @@ public class CardUtility {
         return cards;
     }
 
-    public static AbstractCard makeStatEquivalentCopy(final AbstractCard c) {
-        final AbstractCard card = c.makeStatEquivalentCopy();
-        card.retain = c.retain;
-        card.selfRetain = c.selfRetain;
-        card.purgeOnUse = c.purgeOnUse;
-        card.isEthereal = c.isEthereal;
-        card.exhaust = c.exhaust;
-        card.glowColor = c.glowColor;
-        card.rawDescription = c.rawDescription;
-        card.cardsToPreview = c.cardsToPreview;
-        card.initializeDescription();
-        return card;
-    }
+//    public static AbstractCard makeStatEquivalentCopy(final AbstractCard c) {
+//        final AbstractCard card = c.makeStatEquivalentCopy();
+//        card.retain = c.retain;
+//        card.selfRetain = c.selfRetain;
+//        card.purgeOnUse = c.purgeOnUse;
+//        card.isEthereal = c.isEthereal;
+//        card.exhaust = c.exhaust;
+//        card.glowColor = c.glowColor;
+//        card.rawDescription = c.rawDescription;
+//        card.cardsToPreview = c.cardsToPreview;
+//        card.initializeDescription();
+//        return card;
+//    }
 
     public static void flashIfInHand(AbstractCard card){
         if (AbstractDungeon.player.hand.contains(card))

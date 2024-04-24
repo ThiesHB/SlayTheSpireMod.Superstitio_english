@@ -35,6 +35,8 @@ public class OpenAWindowAndChoseFromCardGroupAction extends AbstractGameAction {
         this.player = AbstractDungeon.player;
     }
 
+
+
     @Override
     public void update() {
         if (this.duration == this.startDuration)
@@ -58,13 +60,12 @@ public class OpenAWindowAndChoseFromCardGroupAction extends AbstractGameAction {
     }
 
     private void ActionSetUp() {
-        if (this.player.drawPile.isEmpty()) {
+        if (cardGroup.isEmpty()) {
             this.isDone = true;
             return;
         }
         final CardGroup temp = new CardGroup(CardGroup.CardGroupType.UNSPECIFIED);
-        for (final AbstractCard c2 : cardGroup.group)
-            temp.addToTop(c2);
+        cardGroup.group.forEach(temp::addToTop);
         temp.sortAlphabetically(true);
         temp.sortByRarityPlusStatusCardType(false);
         AbstractDungeon.gridSelectScreen.open(temp, choseAmount, anyNumber, windowText);

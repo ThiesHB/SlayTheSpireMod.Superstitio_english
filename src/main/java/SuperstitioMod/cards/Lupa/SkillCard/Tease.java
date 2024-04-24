@@ -3,8 +3,6 @@ package SuperstitioMod.cards.Lupa.SkillCard;
 import SuperstitioMod.SuperstitioModSetup;
 import SuperstitioMod.actions.AbstractAutoDoneAction;
 import SuperstitioMod.cards.Lupa.AbstractLupaCard;
-import com.megacrit.cardcrawl.actions.AbstractGameAction;
-import com.megacrit.cardcrawl.actions.common.ApplyPowerAction;
 import com.megacrit.cardcrawl.actions.common.GainBlockAction;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
@@ -27,20 +25,21 @@ public class Tease extends AbstractLupaCard {
     public Tease() {
         super(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET);
         this.setupMagicNumber(MagicNumber);
+        this.exhaust = true;
     }
 
     @Override
     public void use(AbstractPlayer player, AbstractMonster monster) {
-        int amount = (int) (monster.maxHealth * MagicNumber / 100f);
+        int a = (int) (monster.maxHealth * MagicNumber / 100f);
         this.addToBot(new AbstractAutoDoneAction() {
             @Override
             public void autoDoneUpdate() {
-                monster.decreaseMaxHealth(amount);
+                monster.decreaseMaxHealth(a);
             }
         });
-        addToBot_applyPowerToEnemy(new FrailPower(monster, 1, false),monster);
-        this.addToBot(new GainBlockAction(monster, amount));
-        addToBot_applyPowerToEnemy(new BarricadePower(monster),monster);
+        addToBot_applyPowerToEnemy(new FrailPower(monster, 1, false), monster);
+        this.addToBot(new GainBlockAction(monster, a));
+        addToBot_applyPowerToEnemy(new BarricadePower(monster), monster);
     }
 
     @Override

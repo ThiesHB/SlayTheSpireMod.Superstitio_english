@@ -2,6 +2,12 @@ package SuperstitioMod.cards.Lupa;
 
 import SuperstitioMod.SuperstitioModSetup;
 import SuperstitioMod.characters.Lupa;
+import SuperstitioMod.powers.FreshSemen;
+import SuperstitioMod.powers.SexMark_Inside;
+import SuperstitioMod.powers.SexMark_Outside;
+import SuperstitioMod.utils.ActionUtility;
+import com.megacrit.cardcrawl.actions.common.ApplyPowerAction;
+import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 
 public abstract class AbstractLupaCard_FuckJob extends AbstractLupaCard {
     /**
@@ -32,4 +38,16 @@ public abstract class AbstractLupaCard_FuckJob extends AbstractLupaCard {
                     SuperstitioModSetup.makeImgFilesPath_UI("bg_attack_semen"));
     }
 
+    public static void addToTop_gainSexMark_Inside(String sexName) {
+        ActionUtility.addToBot_applyPowerToPlayer(new FreshSemen(AbstractDungeon.player, 1));
+        AbstractDungeon.actionManager.addToTop(
+                new ApplyPowerAction(AbstractDungeon.player, AbstractDungeon.player,
+                        new SexMark_Inside(AbstractDungeon.player, sexName)));
+    }
+
+    public static void addToTop_gainSexMark_Outside(String sexName) {
+        AbstractDungeon.actionManager.addToBottom(
+                new ApplyPowerAction(AbstractDungeon.player, AbstractDungeon.player,
+                        new SexMark_Outside(AbstractDungeon.player, sexName)));
+    }
 }

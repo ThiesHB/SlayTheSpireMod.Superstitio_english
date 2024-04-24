@@ -98,5 +98,18 @@
     "DESCRIPTIONS": [
       "下次受伤后移除所有的临时力量。"
     ]
+  },
+  "SuperstitioMod:OverdraftPower": {
+    "NAME": "透支",
+    "DESCRIPTIONS": [
+      "回合开始时，消耗%d张牌。"
+    ]
+  },
+  "SuperstitioMod:FreshSemenPower": {
+    "NAME": "新鲜精液",
+    "DESCRIPTIONS": [
+      "满%d点之后会溢出，每点溢出转化为 %d 点 #y干涸精液 。也可被用作其他卡牌的资源。",
+      "溢出！"
+    ]
   }
 }

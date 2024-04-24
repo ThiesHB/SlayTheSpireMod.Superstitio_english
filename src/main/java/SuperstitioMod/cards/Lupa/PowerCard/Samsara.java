@@ -2,8 +2,10 @@ package SuperstitioMod.cards.Lupa.PowerCard;
 
 import SuperstitioMod.SuperstitioModSetup;
 import SuperstitioMod.cards.Lupa.AbstractLupaCard;
+import com.megacrit.cardcrawl.actions.common.MakeTempCardInDrawPileAction;
 import com.megacrit.cardcrawl.cards.status.Wound;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
+import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import com.megacrit.cardcrawl.powers.EquilibriumPower;
 
@@ -29,9 +31,10 @@ public class Samsara extends AbstractLupaCard {
 
     @Override
     public void use(AbstractPlayer player, AbstractMonster monster) {
+//        AbstractDungeon.actionManager.addToBottom(new MakeTempCardInDrawPileAction(new Wound(), 8, true, true));
+        addToBot_makeTempCardInBattle(new Wound(), BattleCardPlace.DrawPile, this.magicNumber);
         addToBot_applyPowerToPlayer(new EquilibriumPower(player, 99));
         addToBot_applyPowerToPlayer(new SuperstitioMod.powers.Samsara(player));
-        makeTempCardInBattle(new Wound(),BattleCardPlace.DrawPile,this.magicNumber);
     }
 
     @Override

@@ -1,11 +1,9 @@
 package SuperstitioMod.cards.Lupa.AttackCard;
 
 import SuperstitioMod.SuperstitioModSetup;
-import SuperstitioMod.cards.Lupa.AbstractLupaCard;
 import SuperstitioMod.cards.Lupa.AbstractLupaCard_FuckJob;
 import SuperstitioMod.powers.SexualHeat;
 import SuperstitioMod.powers.interFace.OnOrgasm;
-import SuperstitioMod.utils.CardUtility;
 import com.megacrit.cardcrawl.actions.AbstractGameAction;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
@@ -37,7 +35,7 @@ public class Fuck_Navel extends AbstractLupaCard_FuckJob implements OnOrgasm {
     @Override
     public void use(AbstractPlayer player, AbstractMonster monster) {
         addToBot_damageToEnemy(monster, AbstractGameAction.AttackEffect.BLUNT_LIGHT);
-        CardUtility.addToTop_gainSexMark_Inside(this.name);
+        AbstractLupaCard_FuckJob.addToTop_gainSexMark_Inside(this.name);
     }
 
     @Override

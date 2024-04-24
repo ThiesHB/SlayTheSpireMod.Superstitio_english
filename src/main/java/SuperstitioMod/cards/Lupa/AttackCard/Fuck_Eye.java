@@ -1,9 +1,7 @@
 package SuperstitioMod.cards.Lupa.AttackCard;
 
 import SuperstitioMod.SuperstitioModSetup;
-import SuperstitioMod.cards.Lupa.AbstractLupaCard;
 import SuperstitioMod.cards.Lupa.AbstractLupaCard_FuckJob;
-import SuperstitioMod.utils.CardUtility;
 import basemod.cardmods.RetainMod;
 import basemod.helpers.CardModifierManager;
 import com.megacrit.cardcrawl.actions.AbstractGameAction;
@@ -23,8 +21,8 @@ public class Fuck_Eye extends AbstractLupaCard_FuckJob {
     public static final CardTarget CARD_TARGET = CardTarget.ENEMY;
 
     private static final int COST = 1;
-    private static final int ATTACK_DMG = 4;
-    private static final int UPGRADE_PLUS_DMG = 2;
+    private static final int ATTACK_DMG = 3;
+    private static final int UPGRADE_PLUS_DMG = 1;
     private static final int BLOCK = 3;
     private static final int UPGRADE_BLOCK = 1;
 
@@ -52,9 +50,9 @@ public class Fuck_Eye extends AbstractLupaCard_FuckJob {
 //        CardModifierManager.removeSpecificModifier(card, new RetainMod(), false);
         if (upgraded)
             card.upgrade();
-        makeTempCardInBattle(card, BattleCardPlace.Hand);
+        addToBot_makeTempCardInBattle(card, BattleCardPlace.Hand);
         addToBot_applyPowerToPlayer(new WeakPower(AbstractDungeon.player, 1, false));
-        CardUtility.addToTop_gainSexMark_Inside(this.name);
+        AbstractLupaCard_FuckJob.addToTop_gainSexMark_Inside(this.name);
     }
 
     @Override

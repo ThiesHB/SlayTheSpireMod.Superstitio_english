@@ -34,7 +34,7 @@ public class SexMark_Inside extends SexMark {
 
     @Override
     protected float Height() {
-        return this.owner.hb.cY + SexMark.BAR_RADIUS + SexMark.BAR_Blank;
+        return this.owner.hb.cY + SexMark.BAR_RADIUS + SexMark.BAR_RADIUS + SexMark.BAR_Blank;
     }
 
     @Override

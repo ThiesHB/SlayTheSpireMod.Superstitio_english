@@ -24,7 +24,7 @@ public class EjaculationMaster extends CustomRelic implements OnOrgasm {
     }
 
     private void Ejaculation() {
-        --this.counter;
+        this.counter--;
         if (this.counter > 0) {
             return;
         }

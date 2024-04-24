@@ -20,7 +20,7 @@ public class SexMark_Outside extends SexMark {
 
     @Override
     protected float Height() {
-        return this.owner.hb.cY;
+        return this.owner.hb.cY + SexMark.BAR_RADIUS;
     }
 
     @Override

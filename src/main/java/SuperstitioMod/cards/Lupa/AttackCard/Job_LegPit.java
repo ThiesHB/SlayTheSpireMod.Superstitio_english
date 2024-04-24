@@ -5,7 +5,6 @@ import SuperstitioMod.SuperstitioModSetup;
 import SuperstitioMod.actions.AbstractAutoDoneAction;
 import SuperstitioMod.cards.Lupa.AbstractLupaCard_FuckJob;
 import SuperstitioMod.powers.SexualHeat;
-import SuperstitioMod.utils.CardUtility;
 import com.badlogic.gdx.graphics.Color;
 import com.megacrit.cardcrawl.actions.AbstractGameAction;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
@@ -44,15 +43,14 @@ public class Job_LegPit extends AbstractLupaCard_FuckJob {
                 }
             });
         }
-
-        CardUtility.addToTop_gainSexMark_Outside(this.cardStrings.EXTENDED_DESCRIPTION[0]);
+        AbstractLupaCard_FuckJob.addToTop_gainSexMark_Outside(this.cardStrings.EXTENDED_DESCRIPTION[0]);
     }
 
     @Override
     public void triggerOnGlowCheck() {
         this.glowColor = BLUE_BORDER_GLOW_COLOR.cpy();
         if (InBattleDataManager.InOrgasm) {
-            this.glowColor = GOLD_BORDER_GLOW_COLOR.cpy();
+            this.glowColor = Color.PINK.cpy();
         }
     }
 

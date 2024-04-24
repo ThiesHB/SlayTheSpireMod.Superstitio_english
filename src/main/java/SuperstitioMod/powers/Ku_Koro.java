@@ -29,14 +29,14 @@ public class Ku_Koro extends AbstractLupaPower {
 
     @Override
     public void onExhaust(AbstractCard card) {
-        AbstractLupaCard.makeTempCardInBattle(card, AbstractLupaCard.BattleCardPlace.Discard);
+        AbstractLupaCard.addToBot_makeTempCardInBattle(card, AbstractLupaCard.BattleCardPlace.Discard);
     }
 
     @Override
     public int onAttacked(DamageInfo info, int damageAmount) {
         if (damageAmount > 0 && info.owner != AbstractDungeon.player && info.type == DamageInfo.DamageType.NORMAL) {
             final AbstractCard card = CardUtility.getRandomCurseCard(true, true);
-            AbstractLupaCard.makeTempCardInBattle(card, AbstractLupaCard.BattleCardPlace.Hand);
+            AbstractLupaCard.addToBot_makeTempCardInBattle(card, AbstractLupaCard.BattleCardPlace.Hand);
         }
 
         return super.onAttacked(info, damageAmount);

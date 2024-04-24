@@ -1,9 +1,7 @@
 package SuperstitioMod.cards.Lupa.AttackCard;
 
 import SuperstitioMod.SuperstitioModSetup;
-import SuperstitioMod.cards.Lupa.AbstractLupaCard;
 import SuperstitioMod.cards.Lupa.AbstractLupaCard_FuckJob;
-import SuperstitioMod.utils.CardUtility;
 import basemod.cardmods.ExhaustMod;
 import basemod.helpers.CardModifierManager;
 import com.megacrit.cardcrawl.actions.AbstractGameAction;
@@ -41,8 +39,8 @@ public class Job_Hair extends AbstractLupaCard_FuckJob {
         this.cardsToPreview = card;
         if (upgraded)
             card.upgrade();
-        makeTempCardInBattle(card, BattleCardPlace.Hand);
-        CardUtility.addToTop_gainSexMark_Outside(this.cardStrings.EXTENDED_DESCRIPTION[0]);
+        addToBot_makeTempCardInBattle(card, BattleCardPlace.Hand);
+        AbstractLupaCard_FuckJob.addToTop_gainSexMark_Outside(this.cardStrings.EXTENDED_DESCRIPTION[0]);
     }
 
     @Override

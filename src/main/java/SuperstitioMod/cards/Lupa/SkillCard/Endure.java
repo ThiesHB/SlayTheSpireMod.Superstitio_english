@@ -19,6 +19,8 @@ public class Endure extends AbstractLupaCard {
     private static final int MagicNum = 10;
     private static final int MagicNum_Update = 5;
 
+    private static final int DRAWCard_NUM = 2;
+
 
     public Endure() {
         super(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET);
@@ -28,7 +30,7 @@ public class Endure extends AbstractLupaCard {
     @Override
     public void use(AbstractPlayer player, AbstractMonster monster) {
         this.addToBot_applyPowerToPlayer(new DelaySexualHeat(player,this.magicNumber));
-        this.addToBot_drawCards(2);
+        this.addToBot_drawCards(DRAWCard_NUM);
     }
 
     @Override
