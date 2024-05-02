@@ -1,7 +1,7 @@
 package SuperstitioMod.cards.Lupa;
 
+import SuperstitioMod.DataManager;
 import SuperstitioMod.SuperstitioModSetup;
-import SuperstitioMod.characters.Lupa;
 import SuperstitioMod.powers.FreshSemen;
 import SuperstitioMod.powers.SexMark_Inside;
 import SuperstitioMod.powers.SexMark_Outside;
@@ -22,7 +22,7 @@ public abstract class AbstractLupaCard_FuckJob extends AbstractLupaCard {
     }
 
     public AbstractLupaCard_FuckJob(String id, CardType cardType, int cost, CardRarity cardRarity, CardTarget cardTarget, String customCardType) {
-        this(id, cardType, cost, cardRarity, cardTarget, Lupa.Enums.LUPA_CARD, customCardType);
+        this(id, cardType, cost, cardRarity, cardTarget, DataManager.LUPA_DATA.LupaEnums.LUPA_CARD, customCardType);
     }
 
     public AbstractLupaCard_FuckJob(String id, CardType cardType, int cost, CardRarity cardRarity, CardTarget cardTarget, CardColor cardColor) {
@@ -34,8 +34,8 @@ public abstract class AbstractLupaCard_FuckJob extends AbstractLupaCard {
         super(id, cardType, cost, cardRarity, cardTarget, cardColor, customCardType);
         if (!SuperstitioModSetup.enableSFW)
             this.setBackgroundTexture(
-                    SuperstitioModSetup.makeImgFilesPath_UI("bg_attack_512_semen"),
-                    SuperstitioModSetup.makeImgFilesPath_UI("bg_attack_semen"));
+                    DataManager.makeImgFilesPath_UI("bg_attack_512_semen"),
+                    DataManager.makeImgFilesPath_UI("bg_attack_semen"));
     }
 
     public static void addToTop_gainSexMark_Inside(String sexName) {

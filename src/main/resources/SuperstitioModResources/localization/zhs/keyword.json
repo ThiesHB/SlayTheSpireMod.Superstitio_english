@@ -60,17 +60,19 @@
     "PROPER_NAME": "内射-插入动作",
     "NAMES": [
       "内射",
+      "性交：内射",
       "插入动作"
     ],
-    "DESCRIPTION": " NL 凑齐不同动作后，造成全体伤害。"
+    "DESCRIPTION": "凑齐不同动作后，造成全体伤害。"
   },
   {
     "PROPER_NAME": "外射-精液覆身",
     "NAMES": [
       "外射",
+      "性交：外射",
       "精液覆身"
     ],
-    "DESCRIPTION": " NL 凑齐不同部位后，获得临时生命。"
+    "DESCRIPTION": "凑齐不同部位后，获得临时生命。"
   },
   {
     "PROPER_NAME": "施虐者",
@@ -85,5 +87,12 @@
       "受虐者"
     ],
     "DESCRIPTION": "对自己使用时额外触发的效果。"
+  },
+  {
+    "PROPER_NAME": "新鲜精液",
+    "NAMES": [
+      "新鲜精液"
+    ],
+    "DESCRIPTION": "一种卡牌需要的资源。"
   }
 ]

@@ -1,13 +1,13 @@
 package SuperstitioMod.cards.Lupa.SkillCard;
 
-import SuperstitioMod.SuperstitioModSetup;
+import SuperstitioMod.DataManager;
 import SuperstitioMod.cards.Lupa.AbstractLupaCard;
 import SuperstitioMod.powers.DelaySexualHeat;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 
 public class Endure extends AbstractLupaCard {
-    public static final String ID = SuperstitioModSetup.MakeTextID(Endure.class.getSimpleName());
+    public static final String ID = DataManager.MakeTextID(Endure.class.getSimpleName());
 
     public static final CardType CARD_TYPE = CardType.SKILL;
 
@@ -29,15 +29,12 @@ public class Endure extends AbstractLupaCard {
 
     @Override
     public void use(AbstractPlayer player, AbstractMonster monster) {
-        this.addToBot_applyPowerToPlayer(new DelaySexualHeat(player,this.magicNumber));
+        this.addToBot_applyPowerToPlayer(new DelaySexualHeat(player, this.magicNumber));
         this.addToBot_drawCards(DRAWCard_NUM);
     }
 
     @Override
-    public void upgrade() {
-        if (!this.upgraded) {
-            this.upgradeName();
-            this.upgradeMagicNumber(MagicNum_Update);
-        }
+    public void upgradeAuto() {
+        this.upgradeMagicNumber(MagicNum_Update);
     }
 }

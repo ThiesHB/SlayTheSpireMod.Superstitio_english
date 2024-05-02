@@ -1,6 +1,6 @@
 package SuperstitioMod.cards.ChooseSelfOrEnemy;
 
-import SuperstitioMod.SuperstitioModSetup;
+import SuperstitioMod.Logger;
 import SuperstitioMod.cards.Lupa.AbstractLupaCard;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -35,14 +35,14 @@ public class ChooseTargetPatch {
         ChooseTargetPatch.Chosen.drawX = p.drawX;
         ChooseTargetPatch.Chosen.drawY = p.drawY;
         ChooseTargetPatch.isChoosing = true;
-        SuperstitioModSetup.logger.info("have added monster");
+        Logger.info("have added player's symbol monster");
     }
 
     public static void releaseCard() {
         if (ChooseTargetPatch.isChoosing) {
             AbstractDungeon.getMonsters().monsters.remove(ChooseTargetPatch.Chosen);
             ChooseTargetPatch.isChoosing = false;
-            SuperstitioModSetup.logger.info("have removed monster");
+            Logger.info("have removed player's symbol monster");
         }
     }
 

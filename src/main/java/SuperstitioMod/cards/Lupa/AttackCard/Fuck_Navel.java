@@ -1,17 +1,17 @@
 package SuperstitioMod.cards.Lupa.AttackCard;
 
-import SuperstitioMod.SuperstitioModSetup;
+import SuperstitioMod.DataManager;
 import SuperstitioMod.cards.Lupa.AbstractLupaCard_FuckJob;
 import SuperstitioMod.powers.SexualHeat;
-import SuperstitioMod.powers.interFace.OnOrgasm;
+import SuperstitioMod.powers.interFace.OnOrgasm.OnOrgasm_afterOrgasm;
 import com.megacrit.cardcrawl.actions.AbstractGameAction;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 
 
-public class Fuck_Navel extends AbstractLupaCard_FuckJob implements OnOrgasm {
-    public static final String ID = SuperstitioModSetup.MakeTextID(Fuck_Navel.class.getSimpleName());
+public class Fuck_Navel extends AbstractLupaCard_FuckJob implements OnOrgasm_afterOrgasm {
+    public static final String ID = DataManager.MakeTextID(Fuck_Navel.class.getSimpleName());
 
     public static final CardType CARD_TYPE = CardType.ATTACK;
 
@@ -39,39 +39,16 @@ public class Fuck_Navel extends AbstractLupaCard_FuckJob implements OnOrgasm {
     }
 
     @Override
-    public void upgrade() {
-        if (!this.upgraded) {
-            upgradeName();
-            upgradeDamage(UPGRADE_PLUS_DMG);
-            upgradeMagicNumber(MAGIC_Number_UPGRADE);
-        }
+    public void upgradeAuto() {
+        upgradeDamage(UPGRADE_PLUS_DMG);
+        upgradeMagicNumber(MAGIC_Number_UPGRADE);
     }
 
     @Override
-    public void onCheckOrgasm(SexualHeat SexualHeatPower) {
-
-    }
-
-    @Override
-    public void afterOrgasm(SexualHeat SexualHeatPower) {
+    public void afterTriggerOrgasm(SexualHeat SexualHeatPower) {
         if (AbstractDungeon.player.hand.contains(this)) {
             this.flash();
             this.setupDamage(this.damage + this.magicNumber);
         }
-    }
-
-    @Override
-    public void afterEndOrgasm(SexualHeat SexualHeatPower) {
-
-    }
-
-    @Override
-    public boolean preventOrgasm(SexualHeat SexualHeatPower) {
-        return false;
-    }
-
-    @Override
-    public void beforeSquirt(SexualHeat SexualHeatPower) {
-
     }
 }

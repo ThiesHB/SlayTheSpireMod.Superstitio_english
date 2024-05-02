@@ -1,6 +1,6 @@
 package SuperstitioMod.cards.Lupa.SkillCard;
 
-import SuperstitioMod.SuperstitioModSetup;
+import SuperstitioMod.DataManager;
 import SuperstitioMod.cards.Lupa.AbstractLupaCard;
 import SuperstitioMod.cards.Lupa.AbstractLupaCard_FuckJob;
 import basemod.cardmods.ExhaustMod;
@@ -16,7 +16,7 @@ import java.util.stream.Collectors;
 
 //随机生成一张Fuck/Job卡
 public class ChooseCoitalPosture extends AbstractLupaCard {
-    public static final String ID = SuperstitioModSetup.MakeTextID(ChooseCoitalPosture.class.getSimpleName());
+    public static final String ID = DataManager.MakeTextID(ChooseCoitalPosture.class.getSimpleName());
 
     public static final CardType CARD_TYPE = CardType.SKILL;
 
@@ -51,10 +51,8 @@ public class ChooseCoitalPosture extends AbstractLupaCard {
     }
 
     @Override
-    public void upgrade() {
-        if (!this.upgraded) {
-            upgradeName();
-            upgradeBaseCost(COST_UPDATE);
-        }
+    public void upgradeAuto() {
+        upgradeBaseCost(COST_UPDATE);
     }
 }
+

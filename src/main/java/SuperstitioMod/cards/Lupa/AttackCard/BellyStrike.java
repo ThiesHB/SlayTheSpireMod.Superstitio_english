@@ -1,7 +1,7 @@
 package SuperstitioMod.cards.Lupa.AttackCard;
 
-import SuperstitioMod.SuperstitioModSetup;
-import SuperstitioMod.actions.AbstractAutoDoneAction;
+import SuperstitioMod.DataManager;
+import SuperstitioMod.actions.AutoDoneAction;
 import SuperstitioMod.cards.Lupa.AbstractLupaCard;
 import com.megacrit.cardcrawl.actions.AbstractGameAction;
 import com.megacrit.cardcrawl.actions.common.DamageAction;
@@ -13,9 +13,9 @@ import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import com.megacrit.cardcrawl.powers.LoseStrengthPower;
 import com.megacrit.cardcrawl.powers.StrengthPower;
 
-//TODO
+
 public class BellyStrike extends AbstractLupaCard {
-    public static final String ID = SuperstitioModSetup.MakeTextID(BellyStrike.class.getSimpleName());
+    public static final String ID = DataManager.MakeTextID(BellyStrike.class.getSimpleName());
 
     public static final CardType CARD_TYPE = CardType.ATTACK;
 
@@ -44,14 +44,13 @@ public class BellyStrike extends AbstractLupaCard {
             addToBot(new DamageAction(AbstractDungeon.player, new DamageInfo(AbstractDungeon.player, this.damage),
                     AbstractGameAction.AttackEffect.BLUNT_LIGHT));
             addToBot_applyPowerToPlayer(new StrengthPower(monster, magicNumber));
-            addToBot(new AbstractAutoDoneAction() {
-                @Override
-                public void autoDoneUpdate() {
-                    if (AbstractDungeon.player.lastDamageTaken > 0)
-                        this.addToBot(new RemoveSpecificPowerAction(AbstractDungeon.player, AbstractDungeon.player, LoseStrengthPower.POWER_ID));
-                }
+            AutoDoneAction.addToBotAbstract(() -> {
+                if (AbstractDungeon.player.lastDamageTaken > 0)
+                    this.addToBot(new RemoveSpecificPowerAction(AbstractDungeon.player, AbstractDungeon.player, LoseStrengthPower.POWER_ID));
+
             });
-        } else {
+        }
+        else {
             addToBot_applyPowerToEnemy(new LoseStrengthPower(monster, magicNumber), monster);
             addToBot_damageToEnemy(monster, AbstractGameAction.AttackEffect.BLUNT_LIGHT);
             addToBot_applyPowerToEnemy(new StrengthPower(monster, magicNumber), monster);
@@ -59,10 +58,7 @@ public class BellyStrike extends AbstractLupaCard {
     }
 
     @Override
-    public void upgrade() {
-        if (!this.upgraded) {
-            upgradeName();
-            upgradeDamage(UPGRADE_PLUS_DMG);
-        }
+    public void upgradeAuto() {
+        upgradeDamage(UPGRADE_PLUS_DMG);
     }
 }

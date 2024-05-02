@@ -1,12 +1,12 @@
 package SuperstitioMod.cards.Lupa.BaseCard;
 
-import SuperstitioMod.SuperstitioModSetup;
+import SuperstitioMod.DataManager;
 import SuperstitioMod.cards.Lupa.AbstractLupaCard;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 
 public class Invite extends AbstractLupaCard {
-    public static final String ID = SuperstitioModSetup.MakeTextID(Invite.class.getSimpleName());
+    public static final String ID = DataManager.MakeTextID(Invite.class.getSimpleName());
 
     public static final CardType CARD_TYPE = CardType.SKILL;
 
@@ -19,7 +19,7 @@ public class Invite extends AbstractLupaCard {
     private static final int UPGRADE_PLUS_BLOCK = 3;
 
     public Invite() {
-        super(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET,"base");
+        super(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET, "base");
         this.tags.add(CardTags.STARTER_DEFEND);
         this.setupBlock(BLOCK);
     }
@@ -30,10 +30,7 @@ public class Invite extends AbstractLupaCard {
     }
 
     @Override
-    public void upgrade() {
-        if (!this.upgraded) {
-            upgradeName();
-            upgradeBlock(UPGRADE_PLUS_BLOCK);
-        }
+    public void upgradeAuto() {
+        upgradeBlock(UPGRADE_PLUS_BLOCK);
     }
 }

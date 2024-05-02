@@ -1,6 +1,6 @@
 package SuperstitioMod.cards.Lupa.AttackCard;
 
-import SuperstitioMod.SuperstitioModSetup;
+import SuperstitioMod.DataManager;
 import SuperstitioMod.cards.Lupa.AbstractLupaCard_FuckJob;
 import basemod.cardmods.RetainMod;
 import basemod.helpers.CardModifierManager;
@@ -12,7 +12,7 @@ import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import com.megacrit.cardcrawl.powers.FrailPower;
 
 public class Fuck_Ear extends AbstractLupaCard_FuckJob {
-    public static final String ID = SuperstitioModSetup.MakeTextID(Fuck_Ear.class.getSimpleName());
+    public static final String ID = DataManager.MakeTextID(Fuck_Ear.class.getSimpleName());
 
     public static final CardType CARD_TYPE = CardType.ATTACK;
 
@@ -20,9 +20,9 @@ public class Fuck_Ear extends AbstractLupaCard_FuckJob {
 
     public static final CardTarget CARD_TARGET = CardTarget.ENEMY;
 
-    private static final int COST = 1;
-    private static final int ATTACK_DMG = 5;
-    private static final int UPGRADE_PLUS_DMG = 2;
+    private static final int COST = 0;
+    private static final int ATTACK_DMG = 2;
+    private static final int UPGRADE_PLUS_DMG = 1;
 
     public Fuck_Ear() {
         this(false);
@@ -58,12 +58,9 @@ public class Fuck_Ear extends AbstractLupaCard_FuckJob {
     }
 
     @Override
-    public void upgrade() {
-        if (!this.upgraded) {
-            upgradeName();
-            upgradeDamage(UPGRADE_PLUS_DMG);
-            if (cardsToPreview != null)
-                this.cardsToPreview.upgrade();
-        }
+    public void upgradeAuto() {
+        upgradeDamage(UPGRADE_PLUS_DMG);
+        if (cardsToPreview != null)
+            this.cardsToPreview.upgrade();
     }
 }

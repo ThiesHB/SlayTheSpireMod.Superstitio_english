@@ -1,25 +1,20 @@
 package SuperstitioMod.powers;
 
-import SuperstitioMod.SuperstitioModSetup;
+import SuperstitioMod.DataManager;
 import com.evacipated.cardcrawl.mod.stslib.actions.tempHp.AddTemporaryHPAction;
 import com.megacrit.cardcrawl.actions.common.RemoveSpecificPowerAction;
 import com.megacrit.cardcrawl.core.AbstractCreature;
-import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
-import com.megacrit.cardcrawl.localization.PowerStrings;
 
 public class DrySemen extends AbstractLupaPower {
-    public static final String POWER_ID = SuperstitioModSetup.MakeTextID(DrySemen.class.getSimpleName() + "Power");
-    private static final PowerStrings powerStrings = CardCrawlGame.languagePack.getPowerStrings(POWER_ID);
+    public static final String POWER_ID = DataManager.MakeTextID(DrySemen.class.getSimpleName() + "Power");
 
     public DrySemen(final AbstractCreature owner, int amount) {
-        super(POWER_ID,powerStrings,owner,amount);
+        super(POWER_ID, owner, amount);
     }
 
-
     @Override
-    public void updateDescription() {
-        this.description = String.format(DrySemen.powerStrings.DESCRIPTIONS[0]);
+    public void updateDescriptionArgs() {
     }
 
     @Override

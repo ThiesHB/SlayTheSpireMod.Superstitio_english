@@ -1,6 +1,6 @@
 package SuperstitioMod.cards.Lupa.SkillCard;
 
-import SuperstitioMod.SuperstitioModSetup;
+import SuperstitioMod.DataManager;
 import SuperstitioMod.cards.Lupa.AbstractLupaCard;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
@@ -9,7 +9,7 @@ import com.megacrit.cardcrawl.monsters.AbstractMonster;
  * 抵消敌人的攻击，转换为精液
  */
 public class ExposeSelf extends AbstractLupaCard {
-    public static final String ID = SuperstitioModSetup.MakeTextID(ExposeSelf.class.getSimpleName());
+    public static final String ID = DataManager.MakeTextID(ExposeSelf.class.getSimpleName());
 
     public static final CardType CARD_TYPE = CardType.SKILL;
 
@@ -29,14 +29,11 @@ public class ExposeSelf extends AbstractLupaCard {
     @Override
     public void use(AbstractPlayer player, AbstractMonster monster) {
         this.addToBot_gainBlock();
-        this.addToBot_applyPowerToPlayer(new SuperstitioMod.powers.ExposeSelf(player,1));
+        this.addToBot_applyPowerToPlayer(new SuperstitioMod.powers.ExposeSelf(player, 1));
     }
 
     @Override
-    public void upgrade() {
-        if (!this.upgraded) {
-            upgradeName();
-            upgradeBlock(UPGRADE_BLOCK);
-        }
+    public void upgradeAuto() {
+        upgradeBlock(UPGRADE_BLOCK);
     }
 }

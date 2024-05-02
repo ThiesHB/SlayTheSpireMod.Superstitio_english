@@ -1,13 +1,13 @@
 package SuperstitioMod.cards.Lupa.PowerCard;
 
-import SuperstitioMod.SuperstitioModSetup;
+import SuperstitioMod.DataManager;
 import SuperstitioMod.cards.Lupa.AbstractLupaCard;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 
 //咕杀/くっころ
 public class Ku_Koro extends AbstractLupaCard {
-    public static final String ID = SuperstitioModSetup.MakeTextID(Ku_Koro.class.getSimpleName());
+    public static final String ID = DataManager.MakeTextID(Ku_Koro.class.getSimpleName());
 
     public static final CardType CARD_TYPE = CardType.POWER;
 
@@ -29,10 +29,8 @@ public class Ku_Koro extends AbstractLupaCard {
     }
 
     @Override
-    public void upgrade() {
-        if (!this.upgraded) {
-            upgradeName();
-            upgradeBaseCost(COST_UPGRADE);
-        }
+    public void upgradeAuto() {
+        upgradeBaseCost(COST_UPGRADE);
     }
+
 }

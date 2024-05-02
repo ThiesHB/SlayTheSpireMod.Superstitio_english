@@ -1,6 +1,6 @@
 package SuperstitioMod.cards.Lupa.SkillCard;
 
-import SuperstitioMod.SuperstitioModSetup;
+import SuperstitioMod.DataManager;
 import SuperstitioMod.actions.OpenAWindowAndChoseFromCardGroupAction;
 import SuperstitioMod.cards.Lupa.AbstractLupaCard;
 import com.megacrit.cardcrawl.actions.common.ExhaustSpecificCardAction;
@@ -10,7 +10,7 @@ import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 
 public class Omniscience_TempName extends AbstractLupaCard {
-    public static final String ID = SuperstitioModSetup.MakeTextID(Omniscience_TempName.class.getSimpleName());
+    public static final String ID = DataManager.MakeTextID(Omniscience_TempName.class.getSimpleName());
 
     public static final AbstractCard.CardType CARD_TYPE = AbstractCard.CardType.SKILL;
 
@@ -33,7 +33,7 @@ public class Omniscience_TempName extends AbstractLupaCard {
         this.addToBot(new OpenAWindowAndChoseFromCardGroupAction(
                 this.magicNumber,
                 AbstractDungeon.player.drawPile,
-                String.format(cardStrings.EXTENDED_DESCRIPTION[0], this.magicNumber),
+                String.format(cardStrings.getEXTENDED_DESCRIPTION()[0], this.magicNumber),
                 card -> new ExhaustSpecificCardAction(card, AbstractDungeon.player.drawPile),
                 true));
     }
@@ -44,10 +44,7 @@ public class Omniscience_TempName extends AbstractLupaCard {
 //    }
 
     @Override
-    public void upgrade() {
-        if (!this.upgraded) {
-            upgradeName();
-            upgradeMagicNumber(UPGRADE_MagicNumber);
-        }
+    public void upgradeAuto() {
+        upgradeMagicNumber(UPGRADE_MagicNumber);
     }
 }

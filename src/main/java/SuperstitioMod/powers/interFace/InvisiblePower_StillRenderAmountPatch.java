@@ -86,7 +86,8 @@ public class InvisiblePower_StillRenderAmountPatch {
                         m.replace("if (p instanceof " + InvisiblePower_StillRenderAmount.class.getName() + ") " +
                                 "{offset -= " +
                                 "POWER_ICON_PADDING_X;} else {$proceed($$);}");
-                    } else if (m.getMethodName().equals("renderAmount")) {
+                    }
+                    else if (m.getMethodName().equals("renderAmount")) {
                         m.replace("if (p instanceof " + InvisiblePower_StillRenderAmount.class.getName() + ") " +
                                 "{offset -= " +
                                 "POWER_ICON_PADDING_X;$proceed($$);} else {$proceed($$);}");

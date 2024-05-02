@@ -1,17 +1,11 @@
 package SuperstitioMod.utils;
 
-import com.evacipated.cardcrawl.modthespire.lib.SpireEnum;
-import com.google.gson.Gson;
-import com.megacrit.cardcrawl.cards.AbstractCard;
-import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.core.Settings;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
-import com.megacrit.cardcrawl.helpers.CardLibrary;
 import com.megacrit.cardcrawl.powers.AbstractPower;
 import com.megacrit.cardcrawl.vfx.combat.PowerBuffEffect;
 import com.megacrit.cardcrawl.vfx.combat.PowerDebuffEffect;
 
-import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -23,7 +17,8 @@ public class PowerUtility {
         if (isDeBuffVer) {
             AbstractDungeon.effectList.add(new PowerDebuffEffect(power.owner.hb.cX - power.owner.animX,
                     power.owner.hb.cY + power.owner.hb.height / 2.0f, message));
-        } else {
+        }
+        else {
             AbstractDungeon.effectList.add(new PowerBuffEffect(power.owner.hb.cX - power.owner.animX,
                     power.owner.hb.cY + power.owner.hb.height / 2.0f, message));
         }
@@ -33,7 +28,8 @@ public class PowerUtility {
         if (isDeBuffVer) {
             AbstractDungeon.effectList.add(new PowerDebuffEffect(power.owner.hb.cX - power.owner.animX,
                     power.owner.hb.cY + power.owner.hb.height / 2.0f + BubbleMessageHigher_HEIGHT, message));
-        } else {
+        }
+        else {
             AbstractDungeon.effectList.add(new PowerBuffEffect(power.owner.hb.cX - power.owner.animX,
                     power.owner.hb.cY + power.owner.hb.height / 2.0f + BubbleMessageHigher_HEIGHT, message));
         }
@@ -59,11 +55,6 @@ public class PowerUtility {
         }
 
         return result;
-    }
-
-    public static class Enums {
-        @SpireEnum
-        public static AbstractPower.PowerType BlankModifier;
     }
 
 }

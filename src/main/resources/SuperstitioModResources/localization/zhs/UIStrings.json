@@ -1,7 +1,8 @@
 {
 	"SuperstitioMod:OptionsMenu": {
 		"TEXT": [
-			"使用SFW模式"
+			"使用SFW模式",
+			"切换模式后，点击本按钮刷新本地化资源（部分可能需要重启）"
 		]
 	}
 

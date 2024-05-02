@@ -1,13 +1,14 @@
 package SuperstitioMod.cards.Lupa;
 
-import SuperstitioMod.SuperstitioModSetup;
-import SuperstitioMod.actions.AbstractAutoDoneAction;
+import SuperstitioMod.DataManager;
+import SuperstitioMod.Logger;
+import SuperstitioMod.actions.AutoDoneAction;
 import SuperstitioMod.cards.ChooseSelfOrEnemy.ChooseSelfOrEnemyTarget;
 import SuperstitioMod.cards.ChooseSelfOrEnemy.ChooseTargetPatch;
-import SuperstitioMod.characters.Lupa;
-import SuperstitioMod.powers.TempDecreaseCost;
+import SuperstitioMod.customStrings.CardStringsWithSFWAndFlavor;
+import SuperstitioMod.customStrings.HasSFWVersion;
+import SuperstitioMod.powers.AllCardCostModifier;
 import basemod.abstracts.CustomCard;
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.evacipated.cardcrawl.modthespire.lib.SpirePatch;
 import com.evacipated.cardcrawl.modthespire.lib.SpirePostfixPatch;
@@ -15,6 +16,7 @@ import com.megacrit.cardcrawl.actions.AbstractGameAction;
 import com.megacrit.cardcrawl.actions.common.*;
 import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.cards.DamageInfo;
+import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.core.Settings;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.helpers.FontHelper;
@@ -29,7 +31,7 @@ import java.util.Optional;
 public abstract class AbstractLupaCard extends CustomCard implements ChooseSelfOrEnemyTarget {
     private final static float DESC_LINE_WIDTH = 418.0f * Settings.scale;
     //调用父类的构造方法，传参为super(卡牌ID，卡牌名称，图片地址，能量花费，卡牌描述，卡牌类型，卡牌颜色，卡牌稀有度，卡牌目标)
-    protected CardStringsWithFlavor cardStrings;
+    protected CardStringsWithSFWAndFlavor cardStrings;
     private boolean isTargetSelfOrEnemy;
 
     /**
@@ -49,7 +51,7 @@ public abstract class AbstractLupaCard extends CustomCard implements ChooseSelfO
      * 当需要自定义卡牌存储的二级目录名时
      */
     public AbstractLupaCard(String id, CardType cardType, int cost, CardRarity cardRarity, CardTarget cardTarget, String customCardType) {
-        this(id, cardType, cost, cardRarity, cardTarget, Lupa.Enums.LUPA_CARD, customCardType);
+        this(id, cardType, cost, cardRarity, cardTarget, DataManager.LUPA_DATA.LupaEnums.LUPA_CARD, customCardType);
     }
 
     public AbstractLupaCard(String id, CardType cardType, int cost, CardRarity cardRarity, CardTarget cardTarget, CardColor cardColor) {
@@ -60,38 +62,28 @@ public abstract class AbstractLupaCard extends CustomCard implements ChooseSelfO
                             String customCardType) {
         super(
                 id,
-                getCardStringsWithFlavor(id).NAME,
-                getImgPath(customCardType, SuperstitioModSetup.getIdOnly(id)),
+                getCardStringsWithSFWAndFlavor(id).getNAME(),
+                getImgPath(customCardType, DataManager.getIdOnly(id)),
                 cost,
-                getCardStringsWithFlavor(id).DESCRIPTION,
+                getCardStringsWithSFWAndFlavor(id).getDESCRIPTION(),
                 cardType,
                 cardColor,
                 cardRarity,
                 cardTarget);
-        SuperstitioModSetup.logger.info("loadCard" + id);
-        this.cardStrings = getCardStringsWithFlavor(id);
+        Logger.info("loadCard" + id);
+        this.cardStrings = getCardStringsWithSFWAndFlavor(id);
     }
 
-    public static CardStringsWithFlavor getCardStringsWithFlavor(String cardName) {
-        if (SuperstitioModSetup.cards.containsKey(cardName)) {
-            return SuperstitioModSetup.cards.get(cardName);
-        } else {
-            SuperstitioModSetup.logger.info("[ERROR] CardString: " + cardName + " not found");
-            return CardStringsWithFlavor.getMockCardStringWithFlavor();
+    public static CardStringsWithSFWAndFlavor getCardStringsWithSFWAndFlavor(String cardName) {
+        try {
+            return HasSFWVersion.getCustomStringsWithSFW(cardName, DataManager.cards, CardStringsWithSFWAndFlavor.class);
+        } catch (InstantiationException | IllegalAccessException e) {
+            throw new RuntimeException(e);
         }
     }
 
     public static String getImgPath(final String tag, final String id) {
-        String path;
-        if (Objects.equals(tag, "")) {
-            path = SuperstitioModSetup.makeImgFilesPath_LupaCard(id);
-        } else {
-            path = SuperstitioModSetup.makeImgFilesPath_LupaCard(tag, id);
-        }
-        if (Gdx.files.internal(path).exists())
-            return path;
-        SuperstitioModSetup.logger.info("Can't find " + id + ". Use default img instead.");
-        return SuperstitioModSetup.makeImgFilesPath_LupaCard("default");
+        return DataManager.makeImgPath("default", DataManager::makeImgFilesPath_LupaCard, tag, id);
     }
 
     public static String CardTypeToString(final AbstractCard.CardType t) {
@@ -122,11 +114,12 @@ public abstract class AbstractLupaCard extends CustomCard implements ChooseSelfO
     }
 
     private static void renderQuote(final SpriteBatch sb, AbstractLupaCard card) {
-        String flavorText = card.cardStrings.FLAVOR;
+        String flavorText = card.cardStrings.getFLAVOR();
         if (flavorText != null) {
             FontHelper.renderWrappedText(sb, FontHelper.SRV_quoteFont, flavorText, Settings.WIDTH / 2.0f,
                     Settings.HEIGHT / 2.0f - 430.0f * Settings.scale, DESC_LINE_WIDTH, Settings.CREAM_COLOR, 1.0f);
-        } else {
+        }
+        else {
             FontHelper.renderWrappedText(sb, FontHelper.SRV_quoteFont, "\"Missing quote...\"", Settings.WIDTH / 2.0f,
                     Settings.HEIGHT / 2.0f - 430.0f * Settings.scale, DESC_LINE_WIDTH, Settings.CREAM_COLOR, 1.0f);
         }
@@ -145,12 +138,9 @@ public abstract class AbstractLupaCard extends CustomCard implements ChooseSelfO
                 break;
         }
 
-        AbstractDungeon.actionManager.addToBottom(new AbstractAutoDoneAction() {
-            @Override
-            public void autoDoneUpdate() {
-                Optional<TempDecreaseCost> power = TempDecreaseCost.getActivateOne(AbstractDungeon.player);
-                power.ifPresent(TempDecreaseCost::tryUseEffect);
-            }
+        AutoDoneAction.addToBotAbstract(() -> {
+            Optional<AllCardCostModifier> power = AllCardCostModifier.getActivateOne();
+            power.ifPresent(AllCardCostModifier::tryUseEffect);
         });
     }
 
@@ -172,6 +162,19 @@ public abstract class AbstractLupaCard extends CustomCard implements ChooseSelfO
         this.isTargetSelfOrEnemy = true;
         this.target = CardTarget.ENEMY;
     }
+
+    @Override
+    public final void upgrade() {
+        if (!this.upgraded) {
+            this.upgradeName();
+            if (cardStrings.getUPGRADE_DESCRIPTION() != null && !cardStrings.getUPGRADE_DESCRIPTION().isEmpty())
+                this.rawDescription = cardStrings.getUPGRADE_DESCRIPTION();
+            this.upgradeAuto();
+            this.initializeDescription();
+        }
+    }
+
+    public abstract void upgradeAuto();
 
     protected void setupDamage(final int amount) {
         this.baseDamage = amount;
@@ -228,6 +231,22 @@ public abstract class AbstractLupaCard extends CustomCard implements ChooseSelfO
         this.addToBot(new ReducePowerAction(AbstractDungeon.player, AbstractDungeon.player, powerID, amount));
     }
 
+    protected void setCostToCostMap_ForTurn(int amount) {
+        if (AllCardCostModifier.costMap.containsKey(this.uuid)) {
+            AllCardCostModifier.costMap.put(this.uuid, amount);
+        }
+        this.setCostForTurn(amount);
+    }
+
+    protected void setCostToCostMap_ForBattle(int amount) {
+        if (AllCardCostModifier.costMap.containsKey(this.uuid)) {
+            AllCardCostModifier.costMap.put(this.uuid, amount);
+        }
+        this.updateCost(amount);
+    }
+
+    @Override
+    public abstract void use(AbstractPlayer player, AbstractMonster monster);
 
     public enum BattleCardPlace {
         Hand,
@@ -248,14 +267,14 @@ public abstract class AbstractLupaCard extends CustomCard implements ChooseSelfO
     public static class CardRenderPatch {
         @SpirePostfixPatch
         public static void Postfix(SingleCardViewPopup __instance, SpriteBatch sb) {
-            Field privateField = null;
+            Field privateField;
             try {
                 privateField = SingleCardViewPopup.class.getDeclaredField("card");
             } catch (NoSuchFieldException e) {
                 return;
             }
             privateField.setAccessible(true); // 允许访问私有字段
-            AbstractCard fieldValue = null; // 获得私有字段值
+            AbstractCard fieldValue; // 获得私有字段值
             try {
                 fieldValue = (AbstractCard) privateField.get(__instance);
             } catch (IllegalAccessException e) {
@@ -266,19 +285,4 @@ public abstract class AbstractLupaCard extends CustomCard implements ChooseSelfO
             }
         }
     }
-
-    protected void setCostToCostMap_ForTurn(int amount){
-        if (TempDecreaseCost.costMap.containsKey(this.uuid)){
-            TempDecreaseCost.costMap.put(this.uuid,amount);
-        }
-        this.setCostForTurn(amount);
-    }
-
-    protected void setCostToCostMap_ForBattle(int amount){
-        if (TempDecreaseCost.costMap.containsKey(this.uuid)){
-            TempDecreaseCost.costMap.put(this.uuid,amount);
-        }
-        this.updateCost(amount);
-    }
-
 }

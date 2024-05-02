@@ -1,7 +1,7 @@
 package SuperstitioMod.cards.Lupa.SkillCard;
 
+import SuperstitioMod.DataManager;
 import SuperstitioMod.InBattleDataManager;
-import SuperstitioMod.SuperstitioModSetup;
 import SuperstitioMod.cards.Lupa.AbstractLupaCard;
 import SuperstitioMod.powers.SexualHeat;
 import com.badlogic.gdx.graphics.Color;
@@ -9,7 +9,7 @@ import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 
 public class CalmDown extends AbstractLupaCard {
-    public static final String ID = SuperstitioModSetup.MakeTextID(CalmDown.class.getSimpleName());
+    public static final String ID = DataManager.MakeTextID(CalmDown.class.getSimpleName());
 
     public static final CardType CARD_TYPE = CardType.SKILL;
 
@@ -23,7 +23,7 @@ public class CalmDown extends AbstractLupaCard {
     private static final int ExtraDrawNum = 1;
 
 
-    private static final int HeatReduce = 4;
+    private static final int HeatReduce = 6;
 
 
     public CalmDown() {
@@ -33,7 +33,7 @@ public class CalmDown extends AbstractLupaCard {
 
     @Override
     public void use(AbstractPlayer player, AbstractMonster monster) {
-        this.addToBot_drawCards(MagicNumber);
+        this.addToBot_drawCards(magicNumber);
         this.addToBot_reducePowerToPlayer(SexualHeat.POWER_ID, HeatReduce);
         if (InBattleDataManager.InOrgasm) {
             this.addToBot_drawCards(ExtraDrawNum);
@@ -49,10 +49,8 @@ public class CalmDown extends AbstractLupaCard {
     }
 
     @Override
-    public void upgrade() {
-        if (!this.upgraded) {
-            upgradeName();
-            upgradeMagicNumber(UPGRADE_MagicNumber);
-        }
+    public void upgradeAuto() {
+        upgradeMagicNumber(UPGRADE_MagicNumber);
     }
 }
+

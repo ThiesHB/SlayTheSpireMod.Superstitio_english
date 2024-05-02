@@ -28,8 +28,8 @@ public abstract class SexMark extends AbstractLupaPower implements InvisiblePowe
 
     public String tempSexName;
 
-    public SexMark(String name, String id, final AbstractCreature owner, final String sexName) {
-        super(id, name, owner, 1, PowerType.BUFF, false);
+    public SexMark(String id, final AbstractCreature owner, final String sexName) {
+        super(id, owner, 1, PowerType.BUFF, false);
 
         this.hitbox = new Hitbox((BAR_RADIUS + BAR_Blank) * MARKNeeded, BAR_RADIUS);
         this.hitbox.move(this.owner.hb.cX, Height() + this.owner.hb.height / 2 + BAR_RADIUS * 3);

@@ -1,6 +1,6 @@
 package SuperstitioMod.cards.Lupa.AttackCard;
 
-import SuperstitioMod.SuperstitioModSetup;
+import SuperstitioMod.DataManager;
 import SuperstitioMod.cards.Lupa.AbstractLupaCard_FuckJob;
 import basemod.cardmods.ExhaustMod;
 import basemod.helpers.CardModifierManager;
@@ -9,7 +9,7 @@ import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 
 public class Job_Hair extends AbstractLupaCard_FuckJob {
-    public static final String ID = SuperstitioModSetup.MakeTextID(Job_Hair.class.getSimpleName());
+    public static final String ID = DataManager.MakeTextID(Job_Hair.class.getSimpleName());
 
     public static final CardType CARD_TYPE = CardType.ATTACK;
 
@@ -40,14 +40,11 @@ public class Job_Hair extends AbstractLupaCard_FuckJob {
         if (upgraded)
             card.upgrade();
         addToBot_makeTempCardInBattle(card, BattleCardPlace.Hand);
-        AbstractLupaCard_FuckJob.addToTop_gainSexMark_Outside(this.cardStrings.EXTENDED_DESCRIPTION[0]);
+        AbstractLupaCard_FuckJob.addToTop_gainSexMark_Outside(this.cardStrings.getEXTENDED_DESCRIPTION()[0]);
     }
 
     @Override
-    public void upgrade() {
-        if (!this.upgraded) {
-            upgradeName();
-            upgradeDamage(UPGRADE_PLUS_DMG);
-        }
+    public void upgradeAuto() {
+        upgradeDamage(UPGRADE_PLUS_DMG);
     }
 }

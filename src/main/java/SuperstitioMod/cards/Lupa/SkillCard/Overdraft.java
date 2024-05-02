@@ -1,6 +1,6 @@
 package SuperstitioMod.cards.Lupa.SkillCard;
 
-import SuperstitioMod.SuperstitioModSetup;
+import SuperstitioMod.DataManager;
 import SuperstitioMod.cards.Lupa.AbstractLupaCard;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
@@ -8,7 +8,7 @@ import com.megacrit.cardcrawl.monsters.AbstractMonster;
 
 //透支
 public class Overdraft extends AbstractLupaCard {
-    public static final String ID = SuperstitioModSetup.MakeTextID(Overdraft.class.getSimpleName());
+    public static final String ID = DataManager.MakeTextID(Overdraft.class.getSimpleName());
 
     public static final CardType CARD_TYPE = CardType.SKILL;
 
@@ -34,10 +34,7 @@ public class Overdraft extends AbstractLupaCard {
     }
 
     @Override
-    public void upgrade() {
-        if (!this.upgraded) {
-            upgradeName();
-            upgradeMagicNumber(UPGRADE_MagicNumber);
-        }
+    public void upgradeAuto() {
+        upgradeMagicNumber(UPGRADE_MagicNumber);
     }
 }

@@ -1,6 +1,6 @@
 package SuperstitioMod.cards.Lupa.SkillCard;
 
-import SuperstitioMod.SuperstitioModSetup;
+import SuperstitioMod.DataManager;
 import SuperstitioMod.actions.OpenAWindowAndChoseFromCardGroupAction;
 import SuperstitioMod.cards.Lupa.AbstractLupaCard;
 import com.megacrit.cardcrawl.actions.AbstractGameAction;
@@ -15,7 +15,7 @@ import java.util.Objects;
 
 //荣耀洞
 public class GloryHole extends AbstractLupaCard {
-    public static final String ID = SuperstitioModSetup.MakeTextID(GloryHole.class.getSimpleName());
+    public static final String ID = DataManager.MakeTextID(GloryHole.class.getSimpleName());
 
     public static final CardType CARD_TYPE = CardType.SKILL;
 
@@ -46,14 +46,11 @@ public class GloryHole extends AbstractLupaCard {
     @Override
     public void use(AbstractPlayer player, AbstractMonster monster) {
         this.addToBot(new OpenAWindowAndChoseFromCardGroupAction(
-                1, mainCardGroupExceptSelf(), this.cardStrings.EXTENDED_DESCRIPTION[0], GloryHole::makeCopy, false));
+                1, mainCardGroupExceptSelf(), this.cardStrings.getEXTENDED_DESCRIPTION()[0], GloryHole::makeCopy, false));
     }
 
     @Override
-    public void upgrade() {
-        if (!this.upgraded) {
-            upgradeName();
-            upgradeBaseCost(COST_UPDATE);
-        }
+    public void upgradeAuto() {
+        upgradeBaseCost(COST_UPDATE);
     }
 }

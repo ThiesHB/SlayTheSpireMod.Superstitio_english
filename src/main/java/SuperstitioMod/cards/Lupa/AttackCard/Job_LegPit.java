@@ -1,8 +1,8 @@
 package SuperstitioMod.cards.Lupa.AttackCard;
 
+import SuperstitioMod.DataManager;
 import SuperstitioMod.InBattleDataManager;
-import SuperstitioMod.SuperstitioModSetup;
-import SuperstitioMod.actions.AbstractAutoDoneAction;
+import SuperstitioMod.actions.AutoDoneAction;
 import SuperstitioMod.cards.Lupa.AbstractLupaCard_FuckJob;
 import SuperstitioMod.powers.SexualHeat;
 import com.badlogic.gdx.graphics.Color;
@@ -12,7 +12,7 @@ import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 
 public class Job_LegPit extends AbstractLupaCard_FuckJob {
-    public static final String ID = SuperstitioModSetup.MakeTextID(Job_LegPit.class.getSimpleName());
+    public static final String ID = DataManager.MakeTextID(Job_LegPit.class.getSimpleName());
 
     public static final CardType CARD_TYPE = CardType.ATTACK;
 
@@ -35,15 +35,12 @@ public class Job_LegPit extends AbstractLupaCard_FuckJob {
     public void use(AbstractPlayer player, AbstractMonster monster) {
         for (int i = 0; i < Attack_Num; i++) {
             addToBot_damageToEnemy(monster, AbstractGameAction.AttackEffect.BLUNT_LIGHT);
-            addToBot(new AbstractAutoDoneAction() {
-                @Override
-                public void autoDoneUpdate() {
-                    if (monster.lastDamageTaken > 0 && SexualHeat.isInOrgasm(AbstractDungeon.player))
-                        addToBot_drawCards();
-                }
+            AutoDoneAction.addToBotAbstract(() -> {
+                if (monster.lastDamageTaken > 0 && SexualHeat.isInOrgasm(AbstractDungeon.player))
+                    addToBot_drawCards();
             });
         }
-        AbstractLupaCard_FuckJob.addToTop_gainSexMark_Outside(this.cardStrings.EXTENDED_DESCRIPTION[0]);
+        AbstractLupaCard_FuckJob.addToTop_gainSexMark_Outside(this.cardStrings.getEXTENDED_DESCRIPTION()[0]);
     }
 
     @Override
@@ -56,33 +53,8 @@ public class Job_LegPit extends AbstractLupaCard_FuckJob {
 
 
     @Override
-    public void upgrade() {
-        if (!this.upgraded) {
-            upgradeName();
-            upgradeDamage(UPGRADE_PLUS_DMG);
-        }
+    public void upgradeAuto() {
+        upgradeDamage(UPGRADE_PLUS_DMG);
     }
 
-//    @Override
-//    public void onCheckOrgasm(SexualHeat SexualHeatPower) {
-//    }
-//
-//    @Override
-//    public void afterOrgasm(SexualHeat SexualHeatPower) {
-//        this.glowColor = Color.PINK;
-//    }
-//
-//    @Override
-//    public void afterEndOrgasm(SexualHeat SexualHeatPower) {
-//        this.glowColor = BLUE_BORDER_GLOW_COLOR.cpy();
-//    }
-//
-//    @Override
-//    public boolean preventOrgasm(SexualHeat SexualHeatPower) {
-//        return false;
-//    }
-//
-//    @Override
-//    public void beforeSquirt(SexualHeat SexualHeatPower) {
-//    }
 }

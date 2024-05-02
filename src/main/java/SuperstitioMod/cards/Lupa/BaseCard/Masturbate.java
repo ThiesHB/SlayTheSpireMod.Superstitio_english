@@ -1,13 +1,13 @@
 package SuperstitioMod.cards.Lupa.BaseCard;
 
-import SuperstitioMod.SuperstitioModSetup;
+import SuperstitioMod.DataManager;
 import SuperstitioMod.cards.Lupa.AbstractLupaCard;
 import SuperstitioMod.powers.SexualHeat;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 
 public class Masturbate extends AbstractLupaCard {
-    public static final String ID = SuperstitioModSetup.MakeTextID(Masturbate.class.getSimpleName());
+    public static final String ID = DataManager.MakeTextID(Masturbate.class.getSimpleName());
 
     public static final CardType CARD_TYPE = CardType.SKILL;
 
@@ -16,13 +16,13 @@ public class Masturbate extends AbstractLupaCard {
     public static final CardTarget CARD_TARGET = CardTarget.SELF;
 
     private static final int COST = 0;
-    private static final int MAGICNumber = 3;
+    private static final int MAGICNumber = 4;
     private static final int UPGRADE_MagicNumber = 2;
     private static final int DRAWCard = 1;
 
 
     public Masturbate() {
-        super(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET,"base");
+        super(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET, "base");
         this.setupMagicNumber(MAGICNumber);
     }
 
@@ -33,10 +33,12 @@ public class Masturbate extends AbstractLupaCard {
     }
 
     @Override
-    public void upgrade() {
-        if (!this.upgraded) {
-            upgradeName();
-            upgradeMagicNumber(UPGRADE_MagicNumber);
-        }
+    public void upgradeAuto() {
+        upgradeMagicNumber(UPGRADE_MagicNumber);
+    }
+
+    @Override
+    public void initializeDescription() {
+        super.initializeDescription();
     }
 }

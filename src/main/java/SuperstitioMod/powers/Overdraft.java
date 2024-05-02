@@ -1,24 +1,21 @@
 package SuperstitioMod.powers;
 
-import SuperstitioMod.SuperstitioModSetup;
+import SuperstitioMod.DataManager;
 import com.megacrit.cardcrawl.actions.common.ExhaustAction;
 import com.megacrit.cardcrawl.actions.common.RemoveSpecificPowerAction;
 import com.megacrit.cardcrawl.core.AbstractCreature;
-import com.megacrit.cardcrawl.core.CardCrawlGame;
-import com.megacrit.cardcrawl.localization.PowerStrings;
 
 public class Overdraft extends AbstractLupaPower {
-    public static final String POWER_ID = SuperstitioModSetup.MakeTextID(Overdraft.class.getSimpleName() + "Power");
-    private static final PowerStrings powerStrings = CardCrawlGame.languagePack.getPowerStrings(POWER_ID);
+    public static final String POWER_ID = DataManager.MakeTextID(Overdraft.class.getSimpleName() + "Power");
 
     public Overdraft(final AbstractCreature owner, int amount) {
-        super(POWER_ID, powerStrings, owner, amount);
+        super(POWER_ID, owner, amount);
     }
 
 
     @Override
-    public void updateDescription() {
-        this.description = String.format(Overdraft.powerStrings.DESCRIPTIONS[0], amount);
+    public void updateDescriptionArgs() {
+        setDescriptionArgs(amount);
     }
 
 

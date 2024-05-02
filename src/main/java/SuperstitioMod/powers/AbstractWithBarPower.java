@@ -20,8 +20,8 @@ public abstract class AbstractWithBarPower extends AbstractLupaPower implements 
     public int orgasmTime = 0;
     public Hitbox hitbox;
 
-    public AbstractWithBarPower(String id, String name, final AbstractCreature owner, int amount, PowerType type, boolean needUpdateDescription) {
-        super(id, name, owner, amount, type, needUpdateDescription);
+    public AbstractWithBarPower(String id, final AbstractCreature owner, int amount, PowerType type, boolean needUpdateDescription) {
+        super(id, owner, amount, type, needUpdateDescription);
 
         this.hitbox = new Hitbox(this.owner.hb.width + BAR_HEIGHT * 3f, BAR_HEIGHT * 1.5f);
         this.hitbox.move(this.owner.hb.cX, Height() + this.owner.hb.cY + this.owner.hb.height + BAR_OFFSET_Y);

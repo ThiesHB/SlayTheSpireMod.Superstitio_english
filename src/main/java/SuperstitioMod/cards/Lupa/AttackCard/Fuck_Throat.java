@@ -1,6 +1,6 @@
 package SuperstitioMod.cards.Lupa.AttackCard;
 
-import SuperstitioMod.SuperstitioModSetup;
+import SuperstitioMod.DataManager;
 import SuperstitioMod.cards.Lupa.AbstractLupaCard_FuckJob;
 import com.megacrit.cardcrawl.actions.AbstractGameAction;
 import com.megacrit.cardcrawl.actions.common.GainEnergyAction;
@@ -8,7 +8,7 @@ import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 
 public class Fuck_Throat extends AbstractLupaCard_FuckJob {
-    public static final String ID = SuperstitioModSetup.MakeTextID(Fuck_Throat.class.getSimpleName());
+    public static final String ID = DataManager.MakeTextID(Fuck_Throat.class.getSimpleName());
 
     public static final CardType CARD_TYPE = CardType.ATTACK;
 
@@ -35,10 +35,7 @@ public class Fuck_Throat extends AbstractLupaCard_FuckJob {
     }
 
     @Override
-    public void upgrade() {
-        if (!this.upgraded) {
-            upgradeName();
-            upgradeDamage(UPGRADE_PLUS_DMG);
-        }
+    public void upgradeAuto() {
+        upgradeDamage(UPGRADE_PLUS_DMG);
     }
 }

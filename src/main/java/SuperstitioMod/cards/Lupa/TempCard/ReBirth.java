@@ -1,7 +1,7 @@
 package SuperstitioMod.cards.Lupa.TempCard;
 
-import SuperstitioMod.SuperstitioModSetup;
-import SuperstitioMod.cards.Lupa.AbstractLupaCard;
+import SuperstitioMod.DataManager;
+import SuperstitioMod.cards.Lupa.AbstractLupaCard_TempCard;
 import com.evacipated.cardcrawl.mod.stslib.actions.tempHp.AddTemporaryHPAction;
 import com.megacrit.cardcrawl.actions.common.ApplyPowerAction;
 import com.megacrit.cardcrawl.cards.AbstractCard;
@@ -12,8 +12,8 @@ import com.megacrit.cardcrawl.powers.AbstractPower;
 
 import java.util.ArrayList;
 
-public class ReBirth extends AbstractLupaCard {
-    public static final String ID = SuperstitioModSetup.MakeTextID(ReBirth.class.getSimpleName());
+public class ReBirth extends AbstractLupaCard_TempCard {
+    public static final String ID = DataManager.MakeTextID(ReBirth.class.getSimpleName());
 
     public static final CardType CARD_TYPE = CardType.SKILL;
 
@@ -28,7 +28,7 @@ public class ReBirth extends AbstractLupaCard {
     public AbstractMonster sealMonster = null;
 
     public ReBirth() {
-        super(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET, CardColor.COLORLESS);
+        super(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET);
         this.exhaust = true;
         this.setupBlock(BLOCK);
     }
@@ -52,11 +52,8 @@ public class ReBirth extends AbstractLupaCard {
     }
 
     @Override
-    public void upgrade() {
-        if (!this.upgraded) {
-            upgradeName();
-            this.upgradeBlock(UPGRADE_PLUS_BLOCK);
-        }
+    public void upgradeAuto() {
+        this.upgradeBlock(UPGRADE_PLUS_BLOCK);
     }
 
     @Override
@@ -66,7 +63,8 @@ public class ReBirth extends AbstractLupaCard {
             newCard.sealMonster = this.sealMonster;
             newCard.sealPower = this.sealPower;
             return newCard;
-        } else
+        }
+        else
             return super.makeCopy();
     }
 }

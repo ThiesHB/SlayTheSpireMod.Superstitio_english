@@ -2,13 +2,10 @@ package SuperstitioMod.stances;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.MathUtils;
-import com.megacrit.cardcrawl.actions.AbstractGameAction;
 import com.megacrit.cardcrawl.actions.common.GainEnergyAction;
 import com.megacrit.cardcrawl.actions.watcher.ChangeStanceAction;
 import com.megacrit.cardcrawl.cards.AbstractCard;
-import com.megacrit.cardcrawl.cards.DamageInfo;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.core.Settings;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
@@ -21,7 +18,7 @@ import com.megacrit.cardcrawl.vfx.stance.StanceChangeParticleGenerator;
 
 public class LingeringStance extends AbstractStance {
     public static final String STANCE_ID = "Lingering";
-    private static final StanceStrings stanceString= CardCrawlGame.languagePack.getStanceString(STANCE_ID);
+    private static final StanceStrings stanceString = CardCrawlGame.languagePack.getStanceString(STANCE_ID);
     private static long sfxId = -1L;
 
     public LingeringStance() {
@@ -69,7 +66,7 @@ public class LingeringStance extends AbstractStance {
     }
 
     @Override
-    public void onPlayCard(AbstractCard card){
+    public void onPlayCard(AbstractCard card) {
 
     }
 

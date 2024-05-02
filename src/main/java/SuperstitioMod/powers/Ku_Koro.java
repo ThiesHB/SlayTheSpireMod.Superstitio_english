@@ -1,30 +1,21 @@
 package SuperstitioMod.powers;
 
-import SuperstitioMod.SuperstitioModSetup;
+import SuperstitioMod.DataManager;
 import SuperstitioMod.cards.Lupa.AbstractLupaCard;
 import SuperstitioMod.utils.CardUtility;
 import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.cards.DamageInfo;
 import com.megacrit.cardcrawl.core.AbstractCreature;
-import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
-import com.megacrit.cardcrawl.localization.PowerStrings;
 
 /**
  * 每次受到攻击伤害时，获得1随机状态牌。所有消耗牌会回到抽牌堆
  */
 public class Ku_Koro extends AbstractLupaPower {
-    public static final String POWER_ID = SuperstitioModSetup.MakeTextID(Ku_Koro.class.getSimpleName() + "Power");
-    private static final PowerStrings powerStrings = CardCrawlGame.languagePack.getPowerStrings(POWER_ID);
+    public static final String POWER_ID = DataManager.MakeTextID(Ku_Koro.class.getSimpleName() + "Power");
 
     public Ku_Koro(final AbstractCreature owner) {
-        super(POWER_ID, powerStrings, owner, -1);
-    }
-
-
-    @Override
-    public void updateDescription() {
-        this.description = String.format(Ku_Koro.powerStrings.DESCRIPTIONS[0]);
+        super(POWER_ID, owner, -1);
     }
 
     @Override
@@ -40,5 +31,10 @@ public class Ku_Koro extends AbstractLupaPower {
         }
 
         return super.onAttacked(info, damageAmount);
+    }
+
+    @Override
+    public void updateDescriptionArgs() {
+
     }
 }

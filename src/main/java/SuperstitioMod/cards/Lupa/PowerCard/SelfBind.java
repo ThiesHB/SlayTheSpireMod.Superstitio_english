@@ -1,6 +1,6 @@
 package SuperstitioMod.cards.Lupa.PowerCard;
 
-import SuperstitioMod.SuperstitioModSetup;
+import SuperstitioMod.DataManager;
 import SuperstitioMod.cards.Lupa.AbstractLupaCard;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
@@ -9,7 +9,7 @@ import com.megacrit.cardcrawl.powers.StrengthPower;
 
 
 public class SelfBind extends AbstractLupaCard {
-    public static final String ID = SuperstitioModSetup.MakeTextID(SelfBind.class.getSimpleName());
+    public static final String ID = DataManager.MakeTextID(SelfBind.class.getSimpleName());
 
     public static final CardType CARD_TYPE = CardType.POWER;
 
@@ -35,10 +35,8 @@ public class SelfBind extends AbstractLupaCard {
     }
 
     @Override
-    public void upgrade() {
-        if (!this.upgraded) {
-            upgradeName();
-            upgradeMagicNumber(UPGRADE_MagicNumber);
-        }
+    public void upgradeAuto() {
+        upgradeMagicNumber(UPGRADE_MagicNumber);
     }
 }
+

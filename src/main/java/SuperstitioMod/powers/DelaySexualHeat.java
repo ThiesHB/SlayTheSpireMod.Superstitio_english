@@ -1,32 +1,21 @@
 package SuperstitioMod.powers;
 
-import SuperstitioMod.SuperstitioModSetup;
-import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-import com.evacipated.cardcrawl.mod.stslib.powers.abstracts.TwoAmountPower;
-import com.evacipated.cardcrawl.mod.stslib.powers.interfaces.BetterOnApplyPowerPower;
+import SuperstitioMod.DataManager;
 import com.megacrit.cardcrawl.actions.common.ApplyPowerAction;
 import com.megacrit.cardcrawl.actions.common.RemoveSpecificPowerAction;
 import com.megacrit.cardcrawl.core.AbstractCreature;
-import com.megacrit.cardcrawl.core.CardCrawlGame;
-import com.megacrit.cardcrawl.helpers.ImageMaster;
-import com.megacrit.cardcrawl.localization.PowerStrings;
-import com.megacrit.cardcrawl.powers.AbstractPower;
-
-import java.util.Objects;
-import java.util.Optional;
 
 public class DelaySexualHeat extends AbstractLupaPower {
-    public static final String POWER_ID = SuperstitioModSetup.MakeTextID(DelaySexualHeat.class.getSimpleName() + "Power");
-    private static final PowerStrings powerStrings = CardCrawlGame.languagePack.getPowerStrings(POWER_ID);
+    public static final String POWER_ID = DataManager.MakeTextID(DelaySexualHeat.class.getSimpleName() + "Power");
 
-    public DelaySexualHeat(final AbstractCreature owner,int amount) {
-        super(POWER_ID,powerStrings,owner,amount);
+    public DelaySexualHeat(final AbstractCreature owner, int amount) {
+        super(POWER_ID, owner, amount);
     }
 
 
     @Override
-    public void updateDescription() {
-        this.description = String.format(DelaySexualHeat.powerStrings.DESCRIPTIONS[0], amount);
+    public void updateDescriptionArgs() {
+        this.setDescriptionArgs(amount);
     }
 
 

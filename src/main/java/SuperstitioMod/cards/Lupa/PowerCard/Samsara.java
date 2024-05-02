@@ -1,17 +1,15 @@
 package SuperstitioMod.cards.Lupa.PowerCard;
 
-import SuperstitioMod.SuperstitioModSetup;
+import SuperstitioMod.DataManager;
 import SuperstitioMod.cards.Lupa.AbstractLupaCard;
-import com.megacrit.cardcrawl.actions.common.MakeTempCardInDrawPileAction;
 import com.megacrit.cardcrawl.cards.status.Wound;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
-import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import com.megacrit.cardcrawl.powers.EquilibriumPower;
 
 
 public class Samsara extends AbstractLupaCard {
-    public static final String ID = SuperstitioModSetup.MakeTextID(Samsara.class.getSimpleName());
+    public static final String ID = DataManager.MakeTextID(Samsara.class.getSimpleName());
 
     public static final CardType CARD_TYPE = CardType.POWER;
 
@@ -38,10 +36,8 @@ public class Samsara extends AbstractLupaCard {
     }
 
     @Override
-    public void upgrade() {
-        if (!this.upgraded) {
-            upgradeName();
-            upgradeMagicNumber(UPGRADE_MagicNumber);
-        }
+    public void upgradeAuto() {
+        upgradeMagicNumber(UPGRADE_MagicNumber);
     }
 }
+

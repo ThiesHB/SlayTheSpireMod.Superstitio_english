@@ -1,6 +1,6 @@
 package SuperstitioMod.cards.Lupa.SkillCard;
 
-import SuperstitioMod.SuperstitioModSetup;
+import SuperstitioMod.DataManager;
 import SuperstitioMod.cards.Lupa.AbstractLupaCard;
 import com.megacrit.cardcrawl.actions.common.ApplyPowerAction;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
@@ -9,7 +9,7 @@ import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import com.megacrit.cardcrawl.powers.NoDrawPower;
 
 public class TimeStop extends AbstractLupaCard {
-    public static final String ID = SuperstitioModSetup.MakeTextID(TimeStop.class.getSimpleName());
+    public static final String ID = DataManager.MakeTextID(TimeStop.class.getSimpleName());
 
     public static final CardType CARD_TYPE = CardType.SKILL;
 
@@ -28,15 +28,12 @@ public class TimeStop extends AbstractLupaCard {
 
     @Override
     public void use(AbstractPlayer player, AbstractMonster monster) {
-        this.addToTop(new ApplyPowerAction(AbstractDungeon.player, AbstractDungeon.player, new SuperstitioMod.powers.TimeStop(player,1)));
+        this.addToTop(new ApplyPowerAction(AbstractDungeon.player, AbstractDungeon.player, new SuperstitioMod.powers.TimeStop(player, 1)));
         this.addToBot_applyPowerToPlayer(new NoDrawPower(player));
     }
 
     @Override
-    public void upgrade() {
-        if (!this.upgraded) {
-            this.upgradeName();
-            this.upgradeBaseCost(COST_Update);
-        }
+    public void upgradeAuto() {
+        this.upgradeBaseCost(COST_Update);
     }
 }

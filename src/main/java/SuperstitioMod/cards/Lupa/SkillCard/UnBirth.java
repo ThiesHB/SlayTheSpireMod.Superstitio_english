@@ -1,20 +1,19 @@
 package SuperstitioMod.cards.Lupa.SkillCard;
 
-import SuperstitioMod.SuperstitioModSetup;
-import SuperstitioMod.actions.AbstractAutoDoneAction;
+import SuperstitioMod.DataManager;
+import SuperstitioMod.actions.AutoDoneAction;
 import SuperstitioMod.cards.Lupa.AbstractLupaCard;
 import SuperstitioMod.cards.Lupa.TempCard.ReBirth;
 import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import com.megacrit.cardcrawl.powers.AbstractPower;
-import com.megacrit.cardcrawl.powers.DexterityPower;
-import com.megacrit.cardcrawl.powers.StrengthPower;
+import com.megacrit.cardcrawl.powers.ArtifactPower;
 
 import java.util.ArrayList;
 
 public class UnBirth extends AbstractLupaCard {
-    public static final String ID = SuperstitioModSetup.MakeTextID(UnBirth.class.getSimpleName());
+    public static final String ID = DataManager.MakeTextID(UnBirth.class.getSimpleName());
 
     public static final CardType CARD_TYPE = CardType.SKILL;
 
@@ -38,16 +37,11 @@ public class UnBirth extends AbstractLupaCard {
         this.addToBot_gainBlock();
         ArrayList<AbstractPower> sealPower = new ArrayList<>();
         monster.powers.forEach(power -> {
-            if (power.type == AbstractPower.PowerType.DEBUFF || power instanceof StrengthPower || power instanceof DexterityPower) {
-                power.owner = player;
-                sealPower.add(power);
-                this.addToBot(new AbstractAutoDoneAction() {
-                    @Override
-                    public void autoDoneUpdate() {
-                        monster.powers.remove(power);
-                    }
-                });
-            }
+            if (power.type != AbstractPower.PowerType.DEBUFF && !(power instanceof ArtifactPower)) return;
+            power.owner = player;
+            sealPower.add(power);
+            AutoDoneAction.addToBotAbstract(() ->
+                    monster.powers.remove(power));
         });
         AbstractCard card = new ReBirth(sealPower, monster);
         if (this.upgraded)
@@ -56,10 +50,7 @@ public class UnBirth extends AbstractLupaCard {
     }
 
     @Override
-    public void upgrade() {
-        if (!this.upgraded) {
-            upgradeName();
-            upgradeBlock(UPGRADE_BLOCK);
-        }
+    public void upgradeAuto() {
+        upgradeBlock(UPGRADE_BLOCK);
     }
 }

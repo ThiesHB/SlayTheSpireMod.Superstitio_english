@@ -1,6 +1,6 @@
 package SuperstitioMod.cards.Lupa.AttackCard;
 
-import SuperstitioMod.SuperstitioModSetup;
+import SuperstitioMod.DataManager;
 import SuperstitioMod.cards.Lupa.AbstractLupaCard_FuckJob;
 import basemod.cardmods.RetainMod;
 import basemod.helpers.CardModifierManager;
@@ -12,7 +12,7 @@ import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import com.megacrit.cardcrawl.powers.WeakPower;
 
 public class Fuck_Eye extends AbstractLupaCard_FuckJob {
-    public static final String ID = SuperstitioModSetup.MakeTextID(Fuck_Eye.class.getSimpleName());
+    public static final String ID = DataManager.MakeTextID(Fuck_Eye.class.getSimpleName());
 
     public static final CardType CARD_TYPE = CardType.ATTACK;
 
@@ -62,13 +62,10 @@ public class Fuck_Eye extends AbstractLupaCard_FuckJob {
     }
 
     @Override
-    public void upgrade() {
-        if (!this.upgraded) {
-            upgradeName();
-            upgradeDamage(UPGRADE_PLUS_DMG);
-            upgradeBlock(UPGRADE_BLOCK);
-            if (cardsToPreview != null)
-                this.cardsToPreview.upgrade();
-        }
+    public void upgradeAuto() {
+        upgradeDamage(UPGRADE_PLUS_DMG);
+        upgradeBlock(UPGRADE_BLOCK);
+        if (cardsToPreview != null)
+            this.cardsToPreview.upgrade();
     }
 }

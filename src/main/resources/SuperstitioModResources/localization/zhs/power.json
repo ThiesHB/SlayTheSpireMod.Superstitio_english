@@ -2,13 +2,14 @@
   "SuperstitioMod:SexualHeatPower": {
     "NAME": "快感",
     "DESCRIPTIONS": [
-      "每累计 #b%d 点迎来一次高潮。",
-      "每累计 #b%d 点迎来一次高潮。高潮时，被眩晕。",
+      "每累计 #b%d 点迎来一次高潮。 %s",
+      "每累计 #b%d 点迎来一次高潮。高潮时，被眩晕。 %s",
       " NL #y高潮 中，累计高潮: #b%d 次。",
       "高潮！",
       "连续高潮！",
       "高潮结束…",
-      "潮吹！"
+      "潮吹！",
+      "高潮被阻止！"
     ]
   },
   "SuperstitioMod:SexualHeatNeededModifierPower": {
@@ -46,14 +47,14 @@
   "SuperstitioMod:SexToyPower": {
     "NAME": "情趣玩具",
     "DESCRIPTIONS": [
-      "回合开始时， 每有 #b%d 个 #y情趣玩具 会提供 #b1 点 #y快感。 NL 当前携带的 #y情趣玩具 ：",
+      "回合开始时， 每有 #b%d 个 #y情趣玩具 会提供 #b1 点 #y快感。 NL 当前携带的 #y情趣玩具 ： %s",
       " NL %s ： #b%d ；"
     ]
   },
   "SuperstitioMod:ChokeChokerPower": {
     "NAME": "窒息项圈",
     "DESCRIPTIONS": [
-      "回合开始时，获得 %d  #y快感修正 和 %d #y勒脖。"
+      "回合开始时，获得 #b%d #y快感修正 和 #b%d #y勒脖。"
     ]
   },
   "SuperstitioMod:SamsaraPower": {
@@ -65,31 +66,45 @@
   "SuperstitioMod:TimeStopPower": {
     "NAME": "时间静滞",
     "DESCRIPTIONS": [
-      "持续 %d 回合。当前回合快感不改变。 NL 回合开始时，释放吸收的快感并且翻 %d 倍。"
+      "持续 #b%d 回合。当前回合快感不改变。 NL 回合开始时，释放吸收的快感并且翻 #b%d 倍。"
     ]
   },
   "SuperstitioMod:SexMark_OutsidePower": {
     "NAME": "精液覆身",
     "DESCRIPTIONS": [
-      "当前：%s ， NL 收集 %d 个即可获得 %d 临时生命。 NL （数值取决于战斗中的内射和外射牌数量）"
+      "当前：%s ， NL 收集 #b%d 个即可获得 #b%d 临时生命。 NL （数值取决于战斗中的内射和外射牌数量）"
     ]
   },
   "SuperstitioMod:SexMark_InsidePower": {
     "NAME": "插入动作",
     "DESCRIPTIONS": [
-      "当前：%s ， NL 收集 %d 个即可造成 %d 全体伤害。 NL （数值取决于战斗中的内射和外射牌数量）"
+      "当前：%s ， NL 收集 #b%d 个即可造成 #b%d 全体伤害。 NL （数值取决于战斗中的内射和外射牌数量）"
     ]
   },
   "SuperstitioMod:DelaySexualHeatPower": {
     "NAME": "延迟快感",
     "DESCRIPTIONS": [
-      "下回合抽卡后，获得 %d 快感。"
+      "下回合抽卡后，获得 #b%d 快感。"
     ]
   },
-  "SuperstitioMod:TempDecreaseCostPower": {
-    "NAME": "临时能量减免",
+  "SuperstitioMod:AllCardCostModifierPower": {
+    "NAME": "能量减免",
     "DESCRIPTIONS": [
-      "所有牌的能量消耗减少 %d 点。",
+      "所有牌的能量消耗减少 #b%d 点。 %s",
+      " NL 效果未启动。"
+    ]
+  },
+  "SuperstitioMod:AllCardCostModifier_PerEnergyPower": {
+    "NAME": "能量减免",
+    "DESCRIPTIONS": [
+      "所有牌的能量消耗减少 #b%d 点。减免 #b%d 点能量后失去本效果。 %s",
+      " NL 效果未启动。"
+    ]
+  },
+  "SuperstitioMod:AllCardCostModifier_PerCardPower": {
+    "NAME": "能量减免",
+    "DESCRIPTIONS": [
+      "所有牌的能量消耗减少 #b%d 点。使用 #b%d 张牌后失去本效果。 %s",
       " NL 效果未启动。"
     ]
   },
@@ -102,13 +117,13 @@
   "SuperstitioMod:OverdraftPower": {
     "NAME": "透支",
     "DESCRIPTIONS": [
-      "回合开始时，消耗%d张牌。"
+      "回合开始时，消耗 #b%d 张牌。"
     ]
   },
   "SuperstitioMod:FreshSemenPower": {
     "NAME": "新鲜精液",
     "DESCRIPTIONS": [
-      "满%d点之后会溢出，每点溢出转化为 %d 点 #y干涸精液 。也可被用作其他卡牌的资源。",
+      "满 #b%d 点之后会溢出，每点溢出转化为 #b%d 点 #y干涸精液 。也可被用作其他卡牌的资源。",
       "溢出！"
     ]
   }

@@ -1,16 +1,13 @@
 package SuperstitioMod.relics;
 
-import SuperstitioMod.SuperstitioModSetup;
+import SuperstitioMod.DataManager;
 import SuperstitioMod.cards.Lupa.AbstractLupaCard_FuckJob;
-import basemod.abstracts.CustomRelic;
 import com.megacrit.cardcrawl.actions.utility.UseCardAction;
 import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
-import com.megacrit.cardcrawl.helpers.ImageMaster;
 
-public class Prostitution extends CustomRelic {
-    public static final String ID = SuperstitioModSetup.MakeTextID(Prostitution.class.getSimpleName() + "Relic");
-    private static final String IMG_PATH = SuperstitioModSetup.makeImgFilesPath_Relic("default_relic");
+public class Prostitution extends AbstractLupaRelic {
+    public static final String ID = DataManager.MakeTextID(Prostitution.class.getSimpleName() + "Relic");
     // 遗物类型
     private static final RelicTier RELIC_TIER = RelicTier.COMMON;
     // 点击音效
@@ -19,7 +16,7 @@ public class Prostitution extends CustomRelic {
     private static final int CashAmount = 1;
 
     public Prostitution() {
-        super(ID, ImageMaster.loadImage(IMG_PATH), RELIC_TIER, LANDING_SOUND);
+        super(ID, RELIC_TIER, LANDING_SOUND);
         this.counter = 0;
     }
 
@@ -36,14 +33,15 @@ public class Prostitution extends CustomRelic {
             this.flash();
             this.pulse = false;
             AbstractDungeon.player.gainGold(CashAmount);
-        } else if (this.counter == SexAmount - 1) {
+        }
+        else if (this.counter == SexAmount - 1) {
             this.beginPulse();
             this.pulse = true;
         }
     }
 
     @Override
-    public String getUpdatedDescription() {
-        return String.format(this.DESCRIPTIONS[0], SexAmount, CashAmount);
+    public void updateDescriptionArgs() {
+        setDescriptionArgs(SexAmount, CashAmount);
     }
 }

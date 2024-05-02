@@ -1,7 +1,7 @@
 package SuperstitioMod.cards.Lupa.TempCard;
 
-import SuperstitioMod.SuperstitioModSetup;
-import SuperstitioMod.cards.Lupa.AbstractLupaCard;
+import SuperstitioMod.DataManager;
+import SuperstitioMod.cards.Lupa.AbstractLupaCard_TempCard;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
@@ -9,8 +9,8 @@ import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import java.util.stream.IntStream;
 
 
-public class SexToy extends AbstractLupaCard {
-    public static final String ID = SuperstitioModSetup.MakeTextID(SexToy.class.getSimpleName());
+public class SexToy extends AbstractLupaCard_TempCard {
+    public static final String ID = DataManager.MakeTextID(SexToy.class.getSimpleName());
 
     public static final CardType CARD_TYPE = CardType.POWER;
 
@@ -21,10 +21,10 @@ public class SexToy extends AbstractLupaCard {
     private static final int MagicNumber = 2;
     private static final int UPGRADE_MagicNumber = 1;
 
-    private static final String[] sexToyNames = getCardStringsWithFlavor(SexToy.ID).EXTENDED_DESCRIPTION[0].split(",");
+    private static final String[] sexToyNames = getCardStringsWithSFWAndFlavor(SexToy.ID).getEXTENDED_DESCRIPTION()[0].split(",");
 
     public SexToy() {
-        super(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET, CardColor.COLORLESS);
+        super(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET);
         this.setupMagicNumber(MagicNumber);
         this.setTarget_SelfOrEnemy();
     }
@@ -39,7 +39,8 @@ public class SexToy extends AbstractLupaCard {
         if (this.isTargetSelf(monster)) {
             IntStream.range(0, bound).forEach(i ->
                     addToBot_applyPowerToPlayer(new SuperstitioMod.powers.SexToy(AbstractDungeon.player, 1, getRandomSexToyName())));
-        } else {
+        }
+        else {
             IntStream.range(0, bound).forEach(i ->
                     addToBot_applyPowerToEnemy(new SuperstitioMod.powers.SexToy(monster, 1, getRandomSexToyName()), monster));
         }
@@ -53,10 +54,7 @@ public class SexToy extends AbstractLupaCard {
 //    }
 
     @Override
-    public void upgrade() {
-        if (!this.upgraded) {
-            upgradeName();
-            upgradeMagicNumber(UPGRADE_MagicNumber);
-        }
+    public void upgradeAuto() {
+        upgradeMagicNumber(UPGRADE_MagicNumber);
     }
 }

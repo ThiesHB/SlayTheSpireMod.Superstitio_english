@@ -1,6 +1,7 @@
 package SuperstitioMod.characters;
 
-import SuperstitioMod.SuperstitioModSetup;
+import SuperstitioMod.DataManager;
+import SuperstitioMod.Logger;
 import SuperstitioMod.cards.Lupa.BaseCard.Invite;
 import SuperstitioMod.cards.Lupa.BaseCard.Job_Hand;
 import SuperstitioMod.cards.Lupa.BaseCard.Masturbate;
@@ -10,7 +11,6 @@ import SuperstitioMod.relics.SorM;
 import basemod.abstracts.CustomPlayer;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.evacipated.cardcrawl.modthespire.lib.SpireEnum;
 import com.megacrit.cardcrawl.actions.AbstractGameAction;
 import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
@@ -19,7 +19,6 @@ import com.megacrit.cardcrawl.core.EnergyManager;
 import com.megacrit.cardcrawl.core.Settings;
 import com.megacrit.cardcrawl.cutscenes.CutscenePanel;
 import com.megacrit.cardcrawl.events.city.Vampires;
-import com.megacrit.cardcrawl.helpers.CardLibrary;
 import com.megacrit.cardcrawl.helpers.FontHelper;
 import com.megacrit.cardcrawl.helpers.ScreenShake;
 import com.megacrit.cardcrawl.localization.CharacterStrings;
@@ -27,36 +26,36 @@ import com.megacrit.cardcrawl.screens.CharSelectInfo;
 
 import java.util.ArrayList;
 
-import static SuperstitioMod.characters.Lupa.Enums.LUPA_CARD;
-import static SuperstitioMod.characters.Lupa.Enums.LUPA_Character;
+import static SuperstitioMod.DataManager.LUPA_DATA.LupaEnums.LUPA_CARD;
+import static SuperstitioMod.DataManager.LUPA_DATA.LupaEnums.LUPA_Character;
 
 // 继承CustomPlayer类
 public class Lupa extends CustomPlayer {
-    public static final String ID = SuperstitioModSetup.MakeTextID("Lupa");
+    public static final String ID = DataManager.MakeTextID("Lupa");
 
     // 人物立绘
-    private static final String LUPA_CHARACTER = SuperstitioModSetup.makeImgFilesPath_Character_Lupa("character");
+    private static final String LUPA_CHARACTER = DataManager.makeImgFilesPath_Character_Lupa("character");
     // 火堆的人物立绘（行动前）
-    private static final String LUPA_CHARACTER_SHOULDER_1 = SuperstitioModSetup.makeImgFilesPath_Character_Lupa("shoulder1");
+    private static final String LUPA_CHARACTER_SHOULDER_1 = DataManager.makeImgFilesPath_Character_Lupa("shoulder1");
     // 火堆的人物立绘（行动后）
-    private static final String LUPA_CHARACTER_SHOULDER_2 = SuperstitioModSetup.makeImgFilesPath_Character_Lupa("shoulder2");
+    private static final String LUPA_CHARACTER_SHOULDER_2 = DataManager.makeImgFilesPath_Character_Lupa("shoulder2");
     // 人物死亡图像
-    private static final String LUPA_CORPSE_IMAGE = SuperstitioModSetup.makeImgFilesPath_Character_Lupa("corpse");
+    private static final String LUPA_CORPSE_IMAGE = DataManager.makeImgFilesPath_Character_Lupa("corpse");
     private static final String EnergyBall_Path = "EnergyBall_Lupa/";
-    private static final String EnergyBall_VFX_Path = SuperstitioModSetup.makeImgFilesPath_UI(EnergyBall_Path + "vfx");
+    private static final String EnergyBall_VFX_Path = DataManager.makeImgFilesPath_UI(EnergyBall_Path + "vfx");
     // 战斗界面左下角能量图标的每个图层
     private static final String[] EnergyBall_TEXTURES = new String[]{
-            SuperstitioModSetup.makeImgFilesPath_UI(EnergyBall_Path + "layer5"),
-            SuperstitioModSetup.makeImgFilesPath_UI(EnergyBall_Path + "layer4"),
-            SuperstitioModSetup.makeImgFilesPath_UI(EnergyBall_Path + "layer3"),
-            SuperstitioModSetup.makeImgFilesPath_UI(EnergyBall_Path + "layer2"),
-            SuperstitioModSetup.makeImgFilesPath_UI(EnergyBall_Path + "layer1"),
-            SuperstitioModSetup.makeImgFilesPath_UI(EnergyBall_Path + "layer6"),
-            SuperstitioModSetup.makeImgFilesPath_UI(EnergyBall_Path + "layer5d"),
-            SuperstitioModSetup.makeImgFilesPath_UI(EnergyBall_Path + "layer4d"),
-            SuperstitioModSetup.makeImgFilesPath_UI(EnergyBall_Path + "layer3d"),
-            SuperstitioModSetup.makeImgFilesPath_UI(EnergyBall_Path + "layer2d"),
-            SuperstitioModSetup.makeImgFilesPath_UI(EnergyBall_Path + "layer1d")};
+            DataManager.makeImgFilesPath_UI(EnergyBall_Path + "layer5"),
+            DataManager.makeImgFilesPath_UI(EnergyBall_Path + "layer4"),
+            DataManager.makeImgFilesPath_UI(EnergyBall_Path + "layer3"),
+            DataManager.makeImgFilesPath_UI(EnergyBall_Path + "layer2"),
+            DataManager.makeImgFilesPath_UI(EnergyBall_Path + "layer1"),
+            DataManager.makeImgFilesPath_UI(EnergyBall_Path + "layer6"),
+            DataManager.makeImgFilesPath_UI(EnergyBall_Path + "layer5d"),
+            DataManager.makeImgFilesPath_UI(EnergyBall_Path + "layer4d"),
+            DataManager.makeImgFilesPath_UI(EnergyBall_Path + "layer3d"),
+            DataManager.makeImgFilesPath_UI(EnergyBall_Path + "layer2d"),
+            DataManager.makeImgFilesPath_UI(EnergyBall_Path + "layer1d")};
     // 每个图层的旋转速度
     private static final float[] LAYER_SPEED = new float[]{-40.0F, -32.0F, 20.0F, -20.0F, 0.0F, -10.0F, -8.0F, 5.0F, -5.0F, 0.0F};
     // 人物的本地化文本，如卡牌的本地化文本一样，如何书写见下
@@ -94,8 +93,8 @@ public class Lupa extends CustomPlayer {
     // 初始卡组的ID，可直接写或引用变量
     public ArrayList<String> getStartingDeck() {
         ArrayList<String> retVal = new ArrayList<>();
-        SuperstitioModSetup.logger.info("Begin loading starter Deck Strings");
-        for (int x = 0; x < 4; x++) {
+        Logger.info("Begin loading starter Deck Strings");
+        for (int x = 0; x < 5; x++) {
             //SuperstitioModSetup.logger.info("Add"+Strike_Lupa.ID);
             retVal.add(Job_Hand.ID);
         }
@@ -155,7 +154,7 @@ public class Lupa extends CustomPlayer {
     // 卡牌轨迹颜色
     @Override
     public Color getCardTrailColor() {
-        return SuperstitioModSetup.MY_COLOR;
+        return DataManager.LUPA_DATA.LUPA_COLOR;
     }
 
     // 高进阶带来的生命值损失
@@ -181,9 +180,9 @@ public class Lupa extends CustomPlayer {
     public ArrayList<CutscenePanel> getCutscenePanels() {
         ArrayList<CutscenePanel> panels = new ArrayList<>();
         // 有两个参数的，第二个参数表示出现图片时播放的音效
-        panels.add(new CutscenePanel(SuperstitioModSetup.makeImgFilesPath_Character_Lupa("Victory1"), "ATTACK_MAGIC_FAST_1"));
-        panels.add(new CutscenePanel(SuperstitioModSetup.makeImgFilesPath_Character_Lupa("Victory2")));
-        panels.add(new CutscenePanel(SuperstitioModSetup.makeImgFilesPath_Character_Lupa("Victory3")));
+        panels.add(new CutscenePanel(DataManager.makeImgFilesPath_Character_Lupa("Victory1"), "ATTACK_MAGIC_FAST_1"));
+        panels.add(new CutscenePanel(DataManager.makeImgFilesPath_Character_Lupa("Victory2")));
+        panels.add(new CutscenePanel(DataManager.makeImgFilesPath_Character_Lupa("Victory3")));
         return panels;
     }
 
@@ -214,7 +213,7 @@ public class Lupa extends CustomPlayer {
     // 打心脏的颜色，不是很明显
     @Override
     public Color getSlashAttackColor() {
-        return SuperstitioModSetup.MY_COLOR;
+        return DataManager.LUPA_DATA.LUPA_COLOR;
     }
 
     // 吸血鬼事件文本，主要是他（索引为0）和她（索引为1）的区别（机器人另外）
@@ -226,7 +225,7 @@ public class Lupa extends CustomPlayer {
     // 卡牌选择界面选择该牌的颜色
     @Override
     public Color getCardRenderColor() {
-        return SuperstitioModSetup.MY_COLOR;
+        return DataManager.LUPA_DATA.LUPA_COLOR;
     }
 
     // 第三章面对心脏造成伤害时的特效
@@ -237,15 +236,4 @@ public class Lupa extends CustomPlayer {
                 AbstractGameAction.AttackEffect.SLASH_DIAGONAL};
     }
 
-    // 为原版人物枚举、卡牌颜色枚举扩展的枚举，需要写，接下来要用
-    public static class Enums {
-        @SpireEnum
-        public static PlayerClass LUPA_Character;
-
-        @SpireEnum(name = "EXAMPLE_GREEN")
-        public static AbstractCard.CardColor LUPA_CARD;
-
-        @SpireEnum(name = "EXAMPLE_GREEN")
-        public static CardLibrary.LibraryType LUPA_LIBRARY;
-    }
 }

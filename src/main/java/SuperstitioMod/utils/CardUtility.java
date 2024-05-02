@@ -1,6 +1,6 @@
 package SuperstitioMod.utils;
 
-import SuperstitioMod.SuperstitioModSetup;
+import SuperstitioMod.DataManager;
 import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.helpers.CardLibrary;
@@ -46,7 +46,7 @@ public class CardUtility {
     }
 
     public static boolean IsCardColorThisMod(AbstractCard card) {
-        return !card.cardID.contains(SuperstitioModSetup.MakeTextID(""));
+        return !card.cardID.contains(DataManager.MakeTextID(""));
     }
 
     public static ArrayList<AbstractCard> AllCardInBattle() {
@@ -80,7 +80,7 @@ public class CardUtility {
 //        return card;
 //    }
 
-    public static void flashIfInHand(AbstractCard card){
+    public static void flashIfInHand(AbstractCard card) {
         if (AbstractDungeon.player.hand.contains(card))
             card.flash();
     }
