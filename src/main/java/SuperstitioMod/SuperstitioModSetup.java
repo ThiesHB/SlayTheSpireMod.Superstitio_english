@@ -197,9 +197,8 @@ public class SuperstitioModSetup implements
 
         replaceKeyWordsToSFW(keywords);
 
-        Arrays.stream(keywords).forEach(keyword -> {
-            BaseMod.addKeyword(DataManager.getModID().toLowerCase(), keyword.PROPER_NAME, keyword.NAMES, keyword.DESCRIPTION);
-        });
+        Arrays.stream(keywords).forEach(keyword ->
+                BaseMod.addKeyword(DataManager.getModID().toLowerCase(), keyword.PROPER_NAME, keyword.NAMES, keyword.DESCRIPTION));
     }
 
     private void changeDefaultKeyword() {

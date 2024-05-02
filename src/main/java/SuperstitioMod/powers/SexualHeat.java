@@ -2,6 +2,7 @@ package SuperstitioMod.powers;
 
 import SuperstitioMod.DataManager;
 import SuperstitioMod.InBattleDataManager;
+import SuperstitioMod.Logger;
 import SuperstitioMod.actions.AutoDoneAction;
 import SuperstitioMod.powers.interFace.HasAllCardCostModifyEffect;
 import SuperstitioMod.powers.interFace.OnOrgasm.*;
@@ -124,7 +125,7 @@ public class SexualHeat extends AbstractWithBarPower implements
                             .orElseGet(() -> this.orgasmTime * this.orgasmTime - (this.orgasmTime - 1) * (this.orgasmTime - 1)),
                     AllCardCostModifier_PerEnergy.class.getConstructor(AbstractCreature.class, int.class, int.class, HasAllCardCostModifyEffect.class));
         } catch (NoSuchMethodException e) {
-            e.printStackTrace();
+            Logger.error(e);
         }
         InBattleDataManager.InOrgasm = true;
     }
