@@ -66,11 +66,11 @@ public class CardStringsWithSFWAndFlavor implements HasSFWVersion {
         this.UPGRADE_DESCRIPTION_SFW = WordReplace.replaceWord(this.getUPGRADE_DESCRIPTION(), replaceRule);
     }
 
-    public WordReplace toCardNameReplaceRule(){
-        return new WordReplace(this.NAME,this.NAME_SFW);
+    public WordReplace toCardNameReplaceRule() {
+        return new WordReplace(this.NAME, this.NAME_SFW);
     }
 
-    public static List<WordReplace> makeCardNameReplaceRules(List<CardStringsWithSFWAndFlavor> cards){
-       return cards.stream().map(CardStringsWithSFWAndFlavor::toCardNameReplaceRule).collect(Collectors.toList());
+    public static List<WordReplace> makeCardNameReplaceRules(List<CardStringsWithSFWAndFlavor> cards) {
+        return cards.stream().map(CardStringsWithSFWAndFlavor::toCardNameReplaceRule).collect(Collectors.toList());
     }
 }

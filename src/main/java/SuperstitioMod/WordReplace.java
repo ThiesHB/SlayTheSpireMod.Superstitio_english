@@ -7,7 +7,7 @@ public class WordReplace {
     public WordReplace() {
     }
 
-    public WordReplace(String WordOrigin,String WordReplace) {
+    public WordReplace(String WordOrigin, String WordReplace) {
         this.WordOrigin = WordOrigin;
         this.WordReplace = WordReplace;
     }

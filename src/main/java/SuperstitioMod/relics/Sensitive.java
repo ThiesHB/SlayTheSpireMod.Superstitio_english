@@ -2,11 +2,9 @@ package SuperstitioMod.relics;
 
 import SuperstitioMod.DataManager;
 import SuperstitioMod.powers.SexualHeat;
-import basemod.abstracts.CustomRelic;
 import com.megacrit.cardcrawl.actions.common.ApplyPowerAction;
 import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
-import com.megacrit.cardcrawl.helpers.ImageMaster;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 
 public class Sensitive extends AbstractLupaRelic {

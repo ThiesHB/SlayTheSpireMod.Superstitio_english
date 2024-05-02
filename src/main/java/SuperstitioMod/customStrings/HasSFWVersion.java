@@ -15,12 +15,12 @@ public interface HasSFWVersion {
         return SuperstitioModSetup.enableSFW && sfwStings != null && sfwStings.length != 0;
     }
 
-    static <T extends HasSFWVersion> T getCustomStringsWithSFW(String keyName, Map<String,T> stringTMap, Class<T> tClass) throws InstantiationException, IllegalAccessException {
+    static <T extends HasSFWVersion> T getCustomStringsWithSFW(String keyName, Map<String, T> stringTMap, Class<T> tClass) throws InstantiationException, IllegalAccessException {
         if (stringTMap.containsKey(keyName)) {
             return stringTMap.get(keyName);
         }
         else {
-            Logger.info("[ERROR] "+tClass.getSimpleName()+": " + keyName + " not found");
+            Logger.info("[ERROR] " + tClass.getSimpleName() + ": " + keyName + " not found");
             T customStringsWithSFW = tClass.newInstance();
             customStringsWithSFW.initialBlack();
             return customStringsWithSFW;

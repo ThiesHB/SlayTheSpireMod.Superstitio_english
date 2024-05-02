@@ -3,9 +3,7 @@ package SuperstitioMod.relics;
 import SuperstitioMod.DataManager;
 import SuperstitioMod.utils.updateDescriptionAdvanced;
 import basemod.abstracts.CustomRelic;
-import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.helpers.ImageMaster;
-import com.megacrit.cardcrawl.localization.RelicStrings;
 
 public abstract class AbstractLupaRelic extends CustomRelic implements updateDescriptionAdvanced {
     private Object[] descriptionArgs;

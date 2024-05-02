@@ -3,9 +3,7 @@ package SuperstitioMod.relics;
 import SuperstitioMod.DataManager;
 import SuperstitioMod.powers.SexualHeat;
 import SuperstitioMod.powers.interFace.OnOrgasm.OnOrgasm_afterOrgasm;
-import basemod.abstracts.CustomRelic;
 import com.megacrit.cardcrawl.actions.common.DrawCardAction;
-import com.megacrit.cardcrawl.helpers.ImageMaster;
 import com.megacrit.cardcrawl.rooms.AbstractRoom;
 
 public class EjaculationMaster extends AbstractLupaRelic implements OnOrgasm_afterOrgasm {
@@ -40,7 +38,7 @@ public class EjaculationMaster extends AbstractLupaRelic implements OnOrgasm_aft
 
     @Override
     public void updateDescriptionArgs() {
-        setDescriptionArgs(EjaculationMax,DrawAmount);
+        setDescriptionArgs(EjaculationMax, DrawAmount);
     }
 
     @Override

@@ -29,7 +29,7 @@ public class SexToy extends AbstractLupaPower {
     public void updateDescriptionArgs() {
         List<Object> args = new ArrayList<>();
         args.add(SEXUAL_HEAT_RATE);
-        this.sexToyNames.forEach((name, num) -> args.add(String.format(powerStrings.DESCRIPTIONS[1],name,num)));
+        this.sexToyNames.forEach((name, num) -> args.add(String.format(powerStrings.DESCRIPTIONS[1], name, num)));
         setDescriptionArgs(args.toArray());
     }
 

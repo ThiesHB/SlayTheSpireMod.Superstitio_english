@@ -3,10 +3,8 @@ package SuperstitioMod.relics;
 import SuperstitioMod.DataManager;
 import SuperstitioMod.powers.SexualHeat;
 import SuperstitioMod.powers.interFace.OnOrgasm.OnOrgasm_afterOrgasm;
-import basemod.abstracts.CustomRelic;
 import com.megacrit.cardcrawl.actions.common.ApplyPowerAction;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
-import com.megacrit.cardcrawl.helpers.ImageMaster;
 import com.megacrit.cardcrawl.powers.LoseStrengthPower;
 import com.megacrit.cardcrawl.powers.StrengthPower;
 

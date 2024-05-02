@@ -25,7 +25,6 @@ import com.megacrit.cardcrawl.powers.AbstractPower;
 import com.megacrit.cardcrawl.screens.SingleCardViewPopup;
 
 import java.lang.reflect.Field;
-import java.util.Objects;
 import java.util.Optional;
 
 public abstract class AbstractLupaCard extends CustomCard implements ChooseSelfOrEnemyTarget {

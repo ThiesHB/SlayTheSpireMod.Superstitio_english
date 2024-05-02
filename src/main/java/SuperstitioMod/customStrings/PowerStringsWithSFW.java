@@ -3,9 +3,6 @@ package SuperstitioMod.customStrings;
 import SuperstitioMod.WordReplace;
 import com.megacrit.cardcrawl.localization.LocalizedStrings;
 
-import java.util.List;
-import java.util.stream.Collectors;
-
 public class PowerStringsWithSFW implements HasSFWVersion {
     public String NAME;
     public String NAME_SFW;
