@@ -25,12 +25,7 @@ public class TimeStop extends AbstractLupaPower implements BetterOnApplyPowerPow
     @Override
     public void atEndOfRound() {
         //if (!isPlayer) return;
-        if (this.amount == 0) {
-            this.addToBot(new RemoveSpecificPowerAction(this.owner, this.owner, POWER_ID));
-        }
-        else {
-            this.addToBot(new ReducePowerAction(this.owner, this.owner, POWER_ID, 1));
-        }
+        addToBot_AutoRemoveWhenTurnPast(POWER_ID);
     }
 
     @Override

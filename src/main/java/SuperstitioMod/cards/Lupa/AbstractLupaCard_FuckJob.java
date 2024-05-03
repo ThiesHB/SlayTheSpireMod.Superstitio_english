@@ -22,7 +22,7 @@ public abstract class AbstractLupaCard_FuckJob extends AbstractLupaCard {
     }
 
     public AbstractLupaCard_FuckJob(String id, CardType cardType, int cost, CardRarity cardRarity, CardTarget cardTarget, String customCardType) {
-        this(id, cardType, cost, cardRarity, cardTarget, DataManager.LUPA_DATA.LupaEnums.LUPA_CARD, customCardType);
+        this(id, cardType, cost, cardRarity, cardTarget, SuperstitioModSetup.LupaEnums.LUPA_CARD, customCardType);
     }
 
     public AbstractLupaCard_FuckJob(String id, CardType cardType, int cost, CardRarity cardRarity, CardTarget cardTarget, CardColor cardColor) {

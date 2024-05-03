@@ -19,7 +19,7 @@
   "SuperstitioMod:NippleRingsRelic": {
     "NAME": "乳环",
     "DESCRIPTIONS": [
-      "每次 #ysuperstitiomod:高潮 时，获得 2 临时 力量 。"
+      "每次 #ysuperstitiomod:高潮 时，获得 %d 临时 力量 。"
     ],
     "FLAVOR": "会让人更有吸引力，特别是乳头勃起时。"
   },

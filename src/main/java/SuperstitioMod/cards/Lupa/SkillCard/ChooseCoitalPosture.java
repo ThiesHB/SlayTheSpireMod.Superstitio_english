@@ -3,6 +3,7 @@ package SuperstitioMod.cards.Lupa.SkillCard;
 import SuperstitioMod.DataManager;
 import SuperstitioMod.cards.Lupa.AbstractLupaCard;
 import SuperstitioMod.cards.Lupa.AbstractLupaCard_FuckJob;
+import SuperstitioMod.utils.CardUtility;
 import basemod.cardmods.ExhaustMod;
 import basemod.helpers.CardModifierManager;
 import com.megacrit.cardcrawl.cards.AbstractCard;
@@ -33,7 +34,7 @@ public class ChooseCoitalPosture extends AbstractLupaCard {
     }
 
     public static AbstractLupaCard_FuckJob getRandomFuckJobCard() {
-        return getAllFuckJobCard().get(AbstractDungeon.cardRandomRng.random(getAllFuckJobCard().size() - 1));
+        return CardUtility.getRandomFromList(getAllFuckJobCard(), AbstractDungeon.cardRandomRng);
     }
 
     public static List<AbstractLupaCard_FuckJob> getAllFuckJobCard() {

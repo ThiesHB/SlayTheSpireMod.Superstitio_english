@@ -1,7 +1,7 @@
 package SuperstitioMod.cards.Lupa.SkillCard;
 
 import SuperstitioMod.DataManager;
-import SuperstitioMod.actions.OpenAWindowAndChoseFromCardGroupAction;
+import SuperstitioMod.actions.ChoseCardFromGridSelectWindowAction;
 import SuperstitioMod.cards.Lupa.AbstractLupaCard;
 import com.megacrit.cardcrawl.actions.common.ExhaustSpecificCardAction;
 import com.megacrit.cardcrawl.cards.AbstractCard;
@@ -30,18 +30,13 @@ public class Omniscience_TempName extends AbstractLupaCard {
 
     @Override
     public void use(AbstractPlayer player, AbstractMonster monster) {
-        this.addToBot(new OpenAWindowAndChoseFromCardGroupAction(
+        this.addToBot(new ChoseCardFromGridSelectWindowAction(
                 this.magicNumber,
                 AbstractDungeon.player.drawPile,
                 String.format(cardStrings.getEXTENDED_DESCRIPTION()[0], this.magicNumber),
                 card -> new ExhaustSpecificCardAction(card, AbstractDungeon.player.drawPile),
                 true));
     }
-
-//    @Override
-//    public boolean canUse(AbstractPlayer p, AbstractMonster m) {
-//        return super.canUse(p, m) && !AbstractDungeon.player.drawPile.isEmpty();
-//    }
 
     @Override
     public void upgradeAuto() {

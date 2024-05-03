@@ -5,14 +5,9 @@ import SuperstitioMod.customStrings.CardStringsWithSFWAndFlavor;
 import SuperstitioMod.customStrings.PowerStringsWithSFW;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
-import com.evacipated.cardcrawl.modthespire.lib.SpireEnum;
-import com.evacipated.cardcrawl.modthespire.lib.SpireInitializer;
 import com.google.gson.Gson;
 import com.google.gson.internal.$Gson$Types;
-import com.megacrit.cardcrawl.cards.AbstractCard;
-import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.core.Settings;
-import com.megacrit.cardcrawl.helpers.CardLibrary;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.ParameterizedType;
@@ -26,18 +21,10 @@ import java.util.function.Function;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-@SpireInitializer
 public class DataManager {
     public static Map<String, CardStringsWithSFWAndFlavor> cards = new HashMap<>();
     public static Map<String, PowerStringsWithSFW> powers = new HashMap<>();
-    public LUPA_DATA lupaData;
-
-    public DataManager() {
-    }
-
-    public static void initialize() {
-        new DataManager();
-    }
+    public LUPA_DATA lupaData = new LUPA_DATA();
 
     static String makeLocalizationPath(Settings.GameLanguage language, String filename) {
         String ret = "localization/";
@@ -157,11 +144,9 @@ public class DataManager {
     }
 
     static String replaceString(WordReplace wordReplace, String string) {
-        String s = string;
-        if (s != null && s.contains(wordReplace.WordOrigin)) {
-            s = s.replace(wordReplace.WordOrigin, wordReplace.WordReplace);
-        }
-        return s;
+        if (string != null && string.contains(wordReplace.WordOrigin))
+            return string.replace(wordReplace.WordOrigin, wordReplace.WordReplace);
+        return string;
     }
 
     public static String makeImgPath(String defaultFileName, Function<String, String> PathFinder, String id) {
@@ -180,6 +165,41 @@ public class DataManager {
             return path;
         Logger.info("Can't find " + Arrays.toString(id) + ". Use default img instead.");
         return PathFinder.apply(new String[]{defaultFileName});
+    }
+
+    static <T> T makeJsonStringFromFile(String fileName, Class<T> objectClass) {
+        Gson gson = new Gson();
+        String json = Gdx.files.internal(DataManager.makeLocalizationPath(Settings.language, fileName))
+                .readString(String.valueOf(StandardCharsets.UTF_8));
+        return gson.fromJson(json, objectClass);
+    }
+
+    static void replaceStringsInObj(Object obj, WordReplace wordReplace) {
+        for (Field field : obj.getClass().getDeclaredFields()) {
+            field.setAccessible(true);
+            try {
+                if (field.get(obj) instanceof String) {
+                    String string = (String) field.get(obj);
+                    string = replaceString(wordReplace, string);
+                    field.set(obj, string);
+                }
+                else if (field.get(obj) instanceof String[]) {
+                    String[] values = (String[]) field.get(obj);
+                    if (values == null || values.length == 0)
+                        continue;
+                    String[] list = new String[values.length];
+                    for (int i = 0, valuesLength = values.length; i < valuesLength; i++) {
+                        String string = values[i];
+                        String apply = replaceString(wordReplace, string);
+                        list[i] = apply;
+                    }
+
+                    field.set(obj, list);
+                }
+            } catch (IllegalAccessException e) {
+                Logger.error(e);
+            }
+        }
     }
 
     //    @SpireInitializer
@@ -209,25 +229,5 @@ public class DataManager {
         // 人物选择界面的立绘
         public String LUPA_CHARACTER_PORTRAIT = makeImgFilesPath_Character_Lupa("Character_Portrait");
 
-        // 为原版人物枚举、卡牌颜色枚举扩展的枚举，需要写，接下来要用
-        public static class LupaEnums {
-            @SpireEnum
-            public static AbstractPlayer.PlayerClass LUPA_Character;
-
-            @SpireEnum(name = "LUPA_PINK")
-            public static AbstractCard.CardColor LUPA_CARD;
-
-            @SpireEnum(name = "LUPA_PINK")
-            public static CardLibrary.LibraryType LUPA_LIBRARY;
-        }
-
-        // 为原版人物枚举、卡牌颜色枚举扩展的枚举，需要写，接下来要用
-        public static class TempCardEnums {
-            @SpireEnum(name = "LUPA_TEMP")
-            public static AbstractCard.CardColor LUPA_TempCard_CARD;
-
-            @SpireEnum(name = "LUPA_TEMP")
-            public static CardLibrary.LibraryType LUPA_TempCard_LIBRARY;
-        }
     }
 }

@@ -7,6 +7,7 @@ import SuperstitioMod.utils.updateDescriptionAdvanced;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.megacrit.cardcrawl.actions.common.ApplyPowerAction;
 import com.megacrit.cardcrawl.actions.common.ReducePowerAction;
+import com.megacrit.cardcrawl.actions.common.RemoveSpecificPowerAction;
 import com.megacrit.cardcrawl.core.AbstractCreature;
 import com.megacrit.cardcrawl.helpers.ImageMaster;
 import com.megacrit.cardcrawl.powers.AbstractPower;
@@ -33,6 +34,16 @@ public abstract class AbstractLupaPower extends AbstractPower implements updateD
 
         if (needUpdateDescription)
             this.updateDescription();
+    }
+
+    protected void addToBot_AutoRemoveWhenTurnPast(String id){
+        this.flash();
+        if (this.amount == 0) {
+            this.addToBot(new RemoveSpecificPowerAction(this.owner, this.owner, id));
+        }
+        else {
+            this.addToBot(new ReducePowerAction(this.owner, this.owner, id, 1));
+        }
     }
 
     public AbstractLupaPower(String id, PowerStringsWithSFW powerStrings, final AbstractCreature owner, int amount, PowerType powerType, boolean needUpdateDescription) {
@@ -80,9 +91,7 @@ public abstract class AbstractLupaPower extends AbstractPower implements updateD
     public final void updateDescription() {
         this.updateDescriptionArgs();
         String string = getDescriptionStrings();
-        for (Object o : descriptionArgs) {
-            string = String.format(string, o);
-        }
+        string = String.format(string, descriptionArgs);
         this.description = string;
     }
 

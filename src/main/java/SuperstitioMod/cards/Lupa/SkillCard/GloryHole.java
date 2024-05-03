@@ -1,7 +1,7 @@
 package SuperstitioMod.cards.Lupa.SkillCard;
 
 import SuperstitioMod.DataManager;
-import SuperstitioMod.actions.OpenAWindowAndChoseFromCardGroupAction;
+import SuperstitioMod.actions.ChoseCardFromGridSelectWindowAction;
 import SuperstitioMod.cards.Lupa.AbstractLupaCard;
 import com.megacrit.cardcrawl.actions.AbstractGameAction;
 import com.megacrit.cardcrawl.actions.common.MakeTempCardInHandAction;
@@ -45,7 +45,7 @@ public class GloryHole extends AbstractLupaCard {
 
     @Override
     public void use(AbstractPlayer player, AbstractMonster monster) {
-        this.addToBot(new OpenAWindowAndChoseFromCardGroupAction(
+        this.addToBot(new ChoseCardFromGridSelectWindowAction(
                 1, mainCardGroupExceptSelf(), this.cardStrings.getEXTENDED_DESCRIPTION()[0], GloryHole::makeCopy, false));
     }
 

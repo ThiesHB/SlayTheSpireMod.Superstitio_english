@@ -26,8 +26,8 @@ import com.megacrit.cardcrawl.screens.CharSelectInfo;
 
 import java.util.ArrayList;
 
-import static SuperstitioMod.DataManager.LUPA_DATA.LupaEnums.LUPA_CARD;
-import static SuperstitioMod.DataManager.LUPA_DATA.LupaEnums.LUPA_Character;
+import static SuperstitioMod.SuperstitioModSetup.LupaEnums.LUPA_CARD;
+import static SuperstitioMod.SuperstitioModSetup.LupaEnums.LUPA_Character;
 
 // 继承CustomPlayer类
 public class Lupa extends CustomPlayer {

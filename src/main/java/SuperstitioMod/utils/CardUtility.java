@@ -4,10 +4,12 @@ import SuperstitioMod.DataManager;
 import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.helpers.CardLibrary;
+import com.megacrit.cardcrawl.random.Random;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class CardUtility {
 
@@ -21,7 +23,7 @@ public class CardUtility {
         List<AbstractCard> list = getCardsListForMod(ThisMod, Vanilla).stream()
                 .filter(card -> card.type == AbstractCard.CardType.STATUS)
                 .collect(Collectors.toList());
-        return list.get(AbstractDungeon.cardRandomRng.random(list.size() - 1)).makeCopy();
+        return getRandomFromList(list, AbstractDungeon.cardRandomRng).makeCopy();
     }
 
     public static List<AbstractCard> getCardsListForMod(boolean ThisMod, boolean Vanilla) {
@@ -39,6 +41,18 @@ public class CardUtility {
                 })
                 .collect(Collectors.toList());
         return list;
+    }
+
+    public static <T> T getRandomFromList(List<T> list, Random random) {
+        return list.get(random.random(list.size() - 1));
+    }
+
+    public static <T> T getRandomFromList(Stream<T> stream, Random random) {
+        List<T> list = stream.collect(Collectors.toList());
+        return getRandomFromList(list,random);
+    }
+    public static <T> T getRandomFromList(T[] list, Random random) {
+        return list[random.random(list.length - 1)];
     }
 
     public static boolean IsCardColorVanilla(AbstractCard card) {

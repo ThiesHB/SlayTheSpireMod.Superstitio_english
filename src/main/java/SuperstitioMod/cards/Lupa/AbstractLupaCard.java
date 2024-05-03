@@ -2,6 +2,7 @@ package SuperstitioMod.cards.Lupa;
 
 import SuperstitioMod.DataManager;
 import SuperstitioMod.Logger;
+import SuperstitioMod.SuperstitioModSetup;
 import SuperstitioMod.actions.AutoDoneAction;
 import SuperstitioMod.cards.ChooseSelfOrEnemy.ChooseSelfOrEnemyTarget;
 import SuperstitioMod.cards.ChooseSelfOrEnemy.ChooseTargetPatch;
@@ -50,7 +51,7 @@ public abstract class AbstractLupaCard extends CustomCard implements ChooseSelfO
      * 当需要自定义卡牌存储的二级目录名时
      */
     public AbstractLupaCard(String id, CardType cardType, int cost, CardRarity cardRarity, CardTarget cardTarget, String customCardType) {
-        this(id, cardType, cost, cardRarity, cardTarget, DataManager.LUPA_DATA.LupaEnums.LUPA_CARD, customCardType);
+        this(id, cardType, cost, cardRarity, cardTarget, SuperstitioModSetup.LupaEnums.LUPA_CARD, customCardType);
     }
 
     public AbstractLupaCard(String id, CardType cardType, int cost, CardRarity cardRarity, CardTarget cardTarget, CardColor cardColor) {

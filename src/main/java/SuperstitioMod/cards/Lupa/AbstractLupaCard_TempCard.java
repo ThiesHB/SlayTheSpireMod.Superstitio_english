@@ -1,6 +1,6 @@
 package SuperstitioMod.cards.Lupa;
 
-import SuperstitioMod.DataManager;
+import SuperstitioMod.SuperstitioModSetup;
 
 
 public abstract class AbstractLupaCard_TempCard extends AbstractLupaCard {
@@ -16,7 +16,7 @@ public abstract class AbstractLupaCard_TempCard extends AbstractLupaCard {
     }
 
     public AbstractLupaCard_TempCard(String id, CardType cardType, int cost, CardRarity cardRarity, CardTarget cardTarget, String customCardType) {
-        this(id, cardType, cost, cardRarity, cardTarget, DataManager.LUPA_DATA.TempCardEnums.LUPA_TempCard_CARD, customCardType);
+        this(id, cardType, cost, cardRarity, cardTarget, SuperstitioModSetup.TempCardEnums.LUPA_TempCard_CARD, customCardType);
     }
 
     public AbstractLupaCard_TempCard(String id, CardType cardType, int cost, CardRarity cardRarity, CardTarget cardTarget, CardColor cardColor,

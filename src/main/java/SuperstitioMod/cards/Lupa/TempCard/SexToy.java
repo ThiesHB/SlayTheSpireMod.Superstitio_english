@@ -2,6 +2,7 @@ package SuperstitioMod.cards.Lupa.TempCard;
 
 import SuperstitioMod.DataManager;
 import SuperstitioMod.cards.Lupa.AbstractLupaCard_TempCard;
+import SuperstitioMod.utils.CardUtility;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
@@ -30,7 +31,7 @@ public class SexToy extends AbstractLupaCard_TempCard {
     }
 
     public static String getRandomSexToyName() {
-        return sexToyNames[AbstractDungeon.cardRandomRng.random(sexToyNames.length - 1)];
+        return CardUtility.getRandomFromList(sexToyNames,AbstractDungeon.cardRandomRng);
     }
 
     @Override

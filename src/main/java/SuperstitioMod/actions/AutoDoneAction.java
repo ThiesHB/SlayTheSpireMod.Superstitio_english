@@ -6,12 +6,16 @@ import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 public abstract class AutoDoneAction extends AbstractGameAction {
 
     public static void addToBotAbstract(final VoidSupplier func) {
-        AbstractDungeon.actionManager.addToBottom(new AutoDoneAction() {
+        AbstractDungeon.actionManager.addToBottom(newAutoDone(func));
+    }
+
+    public static AbstractGameAction newAutoDone(final VoidSupplier func) {
+         return new AutoDoneAction() {
             @Override
             public void autoDoneUpdate() {
                 func.get();
             }
-        });
+        };
     }
 
     @Override

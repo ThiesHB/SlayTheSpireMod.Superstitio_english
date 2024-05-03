@@ -86,25 +86,17 @@ public class SorM extends AbstractLupaRelic implements ClickableRelic, CustomSav
 
     @Override
     public void updateDescriptionArgs() {
-        if (MasochismMode && SadismMode)
-            setDescriptionArgs(MasochismModeRate, SexualHeatRate, SadismModeRate, SexualHeatRate);
-        if (MasochismMode)
-            setDescriptionArgs(MasochismModeRate, SexualHeatRate);
-        if (SadismMode)
-            setDescriptionArgs(SadismModeRate, SexualHeatRate);
-        setDescriptionArgs(MasochismModeRate, SexualHeatRate, SadismModeRate, SexualHeatRate);
-
     }
 
     @Override
     public String getDescriptionStrings() {
         if (MasochismMode && SadismMode)
-            return this.DESCRIPTIONS[3];
-        if (MasochismMode)
-            return this.DESCRIPTIONS[1];
+            return String.format(this.DESCRIPTIONS[3],MasochismModeRate, SexualHeatRate, SadismModeRate, SexualHeatRate);
         if (SadismMode)
-            return this.DESCRIPTIONS[2];
-        return this.DESCRIPTIONS[0];
+            return String.format(this.DESCRIPTIONS[2],SadismModeRate, SexualHeatRate);
+        if (MasochismMode)
+            return String.format(this.DESCRIPTIONS[1],MasochismModeRate, SexualHeatRate);
+        return String.format(this.DESCRIPTIONS[0],MasochismModeRate, SexualHeatRate, SadismModeRate, SexualHeatRate);
 
     }
 

@@ -8,41 +8,29 @@ import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 
 import java.util.function.Function;
 
-public class OpenAWindowAndChoseFromCardGroupAction extends AbstractGameAction {
+public class ChoseCardFromGridSelectWindowAction extends ContinuallyAction {
     private final String windowText;
     private final Function<AbstractCard, AbstractGameAction> gameActionMaker;
     private final boolean anyNumber;
     private final int choseAmount;
     private final CardGroup cardGroup;
 
-    public OpenAWindowAndChoseFromCardGroupAction(
+    public ChoseCardFromGridSelectWindowAction(
             int choseAmount,
             final CardGroup cardGroup,
             String WindowText,
             Function<AbstractCard, AbstractGameAction> GameActionMaker,
             boolean anyNumber) {
+        super(AbstractGameAction.ActionType.CARD_MANIPULATION, Settings.ACTION_DUR_FAST);
         this.choseAmount = choseAmount;
         this.cardGroup = cardGroup;
-        windowText = WindowText;
-        gameActionMaker = GameActionMaker;
+        this.windowText = WindowText;
+        this.gameActionMaker = GameActionMaker;
         this.anyNumber = anyNumber;
-        this.actionType = AbstractGameAction.ActionType.CARD_MANIPULATION;
-        final float action_DUR_FAST = Settings.ACTION_DUR_FAST;
-        this.startDuration = action_DUR_FAST;
-        this.duration = action_DUR_FAST;
     }
-
 
     @Override
-    public void update() {
-        if (this.duration == this.startDuration)
-            ActionSetUp();
-        else
-            ApplyAction();
-        this.tickDuration();
-    }
-
-    private void ApplyAction() {
+    protected void RunAction() {
         if (AbstractDungeon.gridSelectScreen.selectedCards.isEmpty())
             return;
         for (final AbstractCard c : AbstractDungeon.gridSelectScreen.selectedCards) {
@@ -52,7 +40,8 @@ public class OpenAWindowAndChoseFromCardGroupAction extends AbstractGameAction {
         AbstractDungeon.player.hand.refreshHandLayout();
     }
 
-    private void ActionSetUp() {
+    @Override
+    protected void ActionSetUp() {
         if (cardGroup.isEmpty()) {
             this.isDone = true;
             return;
