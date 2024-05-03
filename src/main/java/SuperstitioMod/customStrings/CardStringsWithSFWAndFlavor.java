@@ -2,27 +2,39 @@ package SuperstitioMod.customStrings;
 
 import SuperstitioMod.SuperstitioModSetup;
 import SuperstitioMod.WordReplace;
+import com.megacrit.cardcrawl.localization.CardStrings;
 import com.megacrit.cardcrawl.localization.LocalizedStrings;
+import com.megacrit.cardcrawl.localization.PowerStrings;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
 public class CardStringsWithSFWAndFlavor implements HasSFWVersion {
-    public String NAME;
-    public String NAME_SFW;
-    public String DESCRIPTION;
-    public String DESCRIPTION_SFW;
-    public String UPGRADE_DESCRIPTION;
-    public String UPGRADE_DESCRIPTION_SFW;
-    public String[] EXTENDED_DESCRIPTION;
-    public String[] EXTENDED_DESCRIPTION_SFW;
-    public String FLAVOR;
+    private String NAME;
+    private String NAME_SFW;
+    private String DESCRIPTION;
+    private String DESCRIPTION_SFW;
+    private String UPGRADE_DESCRIPTION;
+    private String UPGRADE_DESCRIPTION_SFW;
+    private String[] EXTENDED_DESCRIPTION;
+    private String[] EXTENDED_DESCRIPTION_SFW;
+    private String FLAVOR;
+
+    private final CardStrings Origin = new CardStrings();
+    private final CardStrings SFW = new CardStrings();
 
     public CardStringsWithSFWAndFlavor() {
     }
 
     @Override
-    public void initialBlack() {
+    public void initialOrigin() {
+        Origin.NAME = NAME;
+        Origin.DESCRIPTION = DESCRIPTION;
+        Origin.UPGRADE_DESCRIPTION = UPGRADE_DESCRIPTION;
+    }
+
+    @Override
+    public void initialSelfBlack() {
         this.NAME = "[MISSING_TITLE]";
         this.DESCRIPTION = "[MISSING_DESCRIPTION]";
         this.UPGRADE_DESCRIPTION = "[MISSING_DESCRIPTION+]";

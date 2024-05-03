@@ -56,7 +56,7 @@ public class Fuck_Vaginal extends AbstractLupaCard_FuckJob {
     @Override
     public void use(final AbstractPlayer player, final AbstractMonster monster) {
         this.calculateCardDamage(null);
-        addToBot_damageToEnemy(monster, AbstractGameAction.AttackEffect.BLUNT_HEAVY);
+        addToBot_damageToTarget(monster, AbstractGameAction.AttackEffect.BLUNT_HEAVY);
         AbstractLupaCard_FuckJob.addToTop_gainSexMark_Inside(this.name);
     }
 

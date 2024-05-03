@@ -1,12 +1,12 @@
 ﻿{
-  "SuperstitioMod:SensitiveRelic": {
+  "SuperstitioMod:Sensitive": {
     "NAME": "敏感",
     "DESCRIPTIONS": [
-      "你使用的每个 [E] 均会立即带来 #b%d 点  #ysuperstitiomod:快感 。 NL 特殊机制： #ysuperstitiomod:高潮 、 #ysuperstitiomod:潮吹  、 #ysuperstitiomod:连续高潮 。"
+      "你使用的每个 [E] 均会立即带来 #b%d 点  #ysuperstitiomod:快感 。 NL 特殊机制： #ysuperstitiomod:高潮  、 #ysuperstitiomod:结束高潮  、 #ysuperstitiomod:连续高潮  、 #ysuperstitiomod:潮吹。"
     ],
     "FLAVOR": "你的身体非常敏感。"
   },
-  "SuperstitioMod:SorMRelic": {
+  "SuperstitioMod:SorM": {
     "NAME": "性格切换",
     "DESCRIPTIONS": [
       "M性格: 受到超过每 #b%d 点伤害获得%d点 #ysuperstitiomod:快感 。 NL S性格: 造成超过每 #b%d 点伤害获得%d点 #ysuperstitiomod:快感 。 NL 战斗外右键切换性格。",
@@ -16,25 +16,32 @@
     ],
     "FLAVOR": "我两个都一样的操操……操x99——啊！"
   },
-  "SuperstitioMod:NippleRingsRelic": {
+  "SuperstitioMod:NippleRings": {
     "NAME": "乳环",
     "DESCRIPTIONS": [
       "每次 #ysuperstitiomod:高潮 时，获得 %d 临时 力量 。"
     ],
     "FLAVOR": "会让人更有吸引力，特别是乳头勃起时。"
   },
-  "SuperstitioMod:ProstitutionRelic": {
+  "SuperstitioMod:Prostitution": {
     "NAME": "嫖资",
     "DESCRIPTIONS": [
       "打出 %d 次 #ysuperstitiomod:内射 或 #ysuperstitiomod:外射 牌时，获得 %d 金币 。"
     ],
     "FLAVOR": "肉体交易，物美价廉。"
   },
-  "SuperstitioMod:EjaculationMasterRelic": {
+  "SuperstitioMod:EjaculationMaster": {
     "NAME": "潮吹大师",
     "DESCRIPTIONS": [
       "战斗中，每 %d 次 #ysuperstitiomod:高潮 时，抽 %d 张卡。"
     ],
     "FLAVOR": "看我喷的多远！"
+  },
+  "SuperstitioMod:CumOnShoes": {
+    "NAME": "精液高跟鞋",
+    "DESCRIPTIONS": [
+      "战斗中，每 获得 %d #ysuperstitiomod:干涸精液 ，获得 1 敏捷。"
+    ],
+    "FLAVOR": "黏糊糊的好舒服呀。"
   }
 }

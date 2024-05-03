@@ -5,11 +5,11 @@ import SuperstitioMod.cards.Lupa.AbstractLupaCard_FuckJob;
 import basemod.cardmods.RetainMod;
 import basemod.helpers.CardModifierManager;
 import com.megacrit.cardcrawl.actions.AbstractGameAction;
-import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import com.megacrit.cardcrawl.powers.FrailPower;
+import com.megacrit.cardcrawl.powers.WeakPower;
 
 public class Fuck_Ear extends AbstractLupaCard_FuckJob {
     public static final String ID = DataManager.MakeTextID(Fuck_Ear.class.getSimpleName());
@@ -40,14 +40,11 @@ public class Fuck_Ear extends AbstractLupaCard_FuckJob {
 
     @Override
     public void use(AbstractPlayer player, AbstractMonster monster) {
-        addToBot_damageToEnemy(monster, AbstractGameAction.AttackEffect.BLUNT_LIGHT);
-        addToBot_damageToEnemy(monster, AbstractGameAction.AttackEffect.BLUNT_LIGHT);
-        AbstractCard card = new Fuck_Eye();
-//        CardModifierManager.removeSpecificModifier(card, new RetainMod(), false);
-        if (upgraded)
-            card.upgrade();
-        addToBot_makeTempCardInBattle(card, BattleCardPlace.Hand);
+        addToBot_damageToTarget(monster, AbstractGameAction.AttackEffect.BLUNT_LIGHT);
+        addToBot_damageToTarget(monster, AbstractGameAction.AttackEffect.BLUNT_LIGHT);
+        addToBot_makeTempCardInBattle(new Fuck_Eye(), BattleCardPlace.Hand,this.upgraded);
         addToBot_applyPowerToPlayer(new FrailPower(AbstractDungeon.player, 1, false));
+        addToBot_applyPowerToPlayer(new WeakPower(AbstractDungeon.player, 1, false));
         AbstractLupaCard_FuckJob.addToTop_gainSexMark_Inside(this.name);
     }
 
@@ -60,7 +57,6 @@ public class Fuck_Ear extends AbstractLupaCard_FuckJob {
     @Override
     public void upgradeAuto() {
         upgradeDamage(UPGRADE_PLUS_DMG);
-        if (cardsToPreview != null)
-            this.cardsToPreview.upgrade();
+        upgradeCardsToPreview();
     }
 }

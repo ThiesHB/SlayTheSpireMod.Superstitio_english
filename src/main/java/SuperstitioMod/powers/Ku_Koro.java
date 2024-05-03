@@ -12,7 +12,7 @@ import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
  * 每次受到攻击伤害时，获得1随机状态牌。所有消耗牌会回到抽牌堆
  */
 public class Ku_Koro extends AbstractLupaPower {
-    public static final String POWER_ID = DataManager.MakeTextID(Ku_Koro.class.getSimpleName() + "Power");
+    public static final String POWER_ID = DataManager.MakeTextID(Ku_Koro.class.getSimpleName() );
 
     public Ku_Koro(final AbstractCreature owner) {
         super(POWER_ID, owner, -1);

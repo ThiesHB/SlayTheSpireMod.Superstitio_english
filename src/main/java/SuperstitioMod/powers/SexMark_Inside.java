@@ -9,8 +9,7 @@ import com.megacrit.cardcrawl.core.AbstractCreature;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 
 public class SexMark_Inside extends SexMark {
-    public static final String POWER_ID = DataManager.MakeTextID(SexMark_Inside.class.getSimpleName() +
-            "Power");
+    public static final String POWER_ID = DataManager.MakeTextID(SexMark_Inside.class.getSimpleName());
     public static final int MARKNeeded = 5;
 
     public static final int AOEDamageRate = 2;

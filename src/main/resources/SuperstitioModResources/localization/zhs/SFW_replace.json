@@ -28,6 +28,10 @@
     "WordReplace": "格挡"
   },
   {
+    "WordOrigin": "爱欲",
+    "WordReplace": "恐惧"
+  },
+  {
     "WordOrigin": "持续到下回合开始前，使敌人的物理伤害转换为性爱动作，从而阻挡伤害。",
     "WordReplace": "持续到下回合开始前，阻挡伤害。"
   },
@@ -64,15 +68,7 @@
     "WordReplace": "耳环"
   },
   {
-    "WordOrigin": "会让人更有吸引力，特别是乳头勃起时。",
-    "WordReplace": ""
-  },
-  {
     "WordOrigin": "嫖资",
     "WordReplace": "赏金"
-  },
-  {
-    "WordOrigin": "肉体交易，物美价廉。",
-    "WordReplace": ""
   }
 ]

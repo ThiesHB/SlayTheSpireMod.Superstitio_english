@@ -4,8 +4,6 @@ import SuperstitioMod.DataManager;
 import SuperstitioMod.Logger;
 import SuperstitioMod.SuperstitioModSetup;
 import SuperstitioMod.actions.AutoDoneAction;
-import SuperstitioMod.cards.ChooseSelfOrEnemy.ChooseSelfOrEnemyTarget;
-import SuperstitioMod.cards.ChooseSelfOrEnemy.ChooseTargetPatch;
 import SuperstitioMod.customStrings.CardStringsWithSFWAndFlavor;
 import SuperstitioMod.customStrings.HasSFWVersion;
 import SuperstitioMod.powers.AllCardCostModifier;
@@ -13,11 +11,11 @@ import basemod.abstracts.CustomCard;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.evacipated.cardcrawl.modthespire.lib.SpirePatch;
 import com.evacipated.cardcrawl.modthespire.lib.SpirePostfixPatch;
-import com.megacrit.cardcrawl.actions.AbstractGameAction;
 import com.megacrit.cardcrawl.actions.common.*;
 import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.cards.DamageInfo;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
+import com.megacrit.cardcrawl.core.AbstractCreature;
 import com.megacrit.cardcrawl.core.Settings;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.helpers.FontHelper;
@@ -28,11 +26,13 @@ import com.megacrit.cardcrawl.screens.SingleCardViewPopup;
 import java.lang.reflect.Field;
 import java.util.Optional;
 
-public abstract class AbstractLupaCard extends CustomCard implements ChooseSelfOrEnemyTarget {
+import static com.megacrit.cardcrawl.actions.AbstractGameAction.AttackEffect;
+import static com.megacrit.cardcrawl.cards.DamageInfo.DamageType;
+
+public abstract class AbstractLupaCard extends CustomCard {
     private final static float DESC_LINE_WIDTH = 418.0f * Settings.scale;
     //调用父类的构造方法，传参为super(卡牌ID，卡牌名称，图片地址，能量花费，卡牌描述，卡牌类型，卡牌颜色，卡牌稀有度，卡牌目标)
     protected CardStringsWithSFWAndFlavor cardStrings;
-    private boolean isTargetSelfOrEnemy;
 
     /**
      * 普通的方法
@@ -45,6 +45,7 @@ public abstract class AbstractLupaCard extends CustomCard implements ChooseSelfO
      */
     public AbstractLupaCard(String id, CardType cardType, int cost, CardRarity cardRarity, CardTarget cardTarget) {
         this(id, cardType, cost, cardRarity, cardTarget, CardTypeToString(cardType));
+
     }
 
     /**
@@ -63,7 +64,7 @@ public abstract class AbstractLupaCard extends CustomCard implements ChooseSelfO
         super(
                 id,
                 getCardStringsWithSFWAndFlavor(id).getNAME(),
-                getImgPath(customCardType, DataManager.getIdOnly(id)),
+                getImgPath(customCardType, id),
                 cost,
                 getCardStringsWithSFWAndFlavor(id).getDESCRIPTION(),
                 cardType,
@@ -113,19 +114,24 @@ public abstract class AbstractLupaCard extends CustomCard implements ChooseSelfO
         return type;
     }
 
-    private static void renderQuote(final SpriteBatch sb, AbstractLupaCard card) {
+    private static void renderFlavor(final SpriteBatch sb, AbstractLupaCard card) {
         String flavorText = card.cardStrings.getFLAVOR();
         if (flavorText != null) {
             FontHelper.renderWrappedText(sb, FontHelper.SRV_quoteFont, flavorText, Settings.WIDTH / 2.0f,
                     Settings.HEIGHT / 2.0f - 430.0f * Settings.scale, DESC_LINE_WIDTH, Settings.CREAM_COLOR, 1.0f);
-        }
-        else {
+        } else {
             FontHelper.renderWrappedText(sb, FontHelper.SRV_quoteFont, "\"Missing quote...\"", Settings.WIDTH / 2.0f,
                     Settings.HEIGHT / 2.0f - 430.0f * Settings.scale, DESC_LINE_WIDTH, Settings.CREAM_COLOR, 1.0f);
         }
     }
 
     public static void addToBot_makeTempCardInBattle(AbstractCard card, BattleCardPlace battleCardPlace, int amount) {
+        addToBot_makeTempCardInBattle(card, battleCardPlace, amount, false);
+    }
+
+    public static void addToBot_makeTempCardInBattle(AbstractCard card, BattleCardPlace battleCardPlace, int amount, boolean upgrade) {
+        if (upgrade)
+            card.upgrade();
         switch (battleCardPlace) {
             case Hand:
                 AbstractDungeon.actionManager.addToBottom(new MakeTempCardInHandAction(card, amount));
@@ -148,20 +154,15 @@ public abstract class AbstractLupaCard extends CustomCard implements ChooseSelfO
         addToBot_makeTempCardInBattle(card, battleCardPlace, 1);
     }
 
-    public boolean isTargetSelf(final AbstractMonster m) {
-        return m instanceof ChooseTargetPatch.Target;
+    public static void addToBot_makeTempCardInBattle(AbstractCard card, BattleCardPlace battleCardPlace, boolean upgrade) {
+        addToBot_makeTempCardInBattle(card, battleCardPlace, 1, upgrade);
     }
 
-    @Override
-    public boolean checkIsTargetSelfOrEnemy() {
-        return isTargetSelfOrEnemy;
+    public void upgradeCardsToPreview() {
+        if (this.cardsToPreview != null)
+            cardsToPreview.upgrade();
     }
 
-    @Override
-    public void setTarget_SelfOrEnemy() {
-        this.isTargetSelfOrEnemy = true;
-        this.target = CardTarget.ENEMY;
-    }
 
     @Override
     public final void upgrade() {
@@ -191,15 +192,19 @@ public abstract class AbstractLupaCard extends CustomCard implements ChooseSelfO
         this.magicNumber = amount;
     }
 
-    public void addToBot_damageToEnemy(final AbstractMonster monster, final AbstractGameAction.AttackEffect effect) {
-        this.addToBot(new DamageAction(monster, new DamageInfo(AbstractDungeon.player, this.damage), effect));
+    public void addToBot_damageToTarget(final AbstractCreature target, final AttackEffect effect) {
+        this.addToBot(new DamageAction(target, new DamageInfo(AbstractDungeon.player, this.damage), effect));
     }
 
-    public void addToBot_damageToEnemy(final AbstractMonster monster, int damageAmount, final AbstractGameAction.AttackEffect effect) {
-        this.addToBot(new DamageAction(monster, new DamageInfo(AbstractDungeon.player, damageAmount), effect));
+    public void addToBot_damageToTarget(final AbstractCreature target, int damageAmount, final AttackEffect effect) {
+        this.addToBot(new DamageAction(target, new DamageInfo(AbstractDungeon.player, damageAmount, damageType), effect));
     }
 
-    public void addToBot_damageToAllEnemies(final AbstractGameAction.AttackEffect effect) {
+    public void addToBot_damageToTarget(final AbstractCreature target, int damageAmount, final DamageType damageType, final AttackEffect effect) {
+        this.addToBot(new DamageAction(target, new DamageInfo(AbstractDungeon.player, damageAmount, damageType), effect));
+    }
+
+    public void addToBot_damageToAllEnemies(final AttackEffect effect) {
         this.addToBot(new DamageAllEnemiesAction(AbstractDungeon.player, this.multiDamage, this.damageTypeForTurn, effect));
     }
 
@@ -223,8 +228,8 @@ public abstract class AbstractLupaCard extends CustomCard implements ChooseSelfO
         this.addToBot(new ApplyPowerAction(AbstractDungeon.player, AbstractDungeon.player, power));
     }
 
-    public void addToBot_applyPowerToEnemy(final AbstractPower power, AbstractMonster monster) {
-        this.addToBot(new ApplyPowerAction(monster, AbstractDungeon.player, power));
+    public void addToBot_applyPowerToTarget(final AbstractPower power, AbstractCreature target) {
+        this.addToBot(new ApplyPowerAction(target, AbstractDungeon.player, power));
     }
 
     public void addToBot_reducePowerToPlayer(final String powerID, int amount) {
@@ -281,7 +286,7 @@ public abstract class AbstractLupaCard extends CustomCard implements ChooseSelfO
                 return;
             }
             if (fieldValue instanceof AbstractLupaCard) {
-                renderQuote(sb, (AbstractLupaCard) fieldValue);
+                renderFlavor(sb, (AbstractLupaCard) fieldValue);
             }
         }
     }

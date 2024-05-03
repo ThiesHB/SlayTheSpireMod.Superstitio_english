@@ -2,12 +2,14 @@ package SuperstitioMod.cards.Lupa.AttackCard;
 
 import SuperstitioMod.DataManager;
 import SuperstitioMod.cards.Lupa.AbstractLupaCard_FuckJob;
+import basemod.AutoAdd;
 import basemod.cardmods.ExhaustMod;
 import basemod.helpers.CardModifierManager;
 import com.megacrit.cardcrawl.actions.AbstractGameAction;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 
+@AutoAdd.Ignore
 public class Job_Hair extends AbstractLupaCard_FuckJob {
     public static final String ID = DataManager.MakeTextID(Job_Hair.class.getSimpleName());
 
@@ -24,27 +26,35 @@ public class Job_Hair extends AbstractLupaCard_FuckJob {
     private static final int MagicNumber = 2;
 
     public Job_Hair() {
+        this(ATTACK_DMG);
+        this.cardsToPreview = makeCardsToPreview();
+    }
+
+    private Job_Hair(int damage) {
         super(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET);
         this.setupDamage(ATTACK_DMG);
         this.isEthereal = true;
         this.setupMagicNumber(MagicNumber);
     }
 
+    private Job_Hair makeCardsToPreview() {
+        Job_Hair card = new Job_Hair(this.baseDamage - this.magicNumber);
+        CardModifierManager.addModifier(this.cardsToPreview, new ExhaustMod());
+        return card;
+    }
+
     @Override
     public void use(AbstractPlayer player, AbstractMonster monster) {
-        addToBot_damageToEnemy(monster, AbstractGameAction.AttackEffect.BLUNT_LIGHT);
-        Job_Hair card = new Job_Hair();
-        CardModifierManager.addModifier(card, new ExhaustMod());
-        card.setupDamage(this.baseDamage - this.magicNumber);
-        this.cardsToPreview = card;
-        if (upgraded)
-            card.upgrade();
-        addToBot_makeTempCardInBattle(card, BattleCardPlace.Hand);
+        addToBot_damageToTarget(monster, AbstractGameAction.AttackEffect.BLUNT_LIGHT);
+        Job_Hair card = this.makeCardsToPreview();
+        card.cardsToPreview = card.makeCardsToPreview();
+        addToBot_makeTempCardInBattle(card, BattleCardPlace.Hand, upgraded);
         AbstractLupaCard_FuckJob.addToTop_gainSexMark_Outside(this.cardStrings.getEXTENDED_DESCRIPTION()[0]);
     }
 
     @Override
     public void upgradeAuto() {
         upgradeDamage(UPGRADE_PLUS_DMG);
+        upgradeCardsToPreview();
     }
 }

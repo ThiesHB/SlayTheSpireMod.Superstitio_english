@@ -49,7 +49,7 @@ public class FreshSemen extends AbstractWithBarPower implements OnPostApplyThisP
     private void Overflow(int flowAmount) {
         AbstractPower power = this;
         AutoDoneAction.addToBotAbstract(() ->
-                PowerUtility.BubbleMessageHigher(power, false, powerStrings.DESCRIPTIONS[1]));
+                PowerUtility.BubbleMessageHigher(power, false, powerStringsSet.getRightVersion().DESCRIPTIONS[1]));
         this.addToBot_applyPowerToOwner(new DrySemen(this.owner, flowAmount * ToDrySemenRate));
     }
 

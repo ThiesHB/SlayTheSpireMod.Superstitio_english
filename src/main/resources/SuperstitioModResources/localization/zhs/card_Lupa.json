@@ -89,13 +89,13 @@
   "SuperstitioMod:Fuck_Ear": {
     "NAME": "耳奸",
     "NAME_SFW": "龙形拳",
-    "DESCRIPTION": "抽到时获得 保留 。 NL 造成 2 次 !D! 点 伤害 。 NL 把 *眼奸 加入手牌。 NL 获得 1 脆弱 。 NL superstitiomod:性交：内射 。 NL 消耗 。",
+    "DESCRIPTION": "抽到时获得 保留 。 NL 造成 2 次 !D! 点 伤害 。 NL 把 *眼奸 加入手牌。 NL 获得 1 脆弱 和 1 虚弱 。 NL superstitiomod:性交：内射 。 NL 消耗 。",
     "FLAVOR": "是脑交！要是脑子有触觉就好了，哧溜。"
   },
   "SuperstitioMod:Fuck_Eye": {
     "NAME": "眼奸",
     "NAME_SFW": "蛇形拳",
-    "DESCRIPTION": "抽到时获得 保留 。 NL 造成 2 次 !D! 点 伤害 。 NL 获得 !B! 点 superstitiomod:引诱 。 NL 把 *耳奸 加入手牌。 NL 获得 1 虚弱 。 NL superstitiomod:性交：内射 。 NL 消耗 。",
+    "DESCRIPTION": "抽到时获得 保留 。 NL 造成 2 次 !D! 点 伤害 。 NL 获得 !B! 点 superstitiomod:引诱 。 NL 把 *耳奸 加入手牌。 NL superstitiomod:性交：内射 。 NL 消耗 。",
     "FLAVOR": "也许是脑交。总的来说还是取决于肉棒的主人敢不敢用力吧。"
   },
   "SuperstitioMod:Fuck_Navel": {
@@ -137,13 +137,12 @@
   "SuperstitioMod:CalmDown": {
     "NAME": "冷静",
     "NAME_SFW": "",
-    "DESCRIPTION": "抽 !M! 张牌。 NL 减少 4 点 superstitiomod:快感 。 NL superstitiomod:高潮中 ，额外抽1张牌。",
+    "DESCRIPTION": "抽 !M! 张牌。 NL 减少 6 点 superstitiomod:快感 。 NL superstitiomod:高潮中 ，额外抽1张牌。",
     "FLAVOR": "冥想……冷静，冷静，冥想……果然还是好想用冰块自慰。 NL o(TヘTo)"
   },
   "SuperstitioMod:Ku_Koro": {
     "NAME": "咕杀",
-    "NAME_SFW": "",
-    "DESCRIPTION": "每次受到 攻击伤害 时，获得 1 张 随机 状态 牌。 NL 所有 消耗 牌会回到 抽牌堆 。",
+    "DESCRIPTION": "每次受到 攻击伤害 时，获得 1 张 随机 状态 牌。 NL 所有 消耗 牌会送入 弃牌堆 。",
     "FLAVOR": "咕……杀了我……并没有乐在其中，也没有主动放弃抵抗哦！"
   },
   "SuperstitioMod:Tease": {
@@ -208,7 +207,6 @@
   },
   "SuperstitioMod:Samsara": {
     "NAME": "轮转",
-    "NAME_SFW": "",
     "DESCRIPTION": "回合结束时， NL 保留 所有的手牌。 NL 每当你使用卡牌， NL 抽 1 张牌。 NL 在抽牌堆中添加 !M! 张 *伤口 。",
     "FLAVOR": "一切都只是轮回的一部分，何不放肆一点？"
   },
@@ -232,17 +230,15 @@
   },
   "SuperstitioMod:Endure": {
     "NAME": "忍耐",
-    "NAME_SFW": "",
     "DESCRIPTION": "下回合获得 !M! superstitiomod:快感 。 NL 抽 2 张牌。",
     "FLAVOR": "吃得巨中巨，方为忍上忍。"
   },
-  "SuperstitioMod:Omniscience_TempName": {
-    "NAME": "Omniscience_TempName",
-    "NAME_SFW": "",
+  "SuperstitioMod:BecomeTrash": {
+    "NAME": "废弃",
     "DESCRIPTION": "从抽牌堆中选择最多 !M! 张牌并 消耗 。 NL 消耗 。",
-    "FLAVOR": "",
+    "FLAVOR": "呜，主人，主人，主人……",
     "EXTENDED_DESCRIPTION": [
-      "选择 %d 张牌并消耗。"
+      "选择%d张牌并消耗。"
     ]
   },
   "SuperstitioMod:ChooseCoitalPosture": {
@@ -255,14 +251,13 @@
     "NAME": "荣耀洞",
     "NAME_SFW": "荣耀勋章",
     "DESCRIPTION": "从卡组中任选1张牌，将其复制加入手牌。 NL 消耗 。",
-    "FLAVOR": "",
+    "FLAVOR": "欢迎大家使用，提供7x24小时服务哦。",
     "EXTENDED_DESCRIPTION": [
-      "选择 1 张牌并将其复制加入手牌。"
+      "选择1张牌并将其复制加入手牌。"
     ]
   },
   "SuperstitioMod:Overdraft": {
     "NAME": "透支",
-    "NAME_SFW": "",
     "DESCRIPTION": "抽 !M! 张牌。 NL 下回合开始时， NL 消耗 1 张牌 。",
     "FLAVOR": ""
   },
@@ -276,7 +271,27 @@
   "SuperstitioMod:Philter": {
     "NAME": "春药",
     "NAME_SFW": "硬气功",
-    "DESCRIPTION": "移除 所有 的 superstitiomod:引诱 ， 获得 一半 的 多层护甲 。",
+    "DESCRIPTION": "移除 所有 的 superstitiomod:引诱 ， NL 获得 一半 的 多层护甲 。",
     "FLAVOR": "从阴蒂注射效果最好。"
+  },
+  "SuperstitioMod:ZenState": {
+    "NAME": "禅意",
+    "DESCRIPTION": "获得 !B! 点 superstitiomod:引诱 ， NL 从手牌中选择 !M! 张牌赋予 消耗 。",
+    "FLAVOR": "",
+    "EXTENDED_DESCRIPTION": [
+      "选择%d张牌赋予消耗 。"
+    ]
+  },
+  "SuperstitioMod:AddSexToy": {
+    "NAME": "情趣快递",
+    "NAME_SFW": "制作旗帜",
+    "DESCRIPTION": "添加 !M! 张 *情趣玩具 到手牌中。",
+    "FLAVOR": ""
+  },
+  "SuperstitioMod:DeathDoor": {
+    "NAME": "濒死体验",
+    "NAME_SFW": "重整旗鼓",
+    "DESCRIPTION": "免除 !M! 次死亡 。 NL 第一次免除死亡 后， NL 进入 superstitiomod:濒死 状态",
+    "FLAVOR": "好刺激，好有趣，还想再来。"
   }
 }

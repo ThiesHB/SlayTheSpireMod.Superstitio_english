@@ -7,7 +7,7 @@ import com.megacrit.cardcrawl.powers.LoseStrengthPower;
 import com.megacrit.cardcrawl.powers.StrengthPower;
 
 public class TempName_ApplyTempStrengthOnOrgasm extends AbstractLupaPower implements OnOrgasm_afterOrgasm {
-    public static final String POWER_ID = DataManager.MakeTextID(TempName_ApplyTempStrengthOnOrgasm.class.getSimpleName() + "Power");
+    public static final String POWER_ID = DataManager.MakeTextID(TempName_ApplyTempStrengthOnOrgasm.class.getSimpleName() );
 
     public TempName_ApplyTempStrengthOnOrgasm(final AbstractCreature owner, int amount) {
         super(POWER_ID, owner, amount);

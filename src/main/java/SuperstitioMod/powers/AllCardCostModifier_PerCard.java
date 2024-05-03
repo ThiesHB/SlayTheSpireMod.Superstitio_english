@@ -9,7 +9,7 @@ import com.megacrit.cardcrawl.monsters.AbstractMonster;
 
 
 public class AllCardCostModifier_PerCard extends AllCardCostModifier {
-    public static final String POWER_ID = DataManager.MakeTextID(AllCardCostModifier_PerCard.class.getSimpleName() + "Power");
+    public static final String POWER_ID = DataManager.MakeTextID(AllCardCostModifier_PerCard.class.getSimpleName() );
 
     public AllCardCostModifier_PerCard(final AbstractCreature owner, int decreasedCost, int useTimes, HasAllCardCostModifyEffect holder) {
         super(POWER_ID, owner, decreasedCost, useTimes, holder);
@@ -18,7 +18,7 @@ public class AllCardCostModifier_PerCard extends AllCardCostModifier {
 
     @Override
     public void updateDescriptionArgs() {
-        setDescriptionArgs((!isActive() ? powerStrings.DESCRIPTIONS[1] : ""), decreasedCost, amount);
+        setDescriptionArgs(decreasedCost, amount,(!isActive() ? powerStringsSet.getRightVersion().DESCRIPTIONS[1] : ""));
     }
 
 

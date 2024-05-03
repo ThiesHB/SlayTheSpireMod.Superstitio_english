@@ -4,12 +4,13 @@ import SuperstitioMod.DataManager;
 import SuperstitioMod.cards.Lupa.AbstractLupaCard_FuckJob;
 import SuperstitioMod.powers.SexualHeat;
 import SuperstitioMod.powers.interFace.OnOrgasm.OnOrgasm_afterOrgasm;
+import basemod.AutoAdd;
 import com.megacrit.cardcrawl.actions.AbstractGameAction;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 
-
+@AutoAdd.Ignore
 public class Fuck_Navel extends AbstractLupaCard_FuckJob implements OnOrgasm_afterOrgasm {
     public static final String ID = DataManager.MakeTextID(Fuck_Navel.class.getSimpleName());
 
@@ -34,7 +35,7 @@ public class Fuck_Navel extends AbstractLupaCard_FuckJob implements OnOrgasm_aft
 
     @Override
     public void use(AbstractPlayer player, AbstractMonster monster) {
-        addToBot_damageToEnemy(monster, AbstractGameAction.AttackEffect.BLUNT_LIGHT);
+        addToBot_damageToTarget(monster, AbstractGameAction.AttackEffect.BLUNT_LIGHT);
         AbstractLupaCard_FuckJob.addToTop_gainSexMark_Inside(this.name);
     }
 

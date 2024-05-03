@@ -7,7 +7,7 @@ import com.megacrit.cardcrawl.core.AbstractCreature;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 
 public class Samsara extends AbstractLupaPower {
-    public static final String POWER_ID = DataManager.MakeTextID(Samsara.class.getSimpleName() + "Power");
+    public static final String POWER_ID = DataManager.MakeTextID(Samsara.class.getSimpleName() );
 
     public Samsara(final AbstractCreature owner) {
         super(POWER_ID, owner, -1);

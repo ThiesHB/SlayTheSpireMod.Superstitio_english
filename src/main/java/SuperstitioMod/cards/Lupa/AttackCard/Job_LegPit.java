@@ -34,7 +34,7 @@ public class Job_LegPit extends AbstractLupaCard_FuckJob {
     @Override
     public void use(AbstractPlayer player, AbstractMonster monster) {
         for (int i = 0; i < Attack_Num; i++) {
-            addToBot_damageToEnemy(monster, AbstractGameAction.AttackEffect.BLUNT_LIGHT);
+            addToBot_damageToTarget(monster, AbstractGameAction.AttackEffect.BLUNT_LIGHT);
             AutoDoneAction.addToBotAbstract(() -> {
                 if (monster.lastDamageTaken > 0 && SexualHeat.isInOrgasm(AbstractDungeon.player))
                     addToBot_drawCards();

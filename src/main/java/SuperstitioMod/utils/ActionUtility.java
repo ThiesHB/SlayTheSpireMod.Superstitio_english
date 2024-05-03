@@ -11,6 +11,10 @@ public class ActionUtility {
         AbstractDungeon.actionManager.addToBottom(new ApplyPowerAction(AbstractDungeon.player, AbstractDungeon.player, power));
     }
 
+    public static void addToTop_applyPowerToPlayer(final AbstractPower power) {
+        AbstractDungeon.actionManager.addToTop(new ApplyPowerAction(AbstractDungeon.player, AbstractDungeon.player, power));
+    }
+
     public static void addToBot_applyPowerToEnemy(final AbstractPower power, AbstractMonster monster) {
         AbstractDungeon.actionManager.addToBottom(new ApplyPowerAction(monster, AbstractDungeon.player, power));
     }

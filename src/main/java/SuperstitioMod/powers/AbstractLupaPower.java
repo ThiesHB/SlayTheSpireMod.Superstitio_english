@@ -2,28 +2,36 @@ package SuperstitioMod.powers;
 
 import SuperstitioMod.DataManager;
 import SuperstitioMod.customStrings.HasSFWVersion;
-import SuperstitioMod.customStrings.PowerStringsWithSFW;
+import SuperstitioMod.customStrings.PowerStringsSet;
 import SuperstitioMod.utils.updateDescriptionAdvanced;
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.megacrit.cardcrawl.actions.common.ApplyPowerAction;
 import com.megacrit.cardcrawl.actions.common.ReducePowerAction;
 import com.megacrit.cardcrawl.actions.common.RemoveSpecificPowerAction;
 import com.megacrit.cardcrawl.core.AbstractCreature;
-import com.megacrit.cardcrawl.helpers.ImageMaster;
+import com.megacrit.cardcrawl.core.Settings;
+import com.megacrit.cardcrawl.helpers.*;
+import com.megacrit.cardcrawl.localization.PowerStrings;
 import com.megacrit.cardcrawl.powers.AbstractPower;
 
 public abstract class AbstractLupaPower extends AbstractPower implements updateDescriptionAdvanced {
-    protected PowerStringsWithSFW powerStrings;
+    public static final String DEFAULT = "default";
+    protected PowerStringsSet powerStringsSet;
+    protected PowerStrings powerStrings;
     private Object[] descriptionArgs;
 
-    public AbstractLupaPower(String id, String name, final AbstractCreature owner, int amount, PowerType powerType, boolean needUpdateDescription) {
-        this.name = name;
+    public AbstractLupaPower(String id,  PowerStringsSet powerStringsSet, final AbstractCreature owner, int amount, PowerType powerType, boolean needUpdateDescription) {
+        this.name = powerStringsSet.getRightVersion().NAME;
         this.ID = id;
         this.owner = owner;
 
         this.type = powerType;
 
         this.amount = amount;
+        this.powerStringsSet = powerStringsSet;
+        this.powerStrings = powerStringsSet.getRightVersion();
 
         // 添加一大一小两张能力图
 
@@ -36,18 +44,29 @@ public abstract class AbstractLupaPower extends AbstractPower implements updateD
             this.updateDescription();
     }
 
-    protected void addToBot_AutoRemoveWhenTurnPast(String id){
-        this.flash();
-        if (this.amount == 0) {
-            this.addToBot(new RemoveSpecificPowerAction(this.owner, this.owner, id));
-        }
-        else {
-            this.addToBot(new ReducePowerAction(this.owner, this.owner, id, 1));
-        }
+    protected void renderAmount2(SpriteBatch sb, float x, float y, Color c, int amount2) {
+        if (amount2 <= 0) return;
+        FontHelper.renderFontRightTopAligned(sb, FontHelper.powerAmountFont, "" + amount2, x, y + 15.0F * Settings.scale, this.fontScale, c);
     }
 
-    public AbstractLupaPower(String id, PowerStringsWithSFW powerStrings, final AbstractCreature owner, int amount, PowerType powerType, boolean needUpdateDescription) {
-        this(id, powerStrings.getNAME(), owner, amount, powerType, needUpdateDescription);
+    protected void update_showTips(Hitbox hitbox) {
+        hitbox.update();
+        if (hitbox.hovered) {
+            TipHelper.renderGenericTip(hitbox.cX + 96.0F * Settings.scale,
+                    hitbox.cY + 64.0F * Settings.scale, this.name, this.description);
+        }
+
+        this.fontScale = MathHelper.scaleLerpSnap(this.fontScale, 0.7F);
+    }
+
+    protected void addToBot_AutoRemoveOne(AbstractPower power){
+        this.flash();
+        if (this.amount == 0) {
+            this.addToBot(new RemoveSpecificPowerAction(this.owner, this.owner, power));
+        }
+        else {
+            this.addToBot(new ReducePowerAction(this.owner, this.owner, power, 1));
+        }
     }
 
     public AbstractLupaPower(String id, final AbstractCreature owner, int amount, PowerType powerType, boolean needUpdateDescription) {
@@ -62,16 +81,16 @@ public abstract class AbstractLupaPower extends AbstractPower implements updateD
         this(id, owner, amount, PowerType.BUFF);
     }
 
-    public static PowerStringsWithSFW getPowerStringsWithSFW(String cardName) {
+    public static PowerStringsSet getPowerStringsWithSFW(String cardName) {
         try {
-            return HasSFWVersion.getCustomStringsWithSFW(cardName, DataManager.powers, PowerStringsWithSFW.class);
+            return HasSFWVersion.getCustomStringsWithSFW(cardName, DataManager.powers, PowerStringsSet.class);
         } catch (InstantiationException | IllegalAccessException e) {
             throw new RuntimeException(e);
         }
     }
 
     private String makeImgPath(final String id, IconSize size) {
-        return DataManager.makeImgPath("default" + returnSizeNum(size),
+        return DataManager.makeImgPath(DEFAULT + returnSizeNum(size),
                 DataManager::makeImgFilesPath_Power, id + returnSizeNum(size));
     }
 
@@ -87,11 +106,16 @@ public abstract class AbstractLupaPower extends AbstractPower implements updateD
         this.addToBot(new ReducePowerAction(this.owner, this.owner, powerID, amount));
     }
 
+    public void addToBot_removeSpecificPower(AbstractPower power){
+        this.addToBot(new RemoveSpecificPowerAction(this.owner, this.owner, power));
+    }
+
+
     @Override
     public final void updateDescription() {
         this.updateDescriptionArgs();
         String string = getDescriptionStrings();
-        string = String.format(string, descriptionArgs);
+        string = String.format(string, (Object[]) descriptionArgs);
         this.description = string;
     }
 
@@ -108,7 +132,7 @@ public abstract class AbstractLupaPower extends AbstractPower implements updateD
 
     @Override
     public String getDescriptionStrings() {
-        return powerStrings.DESCRIPTIONS[0];
+        return powerStringsSet.getRightVersion().DESCRIPTIONS[0];
     }
 
     private enum IconSize {

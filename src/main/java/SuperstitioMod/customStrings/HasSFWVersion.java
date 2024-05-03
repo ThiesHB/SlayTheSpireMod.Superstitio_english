@@ -7,13 +7,21 @@ import SuperstitioMod.WordReplace;
 import java.util.Map;
 
 public interface HasSFWVersion {
+    void initialOrigin();
+
     static boolean ifReturnSFWVersion(String sfwSting) {
-        return SuperstitioModSetup.enableSFW && sfwSting != null && !sfwSting.isEmpty();
+        return SuperstitioModSetup.enableSFW && !isEmptyOrNull(sfwSting);
+    }
+    static boolean ifReturnSFWVersion(String[] sfwStings) {
+        return SuperstitioModSetup.enableSFW && !isEmptyOrNull(sfwStings);
+    }
+    static boolean isEmptyOrNull(String sfwStings) {
+        return sfwStings != null && !sfwStings.isEmpty();
+    }
+    static boolean isEmptyOrNull(String[] sfwStings) {
+        return sfwStings != null && sfwStings.length != 0;
     }
 
-    static boolean ifReturnSFWVersion(String[] sfwStings) {
-        return SuperstitioModSetup.enableSFW && sfwStings != null && sfwStings.length != 0;
-    }
 
     static <T extends HasSFWVersion> T getCustomStringsWithSFW(String keyName, Map<String, T> stringTMap, Class<T> tClass) throws InstantiationException, IllegalAccessException {
         if (stringTMap.containsKey(keyName)) {
@@ -22,12 +30,13 @@ public interface HasSFWVersion {
         else {
             Logger.info("[ERROR] " + tClass.getSimpleName() + ": " + keyName + " not found");
             T customStringsWithSFW = tClass.newInstance();
-            customStringsWithSFW.initialBlack();
+            customStringsWithSFW.initialSelfBlack();
+            customStringsWithSFW.initialOrigin();
             return customStringsWithSFW;
         }
     }
 
-    void initialBlack();
+    void initialSelfBlack();
 
     void setupSFWStringByWordReplace(WordReplace replaceRule);
 }

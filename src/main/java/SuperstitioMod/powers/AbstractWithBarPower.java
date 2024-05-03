@@ -54,13 +54,7 @@ public abstract class AbstractWithBarPower extends AbstractLupaPower implements 
     @Override
     public void update(int slot) {
         super.update(slot);
-        this.hitbox.update();
-        if (this.hitbox.hovered) {
-            TipHelper.renderGenericTip(this.hitbox.cX + 96.0F * Settings.scale,
-                    this.hitbox.cY + 64.0F * Settings.scale, this.name, this.description);
-        }
-
-        this.fontScale = MathHelper.scaleLerpSnap(this.fontScale, 0.7F);
+        update_showTips(this.hitbox);
     }
 
     @Override

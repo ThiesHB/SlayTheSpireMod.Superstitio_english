@@ -2,10 +2,12 @@ package SuperstitioMod.cards.Lupa.AttackCard;
 
 import SuperstitioMod.DataManager;
 import SuperstitioMod.cards.Lupa.AbstractLupaCard_FuckJob;
+import basemod.AutoAdd;
 import com.megacrit.cardcrawl.actions.AbstractGameAction;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 
+@AutoAdd.Ignore
 public class Job_Blow extends AbstractLupaCard_FuckJob {
     public static final String ID = DataManager.MakeTextID(Job_Blow.class.getSimpleName());
 
@@ -26,7 +28,7 @@ public class Job_Blow extends AbstractLupaCard_FuckJob {
 
     @Override
     public void use(AbstractPlayer player, AbstractMonster monster) {
-        addToBot_damageToEnemy(monster, AbstractGameAction.AttackEffect.SLASH_HORIZONTAL);
+        addToBot_damageToTarget(monster, AbstractGameAction.AttackEffect.SLASH_HORIZONTAL);
         AbstractLupaCard_FuckJob.addToTop_gainSexMark_Outside(this.cardStrings.getEXTENDED_DESCRIPTION()[0]);
     }
 

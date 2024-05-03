@@ -3,11 +3,11 @@ package SuperstitioMod.cards.Lupa.AttackCard;
 import SuperstitioMod.DataManager;
 import SuperstitioMod.actions.AutoDoneAction;
 import SuperstitioMod.cards.Lupa.AbstractLupaCard;
+import com.evacipated.cardcrawl.mod.stslib.cards.targeting.SelfOrEnemyTargeting;
 import com.megacrit.cardcrawl.actions.AbstractGameAction;
-import com.megacrit.cardcrawl.actions.common.DamageAction;
 import com.megacrit.cardcrawl.actions.common.RemoveSpecificPowerAction;
-import com.megacrit.cardcrawl.cards.DamageInfo;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
+import com.megacrit.cardcrawl.core.AbstractCreature;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import com.megacrit.cardcrawl.powers.LoseStrengthPower;
@@ -21,7 +21,7 @@ public class BellyStrike extends AbstractLupaCard {
 
     public static final CardRarity CARD_RARITY = CardRarity.UNCOMMON;
 
-    public static final CardTarget CARD_TARGET = CardTarget.SELF;
+    public static final CardTarget CARD_TARGET = SelfOrEnemyTargeting.SELF_OR_ENEMY;
 
     private static final int COST = 1;
     private static final int ATTACK_DMG = 12;
@@ -33,28 +33,22 @@ public class BellyStrike extends AbstractLupaCard {
         super(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET);
         this.setupDamage(ATTACK_DMG);
         this.tags.add(CardTags.STRIKE);
-        this.setTarget_SelfOrEnemy();
         this.setupMagicNumber(MAGIC_Number);
     }
 
     @Override
     public void use(AbstractPlayer player, AbstractMonster monster) {
-        if (this.isTargetSelf(monster)) {
-            addToBot_applyPowerToEnemy(new LoseStrengthPower(monster, magicNumber), monster);
-            addToBot(new DamageAction(AbstractDungeon.player, new DamageInfo(AbstractDungeon.player, this.damage),
-                    AbstractGameAction.AttackEffect.BLUNT_LIGHT));
-            addToBot_applyPowerToPlayer(new StrengthPower(monster, magicNumber));
-            AutoDoneAction.addToBotAbstract(() -> {
-                if (AbstractDungeon.player.lastDamageTaken > 0)
-                    this.addToBot(new RemoveSpecificPowerAction(AbstractDungeon.player, AbstractDungeon.player, LoseStrengthPower.POWER_ID));
-
-            });
-        }
-        else {
-            addToBot_applyPowerToEnemy(new LoseStrengthPower(monster, magicNumber), monster);
-            addToBot_damageToEnemy(monster, AbstractGameAction.AttackEffect.BLUNT_LIGHT);
-            addToBot_applyPowerToEnemy(new StrengthPower(monster, magicNumber), monster);
-        }
+        AbstractCreature target = SelfOrEnemyTargeting.getTarget(this);
+        if (target == null)
+            target = AbstractDungeon.player;
+        addToBot_applyPowerToTarget(new LoseStrengthPower(target, magicNumber), target);
+        addToBot_damageToTarget(target, AbstractGameAction.AttackEffect.BLUNT_LIGHT);
+        addToBot_applyPowerToTarget(new StrengthPower(target, magicNumber), target);
+        if (!target.isPlayer) return;
+        AutoDoneAction.addToBotAbstract(() -> {
+            if (AbstractDungeon.player.lastDamageTaken > 0)
+                this.addToBot(new RemoveSpecificPowerAction(AbstractDungeon.player, AbstractDungeon.player, LoseStrengthPower.POWER_ID));
+        });
     }
 
     @Override

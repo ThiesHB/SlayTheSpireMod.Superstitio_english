@@ -5,8 +5,7 @@ import com.megacrit.cardcrawl.actions.common.ApplyPowerAction;
 import com.megacrit.cardcrawl.core.AbstractCreature;
 
 public class SexMark_Outside extends SexMark {
-    public static final String POWER_ID = DataManager.MakeTextID(SexMark_Outside.class.getSimpleName() +
-            "Power");
+    public static final String POWER_ID = DataManager.MakeTextID(SexMark_Outside.class.getSimpleName());
     public static final int MARKNeeded = 5;
     public static final int TemporaryHPRate = 2;
 

@@ -6,13 +6,11 @@ import com.megacrit.cardcrawl.actions.common.ApplyPowerAction;
 import com.megacrit.cardcrawl.core.AbstractCreature;
 import com.megacrit.cardcrawl.powers.AbstractPower;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public class SexToy extends AbstractLupaPower {
-    public static final String POWER_ID = DataManager.MakeTextID(SexToy.class.getSimpleName() + "Power");
+    public static final String POWER_ID = DataManager.MakeTextID(SexToy.class.getSimpleName() );
     private static final int SEXUAL_HEAT_RATE = 1;
     public Map<String, Integer> sexToyNames;
 
@@ -27,10 +25,9 @@ public class SexToy extends AbstractLupaPower {
 
     @Override
     public void updateDescriptionArgs() {
-        List<Object> args = new ArrayList<>();
-        args.add(SEXUAL_HEAT_RATE);
-        this.sexToyNames.forEach((name, num) -> args.add(String.format(powerStrings.DESCRIPTIONS[1], name, num)));
-        setDescriptionArgs(args.toArray());
+        final String[] SexToysString = {""};
+        this.sexToyNames.forEach((name, num) -> SexToysString[0] += String.format(powerStringsSet.getRightVersion().DESCRIPTIONS[1], name, num));
+        setDescriptionArgs(SEXUAL_HEAT_RATE, SexToysString[0]);
     }
 
     @Override

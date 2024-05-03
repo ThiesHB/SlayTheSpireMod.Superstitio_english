@@ -6,7 +6,7 @@ import com.megacrit.cardcrawl.actions.common.RemoveSpecificPowerAction;
 import com.megacrit.cardcrawl.core.AbstractCreature;
 
 public class Overdraft extends AbstractLupaPower {
-    public static final String POWER_ID = DataManager.MakeTextID(Overdraft.class.getSimpleName() + "Power");
+    public static final String POWER_ID = DataManager.MakeTextID(Overdraft.class.getSimpleName() );
 
     public Overdraft(final AbstractCreature owner, int amount) {
         super(POWER_ID, owner, amount);

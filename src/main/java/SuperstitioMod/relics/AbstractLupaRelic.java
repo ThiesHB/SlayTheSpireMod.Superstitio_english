@@ -7,6 +7,7 @@ import basemod.abstracts.CustomRelic;
 import com.megacrit.cardcrawl.helpers.ImageMaster;
 
 public abstract class AbstractLupaRelic extends CustomRelic implements updateDescriptionAdvanced {
+    public static final String DEFAULT_RELIC = "default_relic";
     private Object[] descriptionArgs;
 
     public AbstractLupaRelic(String id, RelicTier relicTier, LandingSound landingSound) {
@@ -14,7 +15,7 @@ public abstract class AbstractLupaRelic extends CustomRelic implements updateDes
     }
 
     private static String makeImgPath(final String id) {
-        return DataManager.makeImgPath("default_relic", DataManager::makeImgFilesPath_Relic, id);
+        return DataManager.makeImgPath(DEFAULT_RELIC, DataManager::makeImgFilesPath_Relic, id);
     }
 
     @Override
@@ -24,6 +25,10 @@ public abstract class AbstractLupaRelic extends CustomRelic implements updateDes
         string = String.format(string, descriptionArgs);
         Logger.info(string);
         return string;
+    }
+
+    public int getCounter() {
+        return counter;
     }
 
     @Override

@@ -54,7 +54,7 @@
 
             <artifactId>stsLib</artifactId>
 
-            <version>1.10.0</version>
+            <version>2.11.0</version>
 
             <scope>system</scope>
 
@@ -68,7 +68,7 @@
 
             <artifactId>ModTheSpire</artifactId>
 
-            <version>2.6.0</version>
+            <version>3.24.0</version>
 
             <scope>system</scope>
 
@@ -122,7 +122,7 @@
                             <target>
 
                                 <copy file="target/${project.name}.jar"
-                                      tofile="D:/SteamLibrary/steamapps/common/SlayTheSpire/mods/${project.name}.jar"/>
+                                      tofile="C:/Program Files (x86)/Steam/steamapps/common/SlayTheSpire/mods/${project.name}.jar"/>
 
                             </target>
 

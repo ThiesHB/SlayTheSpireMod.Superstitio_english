@@ -31,8 +31,7 @@ public class ChoseCardFromGridSelectWindowAction extends ContinuallyAction {
 
     @Override
     protected void RunAction() {
-        if (AbstractDungeon.gridSelectScreen.selectedCards.isEmpty())
-            return;
+        if (AbstractDungeon.gridSelectScreen.selectedCards.isEmpty()) return;
         for (final AbstractCard c : AbstractDungeon.gridSelectScreen.selectedCards) {
             this.addToBot(gameActionMaker.apply(c));
         }

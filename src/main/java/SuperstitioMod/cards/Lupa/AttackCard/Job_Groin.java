@@ -4,6 +4,7 @@ import SuperstitioMod.DataManager;
 import SuperstitioMod.InBattleDataManager;
 import SuperstitioMod.cards.Lupa.AbstractLupaCard_FuckJob;
 import SuperstitioMod.powers.SexualHeat;
+import basemod.AutoAdd;
 import com.megacrit.cardcrawl.actions.AbstractGameAction;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
@@ -11,7 +12,7 @@ import com.megacrit.cardcrawl.monsters.AbstractMonster;
 
 import java.util.concurrent.atomic.AtomicInteger;
 
-//TODO
+@AutoAdd.Ignore
 public class Job_Groin extends AbstractLupaCard_FuckJob {
     public static final String ID = DataManager.MakeTextID(Job_Groin.class.getSimpleName());
 
@@ -61,7 +62,7 @@ public class Job_Groin extends AbstractLupaCard_FuckJob {
     @Override
     public void use(final AbstractPlayer player, final AbstractMonster monster) {
         this.calculateCardDamage(null);
-        addToBot_damageToEnemy(monster, AbstractGameAction.AttackEffect.BLUNT_HEAVY);
+        addToBot_damageToTarget(monster, AbstractGameAction.AttackEffect.BLUNT_HEAVY);
         AbstractLupaCard_FuckJob.addToTop_gainSexMark_Inside(this.name);
     }
 

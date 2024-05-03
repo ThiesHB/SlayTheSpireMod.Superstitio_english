@@ -6,66 +6,78 @@
 package SuperstitioMod.actions;
 
 import com.megacrit.cardcrawl.actions.AbstractGameAction;
-import com.megacrit.cardcrawl.actions.GameActionManager;
-import com.megacrit.cardcrawl.actions.common.DiscardSpecificCardAction;
 import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.cards.CardGroup;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.core.AbstractCreature;
-import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.core.Settings;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
-import com.megacrit.cardcrawl.localization.UIStrings;
 
 import java.util.function.Function;
 
 public class ChoseCardFromHandCardSelectScreen extends ContinuallyAction {
     public static int numDiscarded;
-    private final AbstractPlayer p;
+    private final AbstractPlayer player;
     private final Function<AbstractCard, AbstractGameAction> gameActionMaker;
     private final String windowText;
+    private final boolean anyNumber;
+    private final boolean canPickZero;
 
-    public ChoseCardFromHandCardSelectScreen(AbstractCreature source,String windowText, int choseAmount, Function<AbstractCard, AbstractGameAction> gameActionMaker) {
+    public ChoseCardFromHandCardSelectScreen(AbstractCreature source, String windowText, int choseAmount, Function<AbstractCard,
+            AbstractGameAction> gameActionMaker, boolean anyNumber, boolean canPickZero) {
         super(ActionType.DISCARD, Settings.ACTION_DUR_XFAST);
-        this.p = AbstractDungeon.player;
+        this.anyNumber = anyNumber;
+        this.canPickZero = canPickZero;
+        this.player = AbstractDungeon.player;
         this.windowText = windowText;
         this.gameActionMaker = gameActionMaker;
-        this.setValues(target, source, choseAmount);
+        this.target = player;
+        this.source = source;
+        this.amount = choseAmount;
+    }
+
+    public ChoseCardFromHandCardSelectScreen(AbstractCreature source, String windowText, int choseAmount, Function<AbstractCard,
+            AbstractGameAction> gameActionMaker, boolean anyNumber) {
+        this(source, windowText, choseAmount, gameActionMaker, anyNumber, false);
+    }
+
+    public ChoseCardFromHandCardSelectScreen(AbstractCreature source, String windowText, int choseAmount, Function<AbstractCard,
+            AbstractGameAction> gameActionMaker) {
+        this(source, windowText, choseAmount, gameActionMaker, false, false);
     }
 
     @Override
     protected void RunAction() {
         if (AbstractDungeon.handCardSelectScreen.wereCardsRetrieved) return;
-        for (AbstractCard card : AbstractDungeon.handCardSelectScreen.selectedCards.group) {
+        AbstractDungeon.handCardSelectScreen.selectedCards.group.forEach(card -> {
+            this.player.hand.addToTop(card);
             doAction(card);
-        }
+        });
         AbstractDungeon.handCardSelectScreen.wereCardsRetrieved = true;
+        AbstractDungeon.handCardSelectScreen.selectedCards.group.clear();
+        this.player.hand.refreshHandLayout();
     }
 
     @Override
     protected void ActionSetUp() {
-        if (AbstractDungeon.getMonsters().areMonstersBasicallyDead()) {
+        if (AbstractDungeon.getMonsters().areMonstersBasicallyDead() || this.amount <= 0) {
             this.isDone = true;
             return;
         }
 
-        if (this.p.hand.size() <= this.amount) {
-            CardGroup hand = this.p.hand;
+        if (this.player.hand.size() <= this.amount) {
+            CardGroup hand = this.player.hand;
             this.amount = hand.size();
             hand.group.forEach(this::doAction);
-        }
-        else if (this.amount < 0) {
-            AbstractDungeon.handCardSelectScreen.open(windowText, 99, true, true);
-        }
-        else {
+        } else {
             numDiscarded = this.amount;
-            if (this.p.hand.size() > this.amount)
-                AbstractDungeon.handCardSelectScreen.open(windowText, this.amount, false);
+            if (this.player.hand.size() > this.amount)
+                AbstractDungeon.handCardSelectScreen.open(windowText, this.amount, anyNumber, canPickZero);
         }
         AbstractDungeon.player.hand.applyPowers();
     }
 
-    private void doAction(AbstractCard c1) {
-        this.addToBot(this.gameActionMaker.apply(c1));
+    private void doAction(AbstractCard c) {
+        this.addToBot(this.gameActionMaker.apply(c));
     }
 }

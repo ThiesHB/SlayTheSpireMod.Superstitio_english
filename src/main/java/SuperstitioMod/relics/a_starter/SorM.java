@@ -1,7 +1,9 @@
-package SuperstitioMod.relics;
+package SuperstitioMod.relics.a_starter;
 
 import SuperstitioMod.DataManager;
 import SuperstitioMod.powers.SexualHeat;
+import SuperstitioMod.relics.AbstractLupaRelic;
+import basemod.AutoAdd;
 import basemod.abstracts.CustomSavable;
 import com.evacipated.cardcrawl.mod.stslib.relics.ClickableRelic;
 import com.megacrit.cardcrawl.actions.common.ApplyPowerAction;
@@ -12,10 +14,13 @@ import com.megacrit.cardcrawl.helpers.PowerTip;
 import com.megacrit.cardcrawl.rooms.AbstractRoom;
 
 /**
- * 右键点击切换S和M形态。S：每造成超过SadismModeRate的伤害获得一点快感。M：每受到超过MasochismModeRate的伤害获得一点快感。
+ * 右键点击切换S和M形态。
+ * S：每造成超过SadismModeRate的伤害获得一点快感。
+ * M：每受到超过MasochismModeRate的伤害获得一点快感。
  */
+@AutoAdd.Seen
 public class SorM extends AbstractLupaRelic implements ClickableRelic, CustomSavable<Integer> {
-    public static final String ID = DataManager.MakeTextID(SorM.class.getSimpleName() + "Relic");
+    public static final String ID = DataManager.MakeTextID(SorM.class.getSimpleName());
     // 遗物类型
     private static final RelicTier RELIC_TIER = RelicTier.SPECIAL;
     // 点击音效

@@ -2,21 +2,18 @@ package SuperstitioMod.cards.Lupa.SkillCard;
 
 import SuperstitioMod.DataManager;
 import SuperstitioMod.actions.AutoDoneAction;
-import SuperstitioMod.actions.ChoseCardFromGridSelectWindowAction;
 import SuperstitioMod.actions.ChoseCardFromHandCardSelectScreen;
 import SuperstitioMod.cards.Lupa.AbstractLupaCard;
 import basemod.cardmods.ExhaustMod;
 import basemod.helpers.CardModifierManager;
 import com.megacrit.cardcrawl.actions.AbstractGameAction;
-import com.megacrit.cardcrawl.actions.common.DiscardSpecificCardAction;
-import com.megacrit.cardcrawl.actions.common.ExhaustSpecificCardAction;
 import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 
-public class LetSpecificCardExhaust_TempName extends AbstractLupaCard {
-    public static final String ID = DataManager.MakeTextID(LetSpecificCardExhaust_TempName.class.getSimpleName());
+public class ZenState extends AbstractLupaCard {
+    public static final String ID = DataManager.MakeTextID(ZenState.class.getSimpleName());
 
     public static final CardType CARD_TYPE = CardType.SKILL;
 
@@ -29,7 +26,7 @@ public class LetSpecificCardExhaust_TempName extends AbstractLupaCard {
     private static final int BLOCK = 4;
     private static final int UPGRADE_BLOCK = 2;
     private static final int MAGICNumber = 1;
-    public LetSpecificCardExhaust_TempName() {
+    public ZenState() {
         super(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET);
         this.setupMagicNumber(MAGICNumber);
         this.setupBlock(BLOCK);
@@ -37,6 +34,7 @@ public class LetSpecificCardExhaust_TempName extends AbstractLupaCard {
 
     @Override
     public void use(AbstractPlayer player, AbstractMonster monster) {
+        this.addToBot_gainBlock();
         this.addToBot(new ChoseCardFromHandCardSelectScreen(
                 AbstractDungeon.player,
                 String.format(cardStrings.getEXTENDED_DESCRIPTION()[0], this.magicNumber),
@@ -45,7 +43,10 @@ public class LetSpecificCardExhaust_TempName extends AbstractLupaCard {
     }
 
     public AbstractGameAction letSpecificCardExhaust(AbstractCard card){
-        return AutoDoneAction.newAutoDone(()-> CardModifierManager.addModifier(card,new ExhaustMod()));
+        return AutoDoneAction.newAutoDone(()-> {
+            card.superFlash();
+            CardModifierManager.addModifier(card, new ExhaustMod());
+        });
     }
 
     @Override

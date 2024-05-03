@@ -43,14 +43,12 @@ public class UnBirth extends AbstractLupaCard {
             AutoDoneAction.addToBotAbstract(() ->
                     monster.powers.remove(power));
         });
-        AbstractCard card = new ReBirth(sealPower, monster);
-        if (this.upgraded)
-            card.upgrade();
-        addToBot_makeTempCardInBattle(card, BattleCardPlace.Hand);
+        addToBot_makeTempCardInBattle(new ReBirth(sealPower, monster), BattleCardPlace.Hand,upgraded);
     }
 
     @Override
     public void upgradeAuto() {
         upgradeBlock(UPGRADE_BLOCK);
+        cardsToPreview.upgrade();
     }
 }

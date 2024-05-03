@@ -6,7 +6,7 @@ import com.megacrit.cardcrawl.actions.common.RemoveSpecificPowerAction;
 import com.megacrit.cardcrawl.core.AbstractCreature;
 
 public class DelaySexualHeat extends AbstractLupaPower {
-    public static final String POWER_ID = DataManager.MakeTextID(DelaySexualHeat.class.getSimpleName() + "Power");
+    public static final String POWER_ID = DataManager.MakeTextID(DelaySexualHeat.class.getSimpleName() );
 
     public DelaySexualHeat(final AbstractCreature owner, int amount) {
         super(POWER_ID, owner, amount);

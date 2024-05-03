@@ -12,14 +12,13 @@ import com.evacipated.cardcrawl.mod.stslib.powers.interfaces.NonStackablePower;
 import com.megacrit.cardcrawl.actions.common.RemoveSpecificPowerAction;
 import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.core.AbstractCreature;
-import com.megacrit.cardcrawl.core.Settings;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
-import com.megacrit.cardcrawl.helpers.FontHelper;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.*;
 import java.util.function.Function;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 
@@ -60,37 +59,50 @@ public abstract class AllCardCostModifier extends AbstractLupaPower implements N
                         .ifPresent(AllCardCostModifier::activateEffect));
     }
 
-    public static <T extends AllCardCostModifier> void addToBot_AddNew(HasAllCardCostModifyEffect holder, int decreasedCost, int canUseAmount, Constructor<T> powerType) {
-        try {
-            ActionUtility.addToBot_applyPowerToPlayer(powerType.newInstance(AbstractDungeon.player, decreasedCost, canUseAmount, holder));
-        } catch (InstantiationException | IllegalAccessException | InvocationTargetException e) {
-            throw new RuntimeException(e);
-        }
+    public static <T extends AllCardCostModifier> void addToTop_AddNew(HasAllCardCostModifyEffect holder, int decreasedCost, int canUseAmount,
+                                                                       Constructor<T> powerType) throws InstantiationException,
+            IllegalAccessException, InvocationTargetException {
+        ActionUtility.addToTop_applyPowerToPlayer(powerType.newInstance(AbstractDungeon.player, decreasedCost, canUseAmount, holder));
     }
 
-    public static <T extends AllCardCostModifier> void addToBot_EditAmount_FirstByHolder(HasAllCardCostModifyEffect holder, int decreasedCost, int canUseAmount, Constructor<T> powerType) {
-        addToBot_EditAmount_FirstByHolder(holder, decreasedCost, power -> canUseAmount, powerType);
+    public static <T extends AllCardCostModifier> void addTo_Bot_EditAmount_Top_FirstByHolder(HasAllCardCostModifyEffect holder, int decreasedCost,
+                                                                                              int canUseAmount, Constructor<T> powerType) throws InvocationTargetException, InstantiationException, IllegalAccessException {
+        addTo_Bot_EditAmount_Top_FirstByHolder(holder, decreasedCost, power -> canUseAmount, powerType);
     }
 
-    public static <T extends AllCardCostModifier> void addToBot_EditAmount_FirstByHolder(
-            HasAllCardCostModifyEffect holder, int decreasedCost, Function<Optional<AllCardCostModifier>, Integer> canUseAmountProcessor, Constructor<T> powerType) {
+    public static <T extends AllCardCostModifier> void addTo_Bot_EditAmount_Top_FirstByHolder(
+            HasAllCardCostModifyEffect holder, int decreasedCost, Function<Optional<AllCardCostModifier>, Integer> canUseAmountProcessor,
+            Constructor<T> powerType) throws InvocationTargetException, InstantiationException, IllegalAccessException {
         AllCardCostModifier allCardCostModifier = getAllByHolder(holder).findAny().orElse(null);
         if (allCardCostModifier == null) {
-            addToBot_AddNew(holder, decreasedCost, canUseAmountProcessor.apply(Optional.empty()), powerType);
+            addToTop_AddNew(holder, decreasedCost, canUseAmountProcessor.apply(Optional.empty()), powerType);
             return;
         }
         final AllCardCostModifier finalAllCardCostModifier = allCardCostModifier;
         AutoDoneAction.addToBotAbstract(() -> {
             finalAllCardCostModifier.amount = canUseAmountProcessor.apply(Optional.of(finalAllCardCostModifier));
             finalAllCardCostModifier.decreasedCost = decreasedCost;
+            finalAllCardCostModifier.updateDescription();
+        });
+    }
+
+    public static <T extends AllCardCostModifier> void CombineAllByHolder(HasAllCardCostModifyEffect aimHolder, Class<T> tClass) {
+        List<AllCardCostModifier> cardCostModifier = getAllByHolder(aimHolder).filter(power -> power.amount >= 0)
+                .filter(power -> power.getClass() == tClass).collect(Collectors.toList());
+        int minOrderByHolder = cardCostModifier.stream().map(power -> power.order).min(Integer::compareTo).orElse(0);
+        cardCostModifier.stream().filter(power -> power.order == minOrderByHolder).findFirst().ifPresent(power -> {
+            int decreasedCost = cardCostModifier.stream().mapToInt(power2 -> power2.decreasedCost).max().orElse(0);
+            int totalEnergy = cardCostModifier.stream().mapToInt(power2 -> power2.amount).sum();
+            power.decreasedCost = decreasedCost;
+            power.amount = totalEnergy;
+            cardCostModifier.stream().filter(power2 -> power2.order != power.order).forEach(AllCardCostModifier::removeSelf);
         });
     }
 
     @Override
     public void renderAmount(SpriteBatch sb, float x, float y, Color c) {
         super.renderAmount(sb, x, y, c);
-        if (this.decreasedCost <= 0) return;
-        FontHelper.renderFontRightTopAligned(sb, FontHelper.powerAmountFont, Integer.toString(this.decreasedCost), x, y + 15.0F * Settings.scale, this.fontScale, c);
+        renderAmount2(sb, x, y, c, decreasedCost);
     }
 
     public boolean ifIsTheMinOrder() {

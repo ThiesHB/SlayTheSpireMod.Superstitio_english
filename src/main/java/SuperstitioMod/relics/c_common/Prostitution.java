@@ -1,13 +1,15 @@
-package SuperstitioMod.relics;
+package SuperstitioMod.relics.c_common;
 
 import SuperstitioMod.DataManager;
 import SuperstitioMod.cards.Lupa.AbstractLupaCard_FuckJob;
+import SuperstitioMod.relics.AbstractLupaRelic;
+import SuperstitioMod.relics.interFace.Countup;
 import com.megacrit.cardcrawl.actions.utility.UseCardAction;
 import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 
-public class Prostitution extends AbstractLupaRelic {
-    public static final String ID = DataManager.MakeTextID(Prostitution.class.getSimpleName() + "Relic");
+public class Prostitution extends AbstractLupaRelic implements Countup {
+    public static final String ID = DataManager.MakeTextID(Prostitution.class.getSimpleName());
     // 遗物类型
     private static final RelicTier RELIC_TIER = RelicTier.COMMON;
     // 点击音效
@@ -17,31 +19,31 @@ public class Prostitution extends AbstractLupaRelic {
 
     public Prostitution() {
         super(ID, RELIC_TIER, LANDING_SOUND);
-        this.counter = 0;
+    }
+
+    @Override
+    public void atBattleStart() {
+        setCounter(Countup.Zero);
     }
 
     @Override
     public void onUseCard(AbstractCard targetCard, UseCardAction useCardAction) {
         if (targetCard instanceof AbstractLupaCard_FuckJob)
-            checkPay();
-    }
-
-    private void checkPay() {
-        ++this.counter;
-        if (this.counter == SexAmount) {
-            this.counter = 0;
-            this.flash();
-            this.pulse = false;
-            AbstractDungeon.player.gainGold(CashAmount);
-        }
-        else if (this.counter == SexAmount - 1) {
-            this.beginPulse();
-            this.pulse = true;
-        }
+            CountAdd();
     }
 
     @Override
     public void updateDescriptionArgs() {
         setDescriptionArgs(SexAmount, CashAmount);
+    }
+
+    @Override
+    public void onCountMax() {
+        AbstractDungeon.player.gainGold(CashAmount);
+    }
+
+    @Override
+    public int getMaxNum() {
+        return SexAmount;
     }
 }

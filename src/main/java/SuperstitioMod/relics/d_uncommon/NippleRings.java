@@ -1,15 +1,16 @@
-package SuperstitioMod.relics;
+package SuperstitioMod.relics.d_uncommon;
 
 import SuperstitioMod.DataManager;
 import SuperstitioMod.powers.SexualHeat;
 import SuperstitioMod.powers.interFace.OnOrgasm.OnOrgasm_afterOrgasm;
+import SuperstitioMod.relics.AbstractLupaRelic;
 import com.megacrit.cardcrawl.actions.common.ApplyPowerAction;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.powers.LoseStrengthPower;
 import com.megacrit.cardcrawl.powers.StrengthPower;
 
 public class NippleRings extends AbstractLupaRelic implements OnOrgasm_afterOrgasm {
-    public static final String ID = DataManager.MakeTextID(NippleRings.class.getSimpleName() + "Relic");
+    public static final String ID = DataManager.MakeTextID(NippleRings.class.getSimpleName());
     // 遗物类型
     private static final RelicTier RELIC_TIER = RelicTier.UNCOMMON;
     // 点击音效

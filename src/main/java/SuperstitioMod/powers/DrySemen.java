@@ -7,7 +7,7 @@ import com.megacrit.cardcrawl.core.AbstractCreature;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 
 public class DrySemen extends AbstractLupaPower {
-    public static final String POWER_ID = DataManager.MakeTextID(DrySemen.class.getSimpleName() + "Power");
+    public static final String POWER_ID = DataManager.MakeTextID(DrySemen.class.getSimpleName() );
 
     public DrySemen(final AbstractCreature owner, int amount) {
         super(POWER_ID, owner, amount);

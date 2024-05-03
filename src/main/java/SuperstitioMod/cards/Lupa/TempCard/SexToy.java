@@ -3,7 +3,9 @@ package SuperstitioMod.cards.Lupa.TempCard;
 import SuperstitioMod.DataManager;
 import SuperstitioMod.cards.Lupa.AbstractLupaCard_TempCard;
 import SuperstitioMod.utils.CardUtility;
+import com.evacipated.cardcrawl.mod.stslib.cards.targeting.SelfOrEnemyTargeting;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
+import com.megacrit.cardcrawl.core.AbstractCreature;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 
@@ -17,8 +19,8 @@ public class SexToy extends AbstractLupaCard_TempCard {
 
     public static final CardRarity CARD_RARITY = CardRarity.SPECIAL;
 
-    public static final CardTarget CARD_TARGET = CardTarget.SELF;
-    private static final int COST = 1;
+    public static final CardTarget CARD_TARGET = SelfOrEnemyTargeting.SELF_OR_ENEMY;
+    private static final int COST = 0;
     private static final int MagicNumber = 2;
     private static final int UPGRADE_MagicNumber = 1;
 
@@ -27,7 +29,6 @@ public class SexToy extends AbstractLupaCard_TempCard {
     public SexToy() {
         super(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET);
         this.setupMagicNumber(MagicNumber);
-        this.setTarget_SelfOrEnemy();
     }
 
     public static String getRandomSexToyName() {
@@ -36,15 +37,12 @@ public class SexToy extends AbstractLupaCard_TempCard {
 
     @Override
     public void use(AbstractPlayer player, AbstractMonster monster) {
-        int bound = this.magicNumber;
-        if (this.isTargetSelf(monster)) {
-            IntStream.range(0, bound).forEach(i ->
-                    addToBot_applyPowerToPlayer(new SuperstitioMod.powers.SexToy(AbstractDungeon.player, 1, getRandomSexToyName())));
-        }
-        else {
-            IntStream.range(0, bound).forEach(i ->
-                    addToBot_applyPowerToEnemy(new SuperstitioMod.powers.SexToy(monster, 1, getRandomSexToyName()), monster));
-        }
+        AbstractCreature target = SelfOrEnemyTargeting.getTarget(this);
+        if (target == null)
+            target = AbstractDungeon.player;
+        AbstractCreature finalTarget = target;
+        IntStream.range(0, this.magicNumber).forEach(i ->
+                addToBot_applyPowerToTarget(new SuperstitioMod.powers.SexToy(finalTarget, 1, getRandomSexToyName()), finalTarget));
     }
 
 //    @Override

@@ -3,13 +3,16 @@ package SuperstitioMod;
 import SuperstitioMod.cards.Lupa.AbstractLupaCard;
 import SuperstitioMod.characters.Lupa;
 import SuperstitioMod.customStrings.CardStringsWithSFWAndFlavor;
-import SuperstitioMod.customStrings.PowerStringsWithSFW;
-import SuperstitioMod.relics.Sensitive;
+import SuperstitioMod.customStrings.DamageModifierWithSFW;
+import SuperstitioMod.customStrings.PowerStringsSet;
+import SuperstitioMod.relics.AbstractLupaRelic;
 import basemod.*;
 import basemod.abstracts.CustomRelic;
 import basemod.interfaces.*;
 import com.badlogic.gdx.graphics.Texture;
 import com.evacipated.cardcrawl.mod.stslib.Keyword;
+import com.evacipated.cardcrawl.mod.stslib.cards.targeting.SelfOrEnemyTargeting;
+import com.evacipated.cardcrawl.mod.stslib.patches.CustomTargeting;
 import com.evacipated.cardcrawl.modthespire.lib.SpireConfig;
 import com.evacipated.cardcrawl.modthespire.lib.SpireEnum;
 import com.evacipated.cardcrawl.modthespire.lib.SpireInitializer;
@@ -19,12 +22,8 @@ import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.core.Settings;
 import com.megacrit.cardcrawl.helpers.CardLibrary;
 import com.megacrit.cardcrawl.helpers.FontHelper;
-import com.megacrit.cardcrawl.helpers.GameDictionary;
 import com.megacrit.cardcrawl.helpers.ImageMaster;
-import com.megacrit.cardcrawl.localization.CharacterStrings;
-import com.megacrit.cardcrawl.localization.LocalizedStrings;
-import com.megacrit.cardcrawl.localization.RelicStrings;
-import com.megacrit.cardcrawl.localization.UIStrings;
+import com.megacrit.cardcrawl.localization.*;
 import com.megacrit.cardcrawl.unlock.UnlockTracker;
 
 import java.util.*;
@@ -46,7 +45,8 @@ public class SuperstitioModSetup implements
         BaseMod.subscribe(this);
         SuperstitioModSetup.theDefaultDefaultSettings.setProperty(ENABLE_NSFW_STRING, "TRUE");
         try {
-            SuperstitioModSetup.config = new SpireConfig(DataManager.getModID(), DataManager.getModID() + "Config", SuperstitioModSetup.theDefaultDefaultSettings);
+            SuperstitioModSetup.config = new SpireConfig(DataManager.getModID(), DataManager.getModID() + "Config",
+                    SuperstitioModSetup.theDefaultDefaultSettings);
             SuperstitioModSetup.config.load();
             SuperstitioModSetup.enableSFW = SuperstitioModSetup.config.getBool(ENABLE_NSFW_STRING);
         } catch (Exception e) {
@@ -55,14 +55,18 @@ public class SuperstitioModSetup implements
 
         // 这里注册颜色
         BaseMod.addColor(LupaEnums.LUPA_CARD,
-                DataManager.LUPA_DATA.LUPA_COLOR, DataManager.LUPA_DATA.LUPA_COLOR, DataManager.LUPA_DATA.LUPA_COLOR, DataManager.LUPA_DATA.LUPA_COLOR, DataManager.LUPA_DATA.LUPA_COLOR, DataManager.LUPA_DATA.LUPA_COLOR, DataManager.LUPA_DATA.LUPA_COLOR,
+                DataManager.LUPA_DATA.LUPA_COLOR, DataManager.LUPA_DATA.LUPA_COLOR, DataManager.LUPA_DATA.LUPA_COLOR,
+                DataManager.LUPA_DATA.LUPA_COLOR, DataManager.LUPA_DATA.LUPA_COLOR, DataManager.LUPA_DATA.LUPA_COLOR,
+                DataManager.LUPA_DATA.LUPA_COLOR,
                 data.lupaData.BG_ATTACK_512, data.lupaData.BG_SKILL_512, data.lupaData.BG_POWER_512,
                 data.lupaData.ENERGY_ORB,
                 data.lupaData.BG_ATTACK_1024, data.lupaData.BG_SKILL_1024, data.lupaData.BG_POWER_1024,
                 data.lupaData.BIG_ORB, data.lupaData.SMALL_ORB);
 
         BaseMod.addColor(TempCardEnums.LUPA_TempCard_CARD,
-                DataManager.LUPA_DATA.LUPA_COLOR, DataManager.LUPA_DATA.LUPA_COLOR, DataManager.LUPA_DATA.LUPA_COLOR, DataManager.LUPA_DATA.LUPA_COLOR, DataManager.LUPA_DATA.LUPA_COLOR, DataManager.LUPA_DATA.LUPA_COLOR, DataManager.LUPA_DATA.LUPA_COLOR,
+                DataManager.LUPA_DATA.LUPA_COLOR, DataManager.LUPA_DATA.LUPA_COLOR, DataManager.LUPA_DATA.LUPA_COLOR,
+                DataManager.LUPA_DATA.LUPA_COLOR, DataManager.LUPA_DATA.LUPA_COLOR, DataManager.LUPA_DATA.LUPA_COLOR,
+                DataManager.LUPA_DATA.LUPA_COLOR,
                 data.lupaData.BG_ATTACK_512, data.lupaData.BG_SKILL_512, data.lupaData.BG_POWER_512,
                 data.lupaData.ENERGY_ORB,
                 data.lupaData.BG_ATTACK_1024, data.lupaData.BG_SKILL_1024, data.lupaData.BG_POWER_1024,
@@ -74,6 +78,7 @@ public class SuperstitioModSetup implements
 
     public static void initialize() {
         new SuperstitioModSetup();
+        DataManager.initializeTypeMaps();
     }
 
     @Override
@@ -99,12 +104,12 @@ public class SuperstitioModSetup implements
     @Override
     public void receiveEditRelics() {
         new AutoAdd(MOD_NAME.toLowerCase())
-                .packageFilter(Sensitive.class)
+                .packageFilter(AbstractLupaRelic.class)
                 .any(CustomRelic.class, (info, relic) -> {
                     BaseMod.addRelicToCustomPool(relic, LupaEnums.LUPA_CARD);
-                    if (info.seen) {
-                        UnlockTracker.markRelicAsSeen(relic.relicId);
-                    }
+//                    if (info.seen) {
+                    UnlockTracker.markRelicAsSeen(relic.relicId);
+//                    }
                 });
     }
 
@@ -112,10 +117,11 @@ public class SuperstitioModSetup implements
     public void receiveEditStrings() {
         Logger.info("Beginning to edit strings for mod with ID: " + DataManager.getModID());
         DataManager.loadCustomStringsFile("card_Lupa", DataManager.cards, CardStringsWithSFWAndFlavor.class);
+        DataManager.loadCustomStringsFile("damage_modifier", DataManager.damage_modifiers, DamageModifierWithSFW.class);
         BaseMod.loadCustomStringsFile(CharacterStrings.class,
                 DataManager.makeLocalizationPath(Settings.language, enableSFW ? "character_LupaSFW" : "character_Lupa"));
         BaseMod.loadCustomStringsFile(RelicStrings.class, DataManager.makeLocalizationPath(Settings.language, "relic_Lupa"));
-        DataManager.loadCustomStringsFile("power", DataManager.powers, PowerStringsWithSFW.class);
+        DataManager.loadCustomStringsFile("power", DataManager.powers, PowerStringsSet.class);
 //        BaseMod.loadCustomStringsFile(EventStrings.class, makeLocPath(Settings.language,"event"));
 //        BaseMod.loadCustomStringsFile(PotionStrings.class, makeLocPath(Settings.language,"potion"));
 //        BaseMod.loadCustomStringsFile(OrbStrings.class, makeLocPath(Settings.language,"orb"));
@@ -133,6 +139,7 @@ public class SuperstitioModSetup implements
         for (WordReplace wordReplace : wordReplaces) {
             DataManager.cards.forEach((string, card) -> card.setupSFWStringByWordReplace(wordReplace));
             DataManager.powers.forEach(((string, power) -> power.setupSFWStringByWordReplace(wordReplace)));
+            DataManager.damage_modifiers.forEach(((string, power) -> power.setupSFWStringByWordReplace(wordReplace)));
         }
     }
 
@@ -140,15 +147,18 @@ public class SuperstitioModSetup implements
         Map<String, RelicStrings> relicsStrings = ReflectionHacks.getPrivateStatic(LocalizedStrings.class, "relics");
 
         List<WordReplace> wordReplaces = makeWordReplaceRule();
-
-        for (WordReplace wordReplace : wordReplaces)
-            relicsStrings.forEach((s, Strings) -> DataManager.replaceStringsInObj(Strings, wordReplace));
+        relicsStrings.forEach((s, Strings) -> {
+            if (!s.contains(DataManager.getModID().toLowerCase())) return;
+            Strings.FLAVOR = "";
+            wordReplaces.forEach(wordReplace -> DataManager.replaceStringsInObj(Strings, wordReplace));
+        });
 
         ReflectionHacks.setPrivateStaticFinal(LocalizedStrings.class, "relics", relicsStrings);
     }
 
     private List<WordReplace> makeWordReplaceRule() {
-        List<WordReplace> sfwReplaces = Arrays.stream(DataManager.makeJsonStringFromFile("SFW_replace", WordReplace[].class)).collect(Collectors.toList());
+        List<WordReplace> sfwReplaces =
+                Arrays.stream(DataManager.makeJsonStringFromFile("SFW_replace", WordReplace[].class)).collect(Collectors.toList());
         if (DataManager.cards != null && !DataManager.cards.isEmpty())
             sfwReplaces.addAll(CardStringsWithSFWAndFlavor.makeCardNameReplaceRules(new ArrayList<>(DataManager.cards.values())));
         return sfwReplaces;
@@ -176,6 +186,11 @@ public class SuperstitioModSetup implements
 
     @Override
     public void receivePostInitialize() {
+//        CustomTargeting.registerCustomTargeting(SelfOrEnemyTargeting.SELF_OR_ENEMY, new SelfOrEnemyTargeting());
+        setUpModOptions();
+    }
+
+    private static void setUpModOptions() {
         Logger.info("Loading badge image and mod options");
         final Texture badgeTexture = ImageMaster.loadImage(DataManager.makeImgFilesPath_UI("ModIcon"));
         final ModPanel settingsPanel = new ModPanel();

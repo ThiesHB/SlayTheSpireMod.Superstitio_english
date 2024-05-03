@@ -9,7 +9,7 @@ import com.megacrit.cardcrawl.actions.common.LoseHPAction;
 import com.megacrit.cardcrawl.core.AbstractCreature;
 
 public class ChokeChoker extends AbstractLupaPower implements NonStackablePower, OnOrgasm_afterOrgasm {
-    public static final String POWER_ID = DataManager.MakeTextID(ChokeChoker.class.getSimpleName() + "Power");
+    public static final String POWER_ID = DataManager.MakeTextID(ChokeChoker.class.getSimpleName() );
     public static final int ChokeAmount = 1;
 
     public ChokeChoker(final AbstractCreature owner, int amount) {

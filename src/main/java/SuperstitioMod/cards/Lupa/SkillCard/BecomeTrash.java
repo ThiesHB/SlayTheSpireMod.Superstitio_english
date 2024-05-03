@@ -9,8 +9,8 @@ import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 
-public class Omniscience_TempName extends AbstractLupaCard {
-    public static final String ID = DataManager.MakeTextID(Omniscience_TempName.class.getSimpleName());
+public class BecomeTrash extends AbstractLupaCard {
+    public static final String ID = DataManager.MakeTextID(BecomeTrash.class.getSimpleName());
 
     public static final AbstractCard.CardType CARD_TYPE = AbstractCard.CardType.SKILL;
 
@@ -22,7 +22,7 @@ public class Omniscience_TempName extends AbstractLupaCard {
     private static final int MAGICNumber = 4;
     private static final int UPGRADE_MagicNumber = 2;
 
-    public Omniscience_TempName() {
+    public BecomeTrash() {
         super(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET);
         this.setupMagicNumber(MAGICNumber);
         this.exhaust = true;
