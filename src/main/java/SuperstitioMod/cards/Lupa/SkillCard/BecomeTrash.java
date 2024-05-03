@@ -31,11 +31,11 @@ public class BecomeTrash extends AbstractLupaCard {
     @Override
     public void use(AbstractPlayer player, AbstractMonster monster) {
         this.addToBot(new ChoseCardFromGridSelectWindowAction(
-                this.magicNumber,
-                AbstractDungeon.player.drawPile,
-                String.format(cardStrings.getEXTENDED_DESCRIPTION()[0], this.magicNumber),
-                card -> new ExhaustSpecificCardAction(card, AbstractDungeon.player.drawPile),
-                true));
+                AbstractDungeon.player.drawPile, card -> new ExhaustSpecificCardAction(card, AbstractDungeon.player.drawPile))
+                .setWindowText(String.format(getEXTENDED_DESCRIPTION()[0], this.magicNumber))
+                .setAnyNumber(true)
+                .setChoseAmount(this.magicNumber)
+        );
     }
 
     @Override

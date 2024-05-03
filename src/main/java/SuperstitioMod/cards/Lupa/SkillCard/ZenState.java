@@ -9,7 +9,6 @@ import basemod.helpers.CardModifierManager;
 import com.megacrit.cardcrawl.actions.AbstractGameAction;
 import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
-import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 
 public class ZenState extends AbstractLupaCard {
@@ -26,6 +25,7 @@ public class ZenState extends AbstractLupaCard {
     private static final int BLOCK = 4;
     private static final int UPGRADE_BLOCK = 2;
     private static final int MAGICNumber = 1;
+
     public ZenState() {
         super(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET);
         this.setupMagicNumber(MAGICNumber);
@@ -36,14 +36,15 @@ public class ZenState extends AbstractLupaCard {
     public void use(AbstractPlayer player, AbstractMonster monster) {
         this.addToBot_gainBlock();
         this.addToBot(new ChoseCardFromHandCardSelectScreen(
-                AbstractDungeon.player,
-                String.format(cardStrings.getEXTENDED_DESCRIPTION()[0], this.magicNumber),
-                this.magicNumber,
-                this::letSpecificCardExhaust));
+                this::letSpecificCardExhaust)
+                .setWindowText(String.format(getEXTENDED_DESCRIPTION()[0], this.magicNumber))
+                .setChoiceAmount(this.magicNumber)
+                .setRetainFilter(card -> !card.exhaust && !CardModifierManager.hasModifier(card, ExhaustMod.ID))
+        );
     }
 
-    public AbstractGameAction letSpecificCardExhaust(AbstractCard card){
-        return AutoDoneAction.newAutoDone(()-> {
+    public AbstractGameAction letSpecificCardExhaust(AbstractCard card) {
+        return AutoDoneAction.newAutoDone(() -> {
             card.superFlash();
             CardModifierManager.addModifier(card, new ExhaustMod());
         });

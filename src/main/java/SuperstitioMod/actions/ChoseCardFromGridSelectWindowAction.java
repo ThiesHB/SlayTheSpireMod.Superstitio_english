@@ -6,27 +6,45 @@ import com.megacrit.cardcrawl.cards.CardGroup;
 import com.megacrit.cardcrawl.core.Settings;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 
+import java.util.Arrays;
 import java.util.function.Function;
+import java.util.function.Predicate;
 
 public class ChoseCardFromGridSelectWindowAction extends ContinuallyAction {
-    private final String windowText;
     private final Function<AbstractCard, AbstractGameAction> gameActionMaker;
-    private final boolean anyNumber;
-    private final int choseAmount;
     private final CardGroup cardGroup;
+    private String windowText = "";
+    private boolean anyNumber = false;
+    private Predicate<AbstractCard> retainFilter = card -> false;
 
     public ChoseCardFromGridSelectWindowAction(
-            int choseAmount,
             final CardGroup cardGroup,
-            String WindowText,
-            Function<AbstractCard, AbstractGameAction> GameActionMaker,
-            boolean anyNumber) {
-        super(AbstractGameAction.ActionType.CARD_MANIPULATION, Settings.ACTION_DUR_FAST);
-        this.choseAmount = choseAmount;
+            Function<AbstractCard, AbstractGameAction> GameActionMaker) {
+        super(ActionType.CARD_MANIPULATION, Settings.ACTION_DUR_FAST);
         this.cardGroup = cardGroup;
-        this.windowText = WindowText;
         this.gameActionMaker = GameActionMaker;
+        this.amount = 1;
+    }
+
+    public ChoseCardFromGridSelectWindowAction setAnyNumber(boolean anyNumber) {
         this.anyNumber = anyNumber;
+        return this;
+    }
+
+    @SafeVarargs
+    public final ChoseCardFromGridSelectWindowAction setRetainFilter(Predicate<AbstractCard>... filters) {
+        Arrays.stream(filters).forEach(abstractCardPredicate -> this.retainFilter = this.retainFilter.or(abstractCardPredicate));
+        return this;
+    }
+
+    public ChoseCardFromGridSelectWindowAction setWindowText(String windowText) {
+        this.windowText = windowText;
+        return this;
+    }
+
+    public ChoseCardFromGridSelectWindowAction setChoseAmount(int choseAmount) {
+        this.amount = choseAmount;
+        return this;
     }
 
     @Override
@@ -46,9 +64,9 @@ public class ChoseCardFromGridSelectWindowAction extends ContinuallyAction {
             return;
         }
         final CardGroup temp = new CardGroup(CardGroup.CardGroupType.UNSPECIFIED);
-        cardGroup.group.forEach(temp::addToTop);
+        cardGroup.group.stream().filter(this.retainFilter).forEach(temp::addToTop);
         temp.sortAlphabetically(true);
         temp.sortByRarityPlusStatusCardType(false);
-        AbstractDungeon.gridSelectScreen.open(temp, choseAmount, anyNumber, windowText);
+        AbstractDungeon.gridSelectScreen.open(temp, amount, anyNumber, windowText);
     }
 }

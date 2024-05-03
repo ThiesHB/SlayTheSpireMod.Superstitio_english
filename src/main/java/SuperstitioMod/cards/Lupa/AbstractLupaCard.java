@@ -8,9 +8,8 @@ import SuperstitioMod.customStrings.CardStringsWithSFWAndFlavor;
 import SuperstitioMod.customStrings.HasSFWVersion;
 import SuperstitioMod.powers.AllCardCostModifier;
 import basemod.abstracts.CustomCard;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.evacipated.cardcrawl.modthespire.lib.SpirePatch;
-import com.evacipated.cardcrawl.modthespire.lib.SpirePostfixPatch;
+import com.badlogic.gdx.graphics.Color;
+import com.evacipated.cardcrawl.mod.stslib.patches.FlavorText;
 import com.megacrit.cardcrawl.actions.common.*;
 import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.cards.DamageInfo;
@@ -18,12 +17,9 @@ import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.core.AbstractCreature;
 import com.megacrit.cardcrawl.core.Settings;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
-import com.megacrit.cardcrawl.helpers.FontHelper;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import com.megacrit.cardcrawl.powers.AbstractPower;
-import com.megacrit.cardcrawl.screens.SingleCardViewPopup;
 
-import java.lang.reflect.Field;
 import java.util.Optional;
 
 import static com.megacrit.cardcrawl.actions.AbstractGameAction.AttackEffect;
@@ -73,6 +69,10 @@ public abstract class AbstractLupaCard extends CustomCard {
                 cardTarget);
         Logger.info("loadCard" + id);
         this.cardStrings = getCardStringsWithSFWAndFlavor(id);
+        FlavorText.AbstractCardFlavorFields.flavor.set(this, this.cardStrings.getFLAVOR());
+//        FlavorText.AbstractCardFlavorFields.boxColor.set(this, Color.DARK_GRAY.cpy());
+        FlavorText.AbstractCardFlavorFields.textColor.set(this, Color.PINK.cpy());
+        FlavorText.AbstractCardFlavorFields.flavorBoxType.set(this, FlavorText.boxType.TRADITIONAL);
     }
 
     public static CardStringsWithSFWAndFlavor getCardStringsWithSFWAndFlavor(String cardName) {
@@ -112,17 +112,6 @@ public abstract class AbstractLupaCard extends CustomCard {
             }
         }
         return type;
-    }
-
-    private static void renderFlavor(final SpriteBatch sb, AbstractLupaCard card) {
-        String flavorText = card.cardStrings.getFLAVOR();
-        if (flavorText != null) {
-            FontHelper.renderWrappedText(sb, FontHelper.SRV_quoteFont, flavorText, Settings.WIDTH / 2.0f,
-                    Settings.HEIGHT / 2.0f - 430.0f * Settings.scale, DESC_LINE_WIDTH, Settings.CREAM_COLOR, 1.0f);
-        } else {
-            FontHelper.renderWrappedText(sb, FontHelper.SRV_quoteFont, "\"Missing quote...\"", Settings.WIDTH / 2.0f,
-                    Settings.HEIGHT / 2.0f - 430.0f * Settings.scale, DESC_LINE_WIDTH, Settings.CREAM_COLOR, 1.0f);
-        }
     }
 
     public static void addToBot_makeTempCardInBattle(AbstractCard card, BattleCardPlace battleCardPlace, int amount) {
@@ -173,6 +162,10 @@ public abstract class AbstractLupaCard extends CustomCard {
             this.upgradeAuto();
             this.initializeDescription();
         }
+    }
+
+    public String[] getEXTENDED_DESCRIPTION() {
+        return cardStrings.getEXTENDED_DESCRIPTION();
     }
 
     public abstract void upgradeAuto();
@@ -259,35 +252,6 @@ public abstract class AbstractLupaCard extends CustomCard {
         Discard;
 
         BattleCardPlace() {
-        }
-    }
-
-    @SpirePatch(
-            clz = SingleCardViewPopup.class,
-            method = "render",
-            paramtypez = {
-                    SpriteBatch.class,
-            }
-    )
-    public static class CardRenderPatch {
-        @SpirePostfixPatch
-        public static void Postfix(SingleCardViewPopup __instance, SpriteBatch sb) {
-            Field privateField;
-            try {
-                privateField = SingleCardViewPopup.class.getDeclaredField("card");
-            } catch (NoSuchFieldException e) {
-                return;
-            }
-            privateField.setAccessible(true); // 允许访问私有字段
-            AbstractCard fieldValue; // 获得私有字段值
-            try {
-                fieldValue = (AbstractCard) privateField.get(__instance);
-            } catch (IllegalAccessException e) {
-                return;
-            }
-            if (fieldValue instanceof AbstractLupaCard) {
-                renderFlavor(sb, (AbstractLupaCard) fieldValue);
-            }
         }
     }
 }

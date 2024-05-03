@@ -30,7 +30,7 @@ public class Job_Foot extends AbstractLupaCard_FuckJob {
     public void use(AbstractPlayer player, AbstractMonster monster) {
         addToBot_damageToTarget(monster, AbstractGameAction.AttackEffect.BLUNT_LIGHT);
         addToBot_damageToTarget(monster, AbstractGameAction.AttackEffect.BLUNT_LIGHT);
-        AbstractLupaCard_FuckJob.addToTop_gainSexMark_Outside(this.cardStrings.getEXTENDED_DESCRIPTION()[0]);
+        AbstractLupaCard_FuckJob.addToTop_gainSexMark_Outside(this.getEXTENDED_DESCRIPTION()[0]);
     }
 
     @Override

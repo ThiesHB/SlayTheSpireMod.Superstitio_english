@@ -4,7 +4,7 @@ import SuperstitioMod.WordReplace;
 import com.megacrit.cardcrawl.localization.LocalizedStrings;
 import com.megacrit.cardcrawl.localization.PowerStrings;
 
-public class PowerStringsSet implements HasSFWVersion {
+public class PowerStringsSet implements HasSFWVersionWithT<PowerStrings> {
     private String NAME;
     private String[] DESCRIPTIONS;
     private final PowerStrings Origin = new PowerStrings();

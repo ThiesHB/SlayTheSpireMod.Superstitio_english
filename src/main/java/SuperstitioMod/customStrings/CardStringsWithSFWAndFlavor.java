@@ -2,6 +2,8 @@ package SuperstitioMod.customStrings;
 
 import SuperstitioMod.SuperstitioModSetup;
 import SuperstitioMod.WordReplace;
+import com.evacipated.cardcrawl.mod.stslib.patches.FlavorText;
+import com.evacipated.cardcrawl.modthespire.lib.SpireField;
 import com.megacrit.cardcrawl.localization.CardStrings;
 import com.megacrit.cardcrawl.localization.LocalizedStrings;
 import com.megacrit.cardcrawl.localization.PowerStrings;
@@ -9,7 +11,9 @@ import com.megacrit.cardcrawl.localization.PowerStrings;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class CardStringsWithSFWAndFlavor implements HasSFWVersion {
+public class CardStringsWithSFWAndFlavor implements HasSFWVersionWithT<CardStrings> {
+    private final CardStrings Origin = new CardStrings();
+    private final CardStrings SFW = new CardStrings();
     private String NAME;
     private String NAME_SFW;
     private String DESCRIPTION;
@@ -20,10 +24,11 @@ public class CardStringsWithSFWAndFlavor implements HasSFWVersion {
     private String[] EXTENDED_DESCRIPTION_SFW;
     private String FLAVOR;
 
-    private final CardStrings Origin = new CardStrings();
-    private final CardStrings SFW = new CardStrings();
-
     public CardStringsWithSFWAndFlavor() {
+    }
+
+    public static List<WordReplace> makeCardNameReplaceRules(List<CardStringsWithSFWAndFlavor> cards) {
+        return cards.stream().map(CardStringsWithSFWAndFlavor::toCardNameReplaceRule).collect(Collectors.toList());
     }
 
     @Override
@@ -31,6 +36,8 @@ public class CardStringsWithSFWAndFlavor implements HasSFWVersion {
         Origin.NAME = NAME;
         Origin.DESCRIPTION = DESCRIPTION;
         Origin.UPGRADE_DESCRIPTION = UPGRADE_DESCRIPTION;
+        Origin.EXTENDED_DESCRIPTION = EXTENDED_DESCRIPTION;
+        FlavorText.CardStringsFlavorField.flavor.set(Origin, FLAVOR);
     }
 
     @Override
@@ -82,7 +89,10 @@ public class CardStringsWithSFWAndFlavor implements HasSFWVersion {
         return new WordReplace(this.NAME, this.NAME_SFW);
     }
 
-    public static List<WordReplace> makeCardNameReplaceRules(List<CardStringsWithSFWAndFlavor> cards) {
-        return cards.stream().map(CardStringsWithSFWAndFlavor::toCardNameReplaceRule).collect(Collectors.toList());
+    @Override
+    public CardStrings getRightVersion() {
+        if (HasSFWVersion.ifReturnSFWVersion(SFW.NAME))
+            return SFW;
+        return Origin;
     }
 }

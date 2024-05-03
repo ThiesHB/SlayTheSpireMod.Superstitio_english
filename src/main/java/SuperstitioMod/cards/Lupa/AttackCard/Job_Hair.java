@@ -49,7 +49,7 @@ public class Job_Hair extends AbstractLupaCard_FuckJob {
         Job_Hair card = this.makeCardsToPreview();
         card.cardsToPreview = card.makeCardsToPreview();
         addToBot_makeTempCardInBattle(card, BattleCardPlace.Hand, upgraded);
-        AbstractLupaCard_FuckJob.addToTop_gainSexMark_Outside(this.cardStrings.getEXTENDED_DESCRIPTION()[0]);
+        AbstractLupaCard_FuckJob.addToTop_gainSexMark_Outside(this.getEXTENDED_DESCRIPTION()[0]);
     }
 
     @Override

@@ -40,7 +40,7 @@ public class Job_LegPit extends AbstractLupaCard_FuckJob {
                     addToBot_drawCards();
             });
         }
-        AbstractLupaCard_FuckJob.addToTop_gainSexMark_Outside(this.cardStrings.getEXTENDED_DESCRIPTION()[0]);
+        AbstractLupaCard_FuckJob.addToTop_gainSexMark_Outside(this.getEXTENDED_DESCRIPTION()[0]);
     }
 
     @Override
