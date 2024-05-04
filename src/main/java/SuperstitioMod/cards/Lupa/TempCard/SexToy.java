@@ -1,6 +1,7 @@
 package SuperstitioMod.cards.Lupa.TempCard;
 
 import SuperstitioMod.DataManager;
+import SuperstitioMod.SuperstitioModSetup;
 import SuperstitioMod.cards.Lupa.AbstractLupaCard_TempCard;
 import SuperstitioMod.utils.CardUtility;
 import com.evacipated.cardcrawl.mod.stslib.cards.targeting.SelfOrEnemyTargeting;
@@ -27,12 +28,12 @@ public class SexToy extends AbstractLupaCard_TempCard {
     private static final String[] sexToyNames = getCardStringsWithSFWAndFlavor(SexToy.ID).getEXTENDED_DESCRIPTION()[0].split(",");
 
     public SexToy() {
-        super(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET);
+        super(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET, SuperstitioModSetup.TempCardEnums.LUPA_TempCard_CARD);
         this.setupMagicNumber(MagicNumber);
     }
 
     public static String getRandomSexToyName() {
-        return CardUtility.getRandomFromList(sexToyNames,AbstractDungeon.cardRandomRng);
+        return CardUtility.getRandomFromList(sexToyNames, AbstractDungeon.cardRandomRng);
     }
 
     @Override
@@ -42,7 +43,7 @@ public class SexToy extends AbstractLupaCard_TempCard {
             target = AbstractDungeon.player;
         AbstractCreature finalTarget = target;
         IntStream.range(0, this.magicNumber).forEach(i ->
-                addToBot_applyPowerToTarget(new SuperstitioMod.powers.SexToy(finalTarget, 1, getRandomSexToyName()), finalTarget));
+                addToBot_applyPower(new SuperstitioMod.powers.SexToy(finalTarget, 1, getRandomSexToyName())));
     }
 
 //    @Override

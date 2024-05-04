@@ -29,7 +29,7 @@ public class Fuck_Throat extends AbstractLupaCard_FuckJob {
 
     @Override
     public void use(AbstractPlayer player, AbstractMonster monster) {
-        addToBot_damageToTarget(monster, AbstractGameAction.AttackEffect.BLUNT_LIGHT);
+        addToBot_dealDamage(monster, AbstractGameAction.AttackEffect.BLUNT_LIGHT);
         this.addToBot(new GainEnergyAction(this.magicNumber));
         AbstractLupaCard_FuckJob.addToTop_gainSexMark_Inside(this.name);
     }

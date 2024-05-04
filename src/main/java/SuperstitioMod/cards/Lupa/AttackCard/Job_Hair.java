@@ -2,6 +2,7 @@ package SuperstitioMod.cards.Lupa.AttackCard;
 
 import SuperstitioMod.DataManager;
 import SuperstitioMod.cards.Lupa.AbstractLupaCard_FuckJob;
+import SuperstitioMod.utils.ActionUtility;
 import basemod.AutoAdd;
 import basemod.cardmods.ExhaustMod;
 import basemod.helpers.CardModifierManager;
@@ -45,10 +46,10 @@ public class Job_Hair extends AbstractLupaCard_FuckJob {
 
     @Override
     public void use(AbstractPlayer player, AbstractMonster monster) {
-        addToBot_damageToTarget(monster, AbstractGameAction.AttackEffect.BLUNT_LIGHT);
+        addToBot_dealDamage(monster, AbstractGameAction.AttackEffect.BLUNT_LIGHT);
         Job_Hair card = this.makeCardsToPreview();
         card.cardsToPreview = card.makeCardsToPreview();
-        addToBot_makeTempCardInBattle(card, BattleCardPlace.Hand, upgraded);
+        ActionUtility.addToBot_makeTempCardInBattle(card, BattleCardPlace.Hand, upgraded);
         AbstractLupaCard_FuckJob.addToTop_gainSexMark_Outside(this.getEXTENDED_DESCRIPTION()[0]);
     }
 

@@ -17,7 +17,7 @@ import java.util.Arrays;
 import java.util.function.Function;
 import java.util.function.Predicate;
 
-public class ChoseCardFromHandCardSelectScreen extends ContinuallyAction {
+public class ChoseCardFromHandCardSelectScreen extends AbstractContinuallyAction {
     private final AbstractPlayer player = AbstractDungeon.player;
     private final Function<AbstractCard, AbstractGameAction> gameActionMaker;
     private final CardGroup temp_remove_from_hand = new CardGroup(CardGroup.CardGroupType.UNSPECIFIED);
@@ -72,33 +72,33 @@ public class ChoseCardFromHandCardSelectScreen extends ContinuallyAction {
         this.addToBot(this.gameActionMaker.apply(c));
     }
 
-    public ChoseCardFromHandCardSelectScreen setChoiceAmount(int choiceAmount) {
+    public ChoseCardFromHandCardSelectScreen setupChoiceAmount(int choiceAmount) {
         this.amount = choiceAmount;
         return this;
     }
 
-    public ChoseCardFromHandCardSelectScreen setSource(AbstractCreature source) {
+    public ChoseCardFromHandCardSelectScreen setupSource(AbstractCreature source) {
         this.source = source;
         return this;
     }
 
-    public ChoseCardFromHandCardSelectScreen setWindowText(String windowText) {
+    public ChoseCardFromHandCardSelectScreen setupWindowText(String windowText) {
         this.windowText = windowText;
         return this;
     }
 
-    public ChoseCardFromHandCardSelectScreen setAnyNumber(boolean anyNumber) {
+    public ChoseCardFromHandCardSelectScreen setupAnyNumber(boolean anyNumber) {
         this.anyNumber = anyNumber;
         return this;
     }
 
-    public ChoseCardFromHandCardSelectScreen setCanPickZero(boolean canPickZero) {
+    public ChoseCardFromHandCardSelectScreen setupCanPickZero(boolean canPickZero) {
         this.canPickZero = canPickZero;
         return this;
     }
 
     @SafeVarargs
-    public final ChoseCardFromHandCardSelectScreen setRetainFilter(Predicate<AbstractCard>... filters) {
+    public final ChoseCardFromHandCardSelectScreen setupRetainFilter(Predicate<AbstractCard>... filters) {
         Arrays.stream(filters).forEach(abstractCardPredicate -> this.retainFilter = this.retainFilter.or(abstractCardPredicate));
         return this;
     }

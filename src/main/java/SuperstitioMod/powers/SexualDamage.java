@@ -1,10 +1,14 @@
 package SuperstitioMod.powers;
 
 import SuperstitioMod.DataManager;
+import SuperstitioMod.cards.DamageMod.UnBlockAbleDamage;
 import com.badlogic.gdx.graphics.Color;
+import com.evacipated.cardcrawl.mod.stslib.damagemods.BindingHelper;
+import com.evacipated.cardcrawl.mod.stslib.damagemods.DamageModContainer;
 import com.evacipated.cardcrawl.mod.stslib.powers.interfaces.HealthBarRenderPower;
-import com.megacrit.cardcrawl.cards.DamageInfo;
 import com.megacrit.cardcrawl.core.AbstractCreature;
+
+import static com.megacrit.cardcrawl.cards.DamageInfo.DamageType;
 
 public class SexualDamage extends AbstractLupaPower implements HealthBarRenderPower {
     public static final String POWER_ID = DataManager.MakeTextID(SexualDamage.class.getSimpleName());
@@ -16,9 +20,13 @@ public class SexualDamage extends AbstractLupaPower implements HealthBarRenderPo
     }
 
     @Override
-    public void atEndOfTurn(boolean isPlayer) {
+    public void atStartOfTurn() {
+        check();
+    }
+
+    private void check() {
         if (this.owner.currentHealth <= this.amount)
-            this.owner.damage(new DamageInfo(giver, this.amount, DamageInfo.DamageType.HP_LOSS));
+            this.owner.damage(BindingHelper.makeInfo(new DamageModContainer(this, new UnBlockAbleDamage()), giver, amount, DamageType.NORMAL));
     }
 
     @Override

@@ -2,6 +2,7 @@ package SuperstitioMod.powers;
 
 import SuperstitioMod.DataManager;
 import SuperstitioMod.cards.Lupa.AbstractLupaCard;
+import SuperstitioMod.utils.ActionUtility;
 import SuperstitioMod.utils.CardUtility;
 import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.cards.DamageInfo;
@@ -20,14 +21,14 @@ public class Ku_Koro extends AbstractLupaPower {
 
     @Override
     public void onExhaust(AbstractCard card) {
-        AbstractLupaCard.addToBot_makeTempCardInBattle(card, AbstractLupaCard.BattleCardPlace.Discard);
+        ActionUtility.addToBot_makeTempCardInBattle(card, AbstractLupaCard.BattleCardPlace.Discard);
     }
 
     @Override
     public int onAttacked(DamageInfo info, int damageAmount) {
         if (damageAmount > 0 && info.owner != AbstractDungeon.player && info.type == DamageInfo.DamageType.NORMAL) {
             final AbstractCard card = CardUtility.getRandomCurseCard(true, true);
-            AbstractLupaCard.addToBot_makeTempCardInBattle(card, AbstractLupaCard.BattleCardPlace.Hand);
+            ActionUtility.addToBot_makeTempCardInBattle(card, AbstractLupaCard.BattleCardPlace.Hand);
         }
 
         return super.onAttacked(info, damageAmount);

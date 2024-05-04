@@ -3,20 +3,34 @@ package SuperstitioMod.powers;
 import SuperstitioMod.DataManager;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.evacipated.cardcrawl.mod.stslib.damagemods.AbstractDamageModifier;
+import com.evacipated.cardcrawl.mod.stslib.damagemods.BindingHelper;
+import com.evacipated.cardcrawl.mod.stslib.damagemods.DamageModContainer;
 import com.evacipated.cardcrawl.mod.stslib.powers.interfaces.HealthBarRenderPower;
 import com.megacrit.cardcrawl.actions.common.DamageAction;
 import com.megacrit.cardcrawl.cards.DamageInfo;
 import com.megacrit.cardcrawl.core.AbstractCreature;
+import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 
 public class DelayDamage extends AbstractLupaPower implements HealthBarRenderPower {
     public static final String POWER_ID = DataManager.MakeTextID(DelayDamage.class.getSimpleName());
-    private final AbstractCreature giver;
     private final int damageAmount;
+    private AbstractCreature giver = AbstractDungeon.player;
+    private AbstractDamageModifier damageModifier;
 
-    public DelayDamage(final AbstractCreature owner, int amount, int damageAmount, AbstractCreature giver) {
+    public DelayDamage(final AbstractCreature owner, int amount, int damageAmount) {
         super(POWER_ID, owner, amount);
-        this.giver = giver;
         this.damageAmount = damageAmount;
+    }
+
+    public DelayDamage setupGiver(AbstractCreature giver) {
+        this.giver = giver;
+        return this;
+    }
+
+    public DelayDamage setupDamageModifier(AbstractDamageModifier damageModifier) {
+        this.damageModifier = damageModifier;
+        return this;
     }
 
     @Override
@@ -26,6 +40,9 @@ public class DelayDamage extends AbstractLupaPower implements HealthBarRenderPow
 
     @Override
     public void onRemove() {
+        if (damageModifier != null)
+            addToBot(new DamageAction(this.owner, BindingHelper.makeInfo(new DamageModContainer(this, damageModifier), giver, this.damageAmount,
+                    DamageInfo.DamageType.NORMAL)));
         addToBot(new DamageAction(this.owner, new DamageInfo(giver, this.damageAmount, DamageInfo.DamageType.NORMAL)));
     }
 

@@ -28,7 +28,7 @@ public class Job_Hand extends AbstractLupaCard_FuckJob {
 
     @Override
     public void use(AbstractPlayer player, AbstractMonster monster) {
-        addToBot_damageToTarget(monster, AbstractGameAction.AttackEffect.BLUNT_LIGHT);
+        addToBot_dealDamage(monster, AbstractGameAction.AttackEffect.BLUNT_LIGHT);
         AbstractLupaCard_FuckJob.addToTop_gainSexMark_Outside(this.getEXTENDED_DESCRIPTION()[0]);
     }
 

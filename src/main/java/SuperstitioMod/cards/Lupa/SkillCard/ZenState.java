@@ -37,9 +37,9 @@ public class ZenState extends AbstractLupaCard {
         this.addToBot_gainBlock();
         this.addToBot(new ChoseCardFromHandCardSelectScreen(
                 this::letSpecificCardExhaust)
-                .setWindowText(String.format(getEXTENDED_DESCRIPTION()[0], this.magicNumber))
-                .setChoiceAmount(this.magicNumber)
-                .setRetainFilter(card -> !card.exhaust && !CardModifierManager.hasModifier(card, ExhaustMod.ID))
+                .setupWindowText(String.format(getEXTENDED_DESCRIPTION()[0], this.magicNumber))
+                .setupChoiceAmount(this.magicNumber)
+                .setupRetainFilter(card -> !card.exhaust && !CardModifierManager.hasModifier(card, ExhaustMod.ID))
         );
     }
 

@@ -3,38 +3,33 @@ package SuperstitioMod.cards.Lupa.SkillCard;
 import SuperstitioMod.DataManager;
 import SuperstitioMod.cards.Lupa.AbstractLupaCard;
 import SuperstitioMod.cards.Lupa.TempCard.SexToy;
-import SuperstitioMod.utils.ActionUtility;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
+import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 
-public class AddSexToy extends AbstractLupaCard {
-    public static final String ID = DataManager.MakeTextID(AddSexToy.class.getSimpleName());
+public class Sensitive3000 extends AbstractLupaCard {
+    public static final String ID = DataManager.MakeTextID(Sensitive3000.class.getSimpleName());
 
     public static final CardType CARD_TYPE = CardType.SKILL;
 
-    public static final CardRarity CARD_RARITY = CardRarity.COMMON;
+    public static final CardRarity CARD_RARITY = CardRarity.RARE;
 
     public static final CardTarget CARD_TARGET = CardTarget.SELF;
 
     private static final int COST = 1;
-    private static final int MAGICNumber = 1;
-    private static final int UPGRADE_MagicNumber = 1;
+    private static final int MAGICNumber = 10;
 
-    public AddSexToy() {
+    public Sensitive3000() {
         super(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET);
         this.setupMagicNumber(MAGICNumber);
-        this.exhaust = true;
-        this.cardsToPreview = new SexToy();
     }
 
     @Override
     public void use(AbstractPlayer player, AbstractMonster monster) {
-        ActionUtility.addToBot_makeTempCardInBattle(new SexToy(),BattleCardPlace.Hand,this.magicNumber,this.upgraded);
+        addToBot_applyPower(new SuperstitioMod.powers.Sensitive3000(AbstractDungeon.player));
     }
 
     @Override
     public void upgradeAuto() {
-        upgradeMagicNumber(UPGRADE_MagicNumber);
-        upgradeCardsToPreview();
     }
 }

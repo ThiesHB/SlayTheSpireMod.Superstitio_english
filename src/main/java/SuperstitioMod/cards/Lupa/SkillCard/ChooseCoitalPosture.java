@@ -3,6 +3,7 @@ package SuperstitioMod.cards.Lupa.SkillCard;
 import SuperstitioMod.DataManager;
 import SuperstitioMod.cards.Lupa.AbstractLupaCard;
 import SuperstitioMod.cards.Lupa.AbstractLupaCard_FuckJob;
+import SuperstitioMod.utils.ActionUtility;
 import SuperstitioMod.utils.CardUtility;
 import basemod.cardmods.ExhaustMod;
 import basemod.helpers.CardModifierManager;
@@ -48,7 +49,7 @@ public class ChooseCoitalPosture extends AbstractLupaCard {
         AbstractCard card = getRandomFuckJobCard().makeCopy();
 //        if (!CardModifierManager.hasModifier(card, ExhaustMod.ID))
         CardModifierManager.addModifier(card, new ExhaustMod());
-        addToBot_makeTempCardInBattle(card, BattleCardPlace.Hand,upgraded);
+        ActionUtility.addToBot_makeTempCardInBattle(card, BattleCardPlace.Hand,upgraded);
     }
 
     @Override

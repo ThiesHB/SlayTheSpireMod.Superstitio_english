@@ -6,7 +6,6 @@
 package SuperstitioMod.actions;
 
 import SuperstitioMod.utils.CardUtility;
-import com.megacrit.cardcrawl.actions.AbstractGameAction;
 import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.cards.AbstractCard.CardRarity;
 import com.megacrit.cardcrawl.core.Settings;
@@ -24,7 +23,7 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-public class ForeignInfluenceAction extends ContinuallyAction {
+public class ForeignInfluenceAction extends AbstractContinuallyAction {
     private final boolean upgraded;
     private boolean retrieveCard = false;
 
@@ -50,25 +49,27 @@ public class ForeignInfluenceAction extends ContinuallyAction {
 
     @Override
     protected void RunAction() {
-        if (!this.retrieveCard) {
-            if (AbstractDungeon.cardRewardScreen.discoveryCard != null) {
-                AbstractCard disCard = AbstractDungeon.cardRewardScreen.discoveryCard.makeStatEquivalentCopy();
-                if (this.upgraded) {
-                    disCard.setCostForTurn(0);
-                }
-
-                disCard.current_x = -1000.0F * Settings.xScale;
-                if (AbstractDungeon.player.hand.size() < 10) {
-                    AbstractDungeon.effectList.add(new ShowCardAndAddToHandEffect(disCard, (float) Settings.WIDTH / 2.0F, (float) Settings.HEIGHT / 2.0F));
-                }
-                else {
-                    AbstractDungeon.effectList.add(new ShowCardAndAddToDiscardEffect(disCard, (float) Settings.WIDTH / 2.0F, (float) Settings.HEIGHT / 2.0F));
-                }
-
-                AbstractDungeon.cardRewardScreen.discoveryCard = null;
+        if (this.retrieveCard) return;
+        if (AbstractDungeon.cardRewardScreen.discoveryCard != null) {
+            AbstractCard showCard = AbstractDungeon.cardRewardScreen.discoveryCard.makeStatEquivalentCopy();
+            if (this.upgraded) {
+                showCard.setCostForTurn(0);
             }
 
-            this.retrieveCard = true;
+            showCard.current_x = -1000.0F * Settings.xScale;
+            addToHandOrDiscard(showCard);
+
+            AbstractDungeon.cardRewardScreen.discoveryCard = null;
+        }
+        this.retrieveCard = true;
+    }
+
+    private static void addToHandOrDiscard(AbstractCard disCard) {
+        if (AbstractDungeon.player.hand.size() < 10) {
+            AbstractDungeon.effectList.add(new ShowCardAndAddToHandEffect(disCard, (float) Settings.WIDTH / 2.0F, (float) Settings.HEIGHT / 2.0F));
+        }
+        else {
+            AbstractDungeon.effectList.add(new ShowCardAndAddToDiscardEffect(disCard, (float) Settings.WIDTH / 2.0F, (float) Settings.HEIGHT / 2.0F));
         }
     }
 

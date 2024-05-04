@@ -1,26 +1,23 @@
 package SuperstitioMod.cards.Lupa;
 
 import SuperstitioMod.DataManager;
+import SuperstitioMod.InBattleDataManager;
 import SuperstitioMod.Logger;
 import SuperstitioMod.SuperstitioModSetup;
-import SuperstitioMod.actions.AutoDoneAction;
+import SuperstitioMod.cards.DamageActionMaker;
 import SuperstitioMod.customStrings.CardStringsWithSFWAndFlavor;
 import SuperstitioMod.customStrings.HasSFWVersion;
-import SuperstitioMod.powers.AllCardCostModifier;
 import basemod.abstracts.CustomCard;
 import com.badlogic.gdx.graphics.Color;
 import com.evacipated.cardcrawl.mod.stslib.patches.FlavorText;
 import com.megacrit.cardcrawl.actions.common.*;
 import com.megacrit.cardcrawl.cards.AbstractCard;
-import com.megacrit.cardcrawl.cards.DamageInfo;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.core.AbstractCreature;
 import com.megacrit.cardcrawl.core.Settings;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import com.megacrit.cardcrawl.powers.AbstractPower;
-
-import java.util.Optional;
 
 import static com.megacrit.cardcrawl.actions.AbstractGameAction.AttackEffect;
 import static com.megacrit.cardcrawl.cards.DamageInfo.DamageType;
@@ -83,11 +80,11 @@ public abstract class AbstractLupaCard extends CustomCard {
         }
     }
 
-    public static String getImgPath(final String tag, final String id) {
+    protected static String getImgPath(final String tag, final String id) {
         return DataManager.makeImgPath("default", DataManager::makeImgFilesPath_LupaCard, tag, id);
     }
 
-    public static String CardTypeToString(final AbstractCard.CardType t) {
+    protected static String CardTypeToString(final AbstractCard.CardType t) {
         String type;
         switch (t) {
             case ATTACK: {
@@ -114,39 +111,6 @@ public abstract class AbstractLupaCard extends CustomCard {
         return type;
     }
 
-    public static void addToBot_makeTempCardInBattle(AbstractCard card, BattleCardPlace battleCardPlace, int amount) {
-        addToBot_makeTempCardInBattle(card, battleCardPlace, amount, false);
-    }
-
-    public static void addToBot_makeTempCardInBattle(AbstractCard card, BattleCardPlace battleCardPlace, int amount, boolean upgrade) {
-        if (upgrade)
-            card.upgrade();
-        switch (battleCardPlace) {
-            case Hand:
-                AbstractDungeon.actionManager.addToBottom(new MakeTempCardInHandAction(card, amount));
-                break;
-            case DrawPile:
-                AbstractDungeon.actionManager.addToBottom(new MakeTempCardInDrawPileAction(card, amount, true, true));
-                break;
-            case Discard:
-                AbstractDungeon.actionManager.addToBottom(new MakeTempCardInDiscardAction(card, amount));
-                break;
-        }
-
-        AutoDoneAction.addToBotAbstract(() -> {
-            Optional<AllCardCostModifier> power = AllCardCostModifier.getActivateOne();
-            power.ifPresent(AllCardCostModifier::tryUseEffect);
-        });
-    }
-
-    public static void addToBot_makeTempCardInBattle(AbstractCard card, BattleCardPlace battleCardPlace) {
-        addToBot_makeTempCardInBattle(card, battleCardPlace, 1);
-    }
-
-    public static void addToBot_makeTempCardInBattle(AbstractCard card, BattleCardPlace battleCardPlace, boolean upgrade) {
-        addToBot_makeTempCardInBattle(card, battleCardPlace, 1, upgrade);
-    }
-
     public void upgradeCardsToPreview() {
         if (this.cardsToPreview != null)
             cardsToPreview.upgrade();
@@ -170,75 +134,76 @@ public abstract class AbstractLupaCard extends CustomCard {
 
     public abstract void upgradeAuto();
 
-    protected void setupDamage(final int amount) {
+    protected final void setupDamage(final int amount) {
         this.baseDamage = amount;
         this.damage = amount;
     }
 
-    protected void setupBlock(final int amount) {
+    protected final void setupBlock(final int amount) {
         this.baseBlock = amount;
         this.block = amount;
     }
 
-    protected void setupMagicNumber(final int amount) {
+    protected final void setupMagicNumber(final int amount) {
         this.baseMagicNumber = amount;
         this.magicNumber = amount;
     }
 
-    public void addToBot_damageToTarget(final AbstractCreature target, final AttackEffect effect) {
-        this.addToBot(new DamageAction(target, new DamageInfo(AbstractDungeon.player, this.damage), effect));
+    protected final void addToBot_dealDamage(final AbstractCreature target) {
+        DamageActionMaker.make(this.damage, target).addToBot();
     }
 
-    public void addToBot_damageToTarget(final AbstractCreature target, int damageAmount, final AttackEffect effect) {
-        this.addToBot(new DamageAction(target, new DamageInfo(AbstractDungeon.player, damageAmount, damageType), effect));
+    protected final void addToBot_dealDamage(final AbstractCreature target, final AttackEffect effect) {
+        DamageActionMaker.make(this.damage, target).setupEffect(effect).addToBot();
     }
 
-    public void addToBot_damageToTarget(final AbstractCreature target, int damageAmount, final DamageType damageType, final AttackEffect effect) {
-        this.addToBot(new DamageAction(target, new DamageInfo(AbstractDungeon.player, damageAmount, damageType), effect));
+    protected final void addToBot_dealDamage(final AbstractCreature target, final int damageAmount, final AttackEffect effect) {
+        DamageActionMaker.make(damageAmount, target).setupEffect(effect).addToBot();
     }
 
-    public void addToBot_damageToAllEnemies(final AttackEffect effect) {
+    protected final void addToBot_dealDamage(final AbstractCreature target, final int damageAmount, final DamageType damageType,
+                                             final AttackEffect effect) {
+        DamageActionMaker.make(damageAmount, target).setupDamageType(damageType).setupEffect(effect).addToBot();
+    }
+
+    protected final void addToBot_dealDamageToAllEnemies(final AttackEffect effect) {
         this.addToBot(new DamageAllEnemiesAction(AbstractDungeon.player, this.multiDamage, this.damageTypeForTurn, effect));
     }
 
-    public void addToBot_gainBlock() {
+    protected final void addToBot_gainBlock() {
         addToBot_gainBlock(this.block);
     }
 
-    public void addToBot_gainBlock(final int amount) {
+    protected final void addToBot_gainBlock(final int amount) {
         this.addToBot(new GainBlockAction(AbstractDungeon.player, amount));
     }
 
-    public void addToBot_drawCards(final int amount) {
+    protected final void addToBot_drawCards(final int amount) {
         this.addToBot(new DrawCardAction(amount));
     }
 
-    public void addToBot_drawCards() {
+    protected final void addToBot_drawCards() {
         this.addToBot(new DrawCardAction(1));
     }
 
-    public void addToBot_applyPowerToPlayer(final AbstractPower power) {
-        this.addToBot(new ApplyPowerAction(AbstractDungeon.player, AbstractDungeon.player, power));
+    protected final void addToBot_applyPower(final AbstractPower power) {
+        this.addToBot(new ApplyPowerAction(power.owner, AbstractDungeon.player, power));
     }
 
-    public void addToBot_applyPowerToTarget(final AbstractPower power, AbstractCreature target) {
-        this.addToBot(new ApplyPowerAction(target, AbstractDungeon.player, power));
-    }
-
-    public void addToBot_reducePowerToPlayer(final String powerID, int amount) {
+    protected final void addToBot_reducePowerToPlayer(final String powerID, int amount) {
         this.addToBot(new ReducePowerAction(AbstractDungeon.player, AbstractDungeon.player, powerID, amount));
     }
 
     protected void setCostToCostMap_ForTurn(int amount) {
-        if (AllCardCostModifier.costMap.containsKey(this.uuid)) {
-            AllCardCostModifier.costMap.put(this.uuid, amount);
+        if (InBattleDataManager.costMap.containsKey(this.uuid)) {
+            InBattleDataManager.costMap.put(this.uuid, amount);
         }
         this.setCostForTurn(amount);
     }
 
     protected void setCostToCostMap_ForBattle(int amount) {
-        if (AllCardCostModifier.costMap.containsKey(this.uuid)) {
-            AllCardCostModifier.costMap.put(this.uuid, amount);
+        if (InBattleDataManager.costMap.containsKey(this.uuid)) {
+            InBattleDataManager.costMap.put(this.uuid, amount);
         }
         this.updateCost(amount);
     }
@@ -254,4 +219,5 @@ public abstract class AbstractLupaCard extends CustomCard {
         BattleCardPlace() {
         }
     }
+
 }

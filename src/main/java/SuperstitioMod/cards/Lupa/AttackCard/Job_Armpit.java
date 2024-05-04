@@ -2,6 +2,7 @@ package SuperstitioMod.cards.Lupa.AttackCard;
 
 import SuperstitioMod.DataManager;
 import SuperstitioMod.cards.Lupa.AbstractLupaCard_FuckJob;
+import SuperstitioMod.utils.ActionUtility;
 import basemod.AutoAdd;
 import com.megacrit.cardcrawl.actions.AbstractGameAction;
 import com.megacrit.cardcrawl.actions.common.ExhaustSpecificCardAction;
@@ -38,8 +39,8 @@ public class Job_Armpit extends AbstractLupaCard_FuckJob {
 
     @Override
     public void use(AbstractPlayer player, AbstractMonster monster) {
-        addToBot_damageToTarget(monster, AbstractGameAction.AttackEffect.BLUNT_LIGHT);
-        addToBot_damageToTarget(monster, AbstractGameAction.AttackEffect.BLUNT_LIGHT);
+        addToBot_dealDamage(monster, AbstractGameAction.AttackEffect.BLUNT_LIGHT);
+        addToBot_dealDamage(monster, AbstractGameAction.AttackEffect.BLUNT_LIGHT);
         AbstractLupaCard_FuckJob.addToTop_gainSexMark_Outside(this.getEXTENDED_DESCRIPTION()[0]);
     }
 
@@ -49,7 +50,7 @@ public class Job_Armpit extends AbstractLupaCard_FuckJob {
             addToBot(new ExhaustSpecificCardAction(this, AbstractDungeon.player.hand));
             for (int i = 0; i < 2; i++) {
                 AbstractCard card = new Job_Armpit((this.damage + 1) / 2);
-                addToBot_makeTempCardInBattle(card, BattleCardPlace.Hand);
+                ActionUtility.addToBot_makeTempCardInBattle(card, BattleCardPlace.Hand);
             }
         }
     }

@@ -4,7 +4,7 @@ import SuperstitioMod.DataManager;
 import SuperstitioMod.actions.AutoDoneAction;
 import SuperstitioMod.cards.Lupa.AbstractLupaCard;
 import SuperstitioMod.cards.Lupa.TempCard.ReBirth;
-import com.megacrit.cardcrawl.cards.AbstractCard;
+import SuperstitioMod.utils.ActionUtility;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import com.megacrit.cardcrawl.powers.AbstractPower;
@@ -43,7 +43,7 @@ public class UnBirth extends AbstractLupaCard {
             AutoDoneAction.addToBotAbstract(() ->
                     monster.powers.remove(power));
         });
-        addToBot_makeTempCardInBattle(new ReBirth(sealPower, monster), BattleCardPlace.Hand,upgraded);
+        ActionUtility.addToBot_makeTempCardInBattle(new ReBirth(sealPower, monster), BattleCardPlace.Hand,upgraded);
     }
 
     @Override

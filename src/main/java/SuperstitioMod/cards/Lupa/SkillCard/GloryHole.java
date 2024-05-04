@@ -46,8 +46,8 @@ public class GloryHole extends AbstractLupaCard {
     @Override
     public void use(AbstractPlayer player, AbstractMonster monster) {
         this.addToBot(new ChoseCardFromGridSelectWindowAction(mainCardGroupExceptSelf(), GloryHole::makeCopy)
-                .setWindowText(String.format(getEXTENDED_DESCRIPTION()[0]))
-                .setAnyNumber(true));
+                .setupWindowText(String.format(getEXTENDED_DESCRIPTION()[0]))
+                .setupAnyNumber(true));
     }
 
     @Override

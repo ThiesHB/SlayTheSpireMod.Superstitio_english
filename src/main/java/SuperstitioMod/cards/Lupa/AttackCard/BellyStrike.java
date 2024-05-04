@@ -41,9 +41,9 @@ public class BellyStrike extends AbstractLupaCard {
         AbstractCreature target = SelfOrEnemyTargeting.getTarget(this);
         if (target == null)
             target = AbstractDungeon.player;
-        addToBot_applyPowerToTarget(new LoseStrengthPower(target, magicNumber), target);
-        addToBot_damageToTarget(target, AbstractGameAction.AttackEffect.BLUNT_LIGHT);
-        addToBot_applyPowerToTarget(new StrengthPower(target, magicNumber), target);
+        addToBot_applyPower(new LoseStrengthPower(target, magicNumber));
+        addToBot_dealDamage(target, AbstractGameAction.AttackEffect.BLUNT_LIGHT);
+        addToBot_applyPower(new StrengthPower(target, magicNumber));
         if (!target.isPlayer) return;
         AutoDoneAction.addToBotAbstract(() -> {
             if (AbstractDungeon.player.lastDamageTaken > 0)

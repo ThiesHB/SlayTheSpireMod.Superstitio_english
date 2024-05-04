@@ -2,11 +2,15 @@ package SuperstitioMod.cards.Lupa.AttackCard;
 
 import SuperstitioMod.DataManager;
 import SuperstitioMod.cards.Lupa.AbstractLupaCard_FuckJob;
+import SuperstitioMod.cards.Lupa.TempCard.Fuck_Ear;
+import SuperstitioMod.utils.ActionUtility;
 import basemod.cardmods.RetainMod;
 import basemod.helpers.CardModifierManager;
 import com.megacrit.cardcrawl.actions.AbstractGameAction;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
+import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
+import com.megacrit.cardcrawl.powers.WeakPower;
 
 public class Fuck_Eye extends AbstractLupaCard_FuckJob {
     public static final String ID = DataManager.MakeTextID(Fuck_Eye.class.getSimpleName());
@@ -40,10 +44,11 @@ public class Fuck_Eye extends AbstractLupaCard_FuckJob {
 
     @Override
     public void use(AbstractPlayer player, AbstractMonster monster) {
-        addToBot_damageToTarget(monster, AbstractGameAction.AttackEffect.BLUNT_LIGHT);
-        addToBot_damageToTarget(monster, AbstractGameAction.AttackEffect.BLUNT_LIGHT);
+        addToBot_dealDamage(monster, AbstractGameAction.AttackEffect.BLUNT_LIGHT);
+        addToBot_dealDamage(monster, AbstractGameAction.AttackEffect.BLUNT_LIGHT);
         addToBot_gainBlock();
-        addToBot_makeTempCardInBattle(new Fuck_Ear(), BattleCardPlace.Hand,this.upgraded);
+        ActionUtility.addToBot_makeTempCardInBattle(new Fuck_Ear(), BattleCardPlace.Hand,this.upgraded);
+        addToBot_applyPower(new WeakPower(AbstractDungeon.player, 1, false));
         AbstractLupaCard_FuckJob.addToTop_gainSexMark_Inside(this.name);
     }
 

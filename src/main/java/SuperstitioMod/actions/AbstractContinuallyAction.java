@@ -1,11 +1,10 @@
 package SuperstitioMod.actions;
 
 import com.megacrit.cardcrawl.actions.AbstractGameAction;
-import com.megacrit.cardcrawl.core.Settings;
 
-public abstract class ContinuallyAction extends AbstractGameAction {
+public abstract class AbstractContinuallyAction extends AbstractGameAction {
 
-    public ContinuallyAction(ActionType actionType,float duration) {
+    public AbstractContinuallyAction(ActionType actionType, float duration) {
         this.actionType = actionType;
         this.startDuration = duration;
         this.duration = duration;

@@ -1,6 +1,7 @@
 package SuperstitioMod.powers;
 
 import SuperstitioMod.DataManager;
+import SuperstitioMod.InBattleDataManager;
 import SuperstitioMod.actions.AutoDoneAction;
 import SuperstitioMod.powers.interFace.HasAllCardCostModifyEffect;
 import com.megacrit.cardcrawl.cards.AbstractCard;
@@ -41,7 +42,7 @@ public class AllCardCostModifier_PerEnergy extends AllCardCostModifier {
     }
 
     public int totalCostDecreased(AbstractCard card) {
-        if (!costMap.containsKey(card.uuid) || getOriginCost(card) <= card.costForTurn || card.freeToPlayOnce) {
+        if (!InBattleDataManager.costMap.containsKey(card.uuid) || getOriginCost(card) <= card.costForTurn || card.freeToPlayOnce) {
             return 0;
         }
         return getOriginCost(card) - card.costForTurn;

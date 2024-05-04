@@ -1,5 +1,6 @@
 package SuperstitioMod.powers;
 
+import SuperstitioMod.InBattleDataManager;
 import SuperstitioMod.Logger;
 import SuperstitioMod.actions.AutoDoneAction;
 import SuperstitioMod.powers.interFace.HasAllCardCostModifyEffect;
@@ -23,7 +24,6 @@ import java.util.stream.Stream;
 
 
 public abstract class AllCardCostModifier extends AbstractLupaPower implements NonStackablePower, OnPostApplyThisPower {
-    public static final Map<UUID, Integer> costMap = new HashMap<>();
     private final HasAllCardCostModifyEffect holder;
     public int order = 0;
     public int decreasedCost;
@@ -62,7 +62,7 @@ public abstract class AllCardCostModifier extends AbstractLupaPower implements N
     public static <T extends AllCardCostModifier> void addToTop_AddNew(HasAllCardCostModifyEffect holder, int decreasedCost, int canUseAmount,
                                                                        Constructor<T> powerType) throws InstantiationException,
             IllegalAccessException, InvocationTargetException {
-        ActionUtility.addToTop_applyPowerToPlayer(powerType.newInstance(AbstractDungeon.player, decreasedCost, canUseAmount, holder));
+        ActionUtility.addToTop_applyPower(powerType.newInstance(AbstractDungeon.player, decreasedCost, canUseAmount, holder));
     }
 
     public static <T extends AllCardCostModifier> void addTo_Bot_EditAmount_Top_FirstByHolder(HasAllCardCostModifyEffect holder, int decreasedCost,
@@ -148,8 +148,8 @@ public abstract class AllCardCostModifier extends AbstractLupaPower implements N
             return;
         if (card.costForTurn <= 0)
             return;
-        if (costMap.keySet().stream().noneMatch(uuidInMap -> card.uuid == uuidInMap))
-            costMap.put(card.uuid, card.costForTurn);
+        if (InBattleDataManager.costMap.keySet().stream().noneMatch(uuidInMap -> card.uuid == uuidInMap))
+            InBattleDataManager.costMap.put(card.uuid, card.costForTurn);
         final int newCost = getOriginCost(card) - this.amount;
         if (card.costForTurn == newCost)
             return;
@@ -160,14 +160,14 @@ public abstract class AllCardCostModifier extends AbstractLupaPower implements N
 
     protected void CostToOriginAllCards() {
         CardUtility.AllCardInBattle().forEach(this::CostToOriginOneCard);
-        costMap.clear();
+        InBattleDataManager.costMap.clear();
     }
 
     private void CostToOriginOneCard(AbstractCard card) {
         if (card == null)
             return;
         if (getOriginCost(card) < card.costForTurn) return;
-        if (!costMap.containsKey(card.uuid))
+        if (!InBattleDataManager.costMap.containsKey(card.uuid))
             return;
         CardUtility.flashIfInHand(card);
 
@@ -178,9 +178,9 @@ public abstract class AllCardCostModifier extends AbstractLupaPower implements N
     public int getOriginCost(AbstractCard card) {
         if (card == null)
             return 0;
-        if (costMap.get(card.uuid) == null)
+        if (InBattleDataManager.costMap.get(card.uuid) == null)
             return card.cost;
-        return costMap.get(card.uuid);
+        return InBattleDataManager.costMap.get(card.uuid);
     }
 
     @Override

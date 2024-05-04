@@ -10,7 +10,7 @@ import java.util.Arrays;
 import java.util.function.Function;
 import java.util.function.Predicate;
 
-public class ChoseCardFromGridSelectWindowAction extends ContinuallyAction {
+public class ChoseCardFromGridSelectWindowAction extends AbstractContinuallyAction {
     private final Function<AbstractCard, AbstractGameAction> gameActionMaker;
     private final CardGroup cardGroup;
     private String windowText = "";
@@ -26,23 +26,23 @@ public class ChoseCardFromGridSelectWindowAction extends ContinuallyAction {
         this.amount = 1;
     }
 
-    public ChoseCardFromGridSelectWindowAction setAnyNumber(boolean anyNumber) {
+    public ChoseCardFromGridSelectWindowAction setupAnyNumber(boolean anyNumber) {
         this.anyNumber = anyNumber;
         return this;
     }
 
     @SafeVarargs
-    public final ChoseCardFromGridSelectWindowAction setRetainFilter(Predicate<AbstractCard>... filters) {
+    public final ChoseCardFromGridSelectWindowAction setupRetainFilter(Predicate<AbstractCard>... filters) {
         Arrays.stream(filters).forEach(abstractCardPredicate -> this.retainFilter = this.retainFilter.or(abstractCardPredicate));
         return this;
     }
 
-    public ChoseCardFromGridSelectWindowAction setWindowText(String windowText) {
+    public ChoseCardFromGridSelectWindowAction setupWindowText(String windowText) {
         this.windowText = windowText;
         return this;
     }
 
-    public ChoseCardFromGridSelectWindowAction setChoseAmount(int choseAmount) {
+    public ChoseCardFromGridSelectWindowAction setupChoseAmount(int choseAmount) {
         this.amount = choseAmount;
         return this;
     }

@@ -29,8 +29,8 @@ public class Overdraft extends AbstractLupaCard {
 
     @Override
     public void use(AbstractPlayer player, AbstractMonster monster) {
-        this.addToBot_drawCards(MagicNumber);
-        this.addToBot_applyPowerToPlayer(new SuperstitioMod.powers.Overdraft(AbstractDungeon.player, ExhaustNum));
+        addToBot_drawCards(MagicNumber);
+        addToBot_applyPower(new SuperstitioMod.powers.Overdraft(AbstractDungeon.player, ExhaustNum));
     }
 
     @Override

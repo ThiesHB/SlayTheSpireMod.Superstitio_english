@@ -33,8 +33,8 @@ public class Fuck_Anal extends AbstractLupaCard_FuckJob {
 
     @Override
     public void use(AbstractPlayer player, AbstractMonster monster) {
-        addToBot_damageToTarget(monster, AbstractGameAction.AttackEffect.BLUNT_LIGHT);
-        addToBot_applyPowerToPlayer(new VigorPower(AbstractDungeon.player, this.magicNumber));
+        addToBot_dealDamage(monster, AbstractGameAction.AttackEffect.BLUNT_LIGHT);
+        addToBot_applyPower(new VigorPower(AbstractDungeon.player, this.magicNumber));
         AbstractLupaCard_FuckJob.addToTop_gainSexMark_Inside(this.name);
     }
 

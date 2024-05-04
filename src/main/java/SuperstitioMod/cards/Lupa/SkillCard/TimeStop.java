@@ -28,8 +28,8 @@ public class TimeStop extends AbstractLupaCard {
 
     @Override
     public void use(AbstractPlayer player, AbstractMonster monster) {
-        this.addToTop(new ApplyPowerAction(AbstractDungeon.player, AbstractDungeon.player, new SuperstitioMod.powers.TimeStop(player, 1)));
-        this.addToBot_applyPowerToPlayer(new NoDrawPower(player));
+        addToTop(new ApplyPowerAction(AbstractDungeon.player, AbstractDungeon.player, new SuperstitioMod.powers.TimeStop(player, 1)));
+        addToBot_applyPower(new NoDrawPower(player));
     }
 
     @Override

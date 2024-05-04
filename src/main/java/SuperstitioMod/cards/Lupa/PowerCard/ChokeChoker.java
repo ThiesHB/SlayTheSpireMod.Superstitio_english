@@ -31,7 +31,7 @@ public class ChokeChoker extends AbstractLupaCard {
     public void use(AbstractPlayer player, AbstractMonster monster) {
         SuperstitioMod.powers.ChokeChoker power = new SuperstitioMod.powers.ChokeChoker(player, this.magicNumber);
         AutoDoneAction.addToBotAbstract(power::AddPowers);
-        addToBot_applyPowerToPlayer(new SuperstitioMod.powers.ChokeChoker(player, this.magicNumber));
+        addToBot_applyPower(new SuperstitioMod.powers.ChokeChoker(player, this.magicNumber));
     }
 
     @Override

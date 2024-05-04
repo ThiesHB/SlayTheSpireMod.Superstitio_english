@@ -1,6 +1,5 @@
 package SuperstitioMod;
 
-import SuperstitioMod.powers.AllCardCostModifier;
 import SuperstitioMod.powers.interFace.OnPostApplyThisPower;
 import basemod.BaseMod;
 import basemod.interfaces.*;
@@ -15,7 +14,7 @@ import com.megacrit.cardcrawl.rooms.AbstractRoom;
 @SpireInitializer
 public class SuperstitioModSubscriber implements
         PostExhaustSubscriber, StartGameSubscriber, PostUpdateSubscriber, RelicGetSubscriber, PostPowerApplySubscriber,
-        PostBattleSubscriber, PostDungeonInitializeSubscriber, OnStartBattleSubscriber,
+        PostBattleSubscriber, PostDungeonInitializeSubscriber, OnStartBattleSubscriber,OnPlayerTurnStartSubscriber,
         OnCardUseSubscriber, OnPowersModifiedSubscriber, PostDrawSubscriber, PostEnergyRechargeSubscriber {
 
 
@@ -77,7 +76,11 @@ public class SuperstitioModSubscriber implements
 
     @Override
     public void receiveOnBattleStart(AbstractRoom abstractRoom) {
-        AllCardCostModifier.costMap.clear();
-        InBattleDataManager.Initialize();
+        InBattleDataManager.InitializeAtStartOfBattle();
+    }
+
+    @Override
+    public void receiveOnPlayerTurnStart() {
+        InBattleDataManager.InitializeAtStartOfTurn();
     }
 }

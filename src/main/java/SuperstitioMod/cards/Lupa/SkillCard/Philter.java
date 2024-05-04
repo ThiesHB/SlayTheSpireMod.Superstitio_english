@@ -30,7 +30,7 @@ public class Philter extends AbstractLupaCard {
 
     @Override
     public void use(AbstractPlayer player, AbstractMonster monster) {
-        addToBot_applyPowerToPlayer(new PlatedArmorPower(AbstractDungeon.player, AbstractDungeon.player.currentBlock / this.magicNumber));
+        addToBot_applyPower(new PlatedArmorPower(AbstractDungeon.player, AbstractDungeon.player.currentBlock / this.magicNumber));
         addToBot(new RemoveAllBlockAction(AbstractDungeon.player, AbstractDungeon.player));
     }
 

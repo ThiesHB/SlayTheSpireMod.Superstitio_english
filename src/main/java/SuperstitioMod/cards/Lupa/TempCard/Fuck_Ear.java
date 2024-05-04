@@ -1,7 +1,10 @@
-package SuperstitioMod.cards.Lupa.AttackCard;
+package SuperstitioMod.cards.Lupa.TempCard;
 
 import SuperstitioMod.DataManager;
+import SuperstitioMod.SuperstitioModSetup;
 import SuperstitioMod.cards.Lupa.AbstractLupaCard_FuckJob;
+import SuperstitioMod.cards.Lupa.AttackCard.Fuck_Eye;
+import SuperstitioMod.utils.ActionUtility;
 import basemod.cardmods.RetainMod;
 import basemod.helpers.CardModifierManager;
 import com.megacrit.cardcrawl.actions.AbstractGameAction;
@@ -9,7 +12,6 @@ import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import com.megacrit.cardcrawl.powers.FrailPower;
-import com.megacrit.cardcrawl.powers.WeakPower;
 
 public class Fuck_Ear extends AbstractLupaCard_FuckJob {
     public static final String ID = DataManager.MakeTextID(Fuck_Ear.class.getSimpleName());
@@ -26,25 +28,21 @@ public class Fuck_Ear extends AbstractLupaCard_FuckJob {
 
     public Fuck_Ear() {
         this(false);
-//        AbstractCard card = new Fuck_Eye(false);
-//        CardModifierManager.removeSpecificModifier(card, new RetainMod(), false);
         this.cardsToPreview = new Fuck_Eye(false);
     }
 
     public Fuck_Ear(boolean blank) {
-        super(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET);
+        super(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET, SuperstitioModSetup.TempCardEnums.LUPA_TempCard_CARD);
         this.setupDamage(ATTACK_DMG);
         this.exhaust = true;
-//        CardModifierManager.addModifier(this, new RetainMod());
     }
 
     @Override
     public void use(AbstractPlayer player, AbstractMonster monster) {
-        addToBot_damageToTarget(monster, AbstractGameAction.AttackEffect.BLUNT_LIGHT);
-        addToBot_damageToTarget(monster, AbstractGameAction.AttackEffect.BLUNT_LIGHT);
-        addToBot_makeTempCardInBattle(new Fuck_Eye(), BattleCardPlace.Hand,this.upgraded);
-        addToBot_applyPowerToPlayer(new FrailPower(AbstractDungeon.player, 1, false));
-        addToBot_applyPowerToPlayer(new WeakPower(AbstractDungeon.player, 1, false));
+        addToBot_dealDamage(monster, AbstractGameAction.AttackEffect.BLUNT_LIGHT);
+        addToBot_dealDamage(monster, AbstractGameAction.AttackEffect.BLUNT_LIGHT);
+        ActionUtility.addToBot_makeTempCardInBattle(new Fuck_Eye(), BattleCardPlace.Hand, this.upgraded);
+        addToBot_applyPower(new FrailPower(AbstractDungeon.player, 1, false));
         AbstractLupaCard_FuckJob.addToTop_gainSexMark_Inside(this.name);
     }
 

@@ -30,7 +30,7 @@ public class DeathDoor extends AbstractLupaCard {
 
     @Override
     public void use(AbstractPlayer player, AbstractMonster monster) {
-        this.addToBot_applyPowerToPlayer(new SuperstitioMod.powers.DeathDoor(AbstractDungeon.player,this.magicNumber));
+        addToBot_applyPower(new SuperstitioMod.powers.DeathDoor(AbstractDungeon.player,this.magicNumber));
     }
 
     @Override

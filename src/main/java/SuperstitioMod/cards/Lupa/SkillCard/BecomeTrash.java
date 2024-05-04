@@ -32,9 +32,9 @@ public class BecomeTrash extends AbstractLupaCard {
     public void use(AbstractPlayer player, AbstractMonster monster) {
         this.addToBot(new ChoseCardFromGridSelectWindowAction(
                 AbstractDungeon.player.drawPile, card -> new ExhaustSpecificCardAction(card, AbstractDungeon.player.drawPile))
-                .setWindowText(String.format(getEXTENDED_DESCRIPTION()[0], this.magicNumber))
-                .setAnyNumber(true)
-                .setChoseAmount(this.magicNumber)
+                .setupWindowText(String.format(getEXTENDED_DESCRIPTION()[0], this.magicNumber))
+                .setupAnyNumber(true)
+                .setupChoseAmount(this.magicNumber)
         );
     }
 

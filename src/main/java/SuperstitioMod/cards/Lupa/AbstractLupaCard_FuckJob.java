@@ -42,15 +42,11 @@ public abstract class AbstractLupaCard_FuckJob extends AbstractLupaCard {
     }
 
     public static void addToTop_gainSexMark_Inside(String sexName) {
-        ActionUtility.addToBot_applyPowerToPlayer(new FreshSemen(AbstractDungeon.player, 1));
-        AbstractDungeon.actionManager.addToTop(
-                new ApplyPowerAction(AbstractDungeon.player, AbstractDungeon.player,
-                        new SexMark_Inside(AbstractDungeon.player, sexName)));
+        ActionUtility.addToBot_applyPower(new FreshSemen(AbstractDungeon.player, 1));
+        ActionUtility.addToTop_applyPower(new SexMark_Inside(AbstractDungeon.player, sexName));
     }
 
     public static void addToTop_gainSexMark_Outside(String sexName) {
-        AbstractDungeon.actionManager.addToBottom(
-                new ApplyPowerAction(AbstractDungeon.player, AbstractDungeon.player,
-                        new SexMark_Outside(AbstractDungeon.player, sexName)));
+        ActionUtility.addToTop_applyPower(new SexMark_Outside(AbstractDungeon.player, sexName));
     }
 }

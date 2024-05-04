@@ -43,7 +43,7 @@ public class CumOnShoes extends AbstractLupaRelic implements OnApplyPowerRelic, 
 
     @Override
     public void onCountMax() {
-        ActionUtility.addToBot_applyPowerToPlayer(new DexterityPower(AbstractDungeon.player, 1));
+        ActionUtility.addToBot_applyPower(new DexterityPower(AbstractDungeon.player, 1));
     }
 
     @Override
