@@ -1,5 +1,6 @@
 package SuperstitioMod;
 
+import com.evacipated.cardcrawl.modthespire.Loader;
 import org.apache.logging.log4j.LogManager;
 
 public class Logger {
@@ -11,5 +12,24 @@ public class Logger {
 
     public static void info(String string) {
         logger.info(string);
+    }
+
+    public static void run(String string) {
+        if (Loader.DEBUG)
+            logger.info(string);
+    }
+
+    public static void temp(String string) {
+        logger.info(string);
+    }
+
+    public static void debug(String string) {
+        if (Loader.DEBUG)
+            logger.info(string);
+    }
+
+    public static void warning(String string) {
+        if (Loader.DEBUG)
+            logger.warn("[WARNING] " + string);
     }
 }

@@ -64,7 +64,7 @@ public abstract class AbstractLupaCard extends CustomCard {
                 cardColor,
                 cardRarity,
                 cardTarget);
-        Logger.info("loadCard" + id);
+        Logger.debug("loadCard" + id);
         this.cardStrings = getCardStringsWithSFWAndFlavor(id);
         FlavorText.AbstractCardFlavorFields.flavor.set(this, this.cardStrings.getFLAVOR());
 //        FlavorText.AbstractCardFlavorFields.boxColor.set(this, Color.DARK_GRAY.cpy());

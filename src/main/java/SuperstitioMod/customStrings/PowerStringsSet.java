@@ -19,6 +19,11 @@ public class PowerStringsSet implements HasSFWVersionWithT<PowerStrings> {
         Origin.DESCRIPTIONS = DESCRIPTIONS;
     }
 
+    @Override
+    public Class<PowerStrings> getTClass() {
+        return PowerStrings.class;
+    }
+
     public String getNAME() {
         if (HasSFWVersion.ifReturnSFWVersion(SFW.NAME))
             return SFW.NAME;

@@ -1,7 +1,6 @@
 package SuperstitioMod.relics;
 
 import SuperstitioMod.DataManager;
-import SuperstitioMod.Logger;
 import SuperstitioMod.utils.updateDescriptionAdvanced;
 import basemod.abstracts.CustomRelic;
 import com.megacrit.cardcrawl.helpers.ImageMaster;
@@ -23,7 +22,6 @@ public abstract class AbstractLupaRelic extends CustomRelic implements updateDes
         this.updateDescriptionArgs();
         String string = getDescriptionStrings();
         string = String.format(string, descriptionArgs);
-        Logger.info(string);
         return string;
     }
 

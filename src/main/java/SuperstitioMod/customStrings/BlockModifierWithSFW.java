@@ -6,7 +6,7 @@ import com.megacrit.cardcrawl.localization.LocalizedStrings;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class DamageModifierWithSFW implements HasSFWVersion {
+public class BlockModifierWithSFW implements HasSFWVersion {
     private String NAME;
     private String NAME_SFW;
     private String BASIC_INFO;
@@ -15,8 +15,7 @@ public class DamageModifierWithSFW implements HasSFWVersion {
     private String DESCRIPTION_SFW;
     private String[] EXTENDED_DESCRIPTION;
     private String[] EXTENDED_DESCRIPTION_SFW;
-
-    public DamageModifierWithSFW() {
+    public BlockModifierWithSFW() {
     }
 
     @Override
@@ -61,7 +60,7 @@ public class DamageModifierWithSFW implements HasSFWVersion {
         return new WordReplace(this.NAME, this.NAME_SFW);
     }
 
-    public static List<WordReplace> makeDamageNameReplaceRules(List<DamageModifierWithSFW> cards) {
-        return cards.stream().map(DamageModifierWithSFW::toDamageNameReplaceRule).collect(Collectors.toList());
+    public static List<WordReplace> makeDamageNameReplaceRules(List<BlockModifierWithSFW> cards) {
+        return cards.stream().map(BlockModifierWithSFW::toDamageNameReplaceRule).collect(Collectors.toList());
     }
 }

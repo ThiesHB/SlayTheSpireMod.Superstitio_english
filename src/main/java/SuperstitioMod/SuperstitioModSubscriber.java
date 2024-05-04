@@ -14,13 +14,13 @@ import com.megacrit.cardcrawl.rooms.AbstractRoom;
 @SpireInitializer
 public class SuperstitioModSubscriber implements
         PostExhaustSubscriber, StartGameSubscriber, PostUpdateSubscriber, RelicGetSubscriber, PostPowerApplySubscriber,
-        PostBattleSubscriber, PostDungeonInitializeSubscriber, OnStartBattleSubscriber,OnPlayerTurnStartSubscriber,
+        PostBattleSubscriber, PostDungeonInitializeSubscriber, OnStartBattleSubscriber, OnPlayerTurnStartSubscriber,
         OnCardUseSubscriber, OnPowersModifiedSubscriber, PostDrawSubscriber, PostEnergyRechargeSubscriber {
 
 
     public SuperstitioModSubscriber() {
         BaseMod.subscribe(this);
-        Logger.info("Done subscribing");
+        Logger.run("Done " + this + " subscribing");
     }
 
     public static void initialize() {

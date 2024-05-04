@@ -19,14 +19,13 @@ import com.megacrit.cardcrawl.powers.AbstractPower;
 public abstract class AbstractLupaPower extends AbstractPower implements updateDescriptionAdvanced {
     public static final String DEFAULT = "default";
     protected PowerStringsSet powerStringsSet;
-    protected PowerStrings powerStrings;
+    public PowerStrings powerStrings;
     private Object[] descriptionArgs;
 
     public AbstractLupaPower(String id,  PowerStringsSet powerStringsSet, final AbstractCreature owner, int amount, PowerType powerType, boolean needUpdateDescription) {
         this.name = powerStringsSet.getRightVersion().NAME;
         this.ID = id;
         this.owner = owner;
-
         this.type = powerType;
 
         this.amount = amount;
@@ -111,6 +110,7 @@ public abstract class AbstractLupaPower extends AbstractPower implements updateD
     }
 
 
+    @SuppressWarnings("RedundantCast")
     @Override
     public final void updateDescription() {
         this.updateDescriptionArgs();

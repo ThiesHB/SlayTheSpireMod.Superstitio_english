@@ -1,10 +1,7 @@
 package SuperstitioMod;
 
 
-import SuperstitioMod.customStrings.CardStringsWithSFWAndFlavor;
-import SuperstitioMod.customStrings.DamageModifierWithSFW;
-import SuperstitioMod.customStrings.HasSFWVersion;
-import SuperstitioMod.customStrings.PowerStringsSet;
+import SuperstitioMod.customStrings.*;
 import basemod.ReflectionHacks;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
@@ -23,12 +20,11 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.function.Function;
 
-import static basemod.BaseMod.findCallingModName;
-
 public class DataManager {
     public static Map<String, CardStringsWithSFWAndFlavor> cards = new HashMap<>();
     public static Map<String, PowerStringsSet> powers = new HashMap<>();
     public static Map<String, DamageModifierWithSFW> damage_modifiers = new HashMap<>();
+    public static Map<String, BlockModifierWithSFW> block_modifiers = new HashMap<>();
     private static HashMap<Type, String> typeMaps;
     private static HashMap<Type, Type> typeTokens;
     public LUPA_DATA lupaData = new LUPA_DATA();
@@ -109,15 +105,28 @@ public class DataManager {
     }
 
 
-    static <T extends HasSFWVersion> void loadCustomStringsFile(String fileName, Map<String, T> target, Class<T> needClass) {
-        Logger.info("loadJsonStrings: " + needClass.getTypeName());
+    static <T extends HasSFWVersion> void loadCustomStringsFile(String fileName, Map<String, T> target, Class<T> tSetClass) {
+        Logger.debug("loadJsonStrings: " + tSetClass.getTypeName());
         String jsonString = Gdx.files.internal(DataManager.makeLocalizationPath(Settings.language, fileName))
                 .readString(String.valueOf(StandardCharsets.UTF_8));
-        Type typeToken = GetTypeOfMapByAComplexFunctionBecauseTheMotherfuckerGenericProgrammingWayTheFuckingJavaUse(needClass).orElse(null);
+        ParameterizedType typeToken =
+                GetTypeOfMapByAComplexFunctionBecauseTheMotherfuckerGenericProgrammingWayTheFuckingJavaUse(tSetClass).orElse(null);
         Gson gson = new Gson();
         Map<String, T> map = gson.fromJson(jsonString, typeToken);
-        map.values().forEach(HasSFWVersion::initialOrigin);
+        for (T t : map.values()) {
+            t.initialOrigin();
+        }
         target.putAll(map);
+        if (typeToken == null) return;
+        Map<String, Object> baseModStringMap = new HashMap<>();
+        try {
+            if (tSetClass.newInstance() instanceof HasSFWVersionWithT) {
+                map.forEach((string, value) -> baseModStringMap.put(string, ((HasSFWVersionWithT<?>) value).getRightVersion()));
+                setJsonStrings(((HasSFWVersionWithT<?>) tSetClass.newInstance()).getTClass(), baseModStringMap);
+            }
+        } catch (InstantiationException | IllegalAccessException e) {
+            Logger.error(e);
+        }
     }
 
     private static <T> Optional<ParameterizedType> GetTypeOfMapByAComplexFunctionBecauseTheMotherfuckerGenericProgrammingWayTheFuckingJavaUse(
@@ -163,7 +172,7 @@ public class DataManager {
         path = PathFinder.apply(DataManager.getIdOnly(id));
         if (Gdx.files.internal(path).exists())
             return path;
-        Logger.info("Can't find " + Arrays.toString(DataManager.getIdOnly(id)) + ". Use default img instead.");
+        Logger.warning("Can't find " + Arrays.toString(DataManager.getIdOnly(id)) + ". Use default img instead.");
         return PathFinder.apply(new String[]{defaultFileName});
     }
 
@@ -202,7 +211,7 @@ public class DataManager {
     }
 
     public static void initializeTypeMaps() {
-        Logger.info("initializeTypeMaps");
+        Logger.run("initializeTypeMaps");
         typeMaps = new HashMap<>();
         typeTokens = new HashMap<>();
         for (Field f : LocalizedStrings.class.getDeclaredFields()) {
@@ -214,7 +223,7 @@ public class DataManager {
                         !typeArgs[1].getTypeName().startsWith("com.megacrit.cardcrawl.localization.") || !typeArgs[1].getTypeName().endsWith(
                         "Strings"))
                     continue;
-                Logger.info("Registered " + typeArgs[1].getTypeName().replace("com.megacrit.cardcrawl.localization.", ""));
+                Logger.run("Registered " + typeArgs[1].getTypeName().replace("com.megacrit.cardcrawl.localization.", ""));
                 typeMaps.put(typeArgs[1], f.getName());
                 ParameterizedType p = $Gson$Types.newParameterizedTypeWithOwner(null, Map.class, String.class, typeArgs[1]);
                 typeTokens.put(typeArgs[1], p);
@@ -222,17 +231,28 @@ public class DataManager {
         }
     }
 
-    @SuppressWarnings("StaticVariableUsedBeforeInitialization")
-    public static <T> void setJsonStrings(Type stringType, String jsonString, Map<String, T> GivenMap) {
-        Logger.info("loadJsonStrings: " + stringType.getTypeName());
-        String typeMap = (String) typeMaps.get(stringType);
-        Type typeToken = (Type) typeTokens.get(stringType);
-        String modName = findCallingModName();
-        Map localizationStrings = ReflectionHacks.getPrivateStatic(LocalizedStrings.class, typeMap);
-        Map<String, T> map = GivenMap;
-        localizationStrings.putAll(map);
+    public static <T> Optional<String> getTypeMapFromLocalizedStrings(Class<T> tClass) {
+        Logger.run("initializeTypeMaps");
+        typeMaps = new HashMap<>();
+        for (Field f : LocalizedStrings.class.getDeclaredFields()) {
+            Type type = f.getGenericType();
+            if (type instanceof ParameterizedType) {
+                ParameterizedType pType = (ParameterizedType) type;
+                Type[] typeArgs = pType.getActualTypeArguments();
+                if (typeArgs.length == 2 && typeArgs[0] == String.class && typeArgs[1] == tClass)
+                    return Optional.of(f.getName());
+            }
+        }
+        return Optional.empty();
+    }
 
-        ReflectionHacks.setPrivateStaticFinal(LocalizedStrings.class, typeMap, localizationStrings);
+    public static void setJsonStrings(Class<?> tClass, Map<String, Object> GivenMap) {
+        String mapName = getTypeMapFromLocalizedStrings(tClass).orElse("");
+        if (mapName.isEmpty()) return;
+        Map<String, Object> localizationStrings = ReflectionHacks.getPrivateStatic(LocalizedStrings.class, mapName);
+        localizationStrings.putAll(GivenMap);
+        Logger.temp("loadJsonStrings: " + tClass.getTypeName());
+        ReflectionHacks.setPrivateStaticFinal(LocalizedStrings.class, mapName, localizationStrings);
     }
 
 

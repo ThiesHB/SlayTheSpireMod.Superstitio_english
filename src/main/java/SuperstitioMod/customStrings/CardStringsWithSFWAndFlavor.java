@@ -3,10 +3,8 @@ package SuperstitioMod.customStrings;
 import SuperstitioMod.SuperstitioModSetup;
 import SuperstitioMod.WordReplace;
 import com.evacipated.cardcrawl.mod.stslib.patches.FlavorText;
-import com.evacipated.cardcrawl.modthespire.lib.SpireField;
 import com.megacrit.cardcrawl.localization.CardStrings;
 import com.megacrit.cardcrawl.localization.LocalizedStrings;
-import com.megacrit.cardcrawl.localization.PowerStrings;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -38,6 +36,11 @@ public class CardStringsWithSFWAndFlavor implements HasSFWVersionWithT<CardStrin
         Origin.UPGRADE_DESCRIPTION = UPGRADE_DESCRIPTION;
         Origin.EXTENDED_DESCRIPTION = EXTENDED_DESCRIPTION;
         FlavorText.CardStringsFlavorField.flavor.set(Origin, FLAVOR);
+    }
+
+    @Override
+    public Class<CardStrings> getTClass() {
+        return CardStrings.class;
     }
 
     @Override

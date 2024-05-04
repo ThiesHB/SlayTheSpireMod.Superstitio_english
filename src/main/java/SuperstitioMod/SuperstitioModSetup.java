@@ -11,8 +11,6 @@ import basemod.abstracts.CustomRelic;
 import basemod.interfaces.*;
 import com.badlogic.gdx.graphics.Texture;
 import com.evacipated.cardcrawl.mod.stslib.Keyword;
-import com.evacipated.cardcrawl.mod.stslib.cards.targeting.SelfOrEnemyTargeting;
-import com.evacipated.cardcrawl.mod.stslib.patches.CustomTargeting;
 import com.evacipated.cardcrawl.modthespire.lib.SpireConfig;
 import com.evacipated.cardcrawl.modthespire.lib.SpireEnum;
 import com.evacipated.cardcrawl.modthespire.lib.SpireInitializer;
@@ -72,13 +70,46 @@ public class SuperstitioModSetup implements
                 data.lupaData.BG_ATTACK_1024, data.lupaData.BG_SKILL_1024, data.lupaData.BG_POWER_1024,
                 data.lupaData.BIG_ORB, data.lupaData.SMALL_ORB);
 
-        Logger.info("Done subscribing");
-        Logger.info("Adding mod settings");
+        Logger.run("Done " + this + " subscribing");
+        Logger.run("Adding mod settings");
     }
 
     public static void initialize() {
         new SuperstitioModSetup();
         DataManager.initializeTypeMaps();
+    }
+
+    private static void setUpModOptions() {
+        Logger.run("Loading badge image and mod options");
+        final Texture badgeTexture = ImageMaster.loadImage(DataManager.makeImgFilesPath_UI("ModIcon"));
+        final ModPanel settingsPanel = new ModPanel();
+        float settingXPos = 350.0f;
+        float settingYPos = 750.0f;
+        final float lineSpacing = 50.0f;
+        final UIStrings UIStrings = CardCrawlGame.languagePack.getUIString(DataManager.MakeTextID("OptionsMenu"));
+        final String[] SettingText = UIStrings.TEXT;
+
+        settingsPanel.addUIElement(new ModLabeledToggleButton(SettingText[0], settingXPos, settingYPos,
+                Settings.CREAM_COLOR, FontHelper.charDescFont, SuperstitioModSetup.enableSFW, settingsPanel, label -> {
+        }, button -> {
+            SuperstitioModSetup.enableSFW = button.enabled;
+            try {
+                SuperstitioModSetup.config.setBool(ENABLE_NSFW_STRING, SuperstitioModSetup.enableSFW);
+                SuperstitioModSetup.config.save();
+            } catch (Exception e) {
+                Logger.error(e);
+            }
+        }));
+
+        settingYPos -= 3 * lineSpacing;
+
+        settingsPanel.addUIElement(new ModLabeledButton(SettingText[1], settingXPos, settingYPos
+                , settingsPanel, button -> {
+//            CardLibrary.cards.values().removeIf(card -> card instanceof AbstractLupaCard);
+//            receiveEditCards();
+//            SFWWordReplace();
+        }));
+        BaseMod.registerModBadge(badgeTexture, MOD_NAME + " Mod", "Creeper_of_Fire", "A NSFW mod", settingsPanel);
     }
 
     @Override
@@ -115,12 +146,14 @@ public class SuperstitioModSetup implements
 
     @Override
     public void receiveEditStrings() {
-        Logger.info("Beginning to edit strings for mod with ID: " + DataManager.getModID());
+        Logger.run("Beginning to edit strings for mod with ID: " + DataManager.getModID());
         DataManager.loadCustomStringsFile("card_Lupa", DataManager.cards, CardStringsWithSFWAndFlavor.class);
         DataManager.loadCustomStringsFile("damage_modifier", DataManager.damage_modifiers, DamageModifierWithSFW.class);
+        DataManager.loadCustomStringsFile("block_modifier", DataManager.damage_modifiers, DamageModifierWithSFW.class);
         BaseMod.loadCustomStringsFile(CharacterStrings.class,
                 DataManager.makeLocalizationPath(Settings.language, enableSFW ? "character_LupaSFW" : "character_Lupa"));
         BaseMod.loadCustomStringsFile(RelicStrings.class, DataManager.makeLocalizationPath(Settings.language, "relic_Lupa"));
+//        BaseMod.loadCustomStringsFile(PowerStrings.class, DataManager.makeLocalizationPath(Settings.language, "power"));
         DataManager.loadCustomStringsFile("power", DataManager.powers, PowerStringsSet.class);
 //        BaseMod.loadCustomStringsFile(EventStrings.class, makeLocPath(Settings.language,"event"));
 //        BaseMod.loadCustomStringsFile(PotionStrings.class, makeLocPath(Settings.language,"potion"));
@@ -130,7 +163,7 @@ public class SuperstitioModSetup implements
             MakeSFWWord();
             SFWWordReplace();
         }
-        Logger.info("Done editing strings");
+        Logger.run("Done editing strings");
     }
 
     private void MakeSFWWord() {
@@ -140,6 +173,7 @@ public class SuperstitioModSetup implements
             DataManager.cards.forEach((string, card) -> card.setupSFWStringByWordReplace(wordReplace));
             DataManager.powers.forEach(((string, power) -> power.setupSFWStringByWordReplace(wordReplace)));
             DataManager.damage_modifiers.forEach(((string, power) -> power.setupSFWStringByWordReplace(wordReplace)));
+            DataManager.block_modifiers.forEach(((string, power) -> power.setupSFWStringByWordReplace(wordReplace)));
         }
     }
 
@@ -188,39 +222,6 @@ public class SuperstitioModSetup implements
     public void receivePostInitialize() {
 //        CustomTargeting.registerCustomTargeting(SelfOrEnemyTargeting.SELF_OR_ENEMY, new SelfOrEnemyTargeting());
         setUpModOptions();
-    }
-
-    private static void setUpModOptions() {
-        Logger.info("Loading badge image and mod options");
-        final Texture badgeTexture = ImageMaster.loadImage(DataManager.makeImgFilesPath_UI("ModIcon"));
-        final ModPanel settingsPanel = new ModPanel();
-        float settingXPos = 350.0f;
-        float settingYPos = 750.0f;
-        final float lineSpacing = 50.0f;
-        final UIStrings UIStrings = CardCrawlGame.languagePack.getUIString(DataManager.MakeTextID("OptionsMenu"));
-        final String[] SettingText = UIStrings.TEXT;
-
-        settingsPanel.addUIElement(new ModLabeledToggleButton(SettingText[0], settingXPos, settingYPos,
-                Settings.CREAM_COLOR, FontHelper.charDescFont, SuperstitioModSetup.enableSFW, settingsPanel, label -> {
-        }, button -> {
-            SuperstitioModSetup.enableSFW = button.enabled;
-            try {
-                SuperstitioModSetup.config.setBool(ENABLE_NSFW_STRING, SuperstitioModSetup.enableSFW);
-                SuperstitioModSetup.config.save();
-            } catch (Exception e) {
-                Logger.error(e);
-            }
-        }));
-
-        settingYPos -= 3 * lineSpacing;
-
-        settingsPanel.addUIElement(new ModLabeledButton(SettingText[1], settingXPos, settingYPos
-                , settingsPanel, button -> {
-//            CardLibrary.cards.values().removeIf(card -> card instanceof AbstractLupaCard);
-//            receiveEditCards();
-//            SFWWordReplace();
-        }));
-        BaseMod.registerModBadge(badgeTexture, MOD_NAME + " Mod", "Creeper_of_Fire", "A NSFW mod", settingsPanel);
     }
 
     // 为原版人物枚举、卡牌颜色枚举扩展的枚举，需要写，接下来要用

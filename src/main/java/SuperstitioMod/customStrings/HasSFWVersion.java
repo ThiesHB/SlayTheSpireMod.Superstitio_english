@@ -27,7 +27,7 @@ public interface HasSFWVersion {
         if (stringTMap.containsKey(keyName)) {
             return stringTMap.get(keyName);
         } else {
-            Logger.info("[ERROR] " + tClass.getSimpleName() + ": " + keyName + " not found");
+            Logger.warning(tClass.getSimpleName() + ": " + keyName + " not found");
             T customStringsWithSFW = tClass.newInstance();
             customStringsWithSFW.initialSelfBlack();
             customStringsWithSFW.initialOrigin();
@@ -35,7 +35,8 @@ public interface HasSFWVersion {
         }
     }
 
-    void initialOrigin();
+    default void initialOrigin() {
+    }
 
     void initialSelfBlack();
 

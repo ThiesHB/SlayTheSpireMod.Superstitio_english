@@ -93,7 +93,7 @@ public class Lupa extends CustomPlayer {
     // 初始卡组的ID，可直接写或引用变量
     public ArrayList<String> getStartingDeck() {
         ArrayList<String> retVal = new ArrayList<>();
-        Logger.info("Begin loading starter Deck Strings");
+        Logger.run("Begin loading starter Deck Strings");
         for (int x = 0; x < 5; x++) {
             //SuperstitioModSetup.logger.info("Add"+Strike_Lupa.ID);
             retVal.add(Job_Hand.ID);

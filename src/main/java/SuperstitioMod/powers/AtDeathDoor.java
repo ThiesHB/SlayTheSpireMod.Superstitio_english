@@ -3,10 +3,9 @@ package SuperstitioMod.powers;
 import SuperstitioMod.DataManager;
 import com.megacrit.cardcrawl.cards.DamageInfo;
 import com.megacrit.cardcrawl.core.AbstractCreature;
-import com.megacrit.cardcrawl.localization.PowerStrings;
 
 public class AtDeathDoor extends AbstractLupaPower {
-    public static final String POWER_ID = DataManager.MakeTextID(AtDeathDoor.class.getSimpleName() );
+    public static final String POWER_ID = DataManager.MakeTextID(AtDeathDoor.class.getSimpleName());
     public AtDeathDoor(final AbstractCreature owner) {
         super(POWER_ID, owner, -1);
     }

@@ -110,7 +110,7 @@ public abstract class AllCardCostModifier extends AbstractLupaPower implements N
     }
 
     private void activateEffect() {
-        Logger.info("add CostModifier");
+        Logger.debug("add CostModifier");
         this.setActive();
         tryUseEffect();
         updateDescription();
@@ -126,7 +126,7 @@ public abstract class AllCardCostModifier extends AbstractLupaPower implements N
     }
 
     public void removeSelf() {
-        Logger.info("remove CostModifier");
+        Logger.debug("remove CostModifier");
         if (this.isActive() && this.amount != 0) {
             CostToOriginAllCards();
         }
