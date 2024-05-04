@@ -23,10 +23,7 @@ import java.util.function.Function;
 public class DataManager {
     public static Map<String, CardStringsWithSFWAndFlavor> cards = new HashMap<>();
     public static Map<String, PowerStringsSet> powers = new HashMap<>();
-    public static Map<String, DamageModifierWithSFW> damage_modifiers = new HashMap<>();
-    public static Map<String, BlockModifierWithSFW> block_modifiers = new HashMap<>();
-    private static HashMap<Type, String> typeMaps;
-    private static HashMap<Type, Type> typeTokens;
+    public static Map<String, ModifierStringsWithSFW> modifiers = new HashMap<>();
     public LUPA_DATA lupaData = new LUPA_DATA();
 
     static String makeLocalizationPath(Settings.GameLanguage language, String filename) {
@@ -113,20 +110,22 @@ public class DataManager {
                 GetTypeOfMapByAComplexFunctionBecauseTheMotherfuckerGenericProgrammingWayTheFuckingJavaUse(tSetClass).orElse(null);
         Gson gson = new Gson();
         Map<String, T> map = gson.fromJson(jsonString, typeToken);
-        for (T t : map.values()) {
-            t.initialOrigin();
-        }
+        map.forEach((id, strings) -> {
+            strings.initialOrigin();
+            if (strings instanceof HasTextID)
+                ((HasTextID) strings).setTextID(id);
+        });
         target.putAll(map);
-        if (typeToken == null) return;
-        Map<String, Object> baseModStringMap = new HashMap<>();
-        try {
-            if (tSetClass.newInstance() instanceof HasSFWVersionWithT) {
-                map.forEach((string, value) -> baseModStringMap.put(string, ((HasSFWVersionWithT<?>) value).getRightVersion()));
-                setJsonStrings(((HasSFWVersionWithT<?>) tSetClass.newInstance()).getTClass(), baseModStringMap);
-            }
-        } catch (InstantiationException | IllegalAccessException e) {
-            Logger.error(e);
-        }
+//        if (typeToken == null) return;
+//        Map<String, Object> baseModStringMap = new HashMap<>();
+//        try {
+//            if (tSetClass.newInstance() instanceof HasSFWVersionWithT) {
+//                map.forEach((string, value) -> baseModStringMap.put(string, ((HasSFWVersionWithT<?>) value).getRightVersion()));
+//                setJsonStrings(((HasSFWVersionWithT<?>) tSetClass.newInstance()).getTClass(), baseModStringMap);
+//            }
+//        } catch (InstantiationException | IllegalAccessException e) {
+//            Logger.error(e);
+//        }
     }
 
     private static <T> Optional<ParameterizedType> GetTypeOfMapByAComplexFunctionBecauseTheMotherfuckerGenericProgrammingWayTheFuckingJavaUse(
@@ -210,30 +209,8 @@ public class DataManager {
         }
     }
 
-    public static void initializeTypeMaps() {
-        Logger.run("initializeTypeMaps");
-        typeMaps = new HashMap<>();
-        typeTokens = new HashMap<>();
-        for (Field f : LocalizedStrings.class.getDeclaredFields()) {
-            Type type = f.getGenericType();
-            if (type instanceof ParameterizedType) {
-                ParameterizedType pType = (ParameterizedType) type;
-                Type[] typeArgs = pType.getActualTypeArguments();
-                if (typeArgs.length != 2 || typeArgs[0] != String.class ||
-                        !typeArgs[1].getTypeName().startsWith("com.megacrit.cardcrawl.localization.") || !typeArgs[1].getTypeName().endsWith(
-                        "Strings"))
-                    continue;
-                Logger.run("Registered " + typeArgs[1].getTypeName().replace("com.megacrit.cardcrawl.localization.", ""));
-                typeMaps.put(typeArgs[1], f.getName());
-                ParameterizedType p = $Gson$Types.newParameterizedTypeWithOwner(null, Map.class, String.class, typeArgs[1]);
-                typeTokens.put(typeArgs[1], p);
-            }
-        }
-    }
-
     public static <T> Optional<String> getTypeMapFromLocalizedStrings(Class<T> tClass) {
         Logger.run("initializeTypeMaps");
-        typeMaps = new HashMap<>();
         for (Field f : LocalizedStrings.class.getDeclaredFields()) {
             Type type = f.getGenericType();
             if (type instanceof ParameterizedType) {

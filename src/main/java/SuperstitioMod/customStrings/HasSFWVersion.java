@@ -23,15 +23,19 @@ public interface HasSFWVersion {
         return sfwStings != null && sfwStings.length != 0;
     }
 
-    static <T extends HasSFWVersion> T getCustomStringsWithSFW(String keyName, Map<String, T> stringTMap, Class<T> tClass) throws InstantiationException, IllegalAccessException {
+    static <T extends HasSFWVersion> T getCustomStringsWithSFW(String keyName, Map<String, T> stringTMap, Class<T> tClass) {
         if (stringTMap.containsKey(keyName)) {
             return stringTMap.get(keyName);
         } else {
             Logger.warning(tClass.getSimpleName() + ": " + keyName + " not found");
-            T customStringsWithSFW = tClass.newInstance();
-            customStringsWithSFW.initialSelfBlack();
-            customStringsWithSFW.initialOrigin();
-            return customStringsWithSFW;
+            try {
+                T customStringsWithSFW = tClass.newInstance();
+                customStringsWithSFW.initialSelfBlack();
+                customStringsWithSFW.initialOrigin();
+                return customStringsWithSFW;
+            } catch (InstantiationException | IllegalAccessException e) {
+                throw new RuntimeException(e);
+            }
         }
     }
 

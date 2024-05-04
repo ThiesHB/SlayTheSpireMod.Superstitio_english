@@ -1,14 +1,11 @@
 package SuperstitioMod.powers;
 
 import SuperstitioMod.DataManager;
-import SuperstitioMod.cards.DamageMod.UnBlockAbleDamage;
 import com.badlogic.gdx.graphics.Color;
-import com.evacipated.cardcrawl.mod.stslib.damagemods.BindingHelper;
-import com.evacipated.cardcrawl.mod.stslib.damagemods.DamageModContainer;
 import com.evacipated.cardcrawl.mod.stslib.powers.interfaces.HealthBarRenderPower;
+import com.megacrit.cardcrawl.actions.AbstractGameAction;
+import com.megacrit.cardcrawl.actions.common.LoseHPAction;
 import com.megacrit.cardcrawl.core.AbstractCreature;
-
-import static com.megacrit.cardcrawl.cards.DamageInfo.DamageType;
 
 public class SexualDamage extends AbstractLupaPower implements HealthBarRenderPower {
     public static final String POWER_ID = DataManager.MakeTextID(SexualDamage.class.getSimpleName());
@@ -21,12 +18,9 @@ public class SexualDamage extends AbstractLupaPower implements HealthBarRenderPo
 
     @Override
     public void atStartOfTurn() {
-        check();
-    }
-
-    private void check() {
-        if (this.owner.currentHealth <= this.amount)
-            this.owner.damage(BindingHelper.makeInfo(new DamageModContainer(this, new UnBlockAbleDamage()), giver, amount, DamageType.NORMAL));
+//        this.owner.damage(BindingHelper.makeInfo(new DamageModContainer(this, new UnBlockAbleDamage()), giver, amount, DamageType.HP_LOSS));
+        addToBot(new LoseHPAction(this.owner,giver,this.amount, AbstractGameAction.AttackEffect.POISON));
+        addToBot_removeSpecificPower(this);
     }
 
     @Override

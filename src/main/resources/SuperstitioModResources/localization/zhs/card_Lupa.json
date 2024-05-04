@@ -125,7 +125,7 @@
   "SuperstitioMod:Invite": {
     "NAME": "邀请",
     "NAME_SFW": "防御",
-    "DESCRIPTION": "获得 !B! 点 superstitiomod:引诱 。",
+    "DESCRIPTION": "获得 !B! 点 *引诱 。",
     "FLAVOR": "这里面请。"
   },
   "SuperstitioMod:Masturbate": {
@@ -148,13 +148,13 @@
   "SuperstitioMod:Tease": {
     "NAME": "挑逗",
     "NAME_SFW": "温水煮青蛙",
-    "DESCRIPTION": "目标敌人 获得 脆弱， NL 失去上限的 !M! % 生命 ， NL 失去的 生命 转化为 superstitiomod:引诱 。 NL 给予 *壁垒 。 NL 消耗 。",
+    "DESCRIPTION": "目标敌人 获得 脆弱， NL 失去上限的 !M! % 生命 ， NL 失去的 生命 转化为 格挡 。 NL 给予 *壁垒 。 NL 消耗 。",
     "FLAVOR": "让敌人硬邦邦，不过也让自己湿漉漉。"
   },
   "SuperstitioMod:ExposeSelf": {
     "NAME": "自我暴露",
     "NAME_SFW": "战局剖析",
-    "DESCRIPTION": "获得 !B! 点 superstitiomod:引诱 。 NL 到 下回合 开始前 ， NL 失去 superstitiomod:引诱 时， NL 获得失去数值一半的 superstitiomod:干涸精液 。",
+    "DESCRIPTION": "获得 !B! 点 *引诱 。 NL 到 下回合 开始前 ， NL 失去 格挡 时， NL 获得失去数值一半的 superstitiomod:干涸精液 。",
     "FLAVOR": "要做爱，不作战。"
   },
   "SuperstitioMod:BlindfoldWithMilk": {
@@ -190,13 +190,13 @@
   "SuperstitioMod:UnBirth": {
     "NAME": "胎内回归",
     "NAME_SFW": "力量汲取",
-    "DESCRIPTION": "获得 !B! superstitiomod:引诱 。 NL 把目标敌人所有的 负面效果 和 人工制品 封印成 *胎内回归：分娩 。",
+    "DESCRIPTION": "获得 !B! *怀孕 。 NL 把目标敌人所有的 负面效果 和 人工制品 封印入 *怀孕 。",
     "FLAVOR": "我会包容你的一切：你的欲望、你的梦想、你的爱…… NL 请把你的一切交给我。"
   },
-  "SuperstitioMod:ReBirth": {
-    "NAME": "胎内回归：分娩",
+  "SuperstitioMod:GiveBirth": {
+    "NAME": "分娩",
     "NAME_SFW": "力量释放",
-    "DESCRIPTION": "获得 !B! 临时生命 。 NL 打出卡牌后，自身获得卡牌封印的所有 效果 。 NL 消耗 。",
+    "DESCRIPTION": "移除所有的 superstitiomod:怀孕 。获得 !B! 临时生命 。 NL 打出卡牌后， 。 NL 消耗 。",
     "FLAVOR": "重获新生吧。"
   },
   "SuperstitioMod:ChokeChoker": {
@@ -213,7 +213,7 @@
   "SuperstitioMod:CoitalVocal": {
     "NAME": "叫床",
     "NAME_SFW": "战吼",
-    "DESCRIPTION": " 保留 。 NL 获得 在场敌人数量+1次的 !B! superstitiomod:引诱 。",
+    "DESCRIPTION": " 保留 。 NL 获得 在场敌人数量+1次的 !B! *引诱 。",
     "FLAVOR": "兴之所至。"
   },
   "SuperstitioMod:TimeStop": {
@@ -271,12 +271,12 @@
   "SuperstitioMod:Philter": {
     "NAME": "春药",
     "NAME_SFW": "硬气功",
-    "DESCRIPTION": "移除 所有 的 superstitiomod:引诱 ， NL 获得 一半 的 多层护甲 。",
+    "DESCRIPTION": "移除 所有 的 格挡 ， NL 获得 一半 的 多层护甲 。",
     "FLAVOR": "从阴蒂注射效果最好。"
   },
   "SuperstitioMod:ZenState": {
     "NAME": "禅意",
-    "DESCRIPTION": "获得 !B! 点 superstitiomod:引诱 ， NL 从手牌中选择 !M! 张牌赋予 消耗 。",
+    "DESCRIPTION": "获得 !B! 点 *引诱 ， NL 从手牌中选择 !M! 张牌赋予 消耗 。",
     "FLAVOR": "",
     "EXTENDED_DESCRIPTION": [
       "选择%d张牌赋予消耗 。"
@@ -285,7 +285,7 @@
   "SuperstitioMod:AddSexToy": {
     "NAME": "情趣快递",
     "NAME_SFW": "制作旗帜",
-    "DESCRIPTION": "添加 !M! 张 *情趣玩具 到手牌中。",
+    "DESCRIPTION": "添加 !M! 张 *情趣玩具 到手牌中。 NL 消耗 。",
     "FLAVOR": ""
   },
   "SuperstitioMod:DeathDoor": {

@@ -1,6 +1,7 @@
 package SuperstitioMod.cards.Lupa.AttackCard;
 
 import SuperstitioMod.DataManager;
+import SuperstitioMod.cards.BlockMod.SexBlock;
 import SuperstitioMod.cards.Lupa.AbstractLupaCard_FuckJob;
 import SuperstitioMod.cards.Lupa.TempCard.Fuck_Ear;
 import SuperstitioMod.utils.ActionUtility;
@@ -37,7 +38,7 @@ public class Fuck_Eye extends AbstractLupaCard_FuckJob {
     public Fuck_Eye(boolean blank) {
         super(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET);
         this.setupDamage(ATTACK_DMG);
-        this.setupBlock(BLOCK);
+        this.setupBlock(BLOCK,new SexBlock());
         this.exhaust = true;
 //        CardModifierManager.addModifier(this, new RetainMod());
     }

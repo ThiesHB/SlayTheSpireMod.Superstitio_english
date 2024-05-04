@@ -9,15 +9,14 @@ import com.megacrit.cardcrawl.core.AbstractCreature;
 import com.megacrit.cardcrawl.core.Settings;
 import com.megacrit.cardcrawl.powers.AbstractPower;
 
-public class FreshSemen extends AbstractWithBarPower implements OnPostApplyThisPower {
-    public static final String POWER_ID = DataManager.MakeTextID(FreshSemen.class.getSimpleName() +
-            "Power");
+public class InsideSemen extends AbstractWithBarPower implements OnPostApplyThisPower {
+    public static final String POWER_ID = DataManager.MakeTextID(InsideSemen.class.getSimpleName());
     public static final int MAX_Semen = 10;
     private static final int ToDrySemenRate = 1;
     //绘制相关
     private static final Color BarTextColor = new Color(1.0f, 1.0f, 1.0f, 1.0f);
 
-    public FreshSemen(final AbstractCreature owner, final int amount) {
+    public InsideSemen(final AbstractCreature owner, final int amount) {
         super(POWER_ID, owner, amount, owner.isPlayer ? PowerType.BUFF : PowerType.DEBUFF, false);
     }
 
@@ -50,7 +49,7 @@ public class FreshSemen extends AbstractWithBarPower implements OnPostApplyThisP
         AbstractPower power = this;
         AutoDoneAction.addToBotAbstract(() ->
                 PowerUtility.BubbleMessageHigher(power, false, powerStringsSet.getRightVersion().DESCRIPTIONS[1]));
-        this.addToBot_applyPowerToOwner(new DrySemen(this.owner, flowAmount * ToDrySemenRate));
+        this.addToBot_applyPowerToOwner(new OutsideSemen(this.owner, flowAmount * ToDrySemenRate));
     }
 
 //    @Override

@@ -18,7 +18,7 @@ public class ExposeSelf extends AbstractLupaPower implements OnLoseBlockPower {
     @Override
     public int onLoseBlock(DamageInfo damageInfo, int i) {
         this.addToBot(new ApplyPowerAction(
-                AbstractDungeon.player, AbstractDungeon.player, new DrySemen(AbstractDungeon.player, i)));
+                AbstractDungeon.player, AbstractDungeon.player, new OutsideSemen(AbstractDungeon.player, i)));
         return i;
     }
 

@@ -18,11 +18,12 @@ import com.megacrit.cardcrawl.powers.AbstractPower;
 
 public abstract class AbstractLupaPower extends AbstractPower implements updateDescriptionAdvanced {
     public static final String DEFAULT = "default";
-    protected PowerStringsSet powerStringsSet;
-    public PowerStrings powerStrings;
+    public final PowerStrings powerStrings;
+    protected final PowerStringsSet powerStringsSet;
     private Object[] descriptionArgs;
 
-    public AbstractLupaPower(String id,  PowerStringsSet powerStringsSet, final AbstractCreature owner, int amount, PowerType powerType, boolean needUpdateDescription) {
+    public AbstractLupaPower(String id, PowerStringsSet powerStringsSet, final AbstractCreature owner, int amount, PowerType powerType,
+                             boolean needUpdateDescription) {
         this.name = powerStringsSet.getRightVersion().NAME;
         this.ID = id;
         this.owner = owner;
@@ -43,6 +44,22 @@ public abstract class AbstractLupaPower extends AbstractPower implements updateD
             this.updateDescription();
     }
 
+    public AbstractLupaPower(String id, final AbstractCreature owner, int amount, PowerType powerType, boolean needUpdateDescription) {
+        this(id, AbstractLupaPower.getPowerStringsWithSFW(id), owner, amount, powerType, needUpdateDescription);
+    }
+
+    public AbstractLupaPower(String id, final AbstractCreature owner, int amount, PowerType powerType) {
+        this(id, owner, amount, powerType, true);
+    }
+
+    public AbstractLupaPower(String id, final AbstractCreature owner, int amount) {
+        this(id, owner, amount, PowerType.BUFF);
+    }
+
+    public static PowerStringsSet getPowerStringsWithSFW(String cardName) {
+        return HasSFWVersion.getCustomStringsWithSFW(cardName, DataManager.powers, PowerStringsSet.class);
+    }
+
     protected void renderAmount2(SpriteBatch sb, float x, float y, Color c, int amount2) {
         if (amount2 <= 0) return;
         FontHelper.renderFontRightTopAligned(sb, FontHelper.powerAmountFont, "" + amount2, x, y + 15.0F * Settings.scale, this.fontScale, c);
@@ -58,33 +75,12 @@ public abstract class AbstractLupaPower extends AbstractPower implements updateD
         this.fontScale = MathHelper.scaleLerpSnap(this.fontScale, 0.7F);
     }
 
-    protected void addToBot_AutoRemoveOne(AbstractPower power){
+    protected void addToBot_AutoRemoveOne(AbstractPower power) {
         this.flash();
         if (this.amount == 0) {
             this.addToBot(new RemoveSpecificPowerAction(this.owner, this.owner, power));
-        }
-        else {
+        } else {
             this.addToBot(new ReducePowerAction(this.owner, this.owner, power, 1));
-        }
-    }
-
-    public AbstractLupaPower(String id, final AbstractCreature owner, int amount, PowerType powerType, boolean needUpdateDescription) {
-        this(id, AbstractLupaPower.getPowerStringsWithSFW(id), owner, amount, powerType, needUpdateDescription);
-    }
-
-    public AbstractLupaPower(String id, final AbstractCreature owner, int amount, PowerType powerType) {
-        this(id, owner, amount, powerType, true);
-    }
-
-    public AbstractLupaPower(String id, final AbstractCreature owner, int amount) {
-        this(id, owner, amount, PowerType.BUFF);
-    }
-
-    public static PowerStringsSet getPowerStringsWithSFW(String cardName) {
-        try {
-            return HasSFWVersion.getCustomStringsWithSFW(cardName, DataManager.powers, PowerStringsSet.class);
-        } catch (InstantiationException | IllegalAccessException e) {
-            throw new RuntimeException(e);
         }
     }
 
@@ -105,7 +101,7 @@ public abstract class AbstractLupaPower extends AbstractPower implements updateD
         this.addToBot(new ReducePowerAction(this.owner, this.owner, powerID, amount));
     }
 
-    public void addToBot_removeSpecificPower(AbstractPower power){
+    public void addToBot_removeSpecificPower(AbstractPower power) {
         this.addToBot(new RemoveSpecificPowerAction(this.owner, this.owner, power));
     }
 

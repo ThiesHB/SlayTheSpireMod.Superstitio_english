@@ -3,12 +3,12 @@ package SuperstitioMod.cards.Lupa;
 import SuperstitioMod.DataManager;
 import SuperstitioMod.SuperstitioModSetup;
 import SuperstitioMod.cards.DamageMod.SexDamage;
-import SuperstitioMod.powers.FreshSemen;
+import SuperstitioMod.powers.InsideSemen;
+import SuperstitioMod.powers.OutsideSemen;
 import SuperstitioMod.powers.SexMark_Inside;
 import SuperstitioMod.powers.SexMark_Outside;
 import SuperstitioMod.utils.ActionUtility;
 import com.evacipated.cardcrawl.mod.stslib.damagemods.DamageModifierManager;
-import com.megacrit.cardcrawl.actions.common.ApplyPowerAction;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 
 public abstract class AbstractLupaCard_FuckJob extends AbstractLupaCard {
@@ -42,11 +42,12 @@ public abstract class AbstractLupaCard_FuckJob extends AbstractLupaCard {
     }
 
     public static void addToTop_gainSexMark_Inside(String sexName) {
-        ActionUtility.addToBot_applyPower(new FreshSemen(AbstractDungeon.player, 1));
+        ActionUtility.addToBot_applyPower(new InsideSemen(AbstractDungeon.player, 1));
         ActionUtility.addToTop_applyPower(new SexMark_Inside(AbstractDungeon.player, sexName));
     }
 
     public static void addToTop_gainSexMark_Outside(String sexName) {
+        ActionUtility.addToBot_applyPower(new OutsideSemen(AbstractDungeon.player, 1));
         ActionUtility.addToTop_applyPower(new SexMark_Outside(AbstractDungeon.player, sexName));
     }
 }

@@ -2,11 +2,12 @@ package SuperstitioMod.cards.Lupa.SkillCard;
 
 import SuperstitioMod.DataManager;
 import SuperstitioMod.cards.Lupa.AbstractLupaCard;
-import SuperstitioMod.cards.Lupa.TempCard.SexToy;
+import basemod.AutoAdd;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 
+@AutoAdd.Ignore
 public class Sensitive3000 extends AbstractLupaCard {
     public static final String ID = DataManager.MakeTextID(Sensitive3000.class.getSimpleName());
 

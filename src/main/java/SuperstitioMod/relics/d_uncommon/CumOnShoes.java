@@ -1,7 +1,7 @@
 package SuperstitioMod.relics.d_uncommon;
 
 import SuperstitioMod.DataManager;
-import SuperstitioMod.powers.DrySemen;
+import SuperstitioMod.powers.OutsideSemen;
 import SuperstitioMod.relics.AbstractLupaRelic;
 import SuperstitioMod.relics.interFace.Countup;
 import SuperstitioMod.utils.ActionUtility;
@@ -36,7 +36,7 @@ public class CumOnShoes extends AbstractLupaRelic implements OnApplyPowerRelic, 
 
     @Override
     public boolean onApplyPower(AbstractPower abstractPower, AbstractCreature abstractCreature, AbstractCreature abstractCreature1) {
-        if (abstractPower instanceof DrySemen)
+        if (abstractPower instanceof OutsideSemen)
             this.counter += abstractPower.amount;
         return true;
     }

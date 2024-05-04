@@ -3,6 +3,7 @@ package SuperstitioMod.cards.Lupa.SkillCard;
 import SuperstitioMod.DataManager;
 import SuperstitioMod.actions.AutoDoneAction;
 import SuperstitioMod.actions.ChoseCardFromHandCardSelectScreen;
+import SuperstitioMod.cards.BlockMod.SexBlock;
 import SuperstitioMod.cards.Lupa.AbstractLupaCard;
 import basemod.cardmods.ExhaustMod;
 import basemod.helpers.CardModifierManager;
@@ -29,7 +30,7 @@ public class ZenState extends AbstractLupaCard {
     public ZenState() {
         super(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET);
         this.setupMagicNumber(MAGICNumber);
-        this.setupBlock(BLOCK);
+        this.setupBlock(BLOCK,new SexBlock());
     }
 
     @Override

@@ -4,7 +4,6 @@ import SuperstitioMod.DataManager;
 import SuperstitioMod.actions.AutoDoneAction;
 import SuperstitioMod.cards.Lupa.AbstractLupaCard;
 import com.evacipated.cardcrawl.mod.stslib.cards.targeting.SelfOrEnemyTargeting;
-import com.megacrit.cardcrawl.actions.AbstractGameAction;
 import com.megacrit.cardcrawl.actions.common.RemoveSpecificPowerAction;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.core.AbstractCreature;
@@ -42,7 +41,7 @@ public class BellyStrike extends AbstractLupaCard {
         if (target == null)
             target = AbstractDungeon.player;
         addToBot_applyPower(new LoseStrengthPower(target, magicNumber));
-        addToBot_dealDamage(target, AbstractGameAction.AttackEffect.BLUNT_LIGHT);
+        addToBot_dealDamage(target);
         addToBot_applyPower(new StrengthPower(target, magicNumber));
         if (!target.isPlayer) return;
         AutoDoneAction.addToBotAbstract(() -> {

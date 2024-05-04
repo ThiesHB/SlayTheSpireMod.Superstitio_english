@@ -1,8 +1,0 @@
-﻿{
-  "SuperstitioMod:SexDamage": {
-    "NAME": "性爱",
-    "NAME_SFW": "内劲",
-    "BASIC_INFO": "伤害类型：性爱伤害 [SuperstitioMod:SexDamageIcon]",
-    "DESCRIPTION": "对护甲造成伤害，然后给予 #y爱欲。 NL 回合结束时，若 #y爱欲 大于 #y生命值 ，死亡。"
-  }
-}

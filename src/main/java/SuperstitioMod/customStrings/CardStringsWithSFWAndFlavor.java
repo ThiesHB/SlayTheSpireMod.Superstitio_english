@@ -88,7 +88,7 @@ public class CardStringsWithSFWAndFlavor implements HasSFWVersionWithT<CardStrin
         this.UPGRADE_DESCRIPTION_SFW = WordReplace.replaceWord(this.getUPGRADE_DESCRIPTION(), replaceRule);
     }
 
-    public WordReplace toCardNameReplaceRule() {
+    private WordReplace toCardNameReplaceRule() {
         return new WordReplace(this.NAME, this.NAME_SFW);
     }
 

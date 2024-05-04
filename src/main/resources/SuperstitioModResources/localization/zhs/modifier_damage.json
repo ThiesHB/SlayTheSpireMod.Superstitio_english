@@ -1,0 +1,14 @@
+﻿{
+  "SuperstitioMod:SexDamage": {
+    "NAME": "性爱",
+    "NAME_SFW": "内劲",
+    "BASIC_INFO": "性爱",
+    "DESCRIPTION": "打破护甲后，只造成1点伤害，然后给予 #y爱欲 。 NL 回合结束时， #y爱欲 造成其数量的 #y生命流失 。"
+  },
+  "SuperstitioMod:UnBlockAbleDamage": {
+    "NAME": "不可阻挡的伤害",
+    "NAME_SFW": "",
+    "BASIC_INFO": "不可阻挡",
+    "DESCRIPTION": "无法阻挡，不触发荆棘，无视临时生命。"
+  }
+}

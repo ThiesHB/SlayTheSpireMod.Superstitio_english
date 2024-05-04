@@ -9,6 +9,12 @@ import SuperstitioMod.customStrings.CardStringsWithSFWAndFlavor;
 import SuperstitioMod.customStrings.HasSFWVersion;
 import basemod.abstracts.CustomCard;
 import com.badlogic.gdx.graphics.Color;
+import com.evacipated.cardcrawl.mod.stslib.actions.common.GainCustomBlockAction;
+import com.evacipated.cardcrawl.mod.stslib.blockmods.AbstractBlockModifier;
+import com.evacipated.cardcrawl.mod.stslib.blockmods.BlockModContainer;
+import com.evacipated.cardcrawl.mod.stslib.blockmods.BlockModifierManager;
+import com.evacipated.cardcrawl.mod.stslib.damagemods.AbstractDamageModifier;
+import com.evacipated.cardcrawl.mod.stslib.damagemods.DamageModifierManager;
 import com.evacipated.cardcrawl.mod.stslib.patches.FlavorText;
 import com.megacrit.cardcrawl.actions.common.*;
 import com.megacrit.cardcrawl.cards.AbstractCard;
@@ -19,13 +25,17 @@ import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import com.megacrit.cardcrawl.powers.AbstractPower;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.stream.Collectors;
+
 import static com.megacrit.cardcrawl.actions.AbstractGameAction.AttackEffect;
 import static com.megacrit.cardcrawl.cards.DamageInfo.DamageType;
 
 public abstract class AbstractLupaCard extends CustomCard {
     private final static float DESC_LINE_WIDTH = 418.0f * Settings.scale;
     //调用父类的构造方法，传参为super(卡牌ID，卡牌名称，图片地址，能量花费，卡牌描述，卡牌类型，卡牌颜色，卡牌稀有度，卡牌目标)
-    protected CardStringsWithSFWAndFlavor cardStrings;
+    protected final CardStringsWithSFWAndFlavor cardStrings;
 
     /**
      * 普通的方法
@@ -38,7 +48,6 @@ public abstract class AbstractLupaCard extends CustomCard {
      */
     public AbstractLupaCard(String id, CardType cardType, int cost, CardRarity cardRarity, CardTarget cardTarget) {
         this(id, cardType, cost, cardRarity, cardTarget, CardTypeToString(cardType));
-
     }
 
     /**
@@ -70,14 +79,11 @@ public abstract class AbstractLupaCard extends CustomCard {
 //        FlavorText.AbstractCardFlavorFields.boxColor.set(this, Color.DARK_GRAY.cpy());
         FlavorText.AbstractCardFlavorFields.textColor.set(this, Color.PINK.cpy());
         FlavorText.AbstractCardFlavorFields.flavorBoxType.set(this, FlavorText.boxType.TRADITIONAL);
+//        CommonKeywordIconsField.useIcons.set(this, true);
     }
 
     public static CardStringsWithSFWAndFlavor getCardStringsWithSFWAndFlavor(String cardName) {
-        try {
-            return HasSFWVersion.getCustomStringsWithSFW(cardName, DataManager.cards, CardStringsWithSFWAndFlavor.class);
-        } catch (InstantiationException | IllegalAccessException e) {
-            throw new RuntimeException(e);
-        }
+        return HasSFWVersion.getCustomStringsWithSFW(cardName, DataManager.cards, CardStringsWithSFWAndFlavor.class);
     }
 
     protected static String getImgPath(final String tag, final String id) {
@@ -134,14 +140,19 @@ public abstract class AbstractLupaCard extends CustomCard {
 
     public abstract void upgradeAuto();
 
-    protected final void setupDamage(final int amount) {
+    protected final void setupDamage(final int amount, AbstractDamageModifier... damageModifiers) {
         this.baseDamage = amount;
         this.damage = amount;
+        if (damageModifiers == null || damageModifiers.length == 0) return;
+        DamageModifierManager.addModifiers(this, Arrays.stream(damageModifiers).collect(Collectors.toList()));
+
     }
 
-    protected final void setupBlock(final int amount) {
+    protected final void setupBlock(final int amount, AbstractBlockModifier... blockModifiers) {
         this.baseBlock = amount;
         this.block = amount;
+        if (blockModifiers == null || blockModifiers.length == 0) return;
+        BlockModifierManager.addModifiers(this, (ArrayList<AbstractBlockModifier>) Arrays.stream(blockModifiers).collect(Collectors.toList()));
     }
 
     protected final void setupMagicNumber(final int amount) {
@@ -166,6 +177,11 @@ public abstract class AbstractLupaCard extends CustomCard {
         DamageActionMaker.make(damageAmount, target).setupDamageType(damageType).setupEffect(effect).addToBot();
     }
 
+    protected final void addToBot_dealDamage(final AbstractCreature target, final int damageAmount, final DamageType damageType,
+                                             AbstractDamageModifier damageModifier, final AttackEffect effect) {
+        DamageActionMaker.make(damageAmount, target).setupDamageModifier(this, damageModifier).setupDamageType(damageType).setupEffect(effect).addToBot();
+    }
+
     protected final void addToBot_dealDamageToAllEnemies(final AttackEffect effect) {
         this.addToBot(new DamageAllEnemiesAction(AbstractDungeon.player, this.multiDamage, this.damageTypeForTurn, effect));
     }
@@ -176,6 +192,14 @@ public abstract class AbstractLupaCard extends CustomCard {
 
     protected final void addToBot_gainBlock(final int amount) {
         this.addToBot(new GainBlockAction(AbstractDungeon.player, amount));
+    }
+
+    protected final void addToBot_gainBlock(final int amount, AbstractBlockModifier blockModifier) {
+        this.addToBot(new GainCustomBlockAction(new BlockModContainer(this, blockModifier), AbstractDungeon.player, amount));
+    }
+
+    protected final void addToBot_gainBlock(AbstractBlockModifier blockModifier) {
+        this.addToBot(new GainCustomBlockAction(new BlockModContainer(this, blockModifier), AbstractDungeon.player, this.block));
     }
 
     protected final void addToBot_drawCards(final int amount) {

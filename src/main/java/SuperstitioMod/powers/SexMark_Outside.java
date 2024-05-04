@@ -21,7 +21,7 @@ public class SexMark_Outside extends SexMark {
     @Override
     protected void Trigger() {
         super.Trigger();
-        this.addToBot(new ApplyPowerAction(this.owner, this.owner, new DrySemen(this.owner, TemporaryHPRate * FindJobAndFuckCard())));
+        this.addToBot(new ApplyPowerAction(this.owner, this.owner, new OutsideSemen(this.owner, TemporaryHPRate * FindJobAndFuckCard())));
     }
 
     @Override

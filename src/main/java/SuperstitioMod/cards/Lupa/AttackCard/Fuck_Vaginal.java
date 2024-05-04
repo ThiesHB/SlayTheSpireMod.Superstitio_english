@@ -23,8 +23,8 @@ public class Fuck_Vaginal extends AbstractLupaCard_FuckJob {
 
     public Fuck_Vaginal() {
         super(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET);
-        setupDamage(ATTACK_DMG);
-        setupMagicNumber(Magic_Number);
+        this.setupDamage(ATTACK_DMG);
+        this.setupMagicNumber(Magic_Number);
     }
 
 

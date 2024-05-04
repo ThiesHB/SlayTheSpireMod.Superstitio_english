@@ -1,15 +1,16 @@
 package SuperstitioMod.actions;
 
+import SuperstitioMod.utils.ActionUtility;
 import com.megacrit.cardcrawl.actions.AbstractGameAction;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 
 public abstract class AutoDoneAction extends AbstractGameAction {
 
-    public static void addToBotAbstract(final VoidSupplier func) {
+    public static void addToBotAbstract(final ActionUtility.VoidSupplier func) {
         AbstractDungeon.actionManager.addToBottom(newAutoDone(func));
     }
 
-    public static AbstractGameAction newAutoDone(final VoidSupplier func) {
+    public static AbstractGameAction newAutoDone(final ActionUtility.VoidSupplier func) {
          return new AutoDoneAction() {
             @Override
             public void autoDoneUpdate() {
@@ -26,7 +27,4 @@ public abstract class AutoDoneAction extends AbstractGameAction {
 
     public abstract void autoDoneUpdate();
 
-    public interface VoidSupplier {
-        void get();
-    }
 }

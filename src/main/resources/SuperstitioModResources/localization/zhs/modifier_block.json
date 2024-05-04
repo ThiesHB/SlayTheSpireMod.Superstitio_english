@@ -1,0 +1,26 @@
+﻿{
+  "SuperstitioMod:SexBlock": {
+    "NAME": "引诱",
+    "NAME_SFW": "外功",
+    "BASIC_INFO": "性交引诱",
+    "DESCRIPTION": "持续到下回合开始前，使敌人的 物理伤害 转换为 性爱动作 ，从而阻挡伤害。"
+  },
+  "SuperstitioMod:DrySemenBlock": {
+    "NAME": "精液",
+    "NAME_SFW": "血液",
+    "BASIC_INFO": "风干精液",
+    "DESCRIPTION": "回合结束时不消失，阻挡伤害。"
+  },
+  "SuperstitioMod:MilkBlock": {
+    "NAME": "巨乳",
+    "NAME_SFW": "肉体",
+    "BASIC_INFO": "乳液狂飙",
+    "DESCRIPTION": "持续到下回合开始前，使敌人的 物理伤害 转换为 性爱动作 ，从而阻挡伤害。"
+  },
+  "SuperstitioMod:PregnantBlock": {
+    "NAME": "妊娠",
+    "NAME_SFW": "吞噬",
+    "BASIC_INFO": "妊娠大肚",
+    "DESCRIPTION": "回合结束时不消失，阻挡伤害。"
+  }
+}

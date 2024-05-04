@@ -2,15 +2,14 @@ package SuperstitioMod.cards.BlockMod;
 
 import SuperstitioMod.DataManager;
 import SuperstitioMod.cards.Abstract.AbstractLupaBlock;
-import com.badlogic.gdx.graphics.Color;
 import com.evacipated.cardcrawl.mod.stslib.blockmods.AbstractBlockModifier;
 import com.megacrit.cardcrawl.cards.DamageInfo;
 
-public class SexBlock extends AbstractLupaBlock {
+public class PregnantBlock extends AbstractLupaBlock {
 
-    public static final String ID = DataManager.MakeTextID(SexBlock.class.getSimpleName());
+    public static final String ID = DataManager.MakeTextID(PregnantBlock.class.getSimpleName());
 
-    public SexBlock() {
+    public PregnantBlock() {
         super(ID);
     }
 
@@ -20,12 +19,22 @@ public class SexBlock extends AbstractLupaBlock {
     }
 
     @Override
-    public AbstractBlockModifier makeCopy() {
-        return new SexBlock();
+    public boolean shouldStack() {
+        return false;
     }
 
     @Override
-    public Color blockImageColor() {
-        return Color.PINK.cpy();
+    public int amountLostAtStartOfTurn() {
+        return 0;
+    }
+
+    @Override
+    public AbstractBlockModifier makeCopy() {
+        return new PregnantBlock();
+    }
+
+    @Override
+    public Priority priority() {
+        return Priority.BOTTOM;
     }
 }

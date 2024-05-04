@@ -2,7 +2,7 @@ package SuperstitioMod.cards.Lupa.SkillCard;
 
 import SuperstitioMod.DataManager;
 import SuperstitioMod.cards.Lupa.AbstractLupaCard;
-import SuperstitioMod.powers.FreshSemen;
+import SuperstitioMod.powers.InsideSemen;
 import com.megacrit.cardcrawl.actions.common.HealAction;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
@@ -27,10 +27,10 @@ public class DrinkSemenBeer extends AbstractLupaCard {
 
     @Override
     public void use(AbstractPlayer player, AbstractMonster monster) {
-        AbstractDungeon.player.powers.stream().filter(power -> power instanceof FreshSemen).findAny()
+        AbstractDungeon.player.powers.stream().filter(power -> power instanceof InsideSemen).findAny()
                 .ifPresent(power -> {
                     addToBot(new HealAction(AbstractDungeon.player, AbstractDungeon.player, power.amount));
-                    addToBot_reducePowerToPlayer(FreshSemen.POWER_ID, upgraded ? (power.amount / 2) : power.amount);
+                    addToBot_reducePowerToPlayer(InsideSemen.POWER_ID, upgraded ? (power.amount / 2) : power.amount);
                 });
     }
 

@@ -50,11 +50,11 @@
     "DESCRIPTION": " 本回合增加或减少 潮吹 消耗的 #y快感 数量 。"
   },
   {
-    "PROPER_NAME": "干涸精液",
+    "PROPER_NAME": "体表精液",
     "NAMES": [
-      "干涸精液"
+      "体表精液"
     ],
-    "DESCRIPTION": "回合结束时，转化为等量的 #y临时生命 。"
+    "DESCRIPTION": "回合结束时，转化为等量的 #y风干精液 。"
   },
   {
     "PROPER_NAME": "情趣玩具",
@@ -101,13 +101,6 @@
       "新鲜精液"
     ],
     "DESCRIPTION": "一种卡牌需要的资源。"
-  },
-  {
-    "PROPER_NAME": "引诱",
-    "NAMES": [
-      "引诱"
-    ],
-    "DESCRIPTION": "持续到下回合开始前，使敌人的物理伤害转换为性爱动作，从而阻挡伤害。"
   },
   {
     "PROPER_NAME": "濒死",

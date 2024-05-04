@@ -1,19 +1,23 @@
 package SuperstitioMod.cards.Lupa.TempCard;
 
 import SuperstitioMod.DataManager;
+import SuperstitioMod.actions.AutoDoneAction;
+import SuperstitioMod.cards.BlockMod.PregnantBlock;
 import SuperstitioMod.cards.Lupa.AbstractLupaCard_TempCard;
 import com.evacipated.cardcrawl.mod.stslib.actions.tempHp.AddTemporaryHPAction;
-import com.megacrit.cardcrawl.actions.common.ApplyPowerAction;
+import com.evacipated.cardcrawl.mod.stslib.blockmods.BlockInstance;
+import com.evacipated.cardcrawl.mod.stslib.blockmods.BlockModifierManager;
 import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
+import com.megacrit.cardcrawl.core.AbstractCreature;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import com.megacrit.cardcrawl.powers.AbstractPower;
 
 import java.util.ArrayList;
 
-public class ReBirth extends AbstractLupaCard_TempCard {
-    public static final String ID = DataManager.MakeTextID(ReBirth.class.getSimpleName());
+public class GiveBirth extends AbstractLupaCard_TempCard {
+    public static final String ID = DataManager.MakeTextID(GiveBirth.class.getSimpleName());
 
     public static final CardType CARD_TYPE = CardType.SKILL;
 
@@ -25,15 +29,15 @@ public class ReBirth extends AbstractLupaCard_TempCard {
     private static final int BLOCK = 5;
     private static final int UPGRADE_PLUS_BLOCK = 3;
     public ArrayList<AbstractPower> sealPower = new ArrayList<>();
-    public AbstractMonster sealMonster = null;
+    public AbstractCreature sealMonster = null;
 
-    public ReBirth() {
+    public GiveBirth() {
         super(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET);
         this.exhaust = true;
         this.setupBlock(BLOCK);
     }
 
-    public ReBirth(ArrayList<AbstractPower> sealPower, AbstractMonster sealMonster) {
+    public GiveBirth(ArrayList<AbstractPower> sealPower, AbstractCreature sealMonster) {
         this();
         this.sealPower = sealPower;
         if (sealMonster != null) {
@@ -46,8 +50,10 @@ public class ReBirth extends AbstractLupaCard_TempCard {
     public void use(AbstractPlayer player, AbstractMonster monster) {
         //this.gainBlock();
         this.addToBot(new AddTemporaryHPAction(AbstractDungeon.player, AbstractDungeon.player, this.block));
-        for (AbstractPower power : sealPower) {
-            addToBot(new ApplyPowerAction(player, sealMonster == null ? player : sealMonster, power));
+        for (BlockInstance blockInstance : BlockModifierManager.blockInstances(AbstractDungeon.player)) {
+            if (blockInstance.getBlockTypes().stream().anyMatch(blockModifier -> blockModifier instanceof PregnantBlock)) {
+               AutoDoneAction.addToBotAbstract(()-> BlockModifierManager.removeSpecificBlockType(blockInstance));
+            }
         }
     }
 
@@ -58,13 +64,12 @@ public class ReBirth extends AbstractLupaCard_TempCard {
 
     @Override
     public AbstractCard makeCopy() {
-        ReBirth newCard = (ReBirth) super.makeCopy();
+        GiveBirth newCard = (GiveBirth) super.makeCopy();
         if (newCard != null) {
             newCard.sealMonster = this.sealMonster;
             newCard.sealPower = this.sealPower;
             return newCard;
-        }
-        else
+        } else
             return super.makeCopy();
     }
 }

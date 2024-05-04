@@ -59,4 +59,8 @@ public class ActionUtility {
     public static void addToBot_makeTempCardInBattle(AbstractCard card, AbstractLupaCard.BattleCardPlace battleCardPlace, boolean upgrade) {
         addToBot_makeTempCardInBattle(card, battleCardPlace, 1, upgrade);
     }
+
+    public interface VoidSupplier {
+        void get();
+    }
 }

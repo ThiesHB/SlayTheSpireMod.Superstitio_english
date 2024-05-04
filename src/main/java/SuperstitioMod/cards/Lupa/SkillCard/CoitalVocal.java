@@ -1,6 +1,7 @@
 package SuperstitioMod.cards.Lupa.SkillCard;
 
 import SuperstitioMod.DataManager;
+import SuperstitioMod.cards.BlockMod.SexBlock;
 import SuperstitioMod.cards.Lupa.AbstractLupaCard;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
@@ -22,7 +23,7 @@ public class CoitalVocal extends AbstractLupaCard {
 
     public CoitalVocal() {
         super(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET);
-        this.setupBlock(BLOCK);
+        this.setupBlock(BLOCK,new SexBlock());
     }
 
     @Override

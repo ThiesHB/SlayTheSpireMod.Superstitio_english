@@ -3,10 +3,12 @@ package SuperstitioMod.cards.Lupa.SkillCard;
 import SuperstitioMod.DataManager;
 import SuperstitioMod.cards.Lupa.AbstractLupaCard;
 import SuperstitioMod.powers.SexualHeat;
+import basemod.AutoAdd;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 
+@AutoAdd.Ignore
 public class ForceOrgasm extends AbstractLupaCard {
     public static final String ID = DataManager.MakeTextID(ForceOrgasm.class.getSimpleName());
 

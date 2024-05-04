@@ -1,6 +1,7 @@
 package SuperstitioMod.cards.Lupa.BaseCard;
 
 import SuperstitioMod.DataManager;
+import SuperstitioMod.cards.BlockMod.SexBlock;
 import SuperstitioMod.cards.Lupa.AbstractLupaCard;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
@@ -21,7 +22,7 @@ public class Invite extends AbstractLupaCard {
     public Invite() {
         super(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET, "base");
         this.tags.add(CardTags.STARTER_DEFEND);
-        this.setupBlock(BLOCK);
+        this.setupBlock(BLOCK,new SexBlock());
     }
 
     @Override
