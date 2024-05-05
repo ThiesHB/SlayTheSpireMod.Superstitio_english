@@ -264,8 +264,8 @@
   "SuperstitioMod:DrinkSemenBeer": {
     "NAME": "饮精",
     "NAME_SFW": "饮血",
-    "DESCRIPTION": "移除 所有 的 superstitiomod:新鲜精液 ， 回复 等量 的 生命值 。 NL 消耗 。",
-    "UPGRADE_DESCRIPTION": "移除 一半 的 superstitiomod:新鲜精液 ， 回复 两倍 的 生命值 。 NL 消耗 。",
+    "DESCRIPTION": "移除 所有 的 superstitiomod:体内精液 ， 回复 等量 的 生命值 。 NL 消耗 。",
+    "UPGRADE_DESCRIPTION": "移除 一半 的 superstitiomod:体内精液 ， 回复 两倍 的 生命值 。 NL 消耗 。",
     "FLAVOR": "排出，然后喝。"
   },
   "SuperstitioMod:Philter": {

@@ -31,13 +31,32 @@ public class SexMarkOrbGroup extends OrbGroup {
         this.fillSide = MathUtils.randomBoolean();
     }
 
+    @SuppressWarnings("DuplicateBranchesInSwitch")
+    public static SexMarkOrb makeSexMarkOrb(SexMarkType sexMarkType) {
+        switch (sexMarkType) {
+            case OutSide:
+                return new SexMarkOrb_Outside();
+            case Inside:
+                return new SexMarkOrb_Inside();
+            default:
+                return new SexMarkOrb_Inside();
+        }
+    }
+
+    public static void addToBot_GiveMarkToOrbGroup(String sexName, SexMarkOrbGroup.SexMarkType sexMarkType) {
+        AbstractDungeon.actionManager.addToBottom(
+                new GiveSexMarkToOrbGroupInstantAction((SexMarkOrbGroup) InBattleDataManager.orbGroups.stream()
+                        .filter(orbGroup -> orbGroup instanceof SexMarkOrbGroup).findAny().orElse(null),
+                        makeSexMarkOrb(sexMarkType).setSexMarkName(sexName)));
+    }
+
     @Override
     protected Vector2 makeSlotPlace(int slotIndex) {
         return makeSlotPlaceHeart(this.hitbox.width, slotIndex);
     }
 
     protected final Vector2 makeSlotPlaceHeart(final float scale, final int slotIndex) {
-        return makeHeartLine2(scale, OffsetPercentageBySlotIndex_Cycle(slotIndex) * 360);
+        return makeHeartLine2(scale, OffsetPercentageBySlotIndex_Cycle(slotIndex) * 360 + ((this.GetMaxOrbs() % 2 == 0) ? 0 : -144));
     }
 
     protected final Vector2 makeHeartLine1(final float scale, final float angle) {
@@ -76,7 +95,6 @@ public class SexMarkOrbGroup extends OrbGroup {
         }
     }
 
-
     @Override
     protected void onOrbChannel(AbstractOrb channeledOrb) {
         if (this.hasEmptySlot()) return;
@@ -114,6 +132,24 @@ public class SexMarkOrbGroup extends OrbGroup {
         return index;
     }
 
+//    @Override
+//    public void channelOrb(final AbstractOrb orb) {
+//        if (GetMaxOrbs() <= 0) return;
+//        if (hasNoEmptySlot()) {
+//            return;
+//        }
+//        final AbstractOrb target = orbs.get(findFirstEmptyOrb());
+//        orb.cX = target.cX;
+//        orb.cY = target.cY;
+//        orbs.set(findFirstEmptyOrb(), orb);
+//        letOrbToSlotPlace(orb, findFirstEmptyOrb());
+//        orb.updateDescription();
+//        orb.playChannelSFX();
+//        OrbEventSubscriber.ON_ORB_CHANNEL_SUBSCRIBERS.forEach(sub -> sub.onOrbChannel(orb, AbstractDungeon.player));
+//        orb.applyFocus();
+//        this.onOrbChannel(orb);
+//    }
+
     int MapIndex(final int index) {
         final int countTotal = this.GetMaxOrbs();
         if (countTotal % 2 == 1) {
@@ -136,48 +172,11 @@ public class SexMarkOrbGroup extends OrbGroup {
         }
     }
 
-//    @Override
-//    public void channelOrb(final AbstractOrb orb) {
-//        if (GetMaxOrbs() <= 0) return;
-//        if (hasNoEmptySlot()) {
-//            return;
-//        }
-//        final AbstractOrb target = orbs.get(findFirstEmptyOrb());
-//        orb.cX = target.cX;
-//        orb.cY = target.cY;
-//        orbs.set(findFirstEmptyOrb(), orb);
-//        letOrbToSlotPlace(orb, findFirstEmptyOrb());
-//        orb.updateDescription();
-//        orb.playChannelSFX();
-//        OrbEventSubscriber.ON_ORB_CHANNEL_SUBSCRIBERS.forEach(sub -> sub.onOrbChannel(orb, AbstractDungeon.player));
-//        orb.applyFocus();
-//        this.onOrbChannel(orb);
-//    }
-
     @Override
     protected void onOrbEvoke(AbstractOrb evokedOrb) {
     }
 
-    @SuppressWarnings("DuplicateBranchesInSwitch")
-    public static SexMarkOrb makeSexMarkOrb(SexMarkType sexMarkType) {
-        switch (sexMarkType) {
-            case OutSide:
-                return new SexMarkOrb_Outside();
-            case Inside:
-                return new SexMarkOrb_Inside();
-            default:
-                return new SexMarkOrb_Inside();
-        }
-    }
-
     public enum SexMarkType {
         Inside, OutSide
-    }
-
-    public static void addToBot_GiveMarkToOrbGroup(String sexName, SexMarkOrbGroup.SexMarkType sexMarkType) {
-        AbstractDungeon.actionManager.addToBottom(
-                new GiveSexMarkToOrbGroupInstantAction((SexMarkOrbGroup) InBattleDataManager.orbGroups.stream()
-                        .filter(orbGroup -> orbGroup instanceof SexMarkOrbGroup).findAny().orElse(null),
-                        makeSexMarkOrb(sexMarkType).setSexMarkName(sexName)));
     }
 }

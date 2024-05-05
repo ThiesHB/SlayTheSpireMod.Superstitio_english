@@ -8,10 +8,13 @@ public abstract class SexMarkOrb extends AbstractLupaOrb {
         super(id, amount, amount, false);
         this.sexMarkName = sexMarkName;
         this.name = String.format(this.orbStringsSet.getNAME(), sexMarkName);
+        this.updateDescription();
     }
 
     public SexMarkOrb setSexMarkName(String sexMarkName) {
         this.sexMarkName = sexMarkName;
+        this.name = String.format(this.orbStringsSet.getNAME(), sexMarkName);
+        this.updateDescription();
         return this;
     }
 

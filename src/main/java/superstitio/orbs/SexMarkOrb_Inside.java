@@ -29,7 +29,6 @@ public class SexMarkOrb_Inside extends SexMarkOrb {
 
         this.img = ImageMaster.ORB_LIGHTNING;
 
-        this.updateDescription();
         this.angle = MathUtils.random(360.0F);
         this.channelAnimTimer = 0.5F;
     }

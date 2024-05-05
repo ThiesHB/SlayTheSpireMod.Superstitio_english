@@ -29,7 +29,9 @@ public abstract class AbstractLupaOrb extends AbstractOrb implements updateDescr
         this.name = orbStringsSet.getNAME();
         this.orbStringsSet = orbStringsSet;
         this.basePassiveAmount = basePassiveAmount;
+        this.passiveAmount = this.basePassiveAmount;
         this.baseEvokeAmount = baseEvokeAmount;
+        this.evokeAmount = this.baseEvokeAmount;
         String imgPath = getImgPath(ID);
         if (imgPath != null) {
             this.img = orbTextures.get(imgPath);

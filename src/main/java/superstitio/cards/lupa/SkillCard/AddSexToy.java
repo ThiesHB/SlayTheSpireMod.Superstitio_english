@@ -18,7 +18,7 @@ public class AddSexToy extends AbstractLupaCard {
 
     private static final int COST = 1;
     private static final int MAGICNumber = 1;
-    private static final int UPGRADE_MagicNumber = 1;
+//    private static final int UPGRADE_MagicNumber = 1;
 
     public AddSexToy() {
         super(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET);
@@ -34,7 +34,7 @@ public class AddSexToy extends AbstractLupaCard {
 
     @Override
     public void upgradeAuto() {
-        upgradeMagicNumber(UPGRADE_MagicNumber);
+//        upgradeMagicNumber(UPGRADE_MagicNumber);
         upgradeCardsToPreview();
     }
 }

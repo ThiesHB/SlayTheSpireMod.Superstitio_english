@@ -8,13 +8,13 @@
   "SuperstitioMod:SexMarkOrb_Inside": {
     "NAME": "插入动作：%s",
     "DESCRIPTION": [
-      "#y集齐： 打出 #y轮奸派对 ，造成群体伤害 。 NL 为 #y轮奸派对 提供 #b%d 点 #y性爱伤害 。"
+      "#y集齐： NL  打出 #y轮奸派对 ，造成群体伤害 。 NL 为 #y轮奸派对 提供 #b%d 点 #y性爱伤害 。"
     ]
   },
   "SuperstitioMod:SexMarkOrb_Outside": {
     "NAME": "精液覆身：%s",
     "DESCRIPTION": [
-      "#y集齐： 打出 #y轮奸派对 ，获得干涸精液 。 NL 为 #y轮奸派对 提供 #b%d 点 #y干涸精液 。"
+      "#y集齐： NL  打出 #y轮奸派对 ，获得干涸精液 。 NL 为 #y轮奸派对 提供 #b%d 点 #y干涸精液 。"
     ]
   }
 }

@@ -26,7 +26,7 @@ public class SexMarkEmptySlot extends EmptyOrbSlot {
 
     @Override
     public void updateDescription() {
-        this.description = orbStringsSet.getDESCRIPTION()[0];
+        this.description = "";
     }
 
     @Override
