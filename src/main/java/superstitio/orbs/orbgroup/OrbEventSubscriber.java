@@ -1,4 +1,4 @@
-package superstitio.orbs;
+package superstitio.orbs.orbgroup;
 
 import com.megacrit.cardcrawl.core.AbstractCreature;
 import com.megacrit.cardcrawl.orbs.AbstractOrb;

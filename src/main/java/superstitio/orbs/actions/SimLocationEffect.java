@@ -1,6 +1,6 @@
 package superstitio.orbs.actions;
 
-import superstitio.orbs.OrbGroup;
+import superstitio.orbs.orbgroup.OrbGroup;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -42,7 +42,7 @@ public class SimLocationEffect extends AbstractGameEffect {
         if (!this.isDone) return;
 
         for (int max = targetManager.GetMaxOrbs(), j = 0; j < max; ++j) {
-            targetManager.setSlotPlace(this.orb, this.index);
+            targetManager.letOrbToSlotPlace(this.orb, this.index);
         }
     }
 

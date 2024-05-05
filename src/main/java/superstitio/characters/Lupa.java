@@ -1,5 +1,24 @@
 package superstitio.characters;
 
+import basemod.abstracts.CustomPlayer;
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.megacrit.cardcrawl.actions.AbstractGameAction;
+import com.megacrit.cardcrawl.cards.AbstractCard;
+import com.megacrit.cardcrawl.characters.AbstractPlayer;
+import com.megacrit.cardcrawl.core.CardCrawlGame;
+import com.megacrit.cardcrawl.core.EnergyManager;
+import com.megacrit.cardcrawl.core.Settings;
+import com.megacrit.cardcrawl.cutscenes.CutscenePanel;
+import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
+import com.megacrit.cardcrawl.events.city.Vampires;
+import com.megacrit.cardcrawl.helpers.FontHelper;
+import com.megacrit.cardcrawl.helpers.ScreenShake;
+import com.megacrit.cardcrawl.localization.CharacterStrings;
+import com.megacrit.cardcrawl.rooms.AbstractRoom;
+import com.megacrit.cardcrawl.rooms.MonsterRoom;
+import com.megacrit.cardcrawl.screens.CharSelectInfo;
 import superstitio.DataManager;
 import superstitio.Logger;
 import superstitio.cards.lupa.BaseCard.Invite;
@@ -8,21 +27,6 @@ import superstitio.cards.lupa.BaseCard.Masturbate;
 import superstitio.relics.a_starter.EjaculationMaster;
 import superstitio.relics.a_starter.Sensitive;
 import superstitio.relics.a_starter.SorM;
-import basemod.abstracts.CustomPlayer;
-import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.megacrit.cardcrawl.actions.AbstractGameAction;
-import com.megacrit.cardcrawl.cards.AbstractCard;
-import com.megacrit.cardcrawl.characters.AbstractPlayer;
-import com.megacrit.cardcrawl.core.CardCrawlGame;
-import com.megacrit.cardcrawl.core.EnergyManager;
-import com.megacrit.cardcrawl.core.Settings;
-import com.megacrit.cardcrawl.cutscenes.CutscenePanel;
-import com.megacrit.cardcrawl.events.city.Vampires;
-import com.megacrit.cardcrawl.helpers.FontHelper;
-import com.megacrit.cardcrawl.helpers.ScreenShake;
-import com.megacrit.cardcrawl.localization.CharacterStrings;
-import com.megacrit.cardcrawl.screens.CharSelectInfo;
 
 import java.util.ArrayList;
 
@@ -60,6 +64,8 @@ public class Lupa extends CustomPlayer {
     private static final float[] LAYER_SPEED = new float[]{-40.0F, -32.0F, 20.0F, -20.0F, 0.0F, -10.0F, -8.0F, 5.0F, -5.0F, 0.0F};
     // 人物的本地化文本，如卡牌的本地化文本一样，如何书写见下
     private static final CharacterStrings characterStrings = CardCrawlGame.languagePack.getCharacterString(ID);
+    private float offsetX;
+    private float offsetY;
 
     public Lupa(String name) {
         super(name, LUPA_Character, EnergyBall_TEXTURES, EnergyBall_VFX_Path, LAYER_SPEED, null, null);
@@ -74,10 +80,11 @@ public class Lupa extends CustomPlayer {
         this.initializeClass(
                 LUPA_CHARACTER, // 人物图片
                 LUPA_CHARACTER_SHOULDER_2, LUPA_CHARACTER_SHOULDER_1, LUPA_CORPSE_IMAGE, // 人物死亡图像
-                this.getLoadout(), 0.0F, 0.0F, 200.0F, 220.0F, // 人物碰撞箱大小，越大的人物模型这个越大
+                this.getLoadout(), 0.0F, 0.0F, 250.0F, 375.0F, // 人物碰撞箱大小，越大的人物模型这个越大
                 new EnergyManager(3) // 初始每回合的能量
         );
 
+        this.setMoveOffset(0, -hb.height / 3.0f);
 
         // 如果你的人物没有动画，那么这些不需要写
         // this.loadAnimation(SuperstitioModSetup.getImgFilesPath()+"char/character.atlas", SuperstitioModSetup.getImgFilesPath()+"char/character
@@ -87,6 +94,31 @@ public class Lupa extends CustomPlayer {
         // e.setTimeScale(1.2F);
 
 
+    }
+
+    @Override
+    public void render(SpriteBatch sb) {
+        super.render(sb);
+        if ((AbstractDungeon.getCurrRoom().phase == AbstractRoom.RoomPhase.COMBAT || AbstractDungeon.getCurrRoom() instanceof MonsterRoom) && !this.isDead) {
+            this.renderHealth(sb);
+        }
+    }
+
+    public void setMoveOffset(float x, float y) {
+        this.offsetX = x;
+        this.offsetY = y;
+    }
+
+    @Override
+    public void movePosition(float x, float y) {
+        super.movePosition(x + offsetX, y + offsetY);
+    }
+
+    @Override
+    protected void refreshHitboxLocation() {
+        super.refreshHitboxLocation();
+        this.hb.move(this.hb.cX - this.offsetX, this.hb.cY - this.offsetY);
+        this.healthHb.move(this.hb.cX, this.hb.cY - this.hb_h / 2.0F - this.healthHb.height / 2.0F);
     }
 
     @Override

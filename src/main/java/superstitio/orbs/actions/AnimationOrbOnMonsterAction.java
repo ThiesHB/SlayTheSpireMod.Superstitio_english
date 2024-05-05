@@ -1,6 +1,6 @@
 package superstitio.orbs.actions;
 
-import superstitio.orbs.OrbGroup;
+import superstitio.orbs.orbgroup.OrbGroup;
 import com.megacrit.cardcrawl.actions.AbstractGameAction;
 import com.megacrit.cardcrawl.core.Settings;
 

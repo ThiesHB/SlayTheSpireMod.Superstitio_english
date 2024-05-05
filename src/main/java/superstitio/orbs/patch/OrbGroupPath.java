@@ -1,6 +1,6 @@
 package superstitio.orbs.patch;
 
-import superstitio.orbs.OrbGroup;
+import superstitio.orbs.orbgroup.OrbGroup;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.evacipated.cardcrawl.modthespire.lib.SpireInsertPatch;

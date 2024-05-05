@@ -1,11 +1,18 @@
 package superstitio.orbs;
 
-import basemod.abstracts.CustomOrb;
-import com.megacrit.cardcrawl.orbs.AbstractOrb;
+import com.megacrit.cardcrawl.orbs.Lightning;
 
-public class SexMarkOrb extends CustomOrb {
-    public SexMarkOrb(String ID, String NAME, int basePassiveAmount, int baseEvokeAmount, String passiveDescription, String evokeDescription, String imgPath) {
-        super(ID, NAME, basePassiveAmount, baseEvokeAmount, passiveDescription, evokeDescription, imgPath);
+public abstract class SexMarkOrb extends Lightning {
+//    public SexMarkOrb(String ID, String NAME, int basePassiveAmount, int baseEvokeAmount, String passiveDescription, String evokeDescription,
+//    String imgPath) {
+//        super(ID, NAME, basePassiveAmount, baseEvokeAmount, passiveDescription, evokeDescription, imgPath);
+//    }
+
+    public String sexMarkName;
+
+    public SexMarkOrb(String sexMarkName) {
+        super();
+        this.sexMarkName = sexMarkName;
     }
 
     @Override
@@ -13,12 +20,10 @@ public class SexMarkOrb extends CustomOrb {
     }
 
     @Override
-    public AbstractOrb makeCopy() {
-        return null;
+    public void onEndOfTurn() {
     }
 
-    @Override
-    public void playChannelSFX() {
+    public abstract int attack();
 
-    }
+    public abstract int block();
 }

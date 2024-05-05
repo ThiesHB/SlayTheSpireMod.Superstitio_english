@@ -95,7 +95,7 @@
   "SuperstitioMod:Fuck_Eye": {
     "NAME": "眼奸",
     "NAME_SFW": "蛇形拳",
-    "DESCRIPTION": "抽到时获得 保留 。 NL 造成 2 次 !D! 点 伤害 。 NL 获得 !B! 点 *引诱 。 NL 把 *耳奸 加入手牌。 NL 获得 1 虚弱 。NL superstitiomod:性交：内射 。 NL 消耗 。",
+    "DESCRIPTION": "抽到时获得 保留 。 NL 造成 2 次 !D! 点 伤害 。 NL 获得 !B! 点 *引诱 。 NL 把 *耳奸 加入手牌。 NL 获得 1 虚弱 。 NL superstitiomod:性交：内射 。 NL 消耗 。",
     "FLAVOR": "也许是脑交。总的来说还是取决于肉棒的主人敢不敢用力吧。"
   },
   "SuperstitioMod:Fuck_Navel": {
@@ -293,5 +293,11 @@
     "NAME_SFW": "重整旗鼓",
     "DESCRIPTION": "免除 !M! 次死亡 。 NL 第一次免除死亡 后， NL 进入 superstitiomod:濒死 状态",
     "FLAVOR": "好刺激，好有趣，还想再来。"
+  },
+  "SuperstitioMod:GangBang": {
+    "NAME": "轮奸派对",
+    "NAME_SFW": "血战沙场",
+    "DESCRIPTION": "造成 !D! 点伤害。 获得 !B! *干涸精液。",
+    "FLAVOR": "开始狂欢吧！大家一起来！"
   }
 }

@@ -1,15 +1,18 @@
 package superstitio.cards.lupa;
 
-import superstitio.DataManager;
-import superstitio.SuperstitioModSetup;
-import superstitio.cards.modifiers.damage.SexDamage;
-import superstitio.powers.InsideSemen;
-import superstitio.powers.OutsideSemen;
-import superstitio.powers.SexMark_Inside;
-import superstitio.powers.SexMark_Outside;
-import superstitio.utils.ActionUtility;
 import com.evacipated.cardcrawl.mod.stslib.damagemods.DamageModifierManager;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
+import superstitio.DataManager;
+import superstitio.InBattleDataManager;
+import superstitio.SuperstitioModSetup;
+import superstitio.cards.modifiers.damage.SexDamage;
+import superstitio.orbs.SexMarkOrb_Inside;
+import superstitio.orbs.SexMarkOrb_Outside;
+import superstitio.orbs.actions.GiveSexMarkToOrbGroupAction;
+import superstitio.orbs.orbgroup.SexMarkOrbGroup;
+import superstitio.powers.InsideSemen;
+import superstitio.powers.OutsideSemen;
+import superstitio.utils.ActionUtility;
 
 public abstract class AbstractLupaCard_FuckJob extends AbstractLupaCard {
     /**
@@ -38,16 +41,20 @@ public abstract class AbstractLupaCard_FuckJob extends AbstractLupaCard {
             this.setBackgroundTexture(
                     DataManager.makeImgFilesPath_UI("bg_attack_512_semen"),
                     DataManager.makeImgFilesPath_UI("bg_attack_semen"));
-        DamageModifierManager.addModifier(this,new SexDamage());
+        DamageModifierManager.addModifier(this, new SexDamage());
     }
 
     public static void addToTop_gainSexMark_Inside(String sexName) {
         ActionUtility.addToBot_applyPower(new InsideSemen(AbstractDungeon.player, 1));
-        ActionUtility.addToTop_applyPower(new SexMark_Inside(AbstractDungeon.player, sexName));
+        AbstractDungeon.actionManager.addToBottom(
+                new GiveSexMarkToOrbGroupAction((SexMarkOrbGroup) InBattleDataManager.orbGroups.stream()
+                        .filter(orbGroup -> orbGroup instanceof SexMarkOrbGroup).findAny().orElse(null), new SexMarkOrb_Inside(sexName)));
     }
 
     public static void addToTop_gainSexMark_Outside(String sexName) {
         ActionUtility.addToBot_applyPower(new OutsideSemen(AbstractDungeon.player, 1));
-        ActionUtility.addToTop_applyPower(new SexMark_Outside(AbstractDungeon.player, sexName));
+        AbstractDungeon.actionManager.addToBottom(
+                new GiveSexMarkToOrbGroupAction((SexMarkOrbGroup) InBattleDataManager.orbGroups.stream()
+                        .filter(orbGroup -> orbGroup instanceof SexMarkOrbGroup).findAny().orElse(null), new SexMarkOrb_Outside(sexName)));
     }
 }

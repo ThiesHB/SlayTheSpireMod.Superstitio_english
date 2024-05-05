@@ -1,6 +1,8 @@
 package superstitio;
 
-import superstitio.orbs.OrbGroup;
+import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
+import superstitio.orbs.orbgroup.OrbGroup;
+import superstitio.orbs.orbgroup.SexMarkOrbGroup;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -22,7 +24,7 @@ public class InBattleDataManager {
         OrgasmTimesTotal = 0;
         costMap = new HashMap<>();
         orbGroups = new ArrayList<>();
-        orbGroups.add (new OrbGroup());
+        orbGroups.add(new SexMarkOrbGroup(AbstractDungeon.player.hb));
     }
 
     public static void InitializeAtStartOfTurn() {
