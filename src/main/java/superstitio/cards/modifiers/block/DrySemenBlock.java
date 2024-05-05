@@ -32,4 +32,9 @@ public class DrySemenBlock extends AbstractLupaBlock {
     public Color blockImageColor() {
         return Color.LIGHT_GRAY.cpy();
     }
+
+    @Override
+    public int amountLostAtStartOfTurn() {
+        return 0;
+    }
 }

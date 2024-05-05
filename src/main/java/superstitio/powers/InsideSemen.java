@@ -12,7 +12,7 @@ import superstitio.utils.PowerUtility;
 public class InsideSemen extends AbstractWithBarPower implements OnPostApplyThisPower {
     public static final String POWER_ID = DataManager.MakeTextID(InsideSemen.class.getSimpleName());
     public static final int MAX_Semen = 10;
-    private static final int ToDrySemenRate = 1;
+    private static final int ToOutSideSemenRate = 1;
     //绘制相关
     private static final Color BarTextColor = new Color(1.0f, 1.0f, 1.0f, 1.0f);
 
@@ -28,7 +28,7 @@ public class InsideSemen extends AbstractWithBarPower implements OnPostApplyThis
 
     @Override
     public void updateDescriptionArgs() {
-        setDescriptionArgs(maxBarAmount(), ToDrySemenRate);
+        setDescriptionArgs(maxBarAmount(), ToOutSideSemenRate);
     }
 
     @Override
@@ -49,7 +49,7 @@ public class InsideSemen extends AbstractWithBarPower implements OnPostApplyThis
         AbstractPower power = this;
         AutoDoneInstantAction.addToBotAbstract(() ->
                 PowerUtility.BubbleMessageHigher(power, false, powerStrings.getRightVersion().DESCRIPTIONS[1]));
-        this.addToBot_applyPowerToOwner(new OutsideSemen(this.owner, flowAmount * ToDrySemenRate));
+        this.addToBot_applyPowerToOwner(new OutsideSemen(this.owner, flowAmount * ToOutSideSemenRate));
     }
 
 //    @Override
