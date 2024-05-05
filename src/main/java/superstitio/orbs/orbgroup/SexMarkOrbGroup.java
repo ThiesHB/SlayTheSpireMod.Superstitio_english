@@ -19,7 +19,7 @@ import java.util.Objects;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class SexMarkOrbGroup extends OrbGroup {
-    private static final int SexMarkSetupOrbMax = 6;
+    private static final int SexMarkSetupOrbMax = 5;
     private final boolean fillSide;
 
 

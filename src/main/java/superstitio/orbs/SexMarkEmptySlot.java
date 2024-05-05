@@ -4,9 +4,13 @@ import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.orbs.AbstractOrb;
 import com.megacrit.cardcrawl.orbs.EmptyOrbSlot;
 import superstitio.DataManager;
+import superstitio.customStrings.OrbStringsSet;
+
+import static superstitio.orbs.AbstractLupaOrb.getPowerStringsWithSFW;
 
 public class SexMarkEmptySlot extends EmptyOrbSlot {
     public static final String ORB_ID = DataManager.MakeTextID(SexMarkEmptySlot.class.getSimpleName());
+    protected final OrbStringsSet orbStringsSet = getPowerStringsWithSFW(ORB_ID);
 
     public SexMarkEmptySlot() {
         this(AbstractDungeon.player.drawX + AbstractDungeon.player.hb_x,
@@ -16,13 +20,13 @@ public class SexMarkEmptySlot extends EmptyOrbSlot {
     public SexMarkEmptySlot(float x, float y) {
         super(x, y);
         this.ID = ORB_ID;
-        this.name = "StringWIP: 空余球位";
+        this.name = orbStringsSet.getNAME();
         this.updateDescription();
     }
 
     @Override
     public void updateDescription() {
-        this.description = "StringWIP: 空余球位";
+        this.description = orbStringsSet.getDESCRIPTION()[0];
     }
 
     @Override
