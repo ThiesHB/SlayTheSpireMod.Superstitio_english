@@ -1,27 +1,27 @@
 package superstitio.customStrings;
 
 import com.megacrit.cardcrawl.localization.LocalizedStrings;
-import com.megacrit.cardcrawl.localization.PowerStrings;
+import com.megacrit.cardcrawl.localization.OrbStrings;
 import superstitio.WordReplace;
 
-public class PowerStringsSet implements HasSFWVersionWithT<PowerStrings> {
+public class OrbStringsSet implements HasSFWVersionWithT<OrbStrings> {
     private String NAME;
-    private String[] DESCRIPTIONS;
-    private final PowerStrings Origin = new PowerStrings();
-    private final PowerStrings SFW = new PowerStrings();
+    private String[] DESCRIPTION;
+    private final OrbStrings Origin = new OrbStrings();
+    private final OrbStrings SFW = new OrbStrings();
 
-    public PowerStringsSet() {
+    public OrbStringsSet() {
     }
 
     @Override
     public void initialOrigin() {
         Origin.NAME = NAME;
-        Origin.DESCRIPTIONS = DESCRIPTIONS;
+        Origin.DESCRIPTION = DESCRIPTION;
     }
 
     @Override
-    public Class<PowerStrings> getTClass() {
-        return PowerStrings.class;
+    public Class<OrbStrings> getTClass() {
+        return OrbStrings.class;
     }
 
     public String getNAME() {
@@ -30,13 +30,13 @@ public class PowerStringsSet implements HasSFWVersionWithT<PowerStrings> {
         return Origin.NAME;
     }
 
-    public String[] getDESCRIPTIONS() {
-        if (HasSFWVersion.ifReturnSFWVersion(SFW.DESCRIPTIONS))
-            return SFW.DESCRIPTIONS;
-        return Origin.DESCRIPTIONS;
+    public String[] getDESCRIPTION() {
+        if (HasSFWVersion.ifReturnSFWVersion(SFW.DESCRIPTION))
+            return SFW.DESCRIPTION;
+        return Origin.DESCRIPTION;
     }
 
-    public PowerStrings getRightVersion() {
+    public OrbStrings getRightVersion() {
         if (HasSFWVersion.ifReturnSFWVersion(SFW.NAME))
             return SFW;
         return Origin;
@@ -45,27 +45,27 @@ public class PowerStringsSet implements HasSFWVersionWithT<PowerStrings> {
     @Override
     public void initialSelfBlack() {
         this.NAME = "[MISSING_NAME]";
-        this.DESCRIPTIONS = LocalizedStrings.createMockStringArray(10);
+        this.DESCRIPTION = LocalizedStrings.createMockStringArray(10);
     }
 
     @Override
     public void setupSFWStringByWordReplace(WordReplace replaceRule) {
         replaceWord_NAME(this.SFW, replaceRule);
-        replaceWord_DESCRIPTIONS(this.SFW, replaceRule);
+        replaceWord_DESCRIPTION(this.SFW, replaceRule);
     }
 
-    private void replaceWord_NAME(PowerStrings replaced, WordReplace replaceRule) {
+    private void replaceWord_NAME(OrbStrings replaced, WordReplace replaceRule) {
         if (HasSFWVersion.isEmptyOrNull(replaced.NAME))
             replaced.NAME = WordReplace.replaceWord(this.Origin.NAME, replaceRule);
         else
             replaced.NAME = WordReplace.replaceWord(replaced.NAME, replaceRule);
     }
 
-    private void replaceWord_DESCRIPTIONS(PowerStrings replaced, WordReplace replaceRule) {
-        if (HasSFWVersion.isEmptyOrNull(replaced.DESCRIPTIONS))
-            replaced.DESCRIPTIONS = WordReplace.replaceWord(this.Origin.DESCRIPTIONS, replaceRule);
+    private void replaceWord_DESCRIPTION(OrbStrings replaced, WordReplace replaceRule) {
+        if (HasSFWVersion.isEmptyOrNull(replaced.DESCRIPTION))
+            replaced.DESCRIPTION = WordReplace.replaceWord(this.Origin.DESCRIPTION, replaceRule);
         else
-            WordReplace.replaceWord(replaced.DESCRIPTIONS, replaceRule);
+            WordReplace.replaceWord(replaced.DESCRIPTION, replaceRule);
     }
 
 //    public WordReplace toCardNameReplaceRule(){

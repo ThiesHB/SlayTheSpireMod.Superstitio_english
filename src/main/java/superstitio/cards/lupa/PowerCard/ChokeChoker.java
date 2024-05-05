@@ -1,10 +1,10 @@
 package superstitio.cards.lupa.PowerCard;
 
-import superstitio.DataManager;
-import superstitio.actions.AutoDoneAction;
-import superstitio.cards.lupa.AbstractLupaCard;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
+import superstitio.DataManager;
+import superstitio.actions.AutoDoneInstantAction;
+import superstitio.cards.lupa.AbstractLupaCard;
 
 
 public class ChokeChoker extends AbstractLupaCard {
@@ -30,7 +30,7 @@ public class ChokeChoker extends AbstractLupaCard {
     @Override
     public void use(AbstractPlayer player, AbstractMonster monster) {
         superstitio.powers.ChokeChoker power = new superstitio.powers.ChokeChoker(player, this.magicNumber);
-        AutoDoneAction.addToBotAbstract(power::AddPowers);
+        AutoDoneInstantAction.addToBotAbstract(power::AddPowers);
         addToBot_applyPower(new superstitio.powers.ChokeChoker(player, this.magicNumber));
     }
 

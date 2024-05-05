@@ -1,15 +1,14 @@
 package superstitio.cards.lupa.SkillCard;
 
-import superstitio.DataManager;
-import superstitio.actions.ChoseCardFromGridSelectWindowAction;
-import superstitio.cards.lupa.AbstractLupaCard;
 import com.megacrit.cardcrawl.actions.AbstractGameAction;
 import com.megacrit.cardcrawl.actions.common.MakeTempCardInHandAction;
 import com.megacrit.cardcrawl.cards.AbstractCard;
-import com.megacrit.cardcrawl.cards.CardGroup;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
+import superstitio.DataManager;
+import superstitio.actions.ChoseCardFromGridSelectWindowAction;
+import superstitio.cards.lupa.AbstractLupaCard;
 
 import java.util.Objects;
 
@@ -33,21 +32,17 @@ public class GloryHole extends AbstractLupaCard {
         this.exhaust = true;
     }
 
-    public static AbstractGameAction makeCopy(AbstractCard card) {
+    public static AbstractGameAction makeChoseCardCopy(AbstractCard card) {
         return new MakeTempCardInHandAction(card.makeCopy());
-    }
-
-    public static CardGroup mainCardGroupExceptSelf() {
-        CardGroup temp = new CardGroup(CardGroup.CardGroupType.UNSPECIFIED);
-        AbstractDungeon.player.masterDeck.group.stream().filter(abstractCard -> !Objects.equals(abstractCard.cardID, GloryHole.ID)).forEach(temp::addToTop);
-        return temp;
     }
 
     @Override
     public void use(AbstractPlayer player, AbstractMonster monster) {
-        this.addToBot(new ChoseCardFromGridSelectWindowAction(mainCardGroupExceptSelf(), GloryHole::makeCopy)
-                .setupWindowText(String.format(getEXTENDED_DESCRIPTION()[0]))
-                .setupAnyNumber(true));
+        this.addToBot(new ChoseCardFromGridSelectWindowAction(AbstractDungeon.player.masterDeck, GloryHole::makeChoseCardCopy)
+                .setWindowText(String.format(getEXTENDED_DESCRIPTION()[0]))
+                .setAnyNumber(true)
+                .setRetainFilter(card -> !Objects.equals(card.cardID, GloryHole.ID))
+        );
     }
 
     @Override

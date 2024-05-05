@@ -1,11 +1,11 @@
 package superstitio.cards.lupa.SkillCard;
 
-import superstitio.DataManager;
-import superstitio.cards.lupa.AbstractLupaCard;
 import basemod.AutoAdd;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
+import superstitio.DataManager;
+import superstitio.cards.lupa.AbstractLupaCard;
 
 @AutoAdd.Ignore
 public class Sensitive3000 extends AbstractLupaCard {

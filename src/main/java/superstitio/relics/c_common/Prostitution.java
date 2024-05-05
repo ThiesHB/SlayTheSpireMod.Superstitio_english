@@ -1,12 +1,12 @@
 package superstitio.relics.c_common;
 
+import com.megacrit.cardcrawl.actions.utility.UseCardAction;
+import com.megacrit.cardcrawl.cards.AbstractCard;
+import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import superstitio.DataManager;
 import superstitio.cards.lupa.AbstractLupaCard_FuckJob;
 import superstitio.relics.AbstractLupaRelic;
 import superstitio.relics.interFace.Countup;
-import com.megacrit.cardcrawl.actions.utility.UseCardAction;
-import com.megacrit.cardcrawl.cards.AbstractCard;
-import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 
 public class Prostitution extends AbstractLupaRelic implements Countup {
     public static final String ID = DataManager.MakeTextID(Prostitution.class.getSimpleName());

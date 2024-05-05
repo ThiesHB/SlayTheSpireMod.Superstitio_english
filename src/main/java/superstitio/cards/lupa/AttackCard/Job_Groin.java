@@ -1,16 +1,18 @@
 package superstitio.cards.lupa.AttackCard;
 
-import superstitio.DataManager;
-import superstitio.InBattleDataManager;
-import superstitio.cards.lupa.AbstractLupaCard_FuckJob;
-import superstitio.powers.SexualHeat;
 import basemod.AutoAdd;
 import com.megacrit.cardcrawl.actions.AbstractGameAction;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
+import superstitio.DataManager;
+import superstitio.InBattleDataManager;
+import superstitio.cards.lupa.AbstractLupaCard_FuckJob;
+import superstitio.powers.SexualHeat;
 
 import java.util.concurrent.atomic.AtomicInteger;
+
+import static superstitio.InBattleDataManager.OrgasmTimesInTurn;
 
 @AutoAdd.Ignore
 public class Job_Groin extends AbstractLupaCard_FuckJob {
@@ -52,7 +54,7 @@ public class Job_Groin extends AbstractLupaCard_FuckJob {
     private void updateDamage() {
         if (!InBattleDataManager.InOrgasm) return;
         AtomicInteger damageUp = new AtomicInteger();
-        SexualHeat.getActiveSexualHeat(AbstractDungeon.player).ifPresent(power -> damageUp.set(magicNumber * power.orgasmTime));
+        SexualHeat.getActiveSexualHeat(AbstractDungeon.player).ifPresent(power -> damageUp.set(magicNumber * OrgasmTimesInTurn));
         if (damageUp.get() >= 1)
             this.isDamageModified = true;
         this.baseDamage = this.getOriginDamage() + damageUp.get();

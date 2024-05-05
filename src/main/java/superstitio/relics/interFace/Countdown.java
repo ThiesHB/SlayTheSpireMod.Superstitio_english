@@ -4,6 +4,7 @@ public interface Countdown {
 
     int Zero = 0;
     int DefaultCounterOfRelic = -1;
+
     int getCounter();
 
     void setCounter(int CounterNum);

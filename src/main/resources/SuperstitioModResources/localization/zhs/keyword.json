@@ -50,13 +50,6 @@
     "DESCRIPTION": " 本回合增加或减少 潮吹 消耗的 #y快感 数量 。"
   },
   {
-    "PROPER_NAME": "体表精液",
-    "NAMES": [
-      "体表精液"
-    ],
-    "DESCRIPTION": "回合结束时，转化为等量的 #y风干精液 。"
-  },
-  {
     "PROPER_NAME": "情趣玩具",
     "NAMES": [
       "情趣玩具"
@@ -70,7 +63,7 @@
       "性交：内射",
       "插入动作"
     ],
-    "DESCRIPTION": "凑齐不同动作后，造成全体伤害。"
+    "DESCRIPTION": "获得 #b1 点 #y体内精液 和 对应的 #y内射标记 。"
   },
   {
     "PROPER_NAME": "外射-精液覆身",
@@ -79,28 +72,35 @@
       "性交：外射",
       "精液覆身"
     ],
-    "DESCRIPTION": "凑齐不同部位后，获得临时生命。"
+    "DESCRIPTION": "获得 #b1 点 #y体表精液 和 对应的 #y外射标记 。"
+  },
+  {
+    "PROPER_NAME": "体表精液",
+    "NAMES": [
+      "体表精液"
+    ],
+    "DESCRIPTION": "回合结束时，转化为等量的 #y干涸精液 。"
+  },
+  {
+    "PROPER_NAME": "体内精液",
+    "NAMES": [
+      "体内精液"
+    ],
+    "DESCRIPTION": "一种卡牌需要的资源。满点之后会 溢出 并且转化为 #y体表精液 。"
   },
   {
     "PROPER_NAME": "施虐者",
     "NAMES": [
       "施虐者"
     ],
-    "DESCRIPTION": "对敌人使用时额外触发的效果。"
+    "DESCRIPTION": "对敌人使用时触发的额外效果。"
   },
   {
     "PROPER_NAME": "受虐者",
     "NAMES": [
       "受虐者"
     ],
-    "DESCRIPTION": "对自己使用时额外触发的效果。"
-  },
-  {
-    "PROPER_NAME": "新鲜精液",
-    "NAMES": [
-      "新鲜精液"
-    ],
-    "DESCRIPTION": "一种卡牌需要的资源。"
+    "DESCRIPTION": "对自己使用时触发的额外效果。"
   },
   {
     "PROPER_NAME": "濒死",

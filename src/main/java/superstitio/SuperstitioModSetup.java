@@ -1,11 +1,5 @@
 package superstitio;
 
-import superstitio.cards.lupa.AbstractLupaCard;
-import superstitio.characters.Lupa;
-import superstitio.customStrings.ModifierStringsWithSFW;
-import superstitio.customStrings.CardStringsWithSFWAndFlavor;
-import superstitio.customStrings.PowerStringsSet;
-import superstitio.relics.AbstractLupaRelic;
 import basemod.*;
 import basemod.abstracts.CustomRelic;
 import basemod.interfaces.*;
@@ -21,8 +15,18 @@ import com.megacrit.cardcrawl.core.Settings;
 import com.megacrit.cardcrawl.helpers.CardLibrary;
 import com.megacrit.cardcrawl.helpers.FontHelper;
 import com.megacrit.cardcrawl.helpers.ImageMaster;
-import com.megacrit.cardcrawl.localization.*;
+import com.megacrit.cardcrawl.localization.CharacterStrings;
+import com.megacrit.cardcrawl.localization.LocalizedStrings;
+import com.megacrit.cardcrawl.localization.RelicStrings;
+import com.megacrit.cardcrawl.localization.UIStrings;
 import com.megacrit.cardcrawl.unlock.UnlockTracker;
+import superstitio.cards.lupa.AbstractLupaCard;
+import superstitio.characters.Lupa;
+import superstitio.customStrings.CardStringsWithFlavorSet;
+import superstitio.customStrings.ModifierStringsSet;
+import superstitio.customStrings.OrbStringsSet;
+import superstitio.customStrings.PowerStringsSet;
+import superstitio.relics.AbstractLupaRelic;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -146,10 +150,11 @@ public class SuperstitioModSetup implements
     @Override
     public void receiveEditStrings() {
         Logger.run("Beginning to edit strings for mod with ID: " + DataManager.getModID());
-        DataManager.loadCustomStringsFile("card_Lupa", DataManager.cards, CardStringsWithSFWAndFlavor.class);
-        DataManager.loadCustomStringsFile("modifier_damage", DataManager.modifiers, ModifierStringsWithSFW.class);
-        DataManager.loadCustomStringsFile("modifier_block", DataManager.modifiers, ModifierStringsWithSFW.class);
+        DataManager.loadCustomStringsFile("card_Lupa", DataManager.cards, CardStringsWithFlavorSet.class);
+        DataManager.loadCustomStringsFile("modifier_damage", DataManager.modifiers, ModifierStringsSet.class);
+        DataManager.loadCustomStringsFile("modifier_block", DataManager.modifiers, ModifierStringsSet.class);
         DataManager.loadCustomStringsFile("power", DataManager.powers, PowerStringsSet.class);
+        DataManager.loadCustomStringsFile("orb", DataManager.orbs, OrbStringsSet.class);
 //        BaseMod.loadCustomStringsFile(EventStrings.class, makeLocPath(Settings.language,"event"));
 //        BaseMod.loadCustomStringsFile(PotionStrings.class, makeLocPath(Settings.language,"potion"));
 //        BaseMod.loadCustomStringsFile(OrbStrings.class, makeLocPath(Settings.language,"orb"));
@@ -170,7 +175,8 @@ public class SuperstitioModSetup implements
         for (WordReplace wordReplace : wordReplaces) {
             DataManager.cards.forEach((string, card) -> card.setupSFWStringByWordReplace(wordReplace));
             DataManager.powers.forEach(((string, power) -> power.setupSFWStringByWordReplace(wordReplace)));
-            DataManager.modifiers.forEach(((string, power) -> power.setupSFWStringByWordReplace(wordReplace)));
+            DataManager.modifiers.forEach(((string, modifier) -> modifier.setupSFWStringByWordReplace(wordReplace)));
+            DataManager.orbs.forEach(((string, orb) -> orb.setupSFWStringByWordReplace(wordReplace)));
         }
     }
 
@@ -191,9 +197,9 @@ public class SuperstitioModSetup implements
         List<WordReplace> sfwReplaces =
                 Arrays.stream(DataManager.makeJsonStringFromFile("SFW_replace", WordReplace[].class)).collect(Collectors.toList());
         if (DataManager.cards != null && !DataManager.cards.isEmpty())
-            sfwReplaces.addAll(CardStringsWithSFWAndFlavor.makeCardNameReplaceRules(new ArrayList<>(DataManager.cards.values())));
+            sfwReplaces.addAll(CardStringsWithFlavorSet.makeCardNameReplaceRules(new ArrayList<>(DataManager.cards.values())));
         if (DataManager.modifiers != null && !DataManager.modifiers.isEmpty())
-            sfwReplaces.addAll(ModifierStringsWithSFW.makeModifierNameReplaceRules(new ArrayList<>(DataManager.modifiers.values())));
+            sfwReplaces.addAll(ModifierStringsSet.makeModifierNameReplaceRules(new ArrayList<>(DataManager.modifiers.values())));
         return sfwReplaces;
     }
 
@@ -201,14 +207,14 @@ public class SuperstitioModSetup implements
     public void receiveEditKeywords() {
         List<Keyword> keywords = new ArrayList<>();
         keywords.addAll(Arrays.asList(DataManager.makeJsonStringFromFile("keyword", Keyword[].class)));
-        keywords.addAll(Arrays.asList(ModifierStringsWithSFW.MakeKeyWords()));
+        keywords.addAll(Arrays.asList(ModifierStringsSet.MakeKeyWords()));
 
         keywords.forEach(keyword ->
                 BaseMod.addKeyword(DataManager.getModID().toLowerCase(), keyword.PROPER_NAME, keyword.NAMES, keyword.DESCRIPTION));
 
         List<Keyword> keywordsSFW = new ArrayList<>();
         keywordsSFW.addAll(Arrays.asList(DataManager.makeJsonStringFromFile("keyword", Keyword[].class)));
-        keywordsSFW.addAll(Arrays.asList(ModifierStringsWithSFW.MakeKeyWords()));
+        keywordsSFW.addAll(Arrays.asList(ModifierStringsSet.MakeKeyWords()));
 
         replaceKeyWordsToSFW(keywordsSFW.toArray(new Keyword[0]));
 

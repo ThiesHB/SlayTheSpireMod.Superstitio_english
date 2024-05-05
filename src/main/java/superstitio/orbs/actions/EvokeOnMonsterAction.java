@@ -1,11 +1,10 @@
 package superstitio.orbs.actions;
 
-import superstitio.orbs.orbgroup.OrbGroup;
 import com.megacrit.cardcrawl.actions.AbstractGameAction;
 import com.megacrit.cardcrawl.core.Settings;
+import superstitio.orbs.orbgroup.OrbGroup;
 
-public class EvokeOnMonsterAction extends AbstractGameAction
-{
+public class EvokeOnMonsterAction extends AbstractGameAction {
     public OrbGroup target;
 
     public EvokeOnMonsterAction(final OrbGroup target, final int amt) {

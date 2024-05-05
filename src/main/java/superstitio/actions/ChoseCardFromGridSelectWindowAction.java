@@ -15,7 +15,7 @@ public class ChoseCardFromGridSelectWindowAction extends AbstractContinuallyActi
     private final CardGroup cardGroup;
     private String windowText = "";
     private boolean anyNumber = false;
-    private Predicate<AbstractCard> retainFilter = card -> false;
+    private Predicate<AbstractCard> retainFilter = card -> true;
 
     public ChoseCardFromGridSelectWindowAction(
             final CardGroup cardGroup,
@@ -26,23 +26,23 @@ public class ChoseCardFromGridSelectWindowAction extends AbstractContinuallyActi
         this.amount = 1;
     }
 
-    public ChoseCardFromGridSelectWindowAction setupAnyNumber(boolean anyNumber) {
+    public ChoseCardFromGridSelectWindowAction setAnyNumber(boolean anyNumber) {
         this.anyNumber = anyNumber;
         return this;
     }
 
     @SafeVarargs
-    public final ChoseCardFromGridSelectWindowAction setupRetainFilter(Predicate<AbstractCard>... filters) {
-        Arrays.stream(filters).forEach(abstractCardPredicate -> this.retainFilter = this.retainFilter.or(abstractCardPredicate));
+    public final ChoseCardFromGridSelectWindowAction setRetainFilter(Predicate<AbstractCard>... filters) {
+        Arrays.stream(filters).forEach(abstractCardPredicate -> this.retainFilter = this.retainFilter.and(abstractCardPredicate));
         return this;
     }
 
-    public ChoseCardFromGridSelectWindowAction setupWindowText(String windowText) {
+    public ChoseCardFromGridSelectWindowAction setWindowText(String windowText) {
         this.windowText = windowText;
         return this;
     }
 
-    public ChoseCardFromGridSelectWindowAction setupChoseAmount(int choseAmount) {
+    public ChoseCardFromGridSelectWindowAction setChoseAmount(int choseAmount) {
         this.amount = choseAmount;
         return this;
     }

@@ -1,19 +1,19 @@
 package superstitio.powers;
 
-import superstitio.DataManager;
-import superstitio.cards.lupa.AbstractLupaCard;
-import superstitio.utils.ActionUtility;
-import superstitio.utils.CardUtility;
 import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.cards.DamageInfo;
 import com.megacrit.cardcrawl.core.AbstractCreature;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
+import superstitio.DataManager;
+import superstitio.cards.lupa.AbstractLupaCard;
+import superstitio.utils.ActionUtility;
+import superstitio.utils.CardUtility;
 
 /**
  * 每次受到攻击伤害时，获得1随机状态牌。所有消耗牌会回到抽牌堆
  */
 public class Ku_Koro extends AbstractLupaPower {
-    public static final String POWER_ID = DataManager.MakeTextID(Ku_Koro.class.getSimpleName() );
+    public static final String POWER_ID = DataManager.MakeTextID(Ku_Koro.class.getSimpleName());
 
     public Ku_Koro(final AbstractCreature owner) {
         super(POWER_ID, owner, -1);

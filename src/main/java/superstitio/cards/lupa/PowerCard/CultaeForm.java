@@ -1,5 +1,5 @@
-package superstitio.cards.lupa.PowerCard;
-
-public class CultaeForm {
-
-}
+//package superstitio.cards.lupa.PowerCard;
+//
+//public class CultaeForm {
+//
+//}

@@ -1,13 +1,14 @@
 package superstitio.relics.a_starter;
 
-import superstitio.DataManager;
-import superstitio.powers.SexualHeat;
-import superstitio.relics.AbstractLupaRelic;
 import basemod.AutoAdd;
 import com.megacrit.cardcrawl.actions.common.ApplyPowerAction;
 import com.megacrit.cardcrawl.cards.AbstractCard;
-import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
+import superstitio.DataManager;
+import superstitio.powers.SexualHeat;
+import superstitio.relics.AbstractLupaRelic;
+
+import static com.megacrit.cardcrawl.dungeons.AbstractDungeon.player;
 
 @AutoAdd.Seen
 public class Sensitive extends AbstractLupaRelic {
@@ -28,9 +29,9 @@ public class Sensitive extends AbstractLupaRelic {
         if (card.costForTurn >= 1)
             amount += card.costForTurn;
         if (card.costForTurn == -1)
-            amount += AbstractDungeon.player.energy.energy;
-        //if (amount != 0)
-        this.addToTop(new ApplyPowerAction(AbstractDungeon.player, AbstractDungeon.player, new SexualHeat(AbstractDungeon.player, amount * SexualHeatRate)));
+            amount += card.energyOnUse;
+        if (amount == 0) return;
+        this.addToTop(new ApplyPowerAction(player, player, new SexualHeat(player, amount * SexualHeatRate)));
     }
 
     @Override

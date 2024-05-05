@@ -1,10 +1,5 @@
 package superstitio.cards.lupa.AttackCard;
 
-import superstitio.DataManager;
-import superstitio.cards.modifiers.block.SexBlock;
-import superstitio.cards.lupa.AbstractLupaCard_FuckJob;
-import superstitio.cards.lupa.TempCard.Fuck_Ear;
-import superstitio.utils.ActionUtility;
 import basemod.cardmods.RetainMod;
 import basemod.helpers.CardModifierManager;
 import com.megacrit.cardcrawl.actions.AbstractGameAction;
@@ -12,6 +7,11 @@ import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import com.megacrit.cardcrawl.powers.WeakPower;
+import superstitio.DataManager;
+import superstitio.cards.lupa.AbstractLupaCard_FuckJob;
+import superstitio.cards.lupa.TempCard.Fuck_Ear;
+import superstitio.cards.modifiers.block.SexBlock;
+import superstitio.utils.ActionUtility;
 
 public class Fuck_Eye extends AbstractLupaCard_FuckJob {
     public static final String ID = DataManager.MakeTextID(Fuck_Eye.class.getSimpleName());
@@ -38,7 +38,7 @@ public class Fuck_Eye extends AbstractLupaCard_FuckJob {
     public Fuck_Eye(boolean blank) {
         super(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET);
         this.setupDamage(ATTACK_DMG);
-        this.setupBlock(BLOCK,new SexBlock());
+        this.setupBlock(BLOCK, new SexBlock());
         this.exhaust = true;
 //        CardModifierManager.addModifier(this, new RetainMod());
     }
@@ -48,7 +48,7 @@ public class Fuck_Eye extends AbstractLupaCard_FuckJob {
         addToBot_dealDamage(monster, AbstractGameAction.AttackEffect.BLUNT_LIGHT);
         addToBot_dealDamage(monster, AbstractGameAction.AttackEffect.BLUNT_LIGHT);
         addToBot_gainBlock();
-        ActionUtility.addToBot_makeTempCardInBattle(new Fuck_Ear(), BattleCardPlace.Hand,this.upgraded);
+        ActionUtility.addToBot_makeTempCardInBattle(new Fuck_Ear(), BattleCardPlace.Hand, this.upgraded);
         addToBot_applyPower(new WeakPower(AbstractDungeon.player, 1, false));
         AbstractLupaCard_FuckJob.addToTop_gainSexMark_Inside(this.name);
     }

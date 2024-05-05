@@ -1,10 +1,10 @@
 package superstitio.utils;
 
-import superstitio.DataManager;
 import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.helpers.CardLibrary;
 import com.megacrit.cardcrawl.random.Random;
+import superstitio.DataManager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -49,8 +49,9 @@ public class CardUtility {
 
     public static <T> T getRandomFromList(Stream<T> stream, Random random) {
         List<T> list = stream.collect(Collectors.toList());
-        return getRandomFromList(list,random);
+        return getRandomFromList(list, random);
     }
+
     public static <T> T getRandomFromList(T[] list, Random random) {
         return list[random.random(list.length - 1)];
     }

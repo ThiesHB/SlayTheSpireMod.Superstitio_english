@@ -1,14 +1,14 @@
 package superstitio.cards.lupa.TempCard;
 
-import superstitio.DataManager;
-import superstitio.SuperstitioModSetup;
-import superstitio.cards.lupa.AbstractLupaCard_TempCard;
-import superstitio.utils.CardUtility;
 import com.evacipated.cardcrawl.mod.stslib.cards.targeting.SelfOrEnemyTargeting;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.core.AbstractCreature;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
+import superstitio.DataManager;
+import superstitio.SuperstitioModSetup;
+import superstitio.cards.lupa.AbstractLupaCard_TempCard;
+import superstitio.utils.CardUtility;
 
 import java.util.stream.IntStream;
 

@@ -1,12 +1,12 @@
 package superstitio.cards.lupa.SkillCard;
 
-import superstitio.DataManager;
-import superstitio.cards.lupa.AbstractLupaCard;
-import superstitio.powers.InsideSemen;
 import com.megacrit.cardcrawl.actions.common.HealAction;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
+import superstitio.DataManager;
+import superstitio.cards.lupa.AbstractLupaCard;
+import superstitio.powers.InsideSemen;
 
 //排出，然后喝
 public class DrinkSemenBeer extends AbstractLupaCard {

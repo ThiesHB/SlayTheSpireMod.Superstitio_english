@@ -1,10 +1,10 @@
 package superstitio.cards.lupa.SkillCard;
 
-import superstitio.DataManager;
-import superstitio.cards.modifiers.block.SexBlock;
-import superstitio.cards.lupa.AbstractLupaCard;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
+import superstitio.DataManager;
+import superstitio.cards.lupa.AbstractLupaCard;
+import superstitio.cards.modifiers.block.SexBlock;
 
 /**
  * 抵消敌人的攻击，转换为精液
@@ -24,7 +24,7 @@ public class ExposeSelf extends AbstractLupaCard {
 
     public ExposeSelf() {
         super(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET);
-        this.setupBlock(BLOCK,new SexBlock());
+        this.setupBlock(BLOCK, new SexBlock());
     }
 
     @Override

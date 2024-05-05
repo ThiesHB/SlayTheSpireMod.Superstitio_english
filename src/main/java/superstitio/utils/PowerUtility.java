@@ -17,8 +17,7 @@ public class PowerUtility {
         if (isDeBuffVer) {
             AbstractDungeon.effectList.add(new PowerDebuffEffect(power.owner.hb.cX - power.owner.animX,
                     power.owner.hb.cY + power.owner.hb.height / 2.0f, message));
-        }
-        else {
+        } else {
             AbstractDungeon.effectList.add(new PowerBuffEffect(power.owner.hb.cX - power.owner.animX,
                     power.owner.hb.cY + power.owner.hb.height / 2.0f, message));
         }
@@ -28,8 +27,7 @@ public class PowerUtility {
         if (isDeBuffVer) {
             AbstractDungeon.effectList.add(new PowerDebuffEffect(power.owner.hb.cX - power.owner.animX,
                     power.owner.hb.cY + power.owner.hb.height / 2.0f + BubbleMessageHigher_HEIGHT, message));
-        }
-        else {
+        } else {
             AbstractDungeon.effectList.add(new PowerBuffEffect(power.owner.hb.cX - power.owner.animX,
                     power.owner.hb.cY + power.owner.hb.height / 2.0f + BubbleMessageHigher_HEIGHT, message));
         }

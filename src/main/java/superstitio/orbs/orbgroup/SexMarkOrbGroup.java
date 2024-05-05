@@ -6,10 +6,14 @@ import com.megacrit.cardcrawl.cards.CardQueueItem;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.helpers.Hitbox;
 import com.megacrit.cardcrawl.orbs.AbstractOrb;
-import superstitio.actions.AutoDoneAction;
+import superstitio.InBattleDataManager;
+import superstitio.actions.AutoDoneInstantAction;
 import superstitio.cards.lupa.TempCard.GangBang;
 import superstitio.orbs.SexMarkEmptySlot;
 import superstitio.orbs.SexMarkOrb;
+import superstitio.orbs.SexMarkOrb_Inside;
+import superstitio.orbs.SexMarkOrb_Outside;
+import superstitio.orbs.actions.GiveSexMarkToOrbGroupInstantAction;
 
 import java.util.Objects;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -87,8 +91,9 @@ public class SexMarkOrbGroup extends OrbGroup {
             }
         });
         GangBang gangBang = new GangBang(attackAmount.get(), blockAmount.get());
-        AutoDoneAction.addToBotAbstract(() -> AbstractDungeon.actionManager.addCardQueueItem(new CardQueueItem(gangBang, null, 0, true, true), true));
-        AutoDoneAction.addToBotAbstract(() -> {
+        AutoDoneInstantAction.addToBotAbstract(() -> AbstractDungeon.actionManager.addCardQueueItem(new CardQueueItem(gangBang, null, 0, true,
+                true), true));
+        AutoDoneInstantAction.addToBotAbstract(() -> {
             int bound = orbs.size();
             for (int i = 0; i < bound; i++) {
                 this.evokeOrb(i);
@@ -151,5 +156,28 @@ public class SexMarkOrbGroup extends OrbGroup {
 
     @Override
     protected void onOrbEvoke(AbstractOrb evokedOrb) {
+    }
+
+    @SuppressWarnings("DuplicateBranchesInSwitch")
+    public static SexMarkOrb makeSexMarkOrb(SexMarkType sexMarkType) {
+        switch (sexMarkType) {
+            case OutSide:
+                return new SexMarkOrb_Outside();
+            case Inside:
+                return new SexMarkOrb_Inside();
+            default:
+                return new SexMarkOrb_Inside();
+        }
+    }
+
+    public enum SexMarkType {
+        Inside, OutSide
+    }
+
+    public static void addToBot_GiveMarkToOrbGroup(String sexName, SexMarkOrbGroup.SexMarkType sexMarkType) {
+        AbstractDungeon.actionManager.addToBottom(
+                new GiveSexMarkToOrbGroupInstantAction((SexMarkOrbGroup) InBattleDataManager.orbGroups.stream()
+                        .filter(orbGroup -> orbGroup instanceof SexMarkOrbGroup).findAny().orElse(null),
+                        makeSexMarkOrb(sexMarkType).setSexMarkName(sexName)));
     }
 }

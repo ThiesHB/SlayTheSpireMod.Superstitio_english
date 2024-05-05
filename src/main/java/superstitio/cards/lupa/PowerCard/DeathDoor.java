@@ -1,10 +1,10 @@
 package superstitio.cards.lupa.PowerCard;
 
-import superstitio.DataManager;
-import superstitio.cards.lupa.AbstractLupaCard;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
+import superstitio.DataManager;
+import superstitio.cards.lupa.AbstractLupaCard;
 
 
 public class DeathDoor extends AbstractLupaCard {
@@ -28,7 +28,7 @@ public class DeathDoor extends AbstractLupaCard {
 
     @Override
     public void use(AbstractPlayer player, AbstractMonster monster) {
-        addToBot_applyPower(new superstitio.powers.DeathDoor(AbstractDungeon.player,this.magicNumber));
+        addToBot_applyPower(new superstitio.powers.DeathDoor(AbstractDungeon.player, this.magicNumber));
     }
 
     @Override

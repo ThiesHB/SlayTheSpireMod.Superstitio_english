@@ -1,14 +1,14 @@
 package superstitio.orbs.actions;
 
-import com.megacrit.cardcrawl.vfx.*;
-import com.megacrit.cardcrawl.core.*;
-import com.megacrit.cardcrawl.helpers.*;
-import com.badlogic.gdx.graphics.*;
-import com.badlogic.gdx.math.*;
-import com.badlogic.gdx.graphics.g2d.*;
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.math.Interpolation;
+import com.megacrit.cardcrawl.core.Settings;
+import com.megacrit.cardcrawl.helpers.ImageMaster;
+import com.megacrit.cardcrawl.vfx.AbstractGameEffect;
 
-public class FlashOrbEffect extends AbstractGameEffect
-{
+public class FlashOrbEffect extends AbstractGameEffect {
     private float x;
     private float y;
     private final TextureAtlas.AtlasRegion img;
@@ -36,7 +36,8 @@ public class FlashOrbEffect extends AbstractGameEffect
     public void render(final SpriteBatch sb) {
         sb.setBlendFunction(770, 1);
         sb.setColor(this.color);
-        sb.draw(this.img, this.x, this.y, this.img.packedWidth / 2.0f, this.img.packedHeight / 2.0f, (float)this.img.packedWidth, (float)this.img.packedHeight, this.scale * 3.0f, this.scale * 3.0f, 0.0f);
+        sb.draw(this.img, this.x, this.y, this.img.packedWidth / 2.0f, this.img.packedHeight / 2.0f, (float) this.img.packedWidth,
+                (float) this.img.packedHeight, this.scale * 3.0f, this.scale * 3.0f, 0.0f);
         sb.setBlendFunction(770, 771);
     }
 

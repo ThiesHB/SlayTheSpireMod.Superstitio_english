@@ -89,13 +89,13 @@
   "SuperstitioMod:Fuck_Ear": {
     "NAME": "耳奸",
     "NAME_SFW": "龙形拳",
-    "DESCRIPTION": "抽到时获得 保留 。 NL 造成 2 次 !D! 点 伤害 。 NL 把 *眼奸 加入手牌。 NL 获得 1 脆弱 。 NL superstitiomod:性交：内射 。 NL 消耗 。",
+    "DESCRIPTION": "抽到时获得保留。 NL 造成 2 次 !D! 点 伤害 。 NL 把 *眼奸 加入手牌。 NL 获得 1 脆弱 。 NL superstitiomod:性交：内射 。 NL 消耗 。",
     "FLAVOR": "是脑交！要是脑子有触觉就好了，哧溜。"
   },
   "SuperstitioMod:Fuck_Eye": {
     "NAME": "眼奸",
     "NAME_SFW": "蛇形拳",
-    "DESCRIPTION": "抽到时获得 保留 。 NL 造成 2 次 !D! 点 伤害 。 NL 获得 !B! 点 *引诱 。 NL 把 *耳奸 加入手牌。 NL 获得 1 虚弱 。 NL superstitiomod:性交：内射 。 NL 消耗 。",
+    "DESCRIPTION": "抽到时获得保留。 NL 造成 2 次 !D! 点 伤害 。 获得 !B! 点 *引诱 。 NL 把 *耳奸 加入手牌 。 NL  获得 1 虚弱 。 NL superstitiomod:性交：内射 。 NL 消耗 。",
     "FLAVOR": "也许是脑交。总的来说还是取决于肉棒的主人敢不敢用力吧。"
   },
   "SuperstitioMod:Fuck_Navel": {
@@ -154,7 +154,7 @@
   "SuperstitioMod:ExposeSelf": {
     "NAME": "自我暴露",
     "NAME_SFW": "战局剖析",
-    "DESCRIPTION": "获得 !B! 点 *引诱 。 NL 到 下回合 开始前 ， NL 失去 格挡 时， NL 获得失去数值一半的 superstitiomod:干涸精液 。",
+    "DESCRIPTION": "获得 !B! 点 *引诱 。 NL 到 下回合 开始前 ， NL 失去 格挡 时， NL 获得失去数值一半的 superstitiomod:体表精液 。",
     "FLAVOR": "要做爱，不作战。"
   },
   "SuperstitioMod:BlindfoldWithMilk": {
@@ -297,7 +297,13 @@
   "SuperstitioMod:GangBang": {
     "NAME": "轮奸派对",
     "NAME_SFW": "血战沙场",
-    "DESCRIPTION": "造成 !D! 点伤害。 获得 !B! *干涸精液。",
+    "DESCRIPTION": "对 全体敌人 造成 !D! 点伤害 。 获得 !B! *干涸精液 。",
     "FLAVOR": "开始狂欢吧！大家一起来！"
+  },
+  "SuperstitioMod:ForceOrgasm": {
+    "NAME": "强制高潮",
+    "NAME_SFW": "难掩怒火",
+    "DESCRIPTION": "造成 !M! 点 superstitiomod:快感 。 NL 重复 X 次。 NL 消耗 。",
+    "FLAVOR": ""
   }
 }

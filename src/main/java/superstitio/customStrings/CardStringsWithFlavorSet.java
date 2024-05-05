@@ -1,15 +1,15 @@
 package superstitio.customStrings;
 
-import superstitio.SuperstitioModSetup;
-import superstitio.WordReplace;
 import com.evacipated.cardcrawl.mod.stslib.patches.FlavorText;
 import com.megacrit.cardcrawl.localization.CardStrings;
 import com.megacrit.cardcrawl.localization.LocalizedStrings;
+import superstitio.SuperstitioModSetup;
+import superstitio.WordReplace;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class CardStringsWithSFWAndFlavor implements HasSFWVersionWithT<CardStrings> {
+public class CardStringsWithFlavorSet implements HasSFWVersionWithT<CardStrings> {
     private final CardStrings Origin = new CardStrings();
     private final CardStrings SFW = new CardStrings();
     private String NAME;
@@ -22,11 +22,11 @@ public class CardStringsWithSFWAndFlavor implements HasSFWVersionWithT<CardStrin
     private String[] EXTENDED_DESCRIPTION_SFW;
     private String FLAVOR;
 
-    public CardStringsWithSFWAndFlavor() {
+    public CardStringsWithFlavorSet() {
     }
 
-    public static List<WordReplace> makeCardNameReplaceRules(List<CardStringsWithSFWAndFlavor> cards) {
-        return cards.stream().map(CardStringsWithSFWAndFlavor::toCardNameReplaceRule).collect(Collectors.toList());
+    public static List<WordReplace> makeCardNameReplaceRules(List<CardStringsWithFlavorSet> cards) {
+        return cards.stream().map(CardStringsWithFlavorSet::toCardNameReplaceRule).collect(Collectors.toList());
     }
 
     @Override

@@ -1,9 +1,5 @@
 package superstitio.cards.lupa.TempCard;
 
-import superstitio.DataManager;
-import superstitio.actions.AutoDoneAction;
-import superstitio.cards.modifiers.block.PregnantBlock;
-import superstitio.cards.lupa.AbstractLupaCard_TempCard;
 import com.evacipated.cardcrawl.mod.stslib.actions.tempHp.AddTemporaryHPAction;
 import com.evacipated.cardcrawl.mod.stslib.blockmods.BlockInstance;
 import com.evacipated.cardcrawl.mod.stslib.blockmods.BlockModifierManager;
@@ -13,6 +9,10 @@ import com.megacrit.cardcrawl.core.AbstractCreature;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import com.megacrit.cardcrawl.powers.AbstractPower;
+import superstitio.DataManager;
+import superstitio.actions.AutoDoneInstantAction;
+import superstitio.cards.lupa.AbstractLupaCard_TempCard;
+import superstitio.cards.modifiers.block.PregnantBlock;
 
 import java.util.ArrayList;
 
@@ -52,7 +52,7 @@ public class GiveBirth extends AbstractLupaCard_TempCard {
         this.addToBot(new AddTemporaryHPAction(AbstractDungeon.player, AbstractDungeon.player, this.block));
         for (BlockInstance blockInstance : BlockModifierManager.blockInstances(AbstractDungeon.player)) {
             if (blockInstance.getBlockTypes().stream().anyMatch(blockModifier -> blockModifier instanceof PregnantBlock)) {
-               AutoDoneAction.addToBotAbstract(()-> BlockModifierManager.removeSpecificBlockType(blockInstance));
+                AutoDoneInstantAction.addToBotAbstract(() -> BlockModifierManager.removeSpecificBlockType(blockInstance));
             }
         }
     }

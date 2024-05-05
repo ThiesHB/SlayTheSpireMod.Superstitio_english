@@ -1,15 +1,15 @@
 package superstitio.cards.lupa.SkillCard;
 
-import superstitio.DataManager;
-import superstitio.actions.AutoDoneAction;
-import superstitio.cards.modifiers.block.PregnantBlock;
-import superstitio.cards.modifiers.block.PregnantBlock_sealPower;
-import superstitio.cards.lupa.AbstractLupaCard;
-import superstitio.cards.lupa.TempCard.GiveBirth;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import com.megacrit.cardcrawl.powers.AbstractPower;
 import com.megacrit.cardcrawl.powers.ArtifactPower;
+import superstitio.DataManager;
+import superstitio.actions.AutoDoneInstantAction;
+import superstitio.cards.lupa.AbstractLupaCard;
+import superstitio.cards.lupa.TempCard.GiveBirth;
+import superstitio.cards.modifiers.block.PregnantBlock;
+import superstitio.cards.modifiers.block.PregnantBlock_sealPower;
 
 import java.util.ArrayList;
 
@@ -42,7 +42,7 @@ public class UnBirth extends AbstractLupaCard {
             if (power.type == AbstractPower.PowerType.DEBUFF || power instanceof ArtifactPower) {
                 power.owner = player;
                 sealPower.add(power);
-                AutoDoneAction.addToBotAbstract(() -> monster.powers.remove(power));
+                AutoDoneInstantAction.addToBotAbstract(() -> monster.powers.remove(power));
             }
         });
         addToBot_gainBlock(new PregnantBlock_sealPower(sealPower, monster));

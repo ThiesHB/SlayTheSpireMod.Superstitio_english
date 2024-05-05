@@ -1,10 +1,5 @@
 package superstitio.cards.lupa.SkillCard;
 
-import superstitio.DataManager;
-import superstitio.cards.lupa.AbstractLupaCard;
-import superstitio.cards.lupa.AbstractLupaCard_FuckJob;
-import superstitio.utils.ActionUtility;
-import superstitio.utils.CardUtility;
 import basemod.cardmods.ExhaustMod;
 import basemod.helpers.CardModifierManager;
 import com.megacrit.cardcrawl.cards.AbstractCard;
@@ -12,6 +7,11 @@ import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.helpers.CardLibrary;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
+import superstitio.DataManager;
+import superstitio.cards.lupa.AbstractLupaCard;
+import superstitio.cards.lupa.AbstractLupaCard_FuckJob;
+import superstitio.utils.ActionUtility;
+import superstitio.utils.CardUtility;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -49,7 +49,7 @@ public class ChooseCoitalPosture extends AbstractLupaCard {
         AbstractCard card = getRandomFuckJobCard().makeCopy();
 //        if (!CardModifierManager.hasModifier(card, ExhaustMod.ID))
         CardModifierManager.addModifier(card, new ExhaustMod());
-        ActionUtility.addToBot_makeTempCardInBattle(card, BattleCardPlace.Hand,upgraded);
+        ActionUtility.addToBot_makeTempCardInBattle(card, BattleCardPlace.Hand, upgraded);
     }
 
     @Override

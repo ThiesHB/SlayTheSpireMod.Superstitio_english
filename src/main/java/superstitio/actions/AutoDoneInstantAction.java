@@ -1,17 +1,17 @@
 package superstitio.actions;
 
-import superstitio.utils.ActionUtility;
 import com.megacrit.cardcrawl.actions.AbstractGameAction;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
+import superstitio.utils.ActionUtility;
 
-public abstract class AutoDoneAction extends AbstractGameAction {
+public abstract class AutoDoneInstantAction extends AbstractGameAction {
 
     public static void addToBotAbstract(final ActionUtility.VoidSupplier func) {
         AbstractDungeon.actionManager.addToBottom(newAutoDone(func));
     }
 
     public static AbstractGameAction newAutoDone(final ActionUtility.VoidSupplier func) {
-         return new AutoDoneAction() {
+        return new AutoDoneInstantAction() {
             @Override
             public void autoDoneUpdate() {
                 func.get();

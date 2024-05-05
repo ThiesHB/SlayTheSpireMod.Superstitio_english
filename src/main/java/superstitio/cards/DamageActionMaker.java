@@ -59,37 +59,26 @@ public class DamageActionMaker {
         Arrays.stream(getTargets()).forEach(target -> AbstractDungeon.actionManager.addToBottom(this.get(target)));
     }
 
-//    public DamageActionMaker setupSource(AbstractCreature source) {
-//        this.source = source;
-//        return this;
-//    }
-
-    public DamageActionMaker setupDamageType(DamageInfo.DamageType damageType) {
+    public DamageActionMaker setDamageType(DamageInfo.DamageType damageType) {
         this.damageType = damageType;
         return this;
     }
 
-    public DamageActionMaker setupEffect(AttackEffect effect) {
+    public DamageActionMaker setEffect(AttackEffect effect) {
         this.effect = effect;
         return this;
     }
 
-    public DamageActionMaker setupSuperFast(boolean superFast) {
+    public DamageActionMaker setSuperFast(boolean superFast) {
         this.superFast = superFast;
         return this;
     }
 
-    public DamageActionMaker setupDamageModifier(Object instigator, AbstractDamageModifier damageModifier) {
+    public DamageActionMaker setDamageModifier(Object instigator, AbstractDamageModifier damageModifier) {
         this.instigator = instigator;
         this.damageModifier = damageModifier;
         return this;
     }
-
-
-//    public DamageActionMaker setupAsAoeAction() {
-//        this.aoeAction = true;
-//        return this;
-//    }
 
     private DamageAction get(AbstractCreature target) {
         if (damageModifier != null)

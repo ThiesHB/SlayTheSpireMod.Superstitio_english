@@ -1,11 +1,11 @@
 package superstitio.relics;
 
-import superstitio.DataManager;
-import superstitio.utils.updateDescriptionAdvanced;
 import basemod.abstracts.CustomRelic;
 import com.megacrit.cardcrawl.helpers.ImageMaster;
+import superstitio.DataManager;
+import superstitio.utils.updateDescriptionAdvanced;
 
-public abstract class AbstractLupaRelic extends CustomRelic implements updateDescriptionAdvanced {
+public class AbstractLupaRelic extends CustomRelic implements updateDescriptionAdvanced {
     public static final String DEFAULT_RELIC = "default_relic";
     private Object[] descriptionArgs;
 
@@ -38,10 +38,11 @@ public abstract class AbstractLupaRelic extends CustomRelic implements updateDes
     }
 
     @Override
-    public abstract void updateDescriptionArgs();
+    public void updateDescriptionArgs(){};
 
     @Override
     public String getDescriptionStrings() {
         return this.DESCRIPTIONS[0];
     }
+
 }

@@ -10,7 +10,7 @@ import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import com.megacrit.cardcrawl.powers.AbstractPower;
 import com.megacrit.cardcrawl.vfx.AbstractGameEffect;
-import superstitio.actions.AutoDoneAction;
+import superstitio.actions.AutoDoneInstantAction;
 import superstitio.cards.lupa.AbstractLupaCard;
 import superstitio.powers.AllCardCostModifier;
 
@@ -22,6 +22,7 @@ public class ActionUtility {
     public static void addToBot_applyPower(final AbstractPower power) {
         AbstractDungeon.actionManager.addToBottom(new ApplyPowerAction(power.owner, AbstractDungeon.player, power));
     }
+
     public static void addToBot_applyPower(final AbstractPower power, AbstractCreature source) {
         AbstractDungeon.actionManager.addToBottom(new ApplyPowerAction(power.owner, source, power));
     }
@@ -41,15 +42,17 @@ public class ActionUtility {
         }
         return null;
     }
+
     public static ArrayList<AbstractMonster> getMonsters() {
         return AbstractDungeon.getMonsters().monsters;
     }
 
-    public static AbstractMonster[] getAllAliveMonsters(){
+    public static AbstractMonster[] getAllAliveMonsters() {
         return getMonsters().stream().filter(ActionUtility::isAlive).toArray(AbstractMonster[]::new);
     }
 
-    public static void addToBot_makeTempCardInBattle(AbstractCard card, AbstractLupaCard.BattleCardPlace battleCardPlace, int amount, boolean upgrade) {
+    public static void addToBot_makeTempCardInBattle(AbstractCard card, AbstractLupaCard.BattleCardPlace battleCardPlace, int amount,
+                                                     boolean upgrade) {
         if (upgrade)
             card.upgrade();
         switch (battleCardPlace) {
@@ -64,7 +67,7 @@ public class ActionUtility {
                 break;
         }
 
-        AutoDoneAction.addToBotAbstract(() -> {
+        AutoDoneInstantAction.addToBotAbstract(() -> {
             Optional<AllCardCostModifier> power = AllCardCostModifier.getActivateOne();
             power.ifPresent(AllCardCostModifier::tryUseEffect);
         });

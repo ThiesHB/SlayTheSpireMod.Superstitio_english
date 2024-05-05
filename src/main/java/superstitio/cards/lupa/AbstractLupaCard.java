@@ -1,12 +1,5 @@
 package superstitio.cards.lupa;
 
-import superstitio.DataManager;
-import superstitio.InBattleDataManager;
-import superstitio.Logger;
-import superstitio.SuperstitioModSetup;
-import superstitio.cards.DamageActionMaker;
-import superstitio.customStrings.CardStringsWithSFWAndFlavor;
-import superstitio.customStrings.HasSFWVersion;
 import basemod.abstracts.CustomCard;
 import com.badlogic.gdx.graphics.Color;
 import com.evacipated.cardcrawl.mod.stslib.actions.common.GainCustomBlockAction;
@@ -24,6 +17,13 @@ import com.megacrit.cardcrawl.core.Settings;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import com.megacrit.cardcrawl.powers.AbstractPower;
+import superstitio.DataManager;
+import superstitio.InBattleDataManager;
+import superstitio.Logger;
+import superstitio.SuperstitioModSetup;
+import superstitio.cards.DamageActionMaker;
+import superstitio.customStrings.CardStringsWithFlavorSet;
+import superstitio.customStrings.HasSFWVersion;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -35,7 +35,7 @@ import static com.megacrit.cardcrawl.cards.DamageInfo.DamageType;
 public abstract class AbstractLupaCard extends CustomCard {
     private final static float DESC_LINE_WIDTH = 418.0f * Settings.scale;
     //调用父类的构造方法，传参为super(卡牌ID，卡牌名称，图片地址，能量花费，卡牌描述，卡牌类型，卡牌颜色，卡牌稀有度，卡牌目标)
-    protected final CardStringsWithSFWAndFlavor cardStrings;
+    protected final CardStringsWithFlavorSet cardStrings;
 
     /**
      * 普通的方法
@@ -82,8 +82,8 @@ public abstract class AbstractLupaCard extends CustomCard {
 //        CommonKeywordIconsField.useIcons.set(this, true);
     }
 
-    public static CardStringsWithSFWAndFlavor getCardStringsWithSFWAndFlavor(String cardName) {
-        return HasSFWVersion.getCustomStringsWithSFW(cardName, DataManager.cards, CardStringsWithSFWAndFlavor.class);
+    public static CardStringsWithFlavorSet getCardStringsWithSFWAndFlavor(String cardName) {
+        return HasSFWVersion.getCustomStringsWithSFW(cardName, DataManager.cards, CardStringsWithFlavorSet.class);
     }
 
     protected static String getImgPath(final String tag, final String id) {
@@ -165,21 +165,21 @@ public abstract class AbstractLupaCard extends CustomCard {
     }
 
     protected final void addToBot_dealDamage(final AbstractCreature target, final AttackEffect effect) {
-        DamageActionMaker.make(this.damage, target).setupEffect(effect).addToBot();
+        DamageActionMaker.make(this.damage, target).setEffect(effect).addToBot();
     }
 
     protected final void addToBot_dealDamage(final AbstractCreature target, final int damageAmount, final AttackEffect effect) {
-        DamageActionMaker.make(damageAmount, target).setupEffect(effect).addToBot();
+        DamageActionMaker.make(damageAmount, target).setEffect(effect).addToBot();
     }
 
     protected final void addToBot_dealDamage(final AbstractCreature target, final int damageAmount, final DamageType damageType,
                                              final AttackEffect effect) {
-        DamageActionMaker.make(damageAmount, target).setupDamageType(damageType).setupEffect(effect).addToBot();
+        DamageActionMaker.make(damageAmount, target).setDamageType(damageType).setEffect(effect).addToBot();
     }
 
     protected final void addToBot_dealDamage(final AbstractCreature target, final int damageAmount, final DamageType damageType,
                                              AbstractDamageModifier damageModifier, final AttackEffect effect) {
-        DamageActionMaker.make(damageAmount, target).setupDamageModifier(this, damageModifier).setupDamageType(damageType).setupEffect(effect).addToBot();
+        DamageActionMaker.make(damageAmount, target).setDamageModifier(this, damageModifier).setDamageType(damageType).setEffect(effect).addToBot();
     }
 
     protected final void addToBot_dealDamageToAllEnemies(final AttackEffect effect) {

@@ -1,7 +1,7 @@
 package superstitio.powers.interfaces.orgasm;
 
-import superstitio.powers.SexualHeat;
 import com.megacrit.cardcrawl.cards.AbstractCard;
+import superstitio.powers.SexualHeat;
 
 public interface OnOrgasm_onSquirt extends OnOrgasm {
 

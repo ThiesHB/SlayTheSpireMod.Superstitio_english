@@ -1,16 +1,15 @@
 package superstitio.powers;
 
-import superstitio.DataManager;
-import superstitio.utils.PowerUtility;
-import com.megacrit.cardcrawl.actions.common.ApplyPowerAction;
 import com.megacrit.cardcrawl.core.AbstractCreature;
 import com.megacrit.cardcrawl.powers.AbstractPower;
+import superstitio.DataManager;
+import superstitio.utils.PowerUtility;
 
 import java.util.HashMap;
 import java.util.Map;
 
 public class SexToy extends AbstractLupaPower {
-    public static final String POWER_ID = DataManager.MakeTextID(SexToy.class.getSimpleName() );
+    public static final String POWER_ID = DataManager.MakeTextID(SexToy.class.getSimpleName());
     private static final int SEXUAL_HEAT_RATE = 1;
     public Map<String, Integer> sexToyNames;
 
@@ -26,13 +25,17 @@ public class SexToy extends AbstractLupaPower {
     @Override
     public void updateDescriptionArgs() {
         final String[] SexToysString = {""};
-        this.sexToyNames.forEach((name, num) -> SexToysString[0] += String.format(powerStringsSet.getRightVersion().DESCRIPTIONS[1], name, num));
+        this.sexToyNames.forEach((name, num) -> SexToysString[0] += String.format(powerStrings.getRightVersion().DESCRIPTIONS[1], name, num));
         setDescriptionArgs(SEXUAL_HEAT_RATE, SexToysString[0]);
     }
 
     @Override
     public void atStartOfTurn() {
-        this.addToBot(new ApplyPowerAction(this.owner, this.owner, new SexualHeat(this.owner, this.amount / SEXUAL_HEAT_RATE)));
+        Trigger();
+    }
+
+    public void Trigger() {
+        this.addToBot_applyPowerToOwner(new SexualHeat(this.owner, this.amount / SEXUAL_HEAT_RATE));
     }
 
     @Override

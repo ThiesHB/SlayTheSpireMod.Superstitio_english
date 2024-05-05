@@ -1,8 +1,5 @@
 package superstitio.relics.a_starter;
 
-import superstitio.DataManager;
-import superstitio.powers.SexualHeat;
-import superstitio.relics.AbstractLupaRelic;
 import basemod.AutoAdd;
 import basemod.abstracts.CustomSavable;
 import com.evacipated.cardcrawl.mod.stslib.relics.ClickableRelic;
@@ -12,6 +9,9 @@ import com.megacrit.cardcrawl.core.AbstractCreature;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.helpers.PowerTip;
 import com.megacrit.cardcrawl.rooms.AbstractRoom;
+import superstitio.DataManager;
+import superstitio.powers.SexualHeat;
+import superstitio.relics.AbstractLupaRelic;
 
 /**
  * 右键点击切换S和M形态。
@@ -96,12 +96,12 @@ public class SorM extends AbstractLupaRelic implements ClickableRelic, CustomSav
     @Override
     public String getDescriptionStrings() {
         if (MasochismMode && SadismMode)
-            return String.format(this.DESCRIPTIONS[3],MasochismModeRate, SexualHeatRate, SadismModeRate, SexualHeatRate);
+            return String.format(this.DESCRIPTIONS[3], MasochismModeRate, SexualHeatRate, SadismModeRate, SexualHeatRate);
         if (SadismMode)
-            return String.format(this.DESCRIPTIONS[2],SadismModeRate, SexualHeatRate);
+            return String.format(this.DESCRIPTIONS[2], SadismModeRate, SexualHeatRate);
         if (MasochismMode)
-            return String.format(this.DESCRIPTIONS[1],MasochismModeRate, SexualHeatRate);
-        return String.format(this.DESCRIPTIONS[0],MasochismModeRate, SexualHeatRate, SadismModeRate, SexualHeatRate);
+            return String.format(this.DESCRIPTIONS[1], MasochismModeRate, SexualHeatRate);
+        return String.format(this.DESCRIPTIONS[0], MasochismModeRate, SexualHeatRate, SadismModeRate, SexualHeatRate);
 
     }
 

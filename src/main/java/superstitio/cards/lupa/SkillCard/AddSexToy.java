@@ -1,11 +1,11 @@
 package superstitio.cards.lupa.SkillCard;
 
+import com.megacrit.cardcrawl.characters.AbstractPlayer;
+import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import superstitio.DataManager;
 import superstitio.cards.lupa.AbstractLupaCard;
 import superstitio.cards.lupa.TempCard.SexToy;
 import superstitio.utils.ActionUtility;
-import com.megacrit.cardcrawl.characters.AbstractPlayer;
-import com.megacrit.cardcrawl.monsters.AbstractMonster;
 
 public class AddSexToy extends AbstractLupaCard {
     public static final String ID = DataManager.MakeTextID(AddSexToy.class.getSimpleName());
@@ -29,7 +29,7 @@ public class AddSexToy extends AbstractLupaCard {
 
     @Override
     public void use(AbstractPlayer player, AbstractMonster monster) {
-        ActionUtility.addToBot_makeTempCardInBattle(new SexToy(),BattleCardPlace.Hand,this.magicNumber,this.upgraded);
+        ActionUtility.addToBot_makeTempCardInBattle(new SexToy(), BattleCardPlace.Hand, this.magicNumber, this.upgraded);
     }
 
     @Override

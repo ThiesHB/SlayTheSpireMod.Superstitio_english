@@ -1,10 +1,5 @@
 package superstitio.cards.lupa.TempCard;
 
-import superstitio.DataManager;
-import superstitio.SuperstitioModSetup;
-import superstitio.cards.lupa.AbstractLupaCard_FuckJob;
-import superstitio.cards.lupa.AttackCard.Fuck_Eye;
-import superstitio.utils.ActionUtility;
 import basemod.cardmods.RetainMod;
 import basemod.helpers.CardModifierManager;
 import com.megacrit.cardcrawl.actions.AbstractGameAction;
@@ -12,6 +7,11 @@ import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import com.megacrit.cardcrawl.powers.FrailPower;
+import superstitio.DataManager;
+import superstitio.SuperstitioModSetup;
+import superstitio.cards.lupa.AbstractLupaCard_FuckJob;
+import superstitio.cards.lupa.AttackCard.Fuck_Eye;
+import superstitio.utils.ActionUtility;
 
 public class Fuck_Ear extends AbstractLupaCard_FuckJob {
     public static final String ID = DataManager.MakeTextID(Fuck_Ear.class.getSimpleName());

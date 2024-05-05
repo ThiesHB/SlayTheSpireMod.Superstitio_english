@@ -9,8 +9,10 @@ import com.megacrit.cardcrawl.helpers.ImageMaster;
 import com.megacrit.cardcrawl.orbs.AbstractOrb;
 import com.megacrit.cardcrawl.vfx.combat.FrostOrbActivateEffect;
 import com.megacrit.cardcrawl.vfx.combat.FrostOrbPassiveEffect;
+import superstitio.DataManager;
 
 public class SexMarkOrb_Outside extends SexMarkOrb {
+    public static final String ORB_ID = DataManager.MakeTextID(SexMarkOrb_Outside.class.getSimpleName());
     private final static int TemporaryHPRate = 1;
     private final boolean hFlip1 = MathUtils.randomBoolean();
     private final boolean hFlip2 = MathUtils.randomBoolean();
@@ -21,11 +23,7 @@ public class SexMarkOrb_Outside extends SexMarkOrb {
     }
 
     public SexMarkOrb_Outside(String sexMarkName) {
-        super(sexMarkName);
-        this.baseEvokeAmount = TemporaryHPRate;
-        this.evokeAmount = this.baseEvokeAmount;
-        this.basePassiveAmount = TemporaryHPRate;
-        this.passiveAmount = this.basePassiveAmount;
+        super(ORB_ID,TemporaryHPRate,sexMarkName);
     }
 
     @Override

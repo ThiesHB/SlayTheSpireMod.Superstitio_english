@@ -1,6 +1,5 @@
 package superstitio;
 
-import superstitio.powers.interfaces.OnPostApplyThisPower;
 import basemod.BaseMod;
 import basemod.interfaces.*;
 import com.evacipated.cardcrawl.modthespire.lib.SpireInitializer;
@@ -9,6 +8,7 @@ import com.megacrit.cardcrawl.core.AbstractCreature;
 import com.megacrit.cardcrawl.powers.AbstractPower;
 import com.megacrit.cardcrawl.relics.AbstractRelic;
 import com.megacrit.cardcrawl.rooms.AbstractRoom;
+import superstitio.powers.interfaces.OnPostApplyThisPower;
 
 
 @SpireInitializer

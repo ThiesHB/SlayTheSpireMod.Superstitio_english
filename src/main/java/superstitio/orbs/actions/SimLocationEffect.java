@@ -1,6 +1,5 @@
 package superstitio.orbs.actions;
 
-import superstitio.orbs.orbgroup.OrbGroup;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -8,6 +7,7 @@ import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.math.Vector2;
 import com.megacrit.cardcrawl.orbs.AbstractOrb;
 import com.megacrit.cardcrawl.vfx.AbstractGameEffect;
+import superstitio.orbs.orbgroup.OrbGroup;
 
 public class SimLocationEffect extends AbstractGameEffect {
     private final Vector2 pos;

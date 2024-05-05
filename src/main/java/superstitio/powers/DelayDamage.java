@@ -1,6 +1,5 @@
 package superstitio.powers;
 
-import superstitio.DataManager;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.evacipated.cardcrawl.mod.stslib.damagemods.AbstractDamageModifier;
@@ -11,6 +10,7 @@ import com.megacrit.cardcrawl.actions.common.DamageAction;
 import com.megacrit.cardcrawl.cards.DamageInfo;
 import com.megacrit.cardcrawl.core.AbstractCreature;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
+import superstitio.DataManager;
 
 public class DelayDamage extends AbstractLupaPower implements HealthBarRenderPower {
     public static final String POWER_ID = DataManager.MakeTextID(DelayDamage.class.getSimpleName());

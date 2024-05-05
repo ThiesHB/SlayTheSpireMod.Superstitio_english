@@ -1,9 +1,9 @@
 package superstitio.cards.lupa.PowerCard;
 
-import superstitio.DataManager;
-import superstitio.cards.lupa.AbstractLupaCard;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
+import superstitio.DataManager;
+import superstitio.cards.lupa.AbstractLupaCard;
 
 //咕杀/くっころ
 public class Ku_Koro extends AbstractLupaCard {

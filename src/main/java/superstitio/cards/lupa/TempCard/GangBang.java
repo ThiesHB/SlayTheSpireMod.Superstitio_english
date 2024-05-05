@@ -18,7 +18,7 @@ public class GangBang extends AbstractLupaCard_TempCard {
 
     public static final CardTarget CARD_TARGET = CardTarget.ALL_ENEMY;
 
-    private static final int COST = -1;
+    private static final int COST = -2;
     private static final int ATTACK_DMG = 3;
     private static final int BLOCK = 4;
 

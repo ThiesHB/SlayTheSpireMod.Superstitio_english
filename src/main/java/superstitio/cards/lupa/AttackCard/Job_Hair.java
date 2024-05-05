@@ -1,14 +1,14 @@
 package superstitio.cards.lupa.AttackCard;
 
-import superstitio.DataManager;
-import superstitio.cards.lupa.AbstractLupaCard_FuckJob;
-import superstitio.utils.ActionUtility;
 import basemod.AutoAdd;
 import basemod.cardmods.ExhaustMod;
 import basemod.helpers.CardModifierManager;
 import com.megacrit.cardcrawl.actions.AbstractGameAction;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
+import superstitio.DataManager;
+import superstitio.cards.lupa.AbstractLupaCard_FuckJob;
+import superstitio.utils.ActionUtility;
 
 @AutoAdd.Ignore
 public class Job_Hair extends AbstractLupaCard_FuckJob {

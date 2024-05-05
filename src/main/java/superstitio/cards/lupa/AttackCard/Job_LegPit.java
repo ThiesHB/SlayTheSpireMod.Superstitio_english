@@ -1,15 +1,15 @@
 package superstitio.cards.lupa.AttackCard;
 
-import superstitio.DataManager;
-import superstitio.InBattleDataManager;
-import superstitio.actions.AutoDoneAction;
-import superstitio.cards.lupa.AbstractLupaCard_FuckJob;
-import superstitio.powers.SexualHeat;
 import com.badlogic.gdx.graphics.Color;
 import com.megacrit.cardcrawl.actions.AbstractGameAction;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
+import superstitio.DataManager;
+import superstitio.InBattleDataManager;
+import superstitio.actions.AutoDoneInstantAction;
+import superstitio.cards.lupa.AbstractLupaCard_FuckJob;
+import superstitio.powers.SexualHeat;
 
 public class Job_LegPit extends AbstractLupaCard_FuckJob {
     public static final String ID = DataManager.MakeTextID(Job_LegPit.class.getSimpleName());
@@ -35,7 +35,7 @@ public class Job_LegPit extends AbstractLupaCard_FuckJob {
     public void use(AbstractPlayer player, AbstractMonster monster) {
         for (int i = 0; i < Attack_Num; i++) {
             addToBot_dealDamage(monster, AbstractGameAction.AttackEffect.BLUNT_LIGHT);
-            AutoDoneAction.addToBotAbstract(() -> {
+            AutoDoneInstantAction.addToBotAbstract(() -> {
                 if (monster.lastDamageTaken > 0 && SexualHeat.isInOrgasm(AbstractDungeon.player))
                     addToBot_drawCards();
             });

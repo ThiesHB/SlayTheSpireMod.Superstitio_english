@@ -1,13 +1,13 @@
 package superstitio.cards.lupa.SkillCard;
 
-import superstitio.DataManager;
-import superstitio.actions.ChoseCardFromGridSelectWindowAction;
-import superstitio.cards.lupa.AbstractLupaCard;
 import com.megacrit.cardcrawl.actions.common.ExhaustSpecificCardAction;
 import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
+import superstitio.DataManager;
+import superstitio.actions.ChoseCardFromGridSelectWindowAction;
+import superstitio.cards.lupa.AbstractLupaCard;
 
 public class BecomeTrash extends AbstractLupaCard {
     public static final String ID = DataManager.MakeTextID(BecomeTrash.class.getSimpleName());
@@ -32,9 +32,9 @@ public class BecomeTrash extends AbstractLupaCard {
     public void use(AbstractPlayer player, AbstractMonster monster) {
         this.addToBot(new ChoseCardFromGridSelectWindowAction(
                 AbstractDungeon.player.drawPile, card -> new ExhaustSpecificCardAction(card, AbstractDungeon.player.drawPile))
-                .setupWindowText(String.format(getEXTENDED_DESCRIPTION()[0], this.magicNumber))
-                .setupAnyNumber(true)
-                .setupChoseAmount(this.magicNumber)
+                .setWindowText(String.format(getEXTENDED_DESCRIPTION()[0], this.magicNumber))
+                .setAnyNumber(true)
+                .setChoseAmount(this.magicNumber)
         );
     }
 

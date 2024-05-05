@@ -1,15 +1,15 @@
 package superstitio.customStrings;
 
-import superstitio.DataManager;
-import superstitio.WordReplace;
 import com.evacipated.cardcrawl.mod.stslib.Keyword;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.localization.LocalizedStrings;
+import superstitio.DataManager;
+import superstitio.WordReplace;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class ModifierStringsWithSFW implements HasTextID, HasSFWVersion {
+public class ModifierStringsSet implements HasTextID, HasSFWVersion {
     private String NAME;
     private String NAME_SFW;
     private String BASIC_INFO;
@@ -20,19 +20,19 @@ public class ModifierStringsWithSFW implements HasTextID, HasSFWVersion {
     private String[] EXTENDED_DESCRIPTION_SFW;
     private String textID;
 
-    public ModifierStringsWithSFW() {
+    public ModifierStringsSet() {
     }
 
-    public static List<WordReplace> makeModifierNameReplaceRules(List<ModifierStringsWithSFW> cards) {
-        return cards.stream().map(ModifierStringsWithSFW::toModifierNameReplaceRule).collect(Collectors.toList());
+    public static List<WordReplace> makeModifierNameReplaceRules(List<ModifierStringsSet> cards) {
+        return cards.stream().map(ModifierStringsSet::toModifierNameReplaceRule).collect(Collectors.toList());
     }
 
-    public static List<WordReplace> makeDamageNameReplaceRules(List<ModifierStringsWithSFW> cards) {
-        return cards.stream().map(ModifierStringsWithSFW::toDamageNameReplaceRule).collect(Collectors.toList());
+    public static List<WordReplace> makeDamageNameReplaceRules(List<ModifierStringsSet> cards) {
+        return cards.stream().map(ModifierStringsSet::toDamageNameReplaceRule).collect(Collectors.toList());
     }
 
     public static Keyword[] MakeKeyWords() {
-        return DataManager.modifiers.values().stream().map(ModifierStringsWithSFW::ToKeyWord).toArray(Keyword[]::new);
+        return DataManager.modifiers.values().stream().map(ModifierStringsSet::ToKeyWord).toArray(Keyword[]::new);
     }
 
     @Override

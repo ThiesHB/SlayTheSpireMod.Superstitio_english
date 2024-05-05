@@ -1,12 +1,12 @@
 package superstitio.powers;
 
-import superstitio.DataManager;
 import com.megacrit.cardcrawl.actions.common.ApplyPowerAction;
 import com.megacrit.cardcrawl.actions.common.RemoveSpecificPowerAction;
 import com.megacrit.cardcrawl.core.AbstractCreature;
+import superstitio.DataManager;
 
 public class DelaySexualHeat extends AbstractLupaPower {
-    public static final String POWER_ID = DataManager.MakeTextID(DelaySexualHeat.class.getSimpleName() );
+    public static final String POWER_ID = DataManager.MakeTextID(DelaySexualHeat.class.getSimpleName());
 
     public DelaySexualHeat(final AbstractCreature owner, int amount) {
         super(POWER_ID, owner, amount);

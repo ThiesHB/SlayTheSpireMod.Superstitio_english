@@ -24,7 +24,7 @@ public class ChoseCardFromHandCardSelectScreen extends AbstractContinuallyAction
     private String windowText = "";
     private boolean anyNumber = false;
     private boolean canPickZero = false;
-    private Predicate<AbstractCard> retainFilter = card -> false;
+    private Predicate<AbstractCard> retainFilter = card -> true;
 
     public ChoseCardFromHandCardSelectScreen(Function<AbstractCard, AbstractGameAction> gameActionMaker) {
         super(ActionType.CARD_MANIPULATION, Settings.ACTION_DUR_XFAST);
@@ -72,34 +72,34 @@ public class ChoseCardFromHandCardSelectScreen extends AbstractContinuallyAction
         this.addToBot(this.gameActionMaker.apply(c));
     }
 
-    public ChoseCardFromHandCardSelectScreen setupChoiceAmount(int choiceAmount) {
+    public ChoseCardFromHandCardSelectScreen setChoiceAmount(int choiceAmount) {
         this.amount = choiceAmount;
         return this;
     }
 
-    public ChoseCardFromHandCardSelectScreen setupSource(AbstractCreature source) {
+    public ChoseCardFromHandCardSelectScreen setSource(AbstractCreature source) {
         this.source = source;
         return this;
     }
 
-    public ChoseCardFromHandCardSelectScreen setupWindowText(String windowText) {
+    public ChoseCardFromHandCardSelectScreen setWindowText(String windowText) {
         this.windowText = windowText;
         return this;
     }
 
-    public ChoseCardFromHandCardSelectScreen setupAnyNumber(boolean anyNumber) {
+    public ChoseCardFromHandCardSelectScreen setAnyNumber(boolean anyNumber) {
         this.anyNumber = anyNumber;
         return this;
     }
 
-    public ChoseCardFromHandCardSelectScreen setupCanPickZero(boolean canPickZero) {
+    public ChoseCardFromHandCardSelectScreen setCanPickZero(boolean canPickZero) {
         this.canPickZero = canPickZero;
         return this;
     }
 
     @SafeVarargs
-    public final ChoseCardFromHandCardSelectScreen setupRetainFilter(Predicate<AbstractCard>... filters) {
-        Arrays.stream(filters).forEach(abstractCardPredicate -> this.retainFilter = this.retainFilter.or(abstractCardPredicate));
+    public final ChoseCardFromHandCardSelectScreen setRetainFilter(Predicate<AbstractCard>... filters) {
+        Arrays.stream(filters).forEach(abstractCardPredicate -> this.retainFilter = this.retainFilter.and(abstractCardPredicate));
         return this;
     }
 }

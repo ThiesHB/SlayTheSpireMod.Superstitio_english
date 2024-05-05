@@ -1,13 +1,13 @@
 package superstitio.powers;
 
-import superstitio.DataManager;
-import superstitio.actions.AutoDoneAction;
-import superstitio.powers.interfaces.OnPostApplyThisPower;
-import superstitio.utils.PowerUtility;
 import com.badlogic.gdx.graphics.Color;
 import com.megacrit.cardcrawl.core.AbstractCreature;
 import com.megacrit.cardcrawl.core.Settings;
 import com.megacrit.cardcrawl.powers.AbstractPower;
+import superstitio.DataManager;
+import superstitio.actions.AutoDoneInstantAction;
+import superstitio.powers.interfaces.OnPostApplyThisPower;
+import superstitio.utils.PowerUtility;
 
 public class InsideSemen extends AbstractWithBarPower implements OnPostApplyThisPower {
     public static final String POWER_ID = DataManager.MakeTextID(InsideSemen.class.getSimpleName());
@@ -47,8 +47,8 @@ public class InsideSemen extends AbstractWithBarPower implements OnPostApplyThis
 
     private void Overflow(int flowAmount) {
         AbstractPower power = this;
-        AutoDoneAction.addToBotAbstract(() ->
-                PowerUtility.BubbleMessageHigher(power, false, powerStringsSet.getRightVersion().DESCRIPTIONS[1]));
+        AutoDoneInstantAction.addToBotAbstract(() ->
+                PowerUtility.BubbleMessageHigher(power, false, powerStrings.getRightVersion().DESCRIPTIONS[1]));
         this.addToBot_applyPowerToOwner(new OutsideSemen(this.owner, flowAmount * ToDrySemenRate));
     }
 

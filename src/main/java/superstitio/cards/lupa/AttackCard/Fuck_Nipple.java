@@ -1,7 +1,5 @@
 package superstitio.cards.lupa.AttackCard;
 
-import superstitio.DataManager;
-import superstitio.cards.lupa.AbstractLupaCard_FuckJob;
 import basemod.AutoAdd;
 import com.megacrit.cardcrawl.actions.AbstractGameAction;
 import com.megacrit.cardcrawl.actions.common.DamageRandomEnemyAction;
@@ -9,6 +7,8 @@ import com.megacrit.cardcrawl.cards.DamageInfo;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
+import superstitio.DataManager;
+import superstitio.cards.lupa.AbstractLupaCard_FuckJob;
 
 @AutoAdd.Ignore
 public class Fuck_Nipple extends AbstractLupaCard_FuckJob {

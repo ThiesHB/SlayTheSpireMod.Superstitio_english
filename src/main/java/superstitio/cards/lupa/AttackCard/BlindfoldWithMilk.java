@@ -1,11 +1,11 @@
 package superstitio.cards.lupa.AttackCard;
 
-import superstitio.DataManager;
-import superstitio.actions.AutoDoneAction;
-import superstitio.cards.lupa.AbstractLupaCard;
 import com.megacrit.cardcrawl.actions.AbstractGameAction;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
+import superstitio.DataManager;
+import superstitio.actions.AutoDoneInstantAction;
+import superstitio.cards.lupa.AbstractLupaCard;
 
 public class BlindfoldWithMilk extends AbstractLupaCard {
     public static final String ID = DataManager.MakeTextID(BlindfoldWithMilk.class.getSimpleName());
@@ -29,7 +29,7 @@ public class BlindfoldWithMilk extends AbstractLupaCard {
     public void use(AbstractPlayer player, AbstractMonster monster) {
         addToBot_dealDamage(monster, AbstractGameAction.AttackEffect.BLUNT_LIGHT);
         if (monster.isDeadOrEscaped()) return;
-        AutoDoneAction.addToBotAbstract(() -> {
+        AutoDoneInstantAction.addToBotAbstract(() -> {
                     monster.rollMove();
                     monster.createIntent();
                 }

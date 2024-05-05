@@ -1,12 +1,12 @@
 package superstitio.relics.a_starter;
 
+import basemod.AutoAdd;
+import com.megacrit.cardcrawl.actions.common.DrawCardAction;
 import superstitio.DataManager;
 import superstitio.powers.SexualHeat;
 import superstitio.powers.interfaces.orgasm.OnOrgasm_afterOrgasm;
 import superstitio.relics.AbstractLupaRelic;
 import superstitio.relics.interFace.Countdown;
-import basemod.AutoAdd;
-import com.megacrit.cardcrawl.actions.common.DrawCardAction;
 
 @AutoAdd.Seen
 public class EjaculationMaster extends AbstractLupaRelic implements OnOrgasm_afterOrgasm, Countdown {

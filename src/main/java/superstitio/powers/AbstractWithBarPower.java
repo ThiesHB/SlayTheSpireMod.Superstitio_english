@@ -10,16 +10,15 @@ import com.megacrit.cardcrawl.helpers.ImageMaster;
 import superstitio.powers.interfaces.InvisiblePower_StillRenderAmount;
 
 public abstract class AbstractWithBarPower extends AbstractLupaPower implements InvisiblePower_StillRenderAmount {
+    protected static final float BAR_OFFSET_Y = -28.0f * Settings.scale;
+    protected static final float TEXT_OFFSET_Y = 11.0f * Settings.scale;
     //绘制相关
     private static final float BAR_DIAMETER = 20.0f * Settings.scale;
     private static final float BG_OFFSET_X = 31.0f * Settings.scale;
-    private static final float BAR_OFFSET_Y = -28.0f * Settings.scale;
-    private static final float TEXT_OFFSET_Y = 11.0f * Settings.scale;
     public Color barBgColor;
     public Color barShadowColor;
     public Color barTextColor;
     public Color barOrginColor;
-    public int orgasmTime = 0;
     public Hitbox hitbox;
 
     public AbstractWithBarPower(String id, final AbstractCreature owner, int amount, PowerType type, boolean needUpdateDescription) {
@@ -86,9 +85,13 @@ public abstract class AbstractWithBarPower extends AbstractLupaPower implements 
     private void renderBarText(final SpriteBatch sb, final float y) {
         final float tmp = this.barTextColor.a;
         FontHelper.renderFontCentered(sb, FontHelper.healthInfoFont,
-                this.amount + "/" + maxBarAmount() + "(" + this.orgasmTime + ")",
+                makeBarText(),
                 this.owner.hb.cX, y + BAR_OFFSET_Y + TEXT_OFFSET_Y, this.barTextColor);
         this.barTextColor.a = tmp;
+    }
+
+    protected String makeBarText() {
+        return this.amount + "/" + maxBarAmount();
     }
 
     private void renderAmountBar(final SpriteBatch sb, final float x, final float y) {

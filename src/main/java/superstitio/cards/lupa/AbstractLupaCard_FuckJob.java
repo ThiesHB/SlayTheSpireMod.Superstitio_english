@@ -3,16 +3,14 @@ package superstitio.cards.lupa;
 import com.evacipated.cardcrawl.mod.stslib.damagemods.DamageModifierManager;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import superstitio.DataManager;
-import superstitio.InBattleDataManager;
 import superstitio.SuperstitioModSetup;
 import superstitio.cards.modifiers.damage.SexDamage;
-import superstitio.orbs.SexMarkOrb_Inside;
-import superstitio.orbs.SexMarkOrb_Outside;
-import superstitio.orbs.actions.GiveSexMarkToOrbGroupAction;
-import superstitio.orbs.orbgroup.SexMarkOrbGroup;
 import superstitio.powers.InsideSemen;
 import superstitio.powers.OutsideSemen;
 import superstitio.utils.ActionUtility;
+
+import static superstitio.orbs.orbgroup.SexMarkOrbGroup.SexMarkType;
+import static superstitio.orbs.orbgroup.SexMarkOrbGroup.addToBot_GiveMarkToOrbGroup;
 
 public abstract class AbstractLupaCard_FuckJob extends AbstractLupaCard {
     /**
@@ -46,15 +44,11 @@ public abstract class AbstractLupaCard_FuckJob extends AbstractLupaCard {
 
     public static void addToTop_gainSexMark_Inside(String sexName) {
         ActionUtility.addToBot_applyPower(new InsideSemen(AbstractDungeon.player, 1));
-        AbstractDungeon.actionManager.addToBottom(
-                new GiveSexMarkToOrbGroupAction((SexMarkOrbGroup) InBattleDataManager.orbGroups.stream()
-                        .filter(orbGroup -> orbGroup instanceof SexMarkOrbGroup).findAny().orElse(null), new SexMarkOrb_Inside(sexName)));
+        addToBot_GiveMarkToOrbGroup(sexName, SexMarkType.Inside);
     }
 
     public static void addToTop_gainSexMark_Outside(String sexName) {
         ActionUtility.addToBot_applyPower(new OutsideSemen(AbstractDungeon.player, 1));
-        AbstractDungeon.actionManager.addToBottom(
-                new GiveSexMarkToOrbGroupAction((SexMarkOrbGroup) InBattleDataManager.orbGroups.stream()
-                        .filter(orbGroup -> orbGroup instanceof SexMarkOrbGroup).findAny().orElse(null), new SexMarkOrb_Outside(sexName)));
+        addToBot_GiveMarkToOrbGroup(sexName, SexMarkType.OutSide);
     }
 }

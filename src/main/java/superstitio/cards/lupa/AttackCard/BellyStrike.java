@@ -1,8 +1,5 @@
 package superstitio.cards.lupa.AttackCard;
 
-import superstitio.DataManager;
-import superstitio.actions.AutoDoneAction;
-import superstitio.cards.lupa.AbstractLupaCard;
 import com.evacipated.cardcrawl.mod.stslib.cards.targeting.SelfOrEnemyTargeting;
 import com.megacrit.cardcrawl.actions.common.RemoveSpecificPowerAction;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
@@ -11,6 +8,9 @@ import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import com.megacrit.cardcrawl.powers.LoseStrengthPower;
 import com.megacrit.cardcrawl.powers.StrengthPower;
+import superstitio.DataManager;
+import superstitio.actions.AutoDoneInstantAction;
+import superstitio.cards.lupa.AbstractLupaCard;
 
 
 public class BellyStrike extends AbstractLupaCard {
@@ -44,7 +44,7 @@ public class BellyStrike extends AbstractLupaCard {
         addToBot_dealDamage(target);
         addToBot_applyPower(new StrengthPower(target, magicNumber));
         if (!target.isPlayer) return;
-        AutoDoneAction.addToBotAbstract(() -> {
+        AutoDoneInstantAction.addToBotAbstract(() -> {
             if (AbstractDungeon.player.lastDamageTaken > 0)
                 this.addToBot(new RemoveSpecificPowerAction(AbstractDungeon.player, AbstractDungeon.player, LoseStrengthPower.POWER_ID));
         });

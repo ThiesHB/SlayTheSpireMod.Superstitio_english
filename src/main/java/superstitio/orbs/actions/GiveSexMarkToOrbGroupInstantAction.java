@@ -1,14 +1,14 @@
 package superstitio.orbs.actions;
 
-import superstitio.actions.AutoDoneAction;
+import superstitio.actions.AutoDoneInstantAction;
 import superstitio.orbs.SexMarkOrb;
 import superstitio.orbs.orbgroup.SexMarkOrbGroup;
 
-public class GiveSexMarkToOrbGroupAction extends AutoDoneAction {
+public class GiveSexMarkToOrbGroupInstantAction extends AutoDoneInstantAction {
     public SexMarkOrbGroup target;
     public SexMarkOrb sexMark;
 
-    public GiveSexMarkToOrbGroupAction(final SexMarkOrbGroup target, final SexMarkOrb sexMark) {
+    public GiveSexMarkToOrbGroupInstantAction(final SexMarkOrbGroup target, final SexMarkOrb sexMark) {
         this.target = target;
         this.sexMark = sexMark;
     }

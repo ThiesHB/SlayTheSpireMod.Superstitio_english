@@ -56,4 +56,9 @@ public class OutsideSemen extends AbstractWithBarPower {
     protected int maxBarAmount() {
         return Integer.max((int) (this.amount * 1.5f), this.owner.maxHealth);
     }
+
+    @Override
+    protected String makeBarText() {
+        return String.valueOf(this.amount);
+    }
 }

@@ -1,10 +1,10 @@
 package superstitio.powers.interfaces.orgasm;
 
-import superstitio.powers.SexualHeat;
-import superstitio.utils.CardUtility;
 import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.core.AbstractCreature;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
+import superstitio.powers.SexualHeat;
+import superstitio.utils.CardUtility;
 
 import java.util.ArrayList;
 import java.util.stream.Collectors;

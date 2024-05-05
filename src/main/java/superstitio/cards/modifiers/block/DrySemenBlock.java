@@ -1,10 +1,10 @@
 package superstitio.cards.modifiers.block;
 
-import superstitio.DataManager;
-import superstitio.cards.abstracts.AbstractLupaBlock;
 import com.badlogic.gdx.graphics.Color;
 import com.evacipated.cardcrawl.mod.stslib.blockmods.AbstractBlockModifier;
 import com.megacrit.cardcrawl.cards.DamageInfo;
+import superstitio.DataManager;
+import superstitio.cards.modifiers.AbstractLupaBlock;
 
 public class DrySemenBlock extends AbstractLupaBlock {
 

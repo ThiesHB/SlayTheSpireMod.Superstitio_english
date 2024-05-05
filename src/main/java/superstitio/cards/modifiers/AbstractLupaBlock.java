@@ -1,15 +1,15 @@
-package superstitio.cards.abstracts;
+package superstitio.cards.modifiers;
 
-import superstitio.DataManager;
-import superstitio.customStrings.ModifierStringsWithSFW;
-import superstitio.customStrings.HasSFWVersion;
 import basemod.helpers.TooltipInfo;
 import com.evacipated.cardcrawl.mod.stslib.blockmods.AbstractBlockModifier;
+import superstitio.DataManager;
+import superstitio.customStrings.HasSFWVersion;
+import superstitio.customStrings.ModifierStringsSet;
 
 import java.util.ArrayList;
 
 public abstract class AbstractLupaBlock extends AbstractBlockModifier {
-    public final ModifierStringsWithSFW blockStrings;
+    public final ModifierStringsSet blockStrings;
     TooltipInfo tooltip = null;
 
     public AbstractLupaBlock(String id) {
@@ -17,8 +17,8 @@ public abstract class AbstractLupaBlock extends AbstractBlockModifier {
         this.automaticBindingForCards = true;
     }
 
-    public static ModifierStringsWithSFW getBlockStringsWithSFW(String cardName) {
-        return HasSFWVersion.getCustomStringsWithSFW(cardName, DataManager.modifiers, ModifierStringsWithSFW.class);
+    public static ModifierStringsSet getBlockStringsWithSFW(String cardName) {
+        return HasSFWVersion.getCustomStringsWithSFW(cardName, DataManager.modifiers, ModifierStringsSet.class);
     }
 
     public AbstractLupaBlock removeAutoBind() {

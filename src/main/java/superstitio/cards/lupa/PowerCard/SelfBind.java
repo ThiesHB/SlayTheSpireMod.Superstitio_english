@@ -1,11 +1,11 @@
 package superstitio.cards.lupa.PowerCard;
 
-import superstitio.DataManager;
-import superstitio.cards.lupa.AbstractLupaCard;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import com.megacrit.cardcrawl.powers.DexterityPower;
 import com.megacrit.cardcrawl.powers.StrengthPower;
+import superstitio.DataManager;
+import superstitio.cards.lupa.AbstractLupaCard;
 
 
 public class SelfBind extends AbstractLupaCard {

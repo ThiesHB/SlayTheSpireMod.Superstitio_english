@@ -1,9 +1,5 @@
 package superstitio.powers;
 
-import superstitio.DataManager;
-import superstitio.customStrings.HasSFWVersion;
-import superstitio.customStrings.PowerStringsSet;
-import superstitio.utils.updateDescriptionAdvanced;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
@@ -13,25 +9,26 @@ import com.megacrit.cardcrawl.actions.common.RemoveSpecificPowerAction;
 import com.megacrit.cardcrawl.core.AbstractCreature;
 import com.megacrit.cardcrawl.core.Settings;
 import com.megacrit.cardcrawl.helpers.*;
-import com.megacrit.cardcrawl.localization.PowerStrings;
 import com.megacrit.cardcrawl.powers.AbstractPower;
+import superstitio.DataManager;
+import superstitio.customStrings.HasSFWVersion;
+import superstitio.customStrings.PowerStringsSet;
+import superstitio.utils.updateDescriptionAdvanced;
 
 public abstract class AbstractLupaPower extends AbstractPower implements updateDescriptionAdvanced {
     public static final String DEFAULT = "default";
-    public final PowerStrings powerStrings;
-    protected final PowerStringsSet powerStringsSet;
+    protected final PowerStringsSet powerStrings;
     private Object[] descriptionArgs;
 
-    public AbstractLupaPower(String id, PowerStringsSet powerStringsSet, final AbstractCreature owner, int amount, PowerType powerType,
+    public AbstractLupaPower(String id, PowerStringsSet powerStrings, final AbstractCreature owner, int amount, PowerType powerType,
                              boolean needUpdateDescription) {
-        this.name = powerStringsSet.getRightVersion().NAME;
+        this.name = powerStrings.getRightVersion().NAME;
         this.ID = id;
         this.owner = owner;
         this.type = powerType;
 
         this.amount = amount;
-        this.powerStringsSet = powerStringsSet;
-        this.powerStrings = powerStringsSet.getRightVersion();
+        this.powerStrings = powerStrings;
 
         // 添加一大一小两张能力图
 
@@ -128,7 +125,7 @@ public abstract class AbstractLupaPower extends AbstractPower implements updateD
 
     @Override
     public String getDescriptionStrings() {
-        return powerStringsSet.getRightVersion().DESCRIPTIONS[0];
+        return powerStrings.getRightVersion().DESCRIPTIONS[0];
     }
 
     private enum IconSize {

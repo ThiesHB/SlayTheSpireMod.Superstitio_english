@@ -1,12 +1,12 @@
 package superstitio.powers.patch;
 
-import superstitio.powers.AbstractLupaPower;
 import basemod.ReflectionHacks;
 import com.evacipated.cardcrawl.modthespire.lib.SpirePatch;
 import javassist.CannotCompileException;
 import javassist.expr.ExprEditor;
 import javassist.expr.FieldAccess;
 import javassist.expr.MethodCall;
+import superstitio.powers.AbstractLupaPower;
 
 public class LoadOutPowerButtonPatch {
     @SpirePatch(
@@ -22,7 +22,7 @@ public class LoadOutPowerButtonPatch {
                         m.replace("if ( $0.instance instanceof " +
                                 AbstractLupaPower.class.getName() +
                                 " ) {" +
-                                " $0.powerStrings = (( " + AbstractLupaPower.class.getName() + " ) $0.instance ).powerStrings ; " +
+                                " $0.powerStrings = (( " + AbstractLupaPower.class.getName() + " ) $0.instance ).powerStrings.getRightVersion() ; " +
 //                                "SuperstitioMod.Logger.temp( $0.instance.description ) ;" +
                                 "} else { $proceed($$);}");
                     }

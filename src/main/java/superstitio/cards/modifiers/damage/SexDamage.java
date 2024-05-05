@@ -1,12 +1,12 @@
 package superstitio.cards.modifiers.damage;
 
-import superstitio.DataManager;
-import superstitio.cards.abstracts.AbstractLupaDamage;
-import superstitio.powers.SexualDamage;
 import com.evacipated.cardcrawl.mod.stslib.damagemods.AbstractDamageModifier;
 import com.megacrit.cardcrawl.actions.common.ApplyPowerAction;
 import com.megacrit.cardcrawl.cards.DamageInfo;
 import com.megacrit.cardcrawl.core.AbstractCreature;
+import superstitio.DataManager;
+import superstitio.cards.modifiers.AbstractLupaDamage;
+import superstitio.powers.SexualDamage;
 
 public class SexDamage extends AbstractLupaDamage {
     public static final String ID = DataManager.MakeTextID(SexDamage.class.getSimpleName());

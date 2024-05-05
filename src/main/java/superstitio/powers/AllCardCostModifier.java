@@ -1,12 +1,5 @@
 package superstitio.powers;
 
-import superstitio.InBattleDataManager;
-import superstitio.Logger;
-import superstitio.actions.AutoDoneAction;
-import superstitio.powers.interfaces.HasAllCardCostModifyEffect;
-import superstitio.powers.interfaces.OnPostApplyThisPower;
-import superstitio.utils.ActionUtility;
-import superstitio.utils.CardUtility;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.evacipated.cardcrawl.mod.stslib.powers.interfaces.NonStackablePower;
@@ -14,13 +7,23 @@ import com.megacrit.cardcrawl.actions.common.RemoveSpecificPowerAction;
 import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.core.AbstractCreature;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
+import superstitio.InBattleDataManager;
+import superstitio.Logger;
+import superstitio.powers.interfaces.HasAllCardCostModifyEffect;
+import superstitio.powers.interfaces.OnPostApplyThisPower;
+import superstitio.utils.ActionUtility;
+import superstitio.utils.CardUtility;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
-import java.util.*;
+import java.util.List;
+import java.util.Objects;
+import java.util.Optional;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
+
+import static superstitio.actions.AutoDoneInstantAction.addToBotAbstract;
 
 
 public abstract class AllCardCostModifier extends AbstractLupaPower implements NonStackablePower, OnPostApplyThisPower {
@@ -54,35 +57,38 @@ public abstract class AllCardCostModifier extends AbstractLupaPower implements N
     }
 
     public static void addToBot_TryActivateLowestOrder() {
-        AutoDoneAction.addToBotAbstract(() ->
+        addToBotAbstract(() ->
                 getAll().filter(AllCardCostModifier::ifIsTheMinOrder).findAny()
                         .ifPresent(AllCardCostModifier::activateEffect));
     }
 
-    public static <T extends AllCardCostModifier> void addToTop_AddNew(HasAllCardCostModifyEffect holder, int decreasedCost, int canUseAmount,
-                                                                       Constructor<T> powerType) throws InstantiationException,
-            IllegalAccessException, InvocationTargetException {
+    public static <T extends AllCardCostModifier>
+    void addToTop_AddNew(HasAllCardCostModifyEffect holder, int decreasedCost, int canUseAmount, Constructor<T> powerType)
+            throws InstantiationException, IllegalAccessException, InvocationTargetException {
         ActionUtility.addToTop_applyPower(powerType.newInstance(AbstractDungeon.player, decreasedCost, canUseAmount, holder));
     }
 
-    public static <T extends AllCardCostModifier> void addTo_Bot_EditAmount_Top_FirstByHolder(HasAllCardCostModifyEffect holder, int decreasedCost,
-                                                                                              int canUseAmount, Constructor<T> powerType) throws InvocationTargetException, InstantiationException, IllegalAccessException {
+    public static <T extends AllCardCostModifier>
+    void addTo_Bot_EditAmount_Top_FirstByHolder(HasAllCardCostModifyEffect holder, int decreasedCost, int canUseAmount, Constructor<T> powerType)
+            throws InvocationTargetException, InstantiationException, IllegalAccessException {
         addTo_Bot_EditAmount_Top_FirstByHolder(holder, decreasedCost, power -> canUseAmount, powerType);
     }
 
     public static <T extends AllCardCostModifier> void addTo_Bot_EditAmount_Top_FirstByHolder(
-            HasAllCardCostModifyEffect holder, int decreasedCost, Function<Optional<AllCardCostModifier>, Integer> canUseAmountProcessor,
+            HasAllCardCostModifyEffect holder, int decreasedCost, Function<Optional<AllCardCostModifier>, Integer> canUseAmountAdder,
             Constructor<T> powerType) throws InvocationTargetException, InstantiationException, IllegalAccessException {
+
+
         AllCardCostModifier allCardCostModifier = getAllByHolder(holder).findAny().orElse(null);
         if (allCardCostModifier == null) {
-            addToTop_AddNew(holder, decreasedCost, canUseAmountProcessor.apply(Optional.empty()), powerType);
+            addToTop_AddNew(holder, decreasedCost, canUseAmountAdder.apply(Optional.empty()), powerType);
             return;
         }
-        final AllCardCostModifier finalAllCardCostModifier = allCardCostModifier;
-        AutoDoneAction.addToBotAbstract(() -> {
-            finalAllCardCostModifier.amount = canUseAmountProcessor.apply(Optional.of(finalAllCardCostModifier));
-            finalAllCardCostModifier.decreasedCost = decreasedCost;
-            finalAllCardCostModifier.updateDescription();
+        final AllCardCostModifier finalAllCardCostModifierPower = allCardCostModifier;
+        addToBotAbstract(() -> {
+            finalAllCardCostModifierPower.amount += canUseAmountAdder.apply(Optional.of(finalAllCardCostModifierPower));
+            finalAllCardCostModifierPower.decreasedCost = Math.min(decreasedCost, finalAllCardCostModifierPower.amount);
+            finalAllCardCostModifierPower.updateDescription();
         });
     }
 

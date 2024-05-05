@@ -1,8 +1,5 @@
 package superstitio.cards.lupa.AttackCard;
 
-import superstitio.DataManager;
-import superstitio.cards.lupa.AbstractLupaCard_FuckJob;
-import superstitio.utils.ActionUtility;
 import basemod.AutoAdd;
 import com.megacrit.cardcrawl.actions.AbstractGameAction;
 import com.megacrit.cardcrawl.actions.common.ExhaustSpecificCardAction;
@@ -10,6 +7,9 @@ import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
+import superstitio.DataManager;
+import superstitio.cards.lupa.AbstractLupaCard_FuckJob;
+import superstitio.utils.ActionUtility;
 
 @AutoAdd.Ignore
 public class Job_Armpit extends AbstractLupaCard_FuckJob {

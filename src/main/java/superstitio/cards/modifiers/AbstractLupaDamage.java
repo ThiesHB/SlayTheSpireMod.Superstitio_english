@@ -1,15 +1,15 @@
-package superstitio.cards.abstracts;
+package superstitio.cards.modifiers;
 
-import superstitio.DataManager;
-import superstitio.customStrings.ModifierStringsWithSFW;
-import superstitio.customStrings.HasSFWVersion;
 import basemod.helpers.TooltipInfo;
 import com.evacipated.cardcrawl.mod.stslib.damagemods.AbstractDamageModifier;
+import superstitio.DataManager;
+import superstitio.customStrings.HasSFWVersion;
+import superstitio.customStrings.ModifierStringsSet;
 
 import java.util.ArrayList;
 
 public abstract class AbstractLupaDamage extends AbstractDamageModifier {
-    public final ModifierStringsWithSFW damageStrings;
+    public final ModifierStringsSet damageStrings;
 
     TooltipInfo tooltip = null;
 
@@ -18,8 +18,8 @@ public abstract class AbstractLupaDamage extends AbstractDamageModifier {
         this.automaticBindingForCards = true;
     }
 
-    public static ModifierStringsWithSFW getDamageStringsWithSFW(String cardName) {
-        return HasSFWVersion.getCustomStringsWithSFW(cardName, DataManager.modifiers, ModifierStringsWithSFW.class);
+    public static ModifierStringsSet getDamageStringsWithSFW(String cardName) {
+        return HasSFWVersion.getCustomStringsWithSFW(cardName, DataManager.modifiers, ModifierStringsSet.class);
     }
 
     public AbstractLupaDamage removeAutoBind() {

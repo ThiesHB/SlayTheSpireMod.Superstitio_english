@@ -1,10 +1,10 @@
 package superstitio.cards.lupa.BaseCard;
 
-import superstitio.DataManager;
-import superstitio.cards.lupa.AbstractLupaCard_FuckJob;
 import com.megacrit.cardcrawl.actions.AbstractGameAction;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
+import superstitio.DataManager;
+import superstitio.cards.lupa.AbstractLupaCard_FuckJob;
 
 public class Job_Hand extends AbstractLupaCard_FuckJob {
     public static final String ID = DataManager.MakeTextID(Job_Hand.class.getSimpleName());

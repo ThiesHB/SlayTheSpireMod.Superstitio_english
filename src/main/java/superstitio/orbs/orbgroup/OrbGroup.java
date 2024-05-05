@@ -142,7 +142,7 @@ public abstract class OrbGroup {
 
     protected final float OffsetPercentageBySlotIndex_Cycle(float slotIndex) {
         final float maxOrbs = GetMaxOrbs();
-        return (slotIndex) / (maxOrbs ) ;
+        return (slotIndex) / (maxOrbs);
     }
 
     //设置球的位置的函数，自动移动球的位置

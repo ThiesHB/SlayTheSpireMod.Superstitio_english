@@ -1,14 +1,14 @@
 package superstitio.cards.lupa.AttackCard;
 
-import superstitio.DataManager;
-import superstitio.cards.lupa.AbstractLupaCard_FuckJob;
-import superstitio.powers.SexualHeat;
-import superstitio.powers.interfaces.orgasm.OnOrgasm_afterOrgasm;
 import basemod.AutoAdd;
 import com.megacrit.cardcrawl.actions.AbstractGameAction;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
+import superstitio.DataManager;
+import superstitio.cards.lupa.AbstractLupaCard_FuckJob;
+import superstitio.powers.SexualHeat;
+import superstitio.powers.interfaces.orgasm.OnOrgasm_afterOrgasm;
 
 @AutoAdd.Ignore
 public class Fuck_Navel extends AbstractLupaCard_FuckJob implements OnOrgasm_afterOrgasm {

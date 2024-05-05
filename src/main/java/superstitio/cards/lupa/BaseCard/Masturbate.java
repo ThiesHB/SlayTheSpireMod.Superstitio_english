@@ -1,10 +1,10 @@
 package superstitio.cards.lupa.BaseCard;
 
+import com.megacrit.cardcrawl.characters.AbstractPlayer;
+import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import superstitio.DataManager;
 import superstitio.cards.lupa.AbstractLupaCard;
 import superstitio.powers.SexualHeat;
-import com.megacrit.cardcrawl.characters.AbstractPlayer;
-import com.megacrit.cardcrawl.monsters.AbstractMonster;
 
 public class Masturbate extends AbstractLupaCard {
     public static final String ID = DataManager.MakeTextID(Masturbate.class.getSimpleName());

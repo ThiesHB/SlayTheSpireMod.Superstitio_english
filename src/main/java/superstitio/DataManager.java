@@ -1,7 +1,6 @@
 package superstitio;
 
 
-import superstitio.customStrings.*;
 import basemod.ReflectionHacks;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
@@ -9,6 +8,7 @@ import com.google.gson.Gson;
 import com.google.gson.internal.$Gson$Types;
 import com.megacrit.cardcrawl.core.Settings;
 import com.megacrit.cardcrawl.localization.LocalizedStrings;
+import superstitio.customStrings.*;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.ParameterizedType;
@@ -21,9 +21,10 @@ import java.util.Optional;
 import java.util.function.Function;
 
 public class DataManager {
-    public static Map<String, CardStringsWithSFWAndFlavor> cards = new HashMap<>();
+    public static Map<String, CardStringsWithFlavorSet> cards = new HashMap<>();
     public static Map<String, PowerStringsSet> powers = new HashMap<>();
-    public static Map<String, ModifierStringsWithSFW> modifiers = new HashMap<>();
+    public static Map<String, ModifierStringsSet> modifiers = new HashMap<>();
+    public static Map<String, OrbStringsSet> orbs = new HashMap<>();
     public LUPA_DATA lupaData = new LUPA_DATA();
 
     static String makeLocalizationPath(Settings.GameLanguage language, String filename) {

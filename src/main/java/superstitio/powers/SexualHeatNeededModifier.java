@@ -1,12 +1,12 @@
 package superstitio.powers;
 
-import superstitio.DataManager;
-import superstitio.powers.interfaces.orgasm.OnOrgasm_onCheck;
 import com.megacrit.cardcrawl.actions.common.RemoveSpecificPowerAction;
 import com.megacrit.cardcrawl.core.AbstractCreature;
+import superstitio.DataManager;
+import superstitio.powers.interfaces.orgasm.OnOrgasm_onCheck;
 
 public class SexualHeatNeededModifier extends AbstractLupaPower implements OnOrgasm_onCheck {
-    public static final String POWER_ID = DataManager.MakeTextID(SexualHeatNeededModifier.class.getSimpleName() );
+    public static final String POWER_ID = DataManager.MakeTextID(SexualHeatNeededModifier.class.getSimpleName());
 
     public SexualHeatNeededModifier(final AbstractCreature owner, int amount) {
         //大于0会降低高潮需求，小于0会提高高潮需求
@@ -26,7 +26,7 @@ public class SexualHeatNeededModifier extends AbstractLupaPower implements OnOrg
 
     @Override
     public String getDescriptionStrings() {
-        return powerStringsSet.getRightVersion().DESCRIPTIONS[this.amount < 0 ? 1 : 0];
+        return powerStrings.getRightVersion().DESCRIPTIONS[this.amount < 0 ? 1 : 0];
     }
 
     @Override

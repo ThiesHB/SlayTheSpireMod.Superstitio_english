@@ -1,13 +1,13 @@
 package superstitio.relics.d_uncommon;
 
-import superstitio.DataManager;
-import superstitio.powers.SexualHeat;
-import superstitio.powers.interfaces.orgasm.OnOrgasm_afterOrgasm;
-import superstitio.relics.AbstractLupaRelic;
 import com.megacrit.cardcrawl.actions.common.ApplyPowerAction;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.powers.LoseStrengthPower;
 import com.megacrit.cardcrawl.powers.StrengthPower;
+import superstitio.DataManager;
+import superstitio.powers.SexualHeat;
+import superstitio.powers.interfaces.orgasm.OnOrgasm_afterOrgasm;
+import superstitio.relics.AbstractLupaRelic;
 
 public class NippleRings extends AbstractLupaRelic implements OnOrgasm_afterOrgasm {
     public static final String ID = DataManager.MakeTextID(NippleRings.class.getSimpleName());

@@ -1,6 +1,5 @@
 package superstitio.orbs.patch;
 
-import superstitio.orbs.orbgroup.OrbGroup;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.evacipated.cardcrawl.modthespire.lib.SpireInsertPatch;
@@ -10,6 +9,7 @@ import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.orbs.AbstractOrb;
 import com.megacrit.cardcrawl.rooms.AbstractRoom;
+import superstitio.orbs.orbgroup.OrbGroup;
 
 public class OrbGroupPath {
     @SpirePatch(clz = AbstractDungeon.class, method = "onModifyPower")

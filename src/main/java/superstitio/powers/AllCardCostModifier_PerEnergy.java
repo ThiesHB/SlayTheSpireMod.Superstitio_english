@@ -1,16 +1,16 @@
 package superstitio.powers;
 
-import superstitio.DataManager;
-import superstitio.InBattleDataManager;
-import superstitio.actions.AutoDoneAction;
-import superstitio.powers.interfaces.HasAllCardCostModifyEffect;
 import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.core.AbstractCreature;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
+import superstitio.DataManager;
+import superstitio.InBattleDataManager;
+import superstitio.actions.AutoDoneInstantAction;
+import superstitio.powers.interfaces.HasAllCardCostModifyEffect;
 
 
 public class AllCardCostModifier_PerEnergy extends AllCardCostModifier {
-    public static final String POWER_ID = DataManager.MakeTextID(AllCardCostModifier_PerEnergy.class.getSimpleName() );
+    public static final String POWER_ID = DataManager.MakeTextID(AllCardCostModifier_PerEnergy.class.getSimpleName());
 
     public AllCardCostModifier_PerEnergy(final AbstractCreature owner, int decreasedCost, int totalEnergy, HasAllCardCostModifyEffect holder) {
         super(POWER_ID, owner, decreasedCost, totalEnergy, holder);
@@ -19,14 +19,14 @@ public class AllCardCostModifier_PerEnergy extends AllCardCostModifier {
 
     @Override
     public void updateDescriptionArgs() {
-        setDescriptionArgs(decreasedCost, amount, (!isActive() ? powerStringsSet.getRightVersion().DESCRIPTIONS[1] : ""));
+        setDescriptionArgs(decreasedCost, amount, (!isActive() ? powerStrings.getRightVersion().DESCRIPTIONS[1] : ""));
     }
 
     @Override
     public void onPlayCard(AbstractCard card, AbstractMonster m) {
         if (!isActive()) return;
         if (totalCostDecreased(card) == 0) return;
-        AutoDoneAction.addToBotAbstract(() -> {
+        AutoDoneInstantAction.addToBotAbstract(() -> {
             this.flash();
             this.amount -= totalCostDecreased(card);
             this.amount = Integer.max(0, amount);

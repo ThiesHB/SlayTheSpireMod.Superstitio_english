@@ -1,16 +1,16 @@
 package superstitio.cards.lupa.SkillCard;
 
-import superstitio.DataManager;
-import superstitio.actions.AutoDoneAction;
-import superstitio.actions.ChoseCardFromHandCardSelectScreen;
-import superstitio.cards.modifiers.block.SexBlock;
-import superstitio.cards.lupa.AbstractLupaCard;
 import basemod.cardmods.ExhaustMod;
 import basemod.helpers.CardModifierManager;
 import com.megacrit.cardcrawl.actions.AbstractGameAction;
 import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
+import superstitio.DataManager;
+import superstitio.actions.AutoDoneInstantAction;
+import superstitio.actions.ChoseCardFromHandCardSelectScreen;
+import superstitio.cards.lupa.AbstractLupaCard;
+import superstitio.cards.modifiers.block.SexBlock;
 
 public class ZenState extends AbstractLupaCard {
     public static final String ID = DataManager.MakeTextID(ZenState.class.getSimpleName());
@@ -30,7 +30,7 @@ public class ZenState extends AbstractLupaCard {
     public ZenState() {
         super(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET);
         this.setupMagicNumber(MAGICNumber);
-        this.setupBlock(BLOCK,new SexBlock());
+        this.setupBlock(BLOCK, new SexBlock());
     }
 
     @Override
@@ -38,14 +38,14 @@ public class ZenState extends AbstractLupaCard {
         this.addToBot_gainBlock();
         this.addToBot(new ChoseCardFromHandCardSelectScreen(
                 this::letSpecificCardExhaust)
-                .setupWindowText(String.format(getEXTENDED_DESCRIPTION()[0], this.magicNumber))
-                .setupChoiceAmount(this.magicNumber)
-                .setupRetainFilter(card -> !card.exhaust && !CardModifierManager.hasModifier(card, ExhaustMod.ID))
+                .setWindowText(String.format(getEXTENDED_DESCRIPTION()[0], this.magicNumber))
+                .setChoiceAmount(this.magicNumber)
+                .setRetainFilter(card -> !card.exhaust, card -> !CardModifierManager.hasModifier(card, ExhaustMod.ID))
         );
     }
 
     public AbstractGameAction letSpecificCardExhaust(AbstractCard card) {
-        return AutoDoneAction.newAutoDone(() -> {
+        return AutoDoneInstantAction.newAutoDone(() -> {
             card.superFlash();
             CardModifierManager.addModifier(card, new ExhaustMod());
         });

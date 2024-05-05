@@ -1,15 +1,15 @@
 package superstitio.relics.d_uncommon;
 
-import superstitio.DataManager;
-import superstitio.powers.OutsideSemen;
-import superstitio.relics.AbstractLupaRelic;
-import superstitio.relics.interFace.Countup;
-import superstitio.utils.ActionUtility;
 import com.evacipated.cardcrawl.mod.stslib.relics.OnApplyPowerRelic;
 import com.megacrit.cardcrawl.core.AbstractCreature;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.powers.AbstractPower;
 import com.megacrit.cardcrawl.powers.DexterityPower;
+import superstitio.DataManager;
+import superstitio.powers.OutsideSemen;
+import superstitio.relics.AbstractLupaRelic;
+import superstitio.relics.interFace.Countup;
+import superstitio.utils.ActionUtility;
 
 public class CumOnShoes extends AbstractLupaRelic implements OnApplyPowerRelic, Countup {
     public static final String ID = DataManager.MakeTextID(CumOnShoes.class.getSimpleName());
