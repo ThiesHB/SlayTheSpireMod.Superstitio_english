@@ -95,7 +95,7 @@
   "SuperstitioMod:Fuck_Eye": {
     "NAME": "眼奸",
     "NAME_SFW": "蛇形拳",
-    "DESCRIPTION": "抽到时获得 保留 。 NL 造成 2 次 !D! 点 伤害 。 NL 获得 !B! 点 superstitiomod:引诱 。 NL 把 *耳奸 加入手牌。 NL 获得 1 虚弱 。NL superstitiomod:性交：内射 。 NL 消耗 。",
+    "DESCRIPTION": "抽到时获得 保留 。 NL 造成 2 次 !D! 点 伤害 。 NL 获得 !B! 点 *引诱 。 NL 把 *耳奸 加入手牌。 NL 获得 1 虚弱 。NL superstitiomod:性交：内射 。 NL 消耗 。",
     "FLAVOR": "也许是脑交。总的来说还是取决于肉棒的主人敢不敢用力吧。"
   },
   "SuperstitioMod:Fuck_Navel": {
@@ -190,13 +190,13 @@
   "SuperstitioMod:UnBirth": {
     "NAME": "胎内回归",
     "NAME_SFW": "力量汲取",
-    "DESCRIPTION": "获得 !B! *怀孕 。 NL 把目标敌人所有的 负面效果 和 人工制品 封印入 *怀孕 。",
+    "DESCRIPTION": "获得 !B! *妊娠 。 NL 把目标敌人所有的 负面效果 和 人工制品 封印入 *妊娠 。",
     "FLAVOR": "我会包容你的一切：你的欲望、你的梦想、你的爱…… NL 请把你的一切交给我。"
   },
   "SuperstitioMod:GiveBirth": {
     "NAME": "分娩",
     "NAME_SFW": "力量释放",
-    "DESCRIPTION": "移除所有的 superstitiomod:怀孕 。获得 !B! 临时生命 。 NL 打出卡牌后， 。 NL 消耗 。",
+    "DESCRIPTION": "移除所有的 superstitiomod:妊娠 。获得 !B! 临时生命 。 NL 打出卡牌后， 。 NL 消耗 。",
     "FLAVOR": "重获新生吧。"
   },
   "SuperstitioMod:ChokeChoker": {
