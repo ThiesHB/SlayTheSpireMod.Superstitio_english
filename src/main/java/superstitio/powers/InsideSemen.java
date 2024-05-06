@@ -6,23 +6,18 @@ import com.megacrit.cardcrawl.core.Settings;
 import com.megacrit.cardcrawl.powers.AbstractPower;
 import superstitio.DataManager;
 import superstitio.actions.AutoDoneInstantAction;
-import superstitio.powers.barIndepend.BarRenderOnCreature_Power;
 import superstitio.powers.barIndepend.HasBarRenderOnCreature_Power;
-import superstitio.powers.interfaces.InvisiblePower_StillRenderAmount;
+import superstitio.powers.interfaces.InvisiblePower_StillRenderApplyAndRemove;
 import superstitio.powers.interfaces.OnPostApplyThisPower;
 import superstitio.utils.PowerUtility;
 
-public class InsideSemen extends AbstractLupaPower implements OnPostApplyThisPower, InvisiblePower_StillRenderAmount, HasBarRenderOnCreature_Power<AbstractPower> {
+public class InsideSemen extends AbstractLupaPower implements OnPostApplyThisPower, InvisiblePower_StillRenderApplyAndRemove, HasBarRenderOnCreature_Power {
     public static final String POWER_ID = DataManager.MakeTextID(InsideSemen.class.getSimpleName());
     public static final int MAX_Semen = 10;
     private static final int ToOutSideSemenRate = 1;
-    //绘制相关
-
-    private BarRenderOnCreature_Power AmountBar;
 
     public InsideSemen(final AbstractCreature owner, final int amount) {
         super(POWER_ID, owner, amount, owner.isPlayer ? PowerType.BUFF : PowerType.DEBUFF, false);
-        BarRenderOnCreature_Power.RegisterToBarRenderOnCreature(this, this.ID);
     }
 
     @Override
@@ -58,23 +53,18 @@ public class InsideSemen extends AbstractLupaPower implements OnPostApplyThisPow
     }
 
     @Override
-    public BarRenderOnCreature_Power getAmountBar() {
-        return this.AmountBar;
-    }
-
-    @Override
-    public void setupAmountBar(BarRenderOnCreature_Power amountBar) {
-        AmountBar = amountBar;
-    }
-
-    @Override
     public AbstractPower getSelf() {
         return this;
     }
 
     @Override
+    public String uuidOfSelf() {
+        return this.ID;
+    }
+
+    @Override
     public float Height() {
-        return 40 * Settings.scale;
+        return 120 * Settings.scale;
     }
 
     @Override

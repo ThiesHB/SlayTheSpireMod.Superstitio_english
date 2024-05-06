@@ -1,7 +1,6 @@
 package superstitio.powers;
 
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.evacipated.cardcrawl.mod.stslib.powers.StunMonsterPower;
 import com.megacrit.cardcrawl.actions.common.ApplyPowerAction;
 import com.megacrit.cardcrawl.actions.common.DrawCardAction;
@@ -15,17 +14,16 @@ import com.megacrit.cardcrawl.powers.AbstractPower;
 import superstitio.DataManager;
 import superstitio.InBattleDataManager;
 import superstitio.Logger;
-import superstitio.powers.barIndepend.BarRenderOnCreature_Power;
+import superstitio.powers.barIndepend.BarRenderUpdateMessage;
 import superstitio.powers.barIndepend.HasBarRenderOnCreature_Power;
 import superstitio.powers.interfaces.HasAllCardCostModifyEffect;
-import superstitio.powers.interfaces.InvisiblePower_StillRenderAmount;
+import superstitio.powers.interfaces.InvisiblePower_StillRenderApplyAndRemove;
 import superstitio.powers.interfaces.OnPostApplyThisPower;
 import superstitio.powers.interfaces.orgasm.*;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.Optional;
 import java.util.concurrent.atomic.AtomicInteger;
-import java.util.function.Function;
 
 import static superstitio.InBattleDataManager.OrgasmTimesInTurn;
 import static superstitio.InBattleDataManager.OrgasmTimesTotal;
@@ -35,7 +33,7 @@ import static superstitio.utils.PowerUtility.BubbleMessageHigher;
 
 public class SexualHeat extends AbstractLupaPower implements
         HasAllCardCostModifyEffect, OnPostApplyThisPower,
-        InvisiblePower_StillRenderAmount, HasBarRenderOnCreature_Power<AbstractPower>,
+        InvisiblePower_StillRenderApplyAndRemove, HasBarRenderOnCreature_Power,
         OnOrgasm_onSuccessfullyPreventOrgasm, OnOrgasm_onOrgasm, OnOrgasm_onEndOrgasm, OnOrgasm_onSquirt, OnOrgasm_onContinuallyOrgasm {
     public static final String POWER_ID = DataManager.MakeTextID(SexualHeat.class.getSimpleName());
     public static final int HEAT_REQUIREDOrigin = 10;
@@ -44,14 +42,12 @@ public class SexualHeat extends AbstractLupaPower implements
     private static final Color PINK = new Color(1f, 0.7529f, 0.7961f, 1.0f);
     public final Color barOrgasmShadowColor;
     private final Color barShadowColorOrigin;
-    private BarRenderOnCreature_Power AmountBar;
     private int heatRequired = HEAT_REQUIREDOrigin;
 
     public SexualHeat(final AbstractCreature owner, final int amount) {
         super(POWER_ID, owner, amount, owner.isPlayer ? PowerType.BUFF : PowerType.DEBUFF, false);
         this.barOrgasmShadowColor = Color.YELLOW.cpy();
         this.barShadowColorOrigin = this.setupBarShadowColor();
-        BarRenderOnCreature_Power.RegisterToBarRenderOnCreature(this, this.ID);
     }
 
     public static boolean isInOrgasm(AbstractCreature creature) {
@@ -93,9 +89,9 @@ public class SexualHeat extends AbstractLupaPower implements
     }
 
     @Override
-    public void renderAmount(SpriteBatch sb, float x, float y, Color c) {
-        this.AmountBar.barShadowColor = this.isInOrgasm() ? this.barOrgasmShadowColor : this.barShadowColorOrigin;
-        super.renderAmount(sb, x, y, c);
+    public BarRenderUpdateMessage makeMessage() {
+        return HasBarRenderOnCreature_Power.super.makeMessage()
+                .setDetail(bar -> bar.barShadowColor = this.isInOrgasm() ? this.barOrgasmShadowColor : this.barShadowColorOrigin);
     }
 
     @Override
@@ -197,23 +193,18 @@ public class SexualHeat extends AbstractLupaPower implements
     }
 
     @Override
-    public BarRenderOnCreature_Power getAmountBar() {
-        return this.AmountBar;
-    }
-
-    @Override
-    public void setupAmountBar(BarRenderOnCreature_Power amountBar) {
-        AmountBar = amountBar;
-    }
-
-    @Override
     public AbstractPower getSelf() {
         return this;
     }
 
     @Override
+    public String uuidOfSelf() {
+        return this.ID;
+    }
+
+    @Override
     public float Height() {
-        return 0 * Settings.scale;
+        return -20 * Settings.scale;
     }
 
     @Override
@@ -257,8 +248,8 @@ public class SexualHeat extends AbstractLupaPower implements
     }
 
     @Override
-    public Function<Object[], String> makeBarText() {
-        return (objects) -> String.format("%d/%d" + String.format("(%d)", getOrgasmTimesInTurn()), objects);
+    public String makeBarText() {
+        return "%d/%d" + String.format("(%d)", getOrgasmTimesInTurn());
     }
 
     @Override

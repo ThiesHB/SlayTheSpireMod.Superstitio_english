@@ -10,24 +10,22 @@ import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.powers.AbstractPower;
 import superstitio.DataManager;
 import superstitio.actions.AutoDoneInstantAction;
-import superstitio.powers.barIndepend.BarRenderOnCreature_Power;
 import superstitio.powers.barIndepend.HasBarRenderOnCreature_Power;
-import superstitio.powers.interfaces.InvisiblePower_StillRenderAmount;
+import superstitio.powers.interfaces.InvisiblePower_StillRenderApplyAndRemove;
 import superstitio.powers.interfaces.OnPostApplyThisPower;
 import superstitio.utils.PowerUtility;
 
 public class BeerCupSemen extends AbstractLupaPower implements
-        InvisiblePower_StillRenderAmount, HasBarRenderOnCreature_Power<AbstractPower>, OnPostApplyThisPower, BetterOnApplyPowerPower {
+        InvisiblePower_StillRenderApplyAndRemove, HasBarRenderOnCreature_Power, OnPostApplyThisPower, BetterOnApplyPowerPower {
     public static final String POWER_ID = DataManager.MakeTextID(BeerCupSemen.class.getSimpleName());
     //绘制相关
-    private BarRenderOnCreature_Power AmountBar;
     private int maxAmount;
-    private int semenAmount = 0;
+    private int semenAmount;
 
     public BeerCupSemen(final AbstractCreature owner, final int maxAmount) {
         super(POWER_ID, owner, -1, PowerType.BUFF, false);
         this.maxAmount = maxAmount;
-        BarRenderOnCreature_Power.RegisterToBarRenderOnCreature(this, this.ID);
+        semenAmount = 0;
     }
 
     @Override
@@ -79,15 +77,6 @@ public class BeerCupSemen extends AbstractLupaPower implements
         addToBot_removeSpecificPower(this);
     }
 
-    @Override
-    public BarRenderOnCreature_Power getAmountBar() {
-        return this.AmountBar;
-    }
-
-    @Override
-    public void setupAmountBar(BarRenderOnCreature_Power amountBar) {
-        this.AmountBar = amountBar;
-    }
 
     @Override
     public AbstractPower getSelf() {
@@ -95,8 +84,13 @@ public class BeerCupSemen extends AbstractLupaPower implements
     }
 
     @Override
+    public String uuidOfSelf() {
+        return this.ID;
+    }
+
+    @Override
     public float Height() {
-        return 120 * Settings.scale;
+        return 160 * Settings.scale;
     }
 
     @Override

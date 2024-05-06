@@ -8,6 +8,7 @@ import com.megacrit.cardcrawl.core.AbstractCreature;
 import com.megacrit.cardcrawl.powers.AbstractPower;
 import com.megacrit.cardcrawl.relics.AbstractRelic;
 import com.megacrit.cardcrawl.rooms.AbstractRoom;
+import superstitio.powers.barIndepend.BarRenderGroup;
 import superstitio.powers.interfaces.OnPostApplyThisPower;
 
 
@@ -68,6 +69,7 @@ public class SuperstitioModSubscriber implements
             AbstractPower abstractPower, AbstractCreature abstractCreature, AbstractCreature abstractCreature1) {
         if (abstractPower instanceof OnPostApplyThisPower)
             ((OnPostApplyThisPower) abstractPower).InitializePostApplyThisPower();
+        InBattleDataManager.barGroups.forEach(BarRenderGroup::onPostPowerApply);
     }
 
     @Override

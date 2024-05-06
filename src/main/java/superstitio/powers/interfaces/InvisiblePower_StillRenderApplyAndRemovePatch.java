@@ -10,7 +10,7 @@ import javassist.expr.MethodCall;
 
 import java.util.ArrayList;
 
-public class InvisiblePower_StillRenderAmountPatch {
+public class InvisiblePower_StillRenderApplyAndRemovePatch {
 
     private static ExprEditor getExprEditor() {
         return new ExprEditor() {
@@ -20,7 +20,7 @@ public class InvisiblePower_StillRenderAmountPatch {
                 if (m.getClassName().equals(ArrayList.class.getName()) && m.getMethodName().equals("add")) {
                     if (this.count > 0) {
                         m.replace("if (!(p instanceof " +
-                                InvisiblePower_StillRenderAmount.class.getName() +
+                                InvisiblePower_StillRenderApplyAndRemove.class.getName() +
                                 ")) {$_ = $proceed($$);}");
                     }
 
@@ -62,7 +62,7 @@ public class InvisiblePower_StillRenderAmountPatch {
                 public void edit(MethodCall m) throws CannotCompileException {
                     if (m.getClassName().equals(ArrayList.class.getName()) && m.getMethodName().equals("add")) {
                         m.replace("if (!(p instanceof " +
-                                InvisiblePower_StillRenderAmount.class.getName() +
+                                InvisiblePower_StillRenderApplyAndRemove.class.getName() +
                                 ")) {$_ = $proceed($$);}");
                     }
 
@@ -80,12 +80,12 @@ public class InvisiblePower_StillRenderAmountPatch {
         public static ExprEditor Instrument() {
             return new ExprEditor() {
                 public void edit(MethodCall m) throws CannotCompileException {
-                    if (m.getMethodName().equals("renderIcons")) {
-                        m.replace("if (p instanceof " + InvisiblePower_StillRenderAmount.class.getName() + ") " +
+                    if (m.getMethodName().equals("renderIcons")||m.getMethodName().equals("renderAmount")) {
+                        m.replace("if (p instanceof " + InvisiblePower_StillRenderApplyAndRemove.class.getName() + ") " +
                                 "{offset -= " +
                                 "POWER_ICON_PADDING_X;} else {$proceed($$);}");
                     } else if (m.getMethodName().equals("renderAmount")) {
-                        m.replace("if (p instanceof " + InvisiblePower_StillRenderAmount.class.getName() + ") " +
+                        m.replace("if (p instanceof " + InvisiblePower_StillRenderApplyAndRemove.class.getName() + ") " +
                                 "{offset -= " +
                                 "POWER_ICON_PADDING_X;$proceed($$);} else {$proceed($$);}");
                     }

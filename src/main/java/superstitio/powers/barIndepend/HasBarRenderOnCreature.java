@@ -2,15 +2,22 @@ package superstitio.powers.barIndepend;
 
 import com.badlogic.gdx.graphics.Color;
 
-import java.util.function.Function;
-
 public interface HasBarRenderOnCreature {
 
-    BarRenderOnCreature_Power getAmountBar();
+    String uuidOfSelf();
 
-    String uuidForBarRender();
+    default String uuidPointTo() {
+        return this.uuidOfSelf();
+    }
 
-    void setupAmountBar(BarRenderOnCreature_Power amountBar);
+    default BarRenderUpdateMessage makeMessage() {
+        return new BarRenderUpdateMessage(this.uuidOfSelf(), this.uuidPointTo())
+                .setNewAmount(getAmountForDraw())
+                .setMaxAmount(maxBarAmount())
+                .setRawTextOnBar(makeBarText())
+                .setTip(new BarRenderUpdateMessage.ToolTip(this.getName(), this.getDescription()))
+                .setChunkColor(setupBarOrginColor());
+    }
 
     float Height();
 
@@ -36,5 +43,7 @@ public interface HasBarRenderOnCreature {
 
     String getDescription();
 
-    Function<Object[], String> makeBarText();
+    default String makeBarText() {
+        return "%d/%d";
+    }
 }

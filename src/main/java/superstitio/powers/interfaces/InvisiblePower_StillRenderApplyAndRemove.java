@@ -5,6 +5,6 @@
 
 package superstitio.powers.interfaces;
 
-public interface InvisiblePower_StillRenderAmount {
+public interface InvisiblePower_StillRenderApplyAndRemove {
 }
 
