@@ -22,14 +22,14 @@ public class SexToy extends AbstractLupaCard_TempCard {
 
     public static final CardTarget CARD_TARGET = SelfOrEnemyTargeting.SELF_OR_ENEMY;
     private static final int COST = 0;
-    private static final int MagicNumber = 2;
-    private static final int UPGRADE_MagicNumber = 1;
+    private static final int MAGIC = 2;
+    private static final int UPGRADE_MAGIC = 1;
 
     private static final String[] sexToyNames = getCardStringsWithSFWAndFlavor(SexToy.ID).getEXTENDED_DESCRIPTION()[0].split(",");
 
     public SexToy() {
         super(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET, SuperstitioModSetup.TempCardEnums.LUPA_TempCard_CARD);
-        this.setupMagicNumber(MagicNumber);
+        this.setupMagicNumber(MAGIC, UPGRADE_MAGIC);
     }
 
     public static String getRandomSexToyName() {
@@ -55,6 +55,5 @@ public class SexToy extends AbstractLupaCard_TempCard {
 
     @Override
     public void upgradeAuto() {
-        upgradeMagicNumber(UPGRADE_MagicNumber);
     }
 }

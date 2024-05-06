@@ -23,7 +23,7 @@ public class LoadOutPowerButtonPatch {
                                 AbstractLupaPower.class.getName() +
                                 " ) {" +
                                 " $0.powerStrings = (( " + AbstractLupaPower.class.getName() + " ) $0.instance ).powerStrings.getRightVersion() ; " +
-//                                "SuperstitioMod.Logger.temp( $0.instance.description ) ;" +
+//                                "superstitio.Logger.temp( $0.instance.description ) ;" +
                                 "} else { $proceed($$);}");
                     }
                 }

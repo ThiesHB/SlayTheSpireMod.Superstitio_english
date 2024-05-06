@@ -19,18 +19,18 @@ public class Tease extends AbstractLupaCard {
     public static final CardTarget CARD_TARGET = CardTarget.ENEMY;
 
     private static final int COST = 0;
-    private static final int MagicNumber = 15;
-    private static final int UPGRADE_MagicNumber = 5;
+    private static final int MAGIC = 15;
+    private static final int UPGRADE_MAGIC = 5;
 
     public Tease() {
         super(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET);
-        this.setupMagicNumber(MagicNumber);
+        this.setupMagicNumber(MAGIC, UPGRADE_MAGIC);
         this.exhaust = true;
     }
 
     @Override
     public void use(AbstractPlayer player, AbstractMonster monster) {
-        int a = (int) (monster.maxHealth * MagicNumber / 100f);
+        int a = (int) (monster.maxHealth * MAGIC / 100f);
         AutoDoneInstantAction.addToBotAbstract(() ->
                 monster.decreaseMaxHealth(a));
         addToBot_applyPower(new FrailPower(monster, 1, false));
@@ -40,6 +40,5 @@ public class Tease extends AbstractLupaCard {
 
     @Override
     public void upgradeAuto() {
-        upgradeMagicNumber(UPGRADE_MagicNumber);
     }
 }

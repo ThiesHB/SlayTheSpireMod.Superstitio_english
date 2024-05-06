@@ -1,5 +1,6 @@
 package superstitio.orbs;
 
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.orbs.AbstractOrb;
 import com.megacrit.cardcrawl.orbs.EmptyOrbSlot;
@@ -22,6 +23,14 @@ public class SexMarkEmptySlot extends EmptyOrbSlot {
         this.ID = ORB_ID;
         this.name = orbStringsSet.getNAME();
         this.updateDescription();
+    }
+
+    @Override
+    public void render(SpriteBatch sb) {
+    }
+
+    @Override
+    public void update() {
     }
 
     @Override

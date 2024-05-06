@@ -127,6 +127,15 @@
       " 本回合 结束时，转化为等量的 #y干涸精液 。"
     ]
   },
+  "SuperstitioMod:BeerCupSemen": {
+    "NAME": "杯中精液",
+    "DESCRIPTIONS": [
+      " 获得其他 #y精液 时， 转化为 #y杯中精液 。 当收集满 %d 或 战斗结束 时，回复 其 数量的 生命 。",
+      "收集",
+      "杯满！",
+      "痛饮！"
+    ]
+  },
   "SuperstitioMod:DeathDoor": {
     "NAME": "死亡抗拒",
     "DESCRIPTIONS": [

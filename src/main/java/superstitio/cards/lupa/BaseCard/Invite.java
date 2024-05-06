@@ -22,7 +22,7 @@ public class Invite extends AbstractLupaCard {
     public Invite() {
         super(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET, "base");
         this.tags.add(CardTags.STARTER_DEFEND);
-        this.setupBlock(BLOCK, new SexBlock());
+        this.setupBlock(BLOCK, UPGRADE_PLUS_BLOCK, new SexBlock());
     }
 
     @Override
@@ -32,6 +32,5 @@ public class Invite extends AbstractLupaCard {
 
     @Override
     public void upgradeAuto() {
-        upgradeBlock(UPGRADE_PLUS_BLOCK);
     }
 }

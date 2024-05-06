@@ -2,25 +2,25 @@ package superstitio.customStrings;
 
 import superstitio.Logger;
 import superstitio.SuperstitioModSetup;
-import superstitio.WordReplace;
 
+import java.util.List;
 import java.util.Map;
 
 public interface HasSFWVersion {
-    static boolean ifReturnSFWVersion(String sfwSting) {
-        return SuperstitioModSetup.enableSFW && !isEmptyOrNull(sfwSting);
+    static boolean shouldReturnSFWVersion(String sfwSting) {
+        return SuperstitioModSetup.enableSFW && !isNullOrEmpty(sfwSting);
     }
 
-    static boolean ifReturnSFWVersion(String[] sfwStings) {
-        return SuperstitioModSetup.enableSFW && !isEmptyOrNull(sfwStings);
+    static boolean shouldReturnSFWVersion(String[] sfwStings) {
+        return SuperstitioModSetup.enableSFW && !isNullOrEmpty(sfwStings);
     }
 
-    static boolean isEmptyOrNull(String sfwStings) {
-        return sfwStings != null && !sfwStings.isEmpty();
+    static boolean isNullOrEmpty(String sfwStings) {
+        return sfwStings == null || sfwStings.isEmpty();
     }
 
-    static boolean isEmptyOrNull(String[] sfwStings) {
-        return sfwStings != null && sfwStings.length != 0;
+    static boolean isNullOrEmpty(String[] sfwStings) {
+        return sfwStings == null || sfwStings.length == 0;
     }
 
     static <T extends HasSFWVersion> T getCustomStringsWithSFW(String keyName, Map<String, T> stringTMap, Class<T> tClass) {
@@ -44,6 +44,6 @@ public interface HasSFWVersion {
 
     void initialSelfBlack();
 
-    void setupSFWStringByWordReplace(WordReplace replaceRule);
+    void setupSFWStringByWordReplace(List<WordReplace> replaceRules);
 }
 

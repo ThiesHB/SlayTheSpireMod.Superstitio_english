@@ -2,6 +2,7 @@ package superstitio.orbs.orbgroup;
 
 import basemod.ReflectionHacks;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
@@ -18,6 +19,7 @@ import superstitio.orbs.actions.AnimationOrbOnMonsterAction;
 import superstitio.orbs.actions.ChannelOnOrbGroupAction;
 import superstitio.orbs.actions.EvokeOnMonsterAction;
 import superstitio.orbs.actions.FlashOrbEffect;
+import superstitio.powers.barIndepend.RenderInBattle;
 import superstitio.utils.ActionUtility;
 
 import java.util.ArrayList;
@@ -26,7 +28,7 @@ import java.util.Objects;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 
-public abstract class OrbGroup {
+public abstract class OrbGroup implements RenderInBattle {
     private static final String[] TEXT = new String[]{"  A  "};
     private static final int MAX_MAX_ORB = 10;
     public AbstractOrb CustomEmptyOrb;
@@ -42,6 +44,7 @@ public abstract class OrbGroup {
         this.hitbox = new Hitbox(hitbox.x, hitbox.y, hitbox.width, hitbox.height);
         this.CustomEmptyOrb = customEmptyOrb;
         this.increaseMaxOrbs(initMaxOrbs, false);
+        RenderInBattle.Register(this);
     }
 
     public static <T extends AbstractOrb> T makeOrbCopy(final T orb, final Class<T> clazz) {
@@ -292,5 +295,18 @@ public abstract class OrbGroup {
 
     public final int GetMaxOrbs() {
         return this._maxOrbs;
+    }
+
+    @Override
+    public void render(SpriteBatch sb) {
+        OrbGroup.forEachOrbInEachOrbGroup(AbstractOrb::render, sb);
+    }
+
+    @Override
+    public void update() {
+        OrbGroup.forEachOrbInEachOrbGroup(orb -> {
+            orb.update();
+            orb.updateAnimation();
+        });
     }
 }

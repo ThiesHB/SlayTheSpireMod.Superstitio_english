@@ -18,12 +18,12 @@ public class Job_Blow extends AbstractLupaCard_FuckJob {
     public static final CardTarget CARD_TARGET = CardTarget.ENEMY;
 
     private static final int COST = 0;
-    private static final int ATTACK_DMG = 5;
-    private static final int UPGRADE_PLUS_DMG = 3;
+    private static final int DAMAGE = 5;
+    private static final int UPGRADE_DAMAGE = 3;
 
     public Job_Blow() {
         super(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET);
-        this.setupDamage(ATTACK_DMG);
+        this.setupDamage(DAMAGE, UPGRADE_DAMAGE);
     }
 
     @Override
@@ -34,6 +34,5 @@ public class Job_Blow extends AbstractLupaCard_FuckJob {
 
     @Override
     public void upgradeAuto() {
-        upgradeDamage(UPGRADE_PLUS_DMG);
     }
 }

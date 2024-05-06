@@ -18,11 +18,11 @@ public class Sensitive3000 extends AbstractLupaCard {
     public static final CardTarget CARD_TARGET = CardTarget.SELF;
 
     private static final int COST = 1;
-    private static final int MAGICNumber = 10;
+    private static final int MAGIC = 10;
 
     public Sensitive3000() {
         super(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET);
-        this.setupMagicNumber(MAGICNumber);
+        this.setupMagicNumber(MAGIC);
     }
 
     @Override

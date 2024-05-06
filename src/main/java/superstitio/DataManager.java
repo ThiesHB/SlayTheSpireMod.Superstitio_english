@@ -117,16 +117,6 @@ public class DataManager {
                 ((HasTextID) strings).setTextID(id);
         });
         target.putAll(map);
-//        if (typeToken == null) return;
-//        Map<String, Object> baseModStringMap = new HashMap<>();
-//        try {
-//            if (tSetClass.newInstance() instanceof HasSFWVersionWithT) {
-//                map.forEach((string, value) -> baseModStringMap.put(string, ((HasSFWVersionWithT<?>) value).getRightVersion()));
-//                setJsonStrings(((HasSFWVersionWithT<?>) tSetClass.newInstance()).getTClass(), baseModStringMap);
-//            }
-//        } catch (InstantiationException | IllegalAccessException e) {
-//            Logger.error(e);
-//        }
     }
 
     private static <T> Optional<ParameterizedType> GetTypeOfMapByAComplexFunctionBecauseTheMotherfuckerGenericProgrammingWayTheFuckingJavaUse(
@@ -229,7 +219,6 @@ public class DataManager {
         if (mapName.isEmpty()) return;
         Map<String, Object> localizationStrings = ReflectionHacks.getPrivateStatic(LocalizedStrings.class, mapName);
         localizationStrings.putAll(GivenMap);
-        Logger.temp("loadJsonStrings: " + tClass.getTypeName());
         ReflectionHacks.setPrivateStaticFinal(LocalizedStrings.class, mapName, localizationStrings);
     }
 

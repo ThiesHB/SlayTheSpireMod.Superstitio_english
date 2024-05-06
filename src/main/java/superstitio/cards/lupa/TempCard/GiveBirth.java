@@ -34,7 +34,7 @@ public class GiveBirth extends AbstractLupaCard_TempCard {
     public GiveBirth() {
         super(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET);
         this.exhaust = true;
-        this.setupBlock(BLOCK);
+        this.setupBlock(BLOCK, UPGRADE_PLUS_BLOCK);
     }
 
     public GiveBirth(ArrayList<AbstractPower> sealPower, AbstractCreature sealMonster) {
@@ -59,7 +59,6 @@ public class GiveBirth extends AbstractLupaCard_TempCard {
 
     @Override
     public void upgradeAuto() {
-        this.upgradeBlock(UPGRADE_PLUS_BLOCK);
     }
 
     @Override

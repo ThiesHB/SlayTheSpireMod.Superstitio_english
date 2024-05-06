@@ -16,14 +16,14 @@ public class Masturbate extends AbstractLupaCard {
     public static final CardTarget CARD_TARGET = CardTarget.SELF;
 
     private static final int COST = 0;
-    private static final int MAGICNumber = 4;
-    private static final int UPGRADE_MagicNumber = 2;
+    private static final int MAGIC = 4;
+    private static final int UPGRADE_MAGIC = 2;
     private static final int DRAWCard = 1;
 
 
     public Masturbate() {
         super(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET, "base");
-        this.setupMagicNumber(MAGICNumber);
+        this.setupMagicNumber(MAGIC, UPGRADE_MAGIC);
     }
 
     @Override
@@ -34,7 +34,6 @@ public class Masturbate extends AbstractLupaCard {
 
     @Override
     public void upgradeAuto() {
-        upgradeMagicNumber(UPGRADE_MagicNumber);
     }
 
     @Override

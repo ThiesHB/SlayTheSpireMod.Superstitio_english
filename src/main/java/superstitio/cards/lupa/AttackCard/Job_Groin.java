@@ -1,6 +1,5 @@
 package superstitio.cards.lupa.AttackCard;
 
-import basemod.AutoAdd;
 import com.megacrit.cardcrawl.actions.AbstractGameAction;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
@@ -12,49 +11,44 @@ import superstitio.powers.SexualHeat;
 
 import java.util.concurrent.atomic.AtomicInteger;
 
-import static superstitio.InBattleDataManager.OrgasmTimesInTurn;
-
-@AutoAdd.Ignore
 public class Job_Groin extends AbstractLupaCard_FuckJob {
     public static final String ID = DataManager.MakeTextID(Job_Groin.class.getSimpleName());
 
     public static final CardType CARD_TYPE = CardType.ATTACK;
 
-    public static final CardRarity CARD_RARITY = CardRarity.COMMON;
+    public static final CardRarity CARD_RARITY = CardRarity.RARE;
 
     public static final CardTarget CARD_TARGET = CardTarget.ENEMY;
 
-    private static final int COST = 1;
-    private static final int ATTACK_DMG = 6;
-    private static final int UPGRADE_PLUS_DMG = 3;
+    private static final int COST = 2;
+    private static final int DAMAGE = 16;
+    private static final int UPGRADE_DAMAGE = 5;
 
-    private static final int Magic_Number = 3;
+    private static final int MAGIC = 2;
 
-    private static final int Magic_Number_UPGRADE = 1;
+    private static final int UPGRADE_MAGIC = 1;
 
     public Job_Groin() {
         super(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET);
-        this.setupDamage(ATTACK_DMG);
-        this.setupMagicNumber(Magic_Number);
+        this.setupDamage(DAMAGE, UPGRADE_DAMAGE);
+        this.setupMagicNumber(MAGIC, UPGRADE_MAGIC);
     }
 
     @Override
     public void upgradeAuto() {
-        upgradeDamage(UPGRADE_PLUS_DMG);
-        upgradeMagicNumber(Magic_Number_UPGRADE);
     }
 
     private int getOriginDamage() {
         if (this.upgraded)
-            return ATTACK_DMG + UPGRADE_PLUS_DMG;
+            return DAMAGE + UPGRADE_DAMAGE;
         else
-            return ATTACK_DMG;
+            return DAMAGE;
     }
 
     private void updateDamage() {
         if (!InBattleDataManager.InOrgasm) return;
         AtomicInteger damageUp = new AtomicInteger();
-        SexualHeat.getActiveSexualHeat(AbstractDungeon.player).ifPresent(power -> damageUp.set(magicNumber * OrgasmTimesInTurn));
+        SexualHeat.getActiveSexualHeat(AbstractDungeon.player).ifPresent(power -> damageUp.set(this.magicNumber * InBattleDataManager.OrgasmTimesTotal));
         if (damageUp.get() >= 1)
             this.isDamageModified = true;
         this.baseDamage = this.getOriginDamage() + damageUp.get();

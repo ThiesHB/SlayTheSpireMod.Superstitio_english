@@ -3,6 +3,7 @@ package superstitio;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import superstitio.orbs.orbgroup.OrbGroup;
 import superstitio.orbs.orbgroup.SexMarkOrbGroup;
+import superstitio.powers.barIndepend.RenderInBattle;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -19,13 +20,20 @@ public class InBattleDataManager {
     public static ArrayList<OrbGroup> orbGroups = new ArrayList<>();
 
     public static void InitializeAtStartOfBattle() {
+        ResetAll();
+
+        orbGroups.add(new SexMarkOrbGroup(AbstractDungeon.player.hb));
+    }
+
+    private static void ResetAll() {
+        RenderInBattle.RENDER_IN_BATTLES.clear();
         InOrgasm = false;
         OrgasmTimesInTurn = 0;
         OrgasmTimesTotal = 0;
         costMap = new HashMap<>();
         orbGroups = new ArrayList<>();
-        orbGroups.add(new SexMarkOrbGroup(AbstractDungeon.player.hb));
     }
+
 
     public static void InitializeAtStartOfTurn() {
         OrgasmTimesInTurn = 0;

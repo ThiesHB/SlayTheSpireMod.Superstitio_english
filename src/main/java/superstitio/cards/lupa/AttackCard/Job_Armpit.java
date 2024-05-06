@@ -1,6 +1,5 @@
 package superstitio.cards.lupa.AttackCard;
 
-import basemod.AutoAdd;
 import com.megacrit.cardcrawl.actions.AbstractGameAction;
 import com.megacrit.cardcrawl.actions.common.ExhaustSpecificCardAction;
 import com.megacrit.cardcrawl.cards.AbstractCard;
@@ -11,7 +10,6 @@ import superstitio.DataManager;
 import superstitio.cards.lupa.AbstractLupaCard_FuckJob;
 import superstitio.utils.ActionUtility;
 
-@AutoAdd.Ignore
 public class Job_Armpit extends AbstractLupaCard_FuckJob {
     public static final String ID = DataManager.MakeTextID(Job_Armpit.class.getSimpleName());
 
@@ -22,12 +20,12 @@ public class Job_Armpit extends AbstractLupaCard_FuckJob {
     public static final CardTarget CARD_TARGET = CardTarget.ENEMY;
 
     private static final int COST = 0;
-    private static final int ATTACK_DMG = 6;
-    private static final int UPGRADE_PLUS_DMG = 4;
+    private static final int DAMAGE = 6;
+    private static final int UPGRADE_DAMAGE = 4;
 
     public Job_Armpit() {
         super(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET);
-        this.setupDamage(ATTACK_DMG);
+        this.setupDamage(DAMAGE, UPGRADE_DAMAGE);
         this.retain = true;
     }
 
@@ -62,6 +60,5 @@ public class Job_Armpit extends AbstractLupaCard_FuckJob {
 
     @Override
     public void upgradeAuto() {
-        upgradeDamage(UPGRADE_PLUS_DMG);
     }
 }

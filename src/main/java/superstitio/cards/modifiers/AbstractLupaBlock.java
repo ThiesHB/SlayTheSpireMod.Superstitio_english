@@ -55,5 +55,4 @@ public abstract class AbstractLupaBlock extends AbstractBlockModifier {
     public boolean isInherent() {
         return true;
     }
-
 }

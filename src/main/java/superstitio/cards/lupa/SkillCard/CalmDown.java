@@ -18,8 +18,8 @@ public class CalmDown extends AbstractLupaCard {
     public static final CardTarget CARD_TARGET = CardTarget.SELF;
 
     private static final int COST = 0;
-    private static final int MagicNumber = 1;
-    private static final int UPGRADE_MagicNumber = 1;
+    private static final int MAGIC = 1;
+    private static final int UPGRADE_MAGIC = 1;
     private static final int ExtraDrawNum = 1;
 
 
@@ -28,12 +28,12 @@ public class CalmDown extends AbstractLupaCard {
 
     public CalmDown() {
         super(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET);
-        this.setupMagicNumber(MagicNumber);
+        this.setupMagicNumber(MAGIC, UPGRADE_MAGIC);
     }
 
     @Override
     public void use(AbstractPlayer player, AbstractMonster monster) {
-        this.addToBot_drawCards(magicNumber);
+        this.addToBot_drawCards(this.magicNumber);
         this.addToBot_reducePowerToPlayer(SexualHeat.POWER_ID, HeatReduce);
         if (InBattleDataManager.InOrgasm) {
             this.addToBot_drawCards(ExtraDrawNum);
@@ -50,7 +50,6 @@ public class CalmDown extends AbstractLupaCard {
 
     @Override
     public void upgradeAuto() {
-        upgradeMagicNumber(UPGRADE_MagicNumber);
     }
 }
 

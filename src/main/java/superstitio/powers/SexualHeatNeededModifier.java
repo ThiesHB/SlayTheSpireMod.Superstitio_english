@@ -3,9 +3,9 @@ package superstitio.powers;
 import com.megacrit.cardcrawl.actions.common.RemoveSpecificPowerAction;
 import com.megacrit.cardcrawl.core.AbstractCreature;
 import superstitio.DataManager;
-import superstitio.powers.interfaces.orgasm.OnOrgasm_onCheck;
+import superstitio.powers.interfaces.orgasm.OnOrgasm_onCheckOrgasm;
 
-public class SexualHeatNeededModifier extends AbstractLupaPower implements OnOrgasm_onCheck {
+public class SexualHeatNeededModifier extends AbstractLupaPower implements OnOrgasm_onCheckOrgasm {
     public static final String POWER_ID = DataManager.MakeTextID(SexualHeatNeededModifier.class.getSimpleName());
 
     public SexualHeatNeededModifier(final AbstractCreature owner, int amount) {
@@ -26,7 +26,7 @@ public class SexualHeatNeededModifier extends AbstractLupaPower implements OnOrg
 
     @Override
     public String getDescriptionStrings() {
-        return powerStrings.getRightVersion().DESCRIPTIONS[this.amount < 0 ? 1 : 0];
+        return powerStrings.getDESCRIPTIONS()[this.amount < 0 ? 1 : 0];
     }
 
     @Override

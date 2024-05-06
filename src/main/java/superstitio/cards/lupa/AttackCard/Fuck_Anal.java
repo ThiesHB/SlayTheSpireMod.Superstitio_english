@@ -20,15 +20,15 @@ public class Fuck_Anal extends AbstractLupaCard_FuckJob {
     public static final CardTarget CARD_TARGET = CardTarget.ENEMY;
 
     private static final int COST = 1;
-    private static final int ATTACK_DMG = 6;
-    private static final int UPGRADE_PLUS_DMG = 2;
+    private static final int DAMAGE = 6;
+    private static final int UPGRADE_DAMAGE = 2;
     private static final int Magic_Num = 3;
     private static final int Magic_Num_UPGRADE = 2;
 
     public Fuck_Anal() {
         super(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET);
-        this.setupDamage(ATTACK_DMG);
-        this.setupMagicNumber(Magic_Num);
+        this.setupDamage(DAMAGE, UPGRADE_DAMAGE);
+        this.setupMagicNumber(Magic_Num, Magic_Num_UPGRADE);
     }
 
     @Override
@@ -40,7 +40,5 @@ public class Fuck_Anal extends AbstractLupaCard_FuckJob {
 
     @Override
     public void upgradeAuto() {
-        upgradeDamage(UPGRADE_PLUS_DMG);
-        upgradeMagicNumber(Magic_Num_UPGRADE);
     }
 }

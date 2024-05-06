@@ -6,18 +6,23 @@ import com.megacrit.cardcrawl.core.Settings;
 import com.megacrit.cardcrawl.powers.AbstractPower;
 import superstitio.DataManager;
 import superstitio.actions.AutoDoneInstantAction;
+import superstitio.powers.barIndepend.BarRenderOnCreature_Power;
+import superstitio.powers.barIndepend.HasBarRenderOnCreature_Power;
+import superstitio.powers.interfaces.InvisiblePower_StillRenderAmount;
 import superstitio.powers.interfaces.OnPostApplyThisPower;
 import superstitio.utils.PowerUtility;
 
-public class InsideSemen extends AbstractWithBarPower implements OnPostApplyThisPower {
+public class InsideSemen extends AbstractLupaPower implements OnPostApplyThisPower, InvisiblePower_StillRenderAmount, HasBarRenderOnCreature_Power<AbstractPower> {
     public static final String POWER_ID = DataManager.MakeTextID(InsideSemen.class.getSimpleName());
     public static final int MAX_Semen = 10;
     private static final int ToOutSideSemenRate = 1;
     //绘制相关
-    private static final Color BarTextColor = new Color(1.0f, 1.0f, 1.0f, 1.0f);
+
+    private BarRenderOnCreature_Power AmountBar;
 
     public InsideSemen(final AbstractCreature owner, final int amount) {
         super(POWER_ID, owner, amount, owner.isPlayer ? PowerType.BUFF : PowerType.DEBUFF, false);
+        BarRenderOnCreature_Power.RegisterToBarRenderOnCreature(this, this.ID);
     }
 
     @Override
@@ -48,43 +53,37 @@ public class InsideSemen extends AbstractWithBarPower implements OnPostApplyThis
     private void Overflow(int flowAmount) {
         AbstractPower power = this;
         AutoDoneInstantAction.addToBotAbstract(() ->
-                PowerUtility.BubbleMessageHigher(power, false, powerStrings.getRightVersion().DESCRIPTIONS[1]));
+                PowerUtility.BubbleMessageHigher(power, false, powerStrings.getDESCRIPTIONS()[1]));
         this.addToBot_applyPowerToOwner(new OutsideSemen(this.owner, flowAmount * ToOutSideSemenRate));
     }
 
-//    @Override
-//    public void atEndOfTurn(boolean isPlayer) {
-//        if (isPlayer)
-//            this.addToBot(new RemoveSpecificPowerAction(this.owner, this.owner, POWER_ID));
-//    }
+    @Override
+    public BarRenderOnCreature_Power getAmountBar() {
+        return this.AmountBar;
+    }
 
     @Override
-    protected float Height() {
+    public void setupAmountBar(BarRenderOnCreature_Power amountBar) {
+        AmountBar = amountBar;
+    }
+
+    @Override
+    public AbstractPower getSelf() {
+        return this;
+    }
+
+    @Override
+    public float Height() {
         return 40 * Settings.scale;
     }
 
     @Override
-    protected Color setupBarBgColor() {
-        return new Color(0f, 0f, 0f, 0.3f);
-    }
-
-    @Override
-    protected Color setupBarShadowColor() {
-        return new Color(0f, 0f, 0f, 0.3f);
-    }
-
-    @Override
-    protected Color setupBarTextColor() {
-        return BarTextColor;
-    }
-
-    @Override
-    protected Color setupBarOrginColor() {
+    public Color setupBarOrginColor() {
         return Color.WHITE.cpy();
     }
 
     @Override
-    protected int maxBarAmount() {
+    public int maxBarAmount() {
         return MAX_Semen;
     }
 }

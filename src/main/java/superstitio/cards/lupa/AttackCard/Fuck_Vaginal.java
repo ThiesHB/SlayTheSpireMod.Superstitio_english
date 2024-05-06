@@ -17,22 +17,22 @@ public class Fuck_Vaginal extends AbstractLupaCard_FuckJob {
     public static final CardTarget CARD_TARGET = CardTarget.ENEMY;
 
     private static final int COST = 1;
-    private static final int ATTACK_DMG = 14;
-    private static final int UPGRADE_PLUS_DMG = 4;
-    private static final int Magic_Number = 5;
+    private static final int DAMAGE = 14;
+    private static final int UPGRADE_DAMAGE = 4;
+    private static final int MAGIC = 5;
 
     public Fuck_Vaginal() {
         super(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET);
-        this.setupDamage(ATTACK_DMG);
-        this.setupMagicNumber(Magic_Number);
+        this.setupDamage(DAMAGE, UPGRADE_DAMAGE);
+        this.setupMagicNumber(MAGIC);
     }
 
 
     private int getOriginDamage() {
         if (this.upgraded)
-            return ATTACK_DMG + UPGRADE_PLUS_DMG;
+            return DAMAGE + UPGRADE_DAMAGE;
         else
-            return ATTACK_DMG;
+            return DAMAGE;
     }
 
     private void updateDamage() {
@@ -50,7 +50,6 @@ public class Fuck_Vaginal extends AbstractLupaCard_FuckJob {
 
     @Override
     public void upgradeAuto() {
-        upgradeDamage(UPGRADE_PLUS_DMG);
     }
 
     @Override

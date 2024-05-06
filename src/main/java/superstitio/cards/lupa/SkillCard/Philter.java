@@ -14,18 +14,18 @@ public class Philter extends AbstractLupaCard {
 
     public static final CardType CARD_TYPE = CardType.SKILL;
 
-    public static final CardRarity CARD_RARITY = CardRarity.COMMON;
+    public static final CardRarity CARD_RARITY = CardRarity.UNCOMMON;
 
     public static final CardTarget CARD_TARGET = CardTarget.SELF;
 
     private static final int COST = 2;
-    private static final int MagicNumber = 2;
-    private static final int COST_UPDATE = 1;
+    private static final int MAGIC = 2;
+    private static final int COST_UPGRADE_NEW = 1;
 
 
     public Philter() {
         super(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET);
-        this.setupMagicNumber(MagicNumber);
+        this.setupMagicNumber(MAGIC);
     }
 
     @Override
@@ -36,7 +36,7 @@ public class Philter extends AbstractLupaCard {
 
     @Override
     public void upgradeAuto() {
-//            upgradeMagicNumber(UPGRADE_MagicNumber);
-        upgradeBaseCost(COST_UPDATE);
+//            upgradeMagicNumber(UPGRADE_MAGIC);
+        upgradeBaseCost(COST_UPGRADE_NEW);
     }
 }

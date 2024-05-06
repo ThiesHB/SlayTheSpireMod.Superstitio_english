@@ -1,5 +1,7 @@
 package superstitio.orbs;
 
+import superstitio.orbs.orbgroup.SexMarkOrbGroup;
+
 public abstract class SexMarkOrb extends AbstractLupaOrb {
 
     public String sexMarkName;
@@ -20,7 +22,7 @@ public abstract class SexMarkOrb extends AbstractLupaOrb {
 
     @Override
     public void updateDescriptionArgs() {
-        setDescriptionArgs(this.evokeAmount);
+        setDescriptionArgs(SexMarkOrbGroup.SexMarkSetupOrbMax, this.evokeAmount);
     }
 
     @Override

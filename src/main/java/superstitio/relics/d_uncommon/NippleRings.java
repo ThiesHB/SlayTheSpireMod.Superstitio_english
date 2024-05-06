@@ -6,10 +6,10 @@ import com.megacrit.cardcrawl.powers.LoseStrengthPower;
 import com.megacrit.cardcrawl.powers.StrengthPower;
 import superstitio.DataManager;
 import superstitio.powers.SexualHeat;
-import superstitio.powers.interfaces.orgasm.OnOrgasm_afterOrgasm;
+import superstitio.powers.interfaces.orgasm.OnOrgasm_onOrgasm;
 import superstitio.relics.AbstractLupaRelic;
 
-public class NippleRings extends AbstractLupaRelic implements OnOrgasm_afterOrgasm {
+public class NippleRings extends AbstractLupaRelic implements OnOrgasm_onOrgasm {
     public static final String ID = DataManager.MakeTextID(NippleRings.class.getSimpleName());
     // 遗物类型
     private static final RelicTier RELIC_TIER = RelicTier.UNCOMMON;
@@ -31,7 +31,7 @@ public class NippleRings extends AbstractLupaRelic implements OnOrgasm_afterOrga
     }
 
     @Override
-    public void afterTriggerOrgasm(SexualHeat SexualHeatPower) {
+    public void onOrgasm(SexualHeat SexualHeatPower) {
         this.flash();
         this.addToTop(new ApplyPowerAction(AbstractDungeon.player, AbstractDungeon.player, new StrengthPower(AbstractDungeon.player, Amount)));
         this.addToTop(new ApplyPowerAction(AbstractDungeon.player, AbstractDungeon.player, new LoseStrengthPower(AbstractDungeon.player, Amount)));

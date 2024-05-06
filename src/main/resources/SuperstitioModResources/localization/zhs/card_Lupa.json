@@ -41,7 +41,7 @@
   "SuperstitioMod:Job_Groin": {
     "NAME": "股交",
     "NAME_SFW": "震波震震",
-    "DESCRIPTION": "造成 !D! 点 伤害 。 NL superstitiomod:性交：外射 。",
+    "DESCRIPTION": "造成 !D! 点 伤害 。 额外造成本场战斗中 superstitiomod:高潮 总次数的 !M! 倍伤害 。 NL superstitiomod:性交：外射 。",
     "FLAVOR": "看上去就像是被十个人侵犯到溢出来了，实际上只是射在外面啦。",
     "EXTENDED_DESCRIPTION": [
       "腹股沟"
@@ -196,7 +196,7 @@
   "SuperstitioMod:GiveBirth": {
     "NAME": "分娩",
     "NAME_SFW": "力量释放",
-    "DESCRIPTION": "移除所有的 superstitiomod:妊娠 。获得 !B! 临时生命 。 NL 打出卡牌后， 。 NL 消耗 。",
+    "DESCRIPTION": "移除所有的 superstitiomod:妊娠 。获得 !B! 临时生命 。 NL 通过这张牌移除的 superstitiomod:妊娠 不会触发 *流产 。 NL 消耗 。",
     "FLAVOR": "重获新生吧。"
   },
   "SuperstitioMod:ChokeChoker": {
@@ -264,9 +264,8 @@
   "SuperstitioMod:DrinkSemenBeer": {
     "NAME": "饮精",
     "NAME_SFW": "饮血",
-    "DESCRIPTION": "移除 所有 的 superstitiomod:体内精液 ， 回复 等量 的 生命值 。 NL 消耗 。",
-    "UPGRADE_DESCRIPTION": "移除 一半 的 superstitiomod:体内精液 ， 回复 两倍 的 生命值 。 NL 消耗 。",
-    "FLAVOR": "排出，然后喝。"
+    "DESCRIPTION": " 获得其他 *精液 时， 转化为 *杯中精液 。 当收集满 !M! 或 战斗结束 时，回复 其 数量的 生命 。",
+    "FLAVOR": "收集到杯子里，然后喝。"
   },
   "SuperstitioMod:Philter": {
     "NAME": "春药",

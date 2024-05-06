@@ -4,9 +4,9 @@ import com.megacrit.cardcrawl.core.AbstractCreature;
 import com.megacrit.cardcrawl.powers.LoseStrengthPower;
 import com.megacrit.cardcrawl.powers.StrengthPower;
 import superstitio.DataManager;
-import superstitio.powers.interfaces.orgasm.OnOrgasm_afterOrgasm;
+import superstitio.powers.interfaces.orgasm.OnOrgasm_onOrgasm;
 
-public class TempName_ApplyTempStrengthOnOrgasm extends AbstractLupaPower implements OnOrgasm_afterOrgasm {
+public class TempName_ApplyTempStrengthOnOrgasm extends AbstractLupaPower implements OnOrgasm_onOrgasm {
     public static final String POWER_ID = DataManager.MakeTextID(TempName_ApplyTempStrengthOnOrgasm.class.getSimpleName());
 
     public TempName_ApplyTempStrengthOnOrgasm(final AbstractCreature owner, int amount) {
@@ -14,7 +14,7 @@ public class TempName_ApplyTempStrengthOnOrgasm extends AbstractLupaPower implem
     }
 
     @Override
-    public void afterTriggerOrgasm(SexualHeat SexualHeatPower) {
+    public void onOrgasm(SexualHeat SexualHeatPower) {
         addToBot_applyPowerToOwner(new StrengthPower(this.owner, this.amount));
         addToBot_applyPowerToOwner(new LoseStrengthPower(this.owner, this.amount));
     }

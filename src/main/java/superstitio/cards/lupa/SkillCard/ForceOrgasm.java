@@ -19,12 +19,12 @@ public class ForceOrgasm extends AbstractLupaCard {
     public static final CardTarget CARD_TARGET = CardTarget.SELF;
 
     private static final int COST = -1;
-    private static final int MAGICNumber = 10;
-    private static final int UGRADE_MAGICNumber = 5;
+    private static final int MAGIC = 10;
+    private static final int UGRADE_MAGIC = 5;
 
     public ForceOrgasm() {
         super(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET);
-        this.setupMagicNumber(MAGICNumber);
+        this.setupMagicNumber(MAGIC);
         this.exhaust = true;
     }
 
@@ -37,6 +37,6 @@ public class ForceOrgasm extends AbstractLupaCard {
 
     @Override
     public void upgradeAuto() {
-        upgradeMagicNumber(UGRADE_MAGICNumber);
+        upgradeMagicNumber(UGRADE_MAGIC);
     }
 }

@@ -4,7 +4,6 @@ import com.evacipated.cardcrawl.mod.stslib.patches.FlavorText;
 import com.megacrit.cardcrawl.localization.CardStrings;
 import com.megacrit.cardcrawl.localization.LocalizedStrings;
 import superstitio.SuperstitioModSetup;
-import superstitio.WordReplace;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -53,25 +52,25 @@ public class CardStringsWithFlavorSet implements HasSFWVersionWithT<CardStrings>
     }
 
     public String getNAME() {
-        if (HasSFWVersion.ifReturnSFWVersion(NAME_SFW))
+        if (HasSFWVersion.shouldReturnSFWVersion(NAME_SFW))
             return NAME_SFW;
         return NAME;
     }
 
     public String getDESCRIPTION() {
-        if (HasSFWVersion.ifReturnSFWVersion(DESCRIPTION_SFW))
+        if (HasSFWVersion.shouldReturnSFWVersion(DESCRIPTION_SFW))
             return DESCRIPTION_SFW;
         return DESCRIPTION;
     }
 
     public String getUPGRADE_DESCRIPTION() {
-        if (HasSFWVersion.ifReturnSFWVersion(UPGRADE_DESCRIPTION_SFW))
+        if (HasSFWVersion.shouldReturnSFWVersion(UPGRADE_DESCRIPTION_SFW))
             return UPGRADE_DESCRIPTION_SFW;
         return UPGRADE_DESCRIPTION;
     }
 
     public String[] getEXTENDED_DESCRIPTION() {
-        if (HasSFWVersion.ifReturnSFWVersion(EXTENDED_DESCRIPTION_SFW))
+        if (HasSFWVersion.shouldReturnSFWVersion(EXTENDED_DESCRIPTION_SFW))
             return EXTENDED_DESCRIPTION_SFW;
         return EXTENDED_DESCRIPTION;
     }
@@ -83,9 +82,10 @@ public class CardStringsWithFlavorSet implements HasSFWVersionWithT<CardStrings>
     }
 
     @Override
-    public void setupSFWStringByWordReplace(WordReplace replaceRule) {
-        this.DESCRIPTION_SFW = WordReplace.replaceWord(this.getDESCRIPTION(), replaceRule);
-        this.UPGRADE_DESCRIPTION_SFW = WordReplace.replaceWord(this.getUPGRADE_DESCRIPTION(), replaceRule);
+    public void setupSFWStringByWordReplace(List<WordReplace> replaceRules) {
+        this.DESCRIPTION_SFW = WordReplace.replaceWord(this.getDESCRIPTION(), replaceRules);
+        if (this.getUPGRADE_DESCRIPTION() != null)
+            this.UPGRADE_DESCRIPTION_SFW = WordReplace.replaceWord(this.getUPGRADE_DESCRIPTION(), replaceRules);
     }
 
     private WordReplace toCardNameReplaceRule() {
@@ -94,7 +94,7 @@ public class CardStringsWithFlavorSet implements HasSFWVersionWithT<CardStrings>
 
     @Override
     public CardStrings getRightVersion() {
-        if (HasSFWVersion.ifReturnSFWVersion(SFW.NAME))
+        if (HasSFWVersion.shouldReturnSFWVersion(SFW.NAME))
             return SFW;
         return Origin;
     }

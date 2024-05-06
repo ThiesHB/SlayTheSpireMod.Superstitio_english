@@ -4,12 +4,12 @@ import basemod.AutoAdd;
 import com.megacrit.cardcrawl.actions.common.DrawCardAction;
 import superstitio.DataManager;
 import superstitio.powers.SexualHeat;
-import superstitio.powers.interfaces.orgasm.OnOrgasm_afterOrgasm;
+import superstitio.powers.interfaces.orgasm.OnOrgasm_onOrgasm;
 import superstitio.relics.AbstractLupaRelic;
 import superstitio.relics.interFace.Countdown;
 
 @AutoAdd.Seen
-public class EjaculationMaster extends AbstractLupaRelic implements OnOrgasm_afterOrgasm, Countdown {
+public class EjaculationMaster extends AbstractLupaRelic implements OnOrgasm_onOrgasm, Countdown {
     public static final String ID = DataManager.MakeTextID(EjaculationMaster.class.getSimpleName());
     // 遗物类型
     private static final RelicTier RELIC_TIER = RelicTier.STARTER;
@@ -33,7 +33,7 @@ public class EjaculationMaster extends AbstractLupaRelic implements OnOrgasm_aft
     }
 
     @Override
-    public void afterTriggerOrgasm(SexualHeat SexualHeatPower) {
+    public void onOrgasm(SexualHeat SexualHeatPower) {
         CountReduce();
     }
 

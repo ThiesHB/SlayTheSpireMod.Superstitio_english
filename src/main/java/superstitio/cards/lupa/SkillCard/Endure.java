@@ -16,15 +16,15 @@ public class Endure extends AbstractLupaCard {
     public static final CardTarget CARD_TARGET = CardTarget.SELF;
 
     private static final int COST = 2;
-    private static final int MagicNum = 10;
-    private static final int MagicNum_Update = 5;
+    private static final int MAGIC = 10;
+    private static final int UPGRADE_MAGIC = 5;
 
     private static final int DRAWCard_NUM = 2;
 
 
     public Endure() {
         super(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET);
-        this.setupMagicNumber(MagicNum);
+        this.setupMagicNumber(MAGIC, UPGRADE_MAGIC);
     }
 
     @Override
@@ -35,6 +35,5 @@ public class Endure extends AbstractLupaCard {
 
     @Override
     public void upgradeAuto() {
-        this.upgradeMagicNumber(MagicNum_Update);
     }
 }

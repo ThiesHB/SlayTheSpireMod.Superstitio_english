@@ -23,12 +23,11 @@ public class CoitalVocal extends AbstractLupaCard {
 
     public CoitalVocal() {
         super(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET);
-        this.setupBlock(BLOCK, new SexBlock());
+        this.setupBlock(BLOCK, UPGRADE_BLOCK, new SexBlock());
     }
 
     @Override
     public void upgradeAuto() {
-        upgradeBlock(UPGRADE_BLOCK);
     }
 
 

@@ -23,7 +23,7 @@ public class SexMarkOrb_Outside extends SexMarkOrb {
     }
 
     public SexMarkOrb_Outside(String sexMarkName) {
-        super(ORB_ID,TemporaryHPRate,sexMarkName);
+        super(ORB_ID, TemporaryHPRate, sexMarkName);
     }
 
     @Override

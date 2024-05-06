@@ -6,15 +6,23 @@ import com.evacipated.cardcrawl.mod.stslib.blockmods.BlockModContainer;
 import com.megacrit.cardcrawl.actions.common.RemoveSpecificPowerAction;
 import com.megacrit.cardcrawl.core.AbstractCreature;
 import com.megacrit.cardcrawl.core.Settings;
+import com.megacrit.cardcrawl.powers.AbstractPower;
 import superstitio.DataManager;
 import superstitio.cards.modifiers.block.DrySemenBlock;
+import superstitio.powers.barIndepend.BarRenderOnCreature_Power;
+import superstitio.powers.barIndepend.HasBarRenderOnCreature_Power;
+import superstitio.powers.interfaces.InvisiblePower_StillRenderAmount;
 
-public class OutsideSemen extends AbstractWithBarPower {
+import java.util.function.Function;
+
+public class OutsideSemen extends AbstractLupaPower implements InvisiblePower_StillRenderAmount, HasBarRenderOnCreature_Power<AbstractPower> {
     public static final String POWER_ID = DataManager.MakeTextID(OutsideSemen.class.getSimpleName());
-    private static final Color BarTextColor = new Color(1.0f, 1.0f, 1.0f, 1.0f);
+    private BarRenderOnCreature_Power AmountBar;
+
 
     public OutsideSemen(final AbstractCreature owner, int amount) {
         super(POWER_ID, owner, amount, owner.isPlayer ? PowerType.BUFF : PowerType.DEBUFF, false);
+        BarRenderOnCreature_Power.RegisterToBarRenderOnCreature(this, this.ID);
     }
 
     @Override
@@ -28,37 +36,37 @@ public class OutsideSemen extends AbstractWithBarPower {
     }
 
     @Override
-    protected float Height() {
+    public BarRenderOnCreature_Power getAmountBar() {
+        return this.AmountBar;
+    }
+
+    @Override
+    public void setupAmountBar(BarRenderOnCreature_Power amountBar) {
+        AmountBar = amountBar;
+    }
+
+    @Override
+    public AbstractPower getSelf() {
+        return this;
+    }
+
+    @Override
+    public float Height() {
         return 80 * Settings.scale;
     }
 
     @Override
-    protected Color setupBarBgColor() {
-        return new Color(0f, 0f, 0f, 0.3f);
-    }
-
-    @Override
-    protected Color setupBarShadowColor() {
-        return new Color(0f, 0f, 0f, 0.3f);
-    }
-
-    @Override
-    protected Color setupBarTextColor() {
-        return BarTextColor;
-    }
-
-    @Override
-    protected Color setupBarOrginColor() {
+    public Color setupBarOrginColor() {
         return Color.WHITE.cpy();
     }
 
     @Override
-    protected int maxBarAmount() {
+    public int maxBarAmount() {
         return Integer.max((int) (this.amount * 1.5f), this.owner.maxHealth);
     }
 
     @Override
-    protected String makeBarText() {
-        return String.valueOf(this.amount);
+    public Function<Object[], String> makeBarText() {
+        return (objects) -> String.format("%d", (int) objects[0]);
     }
 }

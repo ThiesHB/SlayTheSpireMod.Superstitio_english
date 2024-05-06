@@ -31,7 +31,13 @@ public interface OnOrgasm {
     /**
      * 高潮时的处理
      */
-    default void afterTriggerOrgasm(SexualHeat SexualHeatPower) {
+    default void onOrgasm(SexualHeat SexualHeatPower) {
+    }
+
+    /**
+     * 连续高潮时的额外处理
+     */
+    default void onContinuallyOrgasm(SexualHeat SexualHeatPower) {
     }
 
     /**
@@ -39,6 +45,7 @@ public interface OnOrgasm {
      */
     default void onEndOrgasm(SexualHeat SexualHeatPower) {
     }
+
 
     /**
      * 调用时已经判断高潮成立，如果返回true则禁止本次高潮
@@ -53,6 +60,6 @@ public interface OnOrgasm {
     default void onSquirt(SexualHeat SexualHeatPower, AbstractCard card) {
     }
 
-    default void afterPreventOrgasm(SexualHeat SexualHeatPower) {
+    default void onSuccessfullyPreventOrgasm(SexualHeat SexualHeatPower) {
     }
 }

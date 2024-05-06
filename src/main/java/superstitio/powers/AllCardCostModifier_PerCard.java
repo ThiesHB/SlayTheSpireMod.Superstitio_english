@@ -19,7 +19,7 @@ public class AllCardCostModifier_PerCard extends AllCardCostModifier {
 
     @Override
     public void updateDescriptionArgs() {
-        setDescriptionArgs(decreasedCost, amount, (!isActive() ? powerStrings.getRightVersion().DESCRIPTIONS[1] : ""));
+        setDescriptionArgs(decreasedCost, amount, (!isActive() ? powerStrings.getDESCRIPTIONS()[1] : ""));
     }
 
 

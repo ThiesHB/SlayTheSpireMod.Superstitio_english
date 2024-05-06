@@ -4,7 +4,6 @@ import com.evacipated.cardcrawl.mod.stslib.Keyword;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.localization.LocalizedStrings;
 import superstitio.DataManager;
-import superstitio.WordReplace;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -27,10 +26,6 @@ public class ModifierStringsSet implements HasTextID, HasSFWVersion {
         return cards.stream().map(ModifierStringsSet::toModifierNameReplaceRule).collect(Collectors.toList());
     }
 
-    public static List<WordReplace> makeDamageNameReplaceRules(List<ModifierStringsSet> cards) {
-        return cards.stream().map(ModifierStringsSet::toDamageNameReplaceRule).collect(Collectors.toList());
-    }
-
     public static Keyword[] MakeKeyWords() {
         return DataManager.modifiers.values().stream().map(ModifierStringsSet::ToKeyWord).toArray(Keyword[]::new);
     }
@@ -44,13 +39,13 @@ public class ModifierStringsSet implements HasTextID, HasSFWVersion {
     }
 
     public String getNAME() {
-        if (HasSFWVersion.ifReturnSFWVersion(NAME_SFW))
+        if (HasSFWVersion.shouldReturnSFWVersion(NAME_SFW))
             return NAME_SFW;
         return NAME;
     }
 
     public String getDESCRIPTION() {
-        if (HasSFWVersion.ifReturnSFWVersion(DESCRIPTION_SFW))
+        if (HasSFWVersion.shouldReturnSFWVersion(DESCRIPTION_SFW))
             return DESCRIPTION_SFW;
         return DESCRIPTION;
     }
@@ -64,13 +59,13 @@ public class ModifierStringsSet implements HasTextID, HasSFWVersion {
     }
 
     private String getBasicInfo_Pure() {
-        if (HasSFWVersion.ifReturnSFWVersion(BASIC_INFO_SFW))
+        if (HasSFWVersion.shouldReturnSFWVersion(BASIC_INFO_SFW))
             return BASIC_INFO_SFW;
         return BASIC_INFO;
     }
 
     public String[] getEXTENDED_DESCRIPTION() {
-        if (HasSFWVersion.ifReturnSFWVersion(EXTENDED_DESCRIPTION_SFW))
+        if (HasSFWVersion.shouldReturnSFWVersion(EXTENDED_DESCRIPTION_SFW))
             return EXTENDED_DESCRIPTION_SFW;
         return EXTENDED_DESCRIPTION;
     }
@@ -80,13 +75,9 @@ public class ModifierStringsSet implements HasTextID, HasSFWVersion {
     }
 
     @Override
-    public void setupSFWStringByWordReplace(WordReplace replaceRule) {
-        this.DESCRIPTION_SFW = WordReplace.replaceWord(this.getDESCRIPTION(), replaceRule);
-        this.BASIC_INFO_SFW = WordReplace.replaceWord(this.getBasicInfo_Pure(), replaceRule);
-    }
-
-    public WordReplace toDamageNameReplaceRule() {
-        return new WordReplace(this.NAME, this.NAME_SFW);
+    public void setupSFWStringByWordReplace(List<WordReplace> replaceRules) {
+        this.DESCRIPTION_SFW = WordReplace.replaceWord(this.getDESCRIPTION(), replaceRules);
+        this.BASIC_INFO_SFW = WordReplace.replaceWord(this.getBasicInfo_Pure(), replaceRules);
     }
 
     public Keyword ToKeyWord() {

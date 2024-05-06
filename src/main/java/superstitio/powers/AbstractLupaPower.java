@@ -17,7 +17,7 @@ import superstitio.utils.updateDescriptionAdvanced;
 
 public abstract class AbstractLupaPower extends AbstractPower implements updateDescriptionAdvanced {
     public static final String DEFAULT = "default";
-    protected final PowerStringsSet powerStrings;
+    public final PowerStringsSet powerStrings;
     private Object[] descriptionArgs;
 
     public AbstractLupaPower(String id, PowerStringsSet powerStrings, final AbstractCreature owner, int amount, PowerType powerType,
@@ -125,7 +125,7 @@ public abstract class AbstractLupaPower extends AbstractPower implements updateD
 
     @Override
     public String getDescriptionStrings() {
-        return powerStrings.getRightVersion().DESCRIPTIONS[0];
+        return powerStrings.getDESCRIPTIONS()[0];
     }
 
     private enum IconSize {

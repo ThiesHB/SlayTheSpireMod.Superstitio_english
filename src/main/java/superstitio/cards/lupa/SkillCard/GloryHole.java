@@ -24,7 +24,7 @@ public class GloryHole extends AbstractLupaCard {
 
     private static final int COST = 2;
 
-    private static final int COST_UPDATE = 1;
+    private static final int COST_UPGRADE_NEW = 1;
 
 
     public GloryHole() {
@@ -47,6 +47,6 @@ public class GloryHole extends AbstractLupaCard {
 
     @Override
     public void upgradeAuto() {
-        upgradeBaseCost(COST_UPDATE);
+        upgradeBaseCost(COST_UPGRADE_NEW);
     }
 }

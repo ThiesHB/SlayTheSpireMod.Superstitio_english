@@ -23,16 +23,16 @@ public class BellyStrike extends AbstractLupaCard {
     public static final CardTarget CARD_TARGET = SelfOrEnemyTargeting.SELF_OR_ENEMY;
 
     private static final int COST = 1;
-    private static final int ATTACK_DMG = 12;
-    private static final int UPGRADE_PLUS_DMG = 4;
+    private static final int DAMAGE = 12;
+    private static final int UPGRADE_DAMAGE = 4;
 
-    private static final int MAGIC_Number = 2;
+    private static final int MAGIC = 2;
 
     public BellyStrike() {
         super(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET);
-        this.setupDamage(ATTACK_DMG);
+        this.setupDamage(DAMAGE, UPGRADE_DAMAGE);
         this.tags.add(CardTags.STRIKE);
-        this.setupMagicNumber(MAGIC_Number);
+        this.setupMagicNumber(MAGIC);
     }
 
     @Override
@@ -40,9 +40,9 @@ public class BellyStrike extends AbstractLupaCard {
         AbstractCreature target = SelfOrEnemyTargeting.getTarget(this);
         if (target == null)
             target = AbstractDungeon.player;
-        addToBot_applyPower(new LoseStrengthPower(target, magicNumber));
+        addToBot_applyPower(new LoseStrengthPower(target, this.magicNumber));
         addToBot_dealDamage(target);
-        addToBot_applyPower(new StrengthPower(target, magicNumber));
+        addToBot_applyPower(new StrengthPower(target, this.magicNumber));
         if (!target.isPlayer) return;
         AutoDoneInstantAction.addToBotAbstract(() -> {
             if (AbstractDungeon.player.lastDamageTaken > 0)
@@ -52,6 +52,5 @@ public class BellyStrike extends AbstractLupaCard {
 
     @Override
     public void upgradeAuto() {
-        upgradeDamage(UPGRADE_PLUS_DMG);
     }
 }

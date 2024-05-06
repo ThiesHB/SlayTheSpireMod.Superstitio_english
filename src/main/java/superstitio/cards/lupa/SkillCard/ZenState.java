@@ -17,20 +17,20 @@ public class ZenState extends AbstractLupaCard {
 
     public static final CardType CARD_TYPE = CardType.SKILL;
 
-    public static final CardRarity CARD_RARITY = CardRarity.UNCOMMON;
+    public static final CardRarity CARD_RARITY = CardRarity.COMMON;
 
     public static final CardTarget CARD_TARGET = CardTarget.SELF;
 
     private static final int COST = 0;
-    private static final int UPGRADE_COST = 0;
+    private static final int COST_UPGRADE_NEW = 0;
     private static final int BLOCK = 4;
     private static final int UPGRADE_BLOCK = 2;
-    private static final int MAGICNumber = 1;
+    private static final int MAGIC = 1;
 
     public ZenState() {
         super(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET);
-        this.setupMagicNumber(MAGICNumber);
-        this.setupBlock(BLOCK, new SexBlock());
+        this.setupMagicNumber(MAGIC);
+        this.setupBlock(BLOCK, UPGRADE_BLOCK, new SexBlock());
     }
 
     @Override
@@ -53,7 +53,6 @@ public class ZenState extends AbstractLupaCard {
 
     @Override
     public void upgradeAuto() {
-        this.upgradeBlock(UPGRADE_BLOCK);
-        this.upgradeBaseCost(UPGRADE_COST);
+        this.upgradeBaseCost(COST_UPGRADE_NEW);
     }
 }

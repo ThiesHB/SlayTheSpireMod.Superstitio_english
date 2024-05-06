@@ -23,8 +23,8 @@ public class Fuck_Ear extends AbstractLupaCard_FuckJob {
     public static final CardTarget CARD_TARGET = CardTarget.ENEMY;
 
     private static final int COST = 0;
-    private static final int ATTACK_DMG = 2;
-    private static final int UPGRADE_PLUS_DMG = 1;
+    private static final int DAMAGE = 2;
+    private static final int UPGRADE_DAMAGE = 1;
 
     public Fuck_Ear() {
         this(false);
@@ -33,7 +33,7 @@ public class Fuck_Ear extends AbstractLupaCard_FuckJob {
 
     public Fuck_Ear(boolean blank) {
         super(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET, SuperstitioModSetup.TempCardEnums.LUPA_TempCard_CARD);
-        this.setupDamage(ATTACK_DMG);
+        this.setupDamage(DAMAGE, UPGRADE_DAMAGE);
         this.exhaust = true;
     }
 
@@ -54,7 +54,6 @@ public class Fuck_Ear extends AbstractLupaCard_FuckJob {
 
     @Override
     public void upgradeAuto() {
-        upgradeDamage(UPGRADE_PLUS_DMG);
         upgradeCardsToPreview();
     }
 }

@@ -15,6 +15,8 @@ import java.util.ArrayList;
 
 import static superstitio.utils.ActionUtility.addToBot_makeTempCardInBattle;
 
+
+//TODO 增加一个按照怪物体型获得格挡的效果
 public class UnBirth extends AbstractLupaCard {
     public static final String ID = DataManager.MakeTextID(UnBirth.class.getSimpleName());
 
@@ -30,7 +32,7 @@ public class UnBirth extends AbstractLupaCard {
 
     public UnBirth() {
         super(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET);
-        this.setupBlock(BLOCK, new PregnantBlock().removeAutoBind());
+        this.setupBlock(BLOCK, UPGRADE_BLOCK, new PregnantBlock().removeAutoBind());
         this.cardsToPreview = new GiveBirth();
         //this.exhaust = true;
     }
@@ -51,7 +53,14 @@ public class UnBirth extends AbstractLupaCard {
 
     @Override
     public void upgradeAuto() {
-        upgradeBlock(UPGRADE_BLOCK);
-        cardsToPreview.upgrade();
+        upgradeCardsToPreview();
+    }
+
+    enum MonsterBodyType {
+        Tiny,
+        Small,
+        Middle,
+        Big,
+        VeryBig
     }
 }

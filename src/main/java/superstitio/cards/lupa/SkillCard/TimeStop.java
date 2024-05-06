@@ -19,7 +19,7 @@ public class TimeStop extends AbstractLupaCard {
 
     private static final int COST = 3;
 
-    private static final int COST_Update = 2;
+    private static final int COST_UPGRADE_NEW = 2;
 
 
     public TimeStop() {
@@ -34,6 +34,6 @@ public class TimeStop extends AbstractLupaCard {
 
     @Override
     public void upgradeAuto() {
-        this.upgradeBaseCost(COST_Update);
+        this.upgradeBaseCost(COST_UPGRADE_NEW);
     }
 }

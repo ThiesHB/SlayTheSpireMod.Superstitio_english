@@ -18,12 +18,12 @@ public class DeathDoor extends AbstractLupaCard {
 
     private static final int COST = 1;
 
-    private static final int MAGICNumber = 1;
-    private static final int UPGRADE_MagicNumber = 1;
+    private static final int MAGIC = 1;
+    private static final int UPGRADE_MAGIC = 1;
 
     public DeathDoor() {
         super(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET);
-        this.setupMagicNumber(MAGICNumber);
+        this.setupMagicNumber(MAGIC, UPGRADE_MAGIC);
     }
 
     @Override
@@ -33,7 +33,6 @@ public class DeathDoor extends AbstractLupaCard {
 
     @Override
     public void upgradeAuto() {
-        upgradeMagicNumber(UPGRADE_MagicNumber);
     }
 }
 

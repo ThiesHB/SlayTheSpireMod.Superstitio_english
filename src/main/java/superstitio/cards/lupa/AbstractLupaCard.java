@@ -36,6 +36,9 @@ public abstract class AbstractLupaCard extends CustomCard {
     private final static float DESC_LINE_WIDTH = 418.0f * Settings.scale;
     //调用父类的构造方法，传参为super(卡牌ID，卡牌名称，图片地址，能量花费，卡牌描述，卡牌类型，卡牌颜色，卡牌稀有度，卡牌目标)
     protected final CardStringsWithFlavorSet cardStrings;
+    private int damageAutoUpgrade = 0;
+    private int blockAutoUpgrade = 0;
+    private int magicAutoUpgrade = 0;
 
     /**
      * 普通的方法
@@ -63,16 +66,8 @@ public abstract class AbstractLupaCard extends CustomCard {
 
     public AbstractLupaCard(String id, CardType cardType, int cost, CardRarity cardRarity, CardTarget cardTarget, CardColor cardColor,
                             String customCardType) {
-        super(
-                id,
-                getCardStringsWithSFWAndFlavor(id).getNAME(),
-                getImgPath(customCardType, id),
-                cost,
-                getCardStringsWithSFWAndFlavor(id).getDESCRIPTION(),
-                cardType,
-                cardColor,
-                cardRarity,
-                cardTarget);
+        super(id, getCardStringsWithSFWAndFlavor(id).getNAME(), getImgPath(customCardType, id), cost,
+                getCardStringsWithSFWAndFlavor(id).getDESCRIPTION(), cardType, cardColor, cardRarity, cardTarget);
         Logger.debug("loadCard" + id);
         this.cardStrings = getCardStringsWithSFWAndFlavor(id);
         FlavorText.AbstractCardFlavorFields.flavor.set(this, this.cardStrings.getFLAVOR());
@@ -122,11 +117,13 @@ public abstract class AbstractLupaCard extends CustomCard {
             cardsToPreview.upgrade();
     }
 
-
     @Override
     public final void upgrade() {
         if (!this.upgraded) {
             this.upgradeName();
+            this.upgradeBlock(this.blockAutoUpgrade);
+            this.upgradeDamage(this.damageAutoUpgrade);
+            this.upgradeMagicNumber(this.magicAutoUpgrade);
             if (cardStrings.getUPGRADE_DESCRIPTION() != null && !cardStrings.getUPGRADE_DESCRIPTION().isEmpty())
                 this.rawDescription = cardStrings.getUPGRADE_DESCRIPTION();
             this.upgradeAuto();
@@ -141,23 +138,39 @@ public abstract class AbstractLupaCard extends CustomCard {
     public abstract void upgradeAuto();
 
     protected final void setupDamage(final int amount, AbstractDamageModifier... damageModifiers) {
+        this.setupDamage(amount, 0, damageModifiers);
+
+    }
+
+    protected final void setupDamage(final int amount, int amountOfAutoUpgrade, AbstractDamageModifier... damageModifiers) {
         this.baseDamage = amount;
         this.damage = amount;
+        this.damageAutoUpgrade = amountOfAutoUpgrade;
         if (damageModifiers == null || damageModifiers.length == 0) return;
         DamageModifierManager.addModifiers(this, Arrays.stream(damageModifiers).collect(Collectors.toList()));
 
     }
 
     protected final void setupBlock(final int amount, AbstractBlockModifier... blockModifiers) {
+        setupBlock(amount, 0, blockModifiers);
+    }
+
+    protected final void setupBlock(final int amount, int amountOfAutoUpgrade, AbstractBlockModifier... blockModifiers) {
         this.baseBlock = amount;
         this.block = amount;
+        this.blockAutoUpgrade = amountOfAutoUpgrade;
         if (blockModifiers == null || blockModifiers.length == 0) return;
         BlockModifierManager.addModifiers(this, (ArrayList<AbstractBlockModifier>) Arrays.stream(blockModifiers).collect(Collectors.toList()));
     }
 
     protected final void setupMagicNumber(final int amount) {
+        this.setupMagicNumber(amount, 0);
+    }
+
+    protected final void setupMagicNumber(final int amount, int amountOfAutoUpgrade) {
         this.baseMagicNumber = amount;
         this.magicNumber = amount;
+        this.magicAutoUpgrade = amountOfAutoUpgrade;
     }
 
     protected final void addToBot_dealDamage(final AbstractCreature target) {
@@ -236,9 +249,7 @@ public abstract class AbstractLupaCard extends CustomCard {
     public abstract void use(AbstractPlayer player, AbstractMonster monster);
 
     public enum BattleCardPlace {
-        Hand,
-        DrawPile,
-        Discard;
+        Hand, DrawPile, Discard;
 
         BattleCardPlace() {
         }

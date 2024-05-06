@@ -11,39 +11,47 @@ import com.megacrit.cardcrawl.core.AbstractCreature;
 import com.megacrit.cardcrawl.core.Settings;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
+import com.megacrit.cardcrawl.powers.AbstractPower;
 import superstitio.DataManager;
 import superstitio.InBattleDataManager;
 import superstitio.Logger;
+import superstitio.powers.barIndepend.BarRenderOnCreature_Power;
+import superstitio.powers.barIndepend.HasBarRenderOnCreature_Power;
 import superstitio.powers.interfaces.HasAllCardCostModifyEffect;
+import superstitio.powers.interfaces.InvisiblePower_StillRenderAmount;
 import superstitio.powers.interfaces.OnPostApplyThisPower;
 import superstitio.powers.interfaces.orgasm.*;
-import superstitio.utils.PowerUtility;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.Optional;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.function.Function;
 
 import static superstitio.InBattleDataManager.OrgasmTimesInTurn;
 import static superstitio.InBattleDataManager.OrgasmTimesTotal;
 import static superstitio.actions.AutoDoneInstantAction.addToBotAbstract;
 import static superstitio.powers.AllCardCostModifier.*;
+import static superstitio.utils.PowerUtility.BubbleMessageHigher;
 
-public class SexualHeat extends AbstractWithBarPower implements HasAllCardCostModifyEffect, OnPostApplyThisPower, OnOrgasm_afterPrevent,
-        OnOrgasm_afterOrgasm, OnOrgasm_onOrgasm, OnOrgasm_onSquirt {
+public class SexualHeat extends AbstractLupaPower implements
+        HasAllCardCostModifyEffect, OnPostApplyThisPower,
+        InvisiblePower_StillRenderAmount, HasBarRenderOnCreature_Power<AbstractPower>,
+        OnOrgasm_onSuccessfullyPreventOrgasm, OnOrgasm_onOrgasm, OnOrgasm_onEndOrgasm, OnOrgasm_onSquirt, OnOrgasm_onContinuallyOrgasm {
     public static final String POWER_ID = DataManager.MakeTextID(SexualHeat.class.getSimpleName());
     public static final int HEAT_REQUIREDOrigin = 10;
-    private static final int DRAW_CARD_INContinueOrgasm = 1;
+    private static final int DRAW_CARD_INContinueOrgasm = 0;
     //绘制相关
     private static final Color PINK = new Color(1f, 0.7529f, 0.7961f, 1.0f);
-    private static final Color BarTextColor = new Color(1.0f, 1.0f, 1.0f, 1.0f);
     public final Color barOrgasmShadowColor;
     private final Color barShadowColorOrigin;
+    private BarRenderOnCreature_Power AmountBar;
     private int heatRequired = HEAT_REQUIREDOrigin;
 
     public SexualHeat(final AbstractCreature owner, final int amount) {
         super(POWER_ID, owner, amount, owner.isPlayer ? PowerType.BUFF : PowerType.DEBUFF, false);
         this.barOrgasmShadowColor = Color.YELLOW.cpy();
         this.barShadowColorOrigin = this.setupBarShadowColor();
+        BarRenderOnCreature_Power.RegisterToBarRenderOnCreature(this, this.ID);
     }
 
     public static boolean isInOrgasm(AbstractCreature creature) {
@@ -86,7 +94,7 @@ public class SexualHeat extends AbstractWithBarPower implements HasAllCardCostMo
 
     @Override
     public void renderAmount(SpriteBatch sb, float x, float y, Color c) {
-        this.barShadowColor = this.isInOrgasm() ? this.barOrgasmShadowColor : this.barShadowColorOrigin;
+        this.AmountBar.barShadowColor = this.isInOrgasm() ? this.barOrgasmShadowColor : this.barShadowColorOrigin;
         super.renderAmount(sb, x, y, c);
     }
 
@@ -112,12 +120,18 @@ public class SexualHeat extends AbstractWithBarPower implements HasAllCardCostMo
 
     private void StartOrgasm() {
         if (OnOrgasm.AllOnOrgasm(owner).anyMatch(power -> power.preventOrgasm(this))) {
-            OnOrgasm.AllOnOrgasm(owner).forEach(power -> power.afterPreventOrgasm(this));
+            OnOrgasm.AllOnOrgasm(owner).forEach(power -> power.onSuccessfullyPreventOrgasm(this));
             return;
         }
         Orgasm();
-        OnOrgasm.AllOnOrgasm(owner).forEach(power -> power.afterTriggerOrgasm(this));
+        OnOrgasm.AllOnOrgasm(owner).forEach(power -> power.onOrgasm(this));
+        if (IsContinueOrgasm())
+            OnOrgasm.AllOnOrgasm(owner).forEach(power -> power.onContinuallyOrgasm(this));
         CheckOrgasm();
+    }
+
+    private boolean IsContinueOrgasm() {
+        return getOrgasmTimesInTurn() > 1;
     }
 
     private void Orgasm() {
@@ -183,58 +197,55 @@ public class SexualHeat extends AbstractWithBarPower implements HasAllCardCostMo
     }
 
     @Override
-    protected float Height() {
+    public BarRenderOnCreature_Power getAmountBar() {
+        return this.AmountBar;
+    }
+
+    @Override
+    public void setupAmountBar(BarRenderOnCreature_Power amountBar) {
+        AmountBar = amountBar;
+    }
+
+    @Override
+    public AbstractPower getSelf() {
+        return this;
+    }
+
+    @Override
+    public float Height() {
         return 0 * Settings.scale;
     }
 
     @Override
-    protected Color setupBarBgColor() {
-        return new Color(0f, 0f, 0f, 0.3f);
-    }
-
-    @Override
-    protected Color setupBarShadowColor() {
-        return new Color(0f, 0f, 0f, 0.3f);
-    }
-
-    @Override
-    protected Color setupBarTextColor() {
-        return BarTextColor;
-    }
-
-    @Override
-    protected Color setupBarOrginColor() {
+    public Color setupBarOrginColor() {
         return PINK;
     }
 
     @Override
-    protected int maxBarAmount() {
+    public int maxBarAmount() {
         return getHeatRequired();
     }
 
 
     @Override
     public String getDescriptionStrings() {
-        return powerStrings.getRightVersion().DESCRIPTIONS[this.owner.isPlayer ? 0 : 1];
+        return powerStrings.getDESCRIPTIONS()[this.owner.isPlayer ? 0 : 1];
     }
 
     @Override
     public void updateDescriptionArgs() {
-        setDescriptionArgs(getHeatRequired(), this.isInOrgasm() ? String.format(powerStrings.getRightVersion().DESCRIPTIONS[2],
+        setDescriptionArgs(getHeatRequired(), this.isInOrgasm() ? String.format(powerStrings.getDESCRIPTIONS()[2],
                 getOrgasmTimesInTurn()) : "");
     }
 
     @Override
-    public void afterTriggerOrgasm(SexualHeat SexualHeatPower) {
-        boolean IsContinueOrgasm = getOrgasmTimesInTurn() > 1;
-        if (IsContinueOrgasm) this.addToBot(new DrawCardAction(DRAW_CARD_INContinueOrgasm));
-        addToBotAbstract(() -> PowerUtility.BubbleMessageHigher(this, false, powerStrings.getRightVersion().DESCRIPTIONS[IsContinueOrgasm ? 4 :
-                3]));
+    public void onOrgasm(SexualHeat SexualHeatPower) {
+        addToBotAbstract(() -> BubbleMessageHigher(this, false, powerStrings.getDESCRIPTIONS()[IsContinueOrgasm() ? 4 : 3]));
     }
 
     @Override
     public void onEndOrgasm(SexualHeat SexualHeatPower) {
-        PowerUtility.BubbleMessageHigher(this, true, powerStrings.getRightVersion().DESCRIPTIONS[5]);
+        BubbleMessageHigher(this, true, powerStrings.getDESCRIPTIONS()[5]);
         if (!this.owner.isPlayer) return;
         SexualHeat power = this;
         addToBotAbstract(() -> RemoveAllByHolder(power));
@@ -242,16 +253,21 @@ public class SexualHeat extends AbstractWithBarPower implements HasAllCardCostMo
 
     @Override
     public void onSquirt(SexualHeat SexualHeatPower, AbstractCard card) {
-        PowerUtility.BubbleMessageHigher(this, true, powerStrings.getRightVersion().DESCRIPTIONS[6]);
+        BubbleMessageHigher(this, true, powerStrings.getDESCRIPTIONS()[6]);
     }
 
     @Override
-    protected String makeBarText() {
-        return this.amount + "/" + maxBarAmount() + "(" + getOrgasmTimesInTurn() + ")";
+    public Function<Object[], String> makeBarText() {
+        return (objects) -> String.format("%d/%d" + String.format("(%d)", getOrgasmTimesInTurn()), objects);
     }
 
     @Override
-    public void afterPreventOrgasm(SexualHeat SexualHeatPower) {
-        PowerUtility.BubbleMessageHigher(this, false, powerStrings.getRightVersion().DESCRIPTIONS[7]);
+    public void onSuccessfullyPreventOrgasm(SexualHeat SexualHeatPower) {
+        BubbleMessageHigher(this, false, powerStrings.getDESCRIPTIONS()[7]);
+    }
+
+    @Override
+    public void onContinuallyOrgasm(SexualHeat SexualHeatPower) {
+        this.addToBot(new DrawCardAction(DRAW_CARD_INContinueOrgasm));
     }
 }

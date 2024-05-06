@@ -16,14 +16,14 @@ public class Job_Hand extends AbstractLupaCard_FuckJob {
     public static final CardTarget CARD_TARGET = CardTarget.ENEMY;
 
     private static final int COST = 1;
-    private static final int ATTACK_DMG = 6;
-    private static final int UPGRADE_PLUS_DMG = 3;
+    private static final int DAMAGE = 6;
+    private static final int UPGRADE_DAMAGE = 3;
 
     public Job_Hand() {
         super(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET, "base");
         //添加基础攻击标签和将伤害设为6
         this.tags.add(CardTags.STARTER_STRIKE);
-        this.setupDamage(ATTACK_DMG);
+        this.setupDamage(DAMAGE, UPGRADE_DAMAGE);
     }
 
     @Override
@@ -34,6 +34,5 @@ public class Job_Hand extends AbstractLupaCard_FuckJob {
 
     @Override
     public void upgradeAuto() {
-        upgradeDamage(UPGRADE_PLUS_DMG);
     }
 }

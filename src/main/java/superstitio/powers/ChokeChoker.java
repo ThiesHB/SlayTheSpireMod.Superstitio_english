@@ -6,9 +6,9 @@ import com.megacrit.cardcrawl.actions.common.LoseHPAction;
 import com.megacrit.cardcrawl.core.AbstractCreature;
 import superstitio.DataManager;
 import superstitio.actions.AutoDoneInstantAction;
-import superstitio.powers.interfaces.orgasm.OnOrgasm_afterOrgasm;
+import superstitio.powers.interfaces.orgasm.OnOrgasm_onOrgasm;
 
-public class ChokeChoker extends AbstractLupaPower implements NonStackablePower, OnOrgasm_afterOrgasm {
+public class ChokeChoker extends AbstractLupaPower implements NonStackablePower, OnOrgasm_onOrgasm {
     public static final String POWER_ID = DataManager.MakeTextID(ChokeChoker.class.getSimpleName());
     public static final int ChokeAmount = 1;
 
@@ -30,7 +30,7 @@ public class ChokeChoker extends AbstractLupaPower implements NonStackablePower,
 
 
     @Override
-    public void afterTriggerOrgasm(SexualHeat SexualHeatPower) {
+    public void onOrgasm(SexualHeat SexualHeatPower) {
 //        this.flash();
         this.addToBot(new LoseHPAction(this.owner, null, this.amount));
     }

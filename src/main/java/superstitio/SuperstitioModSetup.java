@@ -22,10 +22,7 @@ import com.megacrit.cardcrawl.localization.UIStrings;
 import com.megacrit.cardcrawl.unlock.UnlockTracker;
 import superstitio.cards.lupa.AbstractLupaCard;
 import superstitio.characters.Lupa;
-import superstitio.customStrings.CardStringsWithFlavorSet;
-import superstitio.customStrings.ModifierStringsSet;
-import superstitio.customStrings.OrbStringsSet;
-import superstitio.customStrings.PowerStringsSet;
+import superstitio.customStrings.*;
 import superstitio.relics.AbstractLupaRelic;
 
 import java.util.*;
@@ -41,7 +38,7 @@ public class SuperstitioModSetup implements
     public static boolean enableSFW = false;
     public static SpireConfig config = null;
     public static Properties theDefaultDefaultSettings = new Properties();
-    public DataManager data = new DataManager();
+    public DataManager data;
 
     public SuperstitioModSetup() {
         BaseMod.subscribe(this);
@@ -56,6 +53,7 @@ public class SuperstitioModSetup implements
         }
 
         // 这里注册颜色
+        data = new DataManager();
         BaseMod.addColor(LupaEnums.LUPA_CARD,
                 DataManager.LUPA_DATA.LUPA_COLOR, DataManager.LUPA_DATA.LUPA_COLOR, DataManager.LUPA_DATA.LUPA_COLOR,
                 DataManager.LUPA_DATA.LUPA_COLOR, DataManager.LUPA_DATA.LUPA_COLOR, DataManager.LUPA_DATA.LUPA_COLOR,
@@ -172,12 +170,11 @@ public class SuperstitioModSetup implements
     private void MakeSFWWord() {
         List<WordReplace> wordReplaces = makeWordReplaceRule();
 
-        for (WordReplace wordReplace : wordReplaces) {
-            DataManager.cards.forEach((string, card) -> card.setupSFWStringByWordReplace(wordReplace));
-            DataManager.powers.forEach(((string, power) -> power.setupSFWStringByWordReplace(wordReplace)));
-            DataManager.modifiers.forEach(((string, modifier) -> modifier.setupSFWStringByWordReplace(wordReplace)));
-            DataManager.orbs.forEach(((string, orb) -> orb.setupSFWStringByWordReplace(wordReplace)));
-        }
+        DataManager.cards.forEach((string, card) -> card.setupSFWStringByWordReplace(wordReplaces));
+        DataManager.powers.forEach(((string, power) -> power.setupSFWStringByWordReplace(wordReplaces)));
+        DataManager.modifiers.forEach(((string, modifier) -> modifier.setupSFWStringByWordReplace(wordReplaces)));
+        DataManager.orbs.forEach(((string, orb) -> orb.setupSFWStringByWordReplace(wordReplaces)));
+
     }
 
     private void SFWWordReplace() {
@@ -200,7 +197,7 @@ public class SuperstitioModSetup implements
             sfwReplaces.addAll(CardStringsWithFlavorSet.makeCardNameReplaceRules(new ArrayList<>(DataManager.cards.values())));
         if (DataManager.modifiers != null && !DataManager.modifiers.isEmpty())
             sfwReplaces.addAll(ModifierStringsSet.makeModifierNameReplaceRules(new ArrayList<>(DataManager.modifiers.values())));
-        return sfwReplaces;
+        return sfwReplaces.stream().filter(wordReplace -> !wordReplace.hasNullOrEmpty()).collect(Collectors.toList());
     }
 
     @Override

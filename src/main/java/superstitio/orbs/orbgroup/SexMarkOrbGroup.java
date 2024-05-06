@@ -19,7 +19,7 @@ import java.util.Objects;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class SexMarkOrbGroup extends OrbGroup {
-    private static final int SexMarkSetupOrbMax = 5;
+    public static final int SexMarkSetupOrbMax = 5;
     private final boolean fillSide;
 
 
@@ -131,24 +131,6 @@ public class SexMarkOrbGroup extends OrbGroup {
         }
         return index;
     }
-
-//    @Override
-//    public void channelOrb(final AbstractOrb orb) {
-//        if (GetMaxOrbs() <= 0) return;
-//        if (hasNoEmptySlot()) {
-//            return;
-//        }
-//        final AbstractOrb target = orbs.get(findFirstEmptyOrb());
-//        orb.cX = target.cX;
-//        orb.cY = target.cY;
-//        orbs.set(findFirstEmptyOrb(), orb);
-//        letOrbToSlotPlace(orb, findFirstEmptyOrb());
-//        orb.updateDescription();
-//        orb.playChannelSFX();
-//        OrbEventSubscriber.ON_ORB_CHANNEL_SUBSCRIBERS.forEach(sub -> sub.onOrbChannel(orb, AbstractDungeon.player));
-//        orb.applyFocus();
-//        this.onOrbChannel(orb);
-//    }
 
     int MapIndex(final int index) {
         final int countTotal = this.GetMaxOrbs();

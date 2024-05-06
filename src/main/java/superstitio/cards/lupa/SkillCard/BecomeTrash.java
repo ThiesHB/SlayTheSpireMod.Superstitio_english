@@ -19,12 +19,12 @@ public class BecomeTrash extends AbstractLupaCard {
     public static final AbstractCard.CardTarget CARD_TARGET = AbstractCard.CardTarget.SELF;
 
     private static final int COST = 3;
-    private static final int MAGICNumber = 4;
-    private static final int UPGRADE_MagicNumber = 2;
+    private static final int MAGIC = 4;
+    private static final int UPGRADE_MAGIC = 2;
 
     public BecomeTrash() {
         super(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET);
-        this.setupMagicNumber(MAGICNumber);
+        this.setupMagicNumber(MAGIC, UPGRADE_MAGIC);
         this.exhaust = true;
     }
 
@@ -40,6 +40,5 @@ public class BecomeTrash extends AbstractLupaCard {
 
     @Override
     public void upgradeAuto() {
-        upgradeMagicNumber(UPGRADE_MagicNumber);
     }
 }

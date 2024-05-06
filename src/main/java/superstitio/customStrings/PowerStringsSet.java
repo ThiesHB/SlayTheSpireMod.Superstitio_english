@@ -2,7 +2,8 @@ package superstitio.customStrings;
 
 import com.megacrit.cardcrawl.localization.LocalizedStrings;
 import com.megacrit.cardcrawl.localization.PowerStrings;
-import superstitio.WordReplace;
+
+import java.util.List;
 
 public class PowerStringsSet implements HasSFWVersionWithT<PowerStrings> {
     private String NAME;
@@ -25,19 +26,19 @@ public class PowerStringsSet implements HasSFWVersionWithT<PowerStrings> {
     }
 
     public String getNAME() {
-        if (HasSFWVersion.ifReturnSFWVersion(SFW.NAME))
+        if (HasSFWVersion.shouldReturnSFWVersion(SFW.NAME))
             return SFW.NAME;
         return Origin.NAME;
     }
 
     public String[] getDESCRIPTIONS() {
-        if (HasSFWVersion.ifReturnSFWVersion(SFW.DESCRIPTIONS))
+        if (HasSFWVersion.shouldReturnSFWVersion(SFW.DESCRIPTIONS))
             return SFW.DESCRIPTIONS;
         return Origin.DESCRIPTIONS;
     }
 
     public PowerStrings getRightVersion() {
-        if (HasSFWVersion.ifReturnSFWVersion(SFW.NAME))
+        if (HasSFWVersion.shouldReturnSFWVersion(SFW.NAME))
             return SFW;
         return Origin;
     }
@@ -49,23 +50,23 @@ public class PowerStringsSet implements HasSFWVersionWithT<PowerStrings> {
     }
 
     @Override
-    public void setupSFWStringByWordReplace(WordReplace replaceRule) {
-        replaceWord_NAME(this.SFW, replaceRule);
-        replaceWord_DESCRIPTIONS(this.SFW, replaceRule);
+    public void setupSFWStringByWordReplace(List<WordReplace> replaceRules) {
+        replaceWord_NAME(this.SFW, replaceRules);
+        replaceWord_DESCRIPTIONS(this.SFW, replaceRules);
     }
 
-    private void replaceWord_NAME(PowerStrings replaced, WordReplace replaceRule) {
-        if (HasSFWVersion.isEmptyOrNull(replaced.NAME))
-            replaced.NAME = WordReplace.replaceWord(this.Origin.NAME, replaceRule);
+    private void replaceWord_NAME(PowerStrings replaced, List<WordReplace> replaceRules) {
+        if (HasSFWVersion.isNullOrEmpty(replaced.NAME))
+            replaced.NAME = WordReplace.replaceWord(this.NAME, replaceRules);
         else
-            replaced.NAME = WordReplace.replaceWord(replaced.NAME, replaceRule);
+            replaced.NAME = WordReplace.replaceWord(replaced.NAME, replaceRules);
     }
 
-    private void replaceWord_DESCRIPTIONS(PowerStrings replaced, WordReplace replaceRule) {
-        if (HasSFWVersion.isEmptyOrNull(replaced.DESCRIPTIONS))
-            replaced.DESCRIPTIONS = WordReplace.replaceWord(this.Origin.DESCRIPTIONS, replaceRule);
+    private void replaceWord_DESCRIPTIONS(PowerStrings replaced, List<WordReplace> replaceRules) {
+        if (HasSFWVersion.isNullOrEmpty(replaced.DESCRIPTIONS))
+            replaced.DESCRIPTIONS = WordReplace.replaceWord(this.DESCRIPTIONS, replaceRules);
         else
-            WordReplace.replaceWord(replaced.DESCRIPTIONS, replaceRule);
+            WordReplace.replaceWord(replaced.DESCRIPTIONS, replaceRules);
     }
 
 //    public WordReplace toCardNameReplaceRule(){

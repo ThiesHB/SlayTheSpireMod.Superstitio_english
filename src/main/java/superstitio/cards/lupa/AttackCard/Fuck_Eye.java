@@ -23,8 +23,8 @@ public class Fuck_Eye extends AbstractLupaCard_FuckJob {
     public static final CardTarget CARD_TARGET = CardTarget.ENEMY;
 
     private static final int COST = 1;
-    private static final int ATTACK_DMG = 3;
-    private static final int UPGRADE_PLUS_DMG = 1;
+    private static final int DAMAGE = 3;
+    private static final int UPGRADE_DAMAGE = 1;
     private static final int BLOCK = 3;
     private static final int UPGRADE_BLOCK = 1;
 
@@ -37,8 +37,8 @@ public class Fuck_Eye extends AbstractLupaCard_FuckJob {
 
     public Fuck_Eye(boolean blank) {
         super(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET);
-        this.setupDamage(ATTACK_DMG);
-        this.setupBlock(BLOCK, new SexBlock());
+        this.setupDamage(DAMAGE, UPGRADE_DAMAGE);
+        this.setupBlock(BLOCK, UPGRADE_BLOCK, new SexBlock());
         this.exhaust = true;
 //        CardModifierManager.addModifier(this, new RetainMod());
     }
@@ -61,8 +61,6 @@ public class Fuck_Eye extends AbstractLupaCard_FuckJob {
 
     @Override
     public void upgradeAuto() {
-        upgradeDamage(UPGRADE_PLUS_DMG);
-        upgradeBlock(UPGRADE_BLOCK);
         upgradeCardsToPreview();
     }
 }

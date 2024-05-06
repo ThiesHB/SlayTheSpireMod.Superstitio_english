@@ -1,8 +1,5 @@
 package superstitio.orbs.patch;
 
-import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.evacipated.cardcrawl.modthespire.lib.SpireInsertPatch;
 import com.evacipated.cardcrawl.modthespire.lib.SpirePatch;
 import com.megacrit.cardcrawl.actions.defect.TriggerEndOfTurnOrbsAction;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
@@ -20,26 +17,26 @@ public class OrbGroupPath {
         }
     }
 
-    @SpirePatch(clz = AbstractRoom.class, method = "update")
-    public static class MonsterUpdateOrbPatch {
-        public static void Postfix(final AbstractRoom _inst) {
-            if (_inst.phase != AbstractRoom.RoomPhase.COMBAT) return;
-            OrbGroup.forEachOrbInEachOrbGroup(orb -> {
-                orb.update();
-                orb.updateAnimation();
-            });
-        }
-    }
-
-    @SpirePatch(clz = AbstractRoom.class, method = "render", paramtypez = {SpriteBatch.class})
-    public static class MonsterRenderOrbPatch {
-        @SpireInsertPatch(rloc = 13)
-        public static void Insert(final AbstractRoom _inst, final SpriteBatch sb) {
-            if (_inst.phase != AbstractRoom.RoomPhase.COMBAT) return;
-            sb.setColor(Color.WHITE);
-            OrbGroup.forEachOrbInEachOrbGroup(AbstractOrb::render, sb);
-        }
-    }
+//    @SpirePatch(clz = AbstractRoom.class, method = "update")
+//    public static class MonsterUpdateOrbPatch {
+//        public static void Postfix(final AbstractRoom _inst) {
+//            if (_inst.phase != AbstractRoom.RoomPhase.COMBAT) return;
+//            OrbGroup.forEachOrbInEachOrbGroup(orb -> {
+//                orb.update();
+//                orb.updateAnimation();
+//            });
+//        }
+//    }
+//
+//    @SpirePatch(clz = AbstractRoom.class, method = "render", paramtypez = {SpriteBatch.class})
+//    public static class MonsterRenderOrbPatch {
+//        @SpireInsertPatch(rloc = 13)
+//        public static void Insert(final AbstractRoom _inst, final SpriteBatch sb) {
+//            if (_inst.phase != AbstractRoom.RoomPhase.COMBAT) return;
+//            sb.setColor(Color.WHITE);
+//            OrbGroup.forEachOrbInEachOrbGroup(AbstractOrb::render, sb);
+//        }
+//    }
 
     @SpirePatch(clz = TriggerEndOfTurnOrbsAction.class, method = "update")
     public static class EndTurnEffectOrbPatch {

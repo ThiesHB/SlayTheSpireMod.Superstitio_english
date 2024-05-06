@@ -27,7 +27,7 @@ public class ChooseCoitalPosture extends AbstractLupaCard {
     public static final CardTarget CARD_TARGET = CardTarget.SELF;
 
     private static final int COST = 1;
-    private static final int COST_UPDATE = 0;
+    private static final int COST_UPGRADE_NEW = 0;
 
 
     public ChooseCoitalPosture() {
@@ -54,7 +54,7 @@ public class ChooseCoitalPosture extends AbstractLupaCard {
 
     @Override
     public void upgradeAuto() {
-        upgradeBaseCost(COST_UPDATE);
+        upgradeBaseCost(COST_UPGRADE_NEW);
     }
 }
 
