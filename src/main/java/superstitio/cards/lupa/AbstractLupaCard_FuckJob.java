@@ -5,6 +5,8 @@ import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import superstitio.DataManager;
 import superstitio.SuperstitioModSetup;
 import superstitio.cards.modifiers.damage.SexDamage;
+import superstitio.cards.modifiers.damage.SexDamage_Fuck;
+import superstitio.cards.modifiers.damage.SexDamage_Job;
 import superstitio.powers.InsideSemen;
 import superstitio.powers.OutsideSemen;
 import superstitio.utils.ActionUtility;
@@ -39,7 +41,13 @@ public abstract class AbstractLupaCard_FuckJob extends AbstractLupaCard {
             this.setBackgroundTexture(
                     DataManager.makeImgFilesPath_UI("bg_attack_512_semen"),
                     DataManager.makeImgFilesPath_UI("bg_attack_semen"));
-        DamageModifierManager.addModifier(this, new SexDamage());
+
+        if (id.contains("Fuck"))
+            DamageModifierManager.addModifier(this, new SexDamage_Fuck());
+        else if (id.contains("Job"))
+            DamageModifierManager.addModifier(this, new SexDamage_Job());
+        else
+            DamageModifierManager.addModifier(this, new SexDamage());
     }
 
     public static void addToTop_gainSexMark_Inside(String sexName) {

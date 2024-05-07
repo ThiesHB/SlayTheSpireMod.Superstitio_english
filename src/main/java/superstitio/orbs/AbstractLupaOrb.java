@@ -28,10 +28,8 @@ public abstract class AbstractLupaOrb extends AbstractOrb implements updateDescr
         this.ID = ID;
         this.name = orbStringsSet.getNAME();
         this.orbStringsSet = orbStringsSet;
-        this.basePassiveAmount = basePassiveAmount;
-        this.passiveAmount = this.basePassiveAmount;
-        this.baseEvokeAmount = baseEvokeAmount;
-        this.evokeAmount = this.baseEvokeAmount;
+        setEvokeAmount(baseEvokeAmount);
+        setPassiveAmount(basePassiveAmount);
         String imgPath = getImgPath(ID);
         if (imgPath != null) {
             this.img = orbTextures.get(imgPath);
@@ -45,15 +43,30 @@ public abstract class AbstractLupaOrb extends AbstractOrb implements updateDescr
             this.updateDescription();
     }
 
-//    @Override
-//    public abstract void updateDescription();
+
+
+    @Override
+    public abstract void applyFocus();
 
     public static OrbStringsSet getPowerStringsWithSFW(String cardName) {
         return HasSFWVersion.getCustomStringsWithSFW(cardName, DataManager.orbs, OrbStringsSet.class);
     }
 
+    //    @Override
+//    public abstract void updateDescription();
+
     protected static String getImgPath(final String id) {
         return DataManager.makeImgPath("default", DataManager::makeImgFilesPath_Orb, id);
+    }
+
+    public void setEvokeAmount(int amount) {
+        evokeAmount = amount;
+        baseEvokeAmount = amount;
+    }
+
+    public void setPassiveAmount(int amount) {
+        passiveAmount = amount;
+        basePassiveAmount = amount;
     }
 
     @Override

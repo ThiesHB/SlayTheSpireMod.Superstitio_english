@@ -173,26 +173,33 @@ public abstract class AbstractLupaCard extends CustomCard {
         this.magicAutoUpgrade = amountOfAutoUpgrade;
     }
 
+    @Override
+    public void hover() {
+        float temp = this.drawScale;
+        super.hover();
+        this.drawScale = temp;
+    }
+
     protected final void addToBot_dealDamage(final AbstractCreature target) {
-        DamageActionMaker.make(this.damage, target).addToBot();
+        DamageActionMaker.maker(this.damage, target).addToBot();
     }
 
     protected final void addToBot_dealDamage(final AbstractCreature target, final AttackEffect effect) {
-        DamageActionMaker.make(this.damage, target).setEffect(effect).addToBot();
+        DamageActionMaker.maker(this.damage, target).setEffect(effect).addToBot();
     }
 
     protected final void addToBot_dealDamage(final AbstractCreature target, final int damageAmount, final AttackEffect effect) {
-        DamageActionMaker.make(damageAmount, target).setEffect(effect).addToBot();
+        DamageActionMaker.maker(damageAmount, target).setEffect(effect).addToBot();
     }
 
     protected final void addToBot_dealDamage(final AbstractCreature target, final int damageAmount, final DamageType damageType,
                                              final AttackEffect effect) {
-        DamageActionMaker.make(damageAmount, target).setDamageType(damageType).setEffect(effect).addToBot();
+        DamageActionMaker.maker(damageAmount, target).setDamageType(damageType).setEffect(effect).addToBot();
     }
 
     protected final void addToBot_dealDamage(final AbstractCreature target, final int damageAmount, final DamageType damageType,
                                              AbstractDamageModifier damageModifier, final AttackEffect effect) {
-        DamageActionMaker.make(damageAmount, target).setDamageModifier(this, damageModifier).setDamageType(damageType).setEffect(effect).addToBot();
+        DamageActionMaker.maker(damageAmount, target).setDamageModifier(this, damageModifier).setDamageType(damageType).setEffect(effect).addToBot();
     }
 
     protected final void addToBot_dealDamageToAllEnemies(final AttackEffect effect) {

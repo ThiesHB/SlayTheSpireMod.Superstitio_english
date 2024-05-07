@@ -27,11 +27,10 @@ public class Fuck_Eye extends AbstractLupaCard_FuckJob {
     private static final int UPGRADE_DAMAGE = 1;
     private static final int BLOCK = 3;
     private static final int UPGRADE_BLOCK = 1;
+    private static final int MAGIC = 2;
 
     public Fuck_Eye() {
         this(false);
-//        AbstractCard card = new Fuck_Ear(false);
-//        CardModifierManager.removeSpecificModifier(card, new RetainMod(), false);
         this.cardsToPreview = new Fuck_Ear(false);
     }
 
@@ -39,6 +38,7 @@ public class Fuck_Eye extends AbstractLupaCard_FuckJob {
         super(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET);
         this.setupDamage(DAMAGE, UPGRADE_DAMAGE);
         this.setupBlock(BLOCK, UPGRADE_BLOCK, new SexBlock());
+        this.setupMagicNumber(MAGIC);
         this.exhaust = true;
 //        CardModifierManager.addModifier(this, new RetainMod());
     }

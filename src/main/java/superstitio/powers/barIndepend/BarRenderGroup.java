@@ -1,5 +1,6 @@
 package superstitio.powers.barIndepend;
 
+import basemod.interfaces.OnPowersModifiedSubscriber;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.megacrit.cardcrawl.core.AbstractCreature;
 import com.megacrit.cardcrawl.helpers.Hitbox;
@@ -11,7 +12,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-public class BarRenderGroup implements RenderInBattle {
+public class BarRenderGroup implements RenderInBattle, OnPowersModifiedSubscriber {
     private final AbstractCreature creature;
     private final Hitbox hitbox;
     private final List<BarRenderOnCreature> powerBars = new ArrayList<>();
@@ -56,11 +57,10 @@ public class BarRenderGroup implements RenderInBattle {
     @Override
     public void update() {
         powerBars.forEach(BarRenderOnCreature::update);
-        AutoRegisterAndRemove();
-        AutoMakeMessage();
     }
 
-    public void onPostPowerApply() {
+    @Override
+    public void receivePowersModified() {
         AutoRegisterAndRemove();
         AutoMakeMessage();
     }

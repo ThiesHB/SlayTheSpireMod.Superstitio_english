@@ -17,7 +17,8 @@ public class ChannelOnOrbGroupAction extends AbstractGameAction {
 
     public void update() {
         if (this.duration == Settings.ACTION_DUR_FAST) {
-            target.channelOrb(this.orb);
+            if (target != null)
+                target.channelOrb(this.orb);
             this.isDone = true;
         }
     }

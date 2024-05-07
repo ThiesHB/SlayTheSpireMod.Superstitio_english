@@ -1,11 +1,13 @@
 package superstitio.orbs.orbgroup;
 
 import basemod.ReflectionHacks;
+import basemod.interfaces.OnPlayerTurnStartSubscriber;
+import basemod.interfaces.OnPowersModifiedSubscriber;
+import basemod.interfaces.PreMonsterTurnSubscriber;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
-import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.core.Settings;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.helpers.Hitbox;
@@ -14,10 +16,9 @@ import com.megacrit.cardcrawl.orbs.AbstractOrb;
 import com.megacrit.cardcrawl.orbs.EmptyOrbSlot;
 import com.megacrit.cardcrawl.orbs.Plasma;
 import com.megacrit.cardcrawl.vfx.TextAboveCreatureEffect;
-import superstitio.InBattleDataManager;
 import superstitio.orbs.actions.AnimationOrbOnMonsterAction;
 import superstitio.orbs.actions.ChannelOnOrbGroupAction;
-import superstitio.orbs.actions.EvokeOnMonsterAction;
+import superstitio.orbs.actions.EvokeFirstOnMonsterAction;
 import superstitio.orbs.actions.FlashOrbEffect;
 import superstitio.powers.barIndepend.RenderInBattle;
 import superstitio.utils.ActionUtility;
@@ -28,7 +29,7 @@ import java.util.Objects;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 
-public abstract class OrbGroup implements RenderInBattle {
+public abstract class OrbGroup implements RenderInBattle, OnPowersModifiedSubscriber, OnPlayerTurnStartSubscriber, PreMonsterTurnSubscriber {
     private static final String[] TEXT = new String[]{"  A  "};
     private static final int MAX_MAX_ORB = 10;
     public AbstractOrb CustomEmptyOrb;
@@ -43,7 +44,7 @@ public abstract class OrbGroup implements RenderInBattle {
     public OrbGroup(Hitbox hitbox, int initMaxOrbs, AbstractOrb customEmptyOrb) {
         this.hitbox = new Hitbox(hitbox.x, hitbox.y, hitbox.width, hitbox.height);
         this.CustomEmptyOrb = customEmptyOrb;
-        this.increaseMaxOrbs(initMaxOrbs, false);
+        this.increaseMaxOrbs(initMaxOrbs);
         RenderInBattle.Register(this);
     }
 
@@ -60,19 +61,15 @@ public abstract class OrbGroup implements RenderInBattle {
         return AbstractDungeon.getMonsters().monsters;
     }
 
-    public static void forEachOrbInEachOrbGroup(Consumer<AbstractOrb> consumer) {
-        for (OrbGroup orbGroup : InBattleDataManager.orbGroups) {
-            for (AbstractOrb orb : orbGroup.orbs) {
-                consumer.accept(orb);
-            }
+    public <T> void forEachOrbInEachOrbGroup(BiConsumer<AbstractOrb, T> consumer, T arg) {
+        for (AbstractOrb orb : this.orbs) {
+            consumer.accept(orb, arg);
         }
     }
 
-    public static <T> void forEachOrbInEachOrbGroup(BiConsumer<AbstractOrb, T> consumer, T arg) {
-        for (OrbGroup orbGroup : InBattleDataManager.orbGroups) {
-            for (AbstractOrb orb : orbGroup.orbs) {
-                consumer.accept(orb, arg);
-            }
+    public void forEachOrbInEachOrbGroup(Consumer<AbstractOrb> consumer) {
+        for (AbstractOrb orb : this.orbs) {
+            consumer.accept(orb);
         }
     }
 
@@ -199,10 +196,14 @@ public abstract class OrbGroup implements RenderInBattle {
         if (GetMaxOrbs() <= 0) return;
         if (hasNoEmptySlot()) {
             AbstractDungeon.actionManager.addToTop(new ChannelOnOrbGroupAction(this, orb));
-            AbstractDungeon.actionManager.addToTop(new EvokeOnMonsterAction(this, 1));
+            AbstractDungeon.actionManager.addToTop(new EvokeFirstOnMonsterAction(this, 1));
             AbstractDungeon.actionManager.addToTop(new AnimationOrbOnMonsterAction(this, 1));
             return;
         }
+        addNewOrb(orb);
+    }
+
+    protected void addNewOrb(AbstractOrb orb) {
         int index = findFirstEmptyOrb();
         final AbstractOrb target = orbs.get(index);
         orb.cX = target.cX;
@@ -223,13 +224,20 @@ public abstract class OrbGroup implements RenderInBattle {
     /**
      * 激发球
      */
-    public void evokeOrb() {
+    public void evokeFirstOrb() {
+        evokeOrb(0);
+    }
+
+    /**
+     * 激发指定球，填补空缺
+     */
+    public void evokeOrb(int slotIndex) {
         if (hasNoOrb()) return;
-        AbstractOrb orbEvoked = orbs.get(0);
+        AbstractOrb orbEvoked = orbs.get(slotIndex);
         orbEvoked.onEvoke();
         OrbEventSubscriber.ON_ORB_EVOKE_SUBSCRIBERS.forEach(sub -> sub.onOrbEvoke(orbEvoked, AbstractDungeon.player));
         int newSize = orbs.size() - 1;
-        for (int i = 0; i < newSize; i++) {
+        for (int i = slotIndex; i < newSize; i++) {
             Collections.swap(orbs, i + 1, i);
         }
         orbs.set(newSize, getNewCustomEmptyOrb());
@@ -237,10 +245,11 @@ public abstract class OrbGroup implements RenderInBattle {
         this.onOrbEvoke(orbEvoked);
     }
 
+
     /**
      * 激发球，不填补空缺
      */
-    public void evokeOrb(int slotIndex) {
+    public void evokeOrbAndNotFill(int slotIndex) {
         if (hasNoOrb()) return;
         AbstractOrb orbEvoked = orbs.get(slotIndex);
         orbEvoked.onEvoke();
@@ -256,13 +265,13 @@ public abstract class OrbGroup implements RenderInBattle {
         return orbs.isEmpty() || orbs.stream().allMatch(this::isEmptySlot);
     }
 
-    public final void increaseMaxOrbs(final int amount, final boolean playSfx) {
-        if (_maxOrbs + amount >= MAX_MAX_ORB) {
-            return;
-        }
-        if (playSfx) {
-            CardCrawlGame.sound.play("ORB_SLOT_GAIN", 0.1f);
-        }
+    public final void increaseMaxOrbs(final int amount) {
+//        if (_maxOrbs + amount >= MAX_MAX_ORB) {
+//            return;
+//        }
+//        if (playSfx) {
+//            CardCrawlGame.sound.play("ORB_SLOT_GAIN", 0.1f);
+//        }
         _maxOrbs += amount;
 
         for (int i = 0; i < amount; i++) {
@@ -298,13 +307,29 @@ public abstract class OrbGroup implements RenderInBattle {
     }
 
     @Override
+    public void receiveOnPlayerTurnStart() {
+        this.forEachOrbInEachOrbGroup(AbstractOrb::onStartOfTurn);
+    }
+
+    @Override
+    public void receivePowersModified() {
+        this.forEachOrbInEachOrbGroup(AbstractOrb::updateDescription);
+    }
+
+    @Override
+    public boolean receivePreMonsterTurn(AbstractMonster abstractMonster) {
+        this.forEachOrbInEachOrbGroup(AbstractOrb::onEndOfTurn);
+        return true;
+    }
+
+    @Override
     public void render(SpriteBatch sb) {
-        OrbGroup.forEachOrbInEachOrbGroup(AbstractOrb::render, sb);
+        this.forEachOrbInEachOrbGroup(AbstractOrb::render, sb);
     }
 
     @Override
     public void update() {
-        OrbGroup.forEachOrbInEachOrbGroup(orb -> {
+        this.forEachOrbInEachOrbGroup(orb -> {
             orb.update();
             orb.updateAnimation();
         });

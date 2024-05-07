@@ -91,7 +91,7 @@ public class SexMarkOrbGroup extends OrbGroup {
             if (!(orb instanceof SexMarkOrb)) continue;
             SexMarkOrb markOrb = (SexMarkOrb) orb;
             if (!Objects.equals(markOrb.sexMarkName, exampleSexMarkOrb.sexMarkName)) continue;
-            evokeOrb(i);
+            evokeOrbAndNotFill(i);
         }
     }
 
@@ -114,7 +114,7 @@ public class SexMarkOrbGroup extends OrbGroup {
         AutoDoneInstantAction.addToBotAbstract(() -> {
             int bound = orbs.size();
             for (int i = 0; i < bound; i++) {
-                this.evokeOrb(i);
+                this.evokeOrbAndNotFill(i);
             }
         });
     }
@@ -132,7 +132,7 @@ public class SexMarkOrbGroup extends OrbGroup {
         return index;
     }
 
-    int MapIndex(final int index) {
+    private int MapIndex(final int index) {
         final int countTotal = this.GetMaxOrbs();
         if (countTotal % 2 == 1) {
             return MapIndexTool(index, countTotal);

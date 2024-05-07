@@ -29,7 +29,11 @@ public abstract class SexMarkOrb extends AbstractLupaOrb {
     public void onEvoke() {
     }
 
-//    @Override
+    @Override
+    public void applyFocus() {
+    }
+
+    //    @Override
 //    public void updateDescription() {
 //        this.description = String.format(orbStringsSet.getDESCRIPTION()[0]);
 //    }

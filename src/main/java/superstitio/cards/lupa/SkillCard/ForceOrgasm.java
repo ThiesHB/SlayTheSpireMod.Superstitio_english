@@ -20,7 +20,7 @@ public class ForceOrgasm extends AbstractLupaCard {
 
     private static final int COST = -1;
     private static final int MAGIC = 10;
-    private static final int UGRADE_MAGIC = 5;
+    private static final int UPGRADE_MAGIC = 5;
 
     public ForceOrgasm() {
         super(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET);
@@ -37,6 +37,6 @@ public class ForceOrgasm extends AbstractLupaCard {
 
     @Override
     public void upgradeAuto() {
-        upgradeMagicNumber(UGRADE_MAGIC);
+        upgradeMagicNumber(UPGRADE_MAGIC);
     }
 }

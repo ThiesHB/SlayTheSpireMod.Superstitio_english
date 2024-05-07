@@ -202,6 +202,11 @@ public class SexualHeat extends AbstractLupaPower implements
         return this.ID;
     }
 
+//    @Override
+//    public String uuidPointTo() {
+//        return OutsideSemen.POWER_ID;
+//    }
+
     @Override
     public float Height() {
         return -20 * Settings.scale;

@@ -4,10 +4,10 @@ import com.megacrit.cardcrawl.actions.AbstractGameAction;
 import com.megacrit.cardcrawl.core.Settings;
 import superstitio.orbs.orbgroup.OrbGroup;
 
-public class EvokeOnMonsterAction extends AbstractGameAction {
+public class EvokeFirstOnMonsterAction extends AbstractGameAction {
     public OrbGroup target;
 
-    public EvokeOnMonsterAction(final OrbGroup target, final int amt) {
+    public EvokeFirstOnMonsterAction(final OrbGroup target, final int amt) {
         this.target = target;
         this.amount = amt;
         this.duration = Settings.ACTION_DUR_XFAST;
@@ -16,7 +16,7 @@ public class EvokeOnMonsterAction extends AbstractGameAction {
     public void update() {
         if (this.duration == Settings.ACTION_DUR_XFAST) {
             for (int i = 0; i < this.amount; ++i) {
-                target.evokeOrb();
+                target.evokeFirstOrb();
             }
         }
         this.tickDuration();

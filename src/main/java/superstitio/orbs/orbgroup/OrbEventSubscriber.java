@@ -21,12 +21,12 @@ public class OrbEventSubscriber {
         }
     }
 
-    public static void Subscribe(final CustomSubscriber sub) {
+    public static void subscribe(final CustomSubscriber sub) {
         AddToList(OrbEventSubscriber.ON_ORB_CHANNEL_SUBSCRIBERS, sub, OnOrbChannelSubscriber.class);
         AddToList(OrbEventSubscriber.ON_ORB_EVOKE_SUBSCRIBERS, sub, OnOrbEvokeSubscriber.class);
     }
 
-    public static void Unsubscribe(final CustomSubscriber sub) {
+    public static void unSubscribe(final CustomSubscriber sub) {
         RemoveFromList(OrbEventSubscriber.ON_ORB_CHANNEL_SUBSCRIBERS, sub, OnOrbChannelSubscriber.class);
         RemoveFromList(OrbEventSubscriber.ON_ORB_EVOKE_SUBSCRIBERS, sub, OnOrbEvokeSubscriber.class);
     }

@@ -19,11 +19,11 @@ public class DrinkSemenBeer extends AbstractLupaCard {
 
     private static final int COST = 1;
     private static final int MAGIC = 10;
-    private static final int UGRADE_MAGIC = 5;
+    private static final int UPGRADE_MAGIC = 5;
 
     public DrinkSemenBeer() {
         super(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET);
-        this.setupMagicNumber(MAGIC, UGRADE_MAGIC);
+        this.setupMagicNumber(MAGIC, UPGRADE_MAGIC);
         this.exhaust = true;
     }
 

@@ -8,16 +8,12 @@ import superstitio.DataManager;
 import superstitio.cards.modifiers.AbstractLupaDamage;
 import superstitio.powers.SexualDamage;
 
-public class SexDamage extends AbstractLupaDamage {
-    public static final String ID = DataManager.MakeTextID(SexDamage.class.getSimpleName());
+public class SexDamage_Job extends AbstractLupaDamage {
+    public static final String ID = DataManager.MakeTextID(SexDamage_Job.class.getSimpleName());
     private final static int OnlyDealDamage = 1;
 
-    public SexDamage() {
+    public SexDamage_Job() {
         super(ID);
-    }
-
-    public SexDamage(String id) {
-        super(id);
     }
 
     // 在这里使用onAttackToChangeDamage将获取本应造成的伤害，并允许我们修改它，返回0
@@ -33,6 +29,6 @@ public class SexDamage extends AbstractLupaDamage {
 
     @Override
     public AbstractDamageModifier makeCopy() {
-        return new SexDamage();
+        return new SexDamage_Job();
     }
 }

@@ -19,6 +19,8 @@ public class BarRenderOnCreature {
     private static final float BG_OFFSET_X = 31.0f * Settings.scale;
     protected final float barWidth;
     private final Map<String, AmountChunk> amountChunkWithUuid = new HashMap<>();
+    private final Hitbox hitboxBondTo;
+    private final float HeightOffset;
     public Color barBgColor;
     public Color barShadowColor;
     public Color barTextColor;
@@ -29,14 +31,19 @@ public class BarRenderOnCreature {
     private String rawBarText = "%d/%d";
 
     public BarRenderOnCreature(final Hitbox hitbox, HasBarRenderOnCreature power) {
+        this.hitboxBondTo = hitbox;
         this.uuid_self = power.uuidPointTo();
-        this.barWidth = hitbox.width;
-        this.hitbox = new Hitbox(hitbox.width + BAR_DIAMETER * 3f, BAR_DIAMETER * 1.5f);
-        this.hitbox.move(hitbox.cX, power.Height() + hitbox.cY + hitbox.height / 2 + BG_OFFSET_X * 2);
+        this.barWidth = hitboxBondTo.width;
+        this.HeightOffset = power.Height();
+        this.hitbox = new Hitbox(hitboxBondTo.width + BAR_DIAMETER * 3f, BAR_DIAMETER * 1.5f);
 
         this.barBgColor = new Color(0f, 0f, 0f, 0.3f);
         this.barShadowColor = new Color(0f, 0f, 0f, 0.3f);
         this.barTextColor = new Color(1.0f, 1.0f, 1.0f, 1.0f);
+    }
+
+    public void updateHitBox(Hitbox hitbox) {
+        hitbox.move(hitboxBondTo.cX, HeightOffset + hitboxBondTo.cY + hitboxBondTo.height / 2 + BG_OFFSET_X * 2);
     }
 
     public boolean isUuidInThis(String uuid_chunk) {
@@ -44,11 +51,11 @@ public class BarRenderOnCreature {
     }
 
     protected int getMaxBarAmount() {
-        return amountChunkWithUuid.values().stream().mapToInt(chunk -> chunk.maxAmount).max().orElse(1);
+        return amountChunkWithUuid.values().stream().mapToInt(chunk -> chunk.maxAmount).max().orElse(10);
     }
 
     protected float chunkWidth(int amount) {
-        float v = this.barWidth * (amount % getMaxBarAmount()) / getMaxBarAmount();
+        float v = (this.barWidth * (amount % getMaxBarAmount())) / (float) getMaxBarAmount();
         if (amount % getMaxBarAmount() == 0 && amount != 0) v = this.barWidth;
         return v;
     }
@@ -58,8 +65,10 @@ public class BarRenderOnCreature {
     }
 
     public void update() {
+        updateHitBox(this.hitbox);
         update_showTips(this.hitbox);
         updateHbHoverFade();
+        this.amountChunkWithUuid.values().forEach(AmountChunk::update);
     }
 
     protected Stream<ToolTip> AllTips() {
@@ -142,7 +151,7 @@ public class BarRenderOnCreature {
     public void tryApplyMessage(BarRenderUpdateMessage message) {
         if (!Objects.equals(this.uuid_self, message.uuidOfBar)) return;
         if (!amountChunkWithUuid.containsKey(message.uuidOfPower)) {
-            applyNewAmountBar(message);
+            addNewAmountChunk(message);
             return;
         }
         AmountChunk messageTargetChunk = amountChunkWithUuid.get(message.uuidOfPower);
@@ -166,7 +175,9 @@ public class BarRenderOnCreature {
     }
 
     protected List<AmountChunk> getMinOrdered(int index) {
-        return getSortedChunkList().subList(0, index);
+        if (getSortedChunkList().size() == 1)
+            return new ArrayList<>();
+        return getSortedChunkList().subList(0, index - 1);
     }
 
     private List<AmountChunk> getSortedChunkList() {
@@ -179,7 +190,7 @@ public class BarRenderOnCreature {
         return amountChunkWithUuid.values().stream().mapToInt(value -> value.nowAmount).sum();
     }
 
-    private void applyNewAmountBar(BarRenderUpdateMessage message) {
+    private void addNewAmountChunk(BarRenderUpdateMessage message) {
         this.amountChunkWithUuid.put(message.uuidOfPower, new AmountChunk(getXDrawStart() + chunkWidth(getTotalAmount()), getYDrawStart(),
                 chunkWidth(message.newAmount), getNextOrder()).applyNoPositionMessage(message));
     }
@@ -206,7 +217,7 @@ public class BarRenderOnCreature {
         public AmountChunk(float drawX, float drawY, float width, int order) {
             this.drawX = drawX;
             this.drawY = drawY;
-            this.width = width;
+            this.width = 0;
             this.drawXTarget = drawX;
             this.drawYTarget = drawY;
             this.widthTarget = width;
@@ -233,12 +244,11 @@ public class BarRenderOnCreature {
             this.drawXTarget = drawXTarget;
             this.drawYTarget = drawYTarget;
             this.widthTarget = widthTarget;
-
         }
 
         private void updateHbDamageAnimation() {
             if (this.animTimer > 0.0F) this.animTimer -= Gdx.graphics.getDeltaTime();
-            if (this.animTimer > 0.0F) return;
+//            if (this.animTimer > 0.0F) return;
             if (this.widthTarget != this.width) this.width = MathHelper.uiLerpSnap(this.width, this.widthTarget);
             if (this.drawXTarget != this.drawX) this.drawX = MathHelper.uiLerpSnap(this.drawX, this.drawXTarget);
             if (this.drawYTarget != this.drawY) this.drawY = MathHelper.uiLerpSnap(this.drawY, this.drawYTarget);

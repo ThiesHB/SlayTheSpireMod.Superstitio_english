@@ -9,6 +9,7 @@ import com.megacrit.cardcrawl.core.AbstractCreature;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import com.megacrit.cardcrawl.powers.AbstractPower;
+import com.megacrit.cardcrawl.random.Random;
 import com.megacrit.cardcrawl.vfx.AbstractGameEffect;
 import superstitio.actions.AutoDoneInstantAction;
 import superstitio.cards.lupa.AbstractLupaCard;
@@ -16,6 +17,8 @@ import superstitio.powers.AllCardCostModifier;
 
 import java.util.ArrayList;
 import java.util.Optional;
+
+import static com.megacrit.cardcrawl.dungeons.AbstractDungeon.currMapNode;
 
 public class ActionUtility {
 
@@ -37,6 +40,14 @@ public class ActionUtility {
 
     public static AbstractMonster getRandomMonsterSafe() {
         final AbstractMonster m = AbstractDungeon.getRandomMonster();
+        if (m != null && !m.isDeadOrEscaped() && !m.isDead) {
+            return m;
+        }
+        return null;
+    }
+
+    public static AbstractMonster getRandomMonsterWithoutRng() {
+        final AbstractMonster m = currMapNode.room.monsters.getRandomMonster((AbstractMonster) null, true, new Random());
         if (m != null && !m.isDeadOrEscaped() && !m.isDead) {
             return m;
         }

@@ -23,6 +23,7 @@ import superstitio.DataManager;
 import superstitio.Logger;
 import superstitio.cards.lupa.BaseCard.Invite;
 import superstitio.cards.lupa.BaseCard.Job_Hand;
+import superstitio.cards.lupa.BaseCard.Kiss;
 import superstitio.cards.lupa.BaseCard.Masturbate;
 import superstitio.relics.a_starter.EjaculationMaster;
 import superstitio.relics.a_starter.Sensitive;
@@ -126,15 +127,15 @@ public class Lupa extends CustomPlayer {
     public ArrayList<String> getStartingDeck() {
         ArrayList<String> retVal = new ArrayList<>();
         Logger.run("Begin loading starter Deck Strings");
-        for (int x = 0; x < 5; x++) {
-            //SuperstitioModSetup.logger.info("Add"+Strike_Lupa.ID);
+        for (int x = 0; x < 1; x++) {
             retVal.add(Job_Hand.ID);
         }
+        for (int x = 0; x < 5; x++) {
+            retVal.add(Kiss.ID);
+        }
         for (int x = 0; x < 4; x++) {
-            //SuperstitioModSetup.logger.info("Add"+Defend_Lupa.ID);
             retVal.add(Invite.ID);
         }
-        //SuperstitioModSetup.logger.info("Add"+BlowJob.ID);
         retVal.add(Masturbate.ID);
         return retVal;
     }

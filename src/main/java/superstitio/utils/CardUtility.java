@@ -1,6 +1,7 @@
 package superstitio.utils;
 
 import com.megacrit.cardcrawl.cards.AbstractCard;
+import com.megacrit.cardcrawl.cards.CardGroup;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.helpers.CardLibrary;
 import com.megacrit.cardcrawl.random.Random;
@@ -71,6 +72,14 @@ public class CardUtility {
         cards.addAll(AbstractDungeon.player.discardPile.group);
         cards.addAll(AbstractDungeon.player.drawPile.group);
         return cards;
+    }
+
+    public static CardGroup[] AllCardGroupInBattle() {
+        return new CardGroup[]{
+                AbstractDungeon.player.hand,
+                AbstractDungeon.player.drawPile,
+                AbstractDungeon.player.discardPile,
+                AbstractDungeon.player.exhaustPile};
     }
 
     public static ArrayList<AbstractCard> AllCardInBattle_ButWithoutCardInUse() {
