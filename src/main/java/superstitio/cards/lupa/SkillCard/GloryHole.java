@@ -33,7 +33,7 @@ public class GloryHole extends AbstractLupaCard {
     }
 
     public static AbstractGameAction makeChoseCardCopy(AbstractCard card) {
-        return new MakeTempCardInHandAction(card.makeCopy());
+        return new MakeTempCardInHandAction(card.makeStatEquivalentCopy());
     }
 
     @Override

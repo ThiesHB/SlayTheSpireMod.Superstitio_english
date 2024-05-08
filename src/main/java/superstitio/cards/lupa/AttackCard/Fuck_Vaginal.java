@@ -62,7 +62,8 @@ public class Fuck_Vaginal extends AbstractLupaCard_FuckJob {
     @Override
     public void applyPowers() {
         super.applyPowers();
-        this.calculateCardDamage(null);
+        updateDamage();
+//        this.calculateCardDamage(null);
     }
 
     @Override

@@ -121,9 +121,12 @@ public abstract class AbstractLupaCard extends CustomCard {
     public final void upgrade() {
         if (!this.upgraded) {
             this.upgradeName();
-            this.upgradeBlock(this.blockAutoUpgrade);
-            this.upgradeDamage(this.damageAutoUpgrade);
-            this.upgradeMagicNumber(this.magicAutoUpgrade);
+            if (this.blockAutoUpgrade != 0)
+                this.upgradeBlock(this.blockAutoUpgrade);
+            if (this.damageAutoUpgrade != 0)
+                this.upgradeDamage(this.damageAutoUpgrade);
+            if (this.magicAutoUpgrade != 0)
+                this.upgradeMagicNumber(this.magicAutoUpgrade);
             if (cardStrings.getUPGRADE_DESCRIPTION() != null && !cardStrings.getUPGRADE_DESCRIPTION().isEmpty())
                 this.rawDescription = cardStrings.getUPGRADE_DESCRIPTION();
             this.upgradeAuto();

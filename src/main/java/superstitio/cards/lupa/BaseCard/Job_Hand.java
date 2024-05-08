@@ -1,19 +1,17 @@
 package superstitio.cards.lupa.BaseCard;
 
+import com.megacrit.cardcrawl.cards.CardGroup;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import superstitio.DataManager;
-import superstitio.actions.AutoDoneInstantAction;
+import superstitio.Logger;
 import superstitio.cards.DamageActionMaker;
 import superstitio.cards.lupa.AbstractLupaCard_FuckJob;
-import superstitio.orbs.CardOrb_CardTrigger;
+import superstitio.cards.patch.GoSomewhereElseAfterUse;
 import superstitio.orbs.CardOrb_EachCardTrigger;
 import superstitio.orbs.orbgroup.HangUpCardGroup;
-import superstitio.utils.CardUtility;
 
-import java.util.Arrays;
-
-public class Job_Hand extends AbstractLupaCard_FuckJob {
+public class Job_Hand extends AbstractLupaCard_FuckJob implements GoSomewhereElseAfterUse {
     public static final String ID = DataManager.MakeTextID(Job_Hand.class.getSimpleName());
 
     public static final CardType CARD_TYPE = CardType.ATTACK;
@@ -37,16 +35,22 @@ public class Job_Hand extends AbstractLupaCard_FuckJob {
     public void use(AbstractPlayer player, AbstractMonster monster) {
 //        addToBot_dealDamage(monster, AbstractGameAction.AttackEffect.BLUNT_LIGHT);
         AbstractLupaCard_FuckJob.addToTop_gainSexMark_Outside(this.getEXTENDED_DESCRIPTION()[0]);
-        HangUpCardGroup.addToBot_AddCardOrbToOrbGroup(
-                new CardOrb_EachCardTrigger(this, (orb, playedCard) -> {
-                    AbstractMonster creature = CardOrb_CardTrigger.getHoveredMonsterSafe();
-                    orb.StartHitCreature(creature);
-                    DamageActionMaker.maker(orb.card.damage, creature).setCard(this).addToBot();
-                }, this.magicNumber).setCardPredicate(card -> card.type == CardType.ATTACK));
-        AutoDoneInstantAction.addToBotAbstract(()-> Arrays.stream(CardUtility.AllCardGroupInBattle()).forEach(cardGroup -> cardGroup.removeCard(this)));
     }
 
     @Override
     public void upgradeAuto() {
+    }
+
+    @Override
+    public void afterInterruptMoveToCardGroup(CardGroup cardGroup) {
+        HangUpCardGroup.addToBot_AddCardOrbToOrbGroup(
+                new CardOrb_EachCardTrigger(this, (orb, playedCard) -> {
+                    AbstractMonster creature = DamageActionMaker.getMonsterOrFirstMonster(orb.lastTarget);
+                    Logger.temp("hit" + orb.lastTarget);
+                    orb.StartHitCreature(creature);
+                    DamageActionMaker.maker(orb.card.damage, creature).setCard(this).addToBot();
+                }, this.magicNumber).setCardPredicate(card -> card.type == CardType.ATTACK)
+                        .setCardGroupReturnAfterEvoke(cardGroup)
+        );
     }
 }

@@ -138,7 +138,10 @@
     "NAME": "自慰",
     "NAME_SFW": "准备战斗",
     "DESCRIPTION": "获得 !M! 点 superstitiomod:快感 。 NL superstitiomod:回味 2： NL 抽 1 张牌。",
-    "FLAVOR": "何以解忧？聊以自慰。"
+    "FLAVOR": "何以解忧？聊以自慰。",
+    "EXTENDED_DESCRIPTION": [
+      "抽牌"
+    ]
   },
   "SuperstitioMod:CalmDown": {
     "NAME": "冷静",
@@ -250,7 +253,7 @@
   "SuperstitioMod:ChooseCoitalPosture": {
     "NAME": "选择体位",
     "NAME_SFW": "武艺精通",
-    "DESCRIPTION": "把1张带有 消耗 的随机 *性交牌 加入手牌。",
+    "DESCRIPTION": "把1张带有 消耗 的随机 *性交牌 加入手牌。 NL 这张牌在本回合耗能变为0。",
     "FLAVOR": "让我想想看……"
   },
   "SuperstitioMod:GloryHole": {
@@ -305,7 +308,11 @@
     "DESCRIPTION": "对 全体敌人 造成 !D! 点伤害 。 获得 !B! *干涸精液 。",
     "FLAVOR": "开始狂欢吧！大家一起来！",
     "EXTENDED_DESCRIPTION": [
-      "困倦的","平淡的","愉快的","满足的","完美的"
+      "困倦的",
+      "平淡的",
+      "愉快的",
+      "满足的",
+      "完美的"
     ]
   },
   "SuperstitioMod:ForceOrgasm": {

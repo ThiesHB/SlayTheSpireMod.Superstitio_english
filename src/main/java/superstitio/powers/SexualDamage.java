@@ -1,19 +1,23 @@
 package superstitio.powers;
 
+import basemod.ReflectionHacks;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.evacipated.cardcrawl.mod.stslib.powers.interfaces.HealthBarRenderPower;
 import com.megacrit.cardcrawl.actions.AbstractGameAction;
 import com.megacrit.cardcrawl.actions.common.LoseHPAction;
 import com.megacrit.cardcrawl.core.AbstractCreature;
 import superstitio.DataManager;
+import superstitio.powers.interfaces.DecreaseHealthBarNumberPower;
 
-public class SexualDamage extends AbstractLupaPower implements HealthBarRenderPower {
+public class SexualDamage extends AbstractLupaPower implements HealthBarRenderPower, DecreaseHealthBarNumberPower {
     public static final String POWER_ID = DataManager.MakeTextID(SexualDamage.class.getSimpleName());
-    private final AbstractCreature giver;
+    protected final AbstractCreature giver;
 
     public SexualDamage(final AbstractCreature owner, int amount, AbstractCreature giver) {
         super(POWER_ID, owner, amount);
         this.giver = giver;
+        ReflectionHacks.setPrivate(this, SexualDamage_ByEnemy.class, "greenColor", Color.PINK.cpy());
     }
 
     @Override
@@ -36,5 +40,18 @@ public class SexualDamage extends AbstractLupaPower implements HealthBarRenderPo
     @Override
     public Color getColor() {
         return Color.PINK.cpy();
+    }
+
+    @Override
+    public int getDecreaseAmount() {
+        return this.amount;
+    }
+
+    @Override
+    public void renderAmount(SpriteBatch sb, float x, float y, Color c) {
+        float temp = this.fontScale;
+        this.fontScale *= 1.5f;
+        super.renderAmount(sb, x, y, c);
+        this.fontScale = temp;
     }
 }

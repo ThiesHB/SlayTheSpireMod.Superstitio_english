@@ -48,6 +48,7 @@ public class ChooseCoitalPosture extends AbstractLupaCard {
     public void use(AbstractPlayer player, AbstractMonster monster) {
         AbstractCard card = getRandomFuckJobCard().makeCopy();
 //        if (!CardModifierManager.hasModifier(card, ExhaustMod.ID))
+        card.setCostForTurn(0);
         CardModifierManager.addModifier(card, new ExhaustMod());
         ActionUtility.addToBot_makeTempCardInBattle(card, BattleCardPlace.Hand, upgraded);
     }

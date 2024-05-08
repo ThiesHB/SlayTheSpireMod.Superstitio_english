@@ -1,5 +1,6 @@
 package superstitio.powers;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.evacipated.cardcrawl.mod.stslib.powers.interfaces.NonStackablePower;
@@ -7,6 +8,7 @@ import com.megacrit.cardcrawl.actions.common.RemoveSpecificPowerAction;
 import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.core.AbstractCreature;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
+import com.megacrit.cardcrawl.powers.AbstractPower;
 import superstitio.InBattleDataManager;
 import superstitio.Logger;
 import superstitio.powers.interfaces.HasAllCardCostModifyEffect;
@@ -27,10 +29,12 @@ import static superstitio.actions.AutoDoneInstantAction.addToBotAbstract;
 
 
 public abstract class AllCardCostModifier extends AbstractLupaPower implements NonStackablePower, OnPostApplyThisPower {
+    private static final float CHECK_TIME = 1.0f;
     private final HasAllCardCostModifyEffect holder;
     public int order = 0;
     public int decreasedCost;
     private boolean active = false;
+    private float checkTimer = CHECK_TIME;
 
     public AllCardCostModifier(String id, final AbstractCreature owner, int decreasedCost, int useAmount, HasAllCardCostModifyEffect holder) {
         super(id, owner, useAmount, owner.isPlayer ? PowerType.BUFF : PowerType.DEBUFF);
@@ -120,6 +124,21 @@ public abstract class AllCardCostModifier extends AbstractLupaPower implements N
         this.setActive();
         tryUseEffect();
         updateDescription();
+    }
+
+    @Override
+    public void onApplyPower(AbstractPower power, AbstractCreature target, AbstractCreature source) {
+        super.onApplyPower(power, target, source);
+    }
+
+    @Override
+    public void update(int slot) {
+        super.update(slot);
+        checkTimer -= Gdx.graphics.getDeltaTime();
+        if (checkTimer <= 0.0f) {
+            tryUseEffect();
+            checkTimer = CHECK_TIME;
+        }
     }
 
     /**

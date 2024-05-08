@@ -28,6 +28,7 @@ public class Invite extends AbstractLupaCard {
     @Override
     public void use(AbstractPlayer player, AbstractMonster monster) {
         addToBot_gainBlock();
+//        addToBot_reducePowerToPlayer(SexualDamage_ByEnemy.POWER_ID, this.block);
     }
 
     @Override

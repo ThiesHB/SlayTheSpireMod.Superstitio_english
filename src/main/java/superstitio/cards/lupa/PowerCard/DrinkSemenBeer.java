@@ -1,4 +1,4 @@
-package superstitio.cards.lupa.SkillCard;
+package superstitio.cards.lupa.PowerCard;
 
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
@@ -11,7 +11,7 @@ import superstitio.powers.BeerCupSemen;
 public class DrinkSemenBeer extends AbstractLupaCard {
     public static final String ID = DataManager.MakeTextID(DrinkSemenBeer.class.getSimpleName());
 
-    public static final CardType CARD_TYPE = CardType.SKILL;
+    public static final CardType CARD_TYPE = CardType.POWER;
 
     public static final CardRarity CARD_RARITY = CardRarity.COMMON;
 

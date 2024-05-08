@@ -8,6 +8,7 @@ import superstitio.DataManager;
 import superstitio.InBattleDataManager;
 import superstitio.cards.lupa.AbstractLupaCard_FuckJob;
 import superstitio.powers.SexualHeat;
+import superstitio.utils.CardUtility;
 
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -46,6 +47,7 @@ public class Job_Groin extends AbstractLupaCard_FuckJob {
     }
 
     private void updateDamage() {
+        if (CardUtility.isNotInBattle()) return;
         if (!InBattleDataManager.InOrgasm) return;
         AtomicInteger damageUp = new AtomicInteger();
         SexualHeat.getActiveSexualHeat(AbstractDungeon.player).ifPresent(power -> damageUp.set(this.magicNumber * InBattleDataManager.OrgasmTimesTotal));
@@ -65,7 +67,7 @@ public class Job_Groin extends AbstractLupaCard_FuckJob {
     @Override
     public void applyPowers() {
         super.applyPowers();
-        this.calculateCardDamage(null);
+        updateDamage();
     }
 
     @Override

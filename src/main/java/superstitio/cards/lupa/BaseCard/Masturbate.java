@@ -1,15 +1,18 @@
 package superstitio.cards.lupa.BaseCard;
 
+import com.megacrit.cardcrawl.cards.CardGroup;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import superstitio.DataManager;
 import superstitio.cards.lupa.AbstractLupaCard;
+import superstitio.cards.patch.GoSomewhereElseAfterUse;
 import superstitio.orbs.CardOrb_WaitCardTrigger;
 import superstitio.orbs.orbgroup.HangUpCardGroup;
 import superstitio.powers.SexualHeat;
+import superstitio.utils.PowerUtility;
 
-public class Masturbate extends AbstractLupaCard {
+public class Masturbate extends AbstractLupaCard implements GoSomewhereElseAfterUse {
     public static final String ID = DataManager.MakeTextID(Masturbate.class.getSimpleName());
 
     public static final CardType CARD_TYPE = CardType.SKILL;
@@ -34,12 +37,18 @@ public class Masturbate extends AbstractLupaCard {
     @Override
     public void use(AbstractPlayer player, AbstractMonster monster) {
         addToBot_applyPower(new SexualHeat(player, this.magicNumber));
+
+    }
+
+    @Override
+    public void afterInterruptMoveToCardGroup(CardGroup cardGroup) {
         HangUpCardGroup.addToBot_AddCardOrbToOrbGroup(
                 new CardOrb_WaitCardTrigger(this, (orb, playedCard) -> {
                     orb.card.flash();
                     orb.StartHitCreature(AbstractDungeon.player);
                     addToBot_drawCards(DRAWCard);
-                }, WAIT));
+                    PowerUtility.BubbleMessage(orb.card.hb, false, this.cardStrings.getEXTENDED_DESCRIPTION()[0]);
+                }, WAIT).setCardGroupReturnAfterEvoke(cardGroup));
     }
 
     @Override

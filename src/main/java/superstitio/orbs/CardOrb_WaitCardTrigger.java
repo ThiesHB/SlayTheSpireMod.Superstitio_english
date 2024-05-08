@@ -1,8 +1,10 @@
 package superstitio.orbs;
 
+import com.badlogic.gdx.graphics.Color;
 import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.orbs.AbstractOrb;
 import org.apache.logging.log4j.util.BiConsumer;
+import superstitio.utils.ActionUtility;
 
 public class CardOrb_WaitCardTrigger extends CardOrb_CardTrigger {
     private int waitTime;
@@ -30,16 +32,22 @@ public class CardOrb_WaitCardTrigger extends CardOrb_CardTrigger {
     }
 
     @Override
-    protected CardOrbMovingType checkAndSetTheType() {
+    protected ActionUtility.VoidSupplier checkAndSetTheHoverType() {
         if (this.waitTime > 1)
-            return CardOrbMovingType.focusOnNothing;
-        return super.checkAndSetTheType();
+            return this::State_WhenHoverCard_JustGlow;
+        return super.checkAndSetTheHoverType();
+    }
+
+    protected static final Color ReduceWaitTime =  Color.GOLDENROD.cpy();
+
+    private void State_WhenHoverCard_JustGlow() {
+        this.card.targetDrawScale = DRAW_SCALE_SMALL_BIGGER;
+        this.card.glowColor = ReduceWaitTime;
     }
 
     @Override
     public void onProperCardUsed(AbstractCard card) {
         waitTime--;
-        this.card.flash();
         if (waitTime > 0) return;
         action.accept(this, card);
     }

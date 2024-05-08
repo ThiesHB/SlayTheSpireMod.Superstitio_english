@@ -103,4 +103,8 @@ public class ActionUtility {
     public interface VoidSupplier {
         void get();
     }
+
+    public interface FunctionReturnSelfType {
+        FunctionReturnSelfType get();
+    }
 }

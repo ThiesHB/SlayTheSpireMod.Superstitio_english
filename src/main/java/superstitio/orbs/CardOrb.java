@@ -5,6 +5,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.cards.CardGroup;
 import superstitio.DataManager;
+import superstitio.utils.ActionUtility;
 
 import java.util.Arrays;
 import java.util.function.Predicate;
@@ -12,40 +13,82 @@ import java.util.function.Predicate;
 public abstract class CardOrb extends AbstractLupaOrb {
     public static final String ORB_ID = DataManager.MakeTextID(SexMarkEmptySlot.class.getSimpleName());
     public static final float ANIMATION_Y_SCALE = 1.0f;
-    public static final float DRAW_SCALE_BIG = 1.0f;
+    public static final float DRAW_SCALE_BIG = 0.9f;
 
     public static final float DRAW_SCALE_MIDDLE = 0.5f;
     public static final float DRAW_SCALE_SMALL = 0.25f;
+    protected static final float DRAW_SCALE_SMALL_BIGGER = 0.30f;
     private static final float TIMER_ANIMATION = 2.0f;
     public final CardGroup thisCardGroup = new CardGroup(CardGroup.CardGroupType.UNSPECIFIED);
+    private final AbstractCard originCard;
+    private final CardGroup cardHolder = new CardGroup(CardGroup.CardGroupType.UNSPECIFIED);
     public AbstractCard card;
+    public CardGroup cardGroupReturnAfterEvoke = null;
     public AbstractCard.CardTarget targetType = AbstractCard.CardTarget.NONE;
     //        protected float animationTimer = TIMER_SPEED;
 //    private BiFunction<Float, AbstractCard, Vector2> onUseAnimation;
 //    private AbstractCard cardInUse;
-    public CardOrbMovingType movingType;
+    public ActionUtility.FunctionReturnSelfType movingType;
     public DrawOrder drawOrder = CardOrb.DrawOrder.bottom;
     protected boolean canInterrupt = true;
     protected boolean movingIsStop = true;
-    protected CardGroup originGroupOfCard = null;
     protected Predicate<AbstractCard> cardMatcher = (card) -> true;
 
     public CardOrb(AbstractCard card) {
         super(ORB_ID);
-        this.card = card.makeStatEquivalentCopy();
-        this.card.targetDrawScale = DRAW_SCALE_SMALL;
-        this.card.isCostModified = false;
+        this.cardHolder.addToTop(card);
+        this.originCard = card;
+        this.originCard.targetDrawScale = DRAW_SCALE_SMALL;
+
+        this.card = card.makeStatEquivalentCopy(); //什么替身文学，绷不住了
+        this.card.drawScale = card.drawScale;
+        this.card.transparency = 1.0f;
         this.card.current_x = card.current_x;
         this.card.current_y = card.current_y;
+
+
+        this.card.targetDrawScale = DRAW_SCALE_SMALL;
+        this.card.isCostModified = false;
+
         this.card.costForTurn = -2;
+//        this.card.transparency = 0.0f;
+//        this.card.targetTransparency = 1.0f;
 
         this.targetType = this.card.target;
         this.thisCardGroup.addToTop(this.card);
-        this.movingType = CardOrbMovingType.Idle;
+        this.movingType = State_Idle();
+
+//        cardGroup.moveToDiscardPile(c);
     }
+
+    protected ActionUtility.FunctionReturnSelfType State_Idle() {
+        showPassiveNum();
+        updateAnimationIdle();
+        return this::State_Idle;
+    }
+
 
     @Override
     public final void onEvoke() {
+        this.originCard.current_x = this.card.current_x;
+        this.originCard.current_y = this.card.current_y;
+        this.originCard.drawScale = this.card.drawScale;
+        if (cardGroupReturnAfterEvoke != null) {
+            switch (cardGroupReturnAfterEvoke.type) {
+                case DRAW_PILE:
+                    cardHolder.moveToDeck(originCard, true);
+                    break;
+                case HAND:
+                    cardHolder.moveToHand(originCard);
+                    break;
+                case DISCARD_PILE:
+                    cardHolder.moveToDiscardPile(originCard);
+                    break;
+                case EXHAUST_PILE:
+                    cardHolder.moveToExhaustPile(originCard);
+                    break;
+            }
+        }
         onRemoveCard();
     }
 
@@ -66,6 +109,11 @@ public abstract class CardOrb extends AbstractLupaOrb {
 
     @Override
     public void render(SpriteBatch spriteBatch) {
+        if (originCard.drawScale != originCard.targetDrawScale) {
+            originCard.render(spriteBatch);
+            return;
+        }
+
         float offset = YOffsetBoBing();
         card.current_y += offset;
         card.render(spriteBatch);
@@ -84,15 +132,26 @@ public abstract class CardOrb extends AbstractLupaOrb {
 
     @Override
     public void update() {
+//        if (originCard.drawScale != originCard.targetDrawScale) {
+//            this.originCard.update();
+//            this.originCard.current_x = this.card.current_x;
+//            this.originCard.current_y = this.card.current_y;
+//            this.originCard.drawScale = this.card.drawScale;
+//        }
+        if (originCard.drawScale != originCard.targetDrawScale) {
+            originCard.target_x = this.cX;
+            originCard.target_y = this.cY + YOffsetWhenHovered();
+            originCard.targetDrawScale = DRAW_SCALE_SMALL;
+            originCard.current_y += YOffsetBoBing();
+            originCard.update();
+        }
+
         this.hb.update();
         this.card.update();
         this.card.updateHoverLogic();
     }
 
-//    protected abstract ActionUtility.VoidSupplier checkAndSetTheType();
-
     protected boolean checkShouldStopMoving() {
-        if (this.movingType == CardOrbMovingType.Idle) return true;
         return Math.abs(this.card.current_y - this.card.target_y) < 0.01f && Math.abs(this.card.current_x - this.card.target_x) < 0.01f;
     }
 
@@ -141,6 +200,11 @@ public abstract class CardOrb extends AbstractLupaOrb {
         return this;
     }
 
+    public final CardOrb setCardGroupReturnAfterEvoke(CardGroup cardGroupReturnAfterEvoke) {
+        this.cardGroupReturnAfterEvoke = cardGroupReturnAfterEvoke;
+        return this;
+    }
+
     public final void onCardUsed(AbstractCard card) {
         if (card == null) return;
         if (cardMatcher.test(card))
@@ -153,18 +217,22 @@ public abstract class CardOrb extends AbstractLupaOrb {
 
     public abstract void onProperCardUsed(AbstractCard card);
 
+    protected void showEvokeNum() {
+        card.costForTurn = evokeAmount;
+        card.isCostModified = true;
+        card.beginGlowing();
+    }
+
+    protected void showPassiveNum() {
+        card.stopGlowing();
+        card.costForTurn = passiveAmount;
+        card.isCostModified = false;
+    }
+
     public enum DrawOrder {
         bottom,
         middle,
         top
     }
 
-
-    public enum CardOrbMovingType {
-        Idle,//闲置
-        focusOnMonster,
-        focusOnSelf,
-        focusOnNothing,
-        Moving
-    }
 }

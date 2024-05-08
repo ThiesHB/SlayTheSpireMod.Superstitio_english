@@ -2,6 +2,7 @@ package superstitio.utils;
 
 import com.megacrit.cardcrawl.core.Settings;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
+import com.megacrit.cardcrawl.helpers.Hitbox;
 import com.megacrit.cardcrawl.powers.AbstractPower;
 import com.megacrit.cardcrawl.vfx.combat.PowerBuffEffect;
 import com.megacrit.cardcrawl.vfx.combat.PowerDebuffEffect;
@@ -20,6 +21,16 @@ public class PowerUtility {
         } else {
             AbstractDungeon.effectList.add(new PowerBuffEffect(power.owner.hb.cX - power.owner.animX,
                     power.owner.hb.cY + power.owner.hb.height / 2.0f, message));
+        }
+    }
+
+    public static void BubbleMessage(Hitbox hitbox, boolean isDeBuffVer, String message) {
+        if (isDeBuffVer) {
+            AbstractDungeon.effectList.add(new PowerDebuffEffect(hitbox.cX,
+                    hitbox.cY + hitbox.height / 2.0f, message));
+        } else {
+            AbstractDungeon.effectList.add(new PowerBuffEffect(hitbox.cX,
+                    hitbox.cY + hitbox.height / 2.0f, message));
         }
     }
 

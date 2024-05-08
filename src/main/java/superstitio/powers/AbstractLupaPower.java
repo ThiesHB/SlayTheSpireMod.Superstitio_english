@@ -94,8 +94,16 @@ public abstract class AbstractLupaPower extends AbstractPower implements updateD
         this.addToBot(new ApplyPowerAction(this.owner, this.owner, power));
     }
 
+    public void addToBot_applyPower(final AbstractPower power) {
+        this.addToBot(new ApplyPowerAction(power.owner, this.owner, power));
+    }
+
     public void addToBot_reducePowerToOwner(final String powerID, int amount) {
         this.addToBot(new ReducePowerAction(this.owner, this.owner, powerID, amount));
+    }
+
+    public void addToBot_reducePowerToOwner(final AbstractPower power, int amount) {
+        this.addToBot(new ReducePowerAction(this.owner, this.owner, power, amount));
     }
 
     public void addToBot_removeSpecificPower(AbstractPower power) {

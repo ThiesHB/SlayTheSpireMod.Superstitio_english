@@ -33,7 +33,6 @@ public class CardOrb_EachCardTrigger extends CardOrb_CardTrigger {
     @Override
     public void onProperCardUsed(AbstractCard card) {
         triggerTime--;
-        this.card.flash();
         action.accept(this, card);
     }
 }

@@ -8,10 +8,10 @@ import com.megacrit.cardcrawl.cards.DamageInfo;
 import com.megacrit.cardcrawl.core.AbstractCreature;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.helpers.PowerTip;
-import com.megacrit.cardcrawl.rooms.AbstractRoom;
 import superstitio.DataManager;
 import superstitio.powers.SexualHeat;
 import superstitio.relics.AbstractLupaRelic;
+import superstitio.utils.CardUtility;
 
 /**
  * 右键点击切换S和M形态。
@@ -47,6 +47,11 @@ public class SorM extends AbstractLupaRelic implements ClickableRelic, CustomSav
         SadismMode = false;
     }
 
+//    @Override
+//    public void updateDescription(AbstractPlayer.PlayerClass c) {
+//        updateDesAndImg();
+//    }
+
     private void updateDesAndImg() {
         this.description = this.getUpdatedDescription();
         this.tips.clear();
@@ -55,12 +60,6 @@ public class SorM extends AbstractLupaRelic implements ClickableRelic, CustomSav
         if (!MasochismMode && !SadismMode) Default();
     }
 
-//    @Override
-//    public void updateDescription(AbstractPlayer.PlayerClass c) {
-//        updateDesAndImg();
-//    }
-
-
     @Override
     public void atBattleStart() {
         updateDesAndImg();
@@ -68,8 +67,7 @@ public class SorM extends AbstractLupaRelic implements ClickableRelic, CustomSav
 
     @Override
     public void onLoseHp(int damageAmount) {
-        if (AbstractDungeon.getCurrRoom() == null || AbstractDungeon.getCurrRoom().phase != AbstractRoom.RoomPhase.COMBAT)
-            return;
+        if (CardUtility.isNotInBattle()) return;
         if (!MasochismMode) return;
         if (damageAmount < MasochismModeRate) return;
         AddSexualHeat(damageAmount / MasochismModeRate * SexualHeatRate);
@@ -107,7 +105,7 @@ public class SorM extends AbstractLupaRelic implements ClickableRelic, CustomSav
 
     @Override
     public void onRightClick() {
-        if (AbstractDungeon.getCurrRoom() != null && AbstractDungeon.getCurrRoom().phase == AbstractRoom.RoomPhase.COMBAT)
+        if (!CardUtility.isNotInBattle())
             return;
         this.flash();
         if (ClickTime >= 99) {

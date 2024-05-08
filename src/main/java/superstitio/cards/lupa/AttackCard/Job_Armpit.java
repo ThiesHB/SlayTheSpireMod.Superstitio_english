@@ -42,8 +42,7 @@ public class Job_Armpit extends AbstractLupaCard_FuckJob {
         AbstractLupaCard_FuckJob.addToTop_gainSexMark_Outside(this.getEXTENDED_DESCRIPTION()[0]);
     }
 
-    @Override
-    public void triggerOnEndOfPlayerTurn() {
+    public void onRetained() {
         if (AbstractDungeon.player.hand.contains(this)) {
             addToBot(new ExhaustSpecificCardAction(this, AbstractDungeon.player.hand));
             for (int i = 0; i < 2; i++) {
@@ -51,6 +50,11 @@ public class Job_Armpit extends AbstractLupaCard_FuckJob {
                 ActionUtility.addToBot_makeTempCardInBattle(card, BattleCardPlace.Hand);
             }
         }
+    }
+
+    @Override
+    public void triggerOnEndOfPlayerTurn() {
+
     }
 
     @Override

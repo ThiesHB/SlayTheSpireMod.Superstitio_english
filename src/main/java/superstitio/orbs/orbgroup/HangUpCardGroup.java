@@ -98,7 +98,7 @@ public class HangUpCardGroup extends OrbGroup implements OnCardUseSubscriber {
         AutoDoneInstantAction.addToBotAbstract(() -> {
             int bound = orbs.size();
             for (int i = 0; i < bound; i++) {
-                this.evokeOrbAndNotFill(i);
+                this.evokeOrb(0);
             }
             this.decreaseMaxOrbs(orbs.size());
         });

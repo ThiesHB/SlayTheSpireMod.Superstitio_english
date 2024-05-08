@@ -4,8 +4,10 @@ import basemod.abstracts.CustomPlayer;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.evacipated.cardcrawl.modthespire.lib.SpireEnum;
 import com.megacrit.cardcrawl.actions.AbstractGameAction;
 import com.megacrit.cardcrawl.cards.AbstractCard;
+import com.megacrit.cardcrawl.cards.DamageInfo;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.core.EnergyManager;
@@ -16,6 +18,7 @@ import com.megacrit.cardcrawl.events.city.Vampires;
 import com.megacrit.cardcrawl.helpers.FontHelper;
 import com.megacrit.cardcrawl.helpers.ScreenShake;
 import com.megacrit.cardcrawl.localization.CharacterStrings;
+import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import com.megacrit.cardcrawl.rooms.AbstractRoom;
 import com.megacrit.cardcrawl.rooms.MonsterRoom;
 import com.megacrit.cardcrawl.screens.CharSelectInfo;
@@ -25,9 +28,12 @@ import superstitio.cards.lupa.BaseCard.Invite;
 import superstitio.cards.lupa.BaseCard.Job_Hand;
 import superstitio.cards.lupa.BaseCard.Kiss;
 import superstitio.cards.lupa.BaseCard.Masturbate;
+import superstitio.powers.SexualDamage_ByEnemy;
+import superstitio.powers.interfaces.BlockAllButBubbleDamageNumberPatch;
 import superstitio.relics.a_starter.EjaculationMaster;
 import superstitio.relics.a_starter.Sensitive;
 import superstitio.relics.a_starter.SorM;
+import superstitio.utils.ActionUtility;
 
 import java.util.ArrayList;
 
@@ -87,6 +93,14 @@ public class Lupa extends CustomPlayer {
 
         this.setMoveOffset(0, -hb.height / 3.0f);
 
+        BlockAllButBubbleDamageNumberPatch.IsImmunityFields.checkShouldImmunity.set(this, ((player, damageInfo, damageAmount) -> {
+            if (damageInfo.type == CanOnlyDamageDamageType.UnBlockAbleDamageType) {
+                return false;
+            }
+            ActionUtility.addToBot_applyPower(new SexualDamage_ByEnemy(AbstractDungeon.player, damageAmount, damageInfo.owner));
+            return true;
+        }));
+
         // 如果你的人物没有动画，那么这些不需要写
         // this.loadAnimation(SuperstitioModSetup.getImgFilesPath()+"char/character.atlas", SuperstitioModSetup.getImgFilesPath()+"char/character
         // .json", 1.8F);
@@ -96,6 +110,201 @@ public class Lupa extends CustomPlayer {
 
 
     }
+
+    @Override
+    public void useCard(AbstractCard c, AbstractMonster monster, int energyOnUse) {
+        super.useCard(c, monster, energyOnUse);
+    }
+
+//    @Override
+//    public void damage(DamageInfo info) {
+//        int damageAmount = info.output;
+//        boolean hadBlock = true;
+//        if (this.currentBlock == 0) {
+//            hadBlock = false;
+//        }
+//
+//        if (damageAmount < 0) {
+//            damageAmount = 0;
+//        }
+//
+//        if (damageAmount > 1 && this.hasPower("IntangiblePlayer")) {
+//            damageAmount = 1;
+//        }
+//
+//        damageAmount = this.decrementBlock(info, damageAmount);
+//
+//        AbstractRelic r;
+//        if (info.owner == this) {
+//            for (Iterator<AbstractRelic> var4 = this.relics.iterator(); var4.hasNext(); damageAmount = r.onAttackToChangeDamage(info,
+//            damageAmount)) {
+//                r = (AbstractRelic) var4.next();
+//            }
+//        }
+//
+//        AbstractPower p;
+//        if (info.owner != null) {
+//            for (Iterator<AbstractPower> var4 = info.owner.powers.iterator(); var4.hasNext(); damageAmount = p.onAttackToChangeDamage(info,
+//                    damageAmount)) {
+//                p = var4.next();
+//            }
+//        }
+//
+//        for (Iterator<AbstractRelic> var4 = this.relics.iterator(); var4.hasNext(); damageAmount = r.onAttackedToChangeDamage(info, damageAmount)) {
+//            r = var4.next();
+//        }
+//
+//        for (Iterator<AbstractPower> var4 = this.powers.iterator(); var4.hasNext(); damageAmount = p.onAttackedToChangeDamage(info, damageAmount)) {
+//            p = var4.next();
+//        }
+//
+//        if (info.owner == this) {
+//
+//            for (AbstractRelic relic : this.relics) {
+//                r = relic;
+//                r.onAttack(info, damageAmount, this);
+//            }
+//        }
+//
+//        if (info.owner != null) {
+//
+//            for (AbstractPower power : info.owner.powers) {
+//                p = power;
+//                p.onAttack(info, damageAmount, this);
+//            }
+//
+//            for (Iterator<AbstractPower> var4 = this.powers.iterator(); var4.hasNext(); damageAmount = p.onAttacked(info, damageAmount)) {
+//                p = (AbstractPower) var4.next();
+//            }
+//
+//            for (Iterator<AbstractRelic> var4 = this.relics.iterator(); var4.hasNext(); damageAmount = r.onAttacked(info, damageAmount)) {
+//                r = (AbstractRelic) var4.next();
+//            }
+//        } else {
+//            Logger.info("NO OWNER, DON'T TRIGGER POWERS");
+//        }
+//
+//        for (Iterator<AbstractRelic> var4 = this.relics.iterator(); var4.hasNext(); damageAmount = r.onLoseHpLast(damageAmount)) {
+//            r = (AbstractRelic) var4.next();
+//        }
+//
+//        this.lastDamageTaken = Math.min(damageAmount, this.currentHealth);
+//        if (damageAmount > 0) {
+//            for (Iterator var4 = this.powers.iterator(); var4.hasNext(); damageAmount = p.onLoseHp(damageAmount)) {
+//                p = (AbstractPower) var4.next();
+//            }
+//
+//            Iterator var4 = this.relics.iterator();
+//
+//            while (var4.hasNext()) {
+//                r = (AbstractRelic) var4.next();
+//                r.onLoseHp(damageAmount);
+//            }
+//
+//            var4 = this.powers.iterator();
+//
+//            while (var4.hasNext()) {
+//                p = (AbstractPower) var4.next();
+//                p.wasHPLost(info, damageAmount);
+//            }
+//
+//            var4 = this.relics.iterator();
+//
+//            while (var4.hasNext()) {
+//                r = (AbstractRelic) var4.next();
+//                r.wasHPLost(damageAmount);
+//            }
+//
+//            if (info.owner != null) {
+//                var4 = info.owner.powers.iterator();
+//                while (var4.hasNext()) {
+//                    p = (AbstractPower) var4.next();
+//                    p.onInflictDamage(info, damageAmount, this);
+//                }
+//            }
+//
+//            if (info.owner != this) {
+//                this.useStaggerAnimation();
+//            }
+//
+//            if (info.type == DamageInfo.DamageType.HP_LOSS) {
+//                GameActionManager.hpLossThisCombat += damageAmount;
+//            }
+//
+//            GameActionManager.damageReceivedThisTurn += damageAmount;
+//            GameActionManager.damageReceivedThisCombat += damageAmount;
+//            this.currentHealth -= damageAmount;
+//            if (damageAmount > 0 && AbstractDungeon.getCurrRoom().phase == AbstractRoom.RoomPhase.COMBAT) {
+//                try {
+//                    Method updateCardsOnDamage = ReflectionHacks.getCachedMethod(AbstractPlayer.class, "updateCardsOnDamage", Void.class);
+//                    updateCardsOnDamage.invoke(this);
+//                } catch (IllegalAccessException | InvocationTargetException e) {
+//                    Logger.error(e);
+//                }
+//                ++this.damagedThisCombat;
+//            }
+//
+//            AbstractDungeon.effectList.add(new StrikeEffect(this, this.hb.cX, this.hb.cY, damageAmount));
+//            if (this.currentHealth < 0) {
+//                this.currentHealth = 0;
+//            } else if (this.currentHealth < this.maxHealth / 4) {
+//                AbstractDungeon.topLevelEffects.add(new BorderFlashEffect(new Color(1.0F, 0.1F, 0.05F, 0.0F)));
+//            }
+//
+//            this.healthBarUpdatedEvent();
+//            if ((float) this.currentHealth <= (float) this.maxHealth / 2.0F && !this.isBloodied) {
+//                this.isBloodied = true;
+//                var4 = this.relics.iterator();
+//
+//                while (var4.hasNext()) {
+//                    r = (AbstractRelic) var4.next();
+//                    if (r != null) {
+//                        r.onBloodied();
+//                    }
+//                }
+//            }
+//
+//            if (this.currentHealth < 1) {
+//                if (!this.hasRelic("Mark of the Bloom")) {
+//                    if (this.hasPotion("FairyPotion")) {
+//                        var4 = this.potions.iterator();
+//
+//                        while (var4.hasNext()) {
+//                            AbstractPotion player = (AbstractPotion) var4.next();
+//                            if (player.ID.equals("FairyPotion")) {
+//                                player.flash();
+//                                this.currentHealth = 0;
+//                                player.use(this);
+//                                AbstractDungeon.topPanel.destroyPotion(player.slot);
+//                                return;
+//                            }
+//                        }
+//                    } else if (this.hasRelic("Lizard Tail") && ((LizardTail) this.getRelic("Lizard Tail")).counter == -1) {
+//                        this.currentHealth = 0;
+//                        this.getRelic("Lizard Tail").onTrigger();
+//                        return;
+//                    }
+//                }
+//
+//                this.isDead = true;
+//                AbstractDungeon.deathScreen = new DeathScreen(AbstractDungeon.getMonsters());
+//                this.currentHealth = 0;
+//                if (this.currentBlock > 0) {
+//                    this.loseBlock();
+//                    AbstractDungeon.effectList.add(new HbBlockBrokenEffect(this.hb.cX - this.hb.width / 2.0F + BLOCK_ICON_X,
+//                            this.hb.cY - this.hb.height / 2.0F + BLOCK_ICON_Y));
+//                }
+//            }
+//        } else if (this.currentBlock > 0) {
+//            AbstractDungeon.effectList.add(new BlockedWordEffect(this, this.hb.cX, this.hb.cY, uiStrings.TEXT[0]));
+//        } else if (hadBlock) {
+//            AbstractDungeon.effectList.add(new BlockedWordEffect(this, this.hb.cX, this.hb.cY, uiStrings.TEXT[0]));
+//            AbstractDungeon.effectList.add(new HbBlockBrokenEffect(this.hb.cX - this.hb.width / 2.0F + BLOCK_ICON_X,
+//                    this.hb.cY - this.hb.height / 2.0F + BLOCK_ICON_Y));
+//        } else {
+//            AbstractDungeon.effectList.add(new StrikeEffect(this, this.hb.cX, this.hb.cY, 0));
+//        }
+//    }
 
     @Override
     public void render(SpriteBatch sb) {
@@ -267,6 +476,11 @@ public class Lupa extends CustomPlayer {
         return new AbstractGameAction.AttackEffect[]{AbstractGameAction.AttackEffect.SLASH_HEAVY, AbstractGameAction.AttackEffect.FIRE,
                 AbstractGameAction.AttackEffect.SLASH_DIAGONAL, AbstractGameAction.AttackEffect.SLASH_HEAVY, AbstractGameAction.AttackEffect.FIRE,
                 AbstractGameAction.AttackEffect.SLASH_DIAGONAL};
+    }
+
+    public static class CanOnlyDamageDamageType {
+        @SpireEnum
+        public static DamageInfo.DamageType UnBlockAbleDamageType;
     }
 
 }

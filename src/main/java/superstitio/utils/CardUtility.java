@@ -1,10 +1,12 @@
 package superstitio.utils;
 
+import com.badlogic.gdx.graphics.Color;
 import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.cards.CardGroup;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.helpers.CardLibrary;
 import com.megacrit.cardcrawl.random.Random;
+import com.megacrit.cardcrawl.rooms.AbstractRoom;
 import superstitio.DataManager;
 
 import java.util.ArrayList;
@@ -14,6 +16,9 @@ import java.util.stream.Stream;
 
 public class CardUtility {
 
+
+    protected static final Color AgressiveColor = Color.RED.cpy();
+    protected static final Color HospitableColor = Color.GREEN.cpy();
 
     /**
      * @param ThisMod 当为true时， IsCardColorVanilla()被短路
@@ -109,4 +114,22 @@ public class CardUtility {
             card.flash();
     }
 
+    public static Color getColorFormCard(AbstractCard card) {
+        switch (card.target) {
+            case ENEMY:
+            case ALL_ENEMY:
+                return AgressiveColor.cpy();
+            case SELF:
+                return HospitableColor.cpy();
+            case NONE:
+            case ALL:
+            case SELF_AND_ENEMY:
+            default:
+                return Color.PURPLE.cpy();
+        }
+    }
+
+    public static boolean isNotInBattle() {
+        return AbstractDungeon.getCurrRoom() == null || AbstractDungeon.getCurrRoom().phase != AbstractRoom.RoomPhase.COMBAT;
+    }
 }

@@ -18,14 +18,13 @@ public class LoadOutPowerButtonPatch {
         public static ExprEditor Instrument() {
             return new ExprEditor() {
                 public void edit(FieldAccess m) throws CannotCompileException {
-                    if (m.getFieldName().equals("powerStrings") && m.isWriter()) {
-                        m.replace("if ( $0.instance instanceof " +
-                                AbstractLupaPower.class.getName() +
-                                " ) {" +
-                                " $0.powerStrings = (( " + AbstractLupaPower.class.getName() + " ) $0.instance ).powerStrings.getRightVersion() ; " +
+                    if (!m.getFieldName().equals("powerStrings") || !m.isWriter()) return;
+                    m.replace("if ( $0.instance instanceof " +
+                            AbstractLupaPower.class.getName() +
+                            " ) {" +
+                            " $0.powerStrings = (( " + AbstractLupaPower.class.getName() + " ) $0.instance ).powerStrings.getRightVersion() ; " +
 //                                "superstitio.Logger.temp( $0.instance.description ) ;" +
-                                "} else { $proceed($$);}");
-                    }
+                            "} else { $proceed($$);}");
                 }
             };
         }
