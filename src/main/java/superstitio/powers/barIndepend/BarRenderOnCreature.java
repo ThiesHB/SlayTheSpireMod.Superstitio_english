@@ -36,6 +36,7 @@ public class BarRenderOnCreature {
         this.barWidth = hitboxBondTo.width;
         this.HeightOffset = power.Height();
         this.hitbox = new Hitbox(hitboxBondTo.width + BAR_DIAMETER * 3f, BAR_DIAMETER * 1.5f);
+        updateHitBox(this.hitbox);
 
         this.barBgColor = new Color(0f, 0f, 0f, 0.3f);
         this.barShadowColor = new Color(0f, 0f, 0f, 0.3f);
@@ -238,6 +239,16 @@ public class BarRenderOnCreature {
             sb.draw(ImageMaster.HEALTH_BAR_L, drawX - BAR_DIAMETER, drawY + BAR_OFFSET_Y, BAR_DIAMETER, BAR_DIAMETER);
             sb.draw(ImageMaster.HEALTH_BAR_B, drawX, drawY + BAR_OFFSET_Y, width, BAR_DIAMETER);
             sb.draw(ImageMaster.HEALTH_BAR_R, drawX + width, drawY + BAR_OFFSET_Y, BAR_DIAMETER, BAR_DIAMETER);
+        }
+
+        public AmountChunk teleport(float drawX, float drawY, float width) {
+            this.drawX = drawX;
+            this.drawY = drawY;
+            this.width = 0;
+            this.drawXTarget = drawX;
+            this.drawYTarget = drawY;
+            this.widthTarget = width;
+            return this;
         }
 
         public void move(float drawXTarget, float drawYTarget, float widthTarget) {

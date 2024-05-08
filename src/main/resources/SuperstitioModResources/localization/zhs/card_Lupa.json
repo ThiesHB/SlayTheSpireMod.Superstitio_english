@@ -62,7 +62,7 @@
   "SuperstitioMod:Job_Hand": {
     "NAME": "手交",
     "NAME_SFW": "升龙拳",
-    "DESCRIPTION": "superstitiomod:伴随 !M! 次： NL 对指向敌人造成 !D! 点 伤害 。",
+    "DESCRIPTION": "superstitiomod:余韵 !M! ： NL 打出攻击牌时，对指向的敌人造成 !D! 点 伤害 。",
     "FLAVOR": "用手就能做好的事情却要用其他的部位。该说是你们需求太高了，还是我的两只手应付不过来了？",
     "EXTENDED_DESCRIPTION": [
       "手"
@@ -137,7 +137,7 @@
   "SuperstitioMod:Masturbate": {
     "NAME": "自慰",
     "NAME_SFW": "准备战斗",
-    "DESCRIPTION": "获得 !M! 点 superstitiomod:快感 。 NL superstitiomod:随后 2： NL 抽 1 张牌。",
+    "DESCRIPTION": "获得 !M! 点 superstitiomod:快感 。 NL superstitiomod:回味 2： NL 抽 1 张牌。",
     "FLAVOR": "何以解忧？聊以自慰。"
   },
   "SuperstitioMod:CalmDown": {
@@ -303,7 +303,10 @@
     "NAME": "轮奸派对",
     "NAME_SFW": "血战沙场",
     "DESCRIPTION": "对 全体敌人 造成 !D! 点伤害 。 获得 !B! *干涸精液 。",
-    "FLAVOR": "开始狂欢吧！大家一起来！"
+    "FLAVOR": "开始狂欢吧！大家一起来！",
+    "EXTENDED_DESCRIPTION": [
+      "困倦的","平淡的","愉快的","满足的","完美的"
+    ]
   },
   "SuperstitioMod:ForceOrgasm": {
     "NAME": "强制高潮",

@@ -17,6 +17,7 @@ import superstitio.orbs.actions.GiveSexMarkToOrbGroupInstantAction;
 
 import java.util.Objects;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.stream.Collectors;
 
 public class SexMarkOrbGroup extends OrbGroup {
     public static final int SexMarkSetupOrbMax = 5;
@@ -108,7 +109,7 @@ public class SexMarkOrbGroup extends OrbGroup {
                 blockAmount.addAndGet(sexMarkOrb.block());
             }
         });
-        GangBang gangBang = new GangBang(attackAmount.get(), blockAmount.get());
+        GangBang gangBang = new GangBang(attackAmount.get(), blockAmount.get() , ScoreTheGangBang());
         AutoDoneInstantAction.addToBotAbstract(() -> AbstractDungeon.actionManager.addCardQueueItem(new CardQueueItem(gangBang, null, 0, true,
                 true), true));
         AutoDoneInstantAction.addToBotAbstract(() -> {
@@ -117,6 +118,10 @@ public class SexMarkOrbGroup extends OrbGroup {
                 this.evokeOrbAndNotFill(i);
             }
         });
+    }
+
+    private int ScoreTheGangBang() {
+        return orbs.stream().filter(orb -> orb instanceof SexMarkOrb).map(orb -> ((SexMarkOrb) orb).sexMarkName).collect(Collectors.toSet()).size();
     }
 
     @Override

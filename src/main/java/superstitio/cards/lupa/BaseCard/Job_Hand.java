@@ -3,11 +3,15 @@ package superstitio.cards.lupa.BaseCard;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import superstitio.DataManager;
+import superstitio.actions.AutoDoneInstantAction;
 import superstitio.cards.DamageActionMaker;
 import superstitio.cards.lupa.AbstractLupaCard_FuckJob;
 import superstitio.orbs.CardOrb_CardTrigger;
 import superstitio.orbs.CardOrb_EachCardTrigger;
 import superstitio.orbs.orbgroup.HangUpCardGroup;
+import superstitio.utils.CardUtility;
+
+import java.util.Arrays;
 
 public class Job_Hand extends AbstractLupaCard_FuckJob {
     public static final String ID = DataManager.MakeTextID(Job_Hand.class.getSimpleName());
@@ -34,11 +38,12 @@ public class Job_Hand extends AbstractLupaCard_FuckJob {
 //        addToBot_dealDamage(monster, AbstractGameAction.AttackEffect.BLUNT_LIGHT);
         AbstractLupaCard_FuckJob.addToTop_gainSexMark_Outside(this.getEXTENDED_DESCRIPTION()[0]);
         HangUpCardGroup.addToBot_AddCardOrbToOrbGroup(
-                new CardOrb_EachCardTrigger(this.makeCopy(), (orb, playedCard) -> {
+                new CardOrb_EachCardTrigger(this, (orb, playedCard) -> {
                     AbstractMonster creature = CardOrb_CardTrigger.getHoveredMonsterSafe();
                     orb.StartHitCreature(creature);
-                    DamageActionMaker.maker(this.damage, creature).setCard(this).addToBot();
-                }, this.magicNumber));
+                    DamageActionMaker.maker(orb.card.damage, creature).setCard(this).addToBot();
+                }, this.magicNumber).setCardPredicate(card -> card.type == CardType.ATTACK));
+        AutoDoneInstantAction.addToBotAbstract(()-> Arrays.stream(CardUtility.AllCardGroupInBattle()).forEach(cardGroup -> cardGroup.removeCard(this)));
     }
 
     @Override

@@ -6,9 +6,11 @@ import com.badlogic.gdx.math.Vector2;
 import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.helpers.Hitbox;
+import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import com.megacrit.cardcrawl.orbs.AbstractOrb;
 import com.megacrit.cardcrawl.orbs.EmptyOrbSlot;
 import superstitio.InBattleDataManager;
+import superstitio.actions.AutoDoneInstantAction;
 import superstitio.orbs.CardOrb;
 import superstitio.orbs.actions.ChannelOnOrbGroupAction;
 
@@ -17,7 +19,7 @@ import java.util.stream.Stream;
 
 public class HangUpCardGroup extends OrbGroup implements OnCardUseSubscriber {
 
-    private static final int SetupOrbMax = 1;
+    private static final int SetupOrbMax = 0;
 
     public HangUpCardGroup(Hitbox hitbox) {
         super(hitbox, SetupOrbMax, new EmptyOrbSlot());
@@ -35,7 +37,8 @@ public class HangUpCardGroup extends OrbGroup implements OnCardUseSubscriber {
     @Override
     public void render(SpriteBatch sb) {
         super.render(sb);
-        getCardOrbStream().filter(orb -> orb.card.hb.hovered).forEach(orb -> orb.render(sb));
+        getCardOrbStream().filter(orb -> orb.drawOrder == CardOrb.DrawOrder.middle).forEach(orb -> orb.render(sb));
+        getCardOrbStream().filter(orb -> orb.drawOrder == CardOrb.DrawOrder.top).forEach(orb -> orb.render(sb));
     }
 
     private Stream<CardOrb> getCardOrbStream() {
@@ -88,5 +91,17 @@ public class HangUpCardGroup extends OrbGroup implements OnCardUseSubscriber {
     public void receiveCardUsed(AbstractCard abstractCard) {
         getCardOrbStream()
                 .forEach(orb -> orb.onCardUsed(abstractCard));
+    }
+
+    @Override
+    public boolean receivePreMonsterTurn(AbstractMonster abstractMonster) {
+        AutoDoneInstantAction.addToBotAbstract(() -> {
+            int bound = orbs.size();
+            for (int i = 0; i < bound; i++) {
+                this.evokeOrbAndNotFill(i);
+            }
+            this.decreaseMaxOrbs(orbs.size());
+        });
+        return super.receivePreMonsterTurn(abstractMonster);
     }
 }

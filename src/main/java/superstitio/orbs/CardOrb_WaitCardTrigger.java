@@ -30,6 +30,13 @@ public class CardOrb_WaitCardTrigger extends CardOrb_CardTrigger {
     }
 
     @Override
+    protected CardOrbMovingType checkAndSetTheType() {
+        if (this.waitTime > 1)
+            return CardOrbMovingType.focusOnNothing;
+        return super.checkAndSetTheType();
+    }
+
+    @Override
     public void onProperCardUsed(AbstractCard card) {
         waitTime--;
         this.card.flash();

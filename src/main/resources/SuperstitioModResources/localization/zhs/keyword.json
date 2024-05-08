@@ -92,17 +92,17 @@
     "DESCRIPTION": "免疫 攻击伤害 之外的 伤害 。"
   },
   {
-    "PROPER_NAME": "伴随",
+    "PROPER_NAME": "余韵",
     "NAMES": [
-      "伴随"
+      "余韵"
     ],
-    "DESCRIPTION": "打出卡牌时，触发对应效果。"
+    "DESCRIPTION": "在下几次打出卡牌时，触发对应效果。 NL 回合结束时清空。"
   },
   {
-    "PROPER_NAME": "随后",
+    "PROPER_NAME": "回味",
     "NAMES": [
-      "随后"
+      "回味"
     ],
-    "DESCRIPTION": "打出一定数量卡牌后，触发对应效果。"
+    "DESCRIPTION": "打出一定数量卡牌后，触发对应效果。 NL 回合结束时清空。"
   }
 ]

@@ -4,7 +4,6 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.cards.CardGroup;
-import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import superstitio.DataManager;
 
 import java.util.Arrays;
@@ -16,43 +15,39 @@ public abstract class CardOrb extends AbstractLupaOrb {
     public static final float DRAW_SCALE_BIG = 1.0f;
 
     public static final float DRAW_SCALE_MIDDLE = 0.5f;
-    public static final float DRAW_SCALE_SMALL = 0.35f;
+    public static final float DRAW_SCALE_SMALL = 0.25f;
     private static final float TIMER_ANIMATION = 2.0f;
     public final CardGroup thisCardGroup = new CardGroup(CardGroup.CardGroupType.UNSPECIFIED);
     public AbstractCard card;
+    public AbstractCard.CardTarget targetType = AbstractCard.CardTarget.NONE;
     //        protected float animationTimer = TIMER_SPEED;
 //    private BiFunction<Float, AbstractCard, Vector2> onUseAnimation;
 //    private AbstractCard cardInUse;
     public CardOrbMovingType movingType;
-    protected boolean canNotInterrupt = false;
+    public DrawOrder drawOrder = CardOrb.DrawOrder.bottom;
+    protected boolean canInterrupt = true;
     protected boolean movingIsStop = true;
     protected CardGroup originGroupOfCard = null;
     protected Predicate<AbstractCard> cardMatcher = (card) -> true;
 
     public CardOrb(AbstractCard card) {
         super(ORB_ID);
-        this.card = card;
-
-        this.thisCardGroup.addToTop(this.card);
+        this.card = card.makeStatEquivalentCopy();
         this.card.targetDrawScale = DRAW_SCALE_SMALL;
         this.card.isCostModified = false;
-        this.card.current_x = this.cX;
-        this.card.current_y = this.cY;
+        this.card.current_x = card.current_x;
+        this.card.current_y = card.current_y;
         this.card.costForTurn = -2;
 
-        movingType = CardOrbMovingType.Idle;
+        this.targetType = this.card.target;
+        this.thisCardGroup.addToTop(this.card);
+        this.movingType = CardOrbMovingType.Idle;
     }
 
     @Override
     public final void onEvoke() {
-        AbstractDungeon.player.drawPile.addToTop(card);
         onRemoveCard();
     }
-
-    //    public CardOrb setOnUseAnimation(BiFunction<Float, AbstractCard, Vector2> onUseAnimation) {
-//        this.onUseAnimation = onUseAnimation;
-//        return this;
-//    }
 
     protected abstract void onRemoveCard();
 
@@ -63,13 +58,8 @@ public abstract class CardOrb extends AbstractLupaOrb {
         return this;
     }
 
-    @Override
-    public void updateDescriptionArgs() {
-
-    }
-
     protected void setCanNotInterrupt() {
-        canNotInterrupt = true;
+        canInterrupt = false;
     }
 
     public abstract boolean shouldRemove();
@@ -97,31 +87,35 @@ public abstract class CardOrb extends AbstractLupaOrb {
         this.hb.update();
         this.card.update();
         this.card.updateHoverLogic();
-//        this.card.hb.move(this.card.current_x, this.card.current_y);
-        if (movingType == CardOrbMovingType.Idle)
-            updateAnimationIdle();
-        movingIsStop = checkShouldStopMoving();
-        if (movingType != CardOrb.CardOrbMovingType.Idle)
-            card.targetDrawScale = DRAW_SCALE_SMALL;
     }
 
-    protected abstract void checkMovingType();
+//    protected abstract ActionUtility.VoidSupplier checkAndSetTheType();
 
     protected boolean checkShouldStopMoving() {
         if (this.movingType == CardOrbMovingType.Idle) return true;
         return Math.abs(this.card.current_y - this.card.target_y) < 0.01f && Math.abs(this.card.current_x - this.card.target_x) < 0.01f;
     }
 
-    private void updateAnimationIdle() {
+    protected void updateAnimationIdle() {
         if (isCardHovered()) {
             this.card.target_x = this.cX;
             this.card.target_y = this.cY + YOffsetWhenHovered();
             card.targetDrawScale = DRAW_SCALE_BIG;
+            this.drawOrder = DrawOrder.top;
         } else {
             this.card.target_x = this.cX;
-            this.card.target_y = this.cY;
+            this.card.target_y = this.cY + YOffsetWhenHovered();
             card.targetDrawScale = DRAW_SCALE_SMALL;
+            this.drawOrder = DrawOrder.bottom;
         }
+    }
+
+    @Override
+    public void updateDescription() {
+        if (this.card == null) return;
+        this.card.calculateDamageDisplay(CardOrb_CardTrigger.getHoveredMonsterSafe());
+        this.card.initializeDescription();
+        super.updateDescription();
     }
 
     protected float YOffsetBoBing() {
@@ -159,8 +153,18 @@ public abstract class CardOrb extends AbstractLupaOrb {
 
     public abstract void onProperCardUsed(AbstractCard card);
 
+    public enum DrawOrder {
+        bottom,
+        middle,
+        top
+    }
+
 
     public enum CardOrbMovingType {
         Idle,//闲置
+        focusOnMonster,
+        focusOnSelf,
+        focusOnNothing,
+        Moving
     }
 }

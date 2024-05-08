@@ -70,7 +70,7 @@ public abstract class AbstractLupaOrb extends AbstractOrb implements updateDescr
     }
 
     @Override
-    public final void updateDescription() {
+    public void updateDescription() {
         this.updateDescriptionArgs();
         String string = getDescriptionStrings();
         string = String.format(string, descriptionArgs);
@@ -86,7 +86,7 @@ public abstract class AbstractLupaOrb extends AbstractOrb implements updateDescr
     }
 
     @Override
-    public abstract void updateDescriptionArgs();
+    public void updateDescriptionArgs(){};
 
     @Override
     public String getDescriptionStrings() {

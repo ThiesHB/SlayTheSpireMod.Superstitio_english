@@ -35,7 +35,7 @@ public class Masturbate extends AbstractLupaCard {
     public void use(AbstractPlayer player, AbstractMonster monster) {
         addToBot_applyPower(new SexualHeat(player, this.magicNumber));
         HangUpCardGroup.addToBot_AddCardOrbToOrbGroup(
-                new CardOrb_WaitCardTrigger(this.makeCopy(), (orb, playedCard) -> {
+                new CardOrb_WaitCardTrigger(this, (orb, playedCard) -> {
                     orb.card.flash();
                     orb.StartHitCreature(AbstractDungeon.player);
                     addToBot_drawCards(DRAWCard);

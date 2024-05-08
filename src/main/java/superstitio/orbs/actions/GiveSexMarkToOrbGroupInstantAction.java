@@ -15,7 +15,7 @@ public class GiveSexMarkToOrbGroupInstantAction extends AutoDoneInstantAction {
 
     @Override
     public void autoDoneUpdate() {
-        target.evokeOrb(this.sexMark);
+//        target.evokeOrb(this.sexMark);
         target.channelOrb(this.sexMark);
     }
 }

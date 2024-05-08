@@ -23,13 +23,18 @@ public class GangBang extends AbstractLupaCard_TempCard {
     private static final int BLOCK = 4;
 
     public GangBang() {
-        this(DAMAGE, BLOCK);
+        this(DAMAGE, BLOCK, 1);
     }
 
-    public GangBang(int attackAmount, int blockAmount) {
+    /**
+     * @param score 1-5
+     */
+    public GangBang(int attackAmount, int blockAmount, int score) {
         super(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET);
-        this.setupDamage(attackAmount, new SexDamage());
-        this.setupBlock(blockAmount, new DrySemenBlock());
+        this.originalName = cardStrings.getEXTENDED_DESCRIPTION()[score - 1] + cardStrings.getNAME();
+        this.name = this.originalName;
+        this.setupDamage(attackAmount * score, new SexDamage());
+        this.setupBlock(blockAmount * score, new DrySemenBlock());
         this.glowColor = Color.WHITE.cpy();
         this.beginGlowing();
         this.exhaust = true;
@@ -39,6 +44,7 @@ public class GangBang extends AbstractLupaCard_TempCard {
         this.setBackgroundTexture(
                 DataManager.makeImgFilesPath_UI("bg_attack_512_semen"),
                 DataManager.makeImgFilesPath_UI("bg_attack_semen"));
+        this.initializeDescription();
     }
 
     @Override
