@@ -2,7 +2,7 @@
   "SuperstitioMod:Sensitive": {
     "NAME": "敏感",
     "DESCRIPTIONS": [
-      "你使用的每个 [E] 均会立即带来 #b%d 点  #ysuperstitiomod:快感 。 NL 特殊机制： #ysuperstitiomod:高潮  、 #ysuperstitiomod:结束高潮  、 #ysuperstitiomod:连续高潮  、 #ysuperstitiomod:潮吹 ； #ysuperstitiomod:体内精液 、 #ysuperstitiomod:体表精液 、 #ysuperstitiomod:干涸精液 。"
+      "回合结束前受到的伤害会在下个回合开始时结算。 NL 你使用的每个 [E] 均会立即带来 #b%d 点  #ysuperstitiomod:快感 。 NL 特殊机制： #ysuperstitiomod:高潮  、 #ysuperstitiomod:结束高潮  、 #ysuperstitiomod:连续高潮 。"
     ],
     "FLAVOR": "你的身体非常敏感。"
   },

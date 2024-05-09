@@ -48,6 +48,11 @@ public class SexualDamage extends AbstractLupaPower implements HealthBarRenderPo
     }
 
     @Override
+    public void setDecreaseAmount(int amount) {
+        this.amount = amount;
+    }
+
+    @Override
     public void renderAmount(SpriteBatch sb, float x, float y, Color c) {
         float temp = this.fontScale;
         this.fontScale *= 1.5f;

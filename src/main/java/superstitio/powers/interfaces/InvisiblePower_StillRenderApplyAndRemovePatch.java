@@ -30,6 +30,7 @@ public class InvisiblePower_StillRenderApplyAndRemovePatch {
         };
     }
 
+
     @SpirePatch(
             clz = AbstractMonster.class,
             method = "renderTip")

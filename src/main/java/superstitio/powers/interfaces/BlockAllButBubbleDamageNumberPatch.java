@@ -7,6 +7,7 @@ import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import javassist.CannotCompileException;
 import javassist.expr.ExprEditor;
 import javassist.expr.FieldAccess;
+import superstitio.utils.CardUtility;
 
 @SpirePatch(clz = AbstractPlayer.class, method = "damage")
 public class BlockAllButBubbleDamageNumberPatch {
@@ -32,6 +33,7 @@ public class BlockAllButBubbleDamageNumberPatch {
     }
 
     public static boolean isImmunity(AbstractPlayer abstractPlayer, DamageInfo info, int damageAmount) {
+        if (CardUtility.isNotInBattle()) return false;
         return IsImmunityFields.checkShouldImmunity.get(abstractPlayer).test(abstractPlayer, info, damageAmount);
     }
 

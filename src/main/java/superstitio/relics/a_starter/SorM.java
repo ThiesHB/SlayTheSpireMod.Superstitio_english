@@ -2,6 +2,7 @@ package superstitio.relics.a_starter;
 
 import basemod.AutoAdd;
 import basemod.abstracts.CustomSavable;
+import com.evacipated.cardcrawl.mod.stslib.relics.BetterOnLoseHpRelic;
 import com.evacipated.cardcrawl.mod.stslib.relics.ClickableRelic;
 import com.megacrit.cardcrawl.actions.common.ApplyPowerAction;
 import com.megacrit.cardcrawl.cards.DamageInfo;
@@ -9,6 +10,7 @@ import com.megacrit.cardcrawl.core.AbstractCreature;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.helpers.PowerTip;
 import superstitio.DataManager;
+import superstitio.characters.Lupa;
 import superstitio.powers.SexualHeat;
 import superstitio.relics.AbstractLupaRelic;
 import superstitio.utils.CardUtility;
@@ -19,7 +21,7 @@ import superstitio.utils.CardUtility;
  * M：每受到超过MasochismModeRate的伤害获得一点快感。
  */
 @AutoAdd.Seen
-public class SorM extends AbstractLupaRelic implements ClickableRelic, CustomSavable<Integer> {
+public class SorM extends AbstractLupaRelic implements ClickableRelic, CustomSavable<Integer>, BetterOnLoseHpRelic {
     public static final String ID = DataManager.MakeTextID(SorM.class.getSimpleName());
     // 遗物类型
     private static final RelicTier RELIC_TIER = RelicTier.SPECIAL;
@@ -67,12 +69,19 @@ public class SorM extends AbstractLupaRelic implements ClickableRelic, CustomSav
 
     @Override
     public void onLoseHp(int damageAmount) {
-        if (CardUtility.isNotInBattle()) return;
-        if (!MasochismMode) return;
-        if (damageAmount < MasochismModeRate) return;
-        AddSexualHeat(damageAmount / MasochismModeRate * SexualHeatRate);
-        this.flash();
 
+
+    }
+
+    @Override
+    public int betterOnLoseHp(DamageInfo damageInfo, int i) {
+        if (CardUtility.isNotInBattle()) return i;
+        if (!MasochismMode) return i;
+        if (i < MasochismModeRate) return i;
+        if (damageInfo.type == Lupa.CanOnlyDamageDamageType.UnBlockAbleDamageType) return i;
+        AddSexualHeat(i / MasochismModeRate * SexualHeatRate);
+        this.flash();
+        return i;
     }
 
     @Override

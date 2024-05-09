@@ -97,7 +97,7 @@ public class Lupa extends CustomPlayer {
             if (damageInfo.type == CanOnlyDamageDamageType.UnBlockAbleDamageType) {
                 return false;
             }
-            ActionUtility.addToBot_applyPower(new SexualDamage_ByEnemy(AbstractDungeon.player, damageAmount, damageInfo.owner));
+            ActionUtility.addToTop_applyPower(new SexualDamage_ByEnemy(AbstractDungeon.player, damageAmount, damageInfo.owner));
             return true;
         }));
 
@@ -363,8 +363,8 @@ public class Lupa extends CustomPlayer {
     public CharSelectInfo getLoadout() {
         return new CharSelectInfo(characterStrings.NAMES[0], // 人物名字
                 characterStrings.TEXT[0], // 人物介绍
-                75, // 当前血量
-                75, // 最大血量
+                60, // 当前血量
+                60, // 最大血量
                 0, // 初始充能球栏位
                 99, // 初始携带金币
                 5, // 每回合抽牌数量

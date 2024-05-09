@@ -151,7 +151,13 @@
   "SuperstitioMod:SexualDamage": {
     "NAME": "爱欲",
     "DESCRIPTIONS": [
-      "回合结束时，若 #y爱欲 大于 #y生命值 ，死亡。"
+      "回合开始时，受到 #b%d 点伤害。"
+    ]
+  },
+  "SuperstitioMod:SexualDamage_ByEnemy": {
+    "NAME": "爱欲",
+    "DESCRIPTIONS": [
+      "下个回合开始时：受到 #b%d 点伤害。"
     ]
   }
 }
