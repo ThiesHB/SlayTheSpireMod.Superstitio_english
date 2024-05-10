@@ -60,6 +60,7 @@ public class DelayDamage extends AbstractLupaPower implements HealthBarRenderPow
     public void renderAmount(SpriteBatch sb, float x, float y, Color c) {
         super.renderAmount(sb, x, y, c);
         renderAmount2(sb, x, y, c, this.damageAmount);
+//        AbstractDungeon.actionManager.currentAction.target
     }
 
 

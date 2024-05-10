@@ -5,7 +5,7 @@ import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import superstitio.DataManager;
 import superstitio.cards.lupa.AbstractLupaCard;
-import superstitio.cards.modifiers.block.SexBlock;
+import superstitio.delayHpLose.RemoveDelayHpLoseBlock;
 
 public class CoitalVocal extends AbstractLupaCard {
     public static final String ID =
@@ -23,7 +23,7 @@ public class CoitalVocal extends AbstractLupaCard {
 
     public CoitalVocal() {
         super(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET);
-        this.setupBlock(BLOCK, UPGRADE_BLOCK, new SexBlock());
+        this.setupBlock(BLOCK, UPGRADE_BLOCK, new RemoveDelayHpLoseBlock());
     }
 
     @Override

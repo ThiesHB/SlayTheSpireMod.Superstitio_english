@@ -8,6 +8,7 @@ import com.megacrit.cardcrawl.actions.AbstractGameAction;
 import com.megacrit.cardcrawl.actions.common.LoseHPAction;
 import com.megacrit.cardcrawl.core.AbstractCreature;
 import superstitio.DataManager;
+import superstitio.delayHpLose.DelayHpLosePower;
 import superstitio.powers.interfaces.DecreaseHealthBarNumberPower;
 
 public class SexualDamage extends AbstractLupaPower implements HealthBarRenderPower, DecreaseHealthBarNumberPower {
@@ -17,7 +18,7 @@ public class SexualDamage extends AbstractLupaPower implements HealthBarRenderPo
     public SexualDamage(final AbstractCreature owner, int amount, AbstractCreature giver) {
         super(POWER_ID, owner, amount);
         this.giver = giver;
-        ReflectionHacks.setPrivate(this, SexualDamage_ByEnemy.class, "greenColor", Color.PINK.cpy());
+        ReflectionHacks.setPrivate(this, DelayHpLosePower.class, "greenColor", Color.PINK.cpy());
     }
 
     @Override

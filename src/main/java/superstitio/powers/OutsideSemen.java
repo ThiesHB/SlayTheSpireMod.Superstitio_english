@@ -10,9 +10,11 @@ import com.megacrit.cardcrawl.powers.AbstractPower;
 import superstitio.DataManager;
 import superstitio.cards.modifiers.block.DrySemenBlock;
 import superstitio.powers.barIndepend.HasBarRenderOnCreature_Power;
-import superstitio.powers.interfaces.InvisiblePower_StillRenderApplyAndRemove;
+import superstitio.powers.interfaces.invisible.InvisiblePower_InvisibleIconAndAmount;
+import superstitio.powers.interfaces.invisible.InvisiblePower_InvisibleTips;
 
-public class OutsideSemen extends AbstractLupaPower implements InvisiblePower_StillRenderApplyAndRemove, HasBarRenderOnCreature_Power {
+public class OutsideSemen extends AbstractLupaPower implements
+        InvisiblePower_InvisibleTips, InvisiblePower_InvisibleIconAndAmount, HasBarRenderOnCreature_Power {
     public static final String POWER_ID = DataManager.MakeTextID(OutsideSemen.class.getSimpleName());
 
 

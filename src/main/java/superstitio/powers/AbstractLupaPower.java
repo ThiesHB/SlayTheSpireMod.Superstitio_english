@@ -3,7 +3,6 @@ package superstitio.powers;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-import com.megacrit.cardcrawl.actions.common.ApplyPowerAction;
 import com.megacrit.cardcrawl.actions.common.ReducePowerAction;
 import com.megacrit.cardcrawl.actions.common.RemoveSpecificPowerAction;
 import com.megacrit.cardcrawl.core.AbstractCreature;
@@ -13,6 +12,7 @@ import com.megacrit.cardcrawl.powers.AbstractPower;
 import superstitio.DataManager;
 import superstitio.customStrings.HasSFWVersion;
 import superstitio.customStrings.PowerStringsSet;
+import superstitio.utils.ActionUtility;
 import superstitio.utils.updateDescriptionAdvanced;
 
 public abstract class AbstractLupaPower extends AbstractPower implements updateDescriptionAdvanced {
@@ -76,7 +76,8 @@ public abstract class AbstractLupaPower extends AbstractPower implements updateD
         this.flash();
         if (this.amount == 0) {
             this.addToBot(new RemoveSpecificPowerAction(this.owner, this.owner, power));
-        } else {
+        }
+        else {
             this.addToBot(new ReducePowerAction(this.owner, this.owner, power, 1));
         }
     }
@@ -90,33 +91,30 @@ public abstract class AbstractLupaPower extends AbstractPower implements updateD
         return size == IconSize.Big ? "84" : "32";
     }
 
-    public void addToBot_applyPowerToOwner(final AbstractPower power) {
-        this.addToBot(new ApplyPowerAction(this.owner, this.owner, power));
-    }
-
     public void addToBot_applyPower(final AbstractPower power) {
-        this.addToBot(new ApplyPowerAction(power.owner, this.owner, power));
+        ActionUtility.addToBot_applyPower(power, this.owner);
     }
 
     public void addToBot_reducePowerToOwner(final String powerID, int amount) {
-        this.addToBot(new ReducePowerAction(this.owner, this.owner, powerID, amount));
+        ActionUtility.addToBot_reducePower(powerID, amount, this.owner, this.owner);
     }
 
-    public void addToBot_reducePowerToOwner(final AbstractPower power, int amount) {
-        this.addToBot(new ReducePowerAction(this.owner, this.owner, power, amount));
-    }
+//    public void addToBot_reducePowerToOwner(final AbstractPower power) {
+//        ActionUtility.addToBot_reducePower(power, power.owner);
+//    }
 
     public void addToBot_removeSpecificPower(AbstractPower power) {
-        this.addToBot(new RemoveSpecificPowerAction(this.owner, this.owner, power));
+        ActionUtility.addToBot_removeSpecificPower(power, power.owner);
     }
 
-
-    @SuppressWarnings("RedundantCast")
+    /**
+     * 没事干不要重写这个
+     */
     @Override
-    public final void updateDescription() {
+    public void updateDescription() {
         this.updateDescriptionArgs();
         String string = getDescriptionStrings();
-        string = String.format(string, (Object[]) descriptionArgs);
+        string = String.format(string, descriptionArgs);
         this.description = string;
     }
 

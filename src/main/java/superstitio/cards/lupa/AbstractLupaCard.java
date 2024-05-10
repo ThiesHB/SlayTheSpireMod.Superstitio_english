@@ -9,7 +9,10 @@ import com.evacipated.cardcrawl.mod.stslib.blockmods.BlockModifierManager;
 import com.evacipated.cardcrawl.mod.stslib.damagemods.AbstractDamageModifier;
 import com.evacipated.cardcrawl.mod.stslib.damagemods.DamageModifierManager;
 import com.evacipated.cardcrawl.mod.stslib.patches.FlavorText;
-import com.megacrit.cardcrawl.actions.common.*;
+import com.megacrit.cardcrawl.actions.AbstractGameAction;
+import com.megacrit.cardcrawl.actions.common.DamageAllEnemiesAction;
+import com.megacrit.cardcrawl.actions.common.DrawCardAction;
+import com.megacrit.cardcrawl.actions.common.GainBlockAction;
 import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.core.AbstractCreature;
@@ -17,6 +20,7 @@ import com.megacrit.cardcrawl.core.Settings;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import com.megacrit.cardcrawl.powers.AbstractPower;
+import com.megacrit.cardcrawl.vfx.combat.FlashAtkImgEffect;
 import superstitio.DataManager;
 import superstitio.InBattleDataManager;
 import superstitio.Logger;
@@ -24,6 +28,10 @@ import superstitio.SuperstitioModSetup;
 import superstitio.cards.DamageActionMaker;
 import superstitio.customStrings.CardStringsWithFlavorSet;
 import superstitio.customStrings.HasSFWVersion;
+import superstitio.delayHpLose.DelayHpLosePatch;
+import superstitio.delayHpLose.DelayHpLosePower;
+import superstitio.delayHpLose.RemoveDelayHpLoseBlock;
+import superstitio.utils.ActionUtility;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -163,6 +171,9 @@ public abstract class AbstractLupaCard extends CustomCard {
         this.block = amount;
         this.blockAutoUpgrade = amountOfAutoUpgrade;
         if (blockModifiers == null || blockModifiers.length == 0) return;
+        if (Arrays.stream(blockModifiers).anyMatch(blockModifier -> blockModifier instanceof RemoveDelayHpLoseBlock)) {
+            DelayHpLosePatch.GainBlockTypeFields.ifTransGainBlockToReduceDelayHpLose.set(this, true);
+        }
         BlockModifierManager.addModifiers(this, (ArrayList<AbstractBlockModifier>) Arrays.stream(blockModifiers).collect(Collectors.toList()));
     }
 
@@ -183,62 +194,74 @@ public abstract class AbstractLupaCard extends CustomCard {
         this.drawScale = temp;
     }
 
-    protected final void addToBot_dealDamage(final AbstractCreature target) {
+    public final void addToBot_dealDamage(final AbstractCreature target) {
         DamageActionMaker.maker(this.damage, target).addToBot();
     }
 
-    protected final void addToBot_dealDamage(final AbstractCreature target, final AttackEffect effect) {
+    public final void addToBot_dealDamage(final AbstractCreature target, final AttackEffect effect) {
         DamageActionMaker.maker(this.damage, target).setEffect(effect).addToBot();
     }
 
-    protected final void addToBot_dealDamage(final AbstractCreature target, final int damageAmount, final AttackEffect effect) {
+    public final void addToBot_dealDamage(final AbstractCreature target, final int damageAmount, final AttackEffect effect) {
         DamageActionMaker.maker(damageAmount, target).setEffect(effect).addToBot();
     }
 
-    protected final void addToBot_dealDamage(final AbstractCreature target, final int damageAmount, final DamageType damageType,
+    public final void addToBot_dealDamage(final AbstractCreature target, final int damageAmount, final DamageType damageType,
                                              final AttackEffect effect) {
         DamageActionMaker.maker(damageAmount, target).setDamageType(damageType).setEffect(effect).addToBot();
     }
 
-    protected final void addToBot_dealDamage(final AbstractCreature target, final int damageAmount, final DamageType damageType,
+    public final void addToBot_dealDamage(final AbstractCreature target, final int damageAmount, final DamageType damageType,
                                              AbstractDamageModifier damageModifier, final AttackEffect effect) {
         DamageActionMaker.maker(damageAmount, target).setDamageModifier(this, damageModifier).setDamageType(damageType).setEffect(effect).addToBot();
     }
 
-    protected final void addToBot_dealDamageToAllEnemies(final AttackEffect effect) {
+    public final void addToBot_dealDamageToAllEnemies(final AttackEffect effect) {
         this.addToBot(new DamageAllEnemiesAction(AbstractDungeon.player, this.multiDamage, this.damageTypeForTurn, effect));
     }
 
-    protected final void addToBot_gainBlock() {
-        addToBot_gainBlock(this.block);
+    public final void addToBot_gainBlock() {
+        this.addToBot_gainBlock(this.block);
     }
 
-    protected final void addToBot_gainBlock(final int amount) {
-        this.addToBot(new GainBlockAction(AbstractDungeon.player, amount));
+    public final void addToBot_gainBlock(final int amount) {
+        if (DelayHpLosePatch.GainBlockTypeFields.ifTransGainBlockToReduceDelayHpLose.get(this)) {
+            ActionUtility.addToBot_reducePower(DelayHpLosePower.getUniqueIDInit(), amount,
+                    AbstractDungeon.player, AbstractDungeon.player);
+            AbstractDungeon.effectList.add(
+                    new FlashAtkImgEffect(AbstractDungeon.player.hb.cX, AbstractDungeon.player.hb.cY,
+                            AbstractGameAction.AttackEffect.SHIELD));
+        }
+        else
+            this.addToBot(new GainBlockAction(AbstractDungeon.player, amount));
     }
 
-    protected final void addToBot_gainBlock(final int amount, AbstractBlockModifier blockModifier) {
+    public final void addToBot_gainBlock(AbstractBlockModifier blockModifier) {
+        this.addToBot_gainBlock(this.block, blockModifier);
+    }
+
+    public final void addToBot_gainBlock(final int amount, AbstractBlockModifier blockModifier) {
         this.addToBot(new GainCustomBlockAction(new BlockModContainer(this, blockModifier), AbstractDungeon.player, amount));
     }
 
-    protected final void addToBot_gainBlock(AbstractBlockModifier blockModifier) {
-        this.addToBot(new GainCustomBlockAction(new BlockModContainer(this, blockModifier), AbstractDungeon.player, this.block));
-    }
-
-    protected final void addToBot_drawCards(final int amount) {
+    public final void addToBot_drawCards(final int amount) {
         this.addToBot(new DrawCardAction(amount));
     }
 
-    protected final void addToBot_drawCards() {
+    public final void addToBot_drawCards() {
         this.addToBot(new DrawCardAction(1));
     }
 
-    protected final void addToBot_applyPower(final AbstractPower power) {
-        this.addToBot(new ApplyPowerAction(power.owner, AbstractDungeon.player, power));
+    public final void addToBot_applyPower(final AbstractPower power) {
+        ActionUtility.addToBot_applyPower(power);
     }
 
-    protected final void addToBot_reducePowerToPlayer(final String powerID, int amount) {
-        this.addToBot(new ReducePowerAction(AbstractDungeon.player, AbstractDungeon.player, powerID, amount));
+//    protected final void addToBot_reducePower(final AbstractPower power) {
+//        ActionUtility.addToBot_reducePower(power, AbstractDungeon.player);
+//    }
+
+    public final void addToBot_reducePower(final String powerID, int amount) {
+        ActionUtility.addToBot_reducePower(powerID, amount, AbstractDungeon.player, AbstractDungeon.player);
     }
 
     protected void setCostToCostMap_ForTurn(int amount) {

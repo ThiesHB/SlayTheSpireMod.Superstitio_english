@@ -10,7 +10,7 @@ import superstitio.DataManager;
 import superstitio.actions.AutoDoneInstantAction;
 import superstitio.actions.ChoseCardFromHandCardSelectScreen;
 import superstitio.cards.lupa.AbstractLupaCard;
-import superstitio.cards.modifiers.block.SexBlock;
+import superstitio.delayHpLose.RemoveDelayHpLoseBlock;
 
 public class ZenState extends AbstractLupaCard {
     public static final String ID = DataManager.MakeTextID(ZenState.class.getSimpleName());
@@ -30,13 +30,13 @@ public class ZenState extends AbstractLupaCard {
     public ZenState() {
         super(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET);
         this.setupMagicNumber(MAGIC);
-        this.setupBlock(BLOCK, UPGRADE_BLOCK, new SexBlock());
+        this.setupBlock(BLOCK, UPGRADE_BLOCK, new RemoveDelayHpLoseBlock());
     }
 
     @Override
     public void use(AbstractPlayer player, AbstractMonster monster) {
-        this.addToBot_gainBlock();
-        this.addToBot(new ChoseCardFromHandCardSelectScreen(
+        addToBot_gainBlock();
+        addToBot(new ChoseCardFromHandCardSelectScreen(
                 this::letSpecificCardExhaust)
                 .setWindowText(String.format(getEXTENDED_DESCRIPTION()[0], this.magicNumber))
                 .setChoiceAmount(this.magicNumber)

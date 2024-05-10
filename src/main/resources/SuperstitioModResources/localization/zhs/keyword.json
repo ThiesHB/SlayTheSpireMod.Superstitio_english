@@ -7,6 +7,13 @@
     "DESCRIPTION": "每累计一定点数迎来一次 #y高潮 。"
   },
   {
+    "PROPER_NAME": "#r腐朽",
+    "NAMES": [
+      "腐朽"
+    ],
+    "DESCRIPTION": "你在 #y本回合开始 到 #y下回合开始 期间受到的伤害会在 #y下下回合开始时 结算。"
+  },
+  {
     "PROPER_NAME": "高潮",
     "NAMES": [
       "高潮",

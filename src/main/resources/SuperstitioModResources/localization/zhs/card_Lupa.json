@@ -53,7 +53,7 @@
   "SuperstitioMod:Job_Hair": {
     "NAME": "发交",
     "NAME_SFW": "辫子神功",
-    "DESCRIPTION": "造成 !D! 点 伤害 。 NL 把带有 消耗 的 复制加入手牌， NL 复制品减少 !M! 伤害。 NL 虚无 。",
+    "DESCRIPTION": "造成 !D! 点 伤害 。  NL  superstitiomod:回味 : 把带有 消耗 的 复制加入手牌。 NL 虚无 。",
     "FLAVOR": "扯着有点疼，不会把我变成光头吧？",
     "EXTENDED_DESCRIPTION": [
       "头发"
@@ -89,13 +89,13 @@
   "SuperstitioMod:Fuck_Ear": {
     "NAME": "耳奸",
     "NAME_SFW": "龙形拳",
-    "DESCRIPTION": "抽到时获得保留。 NL 造成 2 次 !D! 点 伤害 。 NL 把 *眼奸 加入手牌。 NL 获得 1 脆弱 。 NL 消耗 。",
+    "DESCRIPTION": "造成 2 次 !D! 点 伤害 。 NL 把 *眼奸 加入手牌。 NL 获得 1 脆弱 。 NL 消耗 。",
     "FLAVOR": "是脑交！要是脑子有触觉就好了，哧溜。"
   },
   "SuperstitioMod:Fuck_Eye": {
     "NAME": "眼奸",
     "NAME_SFW": "蛇形拳",
-    "DESCRIPTION": "抽到时获得保留。 NL 造成 2 次 !D! 点 伤害 。 获得 !B! 点 *引诱 。 NL 把 *耳奸 加入手牌 。 NL  获得 1 虚弱 。 NL 消耗 。",
+    "DESCRIPTION": "造成 2 次 !D! 点 伤害 。 NL  获得 1 虚弱 。 NL superstitiomod:回味 !M!: 获得 !B! 点 *引诱 ， 把 *耳奸 加入手牌 。 NL 消耗 。",
     "FLAVOR": "也许是脑交。总的来说还是取决于肉棒的主人敢不敢用力吧。"
   },
   "SuperstitioMod:Fuck_Navel": {
@@ -279,7 +279,7 @@
   "SuperstitioMod:Philter": {
     "NAME": "春药",
     "NAME_SFW": "硬气功",
-    "DESCRIPTION": "移除 所有 的 格挡 ， NL 获得 一半 的 多层护甲 。",
+    "DESCRIPTION": "移除 所有 的 格挡 ， NL 获得 1/ !M! 的 多层护甲 。",
     "FLAVOR": "从阴蒂注射效果最好。"
   },
   "SuperstitioMod:ZenState": {

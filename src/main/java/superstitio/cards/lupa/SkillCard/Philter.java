@@ -7,6 +7,7 @@ import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import com.megacrit.cardcrawl.powers.PlatedArmorPower;
 import superstitio.DataManager;
 import superstitio.cards.lupa.AbstractLupaCard;
+import superstitio.powers.SexPlateArmorPower;
 
 //春药
 public class Philter extends AbstractLupaCard {
@@ -18,9 +19,9 @@ public class Philter extends AbstractLupaCard {
 
     public static final CardTarget CARD_TARGET = CardTarget.SELF;
 
-    private static final int COST = 2;
-    private static final int MAGIC = 2;
-    private static final int COST_UPGRADE_NEW = 1;
+    private static final int COST = 1;
+    private static final int MAGIC = 3;
+    private static final int UPGRADE_MAGIC = -1;
 
 
     public Philter() {
@@ -30,13 +31,13 @@ public class Philter extends AbstractLupaCard {
 
     @Override
     public void use(AbstractPlayer player, AbstractMonster monster) {
-        addToBot_applyPower(new PlatedArmorPower(AbstractDungeon.player, AbstractDungeon.player.currentBlock / this.magicNumber));
+        addToBot_applyPower(new SexPlateArmorPower(AbstractDungeon.player, AbstractDungeon.player.currentBlock / this.magicNumber));
         addToBot(new RemoveAllBlockAction(AbstractDungeon.player, AbstractDungeon.player));
     }
 
     @Override
     public void upgradeAuto() {
-//            upgradeMagicNumber(UPGRADE_MAGIC);
-        upgradeBaseCost(COST_UPGRADE_NEW);
+            upgradeMagicNumber(UPGRADE_MAGIC);
+//        upgradeBaseCost(COST_UPGRADE_NEW);
     }
 }

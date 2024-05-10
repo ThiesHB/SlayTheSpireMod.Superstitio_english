@@ -98,7 +98,7 @@ public class DamageActionMaker {
         return this;
     }
 
-    public DamageActionMaker setCard(AbstractCard card) {
+    public DamageActionMaker setExampleCard(AbstractCard card) {
         this.instigator = card;
         this.damageModifiers = DamageModifierManager.modifiers(card);
         return this;

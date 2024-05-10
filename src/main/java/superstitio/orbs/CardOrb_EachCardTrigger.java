@@ -31,8 +31,8 @@ public class CardOrb_EachCardTrigger extends CardOrb_CardTrigger {
     }
 
     @Override
-    public void onProperCardUsed(AbstractCard card) {
+    protected boolean onProperCardUsed_IfShouldApply(AbstractCard card) {
         triggerTime--;
-        action.accept(this, card);
+        return true;
     }
 }

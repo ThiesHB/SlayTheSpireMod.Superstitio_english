@@ -1,9 +1,6 @@
 package superstitio.utils;
 
-import com.megacrit.cardcrawl.actions.common.ApplyPowerAction;
-import com.megacrit.cardcrawl.actions.common.MakeTempCardInDiscardAction;
-import com.megacrit.cardcrawl.actions.common.MakeTempCardInDrawPileAction;
-import com.megacrit.cardcrawl.actions.common.MakeTempCardInHandAction;
+import com.megacrit.cardcrawl.actions.common.*;
 import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.core.AbstractCreature;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
@@ -26,12 +23,32 @@ public class ActionUtility {
         AbstractDungeon.actionManager.addToBottom(new ApplyPowerAction(power.owner, AbstractDungeon.player, power));
     }
 
-    public static void addToBot_applyPower(final AbstractPower power, AbstractCreature source) {
+    public static void addToBot_applyPower(final AbstractPower power, final AbstractCreature source) {
         AbstractDungeon.actionManager.addToBottom(new ApplyPowerAction(power.owner, source, power));
     }
 
     public static void addToTop_applyPower(final AbstractPower power) {
         AbstractDungeon.actionManager.addToTop(new ApplyPowerAction(power.owner, AbstractDungeon.player, power));
+    }
+
+//    public static void addToBot_reducePower(final AbstractPower power, final AbstractCreature source) {
+//        AbstractDungeon.actionManager.addToBottom(new ReducePowerAction(power.owner, source, power, power.amount));
+//    }
+    //不知道为什么这段代码不起作用，开摆
+    //但是：this.addToBot(new ReducePowerAction(this.owner, this.owner, power, 1));这段代码就有用
+
+    public static void addToBot_reducePower(
+            final String powerId, final int amount, final AbstractCreature target, final AbstractCreature source) {
+        AbstractDungeon.actionManager.addToBottom(new ReducePowerAction(target, source, powerId, amount));
+    }
+
+    public static void addToBot_removeSpecificPower(final AbstractPower power, final AbstractCreature source) {
+        AbstractDungeon.actionManager.addToBottom(new RemoveSpecificPowerAction(power.owner, source, power));
+    }
+
+    public static void addToBot_removeSpecificPower(
+            final String powerId, final AbstractCreature target, final AbstractCreature source) {
+        AbstractDungeon.actionManager.addToBottom(new RemoveSpecificPowerAction(target, source, powerId));
     }
 
     public static void addToBot_makeTempCardInBattle(AbstractCard card, AbstractLupaCard.BattleCardPlace battleCardPlace, int amount) {

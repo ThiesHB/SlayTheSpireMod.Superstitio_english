@@ -7,11 +7,13 @@ import com.megacrit.cardcrawl.powers.AbstractPower;
 import superstitio.DataManager;
 import superstitio.actions.AutoDoneInstantAction;
 import superstitio.powers.barIndepend.HasBarRenderOnCreature_Power;
-import superstitio.powers.interfaces.InvisiblePower_StillRenderApplyAndRemove;
+import superstitio.powers.interfaces.invisible.InvisiblePower_InvisibleIconAndAmount;
+import superstitio.powers.interfaces.invisible.InvisiblePower_InvisibleTips;
 import superstitio.powers.interfaces.OnPostApplyThisPower;
 import superstitio.utils.PowerUtility;
 
-public class InsideSemen extends AbstractLupaPower implements OnPostApplyThisPower, InvisiblePower_StillRenderApplyAndRemove, HasBarRenderOnCreature_Power {
+public class InsideSemen extends AbstractLupaPower implements OnPostApplyThisPower,
+        InvisiblePower_InvisibleTips, InvisiblePower_InvisibleIconAndAmount, HasBarRenderOnCreature_Power {
     public static final String POWER_ID = DataManager.MakeTextID(InsideSemen.class.getSimpleName());
     public static final int MAX_Semen = 10;
     private static final int ToOutSideSemenRate = 1;
@@ -49,7 +51,7 @@ public class InsideSemen extends AbstractLupaPower implements OnPostApplyThisPow
         AbstractPower power = this;
         AutoDoneInstantAction.addToBotAbstract(() ->
                 PowerUtility.BubbleMessageHigher(power, false, powerStrings.getDESCRIPTIONS()[1]));
-        this.addToBot_applyPowerToOwner(new OutsideSemen(this.owner, flowAmount * ToOutSideSemenRate));
+        this.addToBot_applyPower(new OutsideSemen(this.owner, flowAmount * ToOutSideSemenRate));
     }
 
     @Override

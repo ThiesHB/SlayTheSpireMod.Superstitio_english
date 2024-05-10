@@ -10,7 +10,6 @@ import com.megacrit.cardcrawl.core.AbstractCreature;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.helpers.PowerTip;
 import superstitio.DataManager;
-import superstitio.characters.Lupa;
 import superstitio.powers.SexualHeat;
 import superstitio.relics.AbstractLupaRelic;
 import superstitio.utils.CardUtility;
@@ -78,7 +77,7 @@ public class SorM extends AbstractLupaRelic implements ClickableRelic, CustomSav
         if (CardUtility.isNotInBattle()) return i;
         if (!MasochismMode) return i;
         if (i < MasochismModeRate) return i;
-        if (damageInfo.type == Lupa.CanOnlyDamageDamageType.UnBlockAbleDamageType) return i;
+        if (damageInfo.type == DataManager.CanOnlyDamageDamageType.UnBlockAbleDamageType) return i;
         AddSexualHeat(i / MasochismModeRate * SexualHeatRate);
         this.flash();
         return i;

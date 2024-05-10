@@ -22,7 +22,7 @@ public class DeathDoor extends AbstractLupaPower implements OnPlayerDeathPower {
     @Override
     public boolean onPlayerDeath(AbstractPlayer abstractPlayer, DamageInfo damageInfo) {
         addToBot(new HealAction(this.owner, this.owner, 1));
-        addToBot_applyPowerToOwner(new AtDeathDoor(this.owner));
+        addToBot_applyPower(new AtDeathDoor(this.owner));
         addToBot_AutoRemoveOne(this);
         return false;
     }

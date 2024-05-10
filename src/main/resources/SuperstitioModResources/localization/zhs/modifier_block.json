@@ -1,9 +1,9 @@
 ﻿{
-  "SuperstitioMod:SexBlock": {
-    "NAME": "引诱",
-    "NAME_SFW": "外功",
-    "BASIC_INFO": "引诱性爱",
-    "DESCRIPTION": "持续到下回合开始前，阻挡伤害。 NL （原理：使敌人的物理伤害转换为性爱动作。）"
+  "SuperstitioMod:RemoveDelayHpLoseBlock": {
+    "NAME": "情爱",
+    "NAME_SFW": "激情",
+    "BASIC_INFO": "情爱唤起",
+    "DESCRIPTION": "移除 #y腐朽 。"
   },
   "SuperstitioMod:DrySemenBlock": {
     "NAME": "精液",

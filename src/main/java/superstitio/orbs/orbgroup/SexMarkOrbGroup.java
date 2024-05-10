@@ -32,7 +32,6 @@ public class SexMarkOrbGroup extends OrbGroup {
         this.fillSide = MathUtils.randomBoolean();
     }
 
-    @SuppressWarnings("DuplicateBranchesInSwitch")
     public static SexMarkOrb makeSexMarkOrb(SexMarkType sexMarkType) {
         switch (sexMarkType) {
             case OutSide:

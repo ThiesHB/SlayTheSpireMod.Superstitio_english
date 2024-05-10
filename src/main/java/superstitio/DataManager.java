@@ -4,8 +4,10 @@ package superstitio;
 import basemod.ReflectionHacks;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
+import com.evacipated.cardcrawl.modthespire.lib.SpireEnum;
 import com.google.gson.Gson;
 import com.google.gson.internal.$Gson$Types;
+import com.megacrit.cardcrawl.cards.DamageInfo;
 import com.megacrit.cardcrawl.core.Settings;
 import com.megacrit.cardcrawl.localization.LocalizedStrings;
 import superstitio.customStrings.*;
@@ -250,5 +252,10 @@ public class DataManager {
         // 人物选择界面的立绘
         public String LUPA_CHARACTER_PORTRAIT = makeImgFilesPath_Character_Lupa("Character_Portrait");
 
+    }
+
+    public static class CanOnlyDamageDamageType {
+        @SpireEnum
+        public static DamageInfo.DamageType UnBlockAbleDamageType;
     }
 }

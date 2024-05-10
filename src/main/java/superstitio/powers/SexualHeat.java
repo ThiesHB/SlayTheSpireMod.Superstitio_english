@@ -17,7 +17,8 @@ import superstitio.Logger;
 import superstitio.powers.barIndepend.BarRenderUpdateMessage;
 import superstitio.powers.barIndepend.HasBarRenderOnCreature_Power;
 import superstitio.powers.interfaces.HasAllCardCostModifyEffect;
-import superstitio.powers.interfaces.InvisiblePower_StillRenderApplyAndRemove;
+import superstitio.powers.interfaces.invisible.InvisiblePower_InvisibleIconAndAmount;
+import superstitio.powers.interfaces.invisible.InvisiblePower_InvisibleTips;
 import superstitio.powers.interfaces.OnPostApplyThisPower;
 import superstitio.powers.interfaces.orgasm.*;
 
@@ -33,7 +34,7 @@ import static superstitio.utils.PowerUtility.BubbleMessageHigher;
 
 public class SexualHeat extends AbstractLupaPower implements
         HasAllCardCostModifyEffect, OnPostApplyThisPower,
-        InvisiblePower_StillRenderApplyAndRemove, HasBarRenderOnCreature_Power,
+        InvisiblePower_InvisibleTips, InvisiblePower_InvisibleIconAndAmount, HasBarRenderOnCreature_Power,
         OnOrgasm_onSuccessfullyPreventOrgasm, OnOrgasm_onOrgasm, OnOrgasm_onEndOrgasm, OnOrgasm_onSquirt, OnOrgasm_onContinuallyOrgasm {
     public static final String POWER_ID = DataManager.MakeTextID(SexualHeat.class.getSimpleName());
     public static final int HEAT_REQUIREDOrigin = 10;

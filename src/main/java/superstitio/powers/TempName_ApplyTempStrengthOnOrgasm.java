@@ -15,8 +15,8 @@ public class TempName_ApplyTempStrengthOnOrgasm extends AbstractLupaPower implem
 
     @Override
     public void onOrgasm(SexualHeat SexualHeatPower) {
-        addToBot_applyPowerToOwner(new StrengthPower(this.owner, this.amount));
-        addToBot_applyPowerToOwner(new LoseStrengthPower(this.owner, this.amount));
+        addToBot_applyPower(new StrengthPower(this.owner, this.amount));
+        addToBot_applyPower(new LoseStrengthPower(this.owner, this.amount));
     }
 
     @Override

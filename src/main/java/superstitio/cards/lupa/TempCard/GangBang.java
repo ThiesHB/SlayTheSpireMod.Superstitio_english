@@ -33,8 +33,8 @@ public class GangBang extends AbstractLupaCard_TempCard {
         super(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET);
         this.originalName = cardStrings.getEXTENDED_DESCRIPTION()[score - 1] + cardStrings.getNAME();
         this.name = this.originalName;
-        this.setupDamage(attackAmount * score, new SexDamage());
-        this.setupBlock(blockAmount * score, new DrySemenBlock());
+        this.setupDamage(attackAmount + 2 * score, new SexDamage());
+        this.setupBlock(blockAmount + score, new DrySemenBlock());
         this.glowColor = Color.WHITE.cpy();
         this.beginGlowing();
         this.exhaust = true;

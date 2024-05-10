@@ -11,12 +11,14 @@ import com.megacrit.cardcrawl.powers.AbstractPower;
 import superstitio.DataManager;
 import superstitio.actions.AutoDoneInstantAction;
 import superstitio.powers.barIndepend.HasBarRenderOnCreature_Power;
-import superstitio.powers.interfaces.InvisiblePower_StillRenderApplyAndRemove;
+import superstitio.powers.interfaces.invisible.InvisiblePower_InvisibleIconAndAmount;
+import superstitio.powers.interfaces.invisible.InvisiblePower_InvisibleTips;
 import superstitio.powers.interfaces.OnPostApplyThisPower;
 import superstitio.utils.PowerUtility;
 
 public class BeerCupSemen extends AbstractLupaPower implements
-        InvisiblePower_StillRenderApplyAndRemove, HasBarRenderOnCreature_Power, OnPostApplyThisPower, BetterOnApplyPowerPower {
+        InvisiblePower_InvisibleTips, InvisiblePower_InvisibleIconAndAmount, HasBarRenderOnCreature_Power,
+        OnPostApplyThisPower, BetterOnApplyPowerPower {
     public static final String POWER_ID = DataManager.MakeTextID(BeerCupSemen.class.getSimpleName());
     //绘制相关
     private int maxAmount;

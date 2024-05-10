@@ -4,7 +4,7 @@ import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import superstitio.DataManager;
 import superstitio.cards.lupa.AbstractLupaCard;
-import superstitio.cards.modifiers.block.SexBlock;
+import superstitio.delayHpLose.RemoveDelayHpLoseBlock;
 
 public class Invite extends AbstractLupaCard {
     public static final String ID = DataManager.MakeTextID(Invite.class.getSimpleName());
@@ -22,7 +22,7 @@ public class Invite extends AbstractLupaCard {
     public Invite() {
         super(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET, "base");
         this.tags.add(CardTags.STARTER_DEFEND);
-        this.setupBlock(BLOCK, UPGRADE_PLUS_BLOCK, new SexBlock());
+        this.setupBlock(BLOCK, UPGRADE_PLUS_BLOCK, new RemoveDelayHpLoseBlock());
     }
 
     @Override

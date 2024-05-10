@@ -154,10 +154,10 @@
       "回合开始时，受到 #b%d 点伤害。"
     ]
   },
-  "SuperstitioMod:SexualDamage_ByEnemy": {
-    "NAME": "爱欲",
+  "SuperstitioMod:DelayHpLosePower": {
+    "NAME": "#r腐朽",
     "DESCRIPTIONS": [
-      "下个回合开始时：受到 #b%d 点伤害。"
+      "下回合开始时： NL #r降低 #r%d #r点生命。"
     ]
   }
 }

@@ -6,15 +6,15 @@ import com.badlogic.gdx.math.Vector2;
 import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.helpers.Hitbox;
-import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import com.megacrit.cardcrawl.orbs.AbstractOrb;
 import com.megacrit.cardcrawl.orbs.EmptyOrbSlot;
 import superstitio.InBattleDataManager;
-import superstitio.actions.AutoDoneInstantAction;
 import superstitio.orbs.CardOrb;
+import superstitio.orbs.CardOrb_CardTrigger;
 import superstitio.orbs.actions.ChannelOnOrbGroupAction;
 
 import java.util.ArrayList;
+import java.util.Objects;
 import java.util.stream.Stream;
 
 public class HangUpCardGroup extends OrbGroup implements OnCardUseSubscriber {
@@ -70,11 +70,23 @@ public class HangUpCardGroup extends OrbGroup implements OnCardUseSubscriber {
         }
     }
 
-    @Override
-    public void evokeOrb(int slotIndex) {
-        super.evokeOrb(slotIndex);
+//    @Override
+//    public void evokeOrb(int slotIndex) {
+//        super.evokeOrb(slotIndex);
+//        this.decreaseMaxOrbs(1);
+//    }
+
+    public void evokeOrb(CardOrb exampleCardOrb) {
+        for (int i = 0; i < orbs.size(); i++) {
+            AbstractOrb orb = orbs.get(i);
+            if (!(orb instanceof CardOrb)) continue;
+            CardOrb cardOrb = (CardOrb) orb;
+            if (!Objects.equals(cardOrb.card, exampleCardOrb.card)) continue;
+            evokeOrbAndNotFill(i);
+        }
         this.decreaseMaxOrbs(1);
     }
+
 
     @Override
     public void channelOrb(AbstractOrb orb) {
@@ -89,19 +101,19 @@ public class HangUpCardGroup extends OrbGroup implements OnCardUseSubscriber {
 
     @Override
     public void receiveCardUsed(AbstractCard abstractCard) {
-        getCardOrbStream()
-                .forEach(orb -> orb.onCardUsed(abstractCard));
+        getCardOrbStream().filter(orb->orb instanceof CardOrb_CardTrigger)
+                .forEach(orb -> ((CardOrb_CardTrigger) orb).onCardUsed(abstractCard));
     }
 
-    @Override
-    public boolean receivePreMonsterTurn(AbstractMonster abstractMonster) {
-        AutoDoneInstantAction.addToBotAbstract(() -> {
-            int bound = orbs.size();
-            for (int i = 0; i < bound; i++) {
-                this.evokeOrb(0);
-            }
-            this.decreaseMaxOrbs(orbs.size());
-        });
-        return super.receivePreMonsterTurn(abstractMonster);
-    }
+//    @Override
+//    public boolean receivePreMonsterTurn(AbstractMonster abstractMonster) {
+//        AutoDoneInstantAction.addToBotAbstract(() -> {
+//            int bound = orbs.size();
+//            for (int i = 0; i < bound; i++) {
+//                this.evokeOrb(0);
+//            }
+//            this.decreaseMaxOrbs(orbs.size());
+//        });
+//        return super.receivePreMonsterTurn(abstractMonster);
+//    }
 }

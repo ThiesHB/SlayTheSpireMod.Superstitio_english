@@ -16,6 +16,7 @@ import com.megacrit.cardcrawl.orbs.AbstractOrb;
 import com.megacrit.cardcrawl.orbs.EmptyOrbSlot;
 import com.megacrit.cardcrawl.orbs.Plasma;
 import com.megacrit.cardcrawl.vfx.TextAboveCreatureEffect;
+import superstitio.SuperstitioModSubscriber;
 import superstitio.orbs.actions.AnimationOrbOnMonsterAction;
 import superstitio.orbs.actions.ChannelOnOrbGroupAction;
 import superstitio.orbs.actions.EvokeFirstOnMonsterAction;
@@ -29,7 +30,10 @@ import java.util.Objects;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 
-public abstract class OrbGroup implements RenderInBattle, OnPowersModifiedSubscriber, OnPlayerTurnStartSubscriber, PreMonsterTurnSubscriber {
+import static superstitio.SuperstitioModSubscriber.*;
+
+public abstract class OrbGroup implements
+        RenderInBattle, OnPowersModifiedSubscriber, OnPlayerTurnStartSubscriber, AtStartOfMonsterTurnSubscriber {
     private static final String[] TEXT = new String[]{"  A  "};
     private static final int MAX_MAX_ORB = 10;
     public AbstractOrb CustomEmptyOrb;
@@ -317,9 +321,8 @@ public abstract class OrbGroup implements RenderInBattle, OnPowersModifiedSubscr
     }
 
     @Override
-    public boolean receivePreMonsterTurn(AbstractMonster abstractMonster) {
+    public void atStartOfMonsterTurn() {
         this.forEachOrbInEachOrbGroup(AbstractOrb::onEndOfTurn);
-        return true;
     }
 
     @Override

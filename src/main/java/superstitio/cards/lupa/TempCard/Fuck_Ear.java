@@ -46,11 +46,11 @@ public class Fuck_Ear extends AbstractLupaCard_FuckJob {
         AbstractLupaCard_FuckJob.addToTop_gainSexMark_Inside(this.name);
     }
 
-    @Override
-    public void triggerWhenDrawn() {
-        if (!CardModifierManager.hasModifier(this, RetainMod.ID))
-            CardModifierManager.addModifier(this, new RetainMod());
-    }
+//    @Override
+//    public void triggerWhenDrawn() {
+//        if (!CardModifierManager.hasModifier(this, RetainMod.ID))
+//            CardModifierManager.addModifier(this, new RetainMod());
+//    }
 
     @Override
     public void upgradeAuto() {

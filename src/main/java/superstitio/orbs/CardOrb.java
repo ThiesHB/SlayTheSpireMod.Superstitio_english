@@ -4,7 +4,11 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.cards.CardGroup;
+import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
+import com.megacrit.cardcrawl.vfx.cardManip.ExhaustCardEffect;
 import superstitio.DataManager;
+import superstitio.InBattleDataManager;
+import superstitio.orbs.orbgroup.HangUpCardGroup;
 import superstitio.utils.ActionUtility;
 
 import java.util.Arrays;
@@ -25,6 +29,7 @@ public abstract class CardOrb extends AbstractLupaOrb {
     public AbstractCard card;
     public CardGroup cardGroupReturnAfterEvoke = null;
     public AbstractCard.CardTarget targetType = AbstractCard.CardTarget.NONE;
+    public boolean evokeOnEndOfTurn = true;
     //        protected float animationTimer = TIMER_SPEED;
 //    private BiFunction<Float, AbstractCard, Vector2> onUseAnimation;
 //    private AbstractCard cardInUse;
@@ -85,10 +90,13 @@ public abstract class CardOrb extends AbstractLupaOrb {
                     cardHolder.moveToDiscardPile(originCard);
                     break;
                 case EXHAUST_PILE:
+                    AbstractDungeon.effectList.add(new ExhaustCardEffect(card));
                     cardHolder.moveToExhaustPile(originCard);
                     break;
             }
         }
+        else
+            AbstractDungeon.effectList.add(new ExhaustCardEffect(card));
         onRemoveCard();
     }
 
@@ -130,14 +138,21 @@ public abstract class CardOrb extends AbstractLupaOrb {
 
     }
 
+    public CardOrb setNotEvokeOnEndOfTurn() {
+        this.evokeOnEndOfTurn = false;
+        return this;
+    }
+
+    @Override
+    public void onEndOfTurn() {
+        if (!evokeOnEndOfTurn) return;
+        HangUpCardGroup hangUpCardGroup = InBattleDataManager.orbGroups.stream().filter(orbGroup -> orbGroup instanceof HangUpCardGroup).map(orbGroup -> (HangUpCardGroup) orbGroup).findAny().orElse(null);
+        if (hangUpCardGroup == null) return;
+        hangUpCardGroup.evokeOrb(this);
+    }
+
     @Override
     public void update() {
-//        if (originCard.drawScale != originCard.targetDrawScale) {
-//            this.originCard.update();
-//            this.originCard.current_x = this.card.current_x;
-//            this.originCard.current_y = this.card.current_y;
-//            this.originCard.drawScale = this.card.drawScale;
-//        }
         if (originCard.drawScale != originCard.targetDrawScale) {
             originCard.target_x = this.cX;
             originCard.target_y = this.cY + YOffsetWhenHovered();
@@ -161,7 +176,8 @@ public abstract class CardOrb extends AbstractLupaOrb {
             this.card.target_y = this.cY + YOffsetWhenHovered();
             card.targetDrawScale = DRAW_SCALE_BIG;
             this.drawOrder = DrawOrder.top;
-        } else {
+        }
+        else {
             this.card.target_x = this.cX;
             this.card.target_y = this.cY + YOffsetWhenHovered();
             card.targetDrawScale = DRAW_SCALE_SMALL;
@@ -205,17 +221,13 @@ public abstract class CardOrb extends AbstractLupaOrb {
         return this;
     }
 
-    public final void onCardUsed(AbstractCard card) {
-        if (card == null) return;
-        if (cardMatcher.test(card))
-            onProperCardUsed(card);
-    }
 
     @Override
     public void applyFocus() {
     }
 
-    public abstract void onProperCardUsed(AbstractCard card);
+    protected abstract void actionAccept();
+
 
     protected void showEvokeNum() {
         card.costForTurn = evokeAmount;
@@ -227,6 +239,11 @@ public abstract class CardOrb extends AbstractLupaOrb {
         card.stopGlowing();
         card.costForTurn = passiveAmount;
         card.isCostModified = false;
+    }
+
+    public CardOrb setTargetType(AbstractCard.CardTarget cardTarget) {
+        this.targetType = cardTarget;
+        return this;
     }
 
     public enum DrawOrder {

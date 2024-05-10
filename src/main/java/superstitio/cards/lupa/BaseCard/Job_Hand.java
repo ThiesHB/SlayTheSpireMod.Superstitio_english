@@ -4,7 +4,6 @@ import com.megacrit.cardcrawl.cards.CardGroup;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import superstitio.DataManager;
-import superstitio.Logger;
 import superstitio.cards.DamageActionMaker;
 import superstitio.cards.lupa.AbstractLupaCard_FuckJob;
 import superstitio.cards.patch.GoSomewhereElseAfterUse;
@@ -44,12 +43,12 @@ public class Job_Hand extends AbstractLupaCard_FuckJob implements GoSomewhereEls
     @Override
     public void afterInterruptMoveToCardGroup(CardGroup cardGroup) {
         HangUpCardGroup.addToBot_AddCardOrbToOrbGroup(
-                new CardOrb_EachCardTrigger(this, (orb, playedCard) -> {
+                new CardOrb_EachCardTrigger(this, (orb, card) -> {
                     AbstractMonster creature = DamageActionMaker.getMonsterOrFirstMonster(orb.lastTarget);
-                    Logger.temp("hit" + orb.lastTarget);
                     orb.StartHitCreature(creature);
-                    DamageActionMaker.maker(orb.card.damage, creature).setCard(this).addToBot();
-                }, this.magicNumber).setCardPredicate(card -> card.type == CardType.ATTACK)
+                    DamageActionMaker.maker(orb.card.damage, creature).setExampleCard(this).addToBot();
+                }, this.magicNumber)
+                        .setCardPredicate(card -> card.type == CardType.ATTACK)
                         .setCardGroupReturnAfterEvoke(cardGroup)
         );
     }

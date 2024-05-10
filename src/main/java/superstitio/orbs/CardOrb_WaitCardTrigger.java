@@ -6,10 +6,12 @@ import com.megacrit.cardcrawl.orbs.AbstractOrb;
 import org.apache.logging.log4j.util.BiConsumer;
 import superstitio.utils.ActionUtility;
 
+import java.util.function.Consumer;
+
 public class CardOrb_WaitCardTrigger extends CardOrb_CardTrigger {
     private int waitTime;
 
-    public CardOrb_WaitCardTrigger(AbstractCard card, BiConsumer<CardOrb_CardTrigger, AbstractCard> action_thisCard_targetCard, int waitTime) {
+    public CardOrb_WaitCardTrigger(AbstractCard card, BiConsumer<CardOrb_CardTrigger,AbstractCard> action_thisCard_targetCard, int waitTime) {
         super(card, action_thisCard_targetCard);
         this.waitTime = waitTime;
     }
@@ -46,9 +48,8 @@ public class CardOrb_WaitCardTrigger extends CardOrb_CardTrigger {
     }
 
     @Override
-    public void onProperCardUsed(AbstractCard card) {
+    protected boolean onProperCardUsed_IfShouldApply(AbstractCard card) {
         waitTime--;
-        if (waitTime > 0) return;
-        action.accept(this, card);
+        return waitTime <= 0;
     }
 }

@@ -34,7 +34,7 @@ public class CalmDown extends AbstractLupaCard {
     @Override
     public void use(AbstractPlayer player, AbstractMonster monster) {
         this.addToBot_drawCards(this.magicNumber);
-        this.addToBot_reducePowerToPlayer(SexualHeat.POWER_ID, HeatReduce);
+        this.addToBot_reducePower(SexualHeat.POWER_ID, HeatReduce);
         if (InBattleDataManager.InOrgasm) {
             this.addToBot_drawCards(ExtraDrawNum);
         }

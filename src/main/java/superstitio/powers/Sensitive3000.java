@@ -22,7 +22,7 @@ public class Sensitive3000 extends AbstractLupaPower implements BetterOnApplyPow
         if (abstractPower instanceof SexualHeat)
         {
             abstractPower.amount *= SexualHeatRate;
-            addToBot_applyPowerToOwner(new SexualDamage(this.owner, abstractPower.amount, this.owner));
+            addToBot_applyPower(new SexualDamage(this.owner, abstractPower.amount, this.owner));
         }
         return true;
     }

@@ -9,7 +9,6 @@ import com.megacrit.cardcrawl.core.AbstractCreature;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import org.apache.logging.log4j.util.BiConsumer;
-import superstitio.Logger;
 import superstitio.cards.DamageActionMaker;
 import superstitio.utils.ActionUtility;
 import superstitio.utils.ActionUtility.FunctionReturnSelfType;
@@ -23,6 +22,8 @@ public abstract class CardOrb_CardTrigger extends CardOrb {
     protected final BiConsumer<CardOrb_CardTrigger, AbstractCard> action;
     //    protected List<Soul> souls = new ArrayList<>();
     public AbstractCreature lastTarget;
+
+    public AbstractCard cardToTriggerThis;
 
     public CardOrb_CardTrigger(AbstractCard card, BiConsumer<CardOrb_CardTrigger, AbstractCard> action_thisCard_targetCard) {
         super(card);
@@ -42,22 +43,6 @@ public abstract class CardOrb_CardTrigger extends CardOrb {
 
     @Override
     protected void onRemoveCard() {
-//        switch (targetType) {
-//            case ENEMY:
-//            case ALL_ENEMY:
-//                AbstractDungeon.effectList.add(new ExhaustCardEffect(card));
-//                break;
-//            case SELF:
-//                AbstractDungeon.effectList.add(new ExhaustCardEffect(card));
-//                break;
-//            case NONE:
-//            case ALL:
-//            case SELF_AND_ENEMY:
-//            default:
-//                AbstractDungeon.effectList.add(new ExhaustCardEffect(card));
-//                break;
-//        }
-
     }
 
     @Override
@@ -89,6 +74,29 @@ public abstract class CardOrb_CardTrigger extends CardOrb {
             default:
                 return this::State_WhenHoverCard_OnNothing;
         }
+    }
+
+    public final void onCardUsed(AbstractCard card) {
+        if (card == null) return;
+        if (cardMatcher.test(card)) {
+            this.cardToTriggerThis = card;
+            if (onProperCardUsed_IfShouldApply(card))
+                actionAccept();
+            this.cardToTriggerThis = null;
+        }
+    }
+
+    protected abstract boolean onProperCardUsed_IfShouldApply(AbstractCard card);
+
+    @Override
+    protected void actionAccept() {
+        if (this.cardToTriggerThis == null)
+            return;
+        actionAccept(this.cardToTriggerThis);
+    }
+
+    public void actionAccept(AbstractCard card) {
+        action.accept(this, card);
     }
 
     protected FunctionReturnSelfType State_Idle() {
@@ -131,13 +139,9 @@ public abstract class CardOrb_CardTrigger extends CardOrb {
         this.card.glowColor = CardUtility.getColorFormCard(card);
     }
 
+
     protected void State_WhenHoverCard_OnNothing() {
         updateIfFocusOnNothing();
-    }
-
-    public CardOrb setTargetType(AbstractCard.CardTarget cardTarget) {
-        this.targetType = cardTarget;
-        return this;
     }
 
     //    public void makeSoul(Soul soul) {
@@ -178,7 +182,6 @@ public abstract class CardOrb_CardTrigger extends CardOrb {
         AbstractCreature target = CardOrb_CardTrigger.getHoveredMonster().orElse(null);
         if (!ActionUtility.isAlive(target)) return;
         this.lastTarget = target;
-        Logger.temp("choose" + lastTarget);
         this.tryMoveTo(new Vector2(this.cX - (this.cX - target.hb.cX) / 3, this.cY - (this.cY - target.hb.cY) / 3 + YOffsetWhenHovered()));
     }
 
