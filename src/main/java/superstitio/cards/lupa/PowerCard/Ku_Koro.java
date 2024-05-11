@@ -17,7 +17,7 @@ public class Ku_Koro extends AbstractLupaCard {
 
     private static final int COST = 1;
 
-    private static final int COST_UPGRADE_NEW = 0;
+    private static final int COST_UPGRADED_NEW = 0;
 
     public Ku_Koro() {
         super(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET);
@@ -30,7 +30,7 @@ public class Ku_Koro extends AbstractLupaCard {
 
     @Override
     public void upgradeAuto() {
-        upgradeBaseCost(COST_UPGRADE_NEW);
+        upgradeBaseCost(COST_UPGRADED_NEW);
     }
 
 }

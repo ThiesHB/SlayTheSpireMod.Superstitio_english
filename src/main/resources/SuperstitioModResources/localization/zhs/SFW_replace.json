@@ -37,7 +37,7 @@
   },
   {
     "WordOrigin": "性交",
-    "WordReplace": "武学真髓"
+    "WordReplace": "武学"
   },
   {
     "WordOrigin": "外射",
@@ -70,5 +70,17 @@
   {
     "WordOrigin": "嫖资",
     "WordReplace": "赏金"
+  },
+  {
+    "WordOrigin": "欲求",
+    "WordReplace": "延迟"
+  },
+  {
+    "WordOrigin": "缠绵",
+    "WordReplace": "伴随"
+  },
+  {
+    "WordOrigin": "流产",
+    "WordReplace": "崩溃"
   }
 ]

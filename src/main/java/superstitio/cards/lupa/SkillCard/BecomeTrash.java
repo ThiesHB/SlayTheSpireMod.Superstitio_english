@@ -18,7 +18,7 @@ public class BecomeTrash extends AbstractLupaCard {
 
     public static final AbstractCard.CardTarget CARD_TARGET = AbstractCard.CardTarget.SELF;
 
-    private static final int COST = 3;
+    private static final int COST = 2;
     private static final int MAGIC = 4;
     private static final int UPGRADE_MAGIC = 2;
 

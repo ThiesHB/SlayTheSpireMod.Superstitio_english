@@ -1,5 +1,6 @@
 package superstitio.cards.lupa.SkillCard;
 
+import com.evacipated.cardcrawl.mod.stslib.variables.ExhaustiveVariable;
 import com.megacrit.cardcrawl.actions.AbstractGameAction;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
@@ -19,13 +20,14 @@ public class ForceOrgasm extends AbstractLupaCard {
     public static final CardTarget CARD_TARGET = CardTarget.SELF;
 
     private static final int COST = -1;
-    private static final int MAGIC = 10;
-    private static final int UPGRADE_MAGIC = 5;
+    private static final int MAGIC = 15;
+    private static final int UPGRADE_MAGIC = 20;
 
     public ForceOrgasm() {
         super(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET);
-        this.setupMagicNumber(MAGIC);
-        this.exhaust = true;
+        this.setupMagicNumber(MAGIC, UPGRADE_MAGIC);
+//        this.exhaust = true;
+        ExhaustiveVariable.setBaseValue(this, 2);
     }
 
     @Override
@@ -37,6 +39,5 @@ public class ForceOrgasm extends AbstractLupaCard {
 
     @Override
     public void upgradeAuto() {
-        upgradeMagicNumber(UPGRADE_MAGIC);
     }
 }

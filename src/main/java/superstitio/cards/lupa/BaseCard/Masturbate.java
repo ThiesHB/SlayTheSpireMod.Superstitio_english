@@ -43,12 +43,11 @@ public class Masturbate extends AbstractLupaCard implements GoSomewhereElseAfter
     @Override
     public void afterInterruptMoveToCardGroup(CardGroup cardGroup) {
         HangUpCardGroup.addToBot_AddCardOrbToOrbGroup(
-                new CardOrb_WaitCardTrigger(this, (orb, playedCard) -> {
-                    orb.card.flash();
+                new CardOrb_WaitCardTrigger(this, cardGroup, (orb, playedCard) -> {
                     orb.StartHitCreature(AbstractDungeon.player);
                     addToBot_drawCards(DRAWCard);
-                    PowerUtility.BubbleMessage(orb.card.hb, false, this.cardStrings.getEXTENDED_DESCRIPTION()[0]);
-                }, WAIT).setCardGroupReturnAfterEvoke(cardGroup));
+                    PowerUtility.BubbleMessage(orb.getOriginCard().hb, false, this.cardStrings.getEXTENDED_DESCRIPTION()[0]);
+                }, WAIT));
     }
 
     @Override

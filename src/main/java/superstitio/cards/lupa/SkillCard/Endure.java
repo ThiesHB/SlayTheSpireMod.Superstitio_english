@@ -15,7 +15,7 @@ public class Endure extends AbstractLupaCard {
 
     public static final CardTarget CARD_TARGET = CardTarget.SELF;
 
-    private static final int COST = 2;
+    private static final int COST = 1;
     private static final int MAGIC = 10;
     private static final int UPGRADE_MAGIC = 5;
 

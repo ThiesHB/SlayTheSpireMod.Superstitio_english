@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.evacipated.cardcrawl.modthespire.lib.SpireInsertPatch;
 import com.evacipated.cardcrawl.modthespire.lib.SpirePatch;
 import com.megacrit.cardcrawl.rooms.AbstractRoom;
+import superstitio.utils.CardUtility;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -31,7 +32,7 @@ public interface RenderInBattle {
         @SpirePatch(clz = AbstractRoom.class, method = "update")
         public static class MonsterUpdateOrbPatch {
             public static void Postfix(final AbstractRoom _inst) {
-                if (_inst.phase != AbstractRoom.RoomPhase.COMBAT) return;
+                if (CardUtility.isNotInBattle()) return;
                 RENDER_IN_BATTLES.forEach(RenderInBattle::update);
                 RENDER_IN_BATTLES.forEach(RenderInBattle::updateAnimation);
             }
@@ -41,7 +42,7 @@ public interface RenderInBattle {
         public static class MonsterRenderOrbPatch {
             @SpireInsertPatch(rloc = 13)
             public static void Insert(final AbstractRoom _inst, final SpriteBatch sb) {
-                if (_inst.phase != AbstractRoom.RoomPhase.COMBAT) return;
+                if (CardUtility.isNotInBattle()) return;
                 sb.setColor(Color.WHITE);
                 RENDER_IN_BATTLES.forEach(renderInBattle -> renderInBattle.render(sb));
             }

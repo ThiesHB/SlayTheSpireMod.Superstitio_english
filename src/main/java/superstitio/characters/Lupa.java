@@ -24,18 +24,16 @@ import superstitio.DataManager;
 import superstitio.Logger;
 import superstitio.SuperstitioModSetup;
 import superstitio.cards.lupa.BaseCard.Invite;
-import superstitio.cards.lupa.BaseCard.Job_Hand;
+import superstitio.cards.lupa.AttackCard.hand.Job_Hand_BaseCard;
 import superstitio.cards.lupa.BaseCard.Kiss;
 import superstitio.cards.lupa.BaseCard.Masturbate;
-import superstitio.relics.a_starter.DevaBody;
-import superstitio.relics.a_starter.EjaculationMaster;
-import superstitio.relics.a_starter.Sensitive;
-import superstitio.relics.a_starter.SorM;
+import superstitio.relics.a_starter.*;
 
 import java.util.ArrayList;
 
 import static superstitio.SuperstitioModSetup.LupaEnums.LUPA_CARD;
 import static superstitio.SuperstitioModSetup.LupaEnums.LUPA_Character;
+import static superstitio.utils.CardUtility.isNotInBattle;
 
 // 继承CustomPlayer类
 public class Lupa extends CustomPlayer {
@@ -109,9 +107,8 @@ public class Lupa extends CustomPlayer {
     @Override
     public void render(SpriteBatch sb) {
         super.render(sb);
-        if ((AbstractDungeon.getCurrRoom().phase == AbstractRoom.RoomPhase.COMBAT || AbstractDungeon.getCurrRoom() instanceof MonsterRoom) && !this.isDead) {
-            this.renderHealth(sb);
-        }
+        if ((isNotInBattle()) || this.isDead) return;
+        this.renderHealth(sb);
     }
 
     public void setMoveOffset(float x, float y) {
@@ -137,7 +134,7 @@ public class Lupa extends CustomPlayer {
         ArrayList<String> retVal = new ArrayList<>();
         Logger.run("Begin loading starter Deck Strings");
         for (int x = 0; x < 1; x++) {
-            retVal.add(Job_Hand.ID);
+            retVal.add(Job_Hand_BaseCard.ID);
         }
         for (int x = 0; x < 5; x++) {
             retVal.add(Kiss.ID);
@@ -154,9 +151,10 @@ public class Lupa extends CustomPlayer {
     public ArrayList<String> getStartingRelics() {
         ArrayList<String> retVal = new ArrayList<>();
         retVal.add(EjaculationMaster.ID);
+        retVal.add(JokeDescription.ID);
         retVal.add(DevaBody.ID);
         retVal.add(Sensitive.ID);
-        retVal.add(SorM.ID);
+//        retVal.add(SorM.ID);
         return retVal;
     }
 
@@ -191,7 +189,7 @@ public class Lupa extends CustomPlayer {
     // 翻牌事件出现的你的职业牌（一般设为打击）
     @Override
     public AbstractCard getStartCardForEvent() {
-        return new Job_Hand();
+        return new Job_Hand_BaseCard();
     }
 
     // 卡牌轨迹颜色

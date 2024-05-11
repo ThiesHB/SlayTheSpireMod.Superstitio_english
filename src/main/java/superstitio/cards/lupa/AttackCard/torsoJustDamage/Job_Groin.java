@@ -1,43 +1,34 @@
-package superstitio.cards.lupa.AttackCard;
+package superstitio.cards.lupa.AttackCard.torsoJustDamage;
 
 import com.megacrit.cardcrawl.actions.AbstractGameAction;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import superstitio.DataManager;
-import superstitio.InBattleDataManager;
 import superstitio.cards.lupa.AbstractLupaCard_FuckJob;
-import superstitio.powers.SexualHeat;
-import superstitio.utils.CardUtility;
 
-import java.util.concurrent.atomic.AtomicInteger;
+//腹股沟
 
 public class Job_Groin extends AbstractLupaCard_FuckJob {
     public static final String ID = DataManager.MakeTextID(Job_Groin.class.getSimpleName());
 
     public static final CardType CARD_TYPE = CardType.ATTACK;
 
-    public static final CardRarity CARD_RARITY = CardRarity.RARE;
+    public static final CardRarity CARD_RARITY = CardRarity.COMMON;
 
     public static final CardTarget CARD_TARGET = CardTarget.ENEMY;
 
-    private static final int COST = 2;
-    private static final int DAMAGE = 16;
-    private static final int UPGRADE_DAMAGE = 5;
-
-    private static final int MAGIC = 2;
-
-    private static final int UPGRADE_MAGIC = 1;
+    private static final int COST = 1;
+    private static final int DAMAGE = 18;
+    private static final int UPGRADE_DAMAGE = 6;
+    private static final int MAGIC = 8;
 
     public Job_Groin() {
         super(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET);
         this.setupDamage(DAMAGE, UPGRADE_DAMAGE);
-        this.setupMagicNumber(MAGIC, UPGRADE_MAGIC);
+        this.setupMagicNumber(MAGIC);
     }
 
-    @Override
-    public void upgradeAuto() {
-    }
 
     private int getOriginDamage() {
         if (this.upgraded)
@@ -47,21 +38,26 @@ public class Job_Groin extends AbstractLupaCard_FuckJob {
     }
 
     private void updateDamage() {
-        if (CardUtility.isNotInBattle()) return;
-        if (!InBattleDataManager.InOrgasm) return;
-        AtomicInteger damageUp = new AtomicInteger();
-        SexualHeat.getActiveSexualHeat(AbstractDungeon.player).ifPresent(power -> damageUp.set(this.magicNumber * InBattleDataManager.OrgasmTimesTotal));
-        if (damageUp.get() >= 1)
+        int totalCost = AbstractDungeon.player.hand.group.stream()
+                .filter(card -> card.costForTurn >= 1)
+                .mapToInt(card -> card.costForTurn).sum();
+        float damageDown = this.magicNumber;
+        if (!AbstractDungeon.player.hand.group.isEmpty())
+            damageDown = (float) totalCost * damageDown / AbstractDungeon.player.hand.group.size();
+        if (damageDown >= 1)
             this.isDamageModified = true;
-        this.baseDamage = this.getOriginDamage() + damageUp.get();
+        this.baseDamage = (int) (this.getOriginDamage() - damageDown);
+    }
 
+    @Override
+    public void upgradeAuto() {
     }
 
     @Override
     public void use(final AbstractPlayer player, final AbstractMonster monster) {
-        this.calculateCardDamage(null);
+        updateDamage();
         addToBot_dealDamage(monster, AbstractGameAction.AttackEffect.BLUNT_HEAVY);
-        AbstractLupaCard_FuckJob.addToTop_gainSexMark_Inside(this.name);
+        AbstractLupaCard_FuckJob.addToTop_gainSexMark_Outside(this.getEXTENDED_DESCRIPTION()[0]);
     }
 
     @Override
@@ -81,4 +77,5 @@ public class Job_Groin extends AbstractLupaCard_FuckJob {
         super.calculateCardDamage(monster);
         this.initializeDescription();
     }
+
 }

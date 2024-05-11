@@ -4,7 +4,6 @@ import com.megacrit.cardcrawl.actions.common.RemoveAllBlockAction;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
-import com.megacrit.cardcrawl.powers.PlatedArmorPower;
 import superstitio.DataManager;
 import superstitio.cards.lupa.AbstractLupaCard;
 import superstitio.powers.SexPlateArmorPower;
@@ -26,18 +25,16 @@ public class Philter extends AbstractLupaCard {
 
     public Philter() {
         super(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET);
-        this.setupMagicNumber(MAGIC);
+        this.setupMagicNumber(MAGIC, UPGRADE_MAGIC);
+    }
+
+    @Override
+    public void upgradeAuto() {
     }
 
     @Override
     public void use(AbstractPlayer player, AbstractMonster monster) {
         addToBot_applyPower(new SexPlateArmorPower(AbstractDungeon.player, AbstractDungeon.player.currentBlock / this.magicNumber));
         addToBot(new RemoveAllBlockAction(AbstractDungeon.player, AbstractDungeon.player));
-    }
-
-    @Override
-    public void upgradeAuto() {
-            upgradeMagicNumber(UPGRADE_MAGIC);
-//        upgradeBaseCost(COST_UPGRADE_NEW);
     }
 }

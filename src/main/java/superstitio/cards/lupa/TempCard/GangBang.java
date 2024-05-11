@@ -8,6 +8,7 @@ import superstitio.DataManager;
 import superstitio.cards.lupa.AbstractLupaCard_TempCard;
 import superstitio.cards.modifiers.block.DrySemenBlock;
 import superstitio.cards.modifiers.damage.SexDamage;
+import superstitio.utils.CardUtility;
 
 public class GangBang extends AbstractLupaCard_TempCard {
     public static final String ID = DataManager.MakeTextID(GangBang.class.getSimpleName());
@@ -36,7 +37,8 @@ public class GangBang extends AbstractLupaCard_TempCard {
         this.setupDamage(attackAmount + 2 * score, new SexDamage());
         this.setupBlock(blockAmount + score, new DrySemenBlock());
         this.glowColor = Color.WHITE.cpy();
-        this.beginGlowing();
+        if (!CardUtility.isNotInBattle())
+            this.beginGlowing();
         this.exhaust = true;
 //        this.purgeOnUse = true;
         this.dontTriggerOnUseCard = true;

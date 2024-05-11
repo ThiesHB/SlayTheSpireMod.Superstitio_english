@@ -182,9 +182,10 @@ public class SuperstitioModSetup implements
 
         List<WordReplace> wordReplaces = makeWordReplaceRule();
         relicsStrings.forEach((s, Strings) -> {
-            if (!s.contains(DataManager.getModID().toLowerCase())) return;
-            Strings.FLAVOR = "";
-            wordReplaces.forEach(wordReplace -> DataManager.replaceStringsInObj(Strings, wordReplace));
+            if (s.contains(DataManager.getModID().toLowerCase())||s.contains(DataManager.getModID())) {
+                Strings.FLAVOR = "";
+                wordReplaces.forEach(wordReplace -> DataManager.replaceStringsInObj(Strings, wordReplace));
+            }
         });
 
         ReflectionHacks.setPrivateStaticFinal(LocalizedStrings.class, "relics", relicsStrings);

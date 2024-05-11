@@ -8,7 +8,6 @@ import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.vfx.cardManip.ExhaustCardEffect;
 import superstitio.DataManager;
 import superstitio.InBattleDataManager;
-import superstitio.orbs.orbgroup.HangUpCardGroup;
 import superstitio.utils.ActionUtility;
 
 import java.util.Arrays;
@@ -24,23 +23,20 @@ public abstract class CardOrb extends AbstractLupaOrb {
     protected static final float DRAW_SCALE_SMALL_BIGGER = 0.30f;
     private static final float TIMER_ANIMATION = 2.0f;
     public final CardGroup thisCardGroup = new CardGroup(CardGroup.CardGroupType.UNSPECIFIED);
+    protected final AbstractCard card;
     private final AbstractCard originCard;
     private final CardGroup cardHolder = new CardGroup(CardGroup.CardGroupType.UNSPECIFIED);
-    public AbstractCard card;
     public CardGroup cardGroupReturnAfterEvoke = null;
     public AbstractCard.CardTarget targetType = AbstractCard.CardTarget.NONE;
-    public boolean evokeOnEndOfTurn = true;
-    //        protected float animationTimer = TIMER_SPEED;
-//    private BiFunction<Float, AbstractCard, Vector2> onUseAnimation;
-//    private AbstractCard cardInUse;
+    public boolean evokeOnEndOfTurn;
     public ActionUtility.FunctionReturnSelfType movingType;
     public DrawOrder drawOrder = CardOrb.DrawOrder.bottom;
-    protected boolean canInterrupt = true;
-    protected boolean movingIsStop = true;
+    public boolean shouldRemove;
     protected Predicate<AbstractCard> cardMatcher = (card) -> true;
 
-    public CardOrb(AbstractCard card) {
+    public CardOrb(AbstractCard card, CardGroup cardGroupReturnAfterEvoke) {
         super(ORB_ID);
+        this.cardGroupReturnAfterEvoke = cardGroupReturnAfterEvoke;
         this.cardHolder.addToTop(card);
         this.originCard = card;
         this.originCard.targetDrawScale = DRAW_SCALE_SMALL;
@@ -56,14 +52,12 @@ public abstract class CardOrb extends AbstractLupaOrb {
         this.card.isCostModified = false;
 
         this.card.costForTurn = -2;
-//        this.card.transparency = 0.0f;
-//        this.card.targetTransparency = 1.0f;
 
         this.targetType = this.card.target;
         this.thisCardGroup.addToTop(this.card);
         this.movingType = State_Idle();
 
-//        cardGroup.moveToDiscardPile(c);
+        this.evokeOnEndOfTurn = true;
     }
 
     protected ActionUtility.FunctionReturnSelfType State_Idle() {
@@ -71,7 +65,6 @@ public abstract class CardOrb extends AbstractLupaOrb {
         updateAnimationIdle();
         return this::State_Idle;
     }
-
 
     @Override
     public final void onEvoke() {
@@ -109,11 +102,7 @@ public abstract class CardOrb extends AbstractLupaOrb {
         return this;
     }
 
-    protected void setCanNotInterrupt() {
-        canInterrupt = false;
-    }
-
-    public abstract boolean shouldRemove();
+    public abstract void checkShouldRemove();
 
     @Override
     public void render(SpriteBatch spriteBatch) {
@@ -134,8 +123,6 @@ public abstract class CardOrb extends AbstractLupaOrb {
     public void tryMoveTo(Vector2 vector2) {
         this.card.target_x = vector2.x;
         this.card.target_y = vector2.y;
-        movingIsStop = false;
-
     }
 
     public CardOrb setNotEvokeOnEndOfTurn() {
@@ -146,10 +133,11 @@ public abstract class CardOrb extends AbstractLupaOrb {
     @Override
     public void onEndOfTurn() {
         if (!evokeOnEndOfTurn) return;
-        HangUpCardGroup hangUpCardGroup = InBattleDataManager.orbGroups.stream().filter(orbGroup -> orbGroup instanceof HangUpCardGroup).map(orbGroup -> (HangUpCardGroup) orbGroup).findAny().orElse(null);
-        if (hangUpCardGroup == null) return;
-        hangUpCardGroup.evokeOrb(this);
+//        InBattleDataManager.getHangUpCardOrbGroup().ifPresent(group -> group.evokeOrb(this));
+        shouldRemove = true;
     }
+
+    public abstract void forceAcceptAction(AbstractCard card);
 
     @Override
     public void update() {
@@ -216,18 +204,10 @@ public abstract class CardOrb extends AbstractLupaOrb {
         return this;
     }
 
-    public final CardOrb setCardGroupReturnAfterEvoke(CardGroup cardGroupReturnAfterEvoke) {
-        this.cardGroupReturnAfterEvoke = cardGroupReturnAfterEvoke;
-        return this;
-    }
-
 
     @Override
     public void applyFocus() {
     }
-
-    protected abstract void actionAccept();
-
 
     protected void showEvokeNum() {
         card.costForTurn = evokeAmount;
@@ -244,6 +224,10 @@ public abstract class CardOrb extends AbstractLupaOrb {
     public CardOrb setTargetType(AbstractCard.CardTarget cardTarget) {
         this.targetType = cardTarget;
         return this;
+    }
+
+    public AbstractCard getOriginCard() {
+        return originCard;
     }
 
     public enum DrawOrder {

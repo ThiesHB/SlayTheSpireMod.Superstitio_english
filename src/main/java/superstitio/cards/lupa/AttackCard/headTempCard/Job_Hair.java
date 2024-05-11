@@ -1,4 +1,4 @@
-package superstitio.cards.lupa.AttackCard;
+package superstitio.cards.lupa.AttackCard.headTempCard;
 
 import basemod.cardmods.ExhaustMod;
 import basemod.helpers.CardModifierManager;
@@ -24,10 +24,9 @@ public class Job_Hair extends AbstractLupaCard_FuckJob implements GoSomewhereEls
     public static final CardTarget CARD_TARGET = CardTarget.ENEMY;
 
     private static final int COST = 1;
-    private static final int DAMAGE = 9;
-    private static final int UPGRADE_DAMAGE = 4;
-
-    private static final int MAGIC = 2;
+    private static final int DAMAGE = 6;
+    private static final int UPGRADE_DAMAGE = 2;
+    private static final int MAGIC = 4;
 
     public Job_Hair() {
         this(DAMAGE, UPGRADE_DAMAGE);
@@ -42,8 +41,10 @@ public class Job_Hair extends AbstractLupaCard_FuckJob implements GoSomewhereEls
     }
 
     private Job_Hair makeCardCopyWithDamageDecrease() {
-        Job_Hair card = new Job_Hair(this.baseDamage, 0);
+        Job_Hair card = new Job_Hair(DAMAGE, UPGRADE_DAMAGE);
+        card.freeToPlayOnce = true;
         CardModifierManager.addModifier(card, new ExhaustMod());
+        card.initializeDescription();
         return card;
     }
 
@@ -62,14 +63,11 @@ public class Job_Hair extends AbstractLupaCard_FuckJob implements GoSomewhereEls
     public void afterInterruptMoveToCardGroup(CardGroup cardGroup) {
         Job_Hair job_hair = this.makeCardCopyWithDamageDecrease();
         HangUpCardGroup.addToBot_AddCardOrbToOrbGroup(
-                new CardOrb_WaitCardTrigger(job_hair, (orb,card) -> {
+                new CardOrb_WaitCardTrigger(this,cardGroup, (orb, card) -> {
                     orb.StartHitCreature(AbstractDungeon.player);
-                    addToBot_gainBlock();
+                    ActionUtility.addToBot_makeTempCardInBattle(job_hair, BattleCardPlace.Hand, this.upgraded);
                 }, this.magicNumber)
-                        .setCardGroupReturnAfterEvoke(AbstractDungeon.player.hand)
-//                        .setNotEvokeOnEndOfTurn()
                         .setTargetType(CardTarget.SELF)
-//                        .setDesc(this.rawDescription)
         );
     }
 }

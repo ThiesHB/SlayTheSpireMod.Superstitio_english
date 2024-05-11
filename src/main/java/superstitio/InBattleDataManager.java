@@ -56,6 +56,18 @@ public class InBattleDataManager {
         });
     }
 
+    public static Optional<HangUpCardGroup> getHangUpCardOrbGroup() {
+        return InBattleDataManager.orbGroups.stream()
+                .filter(orbGroup -> orbGroup instanceof HangUpCardGroup)
+                .map(orbGroup -> (HangUpCardGroup) orbGroup).findAny();
+    }
+
+    public static Optional<SexMarkOrbGroup> getSexMarkOrbGroup() {
+        return InBattleDataManager.orbGroups.stream()
+                .filter(orbGroup -> orbGroup instanceof SexMarkOrbGroup)
+                .map(orbGroup -> (SexMarkOrbGroup) orbGroup).findAny();
+    }
+
 
     public static void InitializeAtStartOfTurn() {
         OrgasmTimesInTurn = 0;

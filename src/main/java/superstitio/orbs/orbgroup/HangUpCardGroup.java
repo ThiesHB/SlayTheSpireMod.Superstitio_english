@@ -8,7 +8,9 @@ import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.helpers.Hitbox;
 import com.megacrit.cardcrawl.orbs.AbstractOrb;
 import com.megacrit.cardcrawl.orbs.EmptyOrbSlot;
+import superstitio.AtEndOfTurn;
 import superstitio.InBattleDataManager;
+import superstitio.Logger;
 import superstitio.orbs.CardOrb;
 import superstitio.orbs.CardOrb_CardTrigger;
 import superstitio.orbs.actions.ChannelOnOrbGroupAction;
@@ -17,7 +19,7 @@ import java.util.ArrayList;
 import java.util.Objects;
 import java.util.stream.Stream;
 
-public class HangUpCardGroup extends OrbGroup implements OnCardUseSubscriber {
+public class HangUpCardGroup extends OrbGroup implements OnCardUseSubscriber , AtEndOfTurn.EndOfTurnSubscriber {
 
     private static final int SetupOrbMax = 0;
 
@@ -30,8 +32,7 @@ public class HangUpCardGroup extends OrbGroup implements OnCardUseSubscriber {
 
     public static void addToBot_AddCardOrbToOrbGroup(CardOrb orb) {
         AbstractDungeon.actionManager.addToBottom(
-                new ChannelOnOrbGroupAction(InBattleDataManager.orbGroups.stream()
-                        .filter(orbGroup -> orbGroup instanceof HangUpCardGroup).findAny().orElse(null), orb));
+                new ChannelOnOrbGroupAction(InBattleDataManager.getHangUpCardOrbGroup().orElse(null), orb));
     }
 
     @Override
@@ -60,33 +61,49 @@ public class HangUpCardGroup extends OrbGroup implements OnCardUseSubscriber {
         removeUselessCard();
     }
 
-    private void removeUselessCard() {
-        ArrayList<AbstractOrb> abstractOrbs = this.orbs;
-        for (int i = 0; i < abstractOrbs.size(); i++) {
-            AbstractOrb orb = abstractOrbs.get(i);
-            if (orb instanceof CardOrb && ((CardOrb) orb).shouldRemove()) {
-                this.evokeOrb(i);
-            }
-        }
+    @Override
+    public void atEndOfTurn() {
+        super.atEndOfTurn();
+//        ArrayList<AbstractOrb> abstractOrbs = this.orbs;
+//        ArrayList<CardOrb> needRemove = new ArrayList<>();
+//        abstractOrbs.stream().filter(orb -> orb instanceof CardOrb).map(orbs -> (CardOrb) orbs).forEach(orb -> {
+//            if (orb.evokeOnEndOfTurn) {
+//                needRemove.add(orb);
+//                Logger.temp("evokeOnEndOfTurn");
+//            }
+//
+//        });
+//        needRemove.forEach(this::evokeOrb);
     }
 
-//    @Override
-//    public void evokeOrb(int slotIndex) {
-//        super.evokeOrb(slotIndex);
-//        this.decreaseMaxOrbs(1);
-//    }
+    private void removeUselessCard() {
+        ArrayList<AbstractOrb> abstractOrbs = this.orbs;
+        ArrayList<CardOrb> needRemove = new ArrayList<>();
+        abstractOrbs.stream().filter(orb -> orb instanceof CardOrb).map(orbs -> (CardOrb) orbs).forEach(orb -> {
+            orb.checkShouldRemove();
+            if (orb.shouldRemove)
+                needRemove.add(orb);
+        });
+        needRemove.forEach(this::evokeOrb);
+    }
+
 
     public void evokeOrb(CardOrb exampleCardOrb) {
         for (int i = 0; i < orbs.size(); i++) {
             AbstractOrb orb = orbs.get(i);
             if (!(orb instanceof CardOrb)) continue;
             CardOrb cardOrb = (CardOrb) orb;
-            if (!Objects.equals(cardOrb.card, exampleCardOrb.card)) continue;
+            if (!Objects.equals(cardOrb.getOriginCard().uuid, exampleCardOrb.getOriginCard().uuid)) continue;
             evokeOrbAndNotFill(i);
         }
         this.decreaseMaxOrbs(1);
     }
 
+    @Override
+    public void evokeOrb(int slotIndex) {
+        super.evokeOrb(slotIndex);
+        this.decreaseMaxOrbs(1);
+    }
 
     @Override
     public void channelOrb(AbstractOrb orb) {
@@ -101,7 +118,7 @@ public class HangUpCardGroup extends OrbGroup implements OnCardUseSubscriber {
 
     @Override
     public void receiveCardUsed(AbstractCard abstractCard) {
-        getCardOrbStream().filter(orb->orb instanceof CardOrb_CardTrigger)
+        getCardOrbStream().filter(orb -> orb instanceof CardOrb_CardTrigger)
                 .forEach(orb -> ((CardOrb_CardTrigger) orb).onCardUsed(abstractCard));
     }
 

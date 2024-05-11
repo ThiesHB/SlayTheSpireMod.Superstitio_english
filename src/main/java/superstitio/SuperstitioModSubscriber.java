@@ -20,7 +20,8 @@ public class SuperstitioModSubscriber implements
         PostBattleSubscriber, PostDungeonInitializeSubscriber, OnStartBattleSubscriber, OnPlayerTurnStartSubscriber,
         OnCardUseSubscriber, OnPowersModifiedSubscriber, PostDrawSubscriber, PostEnergyRechargeSubscriber, PreMonsterTurnSubscriber {
 
-    public static boolean hasHadInMonsterTurn = false;
+
+    public static SuperstitioModSubscriber self;
 
     public SuperstitioModSubscriber() {
         BaseMod.subscribe(this);
@@ -28,7 +29,15 @@ public class SuperstitioModSubscriber implements
     }
 
     public static void initialize() {
-        new SuperstitioModSubscriber();
+        self = new SuperstitioModSubscriber();
+    }
+
+    public static void receiveAtEndOfTurn() {
+        InBattleDataManager.subscribeManageGroups.forEach(iSubscribers -> iSubscribers.forEach(iSubscriber -> {
+            if (iSubscriber instanceof AtEndOfTurn.EndOfTurnSubscriber) {
+                ((AtEndOfTurn.EndOfTurnSubscriber) iSubscriber).atEndOfTurn();
+            }
+        }));
     }
 
     @Override
@@ -94,27 +103,20 @@ public class SuperstitioModSubscriber implements
     @Override
     public void receiveOnBattleStart(AbstractRoom abstractRoom) {
         InBattleDataManager.InitializeAtStartOfBattle();
-        hasHadInMonsterTurn = false;
         ApplyAll((sub) -> sub.receiveOnBattleStart(abstractRoom), OnStartBattleSubscriber.class);
     }
 
     @Override
     public void receiveOnPlayerTurnStart() {
         InBattleDataManager.InitializeAtStartOfTurn();
-        hasHadInMonsterTurn = false;
         ApplyAll(OnPlayerTurnStartSubscriber::receiveOnPlayerTurnStart, OnPlayerTurnStartSubscriber.class);
     }
 
     @Override
     public boolean receivePreMonsterTurn(AbstractMonster abstractMonster) {
-        if (!hasHadInMonsterTurn)
-            ApplyAll(AtStartOfMonsterTurnSubscriber::atStartOfMonsterTurn, AtStartOfMonsterTurnSubscriber.class);
-        hasHadInMonsterTurn = true;
+////        if (!hasHadInMonsterTurn)
+//
         ApplyAll((sub) -> sub.receivePreMonsterTurn(abstractMonster), PreMonsterTurnSubscriber.class);
         return true;
-    }
-
-    public interface AtStartOfMonsterTurnSubscriber extends ISubscriber {
-        void atStartOfMonsterTurn();
     }
 }

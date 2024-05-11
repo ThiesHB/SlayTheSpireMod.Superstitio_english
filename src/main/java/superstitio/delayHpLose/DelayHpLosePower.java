@@ -5,14 +5,13 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.evacipated.cardcrawl.mod.stslib.powers.interfaces.HealthBarRenderPower;
 import com.megacrit.cardcrawl.actions.AbstractGameAction;
-import com.megacrit.cardcrawl.actions.common.GainBlockAction;
 import com.megacrit.cardcrawl.core.AbstractCreature;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
-import com.megacrit.cardcrawl.powers.AbstractPower;
 import com.megacrit.cardcrawl.vfx.combat.FlashAtkImgEffect;
 import com.megacrit.cardcrawl.vfx.combat.PowerBuffEffect;
 import superstitio.DataManager;
+import superstitio.actions.AutoDoneInstantAction;
 import superstitio.cards.DamageActionMaker;
 import superstitio.powers.AbstractLupaPower;
 import superstitio.powers.interfaces.DecreaseHealthBarNumberPower;
@@ -28,9 +27,13 @@ public class DelayHpLosePower extends AbstractLupaPower implements
         InvisiblePower_InvisibleApplyPowerEffect, InvisiblePower_InvisibleRemovePowerEffect {
     private static final String POWER_ID = DataManager.MakeTextID(DelayHpLosePower.class.getSimpleName());
     private static final Color ReadyToRemoveColor = new Color(1.0F, 0.5F, 0.0F, 1.0F);
-    private static final Color OriginColor = Color.PINK.cpy();
+    private static final Color ForAWhileColor = new Color(0.9412F, 0.4627f, 0.5451f, 1.0f);
+    private static final Color OriginColor = new Color(1.0F, 0.85f, 0.90f, 1.0f);
     private static final int TURN_INIT = 1;
+    private static final int TURN_READY = 0;
+
     private int Turn;
+    private boolean atEnemyTurn;
 
     public DelayHpLosePower(final AbstractCreature owner, int amount) {
         super(POWER_ID, owner, amount);
@@ -39,8 +42,8 @@ public class DelayHpLosePower extends AbstractLupaPower implements
         ReflectionHacks.setPrivate(this, DelayHpLosePower.class, "greenColor", Color.PINK.cpy());
     }
 
-    public static String getUniqueIDInit() {
-        return POWER_ID + TURN_INIT;
+    public static String getUniqueIDCanHandleThisTurn() {
+        return POWER_ID + TURN_READY;
     }
 
     public String getUniqueID() {
@@ -49,28 +52,12 @@ public class DelayHpLosePower extends AbstractLupaPower implements
 
     @Override
     public boolean checkShouldInvisibleTips() {
-        return this.Turn <= 0;
+        return this.Turn > 0;
     }
-
-    @Override
-    public void atStartOfTurnPostDraw() {
-    }
-
-//    @Override
-//    public Color getColor() {
-//        if (Turn >= 0)
-//            return new Color(191.0f / 255.0f, 15.0f / 255.0f, 110.0f / 255.0f, 0.0f);
-//        return super.getColor();
-//    }
 
     @Override
     public void onVictory() {
         addToBot_removeSpecificPower(this);
-    }
-
-    @Override
-    public void onApplyPower(AbstractPower power, AbstractCreature target, AbstractCreature source) {
-
     }
 
     @Override
@@ -99,13 +86,21 @@ public class DelayHpLosePower extends AbstractLupaPower implements
     public void atStartOfTurn() {
         if (Turn <= 0) {
             PowerUtility.BubbleMessage(this, true, pureName());
-            DamageActionMaker.maker(this.owner, this.amount, this.owner)
-                    .setDamageModifier(new UnBlockAbleDamage())
-                    .setEffect(AbstractGameAction.AttackEffect.POISON)
-                    .setDamageType(DataManager.CanOnlyDamageDamageType.UnBlockAbleDamageType)
-                    .addToBot();
+//            DamageActionMaker.maker(this.owner, this.amount, this.owner)
+//                    .setDamageModifier(new UnBlockAbleDamage())
+//                    .setEffect(AbstractGameAction.AttackEffect.POISON)
+//                    .setDamageType(DataManager.CanOnlyDamageDamageType.UnBlockAbleDamageType)
+//                    .addToBot();
+            AutoDoneInstantAction.addToBotAbstract(() -> {
+                AbstractDungeon.effectList.add(
+                        new FlashAtkImgEffect(this.owner.hb.cX,this.owner.hb.cY, AbstractGameAction.AttackEffect.POISON));
+                owner.currentHealth -= amount;
+            });
             addToBot_removeSpecificPower(this);
         }
+        Turn--;
+        atEnemyTurn = false;
+        this.updateDescription();
     }
 
     @Override
@@ -121,8 +116,7 @@ public class DelayHpLosePower extends AbstractLupaPower implements
 
     @Override
     public void atEndOfTurn(boolean isPlayer) {
-        Turn--;
-        this.updateDescription();
+        atEnemyTurn = true;
     }
 
     @Override
@@ -133,7 +127,7 @@ public class DelayHpLosePower extends AbstractLupaPower implements
     @Override
     public Color getColor() {
         if (Turn <= 0)
-            return ReadyToRemoveColor;
+            return atEnemyTurn ? ReadyToRemoveColor : ForAWhileColor;
         return OriginColor;
     }
 

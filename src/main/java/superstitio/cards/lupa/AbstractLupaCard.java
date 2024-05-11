@@ -226,7 +226,7 @@ public abstract class AbstractLupaCard extends CustomCard {
 
     public final void addToBot_gainBlock(final int amount) {
         if (DelayHpLosePatch.GainBlockTypeFields.ifTransGainBlockToReduceDelayHpLose.get(this)) {
-            ActionUtility.addToBot_reducePower(DelayHpLosePower.getUniqueIDInit(), amount,
+            ActionUtility.addToBot_reducePower(DelayHpLosePower.getUniqueIDCanHandleThisTurn(), amount,
                     AbstractDungeon.player, AbstractDungeon.player);
             AbstractDungeon.effectList.add(
                     new FlashAtkImgEffect(AbstractDungeon.player.hb.cX, AbstractDungeon.player.hb.cY,

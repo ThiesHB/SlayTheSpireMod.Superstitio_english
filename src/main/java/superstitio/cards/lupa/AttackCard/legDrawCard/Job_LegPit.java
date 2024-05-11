@@ -1,4 +1,4 @@
-package superstitio.cards.lupa.AttackCard;
+package superstitio.cards.lupa.AttackCard.legDrawCard;
 
 import com.badlogic.gdx.graphics.Color;
 import com.megacrit.cardcrawl.actions.AbstractGameAction;

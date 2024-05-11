@@ -2,9 +2,16 @@
   "SuperstitioMod:Sensitive": {
     "NAME": "敏感",
     "DESCRIPTIONS": [
-      "你使用的每个 [E] 均会立即带来 #b%d 点  #ysuperstitiomod:快感 。 NL 特殊机制： #ysuperstitiomod:高潮  、 #ysuperstitiomod:结束高潮  、 #ysuperstitiomod:连续高潮 。"
+      "你使用的每个 [E] 均会立即带来 #b%d 点  #ysuperstitiomod:快感 。 NL 特殊机制： #ysuperstitiomod:高潮  、 #ysuperstitiomod:结束高潮  、 #ysuperstitiomod:连续高潮 、 #ysuperstitiomod:干涸精液 。"
     ],
     "FLAVOR": "你的身体非常敏感。"
+  },
+  "SuperstitioMod:JokeDescription": {
+    "NAME": "五衰之相-小",
+    "DESCRIPTIONS": [
+      "你已经经历了小五衰，这使你无暇的天人之躯出现了缺漏，你变得更像是凡人了。 NL 你所经历的小五衰为： NL #ysuperstitiomod:乐声不起 、 #ysuperstitiomod:身光忽灭 、 #ysuperstitiomod:浴水着身 、 #ysuperstitiomod:着境不舍 、 #ysuperstitiomod:眼目数瞬 。"
+    ],
+    "FLAVOR": "作者：我希望你反应过来了，我根本没有给这个遗物做任何效果。"
   },
   "SuperstitioMod:DevaBody": {
     "NAME": "腐朽天人",

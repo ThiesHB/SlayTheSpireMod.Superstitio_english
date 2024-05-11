@@ -10,6 +10,7 @@ import superstitio.DataManager;
 import superstitio.actions.AutoDoneInstantAction;
 import superstitio.actions.ChoseCardFromHandCardSelectScreen;
 import superstitio.cards.lupa.AbstractLupaCard;
+import superstitio.cards.modifiers.block.SexBlock;
 import superstitio.delayHpLose.RemoveDelayHpLoseBlock;
 
 public class ZenState extends AbstractLupaCard {
@@ -22,7 +23,7 @@ public class ZenState extends AbstractLupaCard {
     public static final CardTarget CARD_TARGET = CardTarget.SELF;
 
     private static final int COST = 0;
-    private static final int COST_UPGRADE_NEW = 0;
+    private static final int COST_UPGRADED_NEW = 0;
     private static final int BLOCK = 4;
     private static final int UPGRADE_BLOCK = 2;
     private static final int MAGIC = 1;
@@ -30,7 +31,7 @@ public class ZenState extends AbstractLupaCard {
     public ZenState() {
         super(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET);
         this.setupMagicNumber(MAGIC);
-        this.setupBlock(BLOCK, UPGRADE_BLOCK, new RemoveDelayHpLoseBlock());
+        this.setupBlock(BLOCK, UPGRADE_BLOCK, new SexBlock());
     }
 
     @Override
@@ -53,6 +54,6 @@ public class ZenState extends AbstractLupaCard {
 
     @Override
     public void upgradeAuto() {
-        this.upgradeBaseCost(COST_UPGRADE_NEW);
+        this.upgradeBaseCost(COST_UPGRADED_NEW);
     }
 }

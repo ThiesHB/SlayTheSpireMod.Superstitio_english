@@ -4,6 +4,7 @@ import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import superstitio.DataManager;
 import superstitio.cards.lupa.AbstractLupaCard;
+import superstitio.cards.modifiers.block.SexBlock;
 import superstitio.delayHpLose.RemoveDelayHpLoseBlock;
 
 /**
@@ -14,7 +15,7 @@ public class ExposeSelf extends AbstractLupaCard {
 
     public static final CardType CARD_TYPE = CardType.SKILL;
 
-    public static final CardRarity CARD_RARITY = CardRarity.UNCOMMON;
+    public static final CardRarity CARD_RARITY = CardRarity.COMMON;
 
     public static final CardTarget CARD_TARGET = CardTarget.SELF;
 

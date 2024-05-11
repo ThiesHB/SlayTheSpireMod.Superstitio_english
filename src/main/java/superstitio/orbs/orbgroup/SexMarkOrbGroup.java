@@ -45,8 +45,7 @@ public class SexMarkOrbGroup extends OrbGroup {
 
     public static void addToBot_GiveMarkToOrbGroup(String sexName, SexMarkOrbGroup.SexMarkType sexMarkType) {
         AbstractDungeon.actionManager.addToBottom(
-                new GiveSexMarkToOrbGroupInstantAction((SexMarkOrbGroup) InBattleDataManager.orbGroups.stream()
-                        .filter(orbGroup -> orbGroup instanceof SexMarkOrbGroup).findAny().orElse(null),
+                new GiveSexMarkToOrbGroupInstantAction(InBattleDataManager.getSexMarkOrbGroup().orElse(null),
                         makeSexMarkOrb(sexMarkType).setSexMarkName(sexName)));
     }
 
@@ -108,8 +107,9 @@ public class SexMarkOrbGroup extends OrbGroup {
                 blockAmount.addAndGet(sexMarkOrb.block());
             }
         });
-        GangBang gangBang = new GangBang(attackAmount.get(), blockAmount.get() , ScoreTheGangBang());
-        AutoDoneInstantAction.addToBotAbstract(() -> AbstractDungeon.actionManager.addCardQueueItem(new CardQueueItem(gangBang, null, 0, true,
+        GangBang gangBang = new GangBang(attackAmount.get(), blockAmount.get(), ScoreTheGangBang());
+        AutoDoneInstantAction.addToBotAbstract(() ->
+                AbstractDungeon.actionManager.addCardQueueItem(new CardQueueItem(gangBang, null, 0, true,
                 true), true));
         AutoDoneInstantAction.addToBotAbstract(() -> {
             int bound = orbs.size();
@@ -140,7 +140,8 @@ public class SexMarkOrbGroup extends OrbGroup {
         final int countTotal = this.GetMaxOrbs();
         if (countTotal % 2 == 1) {
             return MapIndexTool(index, countTotal);
-        } else {
+        }
+        else {
             int plusOneResult = MapIndexTool(index, countTotal + 1);
             if (plusOneResult == countTotal) return 0;
             else return plusOneResult;
@@ -152,7 +153,8 @@ public class SexMarkOrbGroup extends OrbGroup {
         if (index % 2 == 1) {
             if (fillSide) return mid + (index + 1) / 2;
             return mid - (index + 1) / 2;
-        } else {
+        }
+        else {
             if (fillSide) return mid - index / 2;
             return mid + index / 2;
         }

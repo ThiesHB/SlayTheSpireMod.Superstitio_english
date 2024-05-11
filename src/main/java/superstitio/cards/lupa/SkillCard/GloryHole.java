@@ -1,5 +1,7 @@
 package superstitio.cards.lupa.SkillCard;
 
+import basemod.cardmods.RetainMod;
+import basemod.helpers.CardModifierManager;
 import com.megacrit.cardcrawl.actions.AbstractGameAction;
 import com.megacrit.cardcrawl.actions.common.MakeTempCardInHandAction;
 import com.megacrit.cardcrawl.cards.AbstractCard;
@@ -23,8 +25,8 @@ public class GloryHole extends AbstractLupaCard {
     public static final CardTarget CARD_TARGET = CardTarget.SELF;
 
     private static final int COST = 2;
-
-    private static final int COST_UPGRADE_NEW = 1;
+//
+//    private static final int COST_UPGRADED_NEW = 2;
 
 
     public GloryHole() {
@@ -47,6 +49,7 @@ public class GloryHole extends AbstractLupaCard {
 
     @Override
     public void upgradeAuto() {
-        upgradeBaseCost(COST_UPGRADE_NEW);
+//        upgradeBaseCost(COST_UPGRADED_NEW);
+        CardModifierManager.addModifier(this,new RetainMod());
     }
 }

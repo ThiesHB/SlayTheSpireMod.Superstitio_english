@@ -4,6 +4,7 @@ import basemod.ReflectionHacks;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.megacrit.cardcrawl.cards.AbstractCard;
+import com.megacrit.cardcrawl.cards.CardGroup;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.core.AbstractCreature;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
@@ -20,13 +21,11 @@ import java.util.Optional;
 public abstract class CardOrb_CardTrigger extends CardOrb {
 
     protected final BiConsumer<CardOrb_CardTrigger, AbstractCard> action;
-    //    protected List<Soul> souls = new ArrayList<>();
     public AbstractCreature lastTarget;
+    public int OrbCounter = 0;
 
-    public AbstractCard cardToTriggerThis;
-
-    public CardOrb_CardTrigger(AbstractCard card, BiConsumer<CardOrb_CardTrigger, AbstractCard> action_thisCard_targetCard) {
-        super(card);
+    public CardOrb_CardTrigger(AbstractCard card, CardGroup cardGroupReturnAfterEvoke, BiConsumer<CardOrb_CardTrigger, AbstractCard> action_thisCard_targetCard) {
+        super(card, cardGroupReturnAfterEvoke);
         this.action = action_thisCard_targetCard;
     }
 
@@ -42,23 +41,31 @@ public abstract class CardOrb_CardTrigger extends CardOrb {
     }
 
     @Override
+    public void onEndOfTurn() {
+        super.onEndOfTurn();
+    }
+
+    @Override
     protected void onRemoveCard() {
     }
 
     @Override
-    public abstract boolean shouldRemove();
+    public void checkShouldRemove() {
+        if (shouldRemove) return;
+        this.shouldRemove = this.OrbCounter <= 0 && checkShouldStopMoving();
+    }
 
     @Override
     public void update() {
         super.update();
-//        this.souls.forEach(Soul::update);
         this.movingType = this.movingType.get();
+        setEvokeAmount(OrbCounter - 1);
+        setPassiveAmount(OrbCounter);
     }
 
     @Override
     public void render(SpriteBatch spriteBatch) {
         super.render(spriteBatch);
-//        this.souls.forEach(soul -> soul.render(spriteBatch));
     }
 
     protected ActionUtility.VoidSupplier checkAndSetTheHoverType() {
@@ -78,24 +85,22 @@ public abstract class CardOrb_CardTrigger extends CardOrb {
 
     public final void onCardUsed(AbstractCard card) {
         if (card == null) return;
-        if (cardMatcher.test(card)) {
-            this.cardToTriggerThis = card;
-            if (onProperCardUsed_IfShouldApply(card))
-                actionAccept();
-            this.cardToTriggerThis = null;
-        }
+        if (!TestIfCardIsRight_use(card)) return;
+        OrbCounter--;
+        if (onProperCardUsed_checkIfShouldApplyAction(card))
+            actionAccept(card);
     }
 
-    protected abstract boolean onProperCardUsed_IfShouldApply(AbstractCard card);
+    protected abstract boolean onProperCardUsed_checkIfShouldApplyAction(AbstractCard card);
 
     @Override
-    protected void actionAccept() {
-        if (this.cardToTriggerThis == null)
-            return;
-        actionAccept(this.cardToTriggerThis);
+    public void forceAcceptAction(AbstractCard card) {
+        OrbCounter--;
+        if (onProperCardUsed_checkIfShouldApplyAction(card))
+            actionAccept(card);
     }
 
-    public void actionAccept(AbstractCard card) {
+    protected void actionAccept(AbstractCard card) {
         action.accept(this, card);
     }
 
@@ -131,51 +136,45 @@ public abstract class CardOrb_CardTrigger extends CardOrb {
 
     protected void State_WhenHoverCard_OnMonster() {
         updateIfFocusOnMonster();
-        this.card.glowColor = CardUtility.getColorFormCard(card);
+        this.card.glowColor = CardUtility.getColorFormCard(targetType);
     }
 
     protected void State_WhenHoverCard_OnSelf() {
         updateIfFocusOnSelf();
-        this.card.glowColor = CardUtility.getColorFormCard(card);
+        this.card.glowColor = CardUtility.getColorFormCard(targetType);
     }
-
 
     protected void State_WhenHoverCard_OnNothing() {
         updateIfFocusOnNothing();
     }
-
-    //    public void makeSoul(Soul soul) {
-//        soul.card = card;
-//        soul.group = AbstractDungeon.player.drawPile;
-//        if (!visualOnly) {
-//            if (randomSpot) {
-//                this.group.addToRandomSpot(card);
-//            } else {
-//                this.group.addToTop(card);
-//            }
-//        }
-//
-//        soul. = new Vector2(card.current_x, card.current_y);
-//        soul.target = new Vector2(DRAW_PILE_X, DRAW_PILE_Y);
-//        soul.setSharedVariables();
-//        soul.rotation = card.angle + 270.0F;
-//        soul.rotateClockwise = true;
-//    }
 
     public void StartHitCreature(AbstractCreature target) {
         this.movingType = this::State_Moving;
         AbstractCreature creature = DamageActionMaker.getTargetOrFirstMonster(target);
         this.tryMoveTo(new Vector2(this.cX - (this.cX - creature.hb.cX) / 1.2f, this.cY - (this.cY - creature.hb.cY) / 1.2f));
         this.card.superFlash(CardUtility.getColorFormCard(card));
-
-//        Soul soul = new Soul();
-//        this.souls.add(soul);
-        setCanNotInterrupt();
     }
 
     protected boolean ifHoveredRightCard() {
-        return (boolean) ReflectionHacks.getPrivate(AbstractDungeon.player, AbstractPlayer.class, "isHoveringCard")
-                && (AbstractDungeon.player.hoveredCard != null) && this.cardMatcher.test(AbstractDungeon.player.hoveredCard);
+        AbstractCard hoveredCard = AbstractDungeon.player.hoveredCard;
+        if (!((boolean) ReflectionHacks.getPrivate(AbstractDungeon.player, AbstractPlayer.class, "isHoveringCard")))
+            return false;
+        if (hoveredCard == null) return false;
+        return TestIfCardIsRight_hover(hoveredCard);
+    }
+
+    private boolean TestIfCardIsRight_use(AbstractCard hoveredCard) {
+        if (hoveredCard instanceof Card_AvoidAllCardUsedCheckOfCardOrb_ManuallyTriggerCardOrb) {
+            return false;
+        }
+        return this.cardMatcher.test(hoveredCard);
+    }
+
+    private boolean TestIfCardIsRight_hover(AbstractCard hoveredCard) {
+        if (hoveredCard instanceof Card_AvoidAllCardUsedCheckOfCardOrb_ManuallyTriggerCardOrb) {
+            return ((Card_AvoidAllCardUsedCheckOfCardOrb_ManuallyTriggerCardOrb) hoveredCard).forceFilterCardOrbToHoveredMode(this);
+        }
+        return this.cardMatcher.test(hoveredCard);
     }
 
     protected void updateIfFocusOnMonster() {

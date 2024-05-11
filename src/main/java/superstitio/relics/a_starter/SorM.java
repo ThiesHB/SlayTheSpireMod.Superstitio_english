@@ -113,8 +113,7 @@ public class SorM extends AbstractLupaRelic implements ClickableRelic, CustomSav
 
     @Override
     public void onRightClick() {
-        if (!CardUtility.isNotInBattle())
-            return;
+        if (!CardUtility.isNotInBattle()) return;
         this.flash();
         if (ClickTime >= 99) {
             MasochismMode = true;

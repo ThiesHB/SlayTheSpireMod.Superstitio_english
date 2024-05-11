@@ -34,7 +34,7 @@ public class Tease extends AbstractLupaCard {
         AutoDoneInstantAction.addToBotAbstract(() ->
                 monster.decreaseMaxHealth(a));
         addToBot_applyPower(new FrailPower(monster, 1, false));
-        this.addToBot(new GainBlockAction(monster, a));
+        addToBot(new GainBlockAction(monster, (int) (a * 0.75f)));//乐，实际上脆弱还是不起效
         addToBot_applyPower(new BarricadePower(monster));
     }
 

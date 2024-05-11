@@ -33,7 +33,7 @@
     ]
   },
   "SuperstitioMod:ExposeSelf": {
-    "NAME": "自我露出",
+    "NAME": "自我暴露",
     "DESCRIPTIONS": [
       "到 下回合 开始前 ，失去 #y格挡 时，获得失去数值一半的 #y体表精液 。 NL #y体表精液 会在 回合结束时 转换为 #y干涸精液 。 "
     ]
@@ -158,6 +158,12 @@
     "NAME": "#r腐朽",
     "DESCRIPTIONS": [
       "下回合开始时： NL #r降低 #r%d #r点生命。"
+    ]
+  },
+  "SuperstitioMod:FastWindUp": {
+    "NAME": "快速收尾",
+    "DESCRIPTIONS": [
+      "当你 #y高潮 时，触发所有 #y挂起 的卡牌 #b%d 次。"
     ]
   }
 }

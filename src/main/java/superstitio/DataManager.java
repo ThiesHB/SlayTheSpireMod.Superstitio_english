@@ -153,11 +153,11 @@ public class DataManager {
                 .toArray(String[]::new);
     }
 
-    static String replaceString(WordReplace wordReplace, String string) {
-        if (string != null && string.contains(wordReplace.WordOrigin))
-            return string.replace(wordReplace.WordOrigin, wordReplace.WordReplace);
-        return string;
-    }
+//    static String replaceString(WordReplace wordReplace, String string) {
+//        if (string != null && string.contains(wordReplace.WordOrigin))
+//            return string.replace(wordReplace.WordOrigin, wordReplace.WordReplace);
+//        return string;
+//    }
 
     public static String makeImgPath(String defaultFileName, Function<String[], String> PathFinder, String... id) {
         String path;
@@ -180,17 +180,24 @@ public class DataManager {
             field.setAccessible(true);
             try {
                 if (field.get(obj) instanceof String) {
-                    String string = (String) field.get(obj);
-                    string = replaceString(wordReplace, string);
-                    field.set(obj, string);
-                } else if (field.get(obj) instanceof String[]) {
+                    String value = (String) field.get(obj);
+                    if (value == null || !value.contains(wordReplace.WordOrigin))
+                        continue;
+                    value = value.replace(wordReplace.WordOrigin, wordReplace.WordReplace);
+                    field.set(obj, value);
+
+                }
+                else if (field.get(obj) instanceof String[]) {
                     String[] values = (String[]) field.get(obj);
                     if (values == null || values.length == 0)
                         continue;
                     String[] list = new String[values.length];
                     for (int i = 0, valuesLength = values.length; i < valuesLength; i++) {
                         String string = values[i];
-                        String apply = replaceString(wordReplace, string);
+                        if (string != null && string.contains(wordReplace.WordOrigin)) {
+                            string = string.replace(wordReplace.WordOrigin, wordReplace.WordReplace);
+                        }
+                        String apply = string;
                         list[i] = apply;
                     }
 
@@ -201,6 +208,33 @@ public class DataManager {
             }
         }
     }
+//
+//    static void replaceStringsInObj(Object obj, WordReplace wordReplace) {
+//        for (Field field : obj.getClass().getDeclaredFields()) {
+//            field.setAccessible(true);
+//            try {
+//                if (field.get(obj) instanceof String) {
+//                    String string = (String) field.get(obj);
+//                    string = replaceString(wordReplace, string);
+//                    field.set(obj, string);
+//                } else if (field.get(obj) instanceof String[]) {
+//                    String[] values = (String[]) field.get(obj);
+//                    if (values == null || values.length == 0)
+//                        continue;
+//                    String[] list = new String[values.length];
+//                    for (int i = 0, valuesLength = values.length; i < valuesLength; i++) {
+//                        String string = values[i];
+//                        String apply = replaceString(wordReplace, string);
+//                        list[i] = apply;
+//                    }
+//
+//                    field.set(obj, list);
+//                }
+//            } catch (IllegalAccessException e) {
+//                Logger.error(e);
+//            }
+//        }
+//    }
 
     public static <T> Optional<String> getTypeMapFromLocalizedStrings(Class<T> tClass) {
         Logger.run("initializeTypeMaps");

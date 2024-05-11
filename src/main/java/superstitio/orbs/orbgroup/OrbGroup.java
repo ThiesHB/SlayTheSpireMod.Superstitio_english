@@ -3,7 +3,6 @@ package superstitio.orbs.orbgroup;
 import basemod.ReflectionHacks;
 import basemod.interfaces.OnPlayerTurnStartSubscriber;
 import basemod.interfaces.OnPowersModifiedSubscriber;
-import basemod.interfaces.PreMonsterTurnSubscriber;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.MathUtils;
@@ -16,7 +15,8 @@ import com.megacrit.cardcrawl.orbs.AbstractOrb;
 import com.megacrit.cardcrawl.orbs.EmptyOrbSlot;
 import com.megacrit.cardcrawl.orbs.Plasma;
 import com.megacrit.cardcrawl.vfx.TextAboveCreatureEffect;
-import superstitio.SuperstitioModSubscriber;
+import superstitio.AtEndOfTurn;
+import superstitio.Logger;
 import superstitio.orbs.actions.AnimationOrbOnMonsterAction;
 import superstitio.orbs.actions.ChannelOnOrbGroupAction;
 import superstitio.orbs.actions.EvokeFirstOnMonsterAction;
@@ -30,10 +30,9 @@ import java.util.Objects;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 
-import static superstitio.SuperstitioModSubscriber.*;
-
 public abstract class OrbGroup implements
-        RenderInBattle, OnPowersModifiedSubscriber, OnPlayerTurnStartSubscriber, AtStartOfMonsterTurnSubscriber {
+        RenderInBattle, OnPowersModifiedSubscriber, OnPlayerTurnStartSubscriber,
+        AtEndOfTurn.EndOfTurnSubscriber {
     private static final String[] TEXT = new String[]{"  A  "};
     private static final int MAX_MAX_ORB = 10;
     public AbstractOrb CustomEmptyOrb;
@@ -65,17 +64,30 @@ public abstract class OrbGroup implements
         return AbstractDungeon.getMonsters().monsters;
     }
 
-    public <T> void forEachOrbInEachOrbGroup(BiConsumer<AbstractOrb, T> consumer, T arg) {
+    public <T> void forEachOrbInThisOrbGroup(BiConsumer<AbstractOrb, T> consumer, T arg) {
         for (AbstractOrb orb : this.orbs) {
             consumer.accept(orb, arg);
         }
     }
 
-    public void forEachOrbInEachOrbGroup(Consumer<AbstractOrb> consumer) {
+    public void forEachOrbInThisOrbGroup(Consumer<AbstractOrb> consumer) {
         for (AbstractOrb orb : this.orbs) {
             consumer.accept(orb);
         }
     }
+
+    public <TArg, TOrb extends AbstractOrb> void forEachOrbInThisOrbGroup(
+            BiConsumer<TOrb, TArg> consumer, TArg arg,Class<TOrb> OrbClass) {
+        this.orbs.stream().filter(orb -> orb.getClass().isAssignableFrom(OrbClass))
+                .forEach(orb -> consumer.accept((TOrb) orb, arg));
+    }
+
+    public <TOrb extends AbstractOrb> void forEachOrbInThisOrbGroup(
+            Consumer<TOrb> consumer,Class<TOrb> OrbClass) {
+        this.orbs.stream().filter(orb -> orb.getClass().isAssignableFrom(OrbClass))
+                .map(orb -> (TOrb) orb).forEach(consumer);
+    }
+
 
     public void EnhanceOrb(final AbstractOrb orb, final int amount) {
         if (this.isEmptySlot(orb) || orb instanceof Plasma) return;
@@ -176,6 +188,10 @@ public abstract class OrbGroup implements
         return this.orbs.stream().anyMatch(this::isEmptySlot);
     }
 
+    public final boolean hasOrb() {
+        return this.orbs.stream().anyMatch(orb -> !isEmptySlot(orb));
+    }
+
     public boolean isEmptySlot(AbstractOrb orb) {
         return Objects.equals(orb.ID, CustomEmptyOrb.ID);
     }
@@ -270,12 +286,6 @@ public abstract class OrbGroup implements
     }
 
     public final void increaseMaxOrbs(final int amount) {
-//        if (_maxOrbs + amount >= MAX_MAX_ORB) {
-//            return;
-//        }
-//        if (playSfx) {
-//            CardCrawlGame.sound.play("ORB_SLOT_GAIN", 0.1f);
-//        }
         _maxOrbs += amount;
 
         for (int i = 0; i < amount; i++) {
@@ -312,27 +322,28 @@ public abstract class OrbGroup implements
 
     @Override
     public void receiveOnPlayerTurnStart() {
-        this.forEachOrbInEachOrbGroup(AbstractOrb::onStartOfTurn);
+        this.forEachOrbInThisOrbGroup(AbstractOrb::onStartOfTurn);
     }
 
     @Override
     public void receivePowersModified() {
-        this.forEachOrbInEachOrbGroup(AbstractOrb::updateDescription);
+        this.forEachOrbInThisOrbGroup(AbstractOrb::updateDescription);
     }
 
     @Override
-    public void atStartOfMonsterTurn() {
-        this.forEachOrbInEachOrbGroup(AbstractOrb::onEndOfTurn);
+    public void atEndOfTurn() {
+        this.forEachOrbInThisOrbGroup(AbstractOrb::onEndOfTurn);
+        Logger.temp("OrbGroupendTurn");
     }
 
     @Override
     public void render(SpriteBatch sb) {
-        this.forEachOrbInEachOrbGroup(AbstractOrb::render, sb);
+        this.forEachOrbInThisOrbGroup(AbstractOrb::render, sb);
     }
 
     @Override
     public void update() {
-        this.forEachOrbInEachOrbGroup(orb -> {
+        this.forEachOrbInThisOrbGroup(orb -> {
             orb.update();
             orb.updateAnimation();
         });

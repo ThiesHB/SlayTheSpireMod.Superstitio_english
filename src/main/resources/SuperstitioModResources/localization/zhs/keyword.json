@@ -99,17 +99,66 @@
     "DESCRIPTION": "免疫 攻击伤害 之外的 伤害 。"
   },
   {
-    "PROPER_NAME": "余韵",
+    "PROPER_NAME": "挂起",
     "NAMES": [
-      "余韵"
+      "挂起","挂起-"
     ],
-    "DESCRIPTION": "在下几次打出卡牌时，触发对应效果。 NL 回合结束时清空。"
+    "DESCRIPTION": "打出后，直到效果耗尽或回合结束才进入牌堆。"
   },
   {
-    "PROPER_NAME": "回味",
+    "PROPER_NAME": "久挂",
     "NAMES": [
-      "回味"
+      "久挂","久挂-"
     ],
-    "DESCRIPTION": "打出一定数量卡牌后，触发对应效果。 NL 回合结束时清空。"
+    "DESCRIPTION": "打出后，直到效果耗尽才进入牌堆。"
+  },
+  {
+    "PROPER_NAME": "欲求",
+    "NAMES": [
+      "欲求"
+    ],
+    "DESCRIPTION": "累积打出卡牌后，触发效果。"
+  },
+  {
+    "PROPER_NAME": "缠绵",
+    "NAMES": [
+      "缠绵"
+    ],
+    "DESCRIPTION": "打出指定卡牌时，触发效果。"
+  },
+  {
+    "PROPER_NAME": "乐声不起",
+    "NAMES": [
+      "乐声不起"
+    ],
+    "DESCRIPTION": "遇到敌人时，不再根据战斗情节播放个人背景音乐。"
+  },
+  {
+    "PROPER_NAME": "身光忽灭",
+    "NAMES": [
+      "身光忽灭"
+    ],
+    "DESCRIPTION": "渲染图片时，屏幕亮度从百分之五亿调至凡人范围。"
+  },
+  {
+    "PROPER_NAME": "浴水着身",
+    "NAMES": [
+      "浴水着身"
+    ],
+    "DESCRIPTION": "掉入水坑时，无法毫发无损地从史莱姆黏液中逃脱。"
+  },
+  {
+    "PROPER_NAME": "着境不舍",
+    "NAMES": [
+      "着境不舍"
+    ],
+    "DESCRIPTION": "开始游戏时，必须选择一个涅奥的祝福选项以继续。"
+  },
+  {
+    "PROPER_NAME": "眼目数瞬",
+    "NAMES": [
+      "眼目数瞬"
+    ],
+    "DESCRIPTION": "查看地图时，无法看到问号房间中具体的事件内容。"
   }
 ]
