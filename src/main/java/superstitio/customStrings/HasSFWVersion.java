@@ -8,11 +8,11 @@ import java.util.Map;
 
 public interface HasSFWVersion {
     static boolean shouldReturnSFWVersion(String sfwSting) {
-        return SuperstitioModSetup.enableSFW && !isNullOrEmpty(sfwSting);
+        return SuperstitioModSetup.getEnableSFW() && !isNullOrEmpty(sfwSting);
     }
 
     static boolean shouldReturnSFWVersion(String[] sfwStings) {
-        return SuperstitioModSetup.enableSFW && !isNullOrEmpty(sfwStings);
+        return SuperstitioModSetup.getEnableSFW() && !isNullOrEmpty(sfwStings);
     }
 
     static boolean isNullOrEmpty(String sfwStings) {

@@ -1,6 +1,8 @@
 package superstitio.actions;
 
 import com.megacrit.cardcrawl.actions.AbstractGameAction;
+import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
+import superstitio.utils.CardUtility;
 
 public abstract class AbstractContinuallyAction extends AbstractGameAction {
 
@@ -13,6 +15,10 @@ public abstract class AbstractContinuallyAction extends AbstractGameAction {
 
     @Override
     public final void update() {
+        if (CardUtility.isNotInBattle()) {
+            this.isDone = true;
+            return;
+        }
         if (this.duration == this.startDuration)
             ActionSetUp();
         else
@@ -23,4 +29,8 @@ public abstract class AbstractContinuallyAction extends AbstractGameAction {
     protected abstract void RunAction();
 
     protected abstract void ActionSetUp();
+
+    public void addToBot() {
+        AbstractDungeon.actionManager.addToBottom(this);
+    }
 }

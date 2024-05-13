@@ -24,6 +24,7 @@ public class OutsideSemen extends AbstractLupaPower implements
 
     @Override
     public void updateDescriptionArgs() {
+        setDescriptionArgs(this.amount);
     }
 
     @Override

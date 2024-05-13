@@ -15,7 +15,7 @@ public class Fuck_Navel extends AbstractLupaCard_FuckJob implements OnOrgasm_onO
 
     public static final CardType CARD_TYPE = CardType.ATTACK;
 
-    public static final CardRarity CARD_RARITY = CardRarity.COMMON;
+    public static final CardRarity CARD_RARITY = CardRarity.UNCOMMON;
 
     public static final CardTarget CARD_TARGET = CardTarget.ALL;
 
@@ -23,8 +23,8 @@ public class Fuck_Navel extends AbstractLupaCard_FuckJob implements OnOrgasm_onO
     private static final int DAMAGE = 18;
     private static final int UPGRADE_DAMAGE = 6;
 
-    private static final int MAGIC = 6;
-    private static final int UPGRADE_MAGIC = 2;
+    private static final int MAGIC = 4;
+    private static final int UPGRADE_MAGIC = 1;
 
     public Fuck_Navel() {
         super(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET);

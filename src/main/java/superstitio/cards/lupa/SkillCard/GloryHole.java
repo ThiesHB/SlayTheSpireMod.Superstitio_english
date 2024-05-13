@@ -11,6 +11,7 @@ import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import superstitio.DataManager;
 import superstitio.actions.ChoseCardFromGridSelectWindowAction;
 import superstitio.cards.lupa.AbstractLupaCard;
+import superstitio.cards.lupa.TempCard.SelfReference;
 
 import java.util.Objects;
 
@@ -34,7 +35,9 @@ public class GloryHole extends AbstractLupaCard {
         this.exhaust = true;
     }
 
-    public static AbstractGameAction makeChoseCardCopy(AbstractCard card) {
+    private static AbstractGameAction makeChoseCardCopy(AbstractCard card) {
+        if (Objects.equals(card.cardID, GloryHole.ID))
+           return new MakeTempCardInHandAction(new SelfReference());
         return new MakeTempCardInHandAction(card.makeStatEquivalentCopy());
     }
 
@@ -43,7 +46,7 @@ public class GloryHole extends AbstractLupaCard {
         this.addToBot(new ChoseCardFromGridSelectWindowAction(AbstractDungeon.player.masterDeck, GloryHole::makeChoseCardCopy)
                 .setWindowText(String.format(getEXTENDED_DESCRIPTION()[0]))
                 .setAnyNumber(true)
-                .setRetainFilter(card -> !Objects.equals(card.cardID, GloryHole.ID))
+//                .setRetainFilter(card -> !Objects.equals(card.cardID, GloryHole.ID))
         );
     }
 

@@ -51,6 +51,7 @@ public class Ahegao extends AbstractLupaCard implements GoSomewhereElseAfterUse 
                     DamageActionMaker.maker(orb.getOriginCard().damage, creature).setExampleCard(this).addToBot();
                 }, this.magicNumber)
                         .setCardPredicate(card -> card.type == CardType.ATTACK)
+                        .setNotEvokeOnEndOfTurn()
         );
     }
 }

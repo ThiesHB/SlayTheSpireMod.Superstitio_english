@@ -34,20 +34,20 @@ public class SuperstitioModSetup implements
         EditCharactersSubscriber, AddAudioSubscriber, PostInitializeSubscriber {
 
     public static final String MOD_NAME = "Superstitio";
-    private static final String ENABLE_NSFW_STRING = "enableSFW";
-    public static boolean enableSFW = false;
+    private static final String SexLevleConfigString = "sexLevel";
+    public static SexHardCoreLevel sexLevel = SexHardCoreLevel.SFW;
     public static SpireConfig config = null;
     public static Properties theDefaultDefaultSettings = new Properties();
     public DataManager data;
 
     public SuperstitioModSetup() {
         BaseMod.subscribe(this);
-        SuperstitioModSetup.theDefaultDefaultSettings.setProperty(ENABLE_NSFW_STRING, "TRUE");
+        SuperstitioModSetup.theDefaultDefaultSettings.setProperty(SexLevleConfigString, "TRUE");
         try {
             SuperstitioModSetup.config = new SpireConfig(DataManager.getModID(), DataManager.getModID() + "Config",
                     SuperstitioModSetup.theDefaultDefaultSettings);
             SuperstitioModSetup.config.load();
-            SuperstitioModSetup.enableSFW = SuperstitioModSetup.config.getBool(ENABLE_NSFW_STRING);
+            SuperstitioModSetup.sexLevel = SexHardCoreLevel.valueOf(SuperstitioModSetup.config.getString(SexLevleConfigString));
         } catch (Exception e) {
             Logger.error(e);
         }
@@ -91,20 +91,43 @@ public class SuperstitioModSetup implements
         final String[] SettingText = UIStrings.TEXT;
 
         settingsPanel.addUIElement(new ModLabeledToggleButton(SettingText[0], settingXPos, settingYPos,
-                Settings.CREAM_COLOR, FontHelper.charDescFont, SuperstitioModSetup.enableSFW, settingsPanel, label -> {
+                Settings.CREAM_COLOR, FontHelper.charDescFont, SuperstitioModSetup.sexLevel == SexHardCoreLevel.SFW, settingsPanel, label -> {
         }, button -> {
-            SuperstitioModSetup.enableSFW = button.enabled;
+            if (button.enabled) {
+                SuperstitioModSetup.sexLevel = SexHardCoreLevel.SFW;
+            }
+            else
+                SuperstitioModSetup.sexLevel = SexHardCoreLevel.NO_GURO;
             try {
-                SuperstitioModSetup.config.setBool(ENABLE_NSFW_STRING, SuperstitioModSetup.enableSFW);
+                SuperstitioModSetup.config.setString(SexLevleConfigString, SuperstitioModSetup.sexLevel.toConfig);
                 SuperstitioModSetup.config.save();
             } catch (Exception e) {
                 Logger.error(e);
             }
         }));
 
+        settingYPos -= lineSpacing;
+
+        if (SuperstitioModSetup.sexLevel != SexHardCoreLevel.SFW)
+            settingsPanel.addUIElement(new ModLabeledToggleButton(SettingText[1], settingXPos, settingYPos,
+                    Settings.CREAM_COLOR, FontHelper.charDescFont, SuperstitioModSetup.sexLevel == SexHardCoreLevel.ALL, settingsPanel, label -> {
+            }, button -> {
+                if (button.enabled) {
+                    SuperstitioModSetup.sexLevel = SexHardCoreLevel.ALL;
+                }
+                else
+                    SuperstitioModSetup.sexLevel = SexHardCoreLevel.ALL;//TODO 改好
+                try {
+                    SuperstitioModSetup.config.setString(SexLevleConfigString, SuperstitioModSetup.sexLevel.toConfig);
+                    SuperstitioModSetup.config.save();
+                } catch (Exception e) {
+                    Logger.error(e);
+                }
+            }));
+
         settingYPos -= 3 * lineSpacing;
 
-        settingsPanel.addUIElement(new ModLabeledButton(SettingText[1], settingXPos, settingYPos
+        settingsPanel.addUIElement(new ModLabeledButton(SettingText[2], settingXPos, settingYPos
                 , settingsPanel, button -> {
 //            CardLibrary.cards.values().removeIf(card -> card instanceof AbstractLupaCard);
 //            receiveEditCards();
@@ -157,14 +180,19 @@ public class SuperstitioModSetup implements
 //        BaseMod.loadCustomStringsFile(PotionStrings.class, makeLocPath(Settings.language,"potion"));
 //        BaseMod.loadCustomStringsFile(OrbStrings.class, makeLocPath(Settings.language,"orb"));
         BaseMod.loadCustomStringsFile(CharacterStrings.class,
-                DataManager.makeLocalizationPath(Settings.language, enableSFW ? "character_LupaSFW" : "character_Lupa"));
+                DataManager.makeLocalizationPath(Settings.language,
+                        SuperstitioModSetup.sexLevel == SexHardCoreLevel.SFW ? "character_LupaSFW" : "character_Lupa"));
         BaseMod.loadCustomStringsFile(RelicStrings.class, DataManager.makeLocalizationPath(Settings.language, "relic_Lupa"));
         BaseMod.loadCustomStringsFile(UIStrings.class, DataManager.makeLocalizationPath(Settings.language, "UIStrings"));
-        if (enableSFW) {
+        if (getEnableSFW()) {
             MakeSFWWord();
             SFWWordReplace();
         }
         Logger.run("Done editing strings");
+    }
+
+    public static boolean getEnableSFW() {
+        return SuperstitioModSetup.sexLevel == SexHardCoreLevel.SFW;
     }
 
     private void MakeSFWWord() {
@@ -182,7 +210,7 @@ public class SuperstitioModSetup implements
 
         List<WordReplace> wordReplaces = makeWordReplaceRule();
         relicsStrings.forEach((s, Strings) -> {
-            if (s.contains(DataManager.getModID().toLowerCase())||s.contains(DataManager.getModID())) {
+            if (s.contains(DataManager.getModID().toLowerCase()) || s.contains(DataManager.getModID())) {
                 Strings.FLAVOR = "";
                 wordReplaces.forEach(wordReplace -> DataManager.replaceStringsInObj(Strings, wordReplace));
             }
@@ -229,6 +257,17 @@ public class SuperstitioModSetup implements
     public void receivePostInitialize() {
 //        CustomTargeting.registerCustomTargeting(SelfOrEnemyTargeting.SELF_OR_ENEMY, new SelfOrEnemyTargeting());
         setUpModOptions();
+    }
+
+    public enum SexHardCoreLevel {
+        ALL("all"),
+        NO_GURO("noGuro"),
+        SFW("sfw");
+        public final String toConfig;
+
+        SexHardCoreLevel(String toConfig) {
+            this.toConfig = toConfig;
+        }
     }
 
     // 为原版人物枚举、卡牌颜色枚举扩展的枚举，需要写，接下来要用

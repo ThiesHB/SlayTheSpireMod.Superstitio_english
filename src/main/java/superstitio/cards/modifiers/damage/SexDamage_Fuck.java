@@ -20,11 +20,11 @@ public class SexDamage_Fuck extends AbstractLupaDamage {
     // 由于我们在这一函数处能获取伤害量，我们也可以简单地将等于这个量的power应用于目标，或进行其他操作
     @Override
     public int onAttackToChangeDamage(DamageInfo info, int damageAmount, AbstractCreature target) {
-        if (damageAmount > 0) {
+        if (damageAmount > 1) {
             this.addToTop(new ApplyPowerAction(target, info.owner, new SexualDamage(target, damageAmount - OnlyDealDamage, info.owner)));
             return OnlyDealDamage;
         }
-        return 0;
+        return damageAmount;
     }
 
     @Override

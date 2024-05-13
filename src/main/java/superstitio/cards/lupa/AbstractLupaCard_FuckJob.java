@@ -52,7 +52,7 @@ public abstract class AbstractLupaCard_FuckJob extends AbstractLupaCard {
     public AbstractLupaCard_FuckJob(String id, CardType cardType, int cost, CardRarity cardRarity, CardTarget cardTarget, CardColor cardColor,
                                     String customCardType) {
         super(id, cardType, cost, cardRarity, cardTarget, cardColor, customCardType);
-        if (!SuperstitioModSetup.enableSFW)
+        if (!SuperstitioModSetup.getEnableSFW())
             this.setBackgroundTexture(
                     DataManager.makeImgFilesPath_UI("bg_attack_512_semen"),
                     DataManager.makeImgFilesPath_UI("bg_attack_semen"));

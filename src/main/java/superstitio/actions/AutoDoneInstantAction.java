@@ -3,6 +3,7 @@ package superstitio.actions;
 import com.megacrit.cardcrawl.actions.AbstractGameAction;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import superstitio.utils.ActionUtility;
+import superstitio.utils.CardUtility;
 
 public abstract class AutoDoneInstantAction extends AbstractGameAction {
 
@@ -22,6 +23,7 @@ public abstract class AutoDoneInstantAction extends AbstractGameAction {
     @Override
     public final void update() {
         this.isDone = true;
+        if (CardUtility.isNotInBattle()) return;
         autoDoneUpdate();
     }
 

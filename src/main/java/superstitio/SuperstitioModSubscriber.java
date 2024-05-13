@@ -16,12 +16,11 @@ import static superstitio.InBattleDataManager.ApplyAll;
 
 @SpireInitializer
 public class SuperstitioModSubscriber implements
-        PostExhaustSubscriber, StartGameSubscriber, PostUpdateSubscriber, RelicGetSubscriber, PostPowerApplySubscriber,
+        PostExhaustSubscriber, StartGameSubscriber, RelicGetSubscriber, PostPowerApplySubscriber,
         PostBattleSubscriber, PostDungeonInitializeSubscriber, OnStartBattleSubscriber, OnPlayerTurnStartSubscriber,
         OnCardUseSubscriber, OnPowersModifiedSubscriber, PostDrawSubscriber, PostEnergyRechargeSubscriber, PreMonsterTurnSubscriber {
 
-
-    public static SuperstitioModSubscriber self;
+    public static boolean hasHadInMonsterTurn = false;
 
     public SuperstitioModSubscriber() {
         BaseMod.subscribe(this);
@@ -29,25 +28,12 @@ public class SuperstitioModSubscriber implements
     }
 
     public static void initialize() {
-        self = new SuperstitioModSubscriber();
-    }
-
-    public static void receiveAtEndOfTurn() {
-        InBattleDataManager.subscribeManageGroups.forEach(iSubscribers -> iSubscribers.forEach(iSubscriber -> {
-            if (iSubscriber instanceof AtEndOfTurn.EndOfTurnSubscriber) {
-                ((AtEndOfTurn.EndOfTurnSubscriber) iSubscriber).atEndOfTurn();
-            }
-        }));
+        new SuperstitioModSubscriber();
     }
 
     @Override
     public void receivePostExhaust(AbstractCard abstractCard) {
         ApplyAll((sub) -> sub.receivePostExhaust(abstractCard), PostExhaustSubscriber.class);
-    }
-
-    @Override
-    public void receivePostUpdate() {
-        ApplyAll(PostUpdateSubscriber::receivePostUpdate, PostUpdateSubscriber.class);
     }
 
     @Override
@@ -58,6 +44,7 @@ public class SuperstitioModSubscriber implements
     @Override
     public void receiveCardUsed(AbstractCard abstractCard) {
         ApplyAll((sub) -> sub.receiveCardUsed(abstractCard), OnCardUseSubscriber.class);
+        Logger.temp("receiveCardUsed+ApplyAll");
     }
 
     @Override
@@ -103,20 +90,27 @@ public class SuperstitioModSubscriber implements
     @Override
     public void receiveOnBattleStart(AbstractRoom abstractRoom) {
         InBattleDataManager.InitializeAtStartOfBattle();
+        hasHadInMonsterTurn = false;
         ApplyAll((sub) -> sub.receiveOnBattleStart(abstractRoom), OnStartBattleSubscriber.class);
     }
 
     @Override
     public void receiveOnPlayerTurnStart() {
         InBattleDataManager.InitializeAtStartOfTurn();
+        hasHadInMonsterTurn = false;
         ApplyAll(OnPlayerTurnStartSubscriber::receiveOnPlayerTurnStart, OnPlayerTurnStartSubscriber.class);
     }
 
     @Override
     public boolean receivePreMonsterTurn(AbstractMonster abstractMonster) {
-////        if (!hasHadInMonsterTurn)
-//
+        if (!hasHadInMonsterTurn)
+            ApplyAll(AtStartOfMonsterTurnSubscriber::atStartOfMonsterTurn, AtStartOfMonsterTurnSubscriber.class);
+        hasHadInMonsterTurn = true;
         ApplyAll((sub) -> sub.receivePreMonsterTurn(abstractMonster), PreMonsterTurnSubscriber.class);
         return true;
+    }
+
+    public interface AtStartOfMonsterTurnSubscriber extends ISubscriber {
+        void atStartOfMonsterTurn();
     }
 }

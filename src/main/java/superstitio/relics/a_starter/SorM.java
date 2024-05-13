@@ -26,10 +26,11 @@ public class SorM extends AbstractLupaRelic implements ClickableRelic, CustomSav
     private static final RelicTier RELIC_TIER = RelicTier.SPECIAL;
     // 点击音效
     private static final LandingSound LANDING_SOUND = LandingSound.FLAT;
-    private static final int SadismModeRate = 10;
-    private static final int MasochismModeRate = 5;
+    private static final int SadismModeDamageNeed = 15;
+    private static final int MasochismModeDamageNeed = 3;
 
-    private static final int SexualHeatRate = 2;
+    private static final int MasochismModeSexualHeatRate = 1;
+    private static final int SadismModeSexualHeatRate = 2;
     private int ClickTime = 0;
     private boolean MasochismMode;
     private boolean SadismMode;
@@ -76,9 +77,9 @@ public class SorM extends AbstractLupaRelic implements ClickableRelic, CustomSav
     public int betterOnLoseHp(DamageInfo damageInfo, int i) {
         if (CardUtility.isNotInBattle()) return i;
         if (!MasochismMode) return i;
-        if (i < MasochismModeRate) return i;
+        if (i < MasochismModeDamageNeed) return i;
         if (damageInfo.type == DataManager.CanOnlyDamageDamageType.UnBlockAbleDamageType) return i;
-        AddSexualHeat(i / MasochismModeRate * SexualHeatRate);
+        AddSexualHeat(i / MasochismModeDamageNeed * MasochismModeSexualHeatRate);
         this.flash();
         return i;
     }
@@ -86,8 +87,9 @@ public class SorM extends AbstractLupaRelic implements ClickableRelic, CustomSav
     @Override
     public void onAttack(DamageInfo info, int damageAmount, AbstractCreature target) {
         if (!SadismMode) return;
-        if (damageAmount < SadismModeRate) return;
-        AddSexualHeat(damageAmount / SadismModeRate * SexualHeatRate);
+        if (damageAmount < SadismModeDamageNeed) return;
+        AddSexualHeat(SadismModeSexualHeatRate);
+//        AddSexualHeat(damageAmount / SadismModeRate * SexualHeatRate);
         this.flash();
     }
 
@@ -102,12 +104,12 @@ public class SorM extends AbstractLupaRelic implements ClickableRelic, CustomSav
     @Override
     public String getDescriptionStrings() {
         if (MasochismMode && SadismMode)
-            return String.format(this.DESCRIPTIONS[3], MasochismModeRate, SexualHeatRate, SadismModeRate, SexualHeatRate);
+            return String.format(this.DESCRIPTIONS[3], MasochismModeDamageNeed, MasochismModeSexualHeatRate, SadismModeDamageNeed, MasochismModeSexualHeatRate);
         if (SadismMode)
-            return String.format(this.DESCRIPTIONS[2], SadismModeRate, SexualHeatRate);
+            return String.format(this.DESCRIPTIONS[2], SadismModeDamageNeed, MasochismModeSexualHeatRate);
         if (MasochismMode)
-            return String.format(this.DESCRIPTIONS[1], MasochismModeRate, SexualHeatRate);
-        return String.format(this.DESCRIPTIONS[0], MasochismModeRate, SexualHeatRate, SadismModeRate, SexualHeatRate);
+            return String.format(this.DESCRIPTIONS[1], MasochismModeDamageNeed, MasochismModeSexualHeatRate);
+        return String.format(this.DESCRIPTIONS[0], MasochismModeDamageNeed, MasochismModeSexualHeatRate, SadismModeDamageNeed, MasochismModeSexualHeatRate);
 
     }
 

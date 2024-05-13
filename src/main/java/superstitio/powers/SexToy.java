@@ -35,6 +35,7 @@ public class SexToy extends AbstractLupaPower {
     }
 
     public void Trigger() {
+        this.flash();
         this.addToBot_applyPower(new SexualHeat(this.owner, this.amount / SEXUAL_HEAT_RATE));
     }
 

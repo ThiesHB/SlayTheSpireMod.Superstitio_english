@@ -3,6 +3,7 @@ package superstitio.utils;
 import com.badlogic.gdx.graphics.Color;
 import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.cards.CardGroup;
+import com.megacrit.cardcrawl.core.AbstractCreature;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.helpers.CardLibrary;
 import com.megacrit.cardcrawl.random.Random;
@@ -145,6 +146,11 @@ public class CardUtility {
     }
 
     public static boolean isNotInBattle() {
-        return AbstractDungeon.currMapNode == null || AbstractDungeon.getCurrRoom() == null || AbstractDungeon.getCurrRoom().phase != AbstractRoom.RoomPhase.COMBAT;
+        if (AbstractDungeon.currMapNode == null) return true;
+        if (AbstractDungeon.getCurrRoom() == null) return true;
+        if (AbstractDungeon.getCurrRoom().phase != AbstractRoom.RoomPhase.COMBAT) return true;
+        if (AbstractDungeon.getCurrRoom().monsters == null) return true;
+        if (AbstractDungeon.getCurrRoom().monsters.monsters == null) return true;
+        return AbstractDungeon.getCurrRoom().monsters.monsters.stream().allMatch(AbstractCreature::isDeadOrEscaped);
     }
 }

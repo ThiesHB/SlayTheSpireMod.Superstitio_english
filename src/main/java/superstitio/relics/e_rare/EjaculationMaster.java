@@ -1,18 +1,21 @@
-package superstitio.relics.a_starter;
+package superstitio.relics.e_rare;
 
 import basemod.AutoAdd;
 import com.megacrit.cardcrawl.actions.common.DrawCardAction;
+import com.megacrit.cardcrawl.actions.common.RelicAboveCreatureAction;
+import com.megacrit.cardcrawl.cards.AbstractCard;
+import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import superstitio.DataManager;
 import superstitio.powers.SexualHeat;
-import superstitio.powers.interfaces.orgasm.OnOrgasm_onOrgasm;
+import superstitio.powers.interfaces.orgasm.OnOrgasm_onSquirt;
 import superstitio.relics.AbstractLupaRelic;
 import superstitio.relics.interFace.Countdown;
 
 @AutoAdd.Seen
-public class EjaculationMaster extends AbstractLupaRelic implements OnOrgasm_onOrgasm, Countdown {
+public class EjaculationMaster extends AbstractLupaRelic implements OnOrgasm_onSquirt, Countdown {
     public static final String ID = DataManager.MakeTextID(EjaculationMaster.class.getSimpleName());
     // 遗物类型
-    private static final RelicTier RELIC_TIER = RelicTier.STARTER;
+    private static final RelicTier RELIC_TIER = RelicTier.RARE;
     // 点击音效
     private static final LandingSound LANDING_SOUND = LandingSound.FLAT;
     private static final int DrawAmount = 1;
@@ -33,17 +36,19 @@ public class EjaculationMaster extends AbstractLupaRelic implements OnOrgasm_onO
     }
 
     @Override
-    public void onOrgasm(SexualHeat SexualHeatPower) {
-        CountReduce();
-    }
-
-    @Override
     public void onCountZero() {
+        this.flash();
+        this.addToBot(new RelicAboveCreatureAction(AbstractDungeon.player, this));
         this.addToBot(new DrawCardAction(DrawAmount));
     }
 
     @Override
     public int getStarterNum() {
         return EjaculationMax;
+    }
+
+    @Override
+    public void onSquirt(SexualHeat SexualHeatPower, AbstractCard card) {
+        CountReduce();
     }
 }

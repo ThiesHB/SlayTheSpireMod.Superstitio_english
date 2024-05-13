@@ -45,7 +45,7 @@ public class UnBirth extends AbstractLupaCard {
     @Override
     public void use(AbstractPlayer player, AbstractMonster monster) {
         AbstractCreature target = SelfOrEnemyTargeting.getTarget(this);
-        if (target == null)
+        if (target == null || target instanceof AbstractPlayer)
             ForPlayer(AbstractDungeon.player);
         else
             ForMonster((AbstractMonster) target);

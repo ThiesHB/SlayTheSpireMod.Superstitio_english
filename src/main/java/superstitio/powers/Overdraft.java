@@ -21,6 +21,7 @@ public class Overdraft extends AbstractLupaPower {
 
     @Override
     public void atStartOfTurnPostDraw() {
+        this.flash();
         this.addToBot(new ExhaustAction(amount, false, false));
         this.addToBot(new RemoveSpecificPowerAction(this.owner, this.owner, POWER_ID));
     }

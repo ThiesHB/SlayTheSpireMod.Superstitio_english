@@ -15,8 +15,8 @@ public abstract class AbstractLupaCard_TempCard extends AbstractLupaCard {
         this(id, cardType, cost, cardRarity, cardTarget, CardTypeToString(cardType));
     }
 
-    public AbstractLupaCard_TempCard(String id, CardType cardType, int cost, CardRarity cardRarity, CardTarget cardTarget, String customCardType) {
-        this(id, cardType, cost, cardRarity, cardTarget, SuperstitioModSetup.TempCardEnums.LUPA_TempCard_CARD, customCardType);
+    public AbstractLupaCard_TempCard(String id, CardType cardType, int cost, CardRarity cardRarity, CardTarget cardTarget, String customCardImgFolder) {
+        this(id, cardType, cost, cardRarity, cardTarget, SuperstitioModSetup.TempCardEnums.LUPA_TempCard_CARD, customCardImgFolder);
     }
 
     public AbstractLupaCard_TempCard(String id, CardType cardType, int cost, CardRarity cardRarity, CardTarget cardTarget, CardColor cardColor) {
@@ -24,7 +24,7 @@ public abstract class AbstractLupaCard_TempCard extends AbstractLupaCard {
     }
 
     public AbstractLupaCard_TempCard(String id, CardType cardType, int cost, CardRarity cardRarity, CardTarget cardTarget, CardColor cardColor,
-                                     String customCardType) {
-        super(id, cardType, cost, cardRarity, cardTarget, cardColor, customCardType);
+                                     String customCardImgFolder) {
+        super(id, cardType, cost, cardRarity, cardTarget, cardColor, customCardImgFolder);
     }
 }

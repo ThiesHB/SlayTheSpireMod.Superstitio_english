@@ -2,7 +2,7 @@
   "SuperstitioMod:Sensitive": {
     "NAME": "敏感",
     "DESCRIPTIONS": [
-      "你使用的每个 [E] 均会立即带来 #b%d 点  #ysuperstitiomod:快感 。 NL 特殊机制： #ysuperstitiomod:高潮  、 #ysuperstitiomod:结束高潮  、 #ysuperstitiomod:连续高潮 、 #ysuperstitiomod:干涸精液 。"
+      "你使用的每个 [E] 均会立即带来 #b%d 点  #ysuperstitiomod:快感 。 NL 核心机制： #ysuperstitiomod:高潮 。 NL 有必要提及的机制： #ysuperstitiomod:结束高潮 、 #ysuperstitiomod:干涸精液 。"
     ],
     "FLAVOR": "你的身体非常敏感。"
   },
@@ -23,10 +23,10 @@
   "SuperstitioMod:SorM": {
     "NAME": "性格切换",
     "DESCRIPTIONS": [
-      "M性格: 受到超过每 #b%d 点伤害获得%d点 #ysuperstitiomod:快感 。 NL S性格: 造成超过每 #b%d 点伤害获得%d点 #ysuperstitiomod:快感 。 NL 战斗外右键切换性格。",
-      "处于M性格。 NL 受到超过每 #b%d 点伤害获得%d点 #ysuperstitiomod:快感 。 NL 战斗外右键切换为S性格。",
-      "处于S性格。 NL 造成超过每 #b%d 点伤害获得%d点 #ysuperstitiomod:快感 。 NL 战斗外右键切换为M性格。",
-      "处于双重性格。 NL 受到超过每 #b%d 点伤害获得%d点 #ysuperstitiomod:快感 ， NL 造成超过每 #b%d 点伤害获得%d点 #ysuperstitiomod:快感 。"
+      "M性格: 受到的伤害每有 #b%d 点获得%d点 #ysuperstitiomod:快感 。 NL S性格: 造成伤害超过 #b%d 点时获得%d点 #ysuperstitiomod:快感 。 NL 战斗外右键切换性格。",
+      "处于M性格。 NL 受到的伤害每有 #b%d 点获得%d点 #ysuperstitiomod:快感 。 NL 战斗外右键切换为S性格。",
+      "处于S性格。 NL 造成伤害超过 #b%d 点时获得%d点 #ysuperstitiomod:快感 。 NL 战斗外右键切换为M性格。",
+      "处于双重性格。 NL 受到的伤害每有 #b%d 点获得%d点 #ysuperstitiomod:快感 ， NL 造成伤害超过 #b%d 点时获得%d点 #ysuperstitiomod:快感 。"
     ],
     "FLAVOR": "我两个都一样的操操……操x99——啊！"
   },
@@ -47,7 +47,7 @@
   "SuperstitioMod:EjaculationMaster": {
     "NAME": "潮吹大师",
     "DESCRIPTIONS": [
-      "战斗中，每 %d 次 #ysuperstitiomod:高潮 时，抽 %d 张卡。"
+      "战斗中，每触发 %d 次 #ysuperstitiomod:潮吹 ，抽 %d 张卡。"
     ],
     "FLAVOR": "看我喷的多远！"
   },
@@ -55,6 +55,13 @@
     "NAME": "精液高跟鞋",
     "DESCRIPTIONS": [
       "战斗中，每 获得 %d #ysuperstitiomod:干涸精液 ，获得 1 敏捷。"
+    ],
+    "FLAVOR": "黏糊糊的好舒服呀。"
+  },
+  "SuperstitioMod:StartWithSexToy": {
+    "NAME": "小玩具",
+    "DESCRIPTIONS": [
+      "战斗开始时，佩戴 %d 个 #ysuperstitiomod:情趣玩具 。"
     ],
     "FLAVOR": "黏糊糊的好舒服呀。"
   }

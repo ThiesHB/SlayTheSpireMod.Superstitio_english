@@ -30,6 +30,31 @@ public class LoadOutPowerButtonPatch {
         }
     }
 
+    @SpirePatch(
+            cls = "loadout.screens.PowerSelectScreen$PowerButton",
+            method = SpirePatch.CONSTRUCTOR,
+            optional = true
+    )
+    public static class LoadOutPowerButtonPatch_CONSTRUCTOR_FieldAccess_name_Set {
+        public static ExprEditor Instrument() {
+            return new ExprEditor() {
+                private int count = 0;
+
+                public void edit(FieldAccess m) throws CannotCompileException {
+                    if (!m.getFieldName().equals("name") || !m.isWriter()) return;
+                    if (count > 0) return;
+                    m.replace("if ( $0.instance instanceof " +
+                            AbstractLupaPower.class.getName() +
+                            " ) {" +
+                            " $0.name = (( " + AbstractLupaPower.class.getName() + " ) $0.instance ).name ; " +
+//                                "superstitio.Logger.temp( $0.instance.description ) ;" +
+                            "} else { $proceed($$);}");
+                    count++;
+                }
+            };
+        }
+    }
+
 //    @SpirePatch(
 //            cls = "loadout.screens.PowerSelectScreen$PowerButton",
 //            method = SpirePatch.CONSTRUCTOR

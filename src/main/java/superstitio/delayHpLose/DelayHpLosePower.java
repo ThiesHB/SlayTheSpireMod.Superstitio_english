@@ -8,7 +8,7 @@ import com.megacrit.cardcrawl.actions.AbstractGameAction;
 import com.megacrit.cardcrawl.core.AbstractCreature;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
-import com.megacrit.cardcrawl.vfx.combat.FlashAtkImgEffect;
+import com.megacrit.cardcrawl.powers.AbstractPower;
 import com.megacrit.cardcrawl.vfx.combat.PowerBuffEffect;
 import superstitio.DataManager;
 import superstitio.actions.AutoDoneInstantAction;
@@ -19,7 +19,12 @@ import superstitio.powers.interfaces.invisible.InvisiblePower_InvisibleApplyPowe
 import superstitio.powers.interfaces.invisible.InvisiblePower_InvisibleIconAndAmount;
 import superstitio.powers.interfaces.invisible.InvisiblePower_InvisibleRemovePowerEffect;
 import superstitio.powers.interfaces.invisible.InvisiblePower_InvisibleTips;
+import superstitio.utils.ActionUtility;
 import superstitio.utils.PowerUtility;
+
+import java.util.Objects;
+import java.util.Optional;
+import java.util.stream.Stream;
 
 public class DelayHpLosePower extends AbstractLupaPower implements
         HealthBarRenderPower, DecreaseHealthBarNumberPower,
@@ -34,6 +39,7 @@ public class DelayHpLosePower extends AbstractLupaPower implements
 
     private int Turn;
     private boolean atEnemyTurn;
+    private boolean isRemoveByTimePass = false;
 
     public DelayHpLosePower(final AbstractCreature owner, int amount) {
         super(POWER_ID, owner, amount);
@@ -42,8 +48,30 @@ public class DelayHpLosePower extends AbstractLupaPower implements
         ReflectionHacks.setPrivate(this, DelayHpLosePower.class, "greenColor", Color.PINK.cpy());
     }
 
-    public static String getUniqueIDCanHandleThisTurn() {
-        return POWER_ID + TURN_READY;
+    public static void addToBot_removePower(int amount, AbstractCreature target, AbstractCreature source, boolean removeOther) {
+        if (amount <= 0) return;
+        DelayHpLosePower.addToBot_removePower(amount, target, source, TURN_READY, removeOther);
+    }
+
+    public static Stream<DelayHpLosePower> findAll(AbstractCreature target) {
+        return target.powers.stream().filter(power -> power instanceof DelayHpLosePower).map(power -> (DelayHpLosePower) power);
+    }
+
+    private static void addToBot_removePower(int amount, AbstractCreature target, AbstractCreature source, int turn, boolean removeOther) {
+        Optional<AbstractPower> targetPower = target.powers.stream().filter(power -> Objects.equals(power.ID, getUniqueID(turn))).findAny();
+        if (!targetPower.isPresent()) return;
+        ActionUtility.addToBot_reducePower(targetPower.get().ID, amount, target, source);
+        int lastAmount = amount - targetPower.get().amount;
+        if (lastAmount <= 0)
+            return;
+        if (removeOther) {
+            addToBot_removePower(amount, target, source, turn + 1, removeOther);
+        }
+
+    }
+
+    private static String getUniqueID(int turn) {
+        return POWER_ID + turn;
     }
 
     public String getUniqueID() {
@@ -63,13 +91,15 @@ public class DelayHpLosePower extends AbstractLupaPower implements
     @Override
     public void reducePower(int reduceAmount) {
         super.reducePower(reduceAmount);
-        playRemoveEffect();
+        if (!isRemoveByTimePass)
+            playRemoveEffect();
     }
 
     @Override
     public void onRemove() {
         super.onRemove();
-        playRemoveEffect();
+        if (!isRemoveByTimePass)
+            playRemoveEffect();
     }
 
     private void playRemoveEffect() {
@@ -91,11 +121,20 @@ public class DelayHpLosePower extends AbstractLupaPower implements
 //                    .setEffect(AbstractGameAction.AttackEffect.POISON)
 //                    .setDamageType(DataManager.CanOnlyDamageDamageType.UnBlockAbleDamageType)
 //                    .addToBot();
-            AutoDoneInstantAction.addToBotAbstract(() -> {
-                AbstractDungeon.effectList.add(
-                        new FlashAtkImgEffect(this.owner.hb.cX,this.owner.hb.cY, AbstractGameAction.AttackEffect.POISON));
-                owner.currentHealth -= amount;
-            });
+
+//                AbstractDungeon.effectList.add(
+//                        new FlashAtkImgEffect(this.owner.hb.cX, this.owner.hb.cY, AbstractGameAction.AttackEffect.POISON));
+//                owner.currentHealth -= amount;
+//                owner.currentHealth = Math.max(0, owner.currentHealth);
+//                if (owner.currentHealth == 0)
+//                    DamageActionMaker.maker(0,this.owner).addToBot();
+            this.isRemoveByTimePass = true;
+            AutoDoneInstantAction.addToBotAbstract(() -> CardCrawlGame.sound.play("POWER_TIME_WARP", 0.05f));
+            DamageActionMaker.maker(this.amount, this.owner)
+                    .setDamageModifier(this, new UnBlockAbleDamage())
+                    .setEffect(AbstractGameAction.AttackEffect.LIGHTNING)
+                    .setDamageType(DataManager.CanOnlyDamageDamageType.UnBlockAbleDamageType)
+                    .addToBot();
             addToBot_removeSpecificPower(this);
         }
         Turn--;

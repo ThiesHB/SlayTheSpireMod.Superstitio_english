@@ -26,7 +26,7 @@
       "本回合潮吹减少的快感提高 #b%d 点每 [E] 。"
     ]
   },
-  "SuperstitioMod:Ku_Koro": {
+  "SuperstitioMod:Ku_KoroPower": {
     "NAME": "咕杀",
     "DESCRIPTIONS": [
       "每次受到 #y攻击伤害 时，获得 #b1 随机 #y状态 牌。 NL 所有 #y消耗 牌会回到 抽牌堆 。"
@@ -45,13 +45,13 @@
       " NL %s ： #b%d ；"
     ]
   },
-  "SuperstitioMod:ChokeChoker": {
-    "NAME": "窒息项圈",
+  "SuperstitioMod:ChokeChokerPower": {
+    "NAME": "窒息",
     "DESCRIPTIONS": [
-      "回合开始时，获得 #b%d #y快感修正 和 #b%d #y勒脖。"
+      "回合开始时，获得 #b%d #y快感修正 。 NL 进入 #y高潮 时 ，受到 #b%d 点伤害。"
     ]
   },
-  "SuperstitioMod:Samsara": {
+  "SuperstitioMod:SamsaraPower": {
     "NAME": "轮转",
     "DESCRIPTIONS": [
       "每当你使用卡牌，抽 1 张牌。"
@@ -124,7 +124,7 @@
   "SuperstitioMod:OutsideSemen": {
     "NAME": "体表精液",
     "DESCRIPTIONS": [
-      " 本回合 结束时，转化为等量的 #y干涸精液 。"
+      " 本回合 结束时，转化为等量的 #b%d 点 #y干涸精液 。"
     ]
   },
   "SuperstitioMod:BeerCupSemen": {
@@ -136,7 +136,7 @@
       "痛饮！"
     ]
   },
-  "SuperstitioMod:DeathDoor": {
+  "SuperstitioMod:DeathDoorPower": {
     "NAME": "死亡抗拒",
     "DESCRIPTIONS": [
       "免除 %d 次死亡，第一次免除后，进入濒死状态。"
@@ -145,7 +145,7 @@
   "SuperstitioMod:AtDeathDoor": {
     "NAME": "濒死",
     "DESCRIPTIONS": [
-      "免疫 攻击伤害 之外的伤害。"
+      "免疫 生命流失 和 荆棘 伤害。"
     ]
   },
   "SuperstitioMod:SexualDamage": {
@@ -160,10 +160,10 @@
       "下回合开始时： NL #r降低 #r%d #r点生命。"
     ]
   },
-  "SuperstitioMod:FastWindUp": {
+  "SuperstitioMod:FastWindUpPower": {
     "NAME": "快速收尾",
     "DESCRIPTIONS": [
-      "当你 #y高潮 时，触发所有 #y挂起 的卡牌 #b%d 次。"
+      "当你 #y高潮 时，触发所有 #y助兴 的卡牌 #b%d 次。"
     ]
   }
 }

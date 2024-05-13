@@ -15,14 +15,14 @@ import com.megacrit.cardcrawl.orbs.AbstractOrb;
 import com.megacrit.cardcrawl.orbs.EmptyOrbSlot;
 import com.megacrit.cardcrawl.orbs.Plasma;
 import com.megacrit.cardcrawl.vfx.TextAboveCreatureEffect;
-import superstitio.AtEndOfTurn;
-import superstitio.Logger;
+import superstitio.SuperstitioModSubscriber;
 import superstitio.orbs.actions.AnimationOrbOnMonsterAction;
 import superstitio.orbs.actions.ChannelOnOrbGroupAction;
 import superstitio.orbs.actions.EvokeFirstOnMonsterAction;
 import superstitio.orbs.actions.FlashOrbEffect;
 import superstitio.powers.barIndepend.RenderInBattle;
 import superstitio.utils.ActionUtility;
+import superstitio.utils.CardUtility;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -32,7 +32,7 @@ import java.util.function.Consumer;
 
 public abstract class OrbGroup implements
         RenderInBattle, OnPowersModifiedSubscriber, OnPlayerTurnStartSubscriber,
-        AtEndOfTurn.EndOfTurnSubscriber {
+        SuperstitioModSubscriber.AtStartOfMonsterTurnSubscriber {
     private static final String[] TEXT = new String[]{"  A  "};
     private static final int MAX_MAX_ORB = 10;
     public AbstractOrb CustomEmptyOrb;
@@ -76,16 +76,23 @@ public abstract class OrbGroup implements
         }
     }
 
-    public <TArg, TOrb extends AbstractOrb> void forEachOrbInThisOrbGroup(
-            BiConsumer<TOrb, TArg> consumer, TArg arg,Class<TOrb> OrbClass) {
-        this.orbs.stream().filter(orb -> orb.getClass().isAssignableFrom(OrbClass))
-                .forEach(orb -> consumer.accept((TOrb) orb, arg));
+    public <TArg, TOrb extends AbstractOrb> void forEachOrbInThisOrbGroup(Class<TOrb> OrbClass,
+                                                                          BiConsumer<TOrb, TArg> consumer, TArg arg) {
+        for (AbstractOrb orb : this.orbs) {
+            if (OrbClass.isInstance(orb)) {
+                consumer.accept((TOrb) orb, arg);
+            }
+        }
     }
 
-    public <TOrb extends AbstractOrb> void forEachOrbInThisOrbGroup(
-            Consumer<TOrb> consumer,Class<TOrb> OrbClass) {
-        this.orbs.stream().filter(orb -> orb.getClass().isAssignableFrom(OrbClass))
-                .map(orb -> (TOrb) orb).forEach(consumer);
+    public <TOrb extends AbstractOrb> void forEachOrbInThisOrbGroup(Class<TOrb> OrbClass,
+                                                                    Consumer<TOrb> consumer) {
+        for (AbstractOrb orb : this.orbs) {
+            if (OrbClass.isInstance(orb)) {
+                TOrb tOrb = (TOrb) orb;
+                consumer.accept(tOrb);
+            }
+        }
     }
 
 
@@ -330,22 +337,24 @@ public abstract class OrbGroup implements
         this.forEachOrbInThisOrbGroup(AbstractOrb::updateDescription);
     }
 
-    @Override
-    public void atEndOfTurn() {
-        this.forEachOrbInThisOrbGroup(AbstractOrb::onEndOfTurn);
-        Logger.temp("OrbGroupendTurn");
-    }
 
     @Override
     public void render(SpriteBatch sb) {
+        if (CardUtility.isNotInBattle()) return;
         this.forEachOrbInThisOrbGroup(AbstractOrb::render, sb);
     }
 
     @Override
     public void update() {
+        if (CardUtility.isNotInBattle()) return;
         this.forEachOrbInThisOrbGroup(orb -> {
             orb.update();
             orb.updateAnimation();
         });
+    }
+
+    @Override
+    public void atStartOfMonsterTurn() {
+        this.forEachOrbInThisOrbGroup(AbstractOrb::onEndOfTurn);
     }
 }

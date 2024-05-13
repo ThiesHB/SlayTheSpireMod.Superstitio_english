@@ -30,7 +30,7 @@ public class Fuck_Ear extends AbstractLupaCard_FuckJob {
     }
 
     public Fuck_Ear(boolean blank) {
-        super(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET, SuperstitioModSetup.TempCardEnums.LUPA_TempCard_CARD);
+        super(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET, SuperstitioModSetup.TempCardEnums.LUPA_TempCard_CARD, "special");
         this.setupDamage(DAMAGE, UPGRADE_DAMAGE);
         this.exhaust = true;
     }

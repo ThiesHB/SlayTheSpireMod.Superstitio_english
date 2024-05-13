@@ -16,19 +16,19 @@ public class SexDamage extends AbstractLupaDamage {
         super(ID);
     }
 
-    public SexDamage(String id) {
-        super(id);
-    }
+//    public SexDamage(String id) {
+//        super(id);
+//    }
 
     // 在这里使用onAttackToChangeDamage将获取本应造成的伤害，并允许我们修改它，返回0
     // 由于我们在这一函数处能获取伤害量，我们也可以简单地将等于这个量的power应用于目标，或进行其他操作
     @Override
     public int onAttackToChangeDamage(DamageInfo info, int damageAmount, AbstractCreature target) {
-        if (damageAmount > 0) {
+        if (damageAmount > 1) {
             this.addToTop(new ApplyPowerAction(target, info.owner, new SexualDamage(target, damageAmount - OnlyDealDamage, info.owner)));
             return OnlyDealDamage;
         }
-        return 0;
+        return damageAmount;
     }
 
     @Override

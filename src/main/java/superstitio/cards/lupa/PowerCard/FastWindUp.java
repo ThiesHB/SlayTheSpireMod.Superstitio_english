@@ -1,10 +1,18 @@
 package superstitio.cards.lupa.PowerCard;
 
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
+import com.megacrit.cardcrawl.core.AbstractCreature;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import superstitio.DataManager;
 import superstitio.cards.lupa.AbstractLupaCard;
+import superstitio.orbs.CardOrb_CardTrigger;
+import superstitio.powers.AbstractLupaPower;
+import superstitio.powers.SexualHeat;
+import superstitio.powers.interfaces.orgasm.OnOrgasm_onOrgasm;
+
+import static superstitio.InBattleDataManager.getHangUpCardOrbGroup;
+import static superstitio.actions.AutoDoneInstantAction.addToBotAbstract;
 
 
 public class FastWindUp extends AbstractLupaCard {
@@ -27,12 +35,37 @@ public class FastWindUp extends AbstractLupaCard {
 
     @Override
     public void use(AbstractPlayer player, AbstractMonster monster) {
-        addToBot_applyPower(new superstitio.powers.FastWindUp(AbstractDungeon.player, this.magicNumber));
+        addToBot_applyPower(new FastWindUpPower(AbstractDungeon.player, this.magicNumber));
     }
 
     @Override
     public void upgradeAuto() {
         upgradeBaseCost(COST_UPGRADED_NEW);
+    }
+
+    public static class FastWindUpPower extends AbstractLupaPower implements OnOrgasm_onOrgasm {
+        public static final String POWER_ID = DataManager.MakeTextID(FastWindUpPower.class.getSimpleName());
+
+        public FastWindUpPower(final AbstractCreature owner, int amount) {
+            super(POWER_ID, owner, amount);
+        }
+
+        @Override
+        public void onOrgasm(SexualHeat SexualHeatPower) {
+            for (int i = 0; i < this.amount; i++) {
+                this.flash();
+                addToBotAbstract(() -> getHangUpCardOrbGroup()
+                        .ifPresent(cardGroup -> cardGroup.orbs.stream()
+                                .filter(orb -> orb instanceof CardOrb_CardTrigger)
+                                .forEach(orb -> ((CardOrb_CardTrigger) orb)
+                                        .forceAcceptAction(new FastWindUp()))));
+            }
+        }
+
+        @Override
+        public void updateDescriptionArgs() {
+            setDescriptionArgs(this.amount);
+        }
     }
 }
 

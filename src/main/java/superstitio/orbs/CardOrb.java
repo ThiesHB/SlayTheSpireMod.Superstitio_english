@@ -7,11 +7,7 @@ import com.megacrit.cardcrawl.cards.CardGroup;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.vfx.cardManip.ExhaustCardEffect;
 import superstitio.DataManager;
-import superstitio.InBattleDataManager;
 import superstitio.utils.ActionUtility;
-
-import java.util.Arrays;
-import java.util.function.Predicate;
 
 public abstract class CardOrb extends AbstractLupaOrb {
     public static final String ORB_ID = DataManager.MakeTextID(SexMarkEmptySlot.class.getSimpleName());
@@ -24,7 +20,7 @@ public abstract class CardOrb extends AbstractLupaOrb {
     private static final float TIMER_ANIMATION = 2.0f;
     public final CardGroup thisCardGroup = new CardGroup(CardGroup.CardGroupType.UNSPECIFIED);
     protected final AbstractCard card;
-    private final AbstractCard originCard;
+    protected final AbstractCard originCard;
     private final CardGroup cardHolder = new CardGroup(CardGroup.CardGroupType.UNSPECIFIED);
     public CardGroup cardGroupReturnAfterEvoke = null;
     public AbstractCard.CardTarget targetType = AbstractCard.CardTarget.NONE;
@@ -32,7 +28,6 @@ public abstract class CardOrb extends AbstractLupaOrb {
     public ActionUtility.FunctionReturnSelfType movingType;
     public DrawOrder drawOrder = CardOrb.DrawOrder.bottom;
     public boolean shouldRemove;
-    protected Predicate<AbstractCard> cardMatcher = (card) -> true;
 
     public CardOrb(AbstractCard card, CardGroup cardGroupReturnAfterEvoke) {
         super(ORB_ID);
@@ -79,12 +74,13 @@ public abstract class CardOrb extends AbstractLupaOrb {
                 case HAND:
                     cardHolder.moveToHand(originCard);
                     break;
-                case DISCARD_PILE:
-                    cardHolder.moveToDiscardPile(originCard);
-                    break;
                 case EXHAUST_PILE:
                     AbstractDungeon.effectList.add(new ExhaustCardEffect(card));
                     cardHolder.moveToExhaustPile(originCard);
+                    break;
+                case DISCARD_PILE:
+                default:
+                    cardHolder.moveToDiscardPile(originCard);
                     break;
             }
         }
@@ -137,7 +133,7 @@ public abstract class CardOrb extends AbstractLupaOrb {
         shouldRemove = true;
     }
 
-    public abstract void forceAcceptAction(AbstractCard card);
+//    public abstract void forceAcceptAction(AbstractCard card);
 
     @Override
     public void update() {
@@ -196,12 +192,6 @@ public abstract class CardOrb extends AbstractLupaOrb {
     @Override
     public void playChannelSFX() {
 
-    }
-
-    @SafeVarargs
-    public final CardOrb setCardPredicate(Predicate<AbstractCard>... cardMatchers) {
-        Arrays.stream(cardMatchers).forEach(mather -> this.cardMatcher = this.cardMatcher.and(mather));
-        return this;
     }
 
 

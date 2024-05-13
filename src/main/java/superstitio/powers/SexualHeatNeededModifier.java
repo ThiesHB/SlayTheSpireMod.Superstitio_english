@@ -3,9 +3,11 @@ package superstitio.powers;
 import com.megacrit.cardcrawl.actions.common.RemoveSpecificPowerAction;
 import com.megacrit.cardcrawl.core.AbstractCreature;
 import superstitio.DataManager;
+import superstitio.actions.AutoDoneInstantAction;
+import superstitio.powers.interfaces.OnPostApplyThisPower;
 import superstitio.powers.interfaces.orgasm.OnOrgasm_onCheckOrgasm;
 
-public class SexualHeatNeededModifier extends AbstractLupaPower implements OnOrgasm_onCheckOrgasm {
+public class SexualHeatNeededModifier extends AbstractLupaPower implements OnOrgasm_onCheckOrgasm, OnPostApplyThisPower {
     public static final String POWER_ID = DataManager.MakeTextID(SexualHeatNeededModifier.class.getSimpleName());
 
     public SexualHeatNeededModifier(final AbstractCreature owner, int amount) {
@@ -32,5 +34,14 @@ public class SexualHeatNeededModifier extends AbstractLupaPower implements OnOrg
     @Override
     public void onCheckOrgasm(SexualHeat SexualHeatPower) {
         SexualHeatPower.setHeatRequired(SexualHeat.HEAT_REQUIREDOrigin - this.amount);
+    }
+
+    @Override
+    public void InitializePostApplyThisPower() {
+        AutoDoneInstantAction.addToBotAbstract(() ->
+                SexualHeat.getActiveSexualHeat(owner)
+                        .ifPresent(SexualHeatPower -> SexualHeatPower.setHeatRequired(SexualHeat.HEAT_REQUIREDOrigin - this.amount)));
+        AutoDoneInstantAction.addToBotAbstract(() ->
+                SexualHeat.getActiveSexualHeat(owner).ifPresent(SexualHeat::CheckOrgasm));
     }
 }

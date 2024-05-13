@@ -64,8 +64,8 @@ public abstract class AbstractLupaCard extends CustomCard {
     /**
      * 当需要自定义卡牌存储的二级目录名时
      */
-    public AbstractLupaCard(String id, CardType cardType, int cost, CardRarity cardRarity, CardTarget cardTarget, String customCardType) {
-        this(id, cardType, cost, cardRarity, cardTarget, SuperstitioModSetup.LupaEnums.LUPA_CARD, customCardType);
+    public AbstractLupaCard(String id, CardType cardType, int cost, CardRarity cardRarity, CardTarget cardTarget, String customCardImgFolder) {
+        this(id, cardType, cost, cardRarity, cardTarget, SuperstitioModSetup.LupaEnums.LUPA_CARD, customCardImgFolder);
     }
 
     public AbstractLupaCard(String id, CardType cardType, int cost, CardRarity cardRarity, CardTarget cardTarget, CardColor cardColor) {
@@ -73,8 +73,8 @@ public abstract class AbstractLupaCard extends CustomCard {
     }
 
     public AbstractLupaCard(String id, CardType cardType, int cost, CardRarity cardRarity, CardTarget cardTarget, CardColor cardColor,
-                            String customCardType) {
-        super(id, getCardStringsWithSFWAndFlavor(id).getNAME(), getImgPath(customCardType, id), cost,
+                            String customCardImgFolder) {
+        super(id, getCardStringsWithSFWAndFlavor(id).getNAME(), getImgPath(customCardImgFolder, id), cost,
                 getCardStringsWithSFWAndFlavor(id).getDESCRIPTION(), cardType, cardColor, cardRarity, cardTarget);
         Logger.debug("loadCard" + id);
         this.cardStrings = getCardStringsWithSFWAndFlavor(id);
@@ -226,8 +226,7 @@ public abstract class AbstractLupaCard extends CustomCard {
 
     public final void addToBot_gainBlock(final int amount) {
         if (DelayHpLosePatch.GainBlockTypeFields.ifTransGainBlockToReduceDelayHpLose.get(this)) {
-            ActionUtility.addToBot_reducePower(DelayHpLosePower.getUniqueIDCanHandleThisTurn(), amount,
-                    AbstractDungeon.player, AbstractDungeon.player);
+            DelayHpLosePower.addToBot_removePower(amount,AbstractDungeon.player,AbstractDungeon.player,true);
             AbstractDungeon.effectList.add(
                     new FlashAtkImgEffect(AbstractDungeon.player.hb.cX, AbstractDungeon.player.hb.cY,
                             AbstractGameAction.AttackEffect.SHIELD));

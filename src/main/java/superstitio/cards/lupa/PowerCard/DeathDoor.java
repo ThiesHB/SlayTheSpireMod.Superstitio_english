@@ -1,10 +1,15 @@
 package superstitio.cards.lupa.PowerCard;
 
+import com.evacipated.cardcrawl.mod.stslib.powers.interfaces.OnPlayerDeathPower;
+import com.megacrit.cardcrawl.actions.common.HealAction;
+import com.megacrit.cardcrawl.cards.DamageInfo;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
+import com.megacrit.cardcrawl.core.AbstractCreature;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import superstitio.DataManager;
 import superstitio.cards.lupa.AbstractLupaCard;
+import superstitio.powers.AbstractLupaPower;
 
 
 public class DeathDoor extends AbstractLupaCard {
@@ -28,11 +33,56 @@ public class DeathDoor extends AbstractLupaCard {
 
     @Override
     public void use(AbstractPlayer player, AbstractMonster monster) {
-        addToBot_applyPower(new superstitio.powers.DeathDoor(AbstractDungeon.player, this.magicNumber));
+        addToBot_applyPower(new DeathDoorPower(AbstractDungeon.player, this.magicNumber));
     }
 
     @Override
     public void upgradeAuto() {
+    }
+
+    public static class DeathDoorPower extends AbstractLupaPower implements OnPlayerDeathPower {
+        public static final String POWER_ID = DataManager.MakeTextID(DeathDoorPower.class.getSimpleName());
+    
+        public DeathDoorPower(final AbstractCreature owner, int amount) {
+            super(POWER_ID, owner, amount);
+        }
+
+        @Override
+        public void updateDescriptionArgs() {
+            setDescriptionArgs(this.amount);
+        }
+
+        @Override
+        public boolean onPlayerDeath(AbstractPlayer abstractPlayer, DamageInfo damageInfo) {
+            if (this.amount == 0) return true;
+            this.flash();
+            addToBot(new HealAction(this.owner, this.owner, 1));
+            addToBot_applyPower(new AtDeathDoor(this.owner));
+            addToBot_AutoRemoveOne(this);
+            return false;
+        }
+    }
+
+    public static class AtDeathDoor extends AbstractLupaPower {
+        public static final String POWER_ID = DataManager.MakeTextID(AtDeathDoor.class.getSimpleName());
+
+        public AtDeathDoor(final AbstractCreature owner) {
+            super(POWER_ID, owner, -1);
+        }
+
+        @Override
+        public void updateDescriptionArgs() {
+        }
+
+        @Override
+        public int onAttackedToChangeDamage(DamageInfo info, int damageAmount) {
+            this.flash();
+            if (info.type == DamageInfo.DamageType.HP_LOSS)
+                return 0;
+            if (info.type == DamageInfo.DamageType.THORNS)
+                return 0;
+            return super.onAttackedToChangeDamage(info, damageAmount);
+        }
     }
 }
 

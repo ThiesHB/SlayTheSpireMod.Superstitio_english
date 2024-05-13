@@ -76,7 +76,7 @@ public class CardStringsWithFlavorSet implements HasSFWVersionWithT<CardStrings>
     }
 
     public String getFLAVOR() {
-        if (SuperstitioModSetup.enableSFW)
+        if (SuperstitioModSetup.getEnableSFW())
             return "";
         return FLAVOR;
     }

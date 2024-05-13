@@ -3,6 +3,7 @@ package superstitio;
 
 import basemod.ReflectionHacks;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Color;
 import com.evacipated.cardcrawl.modthespire.lib.SpireEnum;
 import com.google.gson.Gson;
@@ -12,15 +13,17 @@ import com.megacrit.cardcrawl.core.Settings;
 import com.megacrit.cardcrawl.localization.LocalizedStrings;
 import superstitio.customStrings.*;
 
+import java.io.File;
+import java.io.IOException;
 import java.lang.reflect.Field;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.nio.charset.StandardCharsets;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Optional;
+import java.nio.file.Files;
+import java.util.*;
 import java.util.function.Function;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class DataManager {
     public static Map<String, CardStringsWithFlavorSet> cards = new HashMap<>();
@@ -46,7 +49,7 @@ public class DataManager {
         return getResourcesFilesPath() + ret + filename + ".json";
     }
 
-    static String getModID() {
+    public static String getModID() {
         return SuperstitioModSetup.MOD_NAME + "Mod";
     }
 
@@ -54,15 +57,30 @@ public class DataManager {
         return getModID() + "Resources/";
     }
 
-    private static String getImgFilesPath() {
-        if (!SuperstitioModSetup.enableSFW)
-            return getResourcesFilesPath() + "img";
-        else
-            return getResourcesFilesPath() + "imgSFW";
+    private static String getImgFilesPath(String path) {
+        String allLevelPath = getResourcesFilesPath() + "img" + path;
+        String noGuroLevelPath = getResourcesFilesPath() + "imgNoGuro" + path;
+        String sfwLevelPath = getResourcesFilesPath() + "imgSFW" + path;
+
+        switch (SuperstitioModSetup.sexLevel) {
+            case ALL:
+                if (Gdx.files.internal(allLevelPath).exists())
+                    return allLevelPath;
+                if (Gdx.files.internal(noGuroLevelPath).exists())
+                    return noGuroLevelPath;
+                return sfwLevelPath;
+            case NO_GURO:
+                if (Gdx.files.internal(noGuroLevelPath).exists())
+                    return noGuroLevelPath;
+                return sfwLevelPath;
+            case SFW:
+            default:
+                return sfwLevelPath;
+        }
     }
 
     public static String makeImgFilesPath(String... resourcePaths) {
-        return getImgFilesPath() + makeTotalString(resourcePaths) + ".png";
+        return getImgFilesPath(makeTotalString(resourcePaths) + ".png");
     }
 
     public static String makeTotalString(String... strings) {
@@ -153,19 +171,58 @@ public class DataManager {
                 .toArray(String[]::new);
     }
 
-//    static String replaceString(WordReplace wordReplace, String string) {
-//        if (string != null && string.contains(wordReplace.WordOrigin))
-//            return string.replace(wordReplace.WordOrigin, wordReplace.WordReplace);
-//        return string;
-//    }
-
-    public static String makeImgPath(String defaultFileName, Function<String[], String> PathFinder, String... id) {
+    public static String makeImgPath(String defaultFileName, Function<String[], String> PathFinder, String... fileName) {
         String path;
-        path = PathFinder.apply(DataManager.getIdOnly(id));
+        path = PathFinder.apply(DataManager.getIdOnly(fileName));
         if (Gdx.files.internal(path).exists())
             return path;
-        Logger.warning("Can't find " + Arrays.toString(DataManager.getIdOnly(id)) + ". Use default img instead.");
-        return PathFinder.apply(new String[]{defaultFileName});
+
+        final String defaultPath = PathFinder.apply(new String[]{defaultFileName});
+        Logger.warning("Can't find " + Arrays.toString(DataManager.getIdOnly(fileName)) + ". Use default img instead.");
+
+//        if (Objects.equals(System.getenv().get("USERNAME"), "27435"))
+//            makeNeedDrawPicture(defaultFileName, PathFinder, fileName, defaultPath);
+
+        return defaultPath;
+    }
+
+    //生成所有的需要绘制的图片，方便检查
+    private static void makeNeedDrawPicture(String defaultFileName, Function<String[], String> PathFinder, String[] fileName, String defaultPath) {
+        List<String> NeedDrawFileName = new ArrayList<>();
+        NeedDrawFileName.add("needDraw");
+        NeedDrawFileName.addAll(Arrays.asList(DataManager.getIdOnly(fileName)));
+
+        final FileHandle defaultFileHandle;
+
+        if (PathFinder.apply(new String[]{""}).contains("card")) {
+            NeedDrawFileName.set(NeedDrawFileName.size() - 1, NeedDrawFileName.get(NeedDrawFileName.size() - 1) + "_p");
+            defaultFileHandle = Gdx.files.internal(PathFinder.apply(new String[]{defaultFileName + "_p"}));
+        }
+        else if (PathFinder.apply(new String[]{""}).contains("orb")) {
+            return;
+        }
+        else {
+            defaultFileHandle = Gdx.files.internal(defaultPath);
+        }
+
+        String defaultFilePath = PathFinder.apply(NeedDrawFileName.toArray(new String[]{}));
+        File defaultFileCopyTo = new File(defaultFilePath);
+        Pattern pattern = Pattern.compile("^(.+/)[^/]+$");
+        Matcher matcher = pattern.matcher(defaultFilePath);
+        String folderPath;
+        if (matcher.find()) {
+            folderPath = matcher.group(1);
+        }
+        else {
+            folderPath = defaultFilePath;
+        }
+        new File(folderPath).mkdirs();
+        try {
+            if (!defaultFileCopyTo.exists())
+                Files.copy(defaultFileHandle.read(), defaultFileCopyTo.toPath());
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     static <T> T makeJsonStringFromFile(String fileName, Class<T> objectClass) {
@@ -208,33 +265,6 @@ public class DataManager {
             }
         }
     }
-//
-//    static void replaceStringsInObj(Object obj, WordReplace wordReplace) {
-//        for (Field field : obj.getClass().getDeclaredFields()) {
-//            field.setAccessible(true);
-//            try {
-//                if (field.get(obj) instanceof String) {
-//                    String string = (String) field.get(obj);
-//                    string = replaceString(wordReplace, string);
-//                    field.set(obj, string);
-//                } else if (field.get(obj) instanceof String[]) {
-//                    String[] values = (String[]) field.get(obj);
-//                    if (values == null || values.length == 0)
-//                        continue;
-//                    String[] list = new String[values.length];
-//                    for (int i = 0, valuesLength = values.length; i < valuesLength; i++) {
-//                        String string = values[i];
-//                        String apply = replaceString(wordReplace, string);
-//                        list[i] = apply;
-//                    }
-//
-//                    field.set(obj, list);
-//                }
-//            } catch (IllegalAccessException e) {
-//                Logger.error(e);
-//            }
-//        }
-//    }
 
     public static <T> Optional<String> getTypeMapFromLocalizedStrings(Class<T> tClass) {
         Logger.run("initializeTypeMaps");

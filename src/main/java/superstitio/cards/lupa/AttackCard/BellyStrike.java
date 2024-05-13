@@ -22,11 +22,11 @@ public class BellyStrike extends AbstractLupaCard {
 
     public static final CardTarget CARD_TARGET = SelfOrEnemyTargeting.SELF_OR_ENEMY;
 
-    private static final int COST = 1;
-    private static final int DAMAGE = 12;
-    private static final int UPGRADE_DAMAGE = 4;
+    private static final int COST = 2;
+    private static final int DAMAGE = 24;
+    private static final int UPGRADE_DAMAGE = 8;
 
-    private static final int MAGIC = 2;
+    private static final int MAGIC = 5;
 
     public BellyStrike() {
         super(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET);

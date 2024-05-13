@@ -9,6 +9,7 @@ import javassist.CannotCompileException;
 import javassist.expr.ExprEditor;
 import javassist.expr.MethodCall;
 import superstitio.actions.AutoDoneInstantAction;
+import superstitio.orbs.CardOrb_CardTrigger;
 
 @SpirePatch(clz = UseCardAction.class, method = "update")
 public class GoSomewhereElseAfterUsePatch {
@@ -20,15 +21,18 @@ public class GoSomewhereElseAfterUsePatch {
                             + AbstractDungeon.class.getName() +
                             ".player.discardPile)) " +
                             "{$_ = $proceed($$);}");
-                } else if (m.getClassName().equals(CardGroup.class.getName()) && m.getMethodName().equals("moveToExhaustPile")) {
+                }
+                else if (m.getClassName().equals(CardGroup.class.getName()) && m.getMethodName().equals("moveToExhaustPile")) {
                     m.replace("if (" + GoSomewhereElseAfterUsePatch.class.getName() + ".Do($1,"
                             + AbstractDungeon.class.getName() + ".player.exhaustPile))" +
                             " {$_ = $proceed($$);}");
-                } else if (m.getClassName().equals(CardGroup.class.getName()) && m.getMethodName().equals("moveToDeck")) {
+                }
+                else if (m.getClassName().equals(CardGroup.class.getName()) && m.getMethodName().equals("moveToDeck")) {
                     m.replace("if (" + GoSomewhereElseAfterUsePatch.class.getName() + ".Do($1,"
                             + AbstractDungeon.class.getName() + ".player.drawPile))" +
                             " {$_ = $proceed($$);}");
-                } else if (m.getClassName().equals(CardGroup.class.getName()) && m.getMethodName().equals("moveToHand")) {
+                }
+                else if (m.getClassName().equals(CardGroup.class.getName()) && m.getMethodName().equals("moveToHand")) {
                     m.replace("if (" + GoSomewhereElseAfterUsePatch.class.getName() + ".Do($1,"
                             + AbstractDungeon.class.getName() + ".player.hand)) " +
                             "{$_ = $proceed($$);}");
@@ -40,6 +44,7 @@ public class GoSomewhereElseAfterUsePatch {
     public static boolean Do(final AbstractCard card, final CardGroup cardGroup) {
         if (!(card instanceof GoSomewhereElseAfterUse)) return true;
         if (card.purgeOnUse) return true;
+        card.targetDrawScale = CardOrb_CardTrigger.DRAW_SCALE_SMALL;
         AbstractDungeon.player.limbo.addToTop(card);
         AutoDoneInstantAction.addToBotAbstract(() ->
                 ((GoSomewhereElseAfterUse) card).afterInterruptMoveToCardGroup(cardGroup));

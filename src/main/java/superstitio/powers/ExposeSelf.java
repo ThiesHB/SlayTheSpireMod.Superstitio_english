@@ -7,7 +7,7 @@ import com.megacrit.cardcrawl.core.AbstractCreature;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import superstitio.DataManager;
 
-public class ExposeSelf extends AbstractLupaPower implements OnLoseBlockPower {
+public class ExposeSelf extends AbstractLupaPower {
     public static final String POWER_ID = DataManager.MakeTextID(ExposeSelf.class.getSimpleName());
 
     public ExposeSelf(final AbstractCreature owner, int amount) {
@@ -15,16 +15,12 @@ public class ExposeSelf extends AbstractLupaPower implements OnLoseBlockPower {
 
     }
 
-    @Override
-    public int onLoseBlock(DamageInfo damageInfo, int i) {
-
-        return i;
-    }
 
     @Override
     public int onAttacked(DamageInfo info, int damageAmount) {
         if (info.type == DamageInfo.DamageType.NORMAL)
         {
+            this.flash();
             this.addToBot(new ApplyPowerAction(
                     AbstractDungeon.player, AbstractDungeon.player, new OutsideSemen(AbstractDungeon.player, damageAmount)));
         }

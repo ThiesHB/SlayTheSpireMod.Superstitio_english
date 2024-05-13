@@ -1,6 +1,7 @@
 package superstitio.relics.d_uncommon;
 
 import com.evacipated.cardcrawl.mod.stslib.relics.OnApplyPowerRelic;
+import com.megacrit.cardcrawl.actions.common.RelicAboveCreatureAction;
 import com.megacrit.cardcrawl.core.AbstractCreature;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.powers.AbstractPower;
@@ -43,6 +44,8 @@ public class CumOnShoes extends AbstractLupaRelic implements OnApplyPowerRelic, 
 
     @Override
     public void onCountMax() {
+        this.flash();
+        this.addToBot(new RelicAboveCreatureAction(AbstractDungeon.player, this));
         ActionUtility.addToBot_applyPower(new DexterityPower(AbstractDungeon.player, 1));
     }
 

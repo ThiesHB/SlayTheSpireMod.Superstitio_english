@@ -21,6 +21,7 @@ public class DelaySexualHeat extends AbstractLupaPower {
 
     @Override
     public void atStartOfTurn() {
+        this.flash();
         this.addToBot(new ApplyPowerAction(this.owner, this.owner, new SexualHeat(this.owner, amount)));
         this.addToBot(new RemoveSpecificPowerAction(this.owner, this.owner, POWER_ID));
     }

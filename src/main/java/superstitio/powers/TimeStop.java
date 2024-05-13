@@ -29,6 +29,7 @@ public class TimeStop extends AbstractLupaPower implements BetterOnApplyPowerPow
     @Override
     public boolean betterOnApplyPower(AbstractPower power, AbstractCreature creature, AbstractCreature creature1) {
         if (power instanceof SexualHeat && power.amount > 0) {
+            this.flash();
             this.addToBot(new ApplyPowerAction(this.owner, this.owner, new DelaySexualHeat(this.owner, power.amount * sexualReturnRate)));
             return false;
         }

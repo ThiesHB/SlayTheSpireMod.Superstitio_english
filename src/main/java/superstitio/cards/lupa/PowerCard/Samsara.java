@@ -1,11 +1,15 @@
 package superstitio.cards.lupa.PowerCard;
 
+import com.megacrit.cardcrawl.actions.common.DrawCardAction;
+import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.cards.status.Wound;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
+import com.megacrit.cardcrawl.core.AbstractCreature;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import com.megacrit.cardcrawl.powers.EquilibriumPower;
 import superstitio.DataManager;
 import superstitio.cards.lupa.AbstractLupaCard;
+import superstitio.powers.AbstractLupaPower;
 import superstitio.utils.ActionUtility;
 
 
@@ -20,7 +24,7 @@ public class Samsara extends AbstractLupaCard {
 
     private static final int COST = 3;
 
-    private static final int MAGIC = 8;
+    private static final int MAGIC = 6;
     private static final int UPGRADE_MAGIC = -2;
 
     public Samsara() {
@@ -33,11 +37,31 @@ public class Samsara extends AbstractLupaCard {
 //        AbstractDungeon.actionManager.addToBottom(new MakeTempCardInDrawPileAction(new Wound(), 8, true, true));
         ActionUtility.addToBot_makeTempCardInBattle(new Wound(), BattleCardPlace.DrawPile, this.magicNumber);
         addToBot_applyPower(new EquilibriumPower(player, 99));
-        addToBot_applyPower(new superstitio.powers.Samsara(player));
+        addToBot_applyPower(new SamsaraPower(player));
     }
 
     @Override
     public void upgradeAuto() {
+    }
+
+    public static class SamsaraPower extends AbstractLupaPower {
+        public static final String POWER_ID = DataManager.MakeTextID(SamsaraPower.class.getSimpleName());
+
+        public SamsaraPower(final AbstractCreature owner) {
+            super(POWER_ID, owner, -1);
+        }
+
+
+        @Override
+        public void onPlayCard(AbstractCard card, AbstractMonster m) {
+            this.flash();
+            this.addToBot(new DrawCardAction(1));
+        }
+
+        @Override
+        public void updateDescriptionArgs() {
+
+        }
     }
 }
 

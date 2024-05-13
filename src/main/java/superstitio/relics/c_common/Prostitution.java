@@ -1,8 +1,10 @@
 package superstitio.relics.c_common;
 
+import com.megacrit.cardcrawl.actions.common.RelicAboveCreatureAction;
 import com.megacrit.cardcrawl.actions.utility.UseCardAction;
 import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
+import com.megacrit.cardcrawl.vfx.RainingGoldEffect;
 import superstitio.DataManager;
 import superstitio.cards.lupa.AbstractLupaCard_FuckJob;
 import superstitio.relics.AbstractLupaRelic;
@@ -39,6 +41,9 @@ public class Prostitution extends AbstractLupaRelic implements Countup {
 
     @Override
     public void onCountMax() {
+        this.flash();
+        AbstractDungeon.effectList.add(new RainingGoldEffect(CashAmount * 2, true));
+        this.addToBot(new RelicAboveCreatureAction(AbstractDungeon.player, this));
         AbstractDungeon.player.gainGold(CashAmount);
     }
 

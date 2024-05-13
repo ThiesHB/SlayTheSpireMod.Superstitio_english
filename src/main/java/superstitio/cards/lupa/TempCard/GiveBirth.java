@@ -32,7 +32,7 @@ public class GiveBirth extends AbstractLupaCard_TempCard {
     public AbstractCreature sealMonster = null;
 
     public GiveBirth() {
-        super(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET);
+        super(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET, "special");
         this.exhaust = true;
         this.setupBlock(BLOCK, UPGRADE_PLUS_BLOCK);
     }

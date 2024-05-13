@@ -1,6 +1,8 @@
 package superstitio.cards.lupa.SkillCard;
 
 import com.megacrit.cardcrawl.actions.AbstractGameAction;
+import com.megacrit.cardcrawl.actions.utility.NewQueueCardAction;
+import com.megacrit.cardcrawl.actions.utility.QueueCardAction;
 import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.cards.CardQueueItem;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
@@ -24,7 +26,7 @@ public class ReadyToSex extends AbstractLupaCard {
     public static final CardTarget CARD_TARGET = CardTarget.SELF;
 
     private static final int COST = 1;
-    private static final int MAGIC = 5;
+    private static final int MAGIC = 6;
     private static final int UPGRADE_MAGIC = -2;
     private static final int CHOSE_CARD = 1;
     private static final int WAIT_TIME = 3;
@@ -50,11 +52,10 @@ public class ReadyToSex extends AbstractLupaCard {
                 AbstractDungeon.player.hand.removeCard(card);
                 AbstractCard copyCard = card.makeStatEquivalentCopy();
                 copyCard.exhaust = true;
-                copyCard.purgeOnUse = true;
+//                copyCard.purgeOnUse = true;
                 HangUpCardGroup.addToBot_AddCardOrbToOrbGroup(
                         new CardOrb_WaitCardTrigger(card, AbstractDungeon.player.discardPile, (orb, usedcard) -> {
-                            AbstractDungeon.actionManager.addCardQueueItem(new CardQueueItem(copyCard,
-                                    null, 0, true, true), true);
+                            addToBot(new NewQueueCardAction(copyCard,true,false,true));
 //                            Logger.temp("playCard:" + orb.getOriginCard().name);
                         }, magicNumber)
                                 .setNotEvokeOnEndOfTurn()

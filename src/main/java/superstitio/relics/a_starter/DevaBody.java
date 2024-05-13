@@ -1,7 +1,7 @@
 package superstitio.relics.a_starter;
 
 import basemod.AutoAdd;
-import com.evacipated.cardcrawl.mod.stslib.relics.OnCreateBlockInstanceRelic;
+import com.megacrit.cardcrawl.actions.common.RelicAboveCreatureAction;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import superstitio.DataManager;
 import superstitio.delayHpLose.DelayHpLosePower;
@@ -26,6 +26,8 @@ public class DevaBody extends AbstractLupaRelic {
     @Override
     public void atBattleStart() {
         DevaBody self = this;
+        this.flash();
+        this.addToBot(new RelicAboveCreatureAction(AbstractDungeon.player, this));
         DelayHpLosePatch.IsImmunityFields.checkShouldImmunity.set(
                 player, ((player, damageInfo, damageAmount) -> {
                     if (damageInfo.type == DataManager.CanOnlyDamageDamageType.UnBlockAbleDamageType) {

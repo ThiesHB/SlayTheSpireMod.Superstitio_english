@@ -96,21 +96,22 @@
     "NAMES": [
       "濒死"
     ],
-    "DESCRIPTION": "免疫 攻击伤害 之外的 伤害 。"
+    "DESCRIPTION": "免疫 生命流失 和 荆棘 伤害。"
   },
   {
-    "PROPER_NAME": "挂起",
+    "PROPER_NAME": "暂时挂起",
     "NAMES": [
-      "挂起","挂起-"
+      "暂挂",
+      "暂挂-"
     ],
     "DESCRIPTION": "打出后，直到效果耗尽或回合结束才进入牌堆。"
   },
   {
-    "PROPER_NAME": "久挂",
+    "PROPER_NAME": "助兴",
     "NAMES": [
-      "久挂","久挂-"
+      "助兴"
     ],
-    "DESCRIPTION": "打出后，直到效果耗尽才进入牌堆。"
+    "DESCRIPTION": "打出后，不进入牌堆，直到效果耗尽。"
   },
   {
     "PROPER_NAME": "欲求",
@@ -160,5 +161,27 @@
       "眼目数瞬"
     ],
     "DESCRIPTION": "查看地图时，无法看到问号房间中具体的事件内容。"
+  },
+  {
+    "PROPER_NAME": "时空递归",
+    "NAMES": [
+      "时空递归"
+    ],
+    "DESCRIPTION": "#b你摧毁了时空结构，你这个小坏蛋！ NL #y自动打出 。 NL 无法逃脱 。 NL 将这张牌放入你的抽牌堆。"
+  },
+  {
+    "PROPER_NAME": "爱欲",
+    "NAMES": [
+      "爱欲"
+    ],
+    "DESCRIPTION": "回合开始时，受到伤害。"
+  },
+  {
+    "PROPER_NAME": "窒息",
+    "NAMES": [
+      "窒息",
+      "窒息项圈"
+    ],
+    "DESCRIPTION": "进入 #y高潮 时 ，受到伤害。 NL 每回合都获得 #y快感修正 。"
   }
 ]

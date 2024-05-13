@@ -52,8 +52,10 @@ public class EroSion extends AbstractLupaCard {
     @Override
     public void use(final AbstractPlayer player, final AbstractMonster monster) {
         addToBot(new LoseHPAction(AbstractDungeon.player, AbstractDungeon.player, this.magicNumber));
-        AutoDoneInstantAction.addToBotAbstract(() -> calculateCardDamage(monster));
-        addToBot_dealDamage(monster, this.damage, AbstractGameAction.AttackEffect.BLUNT_HEAVY);
+        AutoDoneInstantAction.addToBotAbstract(() -> {
+            calculateCardDamage(monster);
+            addToBot_dealDamage(monster, this.damage, AbstractGameAction.AttackEffect.BLUNT_HEAVY);
+        });
     }
 
     @Override

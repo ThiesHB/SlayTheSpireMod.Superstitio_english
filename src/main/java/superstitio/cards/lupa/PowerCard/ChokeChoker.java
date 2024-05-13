@@ -1,10 +1,18 @@
 package superstitio.cards.lupa.PowerCard;
 
+import com.megacrit.cardcrawl.actions.common.ApplyPowerAction;
+import com.megacrit.cardcrawl.actions.common.LoseHPAction;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
+import com.megacrit.cardcrawl.core.AbstractCreature;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import superstitio.DataManager;
 import superstitio.actions.AutoDoneInstantAction;
 import superstitio.cards.lupa.AbstractLupaCard;
+import superstitio.powers.AbstractLupaPower;
+import superstitio.powers.SexualHeat;
+import superstitio.powers.SexualHeatNeededModifier;
+import superstitio.powers.interfaces.OnPostApplyThisPower;
+import superstitio.powers.interfaces.orgasm.OnOrgasm_onOrgasm;
 
 
 public class ChokeChoker extends AbstractLupaCard {
@@ -29,13 +37,47 @@ public class ChokeChoker extends AbstractLupaCard {
 
     @Override
     public void use(AbstractPlayer player, AbstractMonster monster) {
-        superstitio.powers.ChokeChoker power = new superstitio.powers.ChokeChoker(player, this.magicNumber);
-        AutoDoneInstantAction.addToBotAbstract(power::AddPowers);
-        addToBot_applyPower(new superstitio.powers.ChokeChoker(player, this.magicNumber));
+        addToBot_applyPower(new ChokeChokerPower(player, this.magicNumber));
     }
 
     @Override
     public void upgradeAuto() {
     }
 
+    public static class ChokeChokerPower extends AbstractLupaPower implements
+            OnOrgasm_onOrgasm, OnPostApplyThisPower {
+        public static final String POWER_ID = DataManager.MakeTextID(ChokeChokerPower.class.getSimpleName());
+        public static final int ChokeAmount = 1;
+
+        public ChokeChokerPower(final AbstractCreature owner, int amount) {
+            super(POWER_ID, owner, amount);
+            this.loadRegion("choke");
+        }
+
+        @Override
+        public void atStartOfTurnPostDraw() {
+            AddPowers();
+        }
+
+        public void AddPowers() {
+            this.addToBot(new ApplyPowerAction(this.owner, this.owner, new SexualHeatNeededModifier(this.owner, amount)));
+        }
+
+
+        @Override
+        public void onOrgasm(SexualHeat SexualHeatPower) {
+            this.flash();
+            this.addToBot(new LoseHPAction(this.owner, null, this.amount));
+        }
+
+        @Override
+        public void updateDescriptionArgs() {
+            this.setDescriptionArgs(amount, ChokeAmount);
+        }
+
+        @Override
+        public void InitializePostApplyThisPower() {
+            AutoDoneInstantAction.addToBotAbstract(this::AddPowers);
+        }
+    }
 }

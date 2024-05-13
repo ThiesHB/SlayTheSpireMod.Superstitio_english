@@ -17,28 +17,15 @@ import superstitio.utils.updateDescriptionAdvanced;
 
 public abstract class AbstractLupaPower extends AbstractPower implements updateDescriptionAdvanced {
     public static final String DEFAULT = "default";
-    public final PowerStringsSet powerStrings;
+    public PowerStringsSet powerStrings;
     private Object[] descriptionArgs;
 
     public AbstractLupaPower(String id, PowerStringsSet powerStrings, final AbstractCreature owner, int amount, PowerType powerType,
                              boolean needUpdateDescription) {
-        this.name = powerStrings.getRightVersion().NAME;
-        this.ID = id;
-        this.owner = owner;
-        this.type = powerType;
+        SetupPower(id, powerStrings, owner, amount, powerType, needUpdateDescription);
+    }
 
-        this.amount = amount;
-        this.powerStrings = powerStrings;
-
-        // 添加一大一小两张能力图
-
-        String path128 = makeImgPath(id, IconSize.Big);
-        String path48 = makeImgPath(id, IconSize.Small);
-        this.region128 = new TextureAtlas.AtlasRegion(ImageMaster.loadImage(path128), 0, 0, 84, 84);
-        this.region48 = new TextureAtlas.AtlasRegion(ImageMaster.loadImage(path48), 0, 0, 32, 32);
-
-        if (needUpdateDescription)
-            this.updateDescription();
+    public AbstractLupaPower() {
     }
 
     public AbstractLupaPower(String id, final AbstractCreature owner, int amount, PowerType powerType, boolean needUpdateDescription) {
@@ -53,8 +40,27 @@ public abstract class AbstractLupaPower extends AbstractPower implements updateD
         this(id, owner, amount, PowerType.BUFF);
     }
 
-    public static PowerStringsSet getPowerStringsWithSFW(String cardName) {
-        return HasSFWVersion.getCustomStringsWithSFW(cardName, DataManager.powers, PowerStringsSet.class);
+    public static PowerStringsSet getPowerStringsWithSFW(String powerID) {
+        return HasSFWVersion.getCustomStringsWithSFW(powerID, DataManager.powers, PowerStringsSet.class);
+    }
+
+    protected void SetupPower(String id, PowerStringsSet powerStrings, final AbstractCreature owner, int amount, PowerType powerType,
+                              boolean needUpdateDescription) {
+        this.name = powerStrings.getRightVersion().NAME;
+        this.ID = id;
+        this.owner = owner;
+        this.type = powerType;
+
+        this.amount = amount;
+        this.powerStrings = powerStrings;
+
+        String path128 = makeImgPath(id, IconSize.Big);
+        String path48 = makeImgPath(id, IconSize.Small);
+        this.region128 = new TextureAtlas.AtlasRegion(ImageMaster.loadImage(path128), 0, 0, 84, 84);
+        this.region48 = new TextureAtlas.AtlasRegion(ImageMaster.loadImage(path48), 0, 0, 32, 32);
+
+        if (needUpdateDescription)
+            this.updateDescription();
     }
 
     protected void renderAmount2(SpriteBatch sb, float x, float y, Color c, int amount2) {

@@ -11,14 +11,11 @@ import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.core.EnergyManager;
 import com.megacrit.cardcrawl.core.Settings;
 import com.megacrit.cardcrawl.cutscenes.CutscenePanel;
-import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.events.city.Vampires;
 import com.megacrit.cardcrawl.helpers.FontHelper;
 import com.megacrit.cardcrawl.helpers.ScreenShake;
 import com.megacrit.cardcrawl.localization.CharacterStrings;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
-import com.megacrit.cardcrawl.rooms.AbstractRoom;
-import com.megacrit.cardcrawl.rooms.MonsterRoom;
 import com.megacrit.cardcrawl.screens.CharSelectInfo;
 import superstitio.DataManager;
 import superstitio.Logger;
@@ -86,7 +83,7 @@ public class Lupa extends CustomPlayer {
                 new EnergyManager(3) // 初始每回合的能量
         );
 
-        if (!SuperstitioModSetup.enableSFW) {
+        if (!SuperstitioModSetup.getEnableSFW()) {
             this.setMoveOffset(0, -hb.height / 3.0f);
         }
 
@@ -150,7 +147,7 @@ public class Lupa extends CustomPlayer {
     // 初始遗物
     public ArrayList<String> getStartingRelics() {
         ArrayList<String> retVal = new ArrayList<>();
-        retVal.add(EjaculationMaster.ID);
+        retVal.add(StartWithSexToy.ID);
         retVal.add(JokeDescription.ID);
         retVal.add(DevaBody.ID);
         retVal.add(Sensitive.ID);

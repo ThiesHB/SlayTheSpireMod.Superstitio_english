@@ -15,7 +15,9 @@ import superstitio.utils.ActionUtility;
 import superstitio.utils.ActionUtility.FunctionReturnSelfType;
 import superstitio.utils.CardUtility;
 
+import java.util.Arrays;
 import java.util.Optional;
+import java.util.function.Predicate;
 
 
 public abstract class CardOrb_CardTrigger extends CardOrb {
@@ -23,6 +25,7 @@ public abstract class CardOrb_CardTrigger extends CardOrb {
     protected final BiConsumer<CardOrb_CardTrigger, AbstractCard> action;
     public AbstractCreature lastTarget;
     public int OrbCounter = 0;
+    public Predicate<AbstractCard> cardMatcher = (card) -> true;
 
     public CardOrb_CardTrigger(AbstractCard card, CardGroup cardGroupReturnAfterEvoke, BiConsumer<CardOrb_CardTrigger, AbstractCard> action_thisCard_targetCard) {
         super(card, cardGroupReturnAfterEvoke);
@@ -86,6 +89,11 @@ public abstract class CardOrb_CardTrigger extends CardOrb {
     public final void onCardUsed(AbstractCard card) {
         if (card == null) return;
         if (!TestIfCardIsRight_use(card)) return;
+        if (OrbCounter <= 0) return;
+        this.card.calculateCardDamage(null);
+//        this.originCard.calculateCardDamage(null);
+//        this.originCard.initializeDescription();
+//        this.originCard.update();
         OrbCounter--;
         if (onProperCardUsed_checkIfShouldApplyAction(card))
             actionAccept(card);
@@ -93,7 +101,6 @@ public abstract class CardOrb_CardTrigger extends CardOrb {
 
     protected abstract boolean onProperCardUsed_checkIfShouldApplyAction(AbstractCard card);
 
-    @Override
     public void forceAcceptAction(AbstractCard card) {
         OrbCounter--;
         if (onProperCardUsed_checkIfShouldApplyAction(card))
@@ -115,6 +122,9 @@ public abstract class CardOrb_CardTrigger extends CardOrb {
 
     protected FunctionReturnSelfType State_WhenHoverCard() {
         showEvokeNum();
+        AbstractCard hoveredCard = AbstractDungeon.player.hoveredCard;
+        if (hoveredCard instanceof Card_AvoidAllCardUsedCheckOfCardOrb_ManuallyTriggerCardOrb)
+            this.card.costForTurn = ((Card_AvoidAllCardUsedCheckOfCardOrb_ManuallyTriggerCardOrb) hoveredCard).forceChangeOrbCounterShown(this);
         this.card.targetDrawScale = DRAW_SCALE_MIDDLE;
         checkAndSetTheHoverType().get();
         this.drawOrder = DrawOrder.middle;
@@ -171,6 +181,7 @@ public abstract class CardOrb_CardTrigger extends CardOrb {
     }
 
     private boolean TestIfCardIsRight_hover(AbstractCard hoveredCard) {
+        if (hoveredCard == null) return false;
         if (hoveredCard instanceof Card_AvoidAllCardUsedCheckOfCardOrb_ManuallyTriggerCardOrb) {
             return ((Card_AvoidAllCardUsedCheckOfCardOrb_ManuallyTriggerCardOrb) hoveredCard).forceFilterCardOrbToHoveredMode(this);
         }
@@ -193,5 +204,11 @@ public abstract class CardOrb_CardTrigger extends CardOrb {
 
     protected void updateIfFocusOnNothing() {
         this.tryMoveTo(new Vector2(this.cX, this.cY + YOffsetWhenHovered() + YOffsetWhenHovered()));
+    }
+
+    @SafeVarargs
+    public final CardOrb setCardPredicate(Predicate<AbstractCard>... cardMatchers) {
+        Arrays.stream(cardMatchers).forEach(mather -> this.cardMatcher = this.cardMatcher.and(mather));
+        return this;
     }
 }

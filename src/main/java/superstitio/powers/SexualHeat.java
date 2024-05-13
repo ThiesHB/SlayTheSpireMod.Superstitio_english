@@ -17,9 +17,11 @@ import superstitio.Logger;
 import superstitio.powers.barIndepend.BarRenderUpdateMessage;
 import superstitio.powers.barIndepend.HasBarRenderOnCreature_Power;
 import superstitio.powers.interfaces.HasAllCardCostModifyEffect;
-import superstitio.powers.interfaces.invisible.InvisiblePower_InvisibleIconAndAmount;
-import superstitio.powers.interfaces.invisible.InvisiblePower_InvisibleTips;
 import superstitio.powers.interfaces.OnPostApplyThisPower;
+import superstitio.powers.interfaces.invisible.InvisiblePower_InvisibleApplyPowerEffect;
+import superstitio.powers.interfaces.invisible.InvisiblePower_InvisibleIconAndAmount;
+import superstitio.powers.interfaces.invisible.InvisiblePower_InvisibleRemovePowerEffect;
+import superstitio.powers.interfaces.invisible.InvisiblePower_InvisibleTips;
 import superstitio.powers.interfaces.orgasm.*;
 
 import java.lang.reflect.InvocationTargetException;
@@ -33,8 +35,9 @@ import static superstitio.powers.AllCardCostModifier.*;
 import static superstitio.utils.PowerUtility.BubbleMessageHigher;
 
 public class SexualHeat extends AbstractLupaPower implements
-        HasAllCardCostModifyEffect, OnPostApplyThisPower,
-        InvisiblePower_InvisibleTips, InvisiblePower_InvisibleIconAndAmount, HasBarRenderOnCreature_Power,
+        HasAllCardCostModifyEffect, OnPostApplyThisPower,HasBarRenderOnCreature_Power,
+        InvisiblePower_InvisibleTips, InvisiblePower_InvisibleIconAndAmount,
+        InvisiblePower_InvisibleApplyPowerEffect, InvisiblePower_InvisibleRemovePowerEffect,
         OnOrgasm_onSuccessfullyPreventOrgasm, OnOrgasm_onOrgasm, OnOrgasm_onEndOrgasm, OnOrgasm_onSquirt, OnOrgasm_onContinuallyOrgasm {
     public static final String POWER_ID = DataManager.MakeTextID(SexualHeat.class.getSimpleName());
     public static final int HEAT_REQUIREDOrigin = 10;
@@ -138,6 +141,8 @@ public class SexualHeat extends AbstractLupaPower implements
             return;
         }
         final int decreaseCost = Math.min(getOrgasmTimesInTurn(), AbstractDungeon.player.energy.energyMaster);
+
+
         addToBotAbstract(() -> {
             try {
                 addTo_Bot_EditAmount_Top_FirstByHolder(this, decreaseCost, power -> {
@@ -147,10 +152,12 @@ public class SexualHeat extends AbstractLupaPower implements
                         return 1;
                 }, AllCardCostModifier_PerEnergy.class.getConstructor(AbstractCreature.class, int.class, int.class,
                         HasAllCardCostModifyEffect.class));
-            } catch (NoSuchMethodException | InvocationTargetException | InstantiationException | IllegalAccessException e) {
+            } catch (NoSuchMethodException | InvocationTargetException | InstantiationException |
+                     IllegalAccessException e) {
                 Logger.error(e);
             }
         });
+
         InBattleDataManager.InOrgasm = true;
     }
 

@@ -24,6 +24,7 @@ public class SexualDamage extends AbstractLupaPower implements HealthBarRenderPo
     @Override
     public void atStartOfTurn() {
 //        this.owner.damage(BindingHelper.makeInfo(new DamageModContainer(this, new UnBlockAbleDamage()), giver, amount, DamageType.HP_LOSS));
+        this.flash();
         addToBot(new LoseHPAction(this.owner, giver, this.amount, AbstractGameAction.AttackEffect.POISON));
         addToBot_removeSpecificPower(this);
     }
