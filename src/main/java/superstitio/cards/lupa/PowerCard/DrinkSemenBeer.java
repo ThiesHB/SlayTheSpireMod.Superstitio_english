@@ -12,9 +12,9 @@ import com.megacrit.cardcrawl.powers.AbstractPower;
 import superstitio.DataManager;
 import superstitio.actions.AutoDoneInstantAction;
 import superstitio.cards.lupa.LupaCard;
-import superstitio.powers.AbstractLupaPower;
-import superstitio.powers.InsideSemen;
-import superstitio.powers.OutsideSemen;
+import superstitio.powers.AbstractSuperstitioPower;
+import superstitio.powers.lupaOnly.InsideSemen;
+import superstitio.powers.lupaOnly.OutsideSemen;
 import superstitio.powers.patchAndInterface.barIndepend.HasBarRenderOnCreature_Power;
 import superstitio.powers.patchAndInterface.interfaces.OnPostApplyThisPower;
 import superstitio.powers.patchAndInterface.interfaces.invisible.InvisiblePower_InvisibleIconAndAmount;
@@ -50,7 +50,7 @@ public class DrinkSemenBeer extends LupaCard {
     public void upgradeAuto() {
     }
 
-    public static class BeerCupSemen extends AbstractLupaPower implements
+    public static class BeerCupSemen extends AbstractSuperstitioPower implements
             InvisiblePower_InvisibleTips, InvisiblePower_InvisibleIconAndAmount, HasBarRenderOnCreature_Power,
             OnPostApplyThisPower, BetterOnApplyPowerPower {
         public static final String POWER_ID = DataManager.MakeTextID(BeerCupSemen.class);

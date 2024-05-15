@@ -1,19 +1,16 @@
-package superstitio.powers;
+package superstitio.powers.lupaOnly;
 
 import com.badlogic.gdx.graphics.Color;
-import com.evacipated.cardcrawl.mod.stslib.actions.common.GainCustomBlockAction;
-import com.evacipated.cardcrawl.mod.stslib.blockmods.BlockModContainer;
-import com.megacrit.cardcrawl.actions.common.RemoveSpecificPowerAction;
 import com.megacrit.cardcrawl.core.AbstractCreature;
 import com.megacrit.cardcrawl.core.Settings;
 import com.megacrit.cardcrawl.powers.AbstractPower;
 import superstitio.DataManager;
-import superstitio.cardModifier.modifiers.block.DrySemenBlock;
+import superstitio.powers.AbstractSuperstitioPower;
 import superstitio.powers.patchAndInterface.barIndepend.HasBarRenderOnCreature_Power;
 import superstitio.powers.patchAndInterface.interfaces.invisible.InvisiblePower_InvisibleIconAndAmount;
 import superstitio.powers.patchAndInterface.interfaces.invisible.InvisiblePower_InvisibleTips;
 
-public class OutsideSemen extends AbstractLupaPower implements
+public class OutsideSemen extends AbstractSuperstitioPower implements
         InvisiblePower_InvisibleTips, InvisiblePower_InvisibleIconAndAmount, HasBarRenderOnCreature_Power {
     public static final String POWER_ID = DataManager.MakeTextID(OutsideSemen.class);
 
@@ -25,12 +22,6 @@ public class OutsideSemen extends AbstractLupaPower implements
     @Override
     public void updateDescriptionArgs() {
         setDescriptionArgs(this.amount);
-    }
-
-    @Override
-    public void atEndOfTurn(boolean isPlayer) {
-        this.addToBot(new GainCustomBlockAction(new BlockModContainer(this, new DrySemenBlock()), this.owner, this.amount));
-        this.addToBot(new RemoveSpecificPowerAction(this.owner, this.owner, POWER_ID));
     }
 
     @Override

@@ -5,8 +5,8 @@ import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.screens.CharSelectInfo;
 import superstitio.DataManager;
 import superstitio.cards.CardOwnerPlayerManager;
-import superstitio.relics.a_starter.DevaBody;
 import superstitio.relics.a_starter.JokeDescription;
+import superstitio.relics.a_starter.Lupa.DevaBody_Lupa;
 import superstitio.relics.a_starter.Lupa.Sensitive;
 import superstitio.relics.a_starter.StartWithSexToy;
 
@@ -29,7 +29,7 @@ public class Lupa extends BaseCharacter {
         ArrayList<String> retVal = new ArrayList<>();
         retVal.add(StartWithSexToy.ID);
         retVal.add(JokeDescription.ID);
-        retVal.add(DevaBody.ID);
+        retVal.add(DevaBody_Lupa.ID);
         retVal.add(Sensitive.ID);
 //        retVal.add(SorM.ID);
         return retVal;

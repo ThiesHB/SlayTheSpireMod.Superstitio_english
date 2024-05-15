@@ -34,7 +34,7 @@ import static superstitio.actions.AutoDoneInstantAction.addToBotAbstract;
 import static superstitio.powers.AllCardCostModifier.*;
 import static superstitio.utils.PowerUtility.BubbleMessageHigher;
 
-public class SexualHeat extends AbstractLupaPower implements
+public class SexualHeat extends AbstractSuperstitioPower implements
         HasAllCardCostModifyEffect, OnPostApplyThisPower, HasBarRenderOnCreature_Power,
         InvisiblePower_InvisibleTips, InvisiblePower_InvisibleIconAndAmount,
         InvisiblePower_InvisibleApplyPowerEffect, InvisiblePower_InvisibleRemovePowerEffect,

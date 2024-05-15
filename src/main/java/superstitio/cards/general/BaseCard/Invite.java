@@ -3,10 +3,10 @@ package superstitio.cards.general.BaseCard;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import superstitio.DataManager;
-import superstitio.cards.general.AbstractGeneralCard;
+import superstitio.cards.general.GeneralCard;
 import superstitio.delayHpLose.RemoveDelayHpLoseBlock;
 
-public class Invite extends AbstractGeneralCard {
+public class Invite extends GeneralCard {
     public static final String ID = DataManager.MakeTextID(Invite.class);
 
     public static final CardType CARD_TYPE = CardType.SKILL;

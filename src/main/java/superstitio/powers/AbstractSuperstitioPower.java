@@ -15,28 +15,28 @@ import superstitio.customStrings.PowerStringsSet;
 import superstitio.utils.ActionUtility;
 import superstitio.utils.updateDescriptionAdvanced;
 
-public abstract class AbstractLupaPower extends AbstractPower implements updateDescriptionAdvanced {
+public abstract class AbstractSuperstitioPower extends AbstractPower implements updateDescriptionAdvanced {
     public static final String DEFAULT = "default";
     public PowerStringsSet powerStrings;
     private Object[] descriptionArgs;
 
-    public AbstractLupaPower(String id, PowerStringsSet powerStrings, final AbstractCreature owner, int amount, PowerType powerType,
-                             boolean needUpdateDescription) {
+    public AbstractSuperstitioPower(String id, PowerStringsSet powerStrings, final AbstractCreature owner, int amount, PowerType powerType,
+                                    boolean needUpdateDescription) {
         SetupPower(id, powerStrings, owner, amount, powerType, needUpdateDescription);
     }
 
-    public AbstractLupaPower() {
+    public AbstractSuperstitioPower() {
     }
 
-    public AbstractLupaPower(String id, final AbstractCreature owner, int amount, PowerType powerType, boolean needUpdateDescription) {
-        this(id, AbstractLupaPower.getPowerStringsWithSFW(id), owner, amount, powerType, needUpdateDescription);
+    public AbstractSuperstitioPower(String id, final AbstractCreature owner, int amount, PowerType powerType, boolean needUpdateDescription) {
+        this(id, AbstractSuperstitioPower.getPowerStringsWithSFW(id), owner, amount, powerType, needUpdateDescription);
     }
 
-    public AbstractLupaPower(String id, final AbstractCreature owner, int amount, PowerType powerType) {
+    public AbstractSuperstitioPower(String id, final AbstractCreature owner, int amount, PowerType powerType) {
         this(id, owner, amount, powerType, true);
     }
 
-    public AbstractLupaPower(String id, final AbstractCreature owner, int amount) {
+    public AbstractSuperstitioPower(String id, final AbstractCreature owner, int amount) {
         this(id, owner, amount, PowerType.BUFF);
     }
 

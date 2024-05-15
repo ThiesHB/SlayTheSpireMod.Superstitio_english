@@ -7,9 +7,10 @@ import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import superstitio.DataManager;
 import superstitio.InBattleDataManager;
-import superstitio.cards.general.AbstractCard_FuckJob;
+import superstitio.cards.general.FuckJob_Card;
+import superstitio.cards.general.GeneralCard;
 
-public class Fuck_Throat extends AbstractCard_FuckJob {
+public class Fuck_Throat extends GeneralCard implements FuckJob_Card {
     public static final String ID = DataManager.MakeTextID(Fuck_Throat.class);
 
     public static final CardType CARD_TYPE = CardType.ATTACK;
@@ -25,6 +26,7 @@ public class Fuck_Throat extends AbstractCard_FuckJob {
 
     public Fuck_Throat() {
         super(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET);
+        FuckJob_Card.initFuckJobCard(this);
         this.setupDamage(DAMAGE, UPGRADE_DAMAGE);
         this.setupMagicNumber(MagicNum);
     }

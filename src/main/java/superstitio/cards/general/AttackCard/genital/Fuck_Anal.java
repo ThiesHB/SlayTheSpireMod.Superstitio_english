@@ -1,15 +1,17 @@
 package superstitio.cards.general.AttackCard.genital;
 
+
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import superstitio.DataManager;
-import superstitio.cards.general.AbstractCard_FuckJob;
+import superstitio.cards.general.FuckJob_Card;
+import superstitio.cards.general.GeneralCard;
 import superstitio.powers.SexualDamage;
 
 import static superstitio.actions.AutoDoneInstantAction.addToBotAbstract;
 
-public class Fuck_Anal extends AbstractCard_FuckJob {
+public class Fuck_Anal extends GeneralCard implements FuckJob_Card {
     public static final String ID = DataManager.MakeTextID(Fuck_Anal.class);
 
     public static final CardType CARD_TYPE = CardType.ATTACK;
@@ -27,6 +29,7 @@ public class Fuck_Anal extends AbstractCard_FuckJob {
 
     public Fuck_Anal() {
         super(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET);
+        FuckJob_Card.initFuckJobCard(this);
         this.setupDamage(DAMAGE, UPGRADE_DAMAGE);
         this.setupMagicNumber(MAGIC, UPGRADE_MAGIC);
     }

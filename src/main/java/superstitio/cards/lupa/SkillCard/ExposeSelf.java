@@ -30,7 +30,7 @@ public class ExposeSelf extends LupaCard {
     @Override
     public void use(AbstractPlayer player, AbstractMonster monster) {
         addToBot_gainBlock();
-        addToBot_applyPower(new superstitio.powers.ExposeSelf(player, 1));
+        addToBot_applyPower(new superstitio.powers.lupaOnly.ExposeSelf(player, 1));
     }
 
     @Override

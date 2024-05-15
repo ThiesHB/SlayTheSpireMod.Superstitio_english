@@ -9,7 +9,7 @@ import com.megacrit.cardcrawl.core.AbstractCreature;
 import superstitio.DataManager;
 import superstitio.powers.patchAndInterface.interfaces.DecreaseHealthBarNumberPower;
 
-public class SexualDamage extends AbstractLupaPower implements HealthBarRenderPower, DecreaseHealthBarNumberPower {
+public class SexualDamage extends AbstractSuperstitioPower implements HealthBarRenderPower, DecreaseHealthBarNumberPower {
     public static final String POWER_ID = DataManager.MakeTextID(SexualDamage.class);
     protected final AbstractCreature giver;
 

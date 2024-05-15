@@ -1,12 +1,13 @@
-package superstitio.powers;
+package superstitio.powers.lupaOnly;
 
 import com.megacrit.cardcrawl.actions.common.ApplyPowerAction;
 import com.megacrit.cardcrawl.cards.DamageInfo;
 import com.megacrit.cardcrawl.core.AbstractCreature;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import superstitio.DataManager;
+import superstitio.powers.AbstractSuperstitioPower;
 
-public class ExposeSelf extends AbstractLupaPower {
+public class ExposeSelf extends AbstractSuperstitioPower {
     public static final String POWER_ID = DataManager.MakeTextID(ExposeSelf.class);
 
     public ExposeSelf(final AbstractCreature owner, int amount) {

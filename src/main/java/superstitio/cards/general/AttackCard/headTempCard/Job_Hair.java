@@ -8,13 +8,15 @@ import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import superstitio.DataManager;
-import superstitio.cards.general.AbstractCard_FuckJob;
+import superstitio.cards.general.FuckJob_Card;
+import superstitio.cards.general.GeneralCard;
 import superstitio.cards.patch.GoSomewhereElseAfterUse;
 import superstitio.orbs.CardOrb_WaitCardTrigger;
 import superstitio.orbs.orbgroup.HangUpCardGroup;
 import superstitio.utils.ActionUtility;
 
-public class Job_Hair extends AbstractCard_FuckJob implements GoSomewhereElseAfterUse {
+
+public class Job_Hair extends GeneralCard implements FuckJob_Card, GoSomewhereElseAfterUse {
     public static final String ID = DataManager.MakeTextID(Job_Hair.class);
 
     public static final CardType CARD_TYPE = CardType.ATTACK;
@@ -35,6 +37,7 @@ public class Job_Hair extends AbstractCard_FuckJob implements GoSomewhereElseAft
 
     private Job_Hair(int damage, int upgradeDamage) {
         super(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET);
+        FuckJob_Card.initFuckJobCard(this);
         this.setupDamage(damage, upgradeDamage);
         this.isEthereal = true;
         this.setupMagicNumber(MAGIC);

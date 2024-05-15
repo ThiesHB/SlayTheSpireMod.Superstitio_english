@@ -5,14 +5,14 @@ import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import superstitio.DataManager;
-import superstitio.cards.general.AbstractGeneralCard;
+import superstitio.cards.general.GeneralCard;
 import superstitio.cards.patch.GoSomewhereElseAfterUse;
 import superstitio.orbs.CardOrb_WaitCardTrigger;
 import superstitio.orbs.orbgroup.HangUpCardGroup;
 import superstitio.powers.SexualHeat;
 import superstitio.utils.PowerUtility;
 
-public class Masturbate extends AbstractGeneralCard implements GoSomewhereElseAfterUse {
+public class Masturbate extends GeneralCard implements GoSomewhereElseAfterUse {
     public static final String ID = DataManager.MakeTextID(Masturbate.class);
 
     public static final CardType CARD_TYPE = CardType.SKILL;

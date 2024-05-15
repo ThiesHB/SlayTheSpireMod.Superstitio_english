@@ -9,7 +9,7 @@ import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import com.megacrit.cardcrawl.powers.EquilibriumPower;
 import superstitio.DataManager;
 import superstitio.cards.lupa.LupaCard;
-import superstitio.powers.AbstractLupaPower;
+import superstitio.powers.AbstractSuperstitioPower;
 import superstitio.utils.ActionUtility;
 
 
@@ -44,7 +44,7 @@ public class Samsara extends LupaCard {
     public void upgradeAuto() {
     }
 
-    public static class SamsaraPower extends AbstractLupaPower {
+    public static class SamsaraPower extends AbstractSuperstitioPower {
         public static final String POWER_ID = DataManager.MakeTextID(SamsaraPower.class);
 
         public SamsaraPower(final AbstractCreature owner) {

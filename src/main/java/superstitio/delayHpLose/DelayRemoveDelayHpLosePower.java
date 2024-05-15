@@ -7,12 +7,12 @@ import com.megacrit.cardcrawl.core.AbstractCreature;
 import superstitio.DataManager;
 import superstitio.cardModifier.modifiers.RenderAsBlockPower;
 import superstitio.cardModifier.modifiers.RenderStackedBlockInstancesPatch;
-import superstitio.powers.AbstractLupaPower;
+import superstitio.powers.AbstractSuperstitioPower;
 import superstitio.powers.patchAndInterface.interfaces.OnPostApplyThisPower;
 
 import java.util.ArrayList;
 
-public class DelayRemoveDelayHpLosePower extends AbstractLupaPower implements RenderAsBlockPower, InvisiblePower, OnPostApplyThisPower {
+public class DelayRemoveDelayHpLosePower extends AbstractSuperstitioPower implements RenderAsBlockPower, InvisiblePower, OnPostApplyThisPower {
     public static final String POWER_ID = DataManager.MakeTextID(DelayRemoveDelayHpLosePower.class);
     public BlockInstance blockInstance;
 

@@ -8,7 +8,7 @@ import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import superstitio.DataManager;
 import superstitio.cards.maso.MasoCard;
-import superstitio.powers.AbstractLupaPower;
+import superstitio.powers.AbstractSuperstitioPower;
 import superstitio.utils.ActionUtility;
 import superstitio.utils.CardUtility;
 
@@ -43,7 +43,7 @@ public class Ku_Koro extends MasoCard {
     /**
      * 每次受到攻击伤害时，获得1随机状态牌。所有消耗牌会回到抽牌堆
      */
-    public static class Ku_KoroPower extends AbstractLupaPower {
+    public static class Ku_KoroPower extends AbstractSuperstitioPower {
         public static final String POWER_ID = DataManager.MakeTextID(Ku_KoroPower.class);
 
         public Ku_KoroPower(final AbstractCreature owner) {

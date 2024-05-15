@@ -7,7 +7,7 @@ import superstitio.DataManager;
 
 import java.util.Objects;
 
-public abstract class EasyBuildAbstractPowerForPowerCard extends AbstractLupaPower {
+public abstract class EasyBuildAbstractPowerForPowerCard extends AbstractSuperstitioPower {
 
     public EasyBuildAbstractPowerForPowerCard(int amount) {
         super();

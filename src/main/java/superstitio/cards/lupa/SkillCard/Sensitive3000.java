@@ -9,7 +9,7 @@ import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import com.megacrit.cardcrawl.powers.AbstractPower;
 import superstitio.DataManager;
 import superstitio.cards.lupa.LupaCard;
-import superstitio.powers.AbstractLupaPower;
+import superstitio.powers.AbstractSuperstitioPower;
 import superstitio.powers.SexualDamage;
 import superstitio.powers.SexualHeat;
 
@@ -40,7 +40,7 @@ public class Sensitive3000 extends LupaCard {
     public void upgradeAuto() {
     }
 
-    public static class Sensitive3000Power extends AbstractLupaPower implements BetterOnApplyPowerPower {
+    public static class Sensitive3000Power extends AbstractSuperstitioPower implements BetterOnApplyPowerPower {
         public static final String POWER_ID = DataManager.MakeTextID(Sensitive3000Power.class);
         private static final int SexualHeatRate = 3000;
 

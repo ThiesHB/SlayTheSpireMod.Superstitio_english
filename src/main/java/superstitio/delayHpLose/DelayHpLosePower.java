@@ -13,7 +13,7 @@ import com.megacrit.cardcrawl.vfx.combat.PowerBuffEffect;
 import superstitio.DataManager;
 import superstitio.actions.AutoDoneInstantAction;
 import superstitio.cards.DamageActionMaker;
-import superstitio.powers.AbstractLupaPower;
+import superstitio.powers.AbstractSuperstitioPower;
 import superstitio.powers.patchAndInterface.interfaces.DecreaseHealthBarNumberPower;
 import superstitio.powers.patchAndInterface.interfaces.invisible.InvisiblePower_InvisibleApplyPowerEffect;
 import superstitio.powers.patchAndInterface.interfaces.invisible.InvisiblePower_InvisibleIconAndAmount;
@@ -26,7 +26,7 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Stream;
 
-public class DelayHpLosePower extends AbstractLupaPower implements
+public class DelayHpLosePower extends AbstractSuperstitioPower implements
         HealthBarRenderPower, DecreaseHealthBarNumberPower,
         InvisiblePower_InvisibleIconAndAmount, InvisiblePower_InvisibleTips,
         InvisiblePower_InvisibleApplyPowerEffect, InvisiblePower_InvisibleRemovePowerEffect {
@@ -39,7 +39,7 @@ public class DelayHpLosePower extends AbstractLupaPower implements
 
     private int Turn;
     private boolean atEnemyTurn;
-    private boolean isRemoveByTimePass = false;
+    protected boolean isRemoveByTimePass = false;
 
     public DelayHpLosePower(final AbstractCreature owner, int amount) {
         super(POWER_ID, owner, amount);
@@ -67,7 +67,6 @@ public class DelayHpLosePower extends AbstractLupaPower implements
         if (removeOther) {
             addToBot_removePower(amount, target, source, turn + 1, removeOther);
         }
-
     }
 
     private static String getUniqueID(int turn) {
@@ -102,44 +101,38 @@ public class DelayHpLosePower extends AbstractLupaPower implements
             playRemoveEffect();
     }
 
-    private void playRemoveEffect() {
+    protected void playRemoveEffect() {
         AbstractDungeon.effectList.add(
                 new PowerBuffEffect(this.owner.hb.cX - this.owner.animX, this.owner.hb.cY + this.owner.hb.height / 2.0F,
                         pureName() + CardCrawlGame.languagePack.getUIString("ApplyPowerAction").TEXT[0]));
     }
 
-    private String pureName() {
+    protected String pureName() {
         return this.name.replace("#r", "");
     }
 
     @Override
     public void atStartOfTurn() {
         if (Turn <= 0) {
-            PowerUtility.BubbleMessage(this, true, pureName());
-//            DamageActionMaker.maker(this.owner, this.amount, this.owner)
-//                    .setDamageModifier(new UnBlockAbleDamage())
-//                    .setEffect(AbstractGameAction.AttackEffect.POISON)
-//                    .setDamageType(DataManager.CanOnlyDamageDamageType.UnBlockAbleDamageType)
-//                    .addToBot();
-
-//                AbstractDungeon.effectList.add(
-//                        new FlashAtkImgEffect(this.owner.hb.cX, this.owner.hb.cY, AbstractGameAction.AttackEffect.POISON));
-//                owner.currentHealth -= amount;
-//                owner.currentHealth = Math.max(0, owner.currentHealth);
-//                if (owner.currentHealth == 0)
-//                    DamageActionMaker.maker(0,this.owner).addToBot();
-            this.isRemoveByTimePass = true;
-            AutoDoneInstantAction.addToBotAbstract(() -> CardCrawlGame.sound.play("POWER_TIME_WARP", 0.05f));
-            DamageActionMaker.maker(this.amount, this.owner)
-                    .setDamageModifier(this, new UnBlockAbleDamage())
-                    .setEffect(AbstractGameAction.AttackEffect.LIGHTNING)
-                    .setDamageType(DataManager.CanOnlyDamageDamageType.UnBlockAbleDamageType)
-                    .addToBot();
-            addToBot_removeSpecificPower(this);
+            ApplyDamage();
         }
         Turn--;
         atEnemyTurn = false;
         this.updateDescription();
+    }
+
+    private void ApplyDamage() {
+        this.isRemoveByTimePass = true;
+        AutoDoneInstantAction.addToBotAbstract(() -> {
+            PowerUtility.BubbleMessage(this, true, pureName());
+            CardCrawlGame.sound.play("POWER_TIME_WARP", 0.05f);
+        });
+        DamageActionMaker.maker(this.amount, this.owner)
+                .setDamageModifier(this, new UnBlockAbleDamage())
+                .setEffect(AbstractGameAction.AttackEffect.LIGHTNING)
+                .setDamageType(DataManager.CanOnlyDamageDamageType.UnBlockAbleDamageType)
+                .addToBot();
+        addToBot_removeSpecificPower(this);
     }
 
     @Override

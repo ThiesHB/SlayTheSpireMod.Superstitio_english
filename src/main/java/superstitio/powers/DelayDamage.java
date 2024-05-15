@@ -12,7 +12,7 @@ import com.megacrit.cardcrawl.core.AbstractCreature;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import superstitio.DataManager;
 
-public class DelayDamage extends AbstractLupaPower implements HealthBarRenderPower {
+public class DelayDamage extends AbstractSuperstitioPower implements HealthBarRenderPower {
     public static final String POWER_ID = DataManager.MakeTextID(DelayDamage.class);
     private final int damageAmount;
     private AbstractCreature giver = AbstractDungeon.player;

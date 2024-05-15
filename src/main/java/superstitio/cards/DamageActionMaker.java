@@ -89,6 +89,10 @@ public class DamageActionMaker {
         getTargets().forEach(target -> AbstractDungeon.actionManager.addToBottom(this.get(target)));
     }
 
+    public void addToTop() {
+        getTargets().forEach(target -> AbstractDungeon.actionManager.addToTop(this.get(target)));
+    }
+
     public DamageActionMaker setDamageType(DamageInfo.DamageType damageType) {
         this.damageType = damageType;
         return this;

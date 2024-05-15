@@ -8,10 +8,11 @@ import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import superstitio.DataManager;
-import superstitio.cards.general.AbstractCard_FuckJob;
+import superstitio.cards.general.FuckJob_Card;
+import superstitio.cards.general.GeneralCard;
 
 @AutoAdd.Ignore
-public class Fuck_Nipple extends AbstractCard_FuckJob {
+public class Fuck_Nipple extends GeneralCard implements FuckJob_Card {
     public static final String ID = DataManager.MakeTextID(Fuck_Nipple.class);
 
     public static final CardType CARD_TYPE = CardType.ATTACK;
@@ -26,6 +27,7 @@ public class Fuck_Nipple extends AbstractCard_FuckJob {
 
     public Fuck_Nipple() {
         super(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET);
+        FuckJob_Card.initFuckJobCard(this);
         this.setupDamage(DAMAGE, UPGRADE_DAMAGE);
     }
 

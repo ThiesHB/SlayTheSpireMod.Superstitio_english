@@ -6,7 +6,7 @@ import com.megacrit.cardcrawl.powers.StrengthPower;
 import superstitio.DataManager;
 import superstitio.powers.patchAndInterface.interfaces.orgasm.OnOrgasm_onOrgasm;
 
-public class TempName_ApplyTempStrengthOnOrgasm extends AbstractLupaPower implements OnOrgasm_onOrgasm {
+public class TempName_ApplyTempStrengthOnOrgasm extends AbstractSuperstitioPower implements OnOrgasm_onOrgasm {
     public static final String POWER_ID = DataManager.MakeTextID(TempName_ApplyTempStrengthOnOrgasm.class);
 
     public TempName_ApplyTempStrengthOnOrgasm(final AbstractCreature owner, int amount) {

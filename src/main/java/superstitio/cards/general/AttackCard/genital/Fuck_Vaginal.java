@@ -1,10 +1,12 @@
 package superstitio.cards.general.AttackCard.genital;
 
+
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import superstitio.DataManager;
 import superstitio.actions.AutoDoneInstantAction;
-import superstitio.cards.general.AbstractCard_FuckJob;
+import superstitio.cards.general.FuckJob_Card;
+import superstitio.cards.general.GeneralCard;
 import superstitio.orbs.CardOrb_CardTrigger;
 import superstitio.orbs.CardOrb_EachCardTrigger;
 import superstitio.orbs.CardOrb_WaitCardTrigger;
@@ -12,7 +14,7 @@ import superstitio.orbs.Card_AvoidAllCardUsedCheckOfCardOrb_ManuallyTriggerCardO
 
 import static superstitio.InBattleDataManager.getHangUpCardOrbGroup;
 
-public class Fuck_Vaginal extends AbstractCard_FuckJob implements Card_AvoidAllCardUsedCheckOfCardOrb_ManuallyTriggerCardOrb {
+public class Fuck_Vaginal extends GeneralCard implements FuckJob_Card, Card_AvoidAllCardUsedCheckOfCardOrb_ManuallyTriggerCardOrb {
     public static final String ID = DataManager.MakeTextID(Fuck_Vaginal.class);
 
     public static final CardType CARD_TYPE = CardType.ATTACK;
@@ -28,6 +30,7 @@ public class Fuck_Vaginal extends AbstractCard_FuckJob implements Card_AvoidAllC
 
     public Fuck_Vaginal() {
         super(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET);
+        FuckJob_Card.initFuckJobCard(this);
         this.setupDamage(DAMAGE, UPGRADE_DAMAGE);
         this.setupMagicNumber(MAGIC);
     }

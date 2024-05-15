@@ -8,7 +8,7 @@ import superstitio.utils.PowerUtility;
 import java.util.HashMap;
 import java.util.Map;
 
-public class SexToy extends AbstractLupaPower {
+public class SexToy extends AbstractSuperstitioPower {
     public static final String POWER_ID = DataManager.MakeTextID(SexToy.class);
     private static final int SEXUAL_HEAT_RATE = 1;
     public Map<String, Integer> sexToyNames;

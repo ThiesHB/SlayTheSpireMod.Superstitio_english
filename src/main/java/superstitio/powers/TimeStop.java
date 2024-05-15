@@ -6,7 +6,7 @@ import com.megacrit.cardcrawl.core.AbstractCreature;
 import com.megacrit.cardcrawl.powers.AbstractPower;
 import superstitio.DataManager;
 
-public class TimeStop extends AbstractLupaPower implements BetterOnApplyPowerPower {
+public class TimeStop extends AbstractSuperstitioPower implements BetterOnApplyPowerPower {
     public static final String POWER_ID = DataManager.MakeTextID(TimeStop.class);
     public static final int sexualReturnRate = 2;
 

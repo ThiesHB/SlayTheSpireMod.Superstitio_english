@@ -1,5 +1,6 @@
 package superstitio.cards.maso.SkillCard;
 
+import basemod.cardmods.EtherealMod;
 import basemod.cardmods.ExhaustMod;
 import basemod.helpers.CardModifierManager;
 import com.megacrit.cardcrawl.actions.AbstractGameAction;
@@ -8,6 +9,7 @@ import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import superstitio.DataManager;
+import superstitio.InBattleDataManager;
 import superstitio.cards.DamageActionMaker;
 import superstitio.cards.maso.MasoCard;
 import superstitio.utils.ActionUtility;
@@ -41,6 +43,7 @@ public class NailExtraction extends MasoCard {
             this.cardsToPreview = new NailExtraction(true);
         this.setupMagicNumber(MAGIC);
         CardModifierManager.addModifier(this, new ExhaustMod());
+        CardModifierManager.addModifier(this, new EtherealMod());
     }
 
     @Override
@@ -58,6 +61,14 @@ public class NailExtraction extends MasoCard {
             damageActionMaker.setDamageType(DamageInfo.DamageType.NORMAL).addToBot();
         addToBot_drawCards(DRAW_CARD);
         ActionUtility.addToBot_makeTempCardInBattle(new NailExtraction(), BattleCardPlace.DrawPile, COPY_SELF, this.upgraded);
+        InBattleDataManager.NailExtractionPlayedInTurn++;
+    }
+
+    @Override
+    public boolean canUse(AbstractPlayer p, AbstractMonster m) {
+        if (InBattleDataManager.NailExtractionPlayedInTurn >= 20)
+            return false;
+        return super.canUse(p, m);
     }
 
     @Override

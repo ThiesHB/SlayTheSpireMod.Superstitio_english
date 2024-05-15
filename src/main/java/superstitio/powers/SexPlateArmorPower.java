@@ -4,13 +4,15 @@ import com.megacrit.cardcrawl.actions.common.GainBlockAction;
 import com.megacrit.cardcrawl.cards.DamageInfo;
 import com.megacrit.cardcrawl.core.AbstractCreature;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
+import com.megacrit.cardcrawl.powers.PlatedArmorPower;
 import superstitio.DataManager;
 
-public class SexPlateArmorPower extends AbstractLupaPower {
+public class SexPlateArmorPower extends AbstractSuperstitioPower {
     public static final String POWER_ID = DataManager.MakeTextID(SexPlateArmorPower.class);
 
     public SexPlateArmorPower(final AbstractCreature owner, int amount) {
         super(POWER_ID, owner, amount);
+        this.loadRegion("platedarmor");
     }
 
     @Override

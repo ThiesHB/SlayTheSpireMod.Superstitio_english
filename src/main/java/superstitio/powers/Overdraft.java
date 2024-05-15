@@ -5,7 +5,7 @@ import com.megacrit.cardcrawl.actions.common.RemoveSpecificPowerAction;
 import com.megacrit.cardcrawl.core.AbstractCreature;
 import superstitio.DataManager;
 
-public class Overdraft extends AbstractLupaPower {
+public class Overdraft extends AbstractSuperstitioPower {
     public static final String POWER_ID = DataManager.MakeTextID(Overdraft.class);
 
     public Overdraft(final AbstractCreature owner, int amount) {

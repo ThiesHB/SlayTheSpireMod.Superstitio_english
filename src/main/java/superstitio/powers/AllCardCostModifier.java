@@ -28,7 +28,7 @@ import java.util.stream.Stream;
 import static superstitio.actions.AutoDoneInstantAction.addToBotAbstract;
 
 
-public abstract class AllCardCostModifier extends AbstractLupaPower implements NonStackablePower, OnPostApplyThisPower {
+public abstract class AllCardCostModifier extends AbstractSuperstitioPower implements NonStackablePower, OnPostApplyThisPower {
     private static final float CHECK_TIME = 1.0f;
     private final HasAllCardCostModifyEffect holder;
     public int order = 0;

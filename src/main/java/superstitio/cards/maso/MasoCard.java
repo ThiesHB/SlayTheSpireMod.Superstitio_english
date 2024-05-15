@@ -12,10 +12,13 @@ import superstitio.delayHpLose.DelayHpLosePower;
 import superstitio.delayHpLose.DelayRemoveDelayHpLoseBlock;
 import superstitio.delayHpLose.DelayRemoveDelayHpLosePower;
 import superstitio.delayHpLose.RemoveDelayHpLoseBlock;
+import superstitio.utils.ActionUtility;
 
 import java.util.Arrays;
 
 import static superstitio.DataManager.SPTT_DATA.MasoEnums.MASO_CARD;
+import static superstitio.delayHpLose.DelayHpLosePatch.GainBlockTypeFields.ifDelayReduceDelayHpLose;
+import static superstitio.delayHpLose.DelayHpLosePatch.GainBlockTypeFields.ifReduceDelayHpLose;
 
 public abstract class MasoCard extends SuperstitioCard implements CardOwnerPlayerManager.IsMasoCard {
     private boolean isDelayRemoveDelayHpLoseBlock;
@@ -42,46 +45,42 @@ public abstract class MasoCard extends SuperstitioCard implements CardOwnerPlaye
         super(id, cardType, cost, cardRarity, cardTarget, MASO_CARD, imgSubFolder);
     }
 
-
-    @Override
-    protected void setupBlock(int amount, int amountOfAutoUpgrade, AbstractBlockModifier... blockModifiers) {
-        super.setupBlock(amount, amountOfAutoUpgrade, blockModifiers);
+    public static void setupBlock(SuperstitioCard card, int amount, int amountOfAutoUpgrade, AbstractBlockModifier... blockModifiers) {
+        SuperstitioCard.setupBlock(card, amount, amountOfAutoUpgrade, blockModifiers);
         if (blockModifiers == null || blockModifiers.length == 0) {
-            isRemoveDelayHpLoseBlock = true;
-            BlockModifierManager.addModifier(this, new RemoveDelayHpLoseBlock());
+            ifReduceDelayHpLose.set(card, true);
+            BlockModifierManager.addModifier(card, new RemoveDelayHpLoseBlock());
             return;
         }
         if (Arrays.stream(blockModifiers).anyMatch(block -> block instanceof DelayRemoveDelayHpLoseBlock))
-            isDelayRemoveDelayHpLoseBlock = true;
+            ifDelayReduceDelayHpLose.set(card, true);
         if (Arrays.stream(blockModifiers).anyMatch(block -> block instanceof RemoveDelayHpLoseBlock))
-            isRemoveDelayHpLoseBlock = true;
-
+            ifReduceDelayHpLose.set(card, true);
     }
 
-    @Override
-    public void addToBot_gainBlock(int amount) {
-        if (isRemoveDelayHpLoseBlock && isDelayRemoveDelayHpLoseBlock)
+    public static void addToBot_gainBlock(SuperstitioCard card, int amount) {
+        if (ifReduceDelayHpLose.get(card) && ifDelayReduceDelayHpLose.get(card))
             Logger.warning("Maso: Do not use 'addToBot_gainBlock(int amount)' when setup this two block type.");
 
-        if (isRemoveDelayHpLoseBlock) {
+        if (ifReduceDelayHpLose.get(card)) {
             DelayHpLosePower.addToBot_removePower(amount, AbstractDungeon.player, AbstractDungeon.player, true);
             AbstractDungeon.effectList.add(
                     new FlashAtkImgEffect(AbstractDungeon.player.hb.cX, AbstractDungeon.player.hb.cY,
                             AbstractGameAction.AttackEffect.SHIELD));
             return;
         }
-        if (isDelayRemoveDelayHpLoseBlock) {
-            addToBot_applyPower(new DelayRemoveDelayHpLosePower(AbstractDungeon.player, amount));
+        if (ifDelayReduceDelayHpLose.get(card)) {
+            ActionUtility.addToBot_applyPower(new DelayRemoveDelayHpLosePower(AbstractDungeon.player, amount));
             AbstractDungeon.effectList.add(
                     new FlashAtkImgEffect(AbstractDungeon.player.hb.cX, AbstractDungeon.player.hb.cY,
                             AbstractGameAction.AttackEffect.SHIELD));
             return;
         }
-        super.addToBot_gainBlock(amount);
+        SuperstitioCard.addToBot_gainBlock(card, amount);
     }
 
     @Override
-    public void addToBot_gainBlock(int amount, AbstractBlockModifier blockModifier) {
+    public void addToBot_gainCustomBlock(int amount, AbstractBlockModifier blockModifier) {
         if (blockModifier instanceof DelayRemoveDelayHpLoseBlock) {
             addToBot_applyPower(new DelayRemoveDelayHpLosePower(AbstractDungeon.player, amount));
             AbstractDungeon.effectList.add(
@@ -96,6 +95,6 @@ public abstract class MasoCard extends SuperstitioCard implements CardOwnerPlaye
                             AbstractGameAction.AttackEffect.SHIELD));
             return;
         }
-        super.addToBot_gainBlock(amount, blockModifier);
+        super.addToBot_gainCustomBlock(amount, blockModifier);
     }
 }

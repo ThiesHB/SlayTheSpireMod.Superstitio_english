@@ -9,7 +9,7 @@ import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import superstitio.DataManager;
 import superstitio.cards.maso.MasoCard;
-import superstitio.powers.AbstractLupaPower;
+import superstitio.powers.AbstractSuperstitioPower;
 
 
 public class DeathDoor extends MasoCard {
@@ -40,7 +40,7 @@ public class DeathDoor extends MasoCard {
     public void upgradeAuto() {
     }
 
-    public static class DeathDoorPower extends AbstractLupaPower implements OnPlayerDeathPower {
+    public static class DeathDoorPower extends AbstractSuperstitioPower implements OnPlayerDeathPower {
         public static final String POWER_ID = DataManager.MakeTextID(DeathDoorPower.class);
 
         public DeathDoorPower(final AbstractCreature owner, int amount) {
@@ -63,7 +63,7 @@ public class DeathDoor extends MasoCard {
         }
     }
 
-    public static class AtDeathDoor extends AbstractLupaPower {
+    public static class AtDeathDoor extends AbstractSuperstitioPower {
         public static final String POWER_ID = DataManager.MakeTextID(AtDeathDoor.class);
 
         public AtDeathDoor(final AbstractCreature owner) {

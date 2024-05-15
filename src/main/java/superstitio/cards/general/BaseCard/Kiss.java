@@ -4,9 +4,9 @@ import com.megacrit.cardcrawl.actions.AbstractGameAction;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import superstitio.DataManager;
-import superstitio.cards.general.AbstractGeneralCard;
+import superstitio.cards.general.GeneralCard;
 
-public class Kiss extends AbstractGeneralCard {
+public class Kiss extends GeneralCard {
     public static final String ID = DataManager.MakeTextID(Kiss.class);
 
     public static final CardType CARD_TYPE = CardType.ATTACK;

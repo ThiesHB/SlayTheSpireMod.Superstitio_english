@@ -6,15 +6,17 @@ import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import superstitio.DataManager;
-import superstitio.cards.general.AbstractCard_FuckJob;
+import superstitio.cards.SuperstitioCard;
+import superstitio.cards.general.FuckJob_Card;
 import superstitio.delayHpLose.DelayHpLosePatch;
-import superstitio.delayHpLose.DelayHpLosePower;
+import superstitio.delayHpLose.DelayHpLosePower_ApplyOnVictory;
 import superstitio.relics.AbstractLupaRelic;
 import superstitio.utils.ActionUtility;
 
 import static com.megacrit.cardcrawl.dungeons.AbstractDungeon.player;
-import static superstitio.cards.general.AbstractCard_FuckJob.addToTop_gainSexMark_Inside;
-import static superstitio.cards.general.AbstractCard_FuckJob.addToTop_gainSexMark_Outside;
+import static superstitio.DataManager.CanOnlyDamageDamageType.*;
+import static superstitio.cards.general.FuckJob_Card.*;
+import static superstitio.utils.ActionUtility.*;
 
 @AutoAdd.Seen
 public class DevaBody_Lupa extends AbstractLupaRelic {
@@ -31,10 +33,10 @@ public class DevaBody_Lupa extends AbstractLupaRelic {
     public static void SetPlayerImmunity() {
         DelayHpLosePatch.IsImmunityFields.checkShouldImmunity.set(
                 player, ((player, damageInfo, damageAmount) -> {
-                    if (damageInfo.type == DataManager.CanOnlyDamageDamageType.UnBlockAbleDamageType) {
+                    if (damageInfo.type == UnBlockAbleDamageType) {
                         return false;
                     }
-                    ActionUtility.addToTop_applyPower(new DelayHpLosePower(AbstractDungeon.player, damageAmount));
+                    addToTop_applyPower(new DelayHpLosePower_ApplyOnVictory(AbstractDungeon.player, damageAmount));
                     return true;
                 }));
     }
@@ -43,18 +45,18 @@ public class DevaBody_Lupa extends AbstractLupaRelic {
     public void atBattleStart() {
         this.flash();
         this.addToBot(new RelicAboveCreatureAction(AbstractDungeon.player, this));
-        SetPlayerImmunity();
+        DevaBody_Lupa.SetPlayerImmunity();
     }
 
     @Override
     public void onPlayCard(AbstractCard card, AbstractMonster m) {
-        if (card instanceof AbstractCard_FuckJob) {
+        if (card instanceof FuckJob_Card && card instanceof SuperstitioCard) {
             if (card.cardID.contains("Fuck_")) {
-                addToTop_gainSexMark_Inside(card.name);
+                addToTop_Semen_Inside();
                 return;
             }
             if (card.cardID.contains("Job_")) {
-                addToTop_gainSexMark_Outside(((AbstractCard_FuckJob) card).getEXTENDED_DESCRIPTION()[0]);
+                addToTop_Semen_Outside();
             }
         }
     }

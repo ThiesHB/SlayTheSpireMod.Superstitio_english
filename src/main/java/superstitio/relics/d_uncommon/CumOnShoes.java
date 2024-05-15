@@ -7,7 +7,7 @@ import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.powers.AbstractPower;
 import com.megacrit.cardcrawl.powers.DexterityPower;
 import superstitio.DataManager;
-import superstitio.powers.OutsideSemen;
+import superstitio.powers.lupaOnly.OutsideSemen;
 import superstitio.relics.AbstractLupaRelic;
 import superstitio.relics.interFace.Countup;
 import superstitio.utils.ActionUtility;

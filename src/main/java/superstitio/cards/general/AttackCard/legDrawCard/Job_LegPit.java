@@ -8,10 +8,11 @@ import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import superstitio.DataManager;
 import superstitio.InBattleDataManager;
 import superstitio.actions.AutoDoneInstantAction;
-import superstitio.cards.general.AbstractCard_FuckJob;
+import superstitio.cards.general.FuckJob_Card;
+import superstitio.cards.general.GeneralCard;
 import superstitio.powers.SexualHeat;
 
-public class Job_LegPit extends AbstractCard_FuckJob {
+public class Job_LegPit extends GeneralCard implements FuckJob_Card {
     public static final String ID = DataManager.MakeTextID(Job_LegPit.class);
 
     public static final CardType CARD_TYPE = CardType.ATTACK;
@@ -28,6 +29,7 @@ public class Job_LegPit extends AbstractCard_FuckJob {
 
     public Job_LegPit() {
         super(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET);
+        FuckJob_Card.initFuckJobCard(this);
         this.setupDamage(DAMAGE, UPGRADE_DAMAGE);
     }
 

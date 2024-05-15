@@ -7,7 +7,7 @@ import superstitio.actions.AutoDoneInstantAction;
 import superstitio.powers.patchAndInterface.interfaces.OnPostApplyThisPower;
 import superstitio.powers.patchAndInterface.interfaces.orgasm.OnOrgasm_onCheckOrgasm;
 
-public class SexualHeatNeededModifier extends AbstractLupaPower implements OnOrgasm_onCheckOrgasm, OnPostApplyThisPower {
+public class SexualHeatNeededModifier extends AbstractSuperstitioPower implements OnOrgasm_onCheckOrgasm, OnPostApplyThisPower {
     public static final String POWER_ID = DataManager.MakeTextID(SexualHeatNeededModifier.class);
 
     public SexualHeatNeededModifier(final AbstractCreature owner, int amount) {

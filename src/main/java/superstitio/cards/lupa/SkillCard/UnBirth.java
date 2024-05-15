@@ -62,7 +62,7 @@ public class UnBirth extends LupaCard {
                 AutoDoneInstantAction.addToBotAbstract(() -> player.powers.remove(power));
             }
         });
-        addToBot_gainBlock(new PregnantBlock_sealPower(sealPower, player));
+        addToBot_gainCustomBlock(new PregnantBlock_sealPower(sealPower, player));
         this.exhaust = true;
         addToBot_makeTempCardInBattle(new SelfReference(), BattleCardPlace.Hand, upgraded);
 
@@ -78,7 +78,7 @@ public class UnBirth extends LupaCard {
                 AutoDoneInstantAction.addToBotAbstract(() -> monster.powers.remove(power));
             }
         });
-        addToBot_gainBlock(new PregnantBlock_sealPower(sealPower, monster));
+        addToBot_gainCustomBlock(new PregnantBlock_sealPower(sealPower, monster));
         addToBot_makeTempCardInBattle(new GiveBirth(), BattleCardPlace.Discard, upgraded);
     }
 

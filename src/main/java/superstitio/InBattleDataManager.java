@@ -16,6 +16,8 @@ public class InBattleDataManager {
 
     public static int OrgasmTimesInTurn = 0;
 
+    public static int NailExtractionPlayedInTurn = 0;
+
     public static int OrgasmTimesTotal = 0;
     //    public static ArrayList<OrbGroup> orbGroups = new ArrayList<>();
 //    public static ArrayList<BarRenderGroup> barGroups = new ArrayList<>();
@@ -24,7 +26,7 @@ public class InBattleDataManager {
     public static void InitializeAtStartOfBattle() {
         ResetAll();
         Subscribe(new HangUpCardGroup(AbstractDungeon.player.hb));
-        Subscribe(new SexMarkOrbGroup(AbstractDungeon.player.hb));
+//        Subscribe(new SexMarkOrbGroup(AbstractDungeon.player.hb));
         Subscribe(new BarRenderGroup(AbstractDungeon.player));
 //        subscribeManageGroups.forEach(groups -> groups.forEach(InBattleDataManager::trySubScribe));
     }
@@ -38,6 +40,7 @@ public class InBattleDataManager {
         InOrgasm = false;
         OrgasmTimesInTurn = 0;
         OrgasmTimesTotal = 0;
+        NailExtractionPlayedInTurn = 0;
         costMap = new HashMap<>();
         subscribeManageGroups.clear();
     }
@@ -64,6 +67,7 @@ public class InBattleDataManager {
 
     public static void InitializeAtStartOfTurn() {
         OrgasmTimesInTurn = 0;
+        NailExtractionPlayedInTurn = 0;
     }
 
     @SafeVarargs

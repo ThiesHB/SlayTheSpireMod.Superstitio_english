@@ -8,7 +8,7 @@ import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import superstitio.DataManager;
 import superstitio.actions.AutoDoneInstantAction;
 import superstitio.cards.lupa.LupaCard;
-import superstitio.powers.AbstractLupaPower;
+import superstitio.powers.AbstractSuperstitioPower;
 import superstitio.powers.SexualHeat;
 import superstitio.powers.SexualHeatNeededModifier;
 import superstitio.powers.patchAndInterface.interfaces.OnPostApplyThisPower;
@@ -44,7 +44,7 @@ public class ChokeChoker extends LupaCard {
     public void upgradeAuto() {
     }
 
-    public static class ChokeChokerPower extends AbstractLupaPower implements
+    public static class ChokeChokerPower extends AbstractSuperstitioPower implements
             OnOrgasm_onOrgasm, OnPostApplyThisPower {
         public static final String POWER_ID = DataManager.MakeTextID(ChokeChokerPower.class);
         public static final int ChokeAmount = 1;

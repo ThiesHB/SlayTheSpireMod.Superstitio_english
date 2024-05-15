@@ -6,7 +6,7 @@ import com.megacrit.cardcrawl.core.AbstractCreature;
 import superstitio.DataManager;
 import superstitio.actions.AutoDoneInstantAction;
 
-public abstract class AbstractToolPower_RemoveAtStartOfTurn extends AbstractLupaPower implements NonStackablePower, InvisiblePower {
+public abstract class AbstractToolPower_RemoveAtStartOfTurn extends AbstractSuperstitioPower implements NonStackablePower, InvisiblePower {
     public static final String POWER_ID = DataManager.MakeTextID(SexualHeat.class);
 
     public AbstractToolPower_RemoveAtStartOfTurn(final AbstractCreature owner) {

@@ -6,7 +6,7 @@ import javassist.CannotCompileException;
 import javassist.expr.ExprEditor;
 import javassist.expr.FieldAccess;
 import javassist.expr.MethodCall;
-import superstitio.powers.AbstractLupaPower;
+import superstitio.powers.AbstractSuperstitioPower;
 
 public class LoadOutPowerButtonPatch {
     @SpirePatch(
@@ -20,9 +20,9 @@ public class LoadOutPowerButtonPatch {
                 public void edit(FieldAccess m) throws CannotCompileException {
                     if (!m.getFieldName().equals("powerStrings") || !m.isWriter()) return;
                     m.replace("if ( $0.instance instanceof " +
-                            AbstractLupaPower.class.getName() +
+                            AbstractSuperstitioPower.class.getName() +
                             " ) {" +
-                            " $0.powerStrings = (( " + AbstractLupaPower.class.getName() + " ) $0.instance ).powerStrings.getRightVersion() ; " +
+                            " $0.powerStrings = (( " + AbstractSuperstitioPower.class.getName() + " ) $0.instance ).powerStrings.getRightVersion() ; " +
 //                                "superstitio.Logger.temp( $0.instance.description ) ;" +
                             "} else { $proceed($$);}");
                 }
@@ -44,9 +44,9 @@ public class LoadOutPowerButtonPatch {
                     if (!m.getFieldName().equals("name") || !m.isWriter()) return;
                     if (count > 0) return;
                     m.replace("if ( $0.instance instanceof " +
-                            AbstractLupaPower.class.getName() +
+                            AbstractSuperstitioPower.class.getName() +
                             " ) {" +
-                            " $0.name = (( " + AbstractLupaPower.class.getName() + " ) $0.instance ).name ; " +
+                            " $0.name = (( " + AbstractSuperstitioPower.class.getName() + " ) $0.instance ).name ; " +
 //                                "superstitio.Logger.temp( $0.instance.description ) ;" +
                             "} else { $proceed($$);}");
                     count++;
@@ -87,7 +87,7 @@ public class LoadOutPowerButtonPatch {
             return new ExprEditor() {
                 public void edit(MethodCall m) throws CannotCompileException {
                     if (m.getClassName().equals(ReflectionHacks.class.getName()) && m.getMethodName().equals("getPrivateStatic")) {
-                        m.replace("if ( ! " + superstitio.powers.AbstractLupaPower.class.getName() + ".class.isAssignableFrom ( $1 ) )" +
+                        m.replace("if ( ! " + AbstractSuperstitioPower.class.getName() + ".class.isAssignableFrom ( $1 ) )" +
                                 " {  $_ = $proceed($$); } ");
 //                                + "else { SuperstitioMod.Logger.temp( $1.toString() ) ;  }");
 

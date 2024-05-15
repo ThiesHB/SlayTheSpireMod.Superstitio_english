@@ -28,6 +28,7 @@ import java.lang.reflect.Type;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.util.*;
+import java.util.function.BiFunction;
 import java.util.function.Function;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -65,7 +66,7 @@ public class DataManager {
         return getModID() + "Resources/";
     }
 
-    private static String getImgFilesPath(String path) {
+    private static String getImgFolderPath(String path) {
         String allLevelPath = getResourcesFilesPath() + "img" + path;
         String noGuroLevelPath = getResourcesFilesPath() + "imgNoGuro" + path;
         String sfwLevelPath = getResourcesFilesPath() + "imgSFW" + path;
@@ -77,66 +78,61 @@ public class DataManager {
         }
         else
             return sfwLevelPath;
-
-
-//        switch (SuperstitioModSetup.sexLevel) {
-//            case ALL:
-//                if (Gdx.files.internal(allLevelPath).exists())
-//                    return allLevelPath;
-//                if (Gdx.files.internal(noGuroLevelPath).exists())
-//                    return noGuroLevelPath;
-//                return sfwLevelPath;
-//            case NO_GURO:
-//                if (Gdx.files.internal(noGuroLevelPath).exists())
-//                    return noGuroLevelPath;
-//                return sfwLevelPath;
-//            case SFW:
-//            default:
-//                return sfwLevelPath;
-//        }
     }
 
-    public static String makeImgFilesPath(String... resourcePaths) {
-        return getImgFilesPath(makeTotalString(resourcePaths) + ".png");
+    public static String makeImgFilesPath(String fileName, String... folderPaths) {
+        return getImgFolderPath(makeFolderTotalString(folderPaths)) + "/" + fileName + ".png";
     }
 
-    public static String makeTotalString(String... strings) {
+    public static String makeFolderTotalString(String... strings) {
+        if (strings.length == 0) return "";
         StringBuilder totalString = new StringBuilder();
         for (String string : strings)
             totalString.append("/").append(string);
         return totalString.toString();
     }
 
-    public static String makeImgFilesPath_Card(String... resourcePaths) {
-        return makeImgFilesPath("cards", makeTotalString(resourcePaths));
+    public static String[] getCardsFolderName() {
+        return new String[]{"General", "Lupa", "Maso"};
     }
 
-    public static String makeImgFilesPath_Relic(String... resourcePaths) {
-        return makeImgFilesPath("relics", makeTotalString(resourcePaths));
+    public static String makeImgFilesPath_Card(String fileName, String... folderPaths) {
+        FileHandle find = Arrays.stream(getCardsFolderName())
+                .map(folder -> Gdx.files.internal(makeImgFilesPath(fileName, "cards", folder, makeFolderTotalString(folderPaths))))
+                .filter(FileHandle::exists).findAny().orElse(null);
+
+        if (find == null) return makeImgFilesPath("default", "cards");
+        return find.path();
+
+//        return makeImgFilesPath(fileName, "cards", makeFolderTotalString(folderPaths));
     }
 
-    public static String makeImgFilesPath_UI(String... resourcePaths) {
-        return makeImgFilesPath("UI", makeTotalString(resourcePaths));
+    public static String makeImgFilesPath_Relic(String fileName, String... folderPaths) {
+        return makeImgFilesPath(fileName, "relics", makeFolderTotalString(folderPaths));
     }
 
-    public static String makeImgFilesPath_Character_Lupa(String... resourcePaths) {
-        return makeImgFilesPath("character_lupa", makeTotalString(resourcePaths));
+    public static String makeImgFilesPath_UI(String fileName, String... folderPaths) {
+        return makeImgFilesPath(fileName, "UI", makeFolderTotalString(folderPaths));
     }
 
-    public static String makeImgFilesPath_RelicOutline(String... resourcePaths) {
-        return makeImgFilesPath("relics/outline", makeTotalString(resourcePaths));
+    public static String makeImgFilesPath_Character_Lupa(String fileName, String... folderPaths) {
+        return makeImgFilesPath(fileName, "character_lupa", makeFolderTotalString(folderPaths));
     }
 
-    public static String makeImgFilesPath_Orb(String... resourcePaths) {
-        return makeImgFilesPath("orbs", makeTotalString(resourcePaths));
+    public static String makeImgFilesPath_RelicOutline(String fileName, String... folderPaths) {
+        return makeImgFilesPath(fileName, "relics/outline", makeFolderTotalString(folderPaths));
     }
 
-    public static String makeImgFilesPath_Power(String... resourcePaths) {
-        return makeImgFilesPath("powers", makeTotalString(resourcePaths));
+    public static String makeImgFilesPath_Orb(String fileName, String... folderPaths) {
+        return makeImgFilesPath(fileName, "orbs", makeFolderTotalString(folderPaths));
     }
 
-    public static String makeImgFilesPath_Event(String... resourcePaths) {
-        return makeImgFilesPath("events", makeTotalString(resourcePaths));
+    public static String makeImgFilesPath_Power(String fileName, String... folderPaths) {
+        return makeImgFilesPath(fileName, "powers", makeFolderTotalString(folderPaths));
+    }
+
+    public static String makeImgFilesPath_Event(String fileName, String... folderPaths) {
+        return makeImgFilesPath(fileName, "events", makeFolderTotalString(folderPaths));
     }
 
 
@@ -210,14 +206,39 @@ public class DataManager {
         return complexIds;
     }
 
-    public static String makeImgPath(String defaultFileName, Function<String[], String> PathFinder, String... fileName) {
+    //桌面应用不支持列出internal Files的目录
+    //    public static FileHandle tryMatchFileInFolder(String folderPath, String fileName, int depth) {
+    //        if (depth >= 5) return null;
+    //
+    //          if (Gdx.files.internal(folderPath).file().isFile()) return null;
+    //        for (FileHandle fileHandle : Gdx.files.internal(folderPath).list()) {
+    //            Logger.temp(fileHandle.path());
+    //            if (Objects.equals(fileHandle.nameWithoutExtension(), fileName))
+    //                return fileHandle;
+    //            else {
+    //                FileHandle find = tryMatchFileInFolder(fileHandle.path(), fileName, depth + 1);
+    //                if (find != null)
+    //                    return find;
+    //            }
+    //        }
+    //        return null;
+    //
+
+    public static String makeImgPath(String defaultFileName, BiFunction<String, String[], String> PathFinder, String fileName, String... folderPath) {
         String path;
-        path = PathFinder.apply(DataManager.getIdOnly(fileName));
+        String idOnlyNames = DataManager.getIdOnly(fileName);
+        path = PathFinder.apply(idOnlyNames, folderPath);
+
         if (Gdx.files.internal(path).exists())
             return path;
 
-        final String defaultPath = PathFinder.apply(new String[]{defaultFileName});
-        Logger.warning("Can't find " + Arrays.toString(DataManager.getIdOnly(fileName)) + ". Use default img instead.");
+//        String majorFolderPath = PathFinder.apply("", new String[]{});
+//        FileHandle findFile = tryMatchFileInFolder(majorFolderPath, fileName, 0);
+//        if (findFile != null) return findFile.path();
+//
+
+        final String defaultPath = PathFinder.apply(defaultFileName, folderPath);
+        Logger.warning("Can't find " + path + ". Use default img instead.");
 
 //        if (Objects.equals(System.getenv().get("USERNAME"), "27435"))
 //            makeNeedDrawPicture(defaultFileName, PathFinder, fileName, defaultPath);
@@ -341,17 +362,17 @@ public class DataManager {
         // 小尺寸的能量图标（战斗中，牌堆预览）
         public String ENERGY_ORB = makeImgFilesPath_Character_Lupa("cost_orb");
         // 攻击牌的背景（小尺寸）
-        public String BG_ATTACK_512 = makeImgFilesPath("512", "bg_attack_512");
+        public String BG_ATTACK_512 = makeImgFilesPath("bg_attack_512", "512");
         // 能力牌的背景（小尺寸）
-        public String BG_POWER_512 = makeImgFilesPath("512", "bg_power_512");
+        public String BG_POWER_512 = makeImgFilesPath("bg_power_512", "512");
         // 技能牌的背景（小尺寸）
-        public String BG_SKILL_512 = makeImgFilesPath("512", "bg_skill_512");
+        public String BG_SKILL_512 = makeImgFilesPath("bg_skill_512", "512");
         // 攻击牌的背景（大尺寸）
-        public String BG_ATTACK_1024 = makeImgFilesPath("1024", "bg_attack");
+        public String BG_ATTACK_1024 = makeImgFilesPath("bg_attack", "1024");
         // 能力牌的背景（大尺寸）
-        public String BG_POWER_1024 = makeImgFilesPath("1024", "bg_power");
+        public String BG_POWER_1024 = makeImgFilesPath("bg_power", "1024");
         // 技能牌的背景（大尺寸）
-        public String BG_SKILL_1024 = makeImgFilesPath("1024", "bg_skill");
+        public String BG_SKILL_1024 = makeImgFilesPath("bg_skill", "1024");
         //选英雄界面的角色图标、选英雄时的背景图片
         public String LUPA_CHARACTER_BUTTON = makeImgFilesPath_Character_Lupa("Character_Button");
         // 人物选择界面的立绘

@@ -52,7 +52,10 @@ public class DelayHpLosePatch {
 
     @SpirePatch(clz = AbstractCard.class, method = "<class>")
     public static class GainBlockTypeFields {
-        public static SpireField<Boolean> ifTransGainBlockToReduceDelayHpLose =
+        public static SpireField<Boolean> ifReduceDelayHpLose =
+                (SpireField<Boolean>) new SpireField(() -> false);
+
+        public static SpireField<Boolean> ifDelayReduceDelayHpLose =
                 (SpireField<Boolean>) new SpireField(() -> false);
 
     }

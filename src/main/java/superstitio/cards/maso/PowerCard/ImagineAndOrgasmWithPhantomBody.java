@@ -1,0 +1,70 @@
+package superstitio.cards.maso.PowerCard;
+
+import com.megacrit.cardcrawl.actions.common.ExhaustSpecificCardAction;
+import com.megacrit.cardcrawl.cards.AbstractCard;
+import com.megacrit.cardcrawl.characters.AbstractPlayer;
+import com.megacrit.cardcrawl.core.AbstractCreature;
+import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
+import com.megacrit.cardcrawl.monsters.AbstractMonster;
+import superstitio.DataManager;
+import superstitio.cards.general.TempCard.FeelPhantomBody;
+import superstitio.cards.maso.MasoCard;
+import superstitio.powers.AbstractSuperstitioPower;
+
+import static superstitio.utils.ActionUtility.*;
+
+
+public class ImagineAndOrgasmWithPhantomBody extends MasoCard {
+    public static final String ID = DataManager.MakeTextID(ImagineAndOrgasmWithPhantomBody.class);
+
+    public static final CardType CARD_TYPE = CardType.POWER;
+
+    public static final CardRarity CARD_RARITY = CardRarity.RARE;
+
+    public static final CardTarget CARD_TARGET = CardTarget.SELF;
+
+    private static final int COST = 3;
+
+    private static final int MAGIC = 6;
+    private static final int UPGRADE_MAGIC = -2;
+
+    public ImagineAndOrgasmWithPhantomBody() {
+        super(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET);
+        this.setupMagicNumber(MAGIC, UPGRADE_MAGIC);
+    }
+
+    @Override
+    public void use(AbstractPlayer player, AbstractMonster monster) {
+        addToBot_applyPower(new ImagineAndOrgasmWithPhantomBodyPower(player));
+    }
+
+    @Override
+    public void upgradeAuto() {
+    }
+
+    public static class ImagineAndOrgasmWithPhantomBodyPower extends AbstractSuperstitioPower {
+        public static final String POWER_ID = DataManager.MakeTextID(ImagineAndOrgasmWithPhantomBodyPower.class);
+
+        public ImagineAndOrgasmWithPhantomBodyPower(final AbstractCreature owner) {
+            super(POWER_ID, owner, -1);
+        }
+
+
+        @Override
+        public void onCardDraw(AbstractCard card) {
+            super.onCardDraw(card);
+            if (card.canUse(AbstractDungeon.player, null)) return;
+            //不是因为能量不够或者对象不对而无法打出
+            if (!(card.cardPlayable(null) && card.hasEnoughEnergy())) return;
+
+            addToBot(new ExhaustSpecificCardAction(card, AbstractDungeon.player.hand));
+            addToBot_makeTempCardInBattle(new FeelPhantomBody(), BattleCardPlace.Hand);
+        }
+
+        @Override
+        public void updateDescriptionArgs() {
+
+        }
+    }
+}
+

@@ -6,11 +6,12 @@ import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import com.megacrit.cardcrawl.powers.FrailPower;
 import superstitio.DataManager;
-import superstitio.cards.general.AbstractCard_FuckJob;
-import superstitio.cards.general.AttackCard.headTempCard.Fuck_Eye;
+import superstitio.cards.general.AbstractTempCard;
+import superstitio.cards.general.FuckJob_Card;
+import superstitio.cards.maso.AttackCard.Fuck_Eye;
 import superstitio.utils.ActionUtility;
 
-public class Fuck_Ear extends AbstractCard_FuckJob {
+public class Fuck_Ear extends AbstractTempCard implements FuckJob_Card {
     public static final String ID = DataManager.MakeTextID(Fuck_Ear.class);
 
     public static final CardType CARD_TYPE = CardType.ATTACK;
@@ -29,7 +30,8 @@ public class Fuck_Ear extends AbstractCard_FuckJob {
     }
 
     public Fuck_Ear(boolean blank) {
-        super(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET, DataManager.SPTT_DATA.TempCardEnums.TempCard_CARD, "special");
+        super(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET);
+        FuckJob_Card.initFuckJobCard(this);
         this.setupDamage(DAMAGE, UPGRADE_DAMAGE);
         this.exhaust = true;
     }

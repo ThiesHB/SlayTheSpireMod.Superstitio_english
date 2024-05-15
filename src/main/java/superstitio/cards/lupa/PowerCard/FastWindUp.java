@@ -7,7 +7,7 @@ import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import superstitio.DataManager;
 import superstitio.cards.lupa.LupaCard;
 import superstitio.orbs.CardOrb_CardTrigger;
-import superstitio.powers.AbstractLupaPower;
+import superstitio.powers.AbstractSuperstitioPower;
 import superstitio.powers.SexualHeat;
 import superstitio.powers.patchAndInterface.interfaces.orgasm.OnOrgasm_onOrgasm;
 
@@ -43,7 +43,7 @@ public class FastWindUp extends LupaCard {
         upgradeBaseCost(COST_UPGRADED_NEW);
     }
 
-    public static class FastWindUpPower extends AbstractLupaPower implements OnOrgasm_onOrgasm {
+    public static class FastWindUpPower extends AbstractSuperstitioPower implements OnOrgasm_onOrgasm {
         public static final String POWER_ID = DataManager.MakeTextID(FastWindUpPower.class);
 
         public FastWindUpPower(final AbstractCreature owner, int amount) {

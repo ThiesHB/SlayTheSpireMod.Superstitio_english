@@ -1,5 +1,6 @@
 package superstitio.utils;
 
+import com.megacrit.cardcrawl.actions.AbstractGameAction;
 import com.megacrit.cardcrawl.actions.common.*;
 import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.core.AbstractCreature;
@@ -115,6 +116,10 @@ public class ActionUtility {
 
     public static void addEffect(final AbstractGameEffect effect) {
         AbstractDungeon.effectList.add(effect);
+    }
+
+    public static void addToBot(AbstractGameAction action) {
+        AbstractDungeon.actionManager.addToBottom(action);
     }
 
     public interface VoidSupplier {

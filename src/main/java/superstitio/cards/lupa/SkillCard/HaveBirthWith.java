@@ -58,12 +58,12 @@ public class HaveBirthWith extends LupaCard {
                 AutoDoneInstantAction.addToBotAbstract(() -> player.powers.remove(power));
             }
         });
-        addToBot_gainBlock(new PregnantBlock_sealPower(sealPower, player));
+        addToBot_gainCustomBlock(new PregnantBlock_sealPower(sealPower, player));
         addToBot_makeTempCardInBattle(new SelfReference(), BattleCardPlace.Discard, upgraded);
     }
 
     private void ForMonster(AbstractMonster monster) {
-        addToBot_gainBlock(new PregnantBlock_chooseEffect(monster, () -> {
+        addToBot_gainCustomBlock(new PregnantBlock_chooseEffect(monster, () -> {
         }, () -> {
 
         }));

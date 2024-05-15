@@ -44,24 +44,26 @@ public abstract class LupaCard extends SuperstitioCard implements IsLupaCard {
         super(id, cardType, cost, cardRarity, cardTarget, cardColor, imgSubFolder);
     }
 
-    @Override
-    protected final void setupBlock(int amount, int amountOfAutoUpgrade, AbstractBlockModifier... blockModifiers) {
-        super.setupBlock(amount, amountOfAutoUpgrade, blockModifiers);
+    public static void setupBlock(SuperstitioCard card, int amount, int amountOfAutoUpgrade, AbstractBlockModifier... blockModifiers) {
+        SuperstitioCard.setupBlock(card, amount, amountOfAutoUpgrade, blockModifiers);
         if (blockModifiers == null || blockModifiers.length == 0) return;
         if (Arrays.stream(blockModifiers).anyMatch(blockModifier -> blockModifier instanceof RemoveDelayHpLoseBlock)) {
-            DelayHpLosePatch.GainBlockTypeFields.ifTransGainBlockToReduceDelayHpLose.set(this, true);
+            DelayHpLosePatch.GainBlockTypeFields.ifReduceDelayHpLose.set(card, true);
         }
     }
 
-    @Override
-    public final void addToBot_gainBlock(int amount) {
-        if (DelayHpLosePatch.GainBlockTypeFields.ifTransGainBlockToReduceDelayHpLose.get(this)) {
+    public static void addToBot_gainBlock(SuperstitioCard card, int amount) {
+        if (DelayHpLosePatch.GainBlockTypeFields.ifReduceDelayHpLose.get(card)) {
             DelayHpLosePower.addToBot_removePower(amount, AbstractDungeon.player, AbstractDungeon.player, true);
             AbstractDungeon.effectList.add(
                     new FlashAtkImgEffect(AbstractDungeon.player.hb.cX, AbstractDungeon.player.hb.cY,
                             AbstractGameAction.AttackEffect.SHIELD));
         }
         else
-            super.addToBot_gainBlock(amount);
+            SuperstitioCard.addToBot_gainBlock(card, amount);
+    }
+
+    protected void useSemen() {
+
     }
 }

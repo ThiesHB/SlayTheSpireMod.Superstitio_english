@@ -21,6 +21,10 @@ import com.megacrit.cardcrawl.powers.AbstractPower;
 import superstitio.DataManager;
 import superstitio.InBattleDataManager;
 import superstitio.Logger;
+import superstitio.cards.lupa.LupaCard;
+import superstitio.cards.maso.MasoCard;
+import superstitio.characters.Lupa;
+import superstitio.characters.Maso;
 import superstitio.customStrings.CardStringsWithFlavorSet;
 import superstitio.customStrings.HasSFWVersion;
 import superstitio.utils.ActionUtility;
@@ -32,6 +36,7 @@ import java.util.stream.Collectors;
 
 import static com.megacrit.cardcrawl.actions.AbstractGameAction.AttackEffect;
 import static com.megacrit.cardcrawl.cards.DamageInfo.DamageType;
+import static superstitio.cards.CardOwnerPlayerManager.getCardClass;
 import static superstitio.cards.CardOwnerPlayerManager.getImgPath;
 
 public abstract class SuperstitioCard extends CustomCard implements updateDescriptionAdvanced {
@@ -45,14 +50,10 @@ public abstract class SuperstitioCard extends CustomCard implements updateDescri
 
     public SuperstitioCard(String id, CardType cardType, int cost, CardRarity cardRarity, CardTarget cardTarget, CardColor cardColor,
                            String imgSubFolder) {
-        super(id, getCardStringsWithSFWAndFlavor(id).getNAME(), (String) null, cost,
+        super(id, getCardStringsWithSFWAndFlavor(id).getNAME(), getImgPath(imgSubFolder, id), cost,
                 getCardStringsWithSFWAndFlavor(id).getDESCRIPTION(), cardType, cardColor, cardRarity, cardTarget);
         Logger.debug("loadCard" + id);
         this.cardStrings = getCardStringsWithSFWAndFlavor(id);
-        this.textureImg = getImgPath(this, imgSubFolder, id);
-        if (textureImg != null) {
-            this.loadCardImage(textureImg);
-        }
         FlavorText.AbstractCardFlavorFields.flavor.set(this, this.cardStrings.getFLAVOR());
         FlavorText.AbstractCardFlavorFields.textColor.set(this, Color.PINK.cpy());
         FlavorText.AbstractCardFlavorFields.flavorBoxType.set(this, FlavorText.boxType.TRADITIONAL);
@@ -89,6 +90,19 @@ public abstract class SuperstitioCard extends CustomCard implements updateDescri
             }
         }
         return type;
+    }
+
+    protected static void setupBlock(SuperstitioCard card, final int amount, int amountOfAutoUpgrade, AbstractBlockModifier... blockModifiers) {
+        card.baseBlock = amount;
+        card.block = amount;
+        card.blockAutoUpgrade = amountOfAutoUpgrade;
+        if (blockModifiers == null || blockModifiers.length == 0) return;
+        BlockModifierManager.addModifiers(card, (ArrayList<AbstractBlockModifier>)
+                Arrays.stream(blockModifiers).collect(Collectors.toList()));
+    }
+
+    public static void addToBot_gainBlock(SuperstitioCard card, final int amount) {
+        card.addToBot(new GainBlockAction(AbstractDungeon.player, amount));
     }
 
     public String makeFormatDESCRIPTION() {
@@ -170,12 +184,16 @@ public abstract class SuperstitioCard extends CustomCard implements updateDescri
         setupBlock(amount, 0, blockModifiers);
     }
 
-    protected void setupBlock(final int amount, int amountOfAutoUpgrade, AbstractBlockModifier... blockModifiers) {
-        this.baseBlock = amount;
-        this.block = amount;
-        this.blockAutoUpgrade = amountOfAutoUpgrade;
-        if (blockModifiers == null || blockModifiers.length == 0) return;
-        BlockModifierManager.addModifiers(this, (ArrayList<AbstractBlockModifier>) Arrays.stream(blockModifiers).collect(Collectors.toList()));
+    protected final void setupBlock(final int amount, int amountOfAutoUpgrade, AbstractBlockModifier... blockModifiers) {
+        if (getCardClass(this).equalsIgnoreCase(DataManager.getIdOnly(Lupa.ID))) {
+            LupaCard.setupBlock(this, amount, amountOfAutoUpgrade, blockModifiers);
+            return;
+        }
+        if (getCardClass(this).equalsIgnoreCase(DataManager.getIdOnly(Maso.ID))) {
+            MasoCard.setupBlock(this, amount, amountOfAutoUpgrade, blockModifiers);
+            return;
+        }
+        MasoCard.setupBlock(this, amount, amountOfAutoUpgrade, blockModifiers);
     }
 
     protected final void setupMagicNumber(final int amount) {
@@ -225,15 +243,25 @@ public abstract class SuperstitioCard extends CustomCard implements updateDescri
         this.addToBot_gainBlock(this.block);
     }
 
-    public void addToBot_gainBlock(final int amount) {
-        this.addToBot(new GainBlockAction(AbstractDungeon.player, amount));
+    public final void addToBot_gainBlock(final int amount) {
+//        if (AbstractDungeon.player != null) {
+//            if (AbstractDungeon.player instanceof Lupa && CardOwnerPlayerManager.isLupaCard(this)) {
+//                LupaCard.addToBot_gainBlock(this, amount);
+//                return;
+//            }
+//            if (AbstractDungeon.player instanceof Maso && CardOwnerPlayerManager.isMasoCard(this)) {
+//                MasoCard.addToBot_gainBlock(this, amount);
+//                return;
+//            }
+//        }
+        MasoCard.addToBot_gainBlock(this, amount);
     }
 
-    public final void addToBot_gainBlock(AbstractBlockModifier blockModifier) {
-        this.addToBot_gainBlock(this.block, blockModifier);
+    public final void addToBot_gainCustomBlock(AbstractBlockModifier blockModifier) {
+        this.addToBot_gainCustomBlock(this.block, blockModifier);
     }
 
-    public void addToBot_gainBlock(final int amount, AbstractBlockModifier blockModifier) {
+    public void addToBot_gainCustomBlock(final int amount, AbstractBlockModifier blockModifier) {
         this.addToBot(new GainCustomBlockAction(new BlockModContainer(this, blockModifier), AbstractDungeon.player, amount));
     }
 
@@ -275,10 +303,7 @@ public abstract class SuperstitioCard extends CustomCard implements updateDescri
     public abstract void use(AbstractPlayer player, AbstractMonster monster);
 
     public enum BattleCardPlace {
-        Hand, DrawPile, Discard;
-
-        BattleCardPlace() {
-        }
+        Hand, DrawPile, Discard
     }
 
 }
