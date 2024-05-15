@@ -2,11 +2,9 @@ package superstitio.cards.maso;
 
 import com.evacipated.cardcrawl.mod.stslib.blockmods.AbstractBlockModifier;
 import com.evacipated.cardcrawl.mod.stslib.blockmods.BlockModifierManager;
-import com.evacipated.cardcrawl.mod.stslib.damagemods.DamageModifierManager;
 import com.megacrit.cardcrawl.actions.AbstractGameAction;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.vfx.combat.FlashAtkImgEffect;
-import jdk.nashorn.internal.ir.Block;
 import superstitio.Logger;
 import superstitio.cards.CardOwnerPlayerManager;
 import superstitio.cards.SuperstitioCard;

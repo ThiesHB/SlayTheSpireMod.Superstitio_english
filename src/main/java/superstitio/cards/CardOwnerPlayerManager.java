@@ -6,10 +6,10 @@ import superstitio.DataManager;
 public class CardOwnerPlayerManager {
     public static String getImgPath(AbstractCard card, final String tag, final String id) {
         if (card instanceof IsLupaCard)
-            return DataManager.makeImgPath("default", DataManager::makeImgFilesPath_Card,"Lupa", tag, id);
+            return DataManager.makeImgPath("default", DataManager::makeImgFilesPath_Card, "Lupa", tag, id);
         if (card instanceof IsMasoCard)
-            return DataManager.makeImgPath("default", DataManager::makeImgFilesPath_Card,"Maso", tag, id);
-        return DataManager.makeImgPath("default", DataManager::makeImgFilesPath_Card,"General", tag, id);
+            return DataManager.makeImgPath("default", DataManager::makeImgFilesPath_Card, "Maso", tag, id);
+        return DataManager.makeImgPath("default", DataManager::makeImgFilesPath_Card, "General", tag, id);
     }
 
     public static boolean isLupaCard(AbstractCard card) {
