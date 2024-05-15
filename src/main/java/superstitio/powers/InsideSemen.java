@@ -7,9 +7,9 @@ import com.megacrit.cardcrawl.powers.AbstractPower;
 import superstitio.DataManager;
 import superstitio.actions.AutoDoneInstantAction;
 import superstitio.powers.patchAndInterface.barIndepend.HasBarRenderOnCreature_Power;
+import superstitio.powers.patchAndInterface.interfaces.OnPostApplyThisPower;
 import superstitio.powers.patchAndInterface.interfaces.invisible.InvisiblePower_InvisibleIconAndAmount;
 import superstitio.powers.patchAndInterface.interfaces.invisible.InvisiblePower_InvisibleTips;
-import superstitio.powers.patchAndInterface.interfaces.OnPostApplyThisPower;
 import superstitio.utils.PowerUtility;
 
 public class InsideSemen extends AbstractLupaPower implements OnPostApplyThisPower,

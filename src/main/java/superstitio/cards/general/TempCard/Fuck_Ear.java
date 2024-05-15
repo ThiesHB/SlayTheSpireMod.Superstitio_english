@@ -40,7 +40,7 @@ public class Fuck_Ear extends AbstractCard_FuckJob {
         addToBot_dealDamage(monster, AbstractGameAction.AttackEffect.BLUNT_LIGHT);
         ActionUtility.addToBot_makeTempCardInBattle(new Fuck_Eye(), BattleCardPlace.Hand, this.upgraded);
         addToBot_applyPower(new FrailPower(AbstractDungeon.player, 1, false));
-        
+
     }
 
 //    @Override

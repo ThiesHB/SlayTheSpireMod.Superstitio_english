@@ -55,7 +55,6 @@ public class DevaBody_Lupa extends AbstractLupaRelic {
             }
             if (card.cardID.contains("Job_")) {
                 addToTop_gainSexMark_Outside(((AbstractCard_FuckJob) card).getEXTENDED_DESCRIPTION()[0]);
-                return;
             }
         }
     }

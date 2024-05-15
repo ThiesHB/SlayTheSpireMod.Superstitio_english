@@ -136,7 +136,8 @@ public class BarRenderOnCreature {
             if (this.healthHideTimer < 0.2F) {
                 this.healthHideTimer = 0.2F;
             }
-        } else {
+        }
+        else {
             this.healthHideTimer += Gdx.graphics.getDeltaTime() * 4.0F;
             if (this.healthHideTimer > 1.0F) {
                 this.healthHideTimer = 1.0F;

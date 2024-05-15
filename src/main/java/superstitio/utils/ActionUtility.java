@@ -64,7 +64,7 @@ public class ActionUtility {
     }
 
     public static AbstractMonster getRandomMonsterWithoutRng() {
-        final AbstractMonster m = currMapNode.room.monsters.getRandomMonster((AbstractMonster) null, true, new Random());
+        final AbstractMonster m = currMapNode.room.monsters.getRandomMonster(null, true, new Random());
         if (m != null && !m.isDeadOrEscaped() && !m.isDead) {
             return m;
         }

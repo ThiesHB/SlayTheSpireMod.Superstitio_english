@@ -62,7 +62,7 @@ public class Job_Hair extends AbstractCard_FuckJob implements GoSomewhereElseAft
     public void afterInterruptMoveToCardGroup(CardGroup cardGroup) {
         Job_Hair job_hair = this.makeCardCopyWithDamageDecrease();
         HangUpCardGroup.addToBot_AddCardOrbToOrbGroup(
-                new CardOrb_WaitCardTrigger(this,cardGroup, (orb, card) -> {
+                new CardOrb_WaitCardTrigger(this, cardGroup, (orb, card) -> {
                     orb.StartHitCreature(AbstractDungeon.player);
                     ActionUtility.addToBot_makeTempCardInBattle(job_hair, BattleCardPlace.Hand, this.upgraded);
                 }, this.magicNumber)

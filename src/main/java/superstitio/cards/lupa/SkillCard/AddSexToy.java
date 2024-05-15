@@ -3,8 +3,8 @@ package superstitio.cards.lupa.SkillCard;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import superstitio.DataManager;
-import superstitio.cards.lupa.LupaCard;
 import superstitio.cards.general.TempCard.SexToy;
+import superstitio.cards.lupa.LupaCard;
 import superstitio.utils.ActionUtility;
 
 public class AddSexToy extends LupaCard {

@@ -6,9 +6,9 @@ import com.megacrit.cardcrawl.actions.AbstractGameAction;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import superstitio.DataManager;
-import superstitio.cards.general.AbstractTempCard;
 import superstitio.cardModifier.modifiers.block.DrySemenBlock;
 import superstitio.cardModifier.modifiers.damage.SexDamage;
+import superstitio.cards.general.AbstractTempCard;
 import superstitio.utils.CardUtility;
 
 public class GangBang extends AbstractTempCard {

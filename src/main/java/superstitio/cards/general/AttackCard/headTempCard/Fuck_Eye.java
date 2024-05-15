@@ -7,7 +7,6 @@ import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import com.megacrit.cardcrawl.powers.WeakPower;
 import superstitio.DataManager;
-import superstitio.cards.CardOwnerPlayerManager;
 import superstitio.cards.general.AbstractCard_FuckJob;
 import superstitio.cards.general.TempCard.Fuck_Ear;
 import superstitio.cards.patch.GoSomewhereElseAfterUse;
@@ -16,9 +15,9 @@ import superstitio.orbs.CardOrb_WaitCardTrigger;
 import superstitio.orbs.orbgroup.HangUpCardGroup;
 import superstitio.utils.ActionUtility;
 
-import static superstitio.cards.CardOwnerPlayerManager.*;
+import static superstitio.cards.CardOwnerPlayerManager.IsNotLupaCard;
 
-public class Fuck_Eye extends AbstractCard_FuckJob implements GoSomewhereElseAfterUse , IsNotLupaCard {
+public class Fuck_Eye extends AbstractCard_FuckJob implements GoSomewhereElseAfterUse, IsNotLupaCard {
     public static final String ID = DataManager.MakeTextID(Fuck_Eye.class);
 
     public static final CardType CARD_TYPE = CardType.ATTACK;
@@ -52,7 +51,7 @@ public class Fuck_Eye extends AbstractCard_FuckJob implements GoSomewhereElseAft
         addToBot_dealDamage(monster, AbstractGameAction.AttackEffect.BLUNT_LIGHT);
         addToBot_dealDamage(monster, AbstractGameAction.AttackEffect.BLUNT_LIGHT);
         addToBot_applyPower(new WeakPower(AbstractDungeon.player, 1, false));
-        
+
     }
 
     @Override
@@ -63,7 +62,7 @@ public class Fuck_Eye extends AbstractCard_FuckJob implements GoSomewhereElseAft
     @Override
     public void afterInterruptMoveToCardGroup(CardGroup cardGroup) {
         HangUpCardGroup.addToBot_AddCardOrbToOrbGroup(
-                new CardOrb_WaitCardTrigger(this,cardGroup, (orb, card) -> {
+                new CardOrb_WaitCardTrigger(this, cardGroup, (orb, card) -> {
                     orb.StartHitCreature(AbstractDungeon.player);
                     addToBot_gainBlock();
                     ActionUtility.addToBot_makeTempCardInBattle(new Fuck_Ear(), BattleCardPlace.Hand, this.upgraded);

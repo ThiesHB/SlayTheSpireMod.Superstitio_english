@@ -1,6 +1,5 @@
 package superstitio.powers;
 
-import basemod.ReflectionHacks;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.evacipated.cardcrawl.mod.stslib.powers.interfaces.HealthBarRenderPower;
@@ -8,7 +7,6 @@ import com.megacrit.cardcrawl.actions.AbstractGameAction;
 import com.megacrit.cardcrawl.actions.common.LoseHPAction;
 import com.megacrit.cardcrawl.core.AbstractCreature;
 import superstitio.DataManager;
-import superstitio.delayHpLose.DelayHpLosePower;
 import superstitio.powers.patchAndInterface.interfaces.DecreaseHealthBarNumberPower;
 
 public class SexualDamage extends AbstractLupaPower implements HealthBarRenderPower, DecreaseHealthBarNumberPower {

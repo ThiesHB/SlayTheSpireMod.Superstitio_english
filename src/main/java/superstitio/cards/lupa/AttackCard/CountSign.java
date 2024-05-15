@@ -63,6 +63,7 @@ public class CountSign extends LupaCard {
 //            this.isDamageModified = true;
         this.baseDamage = this.getOriginDamage() + damageUp;
     }
+
     @Override
     public void use(final AbstractPlayer player, final AbstractMonster monster) {
         updateDamage();

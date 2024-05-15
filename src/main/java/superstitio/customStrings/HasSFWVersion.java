@@ -26,7 +26,8 @@ public interface HasSFWVersion {
     static <T extends HasSFWVersion> T getCustomStringsWithSFW(String keyName, Map<String, T> stringTMap, Class<T> tClass) {
         if (stringTMap.containsKey(keyName)) {
             return stringTMap.get(keyName);
-        } else {
+        }
+        else {
             Logger.warning(tClass.getSimpleName() + ": " + keyName + " not found");
             try {
                 T customStringsWithSFW = tClass.newInstance();

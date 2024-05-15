@@ -92,6 +92,7 @@ public abstract class SuperstitioCard extends CustomCard implements updateDescri
     }
 
     public String makeFormatDESCRIPTION() {
+        if (descriptionArgs == null) return getDescriptionStrings();
         return String.format(getDescriptionStrings(), descriptionArgs);
     }
 

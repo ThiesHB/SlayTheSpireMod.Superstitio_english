@@ -5,8 +5,8 @@ import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import superstitio.DataManager;
-import superstitio.cards.lupa.LupaCard;
 import superstitio.cardModifier.modifiers.block.SexBlock;
+import superstitio.cards.lupa.LupaCard;
 
 public class CutWrist extends LupaCard {
     public static final String ID = DataManager.MakeTextID(CutWrist.class);
@@ -25,7 +25,7 @@ public class CutWrist extends LupaCard {
     public CutWrist() {
         super(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET);
         this.setupMagicNumber(MAGIC);
-        this.setupBlock(BLOCK,UPGRADE_BLOCK,new SexBlock());
+        this.setupBlock(BLOCK, UPGRADE_BLOCK, new SexBlock());
     }
 
     @Override

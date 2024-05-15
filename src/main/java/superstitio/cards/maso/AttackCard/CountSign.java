@@ -62,6 +62,7 @@ public class CountSign extends MasoCard {
 //            this.isDamageModified = true;
         this.baseDamage = this.getOriginDamage() + damageUp;
     }
+
     @Override
     public void use(final AbstractPlayer player, final AbstractMonster monster) {
         updateDamage();

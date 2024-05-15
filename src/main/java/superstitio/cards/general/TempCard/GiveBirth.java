@@ -11,8 +11,8 @@ import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import com.megacrit.cardcrawl.powers.AbstractPower;
 import superstitio.DataManager;
 import superstitio.actions.AutoDoneInstantAction;
-import superstitio.cards.general.AbstractTempCard;
 import superstitio.cardModifier.modifiers.block.PregnantBlock;
+import superstitio.cards.general.AbstractTempCard;
 
 import java.util.ArrayList;
 
@@ -68,7 +68,8 @@ public class GiveBirth extends AbstractTempCard {
             newCard.sealMonster = this.sealMonster;
             newCard.sealPower = this.sealPower;
             return newCard;
-        } else
+        }
+        else
             return super.makeCopy();
     }
 }

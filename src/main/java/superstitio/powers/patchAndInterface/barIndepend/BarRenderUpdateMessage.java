@@ -14,7 +14,7 @@ public class BarRenderUpdateMessage {
     String rawTextOnBar;
     ToolTip toolTip;
 
-    public BarRenderUpdateMessage(String uuidOfPower,String uuidOfBar) {
+    public BarRenderUpdateMessage(String uuidOfPower, String uuidOfBar) {
         this.uuidOfPower = uuidOfPower;
         this.uuidOfBar = uuidOfBar;
     }

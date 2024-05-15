@@ -18,7 +18,7 @@ public class Sensitive extends AbstractLupaRelic {
     // 点击音效
     private static final LandingSound LANDING_SOUND = LandingSound.FLAT;
     private static final int SexualHeatRate = 2;
-    private int hpLose = 0;
+    private final int hpLose = 0;
 
     public Sensitive() {
         super(ID, RELIC_TIER, LANDING_SOUND);
@@ -34,6 +34,7 @@ public class Sensitive extends AbstractLupaRelic {
         if (amount == 0) return;
         this.addToTop(new ApplyPowerAction(player, player, new SexualHeat(player, amount * SexualHeatRate)));
     }
+
     @Override
     public void updateDescriptionArgs() {
         setDescriptionArgs(SexualHeatRate);

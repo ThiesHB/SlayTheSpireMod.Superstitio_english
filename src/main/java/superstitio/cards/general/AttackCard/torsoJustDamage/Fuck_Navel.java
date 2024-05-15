@@ -38,7 +38,7 @@ public class Fuck_Navel extends AbstractCard_FuckJob implements OnOrgasm_onOrgas
     public void use(AbstractPlayer player, AbstractMonster monster) {
         addToBot_dealDamageToAllEnemies(AbstractGameAction.AttackEffect.BLUNT_HEAVY);
         addToBot_dealDamage(AbstractDungeon.player, AbstractGameAction.AttackEffect.BLUNT_HEAVY);
-        
+
     }
 
     @Override

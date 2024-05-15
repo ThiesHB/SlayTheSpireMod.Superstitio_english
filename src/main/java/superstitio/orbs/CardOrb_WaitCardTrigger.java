@@ -18,7 +18,7 @@ public class CardOrb_WaitCardTrigger extends CardOrb_CardTrigger {
 
     @Override
     public AbstractOrb makeCopy() {
-        return new CardOrb_WaitCardTrigger(getOriginCard(),cardGroupReturnAfterEvoke, action, OrbCounter);
+        return new CardOrb_WaitCardTrigger(getOriginCard(), cardGroupReturnAfterEvoke, action, OrbCounter);
     }
 
     @Override

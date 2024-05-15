@@ -66,6 +66,7 @@ public class DamageActionMaker {
             return first;
         return new ApologySlime();
     }
+
     public static AbstractMonster getMonsterOrFirstMonster(AbstractCreature target) {
         if (target instanceof AbstractMonster && ActionUtility.isAlive(target)) {
             return (AbstractMonster) target;

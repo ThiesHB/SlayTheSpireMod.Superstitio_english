@@ -27,9 +27,9 @@ public class ExampleCard extends LupaCard {
 
     public ExampleCard() {
         super(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET);
-        this.setupDamage(DAMAGE,UPGRADE_DAMAGE);
+        this.setupDamage(DAMAGE, UPGRADE_DAMAGE);
         this.setupBlock(BLOCK, UPGRADE_BLOCK, new SexBlock());
-        this.setupMagicNumber(MAGIC,UPGRADE_BLOCK);
+        this.setupMagicNumber(MAGIC, UPGRADE_BLOCK);
     }
 
     @Override

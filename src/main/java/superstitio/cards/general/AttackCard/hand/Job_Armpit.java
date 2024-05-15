@@ -47,7 +47,7 @@ public class Job_Armpit extends AbstractCard_FuckJob implements GoSomewhereElseA
     @Override
     public void afterInterruptMoveToCardGroup(CardGroup cardGroup) {
         HangUpCardGroup.addToBot_AddCardOrbToOrbGroup(
-                new CardOrb_WaitCardTrigger(this, cardGroup,(orb, card) -> {
+                new CardOrb_WaitCardTrigger(this, cardGroup, (orb, card) -> {
                     AbstractMonster creature = DamageActionMaker.getMonsterOrFirstMonster(orb.lastTarget);
                     orb.StartHitCreature(creature);
                     DamageActionMaker.maker(orb.getOriginCard().damage, creature).setExampleCard(this).addToBot();
@@ -56,7 +56,7 @@ public class Job_Armpit extends AbstractCard_FuckJob implements GoSomewhereElseA
                         .setNotEvokeOnEndOfTurn()
         );
         HangUpCardGroup.addToBot_AddCardOrbToOrbGroup(
-                new CardOrb_WaitCardTrigger(this.makeCopy(), cardGroup,(orb, card) -> {
+                new CardOrb_WaitCardTrigger(this.makeCopy(), cardGroup, (orb, card) -> {
                     AbstractMonster creature = DamageActionMaker.getMonsterOrFirstMonster(orb.lastTarget);
                     orb.StartHitCreature(creature);
                     DamageActionMaker.maker(orb.getOriginCard().damage, creature).setExampleCard(this).addToBot();

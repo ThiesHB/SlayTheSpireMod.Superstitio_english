@@ -37,15 +37,15 @@ public class GloryHole extends MasoCard {
 
     private static AbstractGameAction makeChoseCardCopy(AbstractCard card) {
         if (Objects.equals(card.cardID, GloryHole.ID))
-           return new MakeTempCardInHandAction(new SelfReference());
+            return new MakeTempCardInHandAction(new SelfReference());
         return new MakeTempCardInHandAction(card.makeStatEquivalentCopy());
     }
 
     @Override
     public void use(AbstractPlayer player, AbstractMonster monster) {
         this.addToBot(new ChoseCardFromGridSelectWindowAction(AbstractDungeon.player.masterDeck, GloryHole::makeChoseCardCopy)
-                .setWindowText(String.format(getEXTENDED_DESCRIPTION()[0]))
-                .setAnyNumber(true)
+                        .setWindowText(String.format(getEXTENDED_DESCRIPTION()[0]))
+                        .setAnyNumber(true)
 //                .setRetainFilter(card -> !Objects.equals(card.cardID, GloryHole.ID))
         );
     }
@@ -53,6 +53,6 @@ public class GloryHole extends MasoCard {
     @Override
     public void upgradeAuto() {
 //        upgradeBaseCost(COST_UPGRADED_NEW);
-        CardModifierManager.addModifier(this,new RetainMod());
+        CardModifierManager.addModifier(this, new RetainMod());
     }
 }

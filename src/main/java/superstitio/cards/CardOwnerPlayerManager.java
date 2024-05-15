@@ -12,11 +12,11 @@ public class CardOwnerPlayerManager {
         return DataManager.makeImgPath("default", DataManager::makeImgFilesPath_GeneralCard, tag, id);
     }
 
-    public static boolean isLupaCard(AbstractCard card){
+    public static boolean isLupaCard(AbstractCard card) {
         return card instanceof IsLupaCard && !(card instanceof IsNotLupaCard);
     }
 
-    public static boolean isMasoCard(AbstractCard card){
+    public static boolean isMasoCard(AbstractCard card) {
         return card instanceof IsMasoCard && !(card instanceof IsNotMasoCard);
     }
 
@@ -31,6 +31,7 @@ public class CardOwnerPlayerManager {
 
     public interface IsLupaCard {
     }
+
     public interface IsNotLupaCard {
     }
 }

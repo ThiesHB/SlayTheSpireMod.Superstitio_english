@@ -19,6 +19,9 @@ import com.megacrit.cardcrawl.core.Settings;
 import com.megacrit.cardcrawl.helpers.FontHelper;
 import com.megacrit.cardcrawl.helpers.PowerTip;
 import com.megacrit.cardcrawl.helpers.TipHelper;
+import javassist.CannotCompileException;
+import javassist.expr.ExprEditor;
+import javassist.expr.FieldAccess;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -81,7 +84,6 @@ public class RenderStackedBlockInstancesPatch {
         }
 
         BlockStackElementField.element.set(creature, elements);
-        return;
     }
 
     public static class BlockStackDividedElement extends ClickableUIElement {
@@ -185,7 +187,7 @@ public class RenderStackedBlockInstancesPatch {
     )
     public static class BlockStackElementField {
         public static SpireField<List<BlockStackDividedElement>> element = new SpireField<>(() -> null);
-//        public static SpireField<List<BlockInstance>> blockLastTime = new SpireField<>(() -> null);
+        public static SpireField<Boolean> forceDrawBlock = new SpireField<>(() -> false);
     }
 
     @SpirePatch(clz = RenderStackedBlockInstances.RenderStackedIcons.class, method = "pls")
@@ -205,8 +207,35 @@ public class RenderStackedBlockInstancesPatch {
         public static SpireReturn<Void> Prefix(AbstractCreature __instance, SpriteBatch sb, float x, float y) {
             if (getAllBlockInstances(__instance).stream().allMatch(BlockInstance::defaultBlock))
                 return SpireReturn.Continue();
-//            DrawBlocks(__instance, sb, x, y);
             return SpireReturn.Return();
+        }
+    }
+
+    @SpirePatch(
+            clz = AbstractCreature.class,
+            method = "renderHealth"
+    )
+    public static class BlockStackForceShowPatch {
+        public static ExprEditor Instrument() {
+            return new ExprEditor() {
+                public void edit(final FieldAccess m) throws CannotCompileException {
+                    if (!m.getFieldName().equals("currentBlock") || !m.isReader()) return;
+                    m.replace("{$_ = " + BlockStackForceShowPatch.class.getName() + ".GetBlockStack( $0 ) ;}");
+
+
+                }
+            };
+        }
+
+        public static int GetBlockStack(AbstractCreature creature) {
+            if (!BlockStackElementField.forceDrawBlock.get(creature)) return creature.currentBlock;
+            int totalBlock = RenderStackedBlockInstancesPatch.getAllBlockInstances(creature).stream()
+                    .mapToInt(BlockInstance::getBlockAmount).sum();
+            if (totalBlock <= 0) {
+                BlockStackElementField.forceDrawBlock.set(creature, false);
+                return creature.currentBlock;
+            }
+            return totalBlock;
         }
     }
 

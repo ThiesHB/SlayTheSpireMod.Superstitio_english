@@ -4,8 +4,8 @@ import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import superstitio.DataManager;
-import superstitio.cards.lupa.LupaCard;
 import superstitio.cardModifier.modifiers.block.SexBlock;
+import superstitio.cards.lupa.LupaCard;
 
 public class CoitalVocal extends LupaCard {
     public static final String ID =

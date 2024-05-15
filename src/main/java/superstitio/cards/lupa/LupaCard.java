@@ -1,22 +1,18 @@
 package superstitio.cards.lupa;
 
 import com.evacipated.cardcrawl.mod.stslib.blockmods.AbstractBlockModifier;
-import com.evacipated.cardcrawl.mod.stslib.blockmods.BlockModifierManager;
 import com.megacrit.cardcrawl.actions.AbstractGameAction;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.vfx.combat.FlashAtkImgEffect;
 import superstitio.DataManager;
-import superstitio.cards.CardOwnerPlayerManager;
 import superstitio.cards.SuperstitioCard;
 import superstitio.delayHpLose.DelayHpLosePatch;
 import superstitio.delayHpLose.DelayHpLosePower;
 import superstitio.delayHpLose.RemoveDelayHpLoseBlock;
 
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.stream.Collectors;
 
-import static superstitio.cards.CardOwnerPlayerManager.*;
+import static superstitio.cards.CardOwnerPlayerManager.IsLupaCard;
 
 public abstract class LupaCard extends SuperstitioCard implements IsLupaCard {
     /**

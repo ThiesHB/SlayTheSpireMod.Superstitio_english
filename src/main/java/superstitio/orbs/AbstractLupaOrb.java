@@ -44,7 +44,6 @@ public abstract class AbstractLupaOrb extends AbstractOrb implements updateDescr
     }
 
 
-
     @Override
     public abstract void applyFocus();
 
@@ -86,7 +85,8 @@ public abstract class AbstractLupaOrb extends AbstractOrb implements updateDescr
     }
 
     @Override
-    public void updateDescriptionArgs(){};
+    public void updateDescriptionArgs() {
+    }
 
     @Override
     public String getDescriptionStrings() {

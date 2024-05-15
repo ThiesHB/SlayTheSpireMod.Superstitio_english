@@ -42,7 +42,7 @@ public class Job_Hand_BaseCard extends AbstractCard_FuckJob implements GoSomewhe
     @Override
     public void afterInterruptMoveToCardGroup(CardGroup cardGroup) {
         HangUpCardGroup.addToBot_AddCardOrbToOrbGroup(
-                new CardOrb_EachCardTrigger(this,cardGroup, (orb, card) -> {
+                new CardOrb_EachCardTrigger(this, cardGroup, (orb, card) -> {
                     AbstractMonster creature = DamageActionMaker.getMonsterOrFirstMonster(orb.lastTarget);
                     orb.StartHitCreature(creature);
                     DamageActionMaker.maker(orb.getOriginCard().damage, creature).setExampleCard(this).addToBot();

@@ -42,7 +42,7 @@ public class DeathDoor extends MasoCard {
 
     public static class DeathDoorPower extends AbstractLupaPower implements OnPlayerDeathPower {
         public static final String POWER_ID = DataManager.MakeTextID(DeathDoorPower.class);
-    
+
         public DeathDoorPower(final AbstractCreature owner, int amount) {
             super(POWER_ID, owner, amount);
         }

@@ -94,8 +94,6 @@ public abstract class BaseCharacter extends CustomPlayer {
     }
 
 
-
-
     @Override
     public void useCard(AbstractCard c, AbstractMonster monster, int energyOnUse) {
         super.useCard(c, monster, energyOnUse);

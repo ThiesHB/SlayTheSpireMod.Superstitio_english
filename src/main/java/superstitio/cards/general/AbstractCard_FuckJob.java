@@ -1,15 +1,12 @@
 package superstitio.cards.general;
 
 import com.evacipated.cardcrawl.mod.stslib.damagemods.DamageModifierManager;
-import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import superstitio.DataManager;
 import superstitio.SuperstitioModSetup;
 import superstitio.cardModifier.modifiers.damage.SexDamage;
 import superstitio.cardModifier.modifiers.damage.SexDamage_Fuck;
 import superstitio.cardModifier.modifiers.damage.SexDamage_Job;
-import superstitio.cards.CardOwnerPlayerManager;
-import superstitio.cards.SuperstitioCard;
 import superstitio.cards.general.AttackCard.breast.Fuck_Nipple;
 import superstitio.cards.general.AttackCard.breast.Job_Breast;
 import superstitio.cards.general.AttackCard.genital.Fuck_Anal;
@@ -29,7 +26,6 @@ import superstitio.powers.InsideSemen;
 import superstitio.powers.OutsideSemen;
 import superstitio.utils.ActionUtility;
 
-import static superstitio.cards.CardOwnerPlayerManager.*;
 import static superstitio.orbs.orbgroup.SexMarkOrbGroup.SexMarkType;
 import static superstitio.orbs.orbgroup.SexMarkOrbGroup.addToBot_GiveMarkToOrbGroup;
 

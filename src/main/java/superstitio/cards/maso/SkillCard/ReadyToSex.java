@@ -51,7 +51,7 @@ public class ReadyToSex extends MasoCard {
                 copyCard.exhaust = true;
                 HangUpCardGroup.addToBot_AddCardOrbToOrbGroup(
                         new CardOrb_WaitCardTrigger(card, AbstractDungeon.player.discardPile, (orb, usedcard) -> {
-                            addToBot(new NewQueueCardAction(copyCard,true,false,true));
+                            addToBot(new NewQueueCardAction(copyCard, true, false, true));
                         }, magicNumber)
                                 .setNotEvokeOnEndOfTurn()
                 );

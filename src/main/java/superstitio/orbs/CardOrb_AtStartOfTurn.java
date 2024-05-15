@@ -2,27 +2,22 @@ package superstitio.orbs;
 
 import basemod.ReflectionHacks;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.math.Vector2;
 import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.cards.CardGroup;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
-import com.megacrit.cardcrawl.core.AbstractCreature;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
-import org.apache.logging.log4j.util.BiConsumer;
 import superstitio.cards.DamageActionMaker;
-import superstitio.utils.ActionUtility.FunctionReturnSelfType;
-import superstitio.utils.CardUtility;
 
 import java.util.Optional;
 import java.util.function.Consumer;
-import java.util.function.Predicate;
 
 
 public abstract class CardOrb_AtStartOfTurn extends CardOrb {
 
     protected final Consumer<CardOrb_AtStartOfTurn> action;
     public int OrbCounter = 0;
+
     public CardOrb_AtStartOfTurn(AbstractCard card, CardGroup cardGroupReturnAfterEvoke, Consumer<CardOrb_AtStartOfTurn> action_thisCard_targetCard) {
         super(card, cardGroupReturnAfterEvoke);
         this.action = action_thisCard_targetCard;

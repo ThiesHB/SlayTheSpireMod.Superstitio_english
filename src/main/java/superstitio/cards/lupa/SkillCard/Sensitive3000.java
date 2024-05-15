@@ -54,8 +54,7 @@ public class Sensitive3000 extends LupaCard {
 
         @Override
         public boolean betterOnApplyPower(AbstractPower abstractPower, AbstractCreature abstractCreature, AbstractCreature abstractCreature1) {
-            if (abstractPower instanceof SexualHeat)
-            {
+            if (abstractPower instanceof SexualHeat) {
                 abstractPower.amount *= SexualHeatRate;
                 addToBot_applyPower(new SexualDamage(this.owner, abstractPower.amount, this.owner));
             }

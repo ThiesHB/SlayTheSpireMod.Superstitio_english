@@ -1,6 +1,5 @@
 package superstitio.powers;
 
-import com.evacipated.cardcrawl.mod.stslib.powers.interfaces.OnLoseBlockPower;
 import com.megacrit.cardcrawl.actions.common.ApplyPowerAction;
 import com.megacrit.cardcrawl.cards.DamageInfo;
 import com.megacrit.cardcrawl.core.AbstractCreature;
@@ -18,8 +17,7 @@ public class ExposeSelf extends AbstractLupaPower {
 
     @Override
     public int onAttacked(DamageInfo info, int damageAmount) {
-        if (info.type == DamageInfo.DamageType.NORMAL)
-        {
+        if (info.type == DamageInfo.DamageType.NORMAL) {
             this.flash();
             this.addToBot(new ApplyPowerAction(
                     AbstractDungeon.player, AbstractDungeon.player, new OutsideSemen(AbstractDungeon.player, damageAmount)));

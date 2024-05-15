@@ -2,7 +2,6 @@ package superstitio.powers.patchAndInterface.interfaces.invisible;
 
 import com.evacipated.cardcrawl.modthespire.lib.*;
 import com.megacrit.cardcrawl.actions.common.ApplyPowerAction;
-import com.megacrit.cardcrawl.actions.common.RemoveSpecificPowerAction;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.powers.AbstractPower;
 import com.megacrit.cardcrawl.vfx.combat.PowerBuffEffect;
@@ -11,8 +10,6 @@ import javassist.CannotCompileException;
 import javassist.CtBehavior;
 import javassist.expr.ExprEditor;
 import javassist.expr.MethodCall;
-
-import java.util.ArrayList;
 
 public class InvisiblePower_InvisibleApplyPowerEffectPatch {
     @SpirePatch(clz = ApplyPowerAction.class, method = "update")

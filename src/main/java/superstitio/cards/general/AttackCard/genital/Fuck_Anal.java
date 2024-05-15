@@ -42,6 +42,6 @@ public class Fuck_Anal extends AbstractCard_FuckJob {
                 monster.powers.stream().filter(power -> power instanceof SexualDamage).map(power -> (SexualDamage) power)
                         .findAny().ifPresent(sexualDamage -> addToBot_applyPower(
                                 new SexualDamage(monster, (int) (sexualDamage.amount * 0.1 * this.magicNumber), AbstractDungeon.player))));
-        
+
     }
 }

@@ -8,8 +8,8 @@ import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.helpers.CardLibrary;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import superstitio.DataManager;
-import superstitio.cards.lupa.LupaCard;
 import superstitio.cards.general.AbstractCard_FuckJob;
+import superstitio.cards.lupa.LupaCard;
 import superstitio.utils.ActionUtility;
 import superstitio.utils.CardUtility;
 

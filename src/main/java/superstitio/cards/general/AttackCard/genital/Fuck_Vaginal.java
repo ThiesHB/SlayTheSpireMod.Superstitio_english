@@ -48,7 +48,7 @@ public class Fuck_Vaginal extends AbstractCard_FuckJob implements Card_AvoidAllC
                 orbGroup.forEachOrbInThisOrbGroup(CardOrb_WaitCardTrigger.class, (orb) -> orb.forceAcceptAction(this));
             }));
         }
-        
+
     }
 
     @Override

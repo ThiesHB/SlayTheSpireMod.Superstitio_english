@@ -36,7 +36,7 @@ public class Fuck_Throat extends AbstractCard_FuckJob {
             if (group.hasOrb())
                 addToBot(new GainEnergyAction(this.magicNumber));
         });
-        
+
     }
 
     @Override

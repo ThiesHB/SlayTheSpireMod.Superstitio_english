@@ -110,7 +110,7 @@ public class SexMarkOrbGroup extends OrbGroup {
         GangBang gangBang = new GangBang(attackAmount.get(), blockAmount.get(), ScoreTheGangBang());
         AutoDoneInstantAction.addToBotAbstract(() ->
                 AbstractDungeon.actionManager.addCardQueueItem(new CardQueueItem(gangBang, null, 0, true,
-                true), true));
+                        true), true));
         AutoDoneInstantAction.addToBotAbstract(() -> {
             int bound = orbs.size();
             for (int i = 0; i < bound; i++) {

@@ -6,9 +6,9 @@ import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import superstitio.DataManager;
-import superstitio.cards.lupa.LupaCard;
 import superstitio.cards.general.AbstractCard_FuckJob;
 import superstitio.cards.general.BaseCard.Masturbate;
+import superstitio.cards.lupa.LupaCard;
 import superstitio.cards.patch.GoSomewhereElseAfterUse;
 import superstitio.orbs.CardOrb_EachCardTrigger;
 import superstitio.orbs.orbgroup.HangUpCardGroup;
@@ -33,8 +33,8 @@ public class Job_Foot extends AbstractCard_FuckJob implements GoSomewhereElseAft
 
     public Job_Foot() {
         super(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET);
-        this.setupDamage(DAMAGE,UPGRADE_DAMAGE);
-        this.setupMagicNumber(MAGIC,UPGRADE_MAGIC);
+        this.setupDamage(DAMAGE, UPGRADE_DAMAGE);
+        this.setupMagicNumber(MAGIC, UPGRADE_MAGIC);
     }
 
     @Override
@@ -50,12 +50,12 @@ public class Job_Foot extends AbstractCard_FuckJob implements GoSomewhereElseAft
     @Override
     public void afterInterruptMoveToCardGroup(CardGroup cardGroup) {
         HangUpCardGroup.addToBot_AddCardOrbToOrbGroup(
-                new CardOrb_EachCardTrigger(this,cardGroup, (orb, card) -> {
+                new CardOrb_EachCardTrigger(this, cardGroup, (orb, card) -> {
                     orb.StartHitCreature(AbstractDungeon.player);
                     addToBot_drawCards(DRAW_CARD);
                     PowerUtility.BubbleMessage(orb.getOriginCard().hb, false,
                             LupaCard.getCardStringsWithSFWAndFlavor(
-                                    DataManager.MakeTextID(Masturbate.class))
+                                            DataManager.MakeTextID(Masturbate.class))
                                     .getEXTENDED_DESCRIPTION()[0]);
                 }, this.magicNumber)
                         .setCardPredicate(card -> card instanceof AbstractCard_FuckJob)

@@ -35,7 +35,7 @@ import static superstitio.powers.AllCardCostModifier.*;
 import static superstitio.utils.PowerUtility.BubbleMessageHigher;
 
 public class SexualHeat extends AbstractLupaPower implements
-        HasAllCardCostModifyEffect, OnPostApplyThisPower,HasBarRenderOnCreature_Power,
+        HasAllCardCostModifyEffect, OnPostApplyThisPower, HasBarRenderOnCreature_Power,
         InvisiblePower_InvisibleTips, InvisiblePower_InvisibleIconAndAmount,
         InvisiblePower_InvisibleApplyPowerEffect, InvisiblePower_InvisibleRemovePowerEffect,
         OnOrgasm_onSuccessfullyPreventOrgasm, OnOrgasm_onOrgasm, OnOrgasm_onEndOrgasm, OnOrgasm_onSquirt, OnOrgasm_onContinuallyOrgasm {

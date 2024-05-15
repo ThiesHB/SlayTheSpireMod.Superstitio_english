@@ -27,7 +27,7 @@ public class Ahegao extends MasoCard implements GoSomewhereElseAfterUse {
 
     public Ahegao() {
         super(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET);
-        this.setupDamage(DAMAGE,new SexDamage());
+        this.setupDamage(DAMAGE, new SexDamage());
         this.setupMagicNumber(MAGIC);
     }
 
@@ -43,7 +43,7 @@ public class Ahegao extends MasoCard implements GoSomewhereElseAfterUse {
     @Override
     public void afterInterruptMoveToCardGroup(CardGroup cardGroup) {
         HangUpCardGroup.addToBot_AddCardOrbToOrbGroup(
-                new CardOrb_EachCardTrigger(this,cardGroup, (orb, card) -> {
+                new CardOrb_EachCardTrigger(this, cardGroup, (orb, card) -> {
                     AbstractMonster creature = DamageActionMaker.getMonsterOrFirstMonster(orb.lastTarget);
                     orb.StartHitCreature(creature);
                     DamageActionMaker.maker(orb.getOriginCard().damage, creature).setExampleCard(this).addToBot();

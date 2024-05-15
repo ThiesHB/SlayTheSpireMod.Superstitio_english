@@ -4,8 +4,8 @@ import basemod.AutoAdd;
 import com.megacrit.cardcrawl.actions.common.RelicAboveCreatureAction;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import superstitio.DataManager;
-import superstitio.delayHpLose.DelayHpLosePower;
 import superstitio.delayHpLose.DelayHpLosePatch;
+import superstitio.delayHpLose.DelayHpLosePower;
 import superstitio.relics.AbstractLupaRelic;
 import superstitio.utils.ActionUtility;
 
@@ -29,6 +29,7 @@ public class DevaBody extends AbstractLupaRelic {
         this.addToBot(new RelicAboveCreatureAction(AbstractDungeon.player, this));
         SetPlayerImmunity();
     }
+
     public static void SetPlayerImmunity() {
         DelayHpLosePatch.IsImmunityFields.checkShouldImmunity.set(
                 player, ((player, damageInfo, damageAmount) -> {

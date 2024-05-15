@@ -35,7 +35,7 @@ public class Fuck_Nipple extends AbstractCard_FuckJob {
                 AbstractGameAction.AttackEffect.BLUNT_LIGHT));
         this.addToBot(new DamageRandomEnemyAction(new DamageInfo(AbstractDungeon.player, this.damage),
                 AbstractGameAction.AttackEffect.BLUNT_LIGHT));
-        
+
     }
 
     @Override

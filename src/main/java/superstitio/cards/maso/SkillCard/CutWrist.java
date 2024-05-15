@@ -5,9 +5,7 @@ import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import superstitio.DataManager;
-import superstitio.cardModifier.modifiers.block.SexBlock;
 import superstitio.cards.maso.MasoCard;
-import superstitio.delayHpLose.DelayRemoveDelayHpLoseBlock;
 import superstitio.delayHpLose.RemoveDelayHpLoseBlock;
 
 public class CutWrist extends MasoCard {
@@ -27,7 +25,7 @@ public class CutWrist extends MasoCard {
     public CutWrist() {
         super(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET);
         this.setupMagicNumber(MAGIC);
-        this.setupBlock(BLOCK,UPGRADE_BLOCK,new RemoveDelayHpLoseBlock());
+        this.setupBlock(BLOCK, UPGRADE_BLOCK, new RemoveDelayHpLoseBlock());
     }
 
     @Override
