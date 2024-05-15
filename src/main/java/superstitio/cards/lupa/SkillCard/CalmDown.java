@@ -5,11 +5,11 @@ import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import superstitio.DataManager;
 import superstitio.InBattleDataManager;
-import superstitio.cards.lupa.AbstractLupaCard;
+import superstitio.cards.lupa.LupaCard;
 import superstitio.powers.SexualHeat;
 
-public class CalmDown extends AbstractLupaCard {
-    public static final String ID = DataManager.MakeTextID(CalmDown.class.getSimpleName());
+public class CalmDown extends LupaCard {
+    public static final String ID = DataManager.MakeTextID(CalmDown.class);
 
     public static final CardType CARD_TYPE = CardType.SKILL;
 

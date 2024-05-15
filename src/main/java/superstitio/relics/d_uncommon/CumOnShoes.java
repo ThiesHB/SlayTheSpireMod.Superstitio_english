@@ -13,7 +13,7 @@ import superstitio.relics.interFace.Countup;
 import superstitio.utils.ActionUtility;
 
 public class CumOnShoes extends AbstractLupaRelic implements OnApplyPowerRelic, Countup {
-    public static final String ID = DataManager.MakeTextID(CumOnShoes.class.getSimpleName());
+    public static final String ID = DataManager.MakeTextID(CumOnShoes.class);
     // 遗物类型
     private static final RelicTier RELIC_TIER = RelicTier.UNCOMMON;
     // 点击音效

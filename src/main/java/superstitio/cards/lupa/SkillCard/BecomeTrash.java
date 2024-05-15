@@ -7,10 +7,10 @@ import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import superstitio.DataManager;
 import superstitio.actions.ChoseCardFromGridSelectWindowAction;
-import superstitio.cards.lupa.AbstractLupaCard;
+import superstitio.cards.lupa.LupaCard;
 
-public class BecomeTrash extends AbstractLupaCard {
-    public static final String ID = DataManager.MakeTextID(BecomeTrash.class.getSimpleName());
+public class BecomeTrash extends LupaCard {
+    public static final String ID = DataManager.MakeTextID(BecomeTrash.class);
 
     public static final AbstractCard.CardType CARD_TYPE = AbstractCard.CardType.SKILL;
 

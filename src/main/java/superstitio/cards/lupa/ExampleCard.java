@@ -4,11 +4,11 @@ import basemod.AutoAdd;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import superstitio.DataManager;
-import superstitio.cards.modifiers.block.SexBlock;
+import superstitio.cardModifier.modifiers.block.SexBlock;
 
 @AutoAdd.Ignore
-public class ExampleCard extends AbstractLupaCard {
-    public static final String ID = DataManager.MakeTextID(ExampleCard.class.getSimpleName());
+public class ExampleCard extends LupaCard {
+    public static final String ID = DataManager.MakeTextID(ExampleCard.class);
 
     public static final CardType CARD_TYPE = CardType.SKILL;
 

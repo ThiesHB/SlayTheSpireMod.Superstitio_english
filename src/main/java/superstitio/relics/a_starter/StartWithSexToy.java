@@ -4,7 +4,7 @@ import basemod.AutoAdd;
 import com.megacrit.cardcrawl.actions.common.RelicAboveCreatureAction;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import superstitio.DataManager;
-import superstitio.cards.lupa.TempCard.SexToy;
+import superstitio.cards.general.TempCard.SexToy;
 import superstitio.relics.AbstractLupaRelic;
 import superstitio.utils.ActionUtility;
 
@@ -12,7 +12,7 @@ import static com.megacrit.cardcrawl.dungeons.AbstractDungeon.player;
 
 @AutoAdd.Seen
 public class StartWithSexToy extends AbstractLupaRelic {
-    public static final String ID = DataManager.MakeTextID(StartWithSexToy.class.getSimpleName());
+    public static final String ID = DataManager.MakeTextID(StartWithSexToy.class);
     // 遗物类型
     private static final RelicTier RELIC_TIER = RelicTier.STARTER;
     // 点击音效

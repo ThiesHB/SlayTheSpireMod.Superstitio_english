@@ -13,7 +13,7 @@ import static com.megacrit.cardcrawl.dungeons.AbstractDungeon.player;
 
 @AutoAdd.Seen
 public class DevaBody extends AbstractLupaRelic {
-    public static final String ID = DataManager.MakeTextID(DevaBody.class.getSimpleName());
+    public static final String ID = DataManager.MakeTextID(DevaBody.class);
     // 遗物类型
     private static final RelicTier RELIC_TIER = RelicTier.SPECIAL;
     // 点击音效
@@ -25,19 +25,21 @@ public class DevaBody extends AbstractLupaRelic {
 
     @Override
     public void atBattleStart() {
-        DevaBody self = this;
         this.flash();
         this.addToBot(new RelicAboveCreatureAction(AbstractDungeon.player, this));
+        SetPlayerImmunity();
+    }
+    public static void SetPlayerImmunity() {
         DelayHpLosePatch.IsImmunityFields.checkShouldImmunity.set(
                 player, ((player, damageInfo, damageAmount) -> {
                     if (damageInfo.type == DataManager.CanOnlyDamageDamageType.UnBlockAbleDamageType) {
                         return false;
                     }
-                    self.flash();
                     ActionUtility.addToTop_applyPower(new DelayHpLosePower(AbstractDungeon.player, damageAmount));
                     return true;
                 }));
     }
+
 
     @Override
     public void updateDescriptionArgs() {

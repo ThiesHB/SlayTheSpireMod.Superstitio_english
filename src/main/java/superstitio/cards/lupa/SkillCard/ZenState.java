@@ -9,12 +9,11 @@ import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import superstitio.DataManager;
 import superstitio.actions.AutoDoneInstantAction;
 import superstitio.actions.ChoseCardFromHandCardSelectScreen;
-import superstitio.cards.lupa.AbstractLupaCard;
-import superstitio.cards.modifiers.block.SexBlock;
-import superstitio.delayHpLose.RemoveDelayHpLoseBlock;
+import superstitio.cards.lupa.LupaCard;
+import superstitio.cardModifier.modifiers.block.SexBlock;
 
-public class ZenState extends AbstractLupaCard {
-    public static final String ID = DataManager.MakeTextID(ZenState.class.getSimpleName());
+public class ZenState extends LupaCard {
+    public static final String ID = DataManager.MakeTextID(ZenState.class);
 
     public static final CardType CARD_TYPE = CardType.SKILL;
 

@@ -8,12 +8,12 @@ import com.megacrit.cardcrawl.core.AbstractCreature;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import superstitio.DataManager;
-import superstitio.cards.lupa.AbstractLupaCard;
+import superstitio.cards.lupa.LupaCard;
 import superstitio.powers.AbstractLupaPower;
 
 
-public class DeathDoor extends AbstractLupaCard {
-    public static final String ID = DataManager.MakeTextID(DeathDoor.class.getSimpleName());
+public class DeathDoor extends LupaCard {
+    public static final String ID = DataManager.MakeTextID(DeathDoor.class);
 
     public static final CardType CARD_TYPE = CardType.POWER;
 
@@ -41,7 +41,7 @@ public class DeathDoor extends AbstractLupaCard {
     }
 
     public static class DeathDoorPower extends AbstractLupaPower implements OnPlayerDeathPower {
-        public static final String POWER_ID = DataManager.MakeTextID(DeathDoorPower.class.getSimpleName());
+        public static final String POWER_ID = DataManager.MakeTextID(DeathDoorPower.class);
     
         public DeathDoorPower(final AbstractCreature owner, int amount) {
             super(POWER_ID, owner, amount);
@@ -64,7 +64,7 @@ public class DeathDoor extends AbstractLupaCard {
     }
 
     public static class AtDeathDoor extends AbstractLupaPower {
-        public static final String POWER_ID = DataManager.MakeTextID(AtDeathDoor.class.getSimpleName());
+        public static final String POWER_ID = DataManager.MakeTextID(AtDeathDoor.class);
 
         public AtDeathDoor(final AbstractCreature owner) {
             super(POWER_ID, owner, -1);

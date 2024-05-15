@@ -6,7 +6,7 @@ import com.megacrit.cardcrawl.core.AbstractCreature;
 import superstitio.DataManager;
 
 public class DelaySexualHeat extends AbstractLupaPower {
-    public static final String POWER_ID = DataManager.MakeTextID(DelaySexualHeat.class.getSimpleName());
+    public static final String POWER_ID = DataManager.MakeTextID(DelaySexualHeat.class);
 
     public DelaySexualHeat(final AbstractCreature owner, int amount) {
         super(POWER_ID, owner, amount);

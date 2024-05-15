@@ -7,7 +7,7 @@ import superstitio.DataManager;
 import superstitio.actions.AutoDoneInstantAction;
 
 public abstract class AbstractToolPower_RemoveAtStartOfTurn extends AbstractLupaPower implements NonStackablePower, InvisiblePower {
-    public static final String POWER_ID = DataManager.MakeTextID(SexualHeat.class.getSimpleName());
+    public static final String POWER_ID = DataManager.MakeTextID(SexualHeat.class);
 
     public AbstractToolPower_RemoveAtStartOfTurn(final AbstractCreature owner) {
         super(POWER_ID, owner, -1);

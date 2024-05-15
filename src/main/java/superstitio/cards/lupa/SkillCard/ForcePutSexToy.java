@@ -6,13 +6,13 @@ import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import superstitio.DataManager;
 import superstitio.actions.AutoDoneInstantAction;
-import superstitio.cards.lupa.AbstractLupaCard;
+import superstitio.cards.lupa.LupaCard;
 import superstitio.powers.SexToy;
 
-import static superstitio.cards.lupa.TempCard.SexToy.getRandomSexToyName;
+import static superstitio.cards.general.TempCard.SexToy.getRandomSexToyName;
 
-public class ForcePutSexToy extends AbstractLupaCard {
-    public static final String ID = DataManager.MakeTextID(ForcePutSexToy.class.getSimpleName());
+public class ForcePutSexToy extends LupaCard {
+    public static final String ID = DataManager.MakeTextID(ForcePutSexToy.class);
 
     public static final CardType CARD_TYPE = CardType.SKILL;
 

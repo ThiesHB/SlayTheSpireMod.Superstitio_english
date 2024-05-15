@@ -4,12 +4,12 @@ import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import superstitio.DataManager;
-import superstitio.cards.lupa.AbstractLupaCard_TempCard;
+import superstitio.cards.general.AbstractTempCard;
 import superstitio.cards.lupa.PowerCard.ChokeChoker;
-import superstitio.powers.AbstractPowerForPowerCard;
+import superstitio.powers.EasyBuildAbstractPowerForPowerCard;
 
-public class FishGirlMode extends AbstractLupaCard_TempCard {
-    public static final String ID = DataManager.MakeTextID(FishGirlMode.class.getSimpleName());
+public class FishGirlMode extends AbstractTempCard {
+    public static final String ID = DataManager.MakeTextID(FishGirlMode.class);
 
     public static final CardType CARD_TYPE = CardType.POWER;
 
@@ -21,7 +21,7 @@ public class FishGirlMode extends AbstractLupaCard_TempCard {
     private static final int MAGIC = 1;
 
     public FishGirlMode() {
-        super(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET, "special");
+        super(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET);
         this.setupMagicNumber(MAGIC);
     }
 
@@ -39,7 +39,7 @@ public class FishGirlMode extends AbstractLupaCard_TempCard {
     public void upgradeAuto() {
     }
 
-    public static class FishGirlModePower extends AbstractPowerForPowerCard {
+    public static class FishGirlModePower extends EasyBuildAbstractPowerForPowerCard {
         public FishGirlModePower(int amount) {
             super(amount);
         }

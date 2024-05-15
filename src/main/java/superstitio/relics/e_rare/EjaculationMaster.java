@@ -7,13 +7,13 @@ import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import superstitio.DataManager;
 import superstitio.powers.SexualHeat;
-import superstitio.powers.interfaces.orgasm.OnOrgasm_onSquirt;
+import superstitio.powers.patchAndInterface.interfaces.orgasm.OnOrgasm_onSquirt;
 import superstitio.relics.AbstractLupaRelic;
 import superstitio.relics.interFace.Countdown;
 
 @AutoAdd.Seen
 public class EjaculationMaster extends AbstractLupaRelic implements OnOrgasm_onSquirt, Countdown {
-    public static final String ID = DataManager.MakeTextID(EjaculationMaster.class.getSimpleName());
+    public static final String ID = DataManager.MakeTextID(EjaculationMaster.class);
     // 遗物类型
     private static final RelicTier RELIC_TIER = RelicTier.RARE;
     // 点击音效

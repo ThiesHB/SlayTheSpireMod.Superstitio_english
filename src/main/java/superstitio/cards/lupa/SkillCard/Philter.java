@@ -5,12 +5,12 @@ import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import superstitio.DataManager;
-import superstitio.cards.lupa.AbstractLupaCard;
+import superstitio.cards.lupa.LupaCard;
 import superstitio.powers.SexPlateArmorPower;
 
 //春药
-public class Philter extends AbstractLupaCard {
-    public static final String ID = DataManager.MakeTextID(Philter.class.getSimpleName());
+public class Philter extends LupaCard {
+    public static final String ID = DataManager.MakeTextID(Philter.class);
 
     public static final CardType CARD_TYPE = CardType.SKILL;
 

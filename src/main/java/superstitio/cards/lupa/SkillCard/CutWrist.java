@@ -5,12 +5,11 @@ import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import superstitio.DataManager;
-import superstitio.cards.lupa.AbstractLupaCard;
-import superstitio.cards.modifiers.block.SexBlock;
-import superstitio.delayHpLose.RemoveDelayHpLoseBlock;
+import superstitio.cards.lupa.LupaCard;
+import superstitio.cardModifier.modifiers.block.SexBlock;
 
-public class CutWrist extends AbstractLupaCard {
-    public static final String ID = DataManager.MakeTextID(CutWrist.class.getSimpleName());
+public class CutWrist extends LupaCard {
+    public static final String ID = DataManager.MakeTextID(CutWrist.class);
 
     public static final CardType CARD_TYPE = CardType.SKILL;
 

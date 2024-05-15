@@ -8,15 +8,14 @@ import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import superstitio.DataManager;
 import superstitio.InBattleDataManager;
-import superstitio.cards.lupa.AbstractLupaCard;
-import superstitio.cards.lupa.AbstractLupaCard_FuckJob;
+import superstitio.cards.lupa.LupaCard;
 import superstitio.utils.CardUtility;
 
 import java.util.Collections;
 import java.util.List;
 
-public class CountSign extends AbstractLupaCard {
-    public static final String ID = DataManager.MakeTextID(CountSign.class.getSimpleName());
+public class CountSign extends LupaCard {
+    public static final String ID = DataManager.MakeTextID(CountSign.class);
 
     public static final AbstractCard.CardType CARD_TYPE = CardType.ATTACK;
 

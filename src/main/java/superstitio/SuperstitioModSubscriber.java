@@ -9,7 +9,7 @@ import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import com.megacrit.cardcrawl.powers.AbstractPower;
 import com.megacrit.cardcrawl.relics.AbstractRelic;
 import com.megacrit.cardcrawl.rooms.AbstractRoom;
-import superstitio.powers.interfaces.OnPostApplyThisPower;
+import superstitio.powers.patchAndInterface.interfaces.OnPostApplyThisPower;
 
 import static superstitio.InBattleDataManager.ApplyAll;
 

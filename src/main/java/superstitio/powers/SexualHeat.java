@@ -14,15 +14,15 @@ import com.megacrit.cardcrawl.powers.AbstractPower;
 import superstitio.DataManager;
 import superstitio.InBattleDataManager;
 import superstitio.Logger;
-import superstitio.powers.barIndepend.BarRenderUpdateMessage;
-import superstitio.powers.barIndepend.HasBarRenderOnCreature_Power;
-import superstitio.powers.interfaces.HasAllCardCostModifyEffect;
-import superstitio.powers.interfaces.OnPostApplyThisPower;
-import superstitio.powers.interfaces.invisible.InvisiblePower_InvisibleApplyPowerEffect;
-import superstitio.powers.interfaces.invisible.InvisiblePower_InvisibleIconAndAmount;
-import superstitio.powers.interfaces.invisible.InvisiblePower_InvisibleRemovePowerEffect;
-import superstitio.powers.interfaces.invisible.InvisiblePower_InvisibleTips;
-import superstitio.powers.interfaces.orgasm.*;
+import superstitio.powers.patchAndInterface.barIndepend.BarRenderUpdateMessage;
+import superstitio.powers.patchAndInterface.barIndepend.HasBarRenderOnCreature_Power;
+import superstitio.powers.patchAndInterface.interfaces.HasAllCardCostModifyEffect;
+import superstitio.powers.patchAndInterface.interfaces.OnPostApplyThisPower;
+import superstitio.powers.patchAndInterface.interfaces.invisible.InvisiblePower_InvisibleApplyPowerEffect;
+import superstitio.powers.patchAndInterface.interfaces.invisible.InvisiblePower_InvisibleIconAndAmount;
+import superstitio.powers.patchAndInterface.interfaces.invisible.InvisiblePower_InvisibleRemovePowerEffect;
+import superstitio.powers.patchAndInterface.interfaces.invisible.InvisiblePower_InvisibleTips;
+import superstitio.powers.patchAndInterface.interfaces.orgasm.*;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.Optional;
@@ -39,7 +39,7 @@ public class SexualHeat extends AbstractLupaPower implements
         InvisiblePower_InvisibleTips, InvisiblePower_InvisibleIconAndAmount,
         InvisiblePower_InvisibleApplyPowerEffect, InvisiblePower_InvisibleRemovePowerEffect,
         OnOrgasm_onSuccessfullyPreventOrgasm, OnOrgasm_onOrgasm, OnOrgasm_onEndOrgasm, OnOrgasm_onSquirt, OnOrgasm_onContinuallyOrgasm {
-    public static final String POWER_ID = DataManager.MakeTextID(SexualHeat.class.getSimpleName());
+    public static final String POWER_ID = DataManager.MakeTextID(SexualHeat.class);
     public static final int HEAT_REQUIREDOrigin = 10;
     private static final int DRAW_CARD_INContinueOrgasm = 0;
     //绘制相关

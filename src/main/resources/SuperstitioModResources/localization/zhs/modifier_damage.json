@@ -9,13 +9,13 @@
     "NAME": "内射",
     "NAME_SFW": "武艺",
     "BASIC_INFO": "内射-插入动作",
-    "DESCRIPTION": "获得 #y内射标记 和 #y体内精液 。打破护甲后，只造成1点伤害，剩下的伤害延迟到目标回合开始时。"
+    "DESCRIPTION": "打破护甲后，只造成1点伤害，剩下的伤害延迟到目标回合开始时。"
   },
   "SuperstitioMod:SexDamage_Job": {
     "NAME": "外射",
     "NAME_SFW": "染血",
     "BASIC_INFO": "外射-精液覆身",
-    "DESCRIPTION": "获得 #y外射标记 和 #y体表精液 。打破护甲后，只造成1点伤害，剩下的伤害延迟到目标回合开始时。"
+    "DESCRIPTION": "打破护甲后，只造成1点伤害，剩下的伤害延迟到目标回合开始时。"
   },
   "SuperstitioMod:UnBlockAbleDamage": {
     "NAME": "不可阻挡的伤害",

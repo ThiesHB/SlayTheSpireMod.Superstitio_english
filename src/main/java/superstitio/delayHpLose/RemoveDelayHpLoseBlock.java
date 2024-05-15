@@ -2,17 +2,13 @@ package superstitio.delayHpLose;
 
 import com.badlogic.gdx.graphics.Color;
 import com.evacipated.cardcrawl.mod.stslib.blockmods.AbstractBlockModifier;
-import com.evacipated.cardcrawl.modthespire.lib.SpireField;
-import com.evacipated.cardcrawl.modthespire.lib.SpirePatch;
 import com.megacrit.cardcrawl.cards.DamageInfo;
-import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import superstitio.DataManager;
-import superstitio.cards.modifiers.AbstractLupaBlock;
-import superstitio.powers.interfaces.TriPredicate;
+import superstitio.cardModifier.modifiers.AbstractLupaBlock;
 
 public class RemoveDelayHpLoseBlock extends AbstractLupaBlock {
 
-    public static final String ID = DataManager.MakeTextID(RemoveDelayHpLoseBlock.class.getSimpleName());
+    public static final String ID = DataManager.MakeTextID(RemoveDelayHpLoseBlock.class);
 
     public RemoveDelayHpLoseBlock() {
         super(ID);

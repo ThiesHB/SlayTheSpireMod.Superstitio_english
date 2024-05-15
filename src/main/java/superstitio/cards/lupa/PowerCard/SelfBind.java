@@ -5,11 +5,11 @@ import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import com.megacrit.cardcrawl.powers.DexterityPower;
 import com.megacrit.cardcrawl.powers.StrengthPower;
 import superstitio.DataManager;
-import superstitio.cards.lupa.AbstractLupaCard;
+import superstitio.cards.lupa.LupaCard;
 
 
-public class SelfBind extends AbstractLupaCard {
-    public static final String ID = DataManager.MakeTextID(SelfBind.class.getSimpleName());
+public class SelfBind extends LupaCard {
+    public static final String ID = DataManager.MakeTextID(SelfBind.class);
 
     public static final CardType CARD_TYPE = CardType.POWER;
 

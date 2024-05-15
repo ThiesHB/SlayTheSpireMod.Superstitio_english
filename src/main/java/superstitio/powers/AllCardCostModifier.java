@@ -11,8 +11,8 @@ import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.powers.AbstractPower;
 import superstitio.InBattleDataManager;
 import superstitio.Logger;
-import superstitio.powers.interfaces.HasAllCardCostModifyEffect;
-import superstitio.powers.interfaces.OnPostApplyThisPower;
+import superstitio.powers.patchAndInterface.interfaces.HasAllCardCostModifyEffect;
+import superstitio.powers.patchAndInterface.interfaces.OnPostApplyThisPower;
 import superstitio.utils.ActionUtility;
 import superstitio.utils.CardUtility;
 

@@ -20,7 +20,7 @@ import superstitio.orbs.actions.AnimationOrbOnMonsterAction;
 import superstitio.orbs.actions.ChannelOnOrbGroupAction;
 import superstitio.orbs.actions.EvokeFirstOnMonsterAction;
 import superstitio.orbs.actions.FlashOrbEffect;
-import superstitio.powers.barIndepend.RenderInBattle;
+import superstitio.powers.patchAndInterface.barIndepend.RenderInBattle;
 import superstitio.utils.ActionUtility;
 import superstitio.utils.CardUtility;
 

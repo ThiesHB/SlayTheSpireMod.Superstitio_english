@@ -5,14 +5,14 @@ import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import superstitio.DataManager;
-import superstitio.cards.lupa.AbstractLupaCard;
+import superstitio.cards.lupa.LupaCard;
 import superstitio.cards.lupa.PowerCard.monsterGirl.FishGirlMode;
 
 import java.util.ArrayList;
 
 
-public class MonsterGirlMode extends AbstractLupaCard {
-    public static final String ID = DataManager.MakeTextID(MonsterGirlMode.class.getSimpleName());
+public class MonsterGirlMode extends LupaCard {
+    public static final String ID = DataManager.MakeTextID(MonsterGirlMode.class);
 
     public static final CardType CARD_TYPE = CardType.POWER;
 

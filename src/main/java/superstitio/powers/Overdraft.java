@@ -6,7 +6,7 @@ import com.megacrit.cardcrawl.core.AbstractCreature;
 import superstitio.DataManager;
 
 public class Overdraft extends AbstractLupaPower {
-    public static final String POWER_ID = DataManager.MakeTextID(Overdraft.class.getSimpleName());
+    public static final String POWER_ID = DataManager.MakeTextID(Overdraft.class);
 
     public Overdraft(final AbstractCreature owner, int amount) {
         super(POWER_ID, owner, amount);

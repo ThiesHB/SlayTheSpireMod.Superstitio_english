@@ -4,7 +4,7 @@ import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import superstitio.DataManager;
-import superstitio.cards.lupa.AbstractLupaCard;
+import superstitio.cards.lupa.LupaCard;
 import superstitio.delayHpLose.RemoveDelayHpLoseBlock;
 import superstitio.orbs.CardOrb_CardTrigger;
 import superstitio.orbs.Card_AvoidAllCardUsedCheckOfCardOrb_ManuallyTriggerCardOrb;
@@ -12,8 +12,8 @@ import superstitio.orbs.Card_AvoidAllCardUsedCheckOfCardOrb_ManuallyTriggerCardO
 import static superstitio.InBattleDataManager.getHangUpCardOrbGroup;
 import static superstitio.actions.AutoDoneInstantAction.addToBotAbstract;
 
-public class PassiveGangBang extends AbstractLupaCard implements Card_AvoidAllCardUsedCheckOfCardOrb_ManuallyTriggerCardOrb {
-    public static final String ID = DataManager.MakeTextID(PassiveGangBang.class.getSimpleName());
+public class PassiveGangBang extends LupaCard implements Card_AvoidAllCardUsedCheckOfCardOrb_ManuallyTriggerCardOrb {
+    public static final String ID = DataManager.MakeTextID(PassiveGangBang.class);
 
     public static final CardType CARD_TYPE = CardType.SKILL;
 

@@ -7,16 +7,16 @@ import com.megacrit.cardcrawl.core.AbstractCreature;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import superstitio.DataManager;
 import superstitio.actions.AutoDoneInstantAction;
-import superstitio.cards.lupa.AbstractLupaCard;
+import superstitio.cards.lupa.LupaCard;
 import superstitio.powers.AbstractLupaPower;
 import superstitio.powers.SexualHeat;
 import superstitio.powers.SexualHeatNeededModifier;
-import superstitio.powers.interfaces.OnPostApplyThisPower;
-import superstitio.powers.interfaces.orgasm.OnOrgasm_onOrgasm;
+import superstitio.powers.patchAndInterface.interfaces.OnPostApplyThisPower;
+import superstitio.powers.patchAndInterface.interfaces.orgasm.OnOrgasm_onOrgasm;
 
 
-public class ChokeChoker extends AbstractLupaCard {
-    public static final String ID = DataManager.MakeTextID(ChokeChoker.class.getSimpleName());
+public class ChokeChoker extends LupaCard {
+    public static final String ID = DataManager.MakeTextID(ChokeChoker.class);
 
     public static final CardType CARD_TYPE = CardType.POWER;
 
@@ -46,7 +46,7 @@ public class ChokeChoker extends AbstractLupaCard {
 
     public static class ChokeChokerPower extends AbstractLupaPower implements
             OnOrgasm_onOrgasm, OnPostApplyThisPower {
-        public static final String POWER_ID = DataManager.MakeTextID(ChokeChokerPower.class.getSimpleName());
+        public static final String POWER_ID = DataManager.MakeTextID(ChokeChokerPower.class);
         public static final int ChokeAmount = 1;
 
         public ChokeChokerPower(final AbstractCreature owner, int amount) {

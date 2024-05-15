@@ -7,10 +7,10 @@ import com.megacrit.cardcrawl.powers.BarricadePower;
 import com.megacrit.cardcrawl.powers.FrailPower;
 import superstitio.DataManager;
 import superstitio.actions.AutoDoneInstantAction;
-import superstitio.cards.lupa.AbstractLupaCard;
+import superstitio.cards.lupa.LupaCard;
 
-public class Tease extends AbstractLupaCard {
-    public static final String ID = DataManager.MakeTextID(Tease.class.getSimpleName());
+public class Tease extends LupaCard {
+    public static final String ID = DataManager.MakeTextID(Tease.class);
 
     public static final CardType CARD_TYPE = CardType.SKILL;
 

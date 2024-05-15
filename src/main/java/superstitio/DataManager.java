@@ -6,11 +6,19 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Color;
 import com.evacipated.cardcrawl.modthespire.lib.SpireEnum;
+import com.evacipated.cardcrawl.modthespire.lib.SpireInitializer;
 import com.google.gson.Gson;
 import com.google.gson.internal.$Gson$Types;
+import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.cards.DamageInfo;
+import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.core.Settings;
+import com.megacrit.cardcrawl.helpers.CardLibrary;
+import com.megacrit.cardcrawl.localization.CharacterStrings;
 import com.megacrit.cardcrawl.localization.LocalizedStrings;
+import superstitio.cards.SuperstitioCard;
+import superstitio.cards.lupa.LupaCard;
+import superstitio.cards.maso.MasoCard;
 import superstitio.customStrings.*;
 
 import java.io.File;
@@ -24,13 +32,14 @@ import java.util.*;
 import java.util.function.Function;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
 public class DataManager {
     public static Map<String, CardStringsWithFlavorSet> cards = new HashMap<>();
     public static Map<String, PowerStringsSet> powers = new HashMap<>();
     public static Map<String, ModifierStringsSet> modifiers = new HashMap<>();
     public static Map<String, OrbStringsSet> orbs = new HashMap<>();
-    public LUPA_DATA lupaData = new LUPA_DATA();
+    public SPTT_DATA spttData = new SPTT_DATA();
 
     static String makeLocalizationPath(Settings.GameLanguage language, String filename) {
         String ret = "localization/";
@@ -62,21 +71,30 @@ public class DataManager {
         String noGuroLevelPath = getResourcesFilesPath() + "imgNoGuro" + path;
         String sfwLevelPath = getResourcesFilesPath() + "imgSFW" + path;
 
-        switch (SuperstitioModSetup.sexLevel) {
-            case ALL:
-                if (Gdx.files.internal(allLevelPath).exists())
-                    return allLevelPath;
-                if (Gdx.files.internal(noGuroLevelPath).exists())
-                    return noGuroLevelPath;
-                return sfwLevelPath;
-            case NO_GURO:
-                if (Gdx.files.internal(noGuroLevelPath).exists())
-                    return noGuroLevelPath;
-                return sfwLevelPath;
-            case SFW:
-            default:
-                return sfwLevelPath;
+        if (!SuperstitioModSetup.getEnableSFW()) {
+//            if (Gdx.files.internal(noGuroLevelPath).exists())
+            return allLevelPath;
+//            return sfwLevelPath;
         }
+        else
+            return sfwLevelPath;
+
+
+//        switch (SuperstitioModSetup.sexLevel) {
+//            case ALL:
+//                if (Gdx.files.internal(allLevelPath).exists())
+//                    return allLevelPath;
+//                if (Gdx.files.internal(noGuroLevelPath).exists())
+//                    return noGuroLevelPath;
+//                return sfwLevelPath;
+//            case NO_GURO:
+//                if (Gdx.files.internal(noGuroLevelPath).exists())
+//                    return noGuroLevelPath;
+//                return sfwLevelPath;
+//            case SFW:
+//            default:
+//                return sfwLevelPath;
+//        }
     }
 
     public static String makeImgFilesPath(String... resourcePaths) {
@@ -92,6 +110,14 @@ public class DataManager {
 
     public static String makeImgFilesPath_LupaCard(String... resourcePaths) {
         return makeImgFilesPath("cards_Lupa", makeTotalString(resourcePaths));
+    }
+
+    public static String makeImgFilesPath_GeneralCard(String... resourcePaths) {
+        return makeImgFilesPath("cards_General", makeTotalString(resourcePaths));
+    }
+
+    public static String makeImgFilesPath_MasoCard(String... resourcePaths) {
+        return makeImgFilesPath("cards_Maso", makeTotalString(resourcePaths));
     }
 
     public static String makeImgFilesPath_Relic(String... resourcePaths) {
@@ -158,6 +184,16 @@ public class DataManager {
         return getModID() + ":" + idText;
     }
 
+    public static String MakeTextID(Class<?> idClass) {
+        if (SuperstitioCard.class.isAssignableFrom(idClass)) {
+            if (LupaCard.class.isAssignableFrom(idClass))
+                return getModID() + ":" + LupaCard.class.getSimpleName() + ":" + idClass.getSimpleName();
+            else if (MasoCard.class.isAssignableFrom(idClass))
+                return getModID() + ":" + MasoCard.class.getSimpleName() + ":" + idClass.getSimpleName();
+        }
+        return getModID() + ":" + idClass.getSimpleName();
+    }
+
 
     /**
      * 只输出后面的id，不携带模组信息
@@ -166,9 +202,21 @@ public class DataManager {
      * @return 去除前面的部分
      */
     public static String[] getIdOnly(String... complexIds) {
-        return Arrays.stream(complexIds)
-                .map(complexId -> complexId.replace(DataManager.MakeTextID(""), ""))
-                .toArray(String[]::new);
+        return Arrays.stream(complexIds).map(DataManager::getIdOnly).collect(Collectors.toList()).toArray(new String[]{});
+    }
+
+    public static String getIdOnly(String complexIds) {
+        // 定义正则表达式，匹配最后一个冒号及其后面的所有字符
+        Pattern pattern = Pattern.compile("(.*?):([^:]*)$");
+        Matcher matcher = pattern.matcher(complexIds);
+
+        // 如果匹配成功
+        if (matcher.find()) {
+            // 返回冒号后的内容
+            return matcher.group(2);
+        }
+        // 如果没有匹配到冒号，则返回原字符串
+        return complexIds;
     }
 
     public static String makeImgPath(String defaultFileName, Function<String[], String> PathFinder, String... fileName) {
@@ -289,10 +337,12 @@ public class DataManager {
     }
 
 
-    //    @SpireInitializer
-    public static class LUPA_DATA {
+    @SpireInitializer
+    public static class SPTT_DATA {
 
-        public static final Color LUPA_COLOR = new Color(250.0F / 255.0F, 20.0F / 255.0F, 147.0F / 255.0F, 1.0F);
+        public static final Color SEX_COLOR = new Color(250.0F / 255.0F, 20.0F / 255.0F, 147.0F / 255.0F, 1.0F);
+        public static final String BG_ATTACK_SEMEN = makeImgFilesPath_UI("bg_attack_semen");
+        public static final String BG_ATTACK_512_SEMEN = makeImgFilesPath_UI("bg_attack_512_semen");
         // 在卡牌和遗物描述中的能量图标
         public String SMALL_ORB = makeImgFilesPath_Character_Lupa("small_orb");
         // 在卡牌预览界面的能量图标
@@ -316,6 +366,51 @@ public class DataManager {
         // 人物选择界面的立绘
         public String LUPA_CHARACTER_PORTRAIT = makeImgFilesPath_Character_Lupa("Character_Portrait");
 
+        // 为原版人物枚举、卡牌颜色枚举扩展的枚举，需要写，接下来要用
+        public static class LupaEnums {
+            @SpireEnum
+            public static AbstractPlayer.PlayerClass LUPA_Character;
+
+            @SpireEnum(name = "LUPA_PINK")
+            public static AbstractCard.CardColor LUPA_CARD;
+
+            @SpireEnum(name = "LUPA_PINK")
+            public static CardLibrary.LibraryType LUPA_LIBRARY;
+        }
+
+        public static class MasoEnums {
+            @SpireEnum
+            public static AbstractPlayer.PlayerClass MASO_Character;
+
+            @SpireEnum(name = "MASO_PINK")
+            public static AbstractCard.CardColor MASO_CARD;
+
+            @SpireEnum(name = "MASO_PINK")
+            public static CardLibrary.LibraryType MASO_LIBRARY;
+        }
+
+
+        public static class GeneralEnums {
+            @SpireEnum
+            public static AbstractPlayer.PlayerClass GENERAL_Virtual_Character;
+
+            @SpireEnum(name = "SPTT_GENERAL_PINK")
+            public static AbstractCard.CardColor GENERAL_CARD;
+
+            @SpireEnum(name = "SPTT_GENERAL_PINK")
+            public static CardLibrary.LibraryType GENERAL_LIBRARY;
+        }
+
+        // 为原版人物枚举、卡牌颜色枚举扩展的枚举，需要写，接下来要用
+        public static class TempCardEnums {
+            @SpireEnum
+            public static AbstractPlayer.PlayerClass TempCard_Virtual_Character;
+            @SpireEnum(name = "SPTT_TEMP_PINK")
+            public static AbstractCard.CardColor TempCard_CARD;
+
+            @SpireEnum(name = "SPTT_TEMP_PINK")
+            public static CardLibrary.LibraryType TempCard_LIBRARY;
+        }
     }
 
     public static class CanOnlyDamageDamageType {

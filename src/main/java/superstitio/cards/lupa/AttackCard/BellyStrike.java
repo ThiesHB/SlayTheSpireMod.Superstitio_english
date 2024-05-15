@@ -10,11 +10,11 @@ import com.megacrit.cardcrawl.powers.LoseStrengthPower;
 import com.megacrit.cardcrawl.powers.StrengthPower;
 import superstitio.DataManager;
 import superstitio.actions.AutoDoneInstantAction;
-import superstitio.cards.lupa.AbstractLupaCard;
+import superstitio.cards.lupa.LupaCard;
 
 
-public class BellyStrike extends AbstractLupaCard {
-    public static final String ID = DataManager.MakeTextID(BellyStrike.class.getSimpleName());
+public class BellyStrike extends LupaCard {
+    public static final String ID = DataManager.MakeTextID(BellyStrike.class);
 
     public static final CardType CARD_TYPE = CardType.ATTACK;
 

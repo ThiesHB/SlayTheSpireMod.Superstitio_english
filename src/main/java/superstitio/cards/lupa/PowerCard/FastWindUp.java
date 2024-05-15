@@ -5,18 +5,18 @@ import com.megacrit.cardcrawl.core.AbstractCreature;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import superstitio.DataManager;
-import superstitio.cards.lupa.AbstractLupaCard;
+import superstitio.cards.lupa.LupaCard;
 import superstitio.orbs.CardOrb_CardTrigger;
 import superstitio.powers.AbstractLupaPower;
 import superstitio.powers.SexualHeat;
-import superstitio.powers.interfaces.orgasm.OnOrgasm_onOrgasm;
+import superstitio.powers.patchAndInterface.interfaces.orgasm.OnOrgasm_onOrgasm;
 
 import static superstitio.InBattleDataManager.getHangUpCardOrbGroup;
 import static superstitio.actions.AutoDoneInstantAction.addToBotAbstract;
 
 
-public class FastWindUp extends AbstractLupaCard {
-    public static final String ID = DataManager.MakeTextID(FastWindUp.class.getSimpleName());
+public class FastWindUp extends LupaCard {
+    public static final String ID = DataManager.MakeTextID(FastWindUp.class);
 
     public static final CardType CARD_TYPE = CardType.POWER;
 
@@ -44,7 +44,7 @@ public class FastWindUp extends AbstractLupaCard {
     }
 
     public static class FastWindUpPower extends AbstractLupaPower implements OnOrgasm_onOrgasm {
-        public static final String POWER_ID = DataManager.MakeTextID(FastWindUpPower.class.getSimpleName());
+        public static final String POWER_ID = DataManager.MakeTextID(FastWindUpPower.class);
 
         public FastWindUpPower(final AbstractCreature owner, int amount) {
             super(POWER_ID, owner, amount);

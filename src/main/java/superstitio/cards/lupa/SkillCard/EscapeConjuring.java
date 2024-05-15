@@ -9,15 +9,15 @@ import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import com.megacrit.cardcrawl.powers.AbstractPower;
 import superstitio.DataManager;
-import superstitio.cards.lupa.AbstractLupaCard;
+import superstitio.cards.lupa.LupaCard;
 import superstitio.powers.SexualHeat;
 
-public class EscapeConjuring extends AbstractLupaCard {
-    public static final String ID = DataManager.MakeTextID(EscapeConjuring.class.getSimpleName());
+public class EscapeConjuring extends LupaCard {
+    public static final String ID = DataManager.MakeTextID(EscapeConjuring.class);
 
     public static final CardType CARD_TYPE = CardType.SKILL;
 
-    public static final CardRarity CARD_RARITY = CardRarity.RARE;
+    public static final CardRarity CARD_RARITY = CardRarity.UNCOMMON;
 
     public static final CardTarget CARD_TARGET = CardTarget.SELF;
 

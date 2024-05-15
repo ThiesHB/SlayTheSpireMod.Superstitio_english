@@ -3,7 +3,7 @@
 //import com.megacrit.cardcrawl.cards.CardQueueItem;
 //import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 //import superstitio.actions.AutoDoneInstantAction;
-//import superstitio.cards.lupa.TempCard.GangBang;
+//import superstitio.cards.general.TempCard.GangBang;
 //import superstitio.orbs.SexMarkOrb;
 //import superstitio.orbs.orbgroup.SexMarkOrbGroup;
 //

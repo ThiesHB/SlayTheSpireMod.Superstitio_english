@@ -1,20 +1,18 @@
 package superstitio.cards.lupa.SkillCard;
 
-import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import superstitio.DataManager;
-import superstitio.cards.lupa.AbstractLupaCard;
-import superstitio.cards.modifiers.block.SexBlock;
-import superstitio.delayHpLose.RemoveDelayHpLoseBlock;
+import superstitio.cards.lupa.LupaCard;
+import superstitio.cardModifier.modifiers.block.SexBlock;
 import superstitio.orbs.CardOrb_CardTrigger;
 import superstitio.orbs.Card_AvoidAllCardUsedCheckOfCardOrb_ManuallyTriggerCardOrb;
 
 import static superstitio.InBattleDataManager.getHangUpCardOrbGroup;
 import static superstitio.actions.AutoDoneInstantAction.addToBotAbstract;
 
-public class OneMoreHour extends AbstractLupaCard implements Card_AvoidAllCardUsedCheckOfCardOrb_ManuallyTriggerCardOrb {
-    public static final String ID = DataManager.MakeTextID(OneMoreHour.class.getSimpleName());
+public class OneMoreHour extends LupaCard implements Card_AvoidAllCardUsedCheckOfCardOrb_ManuallyTriggerCardOrb {
+    public static final String ID = DataManager.MakeTextID(OneMoreHour.class);
 
     public static final CardType CARD_TYPE = CardType.SKILL;
 

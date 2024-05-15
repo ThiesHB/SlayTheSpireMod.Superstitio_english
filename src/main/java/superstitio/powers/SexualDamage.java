@@ -9,10 +9,10 @@ import com.megacrit.cardcrawl.actions.common.LoseHPAction;
 import com.megacrit.cardcrawl.core.AbstractCreature;
 import superstitio.DataManager;
 import superstitio.delayHpLose.DelayHpLosePower;
-import superstitio.powers.interfaces.DecreaseHealthBarNumberPower;
+import superstitio.powers.patchAndInterface.interfaces.DecreaseHealthBarNumberPower;
 
 public class SexualDamage extends AbstractLupaPower implements HealthBarRenderPower, DecreaseHealthBarNumberPower {
-    public static final String POWER_ID = DataManager.MakeTextID(SexualDamage.class.getSimpleName());
+    public static final String POWER_ID = DataManager.MakeTextID(SexualDamage.class);
     protected final AbstractCreature giver;
 
     public SexualDamage(final AbstractCreature owner, int amount, AbstractCreature giver) {

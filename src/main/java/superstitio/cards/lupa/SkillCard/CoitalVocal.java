@@ -4,13 +4,12 @@ import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import superstitio.DataManager;
-import superstitio.cards.lupa.AbstractLupaCard;
-import superstitio.cards.modifiers.block.SexBlock;
-import superstitio.delayHpLose.RemoveDelayHpLoseBlock;
+import superstitio.cards.lupa.LupaCard;
+import superstitio.cardModifier.modifiers.block.SexBlock;
 
-public class CoitalVocal extends AbstractLupaCard {
+public class CoitalVocal extends LupaCard {
     public static final String ID =
-            DataManager.MakeTextID(CoitalVocal.class.getSimpleName());
+            DataManager.MakeTextID(CoitalVocal.class);
 
     public static final CardType CARD_TYPE = CardType.SKILL;
 

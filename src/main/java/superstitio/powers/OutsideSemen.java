@@ -8,14 +8,14 @@ import com.megacrit.cardcrawl.core.AbstractCreature;
 import com.megacrit.cardcrawl.core.Settings;
 import com.megacrit.cardcrawl.powers.AbstractPower;
 import superstitio.DataManager;
-import superstitio.cards.modifiers.block.DrySemenBlock;
-import superstitio.powers.barIndepend.HasBarRenderOnCreature_Power;
-import superstitio.powers.interfaces.invisible.InvisiblePower_InvisibleIconAndAmount;
-import superstitio.powers.interfaces.invisible.InvisiblePower_InvisibleTips;
+import superstitio.cardModifier.modifiers.block.DrySemenBlock;
+import superstitio.powers.patchAndInterface.barIndepend.HasBarRenderOnCreature_Power;
+import superstitio.powers.patchAndInterface.interfaces.invisible.InvisiblePower_InvisibleIconAndAmount;
+import superstitio.powers.patchAndInterface.interfaces.invisible.InvisiblePower_InvisibleTips;
 
 public class OutsideSemen extends AbstractLupaPower implements
         InvisiblePower_InvisibleTips, InvisiblePower_InvisibleIconAndAmount, HasBarRenderOnCreature_Power {
-    public static final String POWER_ID = DataManager.MakeTextID(OutsideSemen.class.getSimpleName());
+    public static final String POWER_ID = DataManager.MakeTextID(OutsideSemen.class);
 
 
     public OutsideSemen(final AbstractCreature owner, int amount) {

@@ -6,15 +6,15 @@ import com.megacrit.cardcrawl.core.Settings;
 import com.megacrit.cardcrawl.powers.AbstractPower;
 import superstitio.DataManager;
 import superstitio.actions.AutoDoneInstantAction;
-import superstitio.powers.barIndepend.HasBarRenderOnCreature_Power;
-import superstitio.powers.interfaces.invisible.InvisiblePower_InvisibleIconAndAmount;
-import superstitio.powers.interfaces.invisible.InvisiblePower_InvisibleTips;
-import superstitio.powers.interfaces.OnPostApplyThisPower;
+import superstitio.powers.patchAndInterface.barIndepend.HasBarRenderOnCreature_Power;
+import superstitio.powers.patchAndInterface.interfaces.invisible.InvisiblePower_InvisibleIconAndAmount;
+import superstitio.powers.patchAndInterface.interfaces.invisible.InvisiblePower_InvisibleTips;
+import superstitio.powers.patchAndInterface.interfaces.OnPostApplyThisPower;
 import superstitio.utils.PowerUtility;
 
 public class InsideSemen extends AbstractLupaPower implements OnPostApplyThisPower,
         InvisiblePower_InvisibleTips, InvisiblePower_InvisibleIconAndAmount, HasBarRenderOnCreature_Power {
-    public static final String POWER_ID = DataManager.MakeTextID(InsideSemen.class.getSimpleName());
+    public static final String POWER_ID = DataManager.MakeTextID(InsideSemen.class);
     public static final int MAX_Semen = 10;
     private static final int ToOutSideSemenRate = 1;
 

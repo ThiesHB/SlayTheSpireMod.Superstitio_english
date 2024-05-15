@@ -4,11 +4,11 @@ import com.megacrit.cardcrawl.actions.common.RemoveSpecificPowerAction;
 import com.megacrit.cardcrawl.core.AbstractCreature;
 import superstitio.DataManager;
 import superstitio.actions.AutoDoneInstantAction;
-import superstitio.powers.interfaces.OnPostApplyThisPower;
-import superstitio.powers.interfaces.orgasm.OnOrgasm_onCheckOrgasm;
+import superstitio.powers.patchAndInterface.interfaces.OnPostApplyThisPower;
+import superstitio.powers.patchAndInterface.interfaces.orgasm.OnOrgasm_onCheckOrgasm;
 
 public class SexualHeatNeededModifier extends AbstractLupaPower implements OnOrgasm_onCheckOrgasm, OnPostApplyThisPower {
-    public static final String POWER_ID = DataManager.MakeTextID(SexualHeatNeededModifier.class.getSimpleName());
+    public static final String POWER_ID = DataManager.MakeTextID(SexualHeatNeededModifier.class);
 
     public SexualHeatNeededModifier(final AbstractCreature owner, int amount) {
         //大于0会降低高潮需求，小于0会提高高潮需求

@@ -12,7 +12,7 @@ import com.megacrit.cardcrawl.vfx.combat.FrostOrbPassiveEffect;
 import superstitio.DataManager;
 
 public class SexMarkOrb_Outside extends SexMarkOrb {
-    public static final String ORB_ID = DataManager.MakeTextID(SexMarkOrb_Outside.class.getSimpleName());
+    public static final String ORB_ID = DataManager.MakeTextID(SexMarkOrb_Outside.class);
     private final static int TemporaryHPRate = 1;
     private final boolean hFlip1 = MathUtils.randomBoolean();
     private final boolean hFlip2 = MathUtils.randomBoolean();

@@ -8,8 +8,8 @@ import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.helpers.CardLibrary;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import superstitio.DataManager;
-import superstitio.cards.lupa.AbstractLupaCard;
-import superstitio.cards.lupa.AbstractLupaCard_FuckJob;
+import superstitio.cards.lupa.LupaCard;
+import superstitio.cards.general.AbstractCard_FuckJob;
 import superstitio.utils.ActionUtility;
 import superstitio.utils.CardUtility;
 
@@ -17,8 +17,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 //随机生成一张Fuck/Job卡
-public class ChooseCoitalPosture extends AbstractLupaCard {
-    public static final String ID = DataManager.MakeTextID(ChooseCoitalPosture.class.getSimpleName());
+public class ChooseCoitalPosture extends LupaCard {
+    public static final String ID = DataManager.MakeTextID(ChooseCoitalPosture.class);
 
     public static final CardType CARD_TYPE = CardType.SKILL;
 
@@ -34,14 +34,14 @@ public class ChooseCoitalPosture extends AbstractLupaCard {
         super(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET);
     }
 
-    public static AbstractLupaCard_FuckJob getRandomFuckJobCard() {
+    public static AbstractCard_FuckJob getRandomFuckJobCard() {
         return CardUtility.getRandomFromList(getAllFuckJobCard(), AbstractDungeon.cardRandomRng);
     }
 
-    public static List<AbstractLupaCard_FuckJob> getAllFuckJobCard() {
+    public static List<AbstractCard_FuckJob> getAllFuckJobCard() {
         return CardLibrary.cards.values().stream()
-                .filter(card -> card instanceof AbstractLupaCard_FuckJob)
-                .map(card -> (AbstractLupaCard_FuckJob) card).collect(Collectors.toList());
+                .filter(card -> card instanceof AbstractCard_FuckJob)
+                .map(card -> (AbstractCard_FuckJob) card).collect(Collectors.toList());
     }
 
     @Override

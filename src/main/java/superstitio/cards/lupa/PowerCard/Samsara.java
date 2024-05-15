@@ -8,13 +8,13 @@ import com.megacrit.cardcrawl.core.AbstractCreature;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import com.megacrit.cardcrawl.powers.EquilibriumPower;
 import superstitio.DataManager;
-import superstitio.cards.lupa.AbstractLupaCard;
+import superstitio.cards.lupa.LupaCard;
 import superstitio.powers.AbstractLupaPower;
 import superstitio.utils.ActionUtility;
 
 
-public class Samsara extends AbstractLupaCard {
-    public static final String ID = DataManager.MakeTextID(Samsara.class.getSimpleName());
+public class Samsara extends LupaCard {
+    public static final String ID = DataManager.MakeTextID(Samsara.class);
 
     public static final CardType CARD_TYPE = CardType.POWER;
 
@@ -45,7 +45,7 @@ public class Samsara extends AbstractLupaCard {
     }
 
     public static class SamsaraPower extends AbstractLupaPower {
-        public static final String POWER_ID = DataManager.MakeTextID(SamsaraPower.class.getSimpleName());
+        public static final String POWER_ID = DataManager.MakeTextID(SamsaraPower.class);
 
         public SamsaraPower(final AbstractCreature owner) {
             super(POWER_ID, owner, -1);

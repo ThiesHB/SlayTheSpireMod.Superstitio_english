@@ -3,11 +3,11 @@ package superstitio.cards.lupa.SkillCard;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import superstitio.DataManager;
-import superstitio.cards.lupa.AbstractLupaCard;
+import superstitio.cards.lupa.LupaCard;
 import superstitio.powers.DelaySexualHeat;
 
-public class Endure extends AbstractLupaCard {
-    public static final String ID = DataManager.MakeTextID(Endure.class.getSimpleName());
+public class Endure extends LupaCard {
+    public static final String ID = DataManager.MakeTextID(Endure.class);
 
     public static final CardType CARD_TYPE = CardType.SKILL;
 

@@ -21,7 +21,7 @@ import superstitio.utils.CardUtility;
  */
 @AutoAdd.Seen
 public class SorM extends AbstractLupaRelic implements ClickableRelic, CustomSavable<Integer>, BetterOnLoseHpRelic {
-    public static final String ID = DataManager.MakeTextID(SorM.class.getSimpleName());
+    public static final String ID = DataManager.MakeTextID(SorM.class);
     // 遗物类型
     private static final RelicTier RELIC_TIER = RelicTier.SPECIAL;
     // 点击音效

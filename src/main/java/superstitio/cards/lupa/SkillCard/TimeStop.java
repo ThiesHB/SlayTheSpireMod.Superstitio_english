@@ -6,10 +6,10 @@ import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import com.megacrit.cardcrawl.powers.NoDrawPower;
 import superstitio.DataManager;
-import superstitio.cards.lupa.AbstractLupaCard;
+import superstitio.cards.lupa.LupaCard;
 
-public class TimeStop extends AbstractLupaCard {
-    public static final String ID = DataManager.MakeTextID(TimeStop.class.getSimpleName());
+public class TimeStop extends LupaCard {
+    public static final String ID = DataManager.MakeTextID(TimeStop.class);
 
     public static final CardType CARD_TYPE = CardType.SKILL;
 

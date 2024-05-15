@@ -185,6 +185,7 @@ public abstract class CardOrb_CardTrigger extends CardOrb {
         if (hoveredCard instanceof Card_AvoidAllCardUsedCheckOfCardOrb_ManuallyTriggerCardOrb) {
             return ((Card_AvoidAllCardUsedCheckOfCardOrb_ManuallyTriggerCardOrb) hoveredCard).forceFilterCardOrbToHoveredMode(this);
         }
+        if (cardMatcher == null) return false;
         return this.cardMatcher.test(hoveredCard);
     }
 

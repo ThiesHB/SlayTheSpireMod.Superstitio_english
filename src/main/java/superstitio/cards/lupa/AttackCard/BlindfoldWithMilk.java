@@ -5,10 +5,10 @@ import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import superstitio.DataManager;
 import superstitio.actions.AutoDoneInstantAction;
-import superstitio.cards.lupa.AbstractLupaCard;
+import superstitio.cards.lupa.LupaCard;
 
-public class BlindfoldWithMilk extends AbstractLupaCard {
-    public static final String ID = DataManager.MakeTextID(BlindfoldWithMilk.class.getSimpleName());
+public class BlindfoldWithMilk extends LupaCard {
+    public static final String ID = DataManager.MakeTextID(BlindfoldWithMilk.class);
 
     public static final CardType CARD_TYPE = CardType.ATTACK;
 

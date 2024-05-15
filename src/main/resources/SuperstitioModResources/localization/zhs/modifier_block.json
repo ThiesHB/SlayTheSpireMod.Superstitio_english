@@ -28,5 +28,11 @@
     "NAME_SFW": "吞噬",
     "BASIC_INFO": "妊娠大肚",
     "DESCRIPTION": "回合结束时不消失，阻挡伤害。 如果非正常移除会导致 #y流产 。"
+  },
+  "SuperstitioMod:DelayRemoveDelayHpLoseBlock": {
+    "NAME": "回味情爱",
+    "NAME_SFW": "回味激情",
+    "BASIC_INFO": "情爱唤起（回味）",
+    "DESCRIPTION": "在下回合开始时，回味一些刺激的事情，从而移除 #r腐朽 。 NL 只能移除从本回合开始到下回合开始前获得的 #r腐朽 。"
   }
 }

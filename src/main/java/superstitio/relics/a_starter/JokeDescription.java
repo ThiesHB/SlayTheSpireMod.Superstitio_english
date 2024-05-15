@@ -12,7 +12,7 @@ import static com.megacrit.cardcrawl.dungeons.AbstractDungeon.player;
 
 @AutoAdd.Seen
 public class JokeDescription extends AbstractLupaRelic {
-    public static final String ID = DataManager.MakeTextID(JokeDescription.class.getSimpleName());
+    public static final String ID = DataManager.MakeTextID(JokeDescription.class);
     // 遗物类型
     private static final RelicTier RELIC_TIER = RelicTier.SPECIAL;
     // 点击音效

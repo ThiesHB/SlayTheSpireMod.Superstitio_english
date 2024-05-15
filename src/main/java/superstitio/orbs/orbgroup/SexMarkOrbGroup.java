@@ -8,7 +8,7 @@ import com.megacrit.cardcrawl.helpers.Hitbox;
 import com.megacrit.cardcrawl.orbs.AbstractOrb;
 import superstitio.InBattleDataManager;
 import superstitio.actions.AutoDoneInstantAction;
-import superstitio.cards.lupa.TempCard.GangBang;
+import superstitio.cards.general.TempCard.GangBang;
 import superstitio.orbs.SexMarkEmptySlot;
 import superstitio.orbs.SexMarkOrb;
 import superstitio.orbs.SexMarkOrb_Inside;

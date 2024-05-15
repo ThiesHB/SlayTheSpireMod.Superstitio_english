@@ -7,14 +7,14 @@ import com.megacrit.cardcrawl.core.AbstractCreature;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import superstitio.DataManager;
-import superstitio.cards.lupa.AbstractLupaCard;
+import superstitio.cards.lupa.LupaCard;
 import superstitio.powers.AbstractLupaPower;
 import superstitio.utils.ActionUtility;
 import superstitio.utils.CardUtility;
 
 //咕杀/くっころ
-public class Ku_Koro extends AbstractLupaCard {
-    public static final String ID = DataManager.MakeTextID(Ku_Koro.class.getSimpleName());
+public class Ku_Koro extends LupaCard {
+    public static final String ID = DataManager.MakeTextID(Ku_Koro.class);
 
     public static final CardType CARD_TYPE = CardType.POWER;
 
@@ -44,7 +44,7 @@ public class Ku_Koro extends AbstractLupaCard {
      * 每次受到攻击伤害时，获得1随机状态牌。所有消耗牌会回到抽牌堆
      */
     public static class Ku_KoroPower extends AbstractLupaPower {
-        public static final String POWER_ID = DataManager.MakeTextID(Ku_KoroPower.class.getSimpleName());
+        public static final String POWER_ID = DataManager.MakeTextID(Ku_KoroPower.class);
 
         public Ku_KoroPower(final AbstractCreature owner) {
             super(POWER_ID, owner, -1);

@@ -6,12 +6,12 @@ import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.vfx.RainingGoldEffect;
 import superstitio.DataManager;
-import superstitio.cards.lupa.AbstractLupaCard_FuckJob;
+import superstitio.cards.general.AbstractCard_FuckJob;
 import superstitio.relics.AbstractLupaRelic;
 import superstitio.relics.interFace.Countup;
 
 public class Prostitution extends AbstractLupaRelic implements Countup {
-    public static final String ID = DataManager.MakeTextID(Prostitution.class.getSimpleName());
+    public static final String ID = DataManager.MakeTextID(Prostitution.class);
     // 遗物类型
     private static final RelicTier RELIC_TIER = RelicTier.COMMON;
     // 点击音效
@@ -30,7 +30,7 @@ public class Prostitution extends AbstractLupaRelic implements Countup {
 
     @Override
     public void onUseCard(AbstractCard targetCard, UseCardAction useCardAction) {
-        if (targetCard instanceof AbstractLupaCard_FuckJob)
+        if (targetCard instanceof AbstractCard_FuckJob)
             CountAdd();
     }
 

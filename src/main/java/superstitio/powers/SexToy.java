@@ -9,7 +9,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class SexToy extends AbstractLupaPower {
-    public static final String POWER_ID = DataManager.MakeTextID(SexToy.class.getSimpleName());
+    public static final String POWER_ID = DataManager.MakeTextID(SexToy.class);
     private static final int SEXUAL_HEAT_RATE = 1;
     public Map<String, Integer> sexToyNames;
 

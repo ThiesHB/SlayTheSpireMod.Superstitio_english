@@ -11,19 +11,19 @@ import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import com.megacrit.cardcrawl.powers.AbstractPower;
 import superstitio.DataManager;
 import superstitio.actions.AutoDoneInstantAction;
-import superstitio.cards.lupa.AbstractLupaCard;
+import superstitio.cards.lupa.LupaCard;
 import superstitio.powers.AbstractLupaPower;
 import superstitio.powers.InsideSemen;
 import superstitio.powers.OutsideSemen;
-import superstitio.powers.barIndepend.HasBarRenderOnCreature_Power;
-import superstitio.powers.interfaces.OnPostApplyThisPower;
-import superstitio.powers.interfaces.invisible.InvisiblePower_InvisibleIconAndAmount;
-import superstitio.powers.interfaces.invisible.InvisiblePower_InvisibleTips;
+import superstitio.powers.patchAndInterface.barIndepend.HasBarRenderOnCreature_Power;
+import superstitio.powers.patchAndInterface.interfaces.OnPostApplyThisPower;
+import superstitio.powers.patchAndInterface.interfaces.invisible.InvisiblePower_InvisibleIconAndAmount;
+import superstitio.powers.patchAndInterface.interfaces.invisible.InvisiblePower_InvisibleTips;
 import superstitio.utils.PowerUtility;
 
 //排出，然后喝
-public class DrinkSemenBeer extends AbstractLupaCard {
-    public static final String ID = DataManager.MakeTextID(DrinkSemenBeer.class.getSimpleName());
+public class DrinkSemenBeer extends LupaCard {
+    public static final String ID = DataManager.MakeTextID(DrinkSemenBeer.class);
 
     public static final CardType CARD_TYPE = CardType.POWER;
 
@@ -53,7 +53,7 @@ public class DrinkSemenBeer extends AbstractLupaCard {
     public static class BeerCupSemen extends AbstractLupaPower implements
             InvisiblePower_InvisibleTips, InvisiblePower_InvisibleIconAndAmount, HasBarRenderOnCreature_Power,
             OnPostApplyThisPower, BetterOnApplyPowerPower {
-        public static final String POWER_ID = DataManager.MakeTextID(BeerCupSemen.class.getSimpleName());
+        public static final String POWER_ID = DataManager.MakeTextID(BeerCupSemen.class);
         //绘制相关
         private int maxAmount;
         private int semenAmount;

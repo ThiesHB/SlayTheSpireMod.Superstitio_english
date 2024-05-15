@@ -6,11 +6,11 @@ import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import superstitio.DataManager;
 import superstitio.actions.XCostAction;
-import superstitio.cards.lupa.AbstractLupaCard;
+import superstitio.cards.lupa.LupaCard;
 import superstitio.powers.SexualHeat;
 
-public class ForceOrgasm extends AbstractLupaCard {
-    public static final String ID = DataManager.MakeTextID(ForceOrgasm.class.getSimpleName());
+public class ForceOrgasm extends LupaCard {
+    public static final String ID = DataManager.MakeTextID(ForceOrgasm.class);
 
     public static final CardType CARD_TYPE = CardType.SKILL;
 

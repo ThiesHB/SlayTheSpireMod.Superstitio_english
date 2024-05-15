@@ -9,7 +9,7 @@ import com.megacrit.cardcrawl.powers.AbstractPower;
 import com.megacrit.cardcrawl.random.Random;
 import com.megacrit.cardcrawl.vfx.AbstractGameEffect;
 import superstitio.actions.AutoDoneInstantAction;
-import superstitio.cards.lupa.AbstractLupaCard;
+import superstitio.cards.lupa.LupaCard;
 import superstitio.powers.AllCardCostModifier;
 
 import java.util.ArrayList;
@@ -51,7 +51,7 @@ public class ActionUtility {
         AbstractDungeon.actionManager.addToBottom(new RemoveSpecificPowerAction(target, source, powerId));
     }
 
-    public static void addToBot_makeTempCardInBattle(AbstractCard card, AbstractLupaCard.BattleCardPlace battleCardPlace, int amount) {
+    public static void addToBot_makeTempCardInBattle(AbstractCard card, LupaCard.BattleCardPlace battleCardPlace, int amount) {
         addToBot_makeTempCardInBattle(card, battleCardPlace, amount, false);
     }
 
@@ -79,7 +79,7 @@ public class ActionUtility {
         return getMonsters().stream().filter(ActionUtility::isAlive).toArray(AbstractMonster[]::new);
     }
 
-    public static void addToBot_makeTempCardInBattle(AbstractCard card, AbstractLupaCard.BattleCardPlace battleCardPlace, int amount,
+    public static void addToBot_makeTempCardInBattle(AbstractCard card, LupaCard.BattleCardPlace battleCardPlace, int amount,
                                                      boolean upgrade) {
         if (upgrade)
             card.upgrade();
@@ -101,11 +101,11 @@ public class ActionUtility {
         });
     }
 
-    public static void addToBot_makeTempCardInBattle(AbstractCard card, AbstractLupaCard.BattleCardPlace battleCardPlace) {
+    public static void addToBot_makeTempCardInBattle(AbstractCard card, LupaCard.BattleCardPlace battleCardPlace) {
         addToBot_makeTempCardInBattle(card, battleCardPlace, 1);
     }
 
-    public static void addToBot_makeTempCardInBattle(AbstractCard card, AbstractLupaCard.BattleCardPlace battleCardPlace, boolean upgrade) {
+    public static void addToBot_makeTempCardInBattle(AbstractCard card, LupaCard.BattleCardPlace battleCardPlace, boolean upgrade) {
         addToBot_makeTempCardInBattle(card, battleCardPlace, 1, upgrade);
     }
 

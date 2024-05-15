@@ -4,8 +4,8 @@ import basemod.interfaces.ISubscriber;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import superstitio.orbs.orbgroup.HangUpCardGroup;
 import superstitio.orbs.orbgroup.SexMarkOrbGroup;
-import superstitio.powers.barIndepend.BarRenderGroup;
-import superstitio.powers.barIndepend.RenderInBattle;
+import superstitio.powers.patchAndInterface.barIndepend.BarRenderGroup;
+import superstitio.powers.patchAndInterface.barIndepend.RenderInBattle;
 
 import java.util.*;
 import java.util.function.Consumer;

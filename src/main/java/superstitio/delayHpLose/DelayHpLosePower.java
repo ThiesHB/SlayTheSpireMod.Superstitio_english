@@ -14,11 +14,11 @@ import superstitio.DataManager;
 import superstitio.actions.AutoDoneInstantAction;
 import superstitio.cards.DamageActionMaker;
 import superstitio.powers.AbstractLupaPower;
-import superstitio.powers.interfaces.DecreaseHealthBarNumberPower;
-import superstitio.powers.interfaces.invisible.InvisiblePower_InvisibleApplyPowerEffect;
-import superstitio.powers.interfaces.invisible.InvisiblePower_InvisibleIconAndAmount;
-import superstitio.powers.interfaces.invisible.InvisiblePower_InvisibleRemovePowerEffect;
-import superstitio.powers.interfaces.invisible.InvisiblePower_InvisibleTips;
+import superstitio.powers.patchAndInterface.interfaces.DecreaseHealthBarNumberPower;
+import superstitio.powers.patchAndInterface.interfaces.invisible.InvisiblePower_InvisibleApplyPowerEffect;
+import superstitio.powers.patchAndInterface.interfaces.invisible.InvisiblePower_InvisibleIconAndAmount;
+import superstitio.powers.patchAndInterface.interfaces.invisible.InvisiblePower_InvisibleRemovePowerEffect;
+import superstitio.powers.patchAndInterface.interfaces.invisible.InvisiblePower_InvisibleTips;
 import superstitio.utils.ActionUtility;
 import superstitio.utils.PowerUtility;
 
@@ -30,7 +30,7 @@ public class DelayHpLosePower extends AbstractLupaPower implements
         HealthBarRenderPower, DecreaseHealthBarNumberPower,
         InvisiblePower_InvisibleIconAndAmount, InvisiblePower_InvisibleTips,
         InvisiblePower_InvisibleApplyPowerEffect, InvisiblePower_InvisibleRemovePowerEffect {
-    private static final String POWER_ID = DataManager.MakeTextID(DelayHpLosePower.class.getSimpleName());
+    private static final String POWER_ID = DataManager.MakeTextID(DelayHpLosePower.class);
     private static final Color ReadyToRemoveColor = new Color(1.0F, 0.5F, 0.0F, 1.0F);
     private static final Color ForAWhileColor = new Color(0.9412F, 0.4627f, 0.5451f, 1.0f);
     private static final Color OriginColor = new Color(1.0F, 0.85f, 0.90f, 1.0f);

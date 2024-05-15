@@ -5,10 +5,10 @@ import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.cards.DamageInfo;
 import com.megacrit.cardcrawl.core.AbstractCreature;
 import superstitio.DataManager;
-import superstitio.cards.modifiers.AbstractLupaDamage;
+import superstitio.cardModifier.modifiers.AbstractLupaDamage;
 
 public class UnBlockAbleDamage extends AbstractLupaDamage {
-    public static final String ID = DataManager.MakeTextID(UnBlockAbleDamage.class.getSimpleName());
+    public static final String ID = DataManager.MakeTextID(UnBlockAbleDamage.class);
 
     public UnBlockAbleDamage() {
         super(ID);

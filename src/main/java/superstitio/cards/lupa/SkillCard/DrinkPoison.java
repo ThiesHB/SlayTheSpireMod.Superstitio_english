@@ -9,12 +9,12 @@ import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import com.megacrit.cardcrawl.powers.PoisonPower;
 import superstitio.DataManager;
 import superstitio.InBattleDataManager;
-import superstitio.cards.lupa.AbstractLupaCard;
+import superstitio.cards.lupa.LupaCard;
 import superstitio.delayHpLose.DelayHpLosePower;
 import superstitio.utils.CardUtility;
 
-public class DrinkPoison extends AbstractLupaCard {
-    public static final String ID = DataManager.MakeTextID(DrinkPoison.class.getSimpleName());
+public class DrinkPoison extends LupaCard {
+    public static final String ID = DataManager.MakeTextID(DrinkPoison.class);
 
     public static final CardType CARD_TYPE = CardType.SKILL;
 

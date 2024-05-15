@@ -8,14 +8,14 @@ import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import com.megacrit.cardcrawl.powers.AbstractPower;
 import superstitio.DataManager;
-import superstitio.cards.lupa.AbstractLupaCard;
+import superstitio.cards.lupa.LupaCard;
 import superstitio.powers.AbstractLupaPower;
 import superstitio.powers.SexualDamage;
 import superstitio.powers.SexualHeat;
 
 @AutoAdd.Ignore
-public class Sensitive3000 extends AbstractLupaCard {
-    public static final String ID = DataManager.MakeTextID(Sensitive3000.class.getSimpleName());
+public class Sensitive3000 extends LupaCard {
+    public static final String ID = DataManager.MakeTextID(Sensitive3000.class);
 
     public static final CardType CARD_TYPE = CardType.SKILL;
 
@@ -41,7 +41,7 @@ public class Sensitive3000 extends AbstractLupaCard {
     }
 
     public static class Sensitive3000Power extends AbstractLupaPower implements BetterOnApplyPowerPower {
-        public static final String POWER_ID = DataManager.MakeTextID(Sensitive3000Power.class.getSimpleName());
+        public static final String POWER_ID = DataManager.MakeTextID(Sensitive3000Power.class);
         private static final int SexualHeatRate = 3000;
 
         public Sensitive3000Power(final AbstractCreature owner) {

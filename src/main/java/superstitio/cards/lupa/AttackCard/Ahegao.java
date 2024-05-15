@@ -1,20 +1,18 @@
 package superstitio.cards.lupa.AttackCard;
 
-import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.cards.CardGroup;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import superstitio.DataManager;
 import superstitio.cards.DamageActionMaker;
-import superstitio.cards.lupa.AbstractLupaCard;
-import superstitio.cards.lupa.AbstractLupaCard_FuckJob;
-import superstitio.cards.modifiers.damage.SexDamage;
+import superstitio.cards.lupa.LupaCard;
+import superstitio.cardModifier.modifiers.damage.SexDamage;
 import superstitio.cards.patch.GoSomewhereElseAfterUse;
 import superstitio.orbs.CardOrb_EachCardTrigger;
 import superstitio.orbs.orbgroup.HangUpCardGroup;
 
-public class Ahegao extends AbstractLupaCard implements GoSomewhereElseAfterUse {
-    public static final String ID = DataManager.MakeTextID(Ahegao.class.getSimpleName());
+public class Ahegao extends LupaCard implements GoSomewhereElseAfterUse {
+    public static final String ID = DataManager.MakeTextID(Ahegao.class);
 
     public static final CardType CARD_TYPE = CardType.ATTACK;
 

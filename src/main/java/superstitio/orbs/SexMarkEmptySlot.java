@@ -10,7 +10,7 @@ import superstitio.customStrings.OrbStringsSet;
 import static superstitio.orbs.AbstractLupaOrb.getPowerStringsWithSFW;
 
 public class SexMarkEmptySlot extends EmptyOrbSlot {
-    public static final String ORB_ID = DataManager.MakeTextID(SexMarkEmptySlot.class.getSimpleName());
+    public static final String ORB_ID = DataManager.MakeTextID(SexMarkEmptySlot.class);
     protected final OrbStringsSet orbStringsSet = getPowerStringsWithSFW(ORB_ID);
 
     public SexMarkEmptySlot() {

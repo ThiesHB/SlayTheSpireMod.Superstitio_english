@@ -10,7 +10,7 @@ import superstitio.DataManager;
 import superstitio.utils.ActionUtility;
 
 public abstract class CardOrb extends AbstractLupaOrb {
-    public static final String ORB_ID = DataManager.MakeTextID(SexMarkEmptySlot.class.getSimpleName());
+    public static final String ORB_ID = DataManager.MakeTextID(SexMarkEmptySlot.class);
     public static final float ANIMATION_Y_SCALE = 1.0f;
     public static final float DRAW_SCALE_BIG = 0.9f;
 

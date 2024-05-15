@@ -6,11 +6,11 @@ import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import superstitio.DataManager;
 import superstitio.InBattleDataManager;
 import superstitio.actions.AutoDoneInstantAction;
-import superstitio.powers.interfaces.HasAllCardCostModifyEffect;
+import superstitio.powers.patchAndInterface.interfaces.HasAllCardCostModifyEffect;
 
 
 public class AllCardCostModifier_PerCard extends AllCardCostModifier {
-    public static final String POWER_ID = DataManager.MakeTextID(AllCardCostModifier_PerCard.class.getSimpleName());
+    public static final String POWER_ID = DataManager.MakeTextID(AllCardCostModifier_PerCard.class);
 
     public AllCardCostModifier_PerCard(final AbstractCreature owner, int decreasedCost, int useTimes, HasAllCardCostModifyEffect holder) {
         super(POWER_ID, owner, decreasedCost, useTimes, holder);

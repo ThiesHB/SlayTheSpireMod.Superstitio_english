@@ -2,22 +2,19 @@ package superstitio.cards.lupa.SkillCard;
 
 import com.megacrit.cardcrawl.actions.AbstractGameAction;
 import com.megacrit.cardcrawl.actions.utility.NewQueueCardAction;
-import com.megacrit.cardcrawl.actions.utility.QueueCardAction;
 import com.megacrit.cardcrawl.cards.AbstractCard;
-import com.megacrit.cardcrawl.cards.CardQueueItem;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import superstitio.DataManager;
-import superstitio.Logger;
 import superstitio.actions.AutoDoneInstantAction;
 import superstitio.actions.ChoseCardFromHandCardSelectScreen;
-import superstitio.cards.lupa.AbstractLupaCard;
+import superstitio.cards.lupa.LupaCard;
 import superstitio.orbs.CardOrb_WaitCardTrigger;
 import superstitio.orbs.orbgroup.HangUpCardGroup;
 
-public class ReadyToSex extends AbstractLupaCard {
-    public static final String ID = DataManager.MakeTextID(ReadyToSex.class.getSimpleName());
+public class ReadyToSex extends LupaCard {
+    public static final String ID = DataManager.MakeTextID(ReadyToSex.class);
 
     public static final CardType CARD_TYPE = CardType.SKILL;
 

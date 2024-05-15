@@ -13,7 +13,7 @@ import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import superstitio.DataManager;
 
 public class DelayDamage extends AbstractLupaPower implements HealthBarRenderPower {
-    public static final String POWER_ID = DataManager.MakeTextID(DelayDamage.class.getSimpleName());
+    public static final String POWER_ID = DataManager.MakeTextID(DelayDamage.class);
     private final int damageAmount;
     private AbstractCreature giver = AbstractDungeon.player;
     private AbstractDamageModifier damageModifier;

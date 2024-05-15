@@ -8,7 +8,7 @@ import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import javassist.CannotCompileException;
 import javassist.expr.ExprEditor;
 import javassist.expr.FieldAccess;
-import superstitio.powers.interfaces.TriPredicate;
+import superstitio.powers.patchAndInterface.interfaces.TriPredicate;
 import superstitio.utils.CardUtility;
 
 @SpirePatch(clz = AbstractPlayer.class, method = "damage")

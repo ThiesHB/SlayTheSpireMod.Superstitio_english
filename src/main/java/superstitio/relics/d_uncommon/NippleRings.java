@@ -7,11 +7,11 @@ import com.megacrit.cardcrawl.powers.LoseStrengthPower;
 import com.megacrit.cardcrawl.powers.StrengthPower;
 import superstitio.DataManager;
 import superstitio.powers.SexualHeat;
-import superstitio.powers.interfaces.orgasm.OnOrgasm_onOrgasm;
+import superstitio.powers.patchAndInterface.interfaces.orgasm.OnOrgasm_onOrgasm;
 import superstitio.relics.AbstractLupaRelic;
 
 public class NippleRings extends AbstractLupaRelic implements OnOrgasm_onOrgasm {
-    public static final String ID = DataManager.MakeTextID(NippleRings.class.getSimpleName());
+    public static final String ID = DataManager.MakeTextID(NippleRings.class);
     // 遗物类型
     private static final RelicTier RELIC_TIER = RelicTier.UNCOMMON;
     // 点击音效

@@ -7,7 +7,7 @@ import com.megacrit.cardcrawl.core.CardCrawlGame;
 import superstitio.DataManager;
 
 public class SexPlateArmorPower extends AbstractLupaPower {
-    public static final String POWER_ID = DataManager.MakeTextID(SexPlateArmorPower.class.getSimpleName());
+    public static final String POWER_ID = DataManager.MakeTextID(SexPlateArmorPower.class);
 
     public SexPlateArmorPower(final AbstractCreature owner, int amount) {
         super(POWER_ID, owner, amount);

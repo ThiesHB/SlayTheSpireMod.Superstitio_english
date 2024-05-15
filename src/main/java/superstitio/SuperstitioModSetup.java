@@ -3,16 +3,13 @@ package superstitio;
 import basemod.*;
 import basemod.abstracts.CustomRelic;
 import basemod.interfaces.*;
+import basemod.patches.com.megacrit.cardcrawl.screens.mainMenu.ColorTabBar.ColorTabBarFix;
 import com.badlogic.gdx.graphics.Texture;
 import com.evacipated.cardcrawl.mod.stslib.Keyword;
 import com.evacipated.cardcrawl.modthespire.lib.SpireConfig;
-import com.evacipated.cardcrawl.modthespire.lib.SpireEnum;
 import com.evacipated.cardcrawl.modthespire.lib.SpireInitializer;
-import com.megacrit.cardcrawl.cards.AbstractCard;
-import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.core.Settings;
-import com.megacrit.cardcrawl.helpers.CardLibrary;
 import com.megacrit.cardcrawl.helpers.FontHelper;
 import com.megacrit.cardcrawl.helpers.ImageMaster;
 import com.megacrit.cardcrawl.localization.CharacterStrings;
@@ -20,13 +17,23 @@ import com.megacrit.cardcrawl.localization.LocalizedStrings;
 import com.megacrit.cardcrawl.localization.RelicStrings;
 import com.megacrit.cardcrawl.localization.UIStrings;
 import com.megacrit.cardcrawl.unlock.UnlockTracker;
-import superstitio.cards.lupa.AbstractLupaCard;
+import superstitio.cards.SuperstitioCard;
+import superstitio.cards.general.GeneralCardVirtualCharacter;
+import superstitio.cards.general.TempCardVirtualCharacter;
 import superstitio.characters.Lupa;
+import superstitio.characters.Maso;
 import superstitio.customStrings.*;
 import superstitio.relics.AbstractLupaRelic;
 
 import java.util.*;
 import java.util.stream.Collectors;
+
+import static superstitio.DataManager.SPTT_DATA.GeneralEnums.GENERAL_CARD;
+import static superstitio.DataManager.SPTT_DATA.LupaEnums.LUPA_CARD;
+import static superstitio.DataManager.SPTT_DATA.LupaEnums.LUPA_Character;
+import static superstitio.DataManager.SPTT_DATA.MasoEnums.MASO_CARD;
+import static superstitio.DataManager.SPTT_DATA.MasoEnums.MASO_Character;
+import static superstitio.DataManager.SPTT_DATA.TempCardEnums.TempCard_CARD;
 
 @SpireInitializer
 public class SuperstitioModSetup implements
@@ -34,43 +41,61 @@ public class SuperstitioModSetup implements
         EditCharactersSubscriber, AddAudioSubscriber, PostInitializeSubscriber {
 
     public static final String MOD_NAME = "Superstitio";
-    private static final String SexLevleConfigString = "sexLevel";
-    public static SexHardCoreLevel sexLevel = SexHardCoreLevel.SFW;
+    private static final String ENABLE_NSFW_STRING = "enableSFW";
     public static SpireConfig config = null;
     public static Properties theDefaultDefaultSettings = new Properties();
+    private static boolean enableSFW = false;
     public DataManager data;
 
     public SuperstitioModSetup() {
         BaseMod.subscribe(this);
-        SuperstitioModSetup.theDefaultDefaultSettings.setProperty(SexLevleConfigString, "TRUE");
+        SuperstitioModSetup.theDefaultDefaultSettings.setProperty(ENABLE_NSFW_STRING, "TRUE");
         try {
             SuperstitioModSetup.config = new SpireConfig(DataManager.getModID(), DataManager.getModID() + "Config",
                     SuperstitioModSetup.theDefaultDefaultSettings);
             SuperstitioModSetup.config.load();
-            SuperstitioModSetup.sexLevel = SexHardCoreLevel.valueOf(SuperstitioModSetup.config.getString(SexLevleConfigString));
+            SuperstitioModSetup.enableSFW = SuperstitioModSetup.config.getBool(ENABLE_NSFW_STRING);
         } catch (Exception e) {
             Logger.error(e);
         }
 
         // 这里注册颜色
         data = new DataManager();
-        BaseMod.addColor(LupaEnums.LUPA_CARD,
-                DataManager.LUPA_DATA.LUPA_COLOR, DataManager.LUPA_DATA.LUPA_COLOR, DataManager.LUPA_DATA.LUPA_COLOR,
-                DataManager.LUPA_DATA.LUPA_COLOR, DataManager.LUPA_DATA.LUPA_COLOR, DataManager.LUPA_DATA.LUPA_COLOR,
-                DataManager.LUPA_DATA.LUPA_COLOR,
-                data.lupaData.BG_ATTACK_512, data.lupaData.BG_SKILL_512, data.lupaData.BG_POWER_512,
-                data.lupaData.ENERGY_ORB,
-                data.lupaData.BG_ATTACK_1024, data.lupaData.BG_SKILL_1024, data.lupaData.BG_POWER_1024,
-                data.lupaData.BIG_ORB, data.lupaData.SMALL_ORB);
+        BaseMod.addColor(LUPA_CARD,
+                DataManager.SPTT_DATA.SEX_COLOR, DataManager.SPTT_DATA.SEX_COLOR, DataManager.SPTT_DATA.SEX_COLOR,
+                DataManager.SPTT_DATA.SEX_COLOR, DataManager.SPTT_DATA.SEX_COLOR, DataManager.SPTT_DATA.SEX_COLOR,
+                DataManager.SPTT_DATA.SEX_COLOR,
+                data.spttData.BG_ATTACK_512, data.spttData.BG_SKILL_512, data.spttData.BG_POWER_512,
+                data.spttData.ENERGY_ORB,
+                data.spttData.BG_ATTACK_1024, data.spttData.BG_SKILL_1024, data.spttData.BG_POWER_1024,
+                data.spttData.BIG_ORB, data.spttData.SMALL_ORB);
 
-        BaseMod.addColor(TempCardEnums.LUPA_TempCard_CARD,
-                DataManager.LUPA_DATA.LUPA_COLOR, DataManager.LUPA_DATA.LUPA_COLOR, DataManager.LUPA_DATA.LUPA_COLOR,
-                DataManager.LUPA_DATA.LUPA_COLOR, DataManager.LUPA_DATA.LUPA_COLOR, DataManager.LUPA_DATA.LUPA_COLOR,
-                DataManager.LUPA_DATA.LUPA_COLOR,
-                data.lupaData.BG_ATTACK_512, data.lupaData.BG_SKILL_512, data.lupaData.BG_POWER_512,
-                data.lupaData.ENERGY_ORB,
-                data.lupaData.BG_ATTACK_1024, data.lupaData.BG_SKILL_1024, data.lupaData.BG_POWER_1024,
-                data.lupaData.BIG_ORB, data.lupaData.SMALL_ORB);
+        BaseMod.addColor(TempCard_CARD,
+                DataManager.SPTT_DATA.SEX_COLOR, DataManager.SPTT_DATA.SEX_COLOR, DataManager.SPTT_DATA.SEX_COLOR,
+                DataManager.SPTT_DATA.SEX_COLOR, DataManager.SPTT_DATA.SEX_COLOR, DataManager.SPTT_DATA.SEX_COLOR,
+                DataManager.SPTT_DATA.SEX_COLOR,
+                data.spttData.BG_ATTACK_512, data.spttData.BG_SKILL_512, data.spttData.BG_POWER_512,
+                data.spttData.ENERGY_ORB,
+                data.spttData.BG_ATTACK_1024, data.spttData.BG_SKILL_1024, data.spttData.BG_POWER_1024,
+                data.spttData.BIG_ORB, data.spttData.SMALL_ORB);
+
+        BaseMod.addColor(GENERAL_CARD,
+                DataManager.SPTT_DATA.SEX_COLOR, DataManager.SPTT_DATA.SEX_COLOR, DataManager.SPTT_DATA.SEX_COLOR,
+                DataManager.SPTT_DATA.SEX_COLOR, DataManager.SPTT_DATA.SEX_COLOR, DataManager.SPTT_DATA.SEX_COLOR,
+                DataManager.SPTT_DATA.SEX_COLOR,
+                data.spttData.BG_ATTACK_512, data.spttData.BG_SKILL_512, data.spttData.BG_POWER_512,
+                data.spttData.ENERGY_ORB,
+                data.spttData.BG_ATTACK_1024, data.spttData.BG_SKILL_1024, data.spttData.BG_POWER_1024,
+                data.spttData.BIG_ORB, data.spttData.SMALL_ORB);
+
+        BaseMod.addColor(MASO_CARD,
+                DataManager.SPTT_DATA.SEX_COLOR, DataManager.SPTT_DATA.SEX_COLOR, DataManager.SPTT_DATA.SEX_COLOR,
+                DataManager.SPTT_DATA.SEX_COLOR, DataManager.SPTT_DATA.SEX_COLOR, DataManager.SPTT_DATA.SEX_COLOR,
+                DataManager.SPTT_DATA.SEX_COLOR,
+                data.spttData.BG_ATTACK_512, data.spttData.BG_SKILL_512, data.spttData.BG_POWER_512,
+                data.spttData.ENERGY_ORB,
+                data.spttData.BG_ATTACK_1024, data.spttData.BG_SKILL_1024, data.spttData.BG_POWER_1024,
+                data.spttData.BIG_ORB, data.spttData.SMALL_ORB);
 
         Logger.run("Done " + this + " subscribing");
         Logger.run("Adding mod settings");
@@ -91,43 +116,20 @@ public class SuperstitioModSetup implements
         final String[] SettingText = UIStrings.TEXT;
 
         settingsPanel.addUIElement(new ModLabeledToggleButton(SettingText[0], settingXPos, settingYPos,
-                Settings.CREAM_COLOR, FontHelper.charDescFont, SuperstitioModSetup.sexLevel == SexHardCoreLevel.SFW, settingsPanel, label -> {
+                Settings.CREAM_COLOR, FontHelper.charDescFont, SuperstitioModSetup.getEnableSFW(), settingsPanel, label -> {
         }, button -> {
-            if (button.enabled) {
-                SuperstitioModSetup.sexLevel = SexHardCoreLevel.SFW;
-            }
-            else
-                SuperstitioModSetup.sexLevel = SexHardCoreLevel.NO_GURO;
+            SuperstitioModSetup.enableSFW = button.enabled;
             try {
-                SuperstitioModSetup.config.setString(SexLevleConfigString, SuperstitioModSetup.sexLevel.toConfig);
+                SuperstitioModSetup.config.setBool(ENABLE_NSFW_STRING, SuperstitioModSetup.getEnableSFW());
                 SuperstitioModSetup.config.save();
             } catch (Exception e) {
                 Logger.error(e);
             }
         }));
 
-        settingYPos -= lineSpacing;
-
-        if (SuperstitioModSetup.sexLevel != SexHardCoreLevel.SFW)
-            settingsPanel.addUIElement(new ModLabeledToggleButton(SettingText[1], settingXPos, settingYPos,
-                    Settings.CREAM_COLOR, FontHelper.charDescFont, SuperstitioModSetup.sexLevel == SexHardCoreLevel.ALL, settingsPanel, label -> {
-            }, button -> {
-                if (button.enabled) {
-                    SuperstitioModSetup.sexLevel = SexHardCoreLevel.ALL;
-                }
-                else
-                    SuperstitioModSetup.sexLevel = SexHardCoreLevel.ALL;//TODO 改好
-                try {
-                    SuperstitioModSetup.config.setString(SexLevleConfigString, SuperstitioModSetup.sexLevel.toConfig);
-                    SuperstitioModSetup.config.save();
-                } catch (Exception e) {
-                    Logger.error(e);
-                }
-            }));
-
         settingYPos -= 3 * lineSpacing;
 
-        settingsPanel.addUIElement(new ModLabeledButton(SettingText[2], settingXPos, settingYPos
+        settingsPanel.addUIElement(new ModLabeledButton(SettingText[1], settingXPos, settingYPos
                 , settingsPanel, button -> {
 //            CardLibrary.cards.values().removeIf(card -> card instanceof AbstractLupaCard);
 //            receiveEditCards();
@@ -136,18 +138,25 @@ public class SuperstitioModSetup implements
         BaseMod.registerModBadge(badgeTexture, MOD_NAME + " Mod", "Creeper_of_Fire", "A NSFW mod", settingsPanel);
     }
 
+    public static boolean getEnableSFW() {
+        return enableSFW;
+    }
+
     @Override
     public void receiveEditCharacters() {
         //添加角色到MOD中
-        BaseMod.addCharacter(new Lupa(CardCrawlGame.playerName), data.lupaData.LUPA_CHARACTER_BUTTON, data.lupaData.LUPA_CHARACTER_PORTRAIT,
-                LupaEnums.LUPA_Character);
+        BaseMod.addCharacter(new Lupa(CardCrawlGame.playerName),
+                data.spttData.LUPA_CHARACTER_BUTTON, data.spttData.LUPA_CHARACTER_PORTRAIT, LUPA_Character);
+//        if (getEnableSFW()) return;
+        BaseMod.addCharacter(new Maso(CardCrawlGame.playerName),
+                data.spttData.LUPA_CHARACTER_BUTTON, data.spttData.LUPA_CHARACTER_PORTRAIT, MASO_Character);
     }
 
     @Override
     public void receiveEditCards() {
         //将卡牌添加
         new AutoAdd(MOD_NAME.toLowerCase())
-                .packageFilter(AbstractLupaCard.class)
+                .packageFilter(SuperstitioCard.class)
                 .setDefaultSeen(true)
                 .cards();
     }
@@ -161,7 +170,7 @@ public class SuperstitioModSetup implements
         new AutoAdd(MOD_NAME.toLowerCase())
                 .packageFilter(AbstractLupaRelic.class)
                 .any(CustomRelic.class, (info, relic) -> {
-                    BaseMod.addRelicToCustomPool(relic, LupaEnums.LUPA_CARD);
+                    BaseMod.addRelicToCustomPool(relic, LUPA_CARD);
 //                    if (info.seen) {
                     UnlockTracker.markRelicAsSeen(relic.relicId);
 //                    }
@@ -172,6 +181,8 @@ public class SuperstitioModSetup implements
     public void receiveEditStrings() {
         Logger.run("Beginning to edit strings for mod with ID: " + DataManager.getModID());
         DataManager.loadCustomStringsFile("card_Lupa", DataManager.cards, CardStringsWithFlavorSet.class);
+        DataManager.loadCustomStringsFile("card_General", DataManager.cards, CardStringsWithFlavorSet.class);
+        DataManager.loadCustomStringsFile("card_Maso", DataManager.cards, CardStringsWithFlavorSet.class);
         DataManager.loadCustomStringsFile("modifier_damage", DataManager.modifiers, ModifierStringsSet.class);
         DataManager.loadCustomStringsFile("modifier_block", DataManager.modifiers, ModifierStringsSet.class);
         DataManager.loadCustomStringsFile("power", DataManager.powers, PowerStringsSet.class);
@@ -180,8 +191,7 @@ public class SuperstitioModSetup implements
 //        BaseMod.loadCustomStringsFile(PotionStrings.class, makeLocPath(Settings.language,"potion"));
 //        BaseMod.loadCustomStringsFile(OrbStrings.class, makeLocPath(Settings.language,"orb"));
         BaseMod.loadCustomStringsFile(CharacterStrings.class,
-                DataManager.makeLocalizationPath(Settings.language,
-                        SuperstitioModSetup.sexLevel == SexHardCoreLevel.SFW ? "character_LupaSFW" : "character_Lupa"));
+                DataManager.makeLocalizationPath(Settings.language, getEnableSFW() ? "character_LupaSFW" : "character_Lupa"));
         BaseMod.loadCustomStringsFile(RelicStrings.class, DataManager.makeLocalizationPath(Settings.language, "relic_Lupa"));
         BaseMod.loadCustomStringsFile(UIStrings.class, DataManager.makeLocalizationPath(Settings.language, "UIStrings"));
         if (getEnableSFW()) {
@@ -189,10 +199,6 @@ public class SuperstitioModSetup implements
             SFWWordReplace();
         }
         Logger.run("Done editing strings");
-    }
-
-    public static boolean getEnableSFW() {
-        return SuperstitioModSetup.sexLevel == SexHardCoreLevel.SFW;
     }
 
     private void MakeSFWWord() {
@@ -259,35 +265,4 @@ public class SuperstitioModSetup implements
         setUpModOptions();
     }
 
-    public enum SexHardCoreLevel {
-        ALL("all"),
-        NO_GURO("noGuro"),
-        SFW("sfw");
-        public final String toConfig;
-
-        SexHardCoreLevel(String toConfig) {
-            this.toConfig = toConfig;
-        }
-    }
-
-    // 为原版人物枚举、卡牌颜色枚举扩展的枚举，需要写，接下来要用
-    public static class LupaEnums {
-        @SpireEnum
-        public static AbstractPlayer.PlayerClass LUPA_Character;
-
-        @SpireEnum(name = "LUPA_PINK")
-        public static AbstractCard.CardColor LUPA_CARD;
-
-        @SpireEnum(name = "LUPA_PINK")
-        public static CardLibrary.LibraryType LUPA_LIBRARY;
-    }
-
-    // 为原版人物枚举、卡牌颜色枚举扩展的枚举，需要写，接下来要用
-    public static class TempCardEnums {
-        @SpireEnum(name = "LUPA_TEMP")
-        public static AbstractCard.CardColor LUPA_TempCard_CARD;
-
-        @SpireEnum(name = "LUPA_TEMP")
-        public static CardLibrary.LibraryType LUPA_TempCard_LIBRARY;
-    }
 }
