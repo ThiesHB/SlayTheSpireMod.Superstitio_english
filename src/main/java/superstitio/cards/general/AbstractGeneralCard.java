@@ -1,7 +1,16 @@
 package superstitio.cards.general;
 
+import com.evacipated.cardcrawl.mod.stslib.blockmods.AbstractBlockModifier;
+import com.megacrit.cardcrawl.actions.AbstractGameAction;
+import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
+import com.megacrit.cardcrawl.vfx.combat.FlashAtkImgEffect;
 import superstitio.DataManager;
 import superstitio.cards.SuperstitioCard;
+import superstitio.delayHpLose.DelayHpLosePatch;
+import superstitio.delayHpLose.DelayHpLosePower;
+import superstitio.delayHpLose.RemoveDelayHpLoseBlock;
+
+import java.util.Arrays;
 
 import static superstitio.cards.CardOwnerPlayerManager.IsLupaCard;
 import static superstitio.cards.CardOwnerPlayerManager.IsMasoCard;
@@ -34,5 +43,26 @@ public abstract class AbstractGeneralCard extends SuperstitioCard implements IsM
     public AbstractGeneralCard(String id, CardType cardType, int cost, CardRarity cardRarity, CardTarget cardTarget, CardColor cardColor,
                                String imgSubFolder) {
         super(id, cardType, cost, cardRarity, cardTarget, cardColor, imgSubFolder);
+    }
+
+    @Override
+    protected final void setupBlock(int amount, int amountOfAutoUpgrade, AbstractBlockModifier... blockModifiers) {
+        super.setupBlock(amount, amountOfAutoUpgrade, blockModifiers);
+        if (blockModifiers == null || blockModifiers.length == 0) return;
+        if (Arrays.stream(blockModifiers).anyMatch(blockModifier -> blockModifier instanceof RemoveDelayHpLoseBlock)) {
+            DelayHpLosePatch.GainBlockTypeFields.ifTransGainBlockToReduceDelayHpLose.set(this, true);
+        }
+    }
+
+    @Override
+    public final void addToBot_gainBlock(int amount) {
+        if (DelayHpLosePatch.GainBlockTypeFields.ifTransGainBlockToReduceDelayHpLose.get(this)) {
+            DelayHpLosePower.addToBot_removePower(amount, AbstractDungeon.player, AbstractDungeon.player, true);
+            AbstractDungeon.effectList.add(
+                    new FlashAtkImgEffect(AbstractDungeon.player.hb.cX, AbstractDungeon.player.hb.cY,
+                            AbstractGameAction.AttackEffect.SHIELD));
+        }
+        else
+            super.addToBot_gainBlock(amount);
     }
 }

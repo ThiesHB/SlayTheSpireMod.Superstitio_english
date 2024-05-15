@@ -28,6 +28,8 @@ import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static superstitio.cardModifier.modifiers.RenderStackedBlockInstancesPatch.BlockStackForceShowPatch.GetBlockStack;
+
 public class RenderStackedBlockInstancesPatch {
     protected static final float BLOCK_ICON_X = ReflectionHacks.getPrivateStatic(AbstractCreature.class, "BLOCK_ICON_X");
     protected static final float BLOCK_ICON_Y = ReflectionHacks.getPrivateStatic(AbstractCreature.class, "BLOCK_ICON_Y");
@@ -48,10 +50,12 @@ public class RenderStackedBlockInstancesPatch {
 
     private static ArrayList<BlockInstance> getAllBlockInstances(AbstractCreature creature) {
         ArrayList<BlockInstance> blockInstances = BlockModifierManager.blockInstances(creature);
-        blockInstances.addAll(creature.powers.stream()
+        ArrayList<BlockInstance> newBlockInstances = new ArrayList<>();
+        newBlockInstances.addAll(blockInstances);
+        newBlockInstances.addAll(creature.powers.stream()
                 .filter(power -> power instanceof RenderAsBlockPower)
                 .map(power -> ((RenderAsBlockPower) power).getBlockInstance()).collect(Collectors.toList()));
-        return blockInstances;
+        return newBlockInstances;
     }
 
     private static void DrawBlocks(AbstractCreature creature, SpriteBatch sb, float x, float y) {
@@ -142,7 +146,7 @@ public class RenderStackedBlockInstancesPatch {
             TextColor.a = tmpText;
 
             if (hitbox.hovered)
-                FontHelper.renderFontCentered(sb, FontHelper.blockInfoFont, Integer.toString(owner.currentBlock),
+                FontHelper.renderFontCentered(sb, FontHelper.blockInfoFont, Integer.toString(GetBlockStack(owner)),
                         x - (-32.0F), y - (BLOCK_ICON_Y - 32.0F) - 16.0F * Settings.scale, TextColor, blockScale);
 
         }

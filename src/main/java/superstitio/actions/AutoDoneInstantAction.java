@@ -10,6 +10,9 @@ public abstract class AutoDoneInstantAction extends AbstractGameAction {
     public static void addToBotAbstract(final ActionUtility.VoidSupplier func) {
         AbstractDungeon.actionManager.addToBottom(newAutoDone(func));
     }
+    public static void addToTopAbstract(final ActionUtility.VoidSupplier func) {
+        AbstractDungeon.actionManager.addToTop(newAutoDone(func));
+    }
 
     public static AbstractGameAction newAutoDone(final ActionUtility.VoidSupplier func) {
         return new AutoDoneInstantAction() {

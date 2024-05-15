@@ -21,7 +21,7 @@ public class DelayRemoveDelayHpLosePower extends AbstractLupaPower implements Re
     }
 
     @Override
-    public void atStartOfTurn() {
+    public void atStartOfTurnPostDraw() {
         DelayHpLosePower.addToBot_removePower(amount, this.owner, this.owner, false);
         addToBot_removeSpecificPower(this);
     }

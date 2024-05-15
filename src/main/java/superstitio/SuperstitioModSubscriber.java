@@ -9,7 +9,10 @@ import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import com.megacrit.cardcrawl.powers.AbstractPower;
 import com.megacrit.cardcrawl.relics.AbstractRelic;
 import com.megacrit.cardcrawl.rooms.AbstractRoom;
+import superstitio.actions.AutoDoneInstantAction;
 import superstitio.powers.patchAndInterface.interfaces.OnPostApplyThisPower;
+
+import java.util.Objects;
 
 import static superstitio.InBattleDataManager.ApplyAll;
 
@@ -75,10 +78,16 @@ public class SuperstitioModSubscriber implements
 
     @Override
     public void receivePostPowerApplySubscriber(
-            AbstractPower abstractPower, AbstractCreature abstractCreature, AbstractCreature abstractCreature1) {
-        if (abstractPower instanceof OnPostApplyThisPower)
-            ((OnPostApplyThisPower) abstractPower).InitializePostApplyThisPower();
-        ApplyAll((sub) -> sub.receivePostPowerApplySubscriber(abstractPower, abstractCreature, abstractCreature1), PostPowerApplySubscriber.class);
+            AbstractPower abstractPower, AbstractCreature target, AbstractCreature source) {
+        AutoDoneInstantAction.addToTopAbstract(() -> {
+            if (abstractPower instanceof OnPostApplyThisPower)
+                target.powers.forEach(power -> {
+                    if (Objects.equals(power.ID, abstractPower.ID) && power instanceof OnPostApplyThisPower) {
+                        ((OnPostApplyThisPower) power).InitializePostApplyThisPower();
+                    }
+                });
+        });
+        ApplyAll((sub) -> sub.receivePostPowerApplySubscriber(abstractPower, source, source), PostPowerApplySubscriber.class);
 
     }
 

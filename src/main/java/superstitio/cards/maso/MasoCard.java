@@ -1,9 +1,12 @@
 package superstitio.cards.maso;
 
 import com.evacipated.cardcrawl.mod.stslib.blockmods.AbstractBlockModifier;
+import com.evacipated.cardcrawl.mod.stslib.blockmods.BlockModifierManager;
+import com.evacipated.cardcrawl.mod.stslib.damagemods.DamageModifierManager;
 import com.megacrit.cardcrawl.actions.AbstractGameAction;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.vfx.combat.FlashAtkImgEffect;
+import jdk.nashorn.internal.ir.Block;
 import superstitio.Logger;
 import superstitio.cards.CardOwnerPlayerManager;
 import superstitio.cards.SuperstitioCard;
@@ -45,10 +48,16 @@ public abstract class MasoCard extends SuperstitioCard implements CardOwnerPlaye
     @Override
     protected void setupBlock(int amount, int amountOfAutoUpgrade, AbstractBlockModifier... blockModifiers) {
         super.setupBlock(amount, amountOfAutoUpgrade, blockModifiers);
+        if (blockModifiers == null || blockModifiers.length == 0) {
+            isRemoveDelayHpLoseBlock = true;
+            BlockModifierManager.addModifier(this, new RemoveDelayHpLoseBlock());
+            return;
+        }
         if (Arrays.stream(blockModifiers).anyMatch(block -> block instanceof DelayRemoveDelayHpLoseBlock))
             isDelayRemoveDelayHpLoseBlock = true;
         if (Arrays.stream(blockModifiers).anyMatch(block -> block instanceof RemoveDelayHpLoseBlock))
             isRemoveDelayHpLoseBlock = true;
+
     }
 
     @Override

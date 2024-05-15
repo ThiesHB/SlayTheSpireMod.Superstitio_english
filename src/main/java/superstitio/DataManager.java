@@ -107,16 +107,8 @@ public class DataManager {
         return totalString.toString();
     }
 
-    public static String makeImgFilesPath_LupaCard(String... resourcePaths) {
-        return makeImgFilesPath("cards_Lupa", makeTotalString(resourcePaths));
-    }
-
-    public static String makeImgFilesPath_GeneralCard(String... resourcePaths) {
-        return makeImgFilesPath("cards_General", makeTotalString(resourcePaths));
-    }
-
-    public static String makeImgFilesPath_MasoCard(String... resourcePaths) {
-        return makeImgFilesPath("cards_Maso", makeTotalString(resourcePaths));
+    public static String makeImgFilesPath_Card(String... resourcePaths) {
+        return makeImgFilesPath("cards", makeTotalString(resourcePaths));
     }
 
     public static String makeImgFilesPath_Relic(String... resourcePaths) {
