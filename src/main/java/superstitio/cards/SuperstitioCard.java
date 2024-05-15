@@ -290,6 +290,10 @@ public abstract class SuperstitioCard extends CustomCard implements updateDescri
         ActionUtility.addToBot_reducePower(powerID, amount, AbstractDungeon.player, AbstractDungeon.player);
     }
 
+    public final void addToBot_removeSpecificPower(final AbstractPower power) {
+        ActionUtility.addToBot_removeSpecificPower(power, AbstractDungeon.player);
+    }
+
     protected void setCostToCostMap_ForTurn(int amount) {
         if (InBattleDataManager.costMap.containsKey(this.uuid)) {
             InBattleDataManager.costMap.put(this.uuid, amount);

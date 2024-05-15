@@ -174,5 +174,14 @@
     "NAME_SFW": "金蝉脱壳",
     "DESCRIPTION": "获得手牌中 状态 和 诅咒 数量的 [E] 。 NL 获得 当前负面状态 !M! 倍的 superstitiomod:快感 。 NL 丢弃所有费用不为0的手牌。",
     "FLAVOR": ""
+  },
+  "SuperstitioMod:MeasureDick": {
+    "NAME": "测量鸡巴",
+    "NAME_SFW": "投掷武器",
+    "DESCRIPTION": "从手牌中丢弃至多 !M! 张牌， NL 获得它们当前 [E] 花费相对于原始 [E] 花费的减免值。",
+    "FLAVOR": "看看谁插的最深？",
+    "EXTENDED_DESCRIPTION":[
+      "选择%d张牌并丢弃。"
+    ]
   }
 }

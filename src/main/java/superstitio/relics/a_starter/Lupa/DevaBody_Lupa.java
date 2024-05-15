@@ -14,8 +14,7 @@ import superstitio.relics.AbstractLupaRelic;
 
 import static com.megacrit.cardcrawl.dungeons.AbstractDungeon.player;
 import static superstitio.DataManager.CanOnlyDamageDamageType.UnBlockAbleDamageType;
-import static superstitio.cards.general.FuckJob_Card.addToTop_Semen_Inside;
-import static superstitio.cards.general.FuckJob_Card.addToTop_Semen_Outside;
+import static superstitio.cards.general.FuckJob_Card.*;
 import static superstitio.utils.ActionUtility.addToTop_applyPower;
 
 @AutoAdd.Seen
@@ -57,8 +56,12 @@ public class DevaBody_Lupa extends AbstractLupaRelic {
             }
             if (card.cardID.contains("Job_")) {
                 addToTop_Semen_Outside();
+                return;
             }
+            return;
         }
+        if (card.type == AbstractCard.CardType.ATTACK)
+            addToTop_Semen_Normal();
     }
 
     @Override

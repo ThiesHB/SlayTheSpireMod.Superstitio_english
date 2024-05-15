@@ -13,7 +13,7 @@ import superstitio.DataManager;
 
 public class SexMarkOrb_Inside extends SexMarkOrb {
     public static final String ORB_ID = DataManager.MakeTextID(SexMarkOrb_Inside.class);
-    private final static int AOEDamageRate = 2;
+    private final static int AOEDamageRate = 4;
     private static final float PI_DIV_16 = 0.19634955F;
     private static final float ORB_WAVY_DIST = 0.05F;
     private static final float PI_4 = 12.566371F;

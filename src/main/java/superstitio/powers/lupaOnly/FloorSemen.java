@@ -10,20 +10,21 @@ import superstitio.powers.patchAndInterface.barIndepend.HasBarRenderOnCreature_P
 import superstitio.powers.patchAndInterface.interfaces.invisible.InvisiblePower_InvisibleIconAndAmount;
 import superstitio.powers.patchAndInterface.interfaces.invisible.InvisiblePower_InvisibleTips;
 
+import static superstitio.cards.general.FuckJob_Card.FloorSemenRate;
 import static superstitio.cards.general.FuckJob_Card.OutsideSemenRate;
 
-public class OutsideSemen extends AbstractSuperstitioPower implements
+public class FloorSemen extends AbstractSuperstitioPower implements
         InvisiblePower_InvisibleTips, InvisiblePower_InvisibleIconAndAmount, HasBarRenderOnCreature_Power {
-    public static final String POWER_ID = DataManager.MakeTextID(OutsideSemen.class);
+    public static final String POWER_ID = DataManager.MakeTextID(FloorSemen.class);
 
 
-    public OutsideSemen(final AbstractCreature owner, int amount) {
+    public FloorSemen(final AbstractCreature owner, int amount) {
         super(POWER_ID, owner, amount, owner.isPlayer ? PowerType.BUFF : PowerType.DEBUFF, false);
     }
 
     @Override
     public void updateDescriptionArgs() {
-        setDescriptionArgs(this.amount * OutsideSemenRate);
+        setDescriptionArgs(this.amount * FloorSemenRate);
     }
 
     @Override
@@ -38,7 +39,7 @@ public class OutsideSemen extends AbstractSuperstitioPower implements
 
     @Override
     public float Height() {
-        return 140 * Settings.scale;
+        return 160 * Settings.scale;
     }
 
     @Override

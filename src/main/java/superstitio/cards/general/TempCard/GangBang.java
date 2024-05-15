@@ -35,8 +35,8 @@ public class GangBang extends AbstractTempCard {
         super(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET);
         this.originalName = cardStrings.getEXTENDED_DESCRIPTION()[score - 1] + cardStrings.getNAME();
         this.name = this.originalName;
-        this.setupDamage(attackAmount + 2 * score, new SexDamage());
-        this.setupBlock(blockAmount + score, new DrySemenBlock());
+        this.setupDamage((int) (attackAmount * (1 + (score - 1) * 0.15)), new SexDamage());
+        this.setupBlock((int) (blockAmount * (1 + (score - 1) * 0.15)), new DrySemenBlock());
         this.glowColor = Color.WHITE.cpy();
         if (!CardUtility.isNotInBattle())
             this.beginGlowing();

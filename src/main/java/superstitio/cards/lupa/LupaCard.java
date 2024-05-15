@@ -3,18 +3,21 @@ package superstitio.cards.lupa;
 import com.evacipated.cardcrawl.mod.stslib.blockmods.AbstractBlockModifier;
 import com.megacrit.cardcrawl.actions.AbstractGameAction;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
+import com.megacrit.cardcrawl.powers.AbstractPower;
 import com.megacrit.cardcrawl.vfx.combat.FlashAtkImgEffect;
 import superstitio.DataManager;
 import superstitio.cards.SuperstitioCard;
 import superstitio.delayHpLose.DelayHpLosePatch;
 import superstitio.delayHpLose.DelayHpLosePower;
 import superstitio.delayHpLose.RemoveDelayHpLoseBlock;
+import superstitio.powers.lupaOnly.FloorSemen;
 import superstitio.powers.lupaOnly.InsideSemen;
 import superstitio.powers.lupaOnly.OutsideSemen;
 
 import java.util.Arrays;
 
 import static superstitio.cards.CardOwnerPlayerManager.IsLupaCard;
+import static superstitio.cards.general.FuckJob_Card.*;
 
 public abstract class LupaCard extends SuperstitioCard implements IsLupaCard {
 
@@ -68,31 +71,70 @@ public abstract class LupaCard extends SuperstitioCard implements IsLupaCard {
     }
 
     protected void useSemen(int amount) {
+        if (!hasEnoughSemen(amount)) {
+            for (AbstractPower power : AbstractDungeon.player.powers) {
+                if (power instanceof InsideSemen || power instanceof OutsideSemen || power instanceof FloorSemen) {
+                    addToBot_removeSpecificPower(power);
+                }
+            }
+            return;
+        }
         int lastAmount = amount;
-        final int insideSemenValue = AbstractDungeon.player.powers.stream()
+        final int insideSemen = AbstractDungeon.player.powers.stream()
                 .filter(power -> power instanceof InsideSemen).map(power -> power.amount)
                 .findAny().orElse(0);
-        final int outsideSemenValue = AbstractDungeon.player.powers.stream()
+        final int outsideSemen = AbstractDungeon.player.powers.stream()
                 .filter(power -> power instanceof OutsideSemen).map(power -> power.amount)
                 .findAny().orElse(0);
+        final int floorSemen = AbstractDungeon.player.powers.stream()
+                .filter(power -> power instanceof FloorSemen).map(power -> power.amount)
+                .findAny().orElse(0);
 
-        if (lastAmount <= insideSemenValue) {
-            addToBot_reducePower(InsideSemen.POWER_ID, lastAmount);
-            return;
+        int insideSemenNeed = (lastAmount - (lastAmount % InsideSemenRate)) / InsideSemenRate;
+        if ((lastAmount % InsideSemenRate) > ((outsideSemen * OutsideSemenRate) + floorSemen))
+            insideSemenNeed += 1;
+        final int insideSemenRemove;
+        if (insideSemenNeed > insideSemen) {
+            lastAmount -= insideSemen * InsideSemenRate;
+            insideSemenRemove = insideSemen;
         }
-        addToBot_reducePower(InsideSemen.POWER_ID, insideSemenValue);
-        lastAmount -= insideSemenValue;
-        if (lastAmount <= outsideSemenValue) {
-            addToBot_reducePower(OutsideSemen.POWER_ID, lastAmount);
-            return;
+        else {
+            lastAmount = lastAmount % InsideSemenRate;
+            insideSemenRemove = insideSemenNeed;
         }
-        addToBot_reducePower(OutsideSemen.POWER_ID, outsideSemenValue);
+        addToBot_reducePower(InsideSemen.POWER_ID, insideSemenRemove);
+        if (lastAmount <= 0) return;
+
+        int outsideSemenNeed = (lastAmount - (lastAmount % OutsideSemenRate)) / OutsideSemenRate;
+        if ((lastAmount % OutsideSemenRate) > floorSemen)
+            outsideSemenNeed += 1;
+        final int outsideSemenRemove;
+        if (outsideSemenNeed > insideSemen) {
+            lastAmount -= insideSemen * OutsideSemenRate;
+            outsideSemenRemove = outsideSemen;
+        }
+        else {
+            lastAmount = lastAmount % OutsideSemenRate;
+            outsideSemenRemove = outsideSemenNeed;
+        }
+        addToBot_reducePower(OutsideSemen.POWER_ID, outsideSemenRemove);
+        if (lastAmount <= 0) return;
+
+        final int floorSemenNeed = lastAmount;
+        final int floorSemenRemove = Math.min(floorSemenNeed, floorSemen);
+        addToBot_reducePower(FloorSemen.POWER_ID, floorSemenRemove);
     }
 
     protected boolean hasEnoughSemen(int amount) {
-        final int semenValue = AbstractDungeon.player.powers.stream()
-                .filter(power -> power instanceof OutsideSemen|| power instanceof InsideSemen)
-                .map(power -> power.amount).findAny().orElse(0);
-        return amount <= semenValue;
+        final int insideSemenValue = AbstractDungeon.player.powers.stream()
+                .filter(power -> power instanceof InsideSemen).map(power -> power.amount)
+                .findAny().orElse(0) * InsideSemenRate;
+        final int outsideSemenValue = AbstractDungeon.player.powers.stream()
+                .filter(power -> power instanceof OutsideSemen).map(power -> power.amount)
+                .findAny().orElse(0) * OutsideSemenRate;
+        final int floorSemenValue = AbstractDungeon.player.powers.stream()
+                .filter(power -> power instanceof FloorSemen).map(power -> power.amount)
+                .findAny().orElse(0) * FloorSemenRate;
+        return amount <= insideSemenValue + outsideSemenValue + floorSemenValue;
     }
 }

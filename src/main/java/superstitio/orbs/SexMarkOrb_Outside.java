@@ -13,7 +13,7 @@ import superstitio.DataManager;
 
 public class SexMarkOrb_Outside extends SexMarkOrb {
     public static final String ORB_ID = DataManager.MakeTextID(SexMarkOrb_Outside.class);
-    private final static int TemporaryHPRate = 1;
+    private final static int TemporaryHPRate = 2;
     private final boolean hFlip1 = MathUtils.randomBoolean();
     private final boolean hFlip2 = MathUtils.randomBoolean();
     private float vfxTimer = 1.0F;

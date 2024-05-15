@@ -14,13 +14,12 @@ import superstitio.powers.patchAndInterface.interfaces.invisible.InvisiblePower_
 import superstitio.utils.PowerUtility;
 
 import static superstitio.cards.general.FuckJob_Card.InsideSemenRate;
-import static superstitio.cards.general.FuckJob_Card.OutsideSemenRate;
 
 public class InsideSemen extends AbstractSuperstitioPower implements OnPostApplyThisPower,
         InvisiblePower_InvisibleTips, InvisiblePower_InvisibleIconAndAmount, HasBarRenderOnCreature_Power {
     public static final String POWER_ID = DataManager.MakeTextID(InsideSemen.class);
-    private static final int ToOutSideSemenRate = InsideSemenRate / OutsideSemenRate;
-    public static final int MAX_Semen = 10 * ToOutSideSemenRate;
+    public static final int MAX_Semen = 10;
+    private static final int ToOutSideSemenRate = 1;
 
     public InsideSemen(final AbstractCreature owner, final int amount) {
         super(POWER_ID, owner, amount, owner.isPlayer ? PowerType.BUFF : PowerType.DEBUFF, false);
@@ -34,7 +33,7 @@ public class InsideSemen extends AbstractSuperstitioPower implements OnPostApply
 
     @Override
     public void updateDescriptionArgs() {
-        setDescriptionArgs(maxBarAmount(), 1 / ToOutSideSemenRate);
+        setDescriptionArgs(this.amount * InsideSemenRate, maxBarAmount(), ToOutSideSemenRate);
     }
 
     @Override

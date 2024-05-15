@@ -20,7 +20,7 @@ import com.megacrit.cardcrawl.unlock.UnlockTracker;
 import superstitio.DataManager;
 import superstitio.Logger;
 import superstitio.SuperstitioModSetup;
-import superstitio.cards.general.AttackCard.hand.Job_Hand_BaseCard;
+import superstitio.cards.general.AttackCard.hand.Job_Hand;
 import superstitio.cards.general.BaseCard.Invite;
 import superstitio.cards.general.BaseCard.Kiss;
 import superstitio.cards.general.BaseCard.Masturbate;
@@ -145,9 +145,6 @@ public abstract class BaseCharacter extends CustomPlayer {
     public ArrayList<String> getStartingDeck() {
         ArrayList<String> retVal = new ArrayList<>();
         Logger.run("Begin loading starter Deck Strings");
-        for (int x = 0; x < 1; x++) {
-            retVal.add(Job_Hand_BaseCard.ID);
-        }
         for (int x = 0; x < 5; x++) {
             retVal.add(Kiss.ID);
         }
@@ -175,7 +172,7 @@ public abstract class BaseCharacter extends CustomPlayer {
     // 翻牌事件出现的你的职业牌（一般设为打击）
     @Override
     public AbstractCard getStartCardForEvent() {
-        return new Job_Hand_BaseCard();
+        return new Kiss();
     }
 
     // 卡牌轨迹颜色

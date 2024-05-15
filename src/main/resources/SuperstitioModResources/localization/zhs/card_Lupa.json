@@ -32,12 +32,18 @@
   "SuperstitioMod:LupaCard:GangBangPrepare": {
     "NAME": "轮奸准备",
     "NAME_SFW": "武学真髓",
-    "DESCRIPTION": "把1张带有 消耗 的随机 *性交牌 加入手牌。 NL 这张牌在本回合耗能变为0。",
-    "FLAVOR": "让我想想看……"
+    "DESCRIPTION": "当你打出 *性交牌 时，获得对应的印记，集齐5个后，自动打出一张 *轮奸派对 。 除了印记本身的数值外，每多一种印记， *轮奸派对 就提高 15% 的数值。",
+    "FLAVOR": ""
   },
   "SuperstitioMod:LupaCard:CultaeForm": {
     "NAME": "异神形态",
     "DESCRIPTION": "",
     "FLAVOR": ""
+  },
+  "SuperstitioMod:LupaCard:DrySemen": {
+    "NAME": "精液护盾",
+    "NAME_SFW": "血液护盾",
+    "DESCRIPTION": "superstitiomod:精欲 !M! 。 NL 获得 !B! *格挡 。",
+    "FLAVOR": "让我想想看……"
   }
 }

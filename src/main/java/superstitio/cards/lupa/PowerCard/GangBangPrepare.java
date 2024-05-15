@@ -9,6 +9,7 @@ import superstitio.DataManager;
 import superstitio.InBattleDataManager;
 import superstitio.cards.SuperstitioCard;
 import superstitio.cards.general.FuckJob_Card;
+import superstitio.cards.general.TempCard.GangBang;
 import superstitio.cards.lupa.LupaCard;
 import superstitio.orbs.orbgroup.SexMarkOrbGroup;
 import superstitio.powers.AbstractSuperstitioPower;
@@ -34,6 +35,7 @@ public class GangBangPrepare extends LupaCard {
     public GangBangPrepare() {
         super(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET);
         this.setupMagicNumber(MAGIC, UPGRADE_MAGIC);
+        this.cardsToPreview = new GangBang();
     }
 
     @Override

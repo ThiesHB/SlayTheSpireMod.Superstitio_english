@@ -13,7 +13,7 @@ import superstitio.cards.general.AttackCard.breast.Job_Breast;
 import superstitio.cards.general.AttackCard.genital.Fuck_Anal;
 import superstitio.cards.general.AttackCard.genital.Fuck_Vaginal;
 import superstitio.cards.general.AttackCard.hand.Job_Armpit;
-import superstitio.cards.general.AttackCard.hand.Job_Hand_BaseCard;
+import superstitio.cards.general.AttackCard.hand.Job_Hand;
 import superstitio.cards.general.AttackCard.headTempCard.Job_Hair;
 import superstitio.cards.general.AttackCard.legDrawCard.Job_Foot;
 import superstitio.cards.general.AttackCard.legDrawCard.Job_LegPit;
@@ -23,6 +23,7 @@ import superstitio.cards.general.AttackCard.torsoJustDamage.Job_Groin;
 import superstitio.cards.general.TempCard.Fuck_Ear;
 import superstitio.cards.maso.AttackCard.Fuck_Eye;
 import superstitio.cards.maso.AttackCard.Fuck_Navel;
+import superstitio.powers.lupaOnly.FloorSemen;
 import superstitio.powers.lupaOnly.InsideSemen;
 import superstitio.powers.lupaOnly.OutsideSemen;
 
@@ -31,8 +32,9 @@ import static superstitio.orbs.orbgroup.SexMarkOrbGroup.addToBot_GiveMarkToOrbGr
 import static superstitio.utils.ActionUtility.addToBot_applyPower;
 
 public interface FuckJob_Card {
-     static final int InsideSemenRate = 2;
-     static final int OutsideSemenRate = 1;
+    static final int InsideSemenRate = 3;
+    static final int OutsideSemenRate = 2;
+    static final int FloorSemenRate = 1;
 
     static void addToTop_Semen_Inside() {
         addToBot_applyPower(new InsideSemen(AbstractDungeon.player, InsideSemenRate));
@@ -40,6 +42,10 @@ public interface FuckJob_Card {
 
     static void addToTop_Semen_Outside() {
         addToBot_applyPower(new OutsideSemen(AbstractDungeon.player, OutsideSemenRate));
+    }
+
+    static void addToTop_Semen_Normal() {
+        addToBot_applyPower(new FloorSemen(AbstractDungeon.player, FloorSemenRate));
     }
 
 
@@ -58,7 +64,7 @@ public interface FuckJob_Card {
             return BodyPart.leg;
         if (fuckJob instanceof Fuck_Anal || fuckJob instanceof Fuck_Vaginal)
             return BodyPart.genital;
-        if (fuckJob instanceof Job_Armpit || fuckJob instanceof Job_Hand_BaseCard)
+        if (fuckJob instanceof Job_Armpit || fuckJob instanceof Job_Hand)
             return BodyPart.hand;
         if (fuckJob instanceof Fuck_Eye || fuckJob instanceof Fuck_Ear || fuckJob instanceof Job_Hair)
             return BodyPart.head;
