@@ -1,0 +1,51 @@
+﻿{
+  "SuperstitioMod:GangBang": {
+    "NAME": "轮奸派对",
+    "NAME_SFW": "血战沙场",
+    "DESCRIPTION": "stslib:自动打出 。 NL 对 全体敌人 造成 !D! 点伤害 。 获得 !B! *干涸精液 。",
+    "FLAVOR": "开始狂欢吧！大家一起来！",
+    "EXTENDED_DESCRIPTION": [
+      "困倦的",
+      "平淡的",
+      "愉快的",
+      "满足的",
+      "完美的"
+    ]
+  },
+  "SuperstitioMod:GiveBirth": {
+    "NAME": "分娩",
+    "NAME_SFW": "力量释放",
+    "DESCRIPTION": "移除所有的 superstitiomod:妊娠 。获得 !B! 临时生命 。 NL 通过这张牌移除的 superstitiomod:妊娠 不会触发 *流产 。 NL 消耗 。",
+    "FLAVOR": "重获新生吧。"
+  },
+  "SuperstitioMod:SexToy": {
+    "NAME": "情趣玩具",
+    "NAME_SFW": "神圣旗帜",
+    "DESCRIPTION": "给目标装备 !M! 个 随机 superstitiomod:情趣玩具 。",
+    "FLAVOR": "越多越好！",
+    "EXTENDED_DESCRIPTION": [
+      "震动棒,肛塞,跳蛋"
+    ],
+    "EXTENDED_DESCRIPTION_SFW": [
+      "龙凤旗,花花旗,日月旗"
+    ]
+  },
+  "SuperstitioMod:SelfReference": {
+    "NAME": "自我指慰",
+    "NAME_SFW": "自我指涉",
+    "DESCRIPTION": "superstitiomod:时空递归 。 NL 移除 !B! *腐朽 。",
+    "FLAVOR": "罢了，事已至此，先指慰一下吧。"
+  },
+  "SuperstitioMod:FishGirlMode": {
+    "NAME": "鱼人变形",
+    "NAME_SFW": "火元素变形",
+    "DESCRIPTION": "回合开始时，获得 !M! superstitiomod:窒息 。",
+    "FLAVOR": "鱼人来到了陆地上。"
+  },
+  "SuperstitioMod:FeelPhantomBody": {
+    "NAME": "感受幻肢",
+    "NAME_SFW": "义体",
+    "DESCRIPTION": "回合结束时自动打出。 NL 消耗时，抽一张牌，使随机敌人流失 !M! 点生命值。",
+    "FLAVOR": ""
+  }
+}

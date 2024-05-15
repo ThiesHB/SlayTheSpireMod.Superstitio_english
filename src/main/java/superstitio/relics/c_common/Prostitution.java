@@ -6,7 +6,7 @@ import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.vfx.RainingGoldEffect;
 import superstitio.DataManager;
-import superstitio.cards.general.AbstractCard_FuckJob;
+import superstitio.cards.general.FuckJob_Card;
 import superstitio.relics.AbstractLupaRelic;
 import superstitio.relics.interFace.Countup;
 
@@ -30,7 +30,7 @@ public class Prostitution extends AbstractLupaRelic implements Countup {
 
     @Override
     public void onUseCard(AbstractCard targetCard, UseCardAction useCardAction) {
-        if (targetCard instanceof AbstractCard_FuckJob)
+        if (targetCard instanceof FuckJob_Card)
             CountAdd();
     }
 

@@ -11,12 +11,12 @@ import superstitio.cards.general.FuckJob_Card;
 import superstitio.delayHpLose.DelayHpLosePatch;
 import superstitio.delayHpLose.DelayHpLosePower_ApplyOnVictory;
 import superstitio.relics.AbstractLupaRelic;
-import superstitio.utils.ActionUtility;
 
 import static com.megacrit.cardcrawl.dungeons.AbstractDungeon.player;
-import static superstitio.DataManager.CanOnlyDamageDamageType.*;
-import static superstitio.cards.general.FuckJob_Card.*;
-import static superstitio.utils.ActionUtility.*;
+import static superstitio.DataManager.CanOnlyDamageDamageType.UnBlockAbleDamageType;
+import static superstitio.cards.general.FuckJob_Card.addToTop_Semen_Inside;
+import static superstitio.cards.general.FuckJob_Card.addToTop_Semen_Outside;
+import static superstitio.utils.ActionUtility.addToTop_applyPower;
 
 @AutoAdd.Seen
 public class DevaBody_Lupa extends AbstractLupaRelic {

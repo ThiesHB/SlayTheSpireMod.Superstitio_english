@@ -13,8 +13,9 @@ import superstitio.powers.AbstractSuperstitioPower;
 import superstitio.relics.AbstractLupaRelic;
 
 import static com.megacrit.cardcrawl.dungeons.AbstractDungeon.player;
-import static superstitio.DataManager.CanOnlyDamageDamageType.*;
-import static superstitio.utils.ActionUtility.*;
+import static superstitio.DataManager.CanOnlyDamageDamageType.UnBlockAbleDamageType;
+import static superstitio.utils.ActionUtility.addToBot_applyPower;
+import static superstitio.utils.ActionUtility.addToTop_applyPower;
 
 @AutoAdd.Seen
 public class DevaBody_Masochism extends AbstractLupaRelic {

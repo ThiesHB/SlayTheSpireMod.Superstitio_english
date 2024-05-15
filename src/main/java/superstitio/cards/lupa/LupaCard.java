@@ -9,12 +9,16 @@ import superstitio.cards.SuperstitioCard;
 import superstitio.delayHpLose.DelayHpLosePatch;
 import superstitio.delayHpLose.DelayHpLosePower;
 import superstitio.delayHpLose.RemoveDelayHpLoseBlock;
+import superstitio.powers.lupaOnly.InsideSemen;
+import superstitio.powers.lupaOnly.OutsideSemen;
 
 import java.util.Arrays;
 
 import static superstitio.cards.CardOwnerPlayerManager.IsLupaCard;
 
 public abstract class LupaCard extends SuperstitioCard implements IsLupaCard {
+
+
     /**
      * 普通的方法
      *
@@ -63,7 +67,32 @@ public abstract class LupaCard extends SuperstitioCard implements IsLupaCard {
             SuperstitioCard.addToBot_gainBlock(card, amount);
     }
 
-    protected void useSemen() {
+    protected void useSemen(int amount) {
+        int lastAmount = amount;
+        final int insideSemenValue = AbstractDungeon.player.powers.stream()
+                .filter(power -> power instanceof InsideSemen).map(power -> power.amount)
+                .findAny().orElse(0);
+        final int outsideSemenValue = AbstractDungeon.player.powers.stream()
+                .filter(power -> power instanceof OutsideSemen).map(power -> power.amount)
+                .findAny().orElse(0);
 
+        if (lastAmount <= insideSemenValue) {
+            addToBot_reducePower(InsideSemen.POWER_ID, lastAmount);
+            return;
+        }
+        addToBot_reducePower(InsideSemen.POWER_ID, insideSemenValue);
+        lastAmount -= insideSemenValue;
+        if (lastAmount <= outsideSemenValue) {
+            addToBot_reducePower(OutsideSemen.POWER_ID, lastAmount);
+            return;
+        }
+        addToBot_reducePower(OutsideSemen.POWER_ID, outsideSemenValue);
+    }
+
+    protected boolean hasEnoughSemen(int amount) {
+        final int semenValue = AbstractDungeon.player.powers.stream()
+                .filter(power -> power instanceof OutsideSemen|| power instanceof InsideSemen)
+                .map(power -> power.amount).findAny().orElse(0);
+        return amount <= semenValue;
     }
 }

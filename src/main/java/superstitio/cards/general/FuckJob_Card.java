@@ -25,21 +25,21 @@ import superstitio.cards.maso.AttackCard.Fuck_Eye;
 import superstitio.cards.maso.AttackCard.Fuck_Navel;
 import superstitio.powers.lupaOnly.InsideSemen;
 import superstitio.powers.lupaOnly.OutsideSemen;
-import superstitio.utils.ActionUtility;
 
 import static superstitio.orbs.orbgroup.SexMarkOrbGroup.SexMarkType;
 import static superstitio.orbs.orbgroup.SexMarkOrbGroup.addToBot_GiveMarkToOrbGroup;
-import static superstitio.utils.ActionUtility.*;
+import static superstitio.utils.ActionUtility.addToBot_applyPower;
 
 public interface FuckJob_Card {
-
+     static final int InsideSemenRate = 2;
+     static final int OutsideSemenRate = 1;
 
     static void addToTop_Semen_Inside() {
-        addToBot_applyPower(new InsideSemen(AbstractDungeon.player, 1));
+        addToBot_applyPower(new InsideSemen(AbstractDungeon.player, InsideSemenRate));
     }
 
     static void addToTop_Semen_Outside() {
-        addToBot_applyPower(new OutsideSemen(AbstractDungeon.player, 1));
+        addToBot_applyPower(new OutsideSemen(AbstractDungeon.player, OutsideSemenRate));
     }
 
 

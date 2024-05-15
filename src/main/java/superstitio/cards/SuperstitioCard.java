@@ -16,9 +16,9 @@ import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.core.AbstractCreature;
 import com.megacrit.cardcrawl.core.Settings;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
+import com.megacrit.cardcrawl.localization.CardStrings;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import com.megacrit.cardcrawl.powers.AbstractPower;
-import superstitio.DataManager;
 import superstitio.InBattleDataManager;
 import superstitio.Logger;
 import superstitio.cards.lupa.LupaCard;
@@ -26,18 +26,20 @@ import superstitio.cards.maso.MasoCard;
 import superstitio.characters.Lupa;
 import superstitio.characters.Maso;
 import superstitio.customStrings.CardStringsWithFlavorSet;
-import superstitio.customStrings.HasSFWVersion;
 import superstitio.utils.ActionUtility;
 import superstitio.utils.updateDescriptionAdvanced;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 import static com.megacrit.cardcrawl.actions.AbstractGameAction.AttackEffect;
 import static com.megacrit.cardcrawl.cards.DamageInfo.DamageType;
+import static superstitio.DataManager.*;
 import static superstitio.cards.CardOwnerPlayerManager.getCardClass;
 import static superstitio.cards.CardOwnerPlayerManager.getImgPath;
+import static superstitio.customStrings.HasSFWVersion.getCustomStringsWithSFW;
 
 public abstract class SuperstitioCard extends CustomCard implements updateDescriptionAdvanced {
     private final static float DESC_LINE_WIDTH = 418.0f * Settings.scale;
@@ -61,8 +63,11 @@ public abstract class SuperstitioCard extends CustomCard implements updateDescri
         initializeDescription();
     }
 
-    public static CardStringsWithFlavorSet getCardStringsWithSFWAndFlavor(String cardName) {
-        return HasSFWVersion.getCustomStringsWithSFW(cardName, DataManager.cards, CardStringsWithFlavorSet.class);
+    public static CardStringsWithFlavorSet getCardStringsWithSFWAndFlavor(String cardId) {
+        CardStringsWithFlavorSet cardStringsSet = getCustomStringsWithSFW(cardId, cards, CardStringsWithFlavorSet.class);
+        if (cardStringsSet != null && !Objects.equals(cardStringsSet.getNAME(), CardStrings.getMockCardString().NAME))
+            return cardStringsSet;
+        return getCustomStringsWithSFW(getModID() + ":" + getIdOnly(cardId), cards, CardStringsWithFlavorSet.class);
     }
 
     protected static String CardTypeToString(final CardType t) {
@@ -106,6 +111,7 @@ public abstract class SuperstitioCard extends CustomCard implements updateDescri
     }
 
     public String makeFormatDESCRIPTION() {
+        updateDescriptionArgs();
         if (descriptionArgs == null) return getDescriptionStrings();
         return String.format(getDescriptionStrings(), descriptionArgs);
     }
@@ -125,7 +131,6 @@ public abstract class SuperstitioCard extends CustomCard implements updateDescri
 
     @Override
     public void updateDescriptionArgs() {
-
     }
 
     @Override
@@ -185,11 +190,11 @@ public abstract class SuperstitioCard extends CustomCard implements updateDescri
     }
 
     protected final void setupBlock(final int amount, int amountOfAutoUpgrade, AbstractBlockModifier... blockModifiers) {
-        if (getCardClass(this).equalsIgnoreCase(DataManager.getIdOnly(Lupa.ID))) {
+        if (getCardClass(this).equalsIgnoreCase(getIdOnly(Lupa.ID))) {
             LupaCard.setupBlock(this, amount, amountOfAutoUpgrade, blockModifiers);
             return;
         }
-        if (getCardClass(this).equalsIgnoreCase(DataManager.getIdOnly(Maso.ID))) {
+        if (getCardClass(this).equalsIgnoreCase(getIdOnly(Maso.ID))) {
             MasoCard.setupBlock(this, amount, amountOfAutoUpgrade, blockModifiers);
             return;
         }
@@ -244,17 +249,17 @@ public abstract class SuperstitioCard extends CustomCard implements updateDescri
     }
 
     public final void addToBot_gainBlock(final int amount) {
-//        if (AbstractDungeon.player != null) {
-//            if (AbstractDungeon.player instanceof Lupa && CardOwnerPlayerManager.isLupaCard(this)) {
-//                LupaCard.addToBot_gainBlock(this, amount);
-//                return;
-//            }
-//            if (AbstractDungeon.player instanceof Maso && CardOwnerPlayerManager.isMasoCard(this)) {
-//                MasoCard.addToBot_gainBlock(this, amount);
-//                return;
-//            }
-//        }
-        MasoCard.addToBot_gainBlock(this, amount);
+        if (AbstractDungeon.player != null) {
+            if (AbstractDungeon.player instanceof Lupa && CardOwnerPlayerManager.isLupaCard(this)) {
+                LupaCard.addToBot_gainBlock(this, amount);
+                return;
+            }
+            if (AbstractDungeon.player instanceof Maso && CardOwnerPlayerManager.isMasoCard(this)) {
+                MasoCard.addToBot_gainBlock(this, amount);
+                return;
+            }
+        }
+        SuperstitioCard.addToBot_gainBlock(this, amount);
     }
 
     public final void addToBot_gainCustomBlock(AbstractBlockModifier blockModifier) {

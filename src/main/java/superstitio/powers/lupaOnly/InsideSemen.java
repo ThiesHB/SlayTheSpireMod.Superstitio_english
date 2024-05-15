@@ -13,11 +13,14 @@ import superstitio.powers.patchAndInterface.interfaces.invisible.InvisiblePower_
 import superstitio.powers.patchAndInterface.interfaces.invisible.InvisiblePower_InvisibleTips;
 import superstitio.utils.PowerUtility;
 
+import static superstitio.cards.general.FuckJob_Card.InsideSemenRate;
+import static superstitio.cards.general.FuckJob_Card.OutsideSemenRate;
+
 public class InsideSemen extends AbstractSuperstitioPower implements OnPostApplyThisPower,
         InvisiblePower_InvisibleTips, InvisiblePower_InvisibleIconAndAmount, HasBarRenderOnCreature_Power {
     public static final String POWER_ID = DataManager.MakeTextID(InsideSemen.class);
-    public static final int MAX_Semen = 10;
-    private static final int ToOutSideSemenRate = 1;
+    private static final int ToOutSideSemenRate = InsideSemenRate / OutsideSemenRate;
+    public static final int MAX_Semen = 10 * ToOutSideSemenRate;
 
     public InsideSemen(final AbstractCreature owner, final int amount) {
         super(POWER_ID, owner, amount, owner.isPlayer ? PowerType.BUFF : PowerType.DEBUFF, false);
@@ -31,7 +34,7 @@ public class InsideSemen extends AbstractSuperstitioPower implements OnPostApply
 
     @Override
     public void updateDescriptionArgs() {
-        setDescriptionArgs(maxBarAmount(), ToOutSideSemenRate);
+        setDescriptionArgs(maxBarAmount(), 1 / ToOutSideSemenRate);
     }
 
     @Override
@@ -52,7 +55,7 @@ public class InsideSemen extends AbstractSuperstitioPower implements OnPostApply
         AbstractPower power = this;
         AutoDoneInstantAction.addToBotAbstract(() ->
                 PowerUtility.BubbleMessageHigher(power, false, powerStrings.getDESCRIPTIONS()[1]));
-        this.addToBot_applyPower(new OutsideSemen(this.owner, flowAmount * ToOutSideSemenRate));
+        this.addToBot_applyPower(new OutsideSemen(this.owner, flowAmount / ToOutSideSemenRate));
     }
 
     @Override

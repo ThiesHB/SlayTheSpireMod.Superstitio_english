@@ -180,6 +180,8 @@ public class SuperstitioModSetup implements
         DataManager.loadCustomStringsFile("card_Lupa", DataManager.cards, CardStringsWithFlavorSet.class);
         DataManager.loadCustomStringsFile("card_General", DataManager.cards, CardStringsWithFlavorSet.class);
         DataManager.loadCustomStringsFile("card_Maso", DataManager.cards, CardStringsWithFlavorSet.class);
+        DataManager.loadCustomStringsFile("card_FuckJobAndBase", DataManager.cards, CardStringsWithFlavorSet.class);
+        DataManager.loadCustomStringsFile("card_TempCard", DataManager.cards, CardStringsWithFlavorSet.class);
         DataManager.loadCustomStringsFile("modifier_damage", DataManager.modifiers, ModifierStringsSet.class);
         DataManager.loadCustomStringsFile("modifier_block", DataManager.modifiers, ModifierStringsSet.class);
         DataManager.loadCustomStringsFile("power", DataManager.powers, PowerStringsSet.class);

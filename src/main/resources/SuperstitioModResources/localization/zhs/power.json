@@ -175,7 +175,7 @@
   "SuperstitioMod:DoubleRemoveHpLostWhenHasVulnerablePower": {
     "NAME": "翻倍格挡",
     "DESCRIPTIONS": [
-      "当有易伤时，翻倍移除 #r腐朽 的量。"
+      "当有易伤时，翻倍来自卡牌的 #r腐朽 移除量。"
     ]
   }
 }
