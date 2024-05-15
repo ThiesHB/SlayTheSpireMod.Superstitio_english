@@ -14,7 +14,6 @@ import com.megacrit.cardcrawl.cards.DamageInfo;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.core.Settings;
 import com.megacrit.cardcrawl.helpers.CardLibrary;
-import com.megacrit.cardcrawl.localization.CharacterStrings;
 import com.megacrit.cardcrawl.localization.LocalizedStrings;
 import superstitio.cards.SuperstitioCard;
 import superstitio.cards.lupa.LupaCard;
@@ -392,13 +391,7 @@ public class DataManager {
 
         public static class GeneralEnums {
             @SpireEnum
-            public static AbstractPlayer.PlayerClass GENERAL_Virtual_Character;
-
-            @SpireEnum(name = "SPTT_GENERAL_PINK")
             public static AbstractCard.CardColor GENERAL_CARD;
-
-            @SpireEnum(name = "SPTT_GENERAL_PINK")
-            public static CardLibrary.LibraryType GENERAL_LIBRARY;
         }
 
         // 为原版人物枚举、卡牌颜色枚举扩展的枚举，需要写，接下来要用

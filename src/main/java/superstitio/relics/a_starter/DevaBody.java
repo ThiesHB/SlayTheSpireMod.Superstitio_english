@@ -4,8 +4,8 @@ import basemod.AutoAdd;
 import com.megacrit.cardcrawl.actions.common.RelicAboveCreatureAction;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import superstitio.DataManager;
-import superstitio.delayHpLose.DelayHpLosePower;
 import superstitio.delayHpLose.DelayHpLosePatch;
+import superstitio.delayHpLose.DelayHpLosePower;
 import superstitio.relics.AbstractLupaRelic;
 import superstitio.utils.ActionUtility;
 

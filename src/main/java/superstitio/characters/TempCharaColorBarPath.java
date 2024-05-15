@@ -7,19 +7,18 @@ import com.evacipated.cardcrawl.modthespire.lib.SpireReturn;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
 import superstitio.DataManager;
-import superstitio.cards.general.GeneralCardVirtualCharacter;
 import superstitio.cards.general.TempCardVirtualCharacter;
 
 @SpirePatch(clz = ColorTabBarFix.class, method = "capitalizeWord")
 public class TempCharaColorBarPath {
 
-    private static final AbstractPlayer generalCardVirtualCharacter = new GeneralCardVirtualCharacter(CardCrawlGame.playerName);
+//    private static final AbstractPlayer generalCardVirtualCharacter = new GeneralCardVirtualCharacter(CardCrawlGame.playerName);
     private static final AbstractPlayer tempCardVirtualCharacter = new TempCardVirtualCharacter(CardCrawlGame.playerName);
     @SpirePrefixPatch
     public static SpireReturn<String> Prefix(String str) {
-        if (str.equalsIgnoreCase(DataManager.SPTT_DATA.GeneralEnums.GENERAL_LIBRARY.name())) {
-            return SpireReturn.Return(generalCardVirtualCharacter.title);
-        }
+//        if (str.equalsIgnoreCase(DataManager.SPTT_DATA.GeneralEnums.GENERAL_LIBRARY.name())) {
+//            return SpireReturn.Return(generalCardVirtualCharacter.title);
+//        }
         if (str.equalsIgnoreCase(DataManager.SPTT_DATA.TempCardEnums.TempCard_LIBRARY.name())) {
             return SpireReturn.Return(tempCardVirtualCharacter.title);
         }

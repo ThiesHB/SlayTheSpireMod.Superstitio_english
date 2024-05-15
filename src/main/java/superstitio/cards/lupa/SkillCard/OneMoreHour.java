@@ -3,8 +3,8 @@ package superstitio.cards.lupa.SkillCard;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import superstitio.DataManager;
-import superstitio.cards.lupa.LupaCard;
 import superstitio.cardModifier.modifiers.block.SexBlock;
+import superstitio.cards.lupa.LupaCard;
 import superstitio.orbs.CardOrb_CardTrigger;
 import superstitio.orbs.Card_AvoidAllCardUsedCheckOfCardOrb_ManuallyTriggerCardOrb;
 

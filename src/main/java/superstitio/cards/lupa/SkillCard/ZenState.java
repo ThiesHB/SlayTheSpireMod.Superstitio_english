@@ -9,8 +9,8 @@ import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import superstitio.DataManager;
 import superstitio.actions.AutoDoneInstantAction;
 import superstitio.actions.ChoseCardFromHandCardSelectScreen;
-import superstitio.cards.lupa.LupaCard;
 import superstitio.cardModifier.modifiers.block.SexBlock;
+import superstitio.cards.lupa.LupaCard;
 
 public class ZenState extends LupaCard {
     public static final String ID = DataManager.MakeTextID(ZenState.class);

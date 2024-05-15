@@ -1,10 +1,10 @@
 package superstitio.cards.general;
 
 import superstitio.DataManager;
-import superstitio.cards.CardOwnerPlayerManager;
 import superstitio.cards.SuperstitioCard;
 
-import static superstitio.cards.CardOwnerPlayerManager.*;
+import static superstitio.cards.CardOwnerPlayerManager.IsNotLupaCard;
+import static superstitio.cards.CardOwnerPlayerManager.IsNotMasoCard;
 
 
 public abstract class AbstractTempCard extends SuperstitioCard implements IsNotLupaCard, IsNotMasoCard  {

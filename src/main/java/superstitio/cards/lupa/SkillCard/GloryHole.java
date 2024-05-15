@@ -10,8 +10,8 @@ import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import superstitio.DataManager;
 import superstitio.actions.ChoseCardFromGridSelectWindowAction;
-import superstitio.cards.lupa.LupaCard;
 import superstitio.cards.general.TempCard.SelfReference;
+import superstitio.cards.lupa.LupaCard;
 
 import java.util.Objects;
 

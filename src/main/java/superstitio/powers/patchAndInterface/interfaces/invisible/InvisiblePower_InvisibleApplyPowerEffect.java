@@ -5,8 +5,6 @@
 
 package superstitio.powers.patchAndInterface.interfaces.invisible;
 
-import com.megacrit.cardcrawl.powers.AbstractPower;
-
 public interface InvisiblePower_InvisibleApplyPowerEffect {
 //    static boolean shouldInvisible(AbstractPower power) {
 //        if (power instanceof InvisiblePower_InvisibleApplyPowerEffect)

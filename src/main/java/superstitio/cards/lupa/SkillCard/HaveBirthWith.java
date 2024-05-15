@@ -9,12 +9,12 @@ import com.megacrit.cardcrawl.powers.AbstractPower;
 import com.megacrit.cardcrawl.powers.ArtifactPower;
 import superstitio.DataManager;
 import superstitio.actions.AutoDoneInstantAction;
-import superstitio.cards.lupa.LupaCard;
-import superstitio.cards.general.TempCard.GiveBirth;
-import superstitio.cards.general.TempCard.SelfReference;
 import superstitio.cardModifier.modifiers.block.PregnantBlock_chooseEffect;
 import superstitio.cardModifier.modifiers.block.PregnantBlock_onlyForTag;
 import superstitio.cardModifier.modifiers.block.PregnantBlock_sealPower;
+import superstitio.cards.general.TempCard.GiveBirth;
+import superstitio.cards.general.TempCard.SelfReference;
+import superstitio.cards.lupa.LupaCard;
 
 import java.util.ArrayList;
 

@@ -5,9 +5,7 @@ import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import superstitio.DataManager;
-import superstitio.cardModifier.modifiers.block.SexBlock;
 import superstitio.cards.maso.MasoCard;
-import superstitio.delayHpLose.DelayRemoveDelayHpLoseBlock;
 import superstitio.delayHpLose.RemoveDelayHpLoseBlock;
 
 public class CutWrist extends MasoCard {

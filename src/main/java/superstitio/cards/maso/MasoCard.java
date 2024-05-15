@@ -15,7 +15,6 @@ import superstitio.delayHpLose.RemoveDelayHpLoseBlock;
 import java.util.Arrays;
 
 import static superstitio.DataManager.SPTT_DATA.MasoEnums.MASO_CARD;
-import static superstitio.cards.CardOwnerPlayerManager.getImgPath;
 
 public abstract class MasoCard extends SuperstitioCard implements CardOwnerPlayerManager.IsMasoCard {
     private boolean isDelayRemoveDelayHpLoseBlock;

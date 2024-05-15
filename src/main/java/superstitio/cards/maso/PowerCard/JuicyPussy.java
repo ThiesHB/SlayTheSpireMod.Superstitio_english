@@ -6,7 +6,6 @@ import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import superstitio.DataManager;
 import superstitio.cards.maso.MasoCard;
-import superstitio.cards.maso.PowerCard.monsterGirl.FishGirlMode;
 import superstitio.delayHpLose.DelayHpLosePower;
 import superstitio.powers.EasyBuildAbstractPowerForPowerCard;
 import superstitio.powers.SexualHeat;
