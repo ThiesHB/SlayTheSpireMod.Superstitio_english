@@ -22,7 +22,7 @@ public class DelayRemoveDelayHpLosePower extends AbstractSuperstitioPower implem
 
     @Override
     public void atStartOfTurnPostDraw() {
-        DelayHpLosePower.addToBot_removePower(amount, this.owner, this.owner, false);
+        DelayHpLosePower_ApplyEachTurn.addToBot_removePower(amount, this.owner, this.owner, false);
         addToBot_removeSpecificPower(this);
     }
 

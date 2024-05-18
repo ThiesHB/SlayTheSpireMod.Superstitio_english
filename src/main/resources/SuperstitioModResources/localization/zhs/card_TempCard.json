@@ -2,7 +2,7 @@
   "SuperstitioMod:GangBang": {
     "NAME": "轮奸派对",
     "NAME_SFW": "血战沙场",
-    "DESCRIPTION": "stslib:自动打出 。 NL 对 全体敌人 造成 !D! 点伤害 。 获得 !B! *干涸精液 。",
+    "DESCRIPTION": "stslib:自动打出 。 NL 对 全体敌人 造成 !D! 点伤害 。 获得 !B! superstitiomod:干涸精痕 。",
     "FLAVOR": "开始狂欢吧！大家一起来！",
     "EXTENDED_DESCRIPTION": [
       "困倦的",
@@ -15,7 +15,7 @@
   "SuperstitioMod:GiveBirth": {
     "NAME": "分娩",
     "NAME_SFW": "力量释放",
-    "DESCRIPTION": "移除所有的 superstitiomod:妊娠 。获得 !B! 临时生命 。 NL 通过这张牌移除的 superstitiomod:妊娠 不会触发 *流产 。 NL 消耗 。",
+    "DESCRIPTION": "移除所有的 superstitiomod:妊娠 。获得 !B! 临时生命 。 NL 通过这张牌移除的 *妊娠 不会触发 *流产 。 NL 消耗 。",
     "FLAVOR": "重获新生吧。"
   },
   "SuperstitioMod:SexToy": {

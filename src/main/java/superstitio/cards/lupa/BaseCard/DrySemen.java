@@ -13,7 +13,7 @@ public class DrySemen extends LupaCard {
 
     public static final CardType CARD_TYPE = CardType.SKILL;
 
-    public static final CardRarity CARD_RARITY = CardRarity.UNCOMMON;
+    public static final CardRarity CARD_RARITY = CardRarity.BASIC;
 
     public static final CardTarget CARD_TARGET = CardTarget.SELF;
 
@@ -24,7 +24,7 @@ public class DrySemen extends LupaCard {
     private static final int UPGRADE_MAGIC = 0;
 
     public DrySemen() {
-        super(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET);
+        super(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET,"base");
         this.setupBlock(BLOCK, UPGRADE_BLOCK, new DrySemenBlock());
         this.setupMagicNumber(MAGIC, UPGRADE_MAGIC);
         CardModifierManager.addModifier(this, new RetainMod());

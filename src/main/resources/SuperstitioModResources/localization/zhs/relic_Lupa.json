@@ -2,7 +2,7 @@
   "SuperstitioMod:Sensitive": {
     "NAME": "敏感",
     "DESCRIPTIONS": [
-      "你使用的每个 [E] 均会立即带来 #b%d 点  #ysuperstitiomod:快感 。 NL 核心机制： #ysuperstitiomod:高潮 。 NL 有必要提及的机制： #ysuperstitiomod:结束高潮 、 #ysuperstitiomod:干涸精液 。"
+      "你使用的每个 [E] 均会立即带来 #b%d 点  #ysuperstitiomod:快感 。 NL 核心机制： #ysuperstitiomod:高潮 。 NL 有必要提及的机制： #ysuperstitiomod:结束高潮 。"
     ],
     "FLAVOR": "你的身体非常敏感。"
   },
@@ -16,7 +16,7 @@
   "SuperstitioMod:DevaBody_Lupa": {
     "NAME": "寻欢天人",
     "DESCRIPTIONS": [
-      "不会因为任何其他原因失去体力。 NL 当本应失去体力时，会获得 #ysuperstitiomod:腐朽 作为代替。 NL 战斗胜利时若有剩余的 #ysuperstitiomod:腐朽 ，失去生命值。 NL 当你打出 #y性交牌 时， 获得对应的 #ysuperstitiomod:精液 。"
+      "不会因为任何其他原因失去体力。 NL 当本应失去体力时，会获得 #ysuperstitiomod:腐朽 作为代替。 NL 战斗胜利时若有剩余的 #ysuperstitiomod:腐朽 ，失去生命值。 NL 当你打出 #y攻击牌 时， #ysuperstitiomod:获得精液 。"
     ],
     "FLAVOR": "你的身体刀枪不入，当然，“枪”可以。"
   },
@@ -54,7 +54,7 @@
   "SuperstitioMod:CumOnShoes": {
     "NAME": "精液高跟鞋",
     "DESCRIPTIONS": [
-      "战斗中，每 获得 %d #ysuperstitiomod:干涸精液 ，获得 1 敏捷。"
+      "战斗中，每 使用 %d #y性交牌 ，获得 1 敏捷。"
     ],
     "FLAVOR": "黏糊糊的好舒服呀。"
   },

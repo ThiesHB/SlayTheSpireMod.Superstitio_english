@@ -64,7 +64,7 @@
   "SuperstitioMod:UnBirth": {
     "NAME": "胎内回归",
     "NAME_SFW": "力量汲取",
-    "DESCRIPTION": "获得 !B! *妊娠 。 NL 把目标所有的 负面效果 和 人工制品 封印入 *妊娠 。 NL 该 *妊娠 受到伤害时，移除目标敌人相同生命值。 NL *流产 时，获得两倍封印的效果。",
+    "DESCRIPTION": "获得 !B! *妊娠 。 NL 把目标所有的 负面效果 和 人工制品 封印入 *妊娠 。 NL *妊娠 受到伤害时，移除目标敌人相同生命值。 NL *流产 时，获得两倍封印的效果。",
     "FLAVOR": "我会包容你的一切：你的欲望、你的梦想、你的爱…… NL 请把你的一切交给我。"
   },
   "SuperstitioMod:ChokeChoker": {

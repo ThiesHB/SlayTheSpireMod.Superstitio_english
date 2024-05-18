@@ -35,7 +35,7 @@
   "SuperstitioMod:ExposeSelf": {
     "NAME": "自我暴露",
     "DESCRIPTIONS": [
-      "到 下回合 开始前 ，失去 #y格挡 时，获得失去数值一半的 #y体表精液 。 NL #y体表精液 会在 回合结束时 转换为 #y干涸精液 。 "
+      "到 下回合 开始前 ，失去 #y格挡 时，获得失去数值一半的 #y体表精液 。 NL #y体表精液 会在 回合结束时 转换为 #y干涸精痕 。 "
     ]
   },
   "SuperstitioMod:SexToy": {

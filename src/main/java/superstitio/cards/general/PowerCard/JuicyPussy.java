@@ -6,7 +6,7 @@ import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import superstitio.DataManager;
 import superstitio.cards.general.GeneralCard;
-import superstitio.delayHpLose.DelayHpLosePower;
+import superstitio.delayHpLose.DelayHpLosePower_ApplyEachTurn;
 import superstitio.powers.EasyBuildAbstractPowerForPowerCard;
 import superstitio.powers.SexualHeat;
 import superstitio.powers.patchAndInterface.interfaces.orgasm.OnOrgasm_onSquirt;
@@ -58,7 +58,7 @@ public class JuicyPussy extends GeneralCard {
         @Override
         public void onSquirt(SexualHeat SexualHeatPower, AbstractCard card) {
             this.flash();
-            DelayHpLosePower.addToBot_removePower(amount, AbstractDungeon.player, AbstractDungeon.player, true);
+            DelayHpLosePower_ApplyEachTurn.addToBot_removePower(amount, AbstractDungeon.player, AbstractDungeon.player, true);
         }
     }
 }

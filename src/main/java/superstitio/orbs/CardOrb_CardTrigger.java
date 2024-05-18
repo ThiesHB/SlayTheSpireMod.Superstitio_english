@@ -182,10 +182,10 @@ public abstract class CardOrb_CardTrigger extends CardOrb {
 
     private boolean TestIfCardIsRight_hover(AbstractCard hoveredCard) {
         if (hoveredCard == null) return false;
+        if (cardMatcher == null) return false;
         if (hoveredCard instanceof Card_AvoidAllCardUsedCheckOfCardOrb_ManuallyTriggerCardOrb) {
             return ((Card_AvoidAllCardUsedCheckOfCardOrb_ManuallyTriggerCardOrb) hoveredCard).forceFilterCardOrbToHoveredMode(this);
         }
-        if (cardMatcher == null) return false;
         return this.cardMatcher.test(hoveredCard);
     }
 
@@ -209,7 +209,9 @@ public abstract class CardOrb_CardTrigger extends CardOrb {
 
     @SafeVarargs
     public final CardOrb setCardPredicate(Predicate<AbstractCard>... cardMatchers) {
-        Arrays.stream(cardMatchers).forEach(mather -> this.cardMatcher = this.cardMatcher.and(mather));
+        for (Predicate<AbstractCard> mather : cardMatchers) {
+            this.cardMatcher = this.cardMatcher.and(mather);
+        }
         return this;
     }
 }

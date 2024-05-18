@@ -236,21 +236,27 @@ public class SuperstitioModSetup implements
 
     @Override
     public void receiveEditKeywords() {
-        List<Keyword> keywords = new ArrayList<>();
-        keywords.addAll(Arrays.asList(DataManager.makeJsonStringFromFile("keyword", Keyword[].class)));
-        keywords.addAll(Arrays.asList(ModifierStringsSet.MakeKeyWords()));
+        List<Keyword> keywords = getKeywordsFormFile();
 
         keywords.forEach(keyword ->
                 BaseMod.addKeyword(DataManager.getModID().toLowerCase(), keyword.PROPER_NAME, keyword.NAMES, keyword.DESCRIPTION));
 
-        List<Keyword> keywordsSFW = new ArrayList<>();
-        keywordsSFW.addAll(Arrays.asList(DataManager.makeJsonStringFromFile("keyword", Keyword[].class)));
-        keywordsSFW.addAll(Arrays.asList(ModifierStringsSet.MakeKeyWords()));
+        List<Keyword> keywordsSFW = getKeywordsFormFile();
+
 
         replaceKeyWordsToSFW(keywordsSFW.toArray(new Keyword[0]));
 
         keywordsSFW.forEach(keyword ->
                 BaseMod.addKeyword(DataManager.getModID().toLowerCase(), keyword.PROPER_NAME, keyword.NAMES, keyword.DESCRIPTION));
+    }
+
+    private List<Keyword> getKeywordsFormFile() {
+        List<Keyword> keywordsSFW = new ArrayList<>();
+        keywordsSFW.addAll(Arrays.asList(DataManager.makeJsonStringFromFile("keyword", Keyword[].class)));
+        keywordsSFW.addAll(Arrays.asList(DataManager.makeJsonStringFromFile("keyword_Lupa", Keyword[].class)));
+        keywordsSFW.addAll(Arrays.asList(DataManager.makeJsonStringFromFile("keyword_Maso", Keyword[].class)));
+        keywordsSFW.addAll(Arrays.asList(ModifierStringsSet.MakeKeyWords()));
+        return keywordsSFW;
     }
 
     private void replaceKeyWordsToSFW(Keyword[] keywords) {

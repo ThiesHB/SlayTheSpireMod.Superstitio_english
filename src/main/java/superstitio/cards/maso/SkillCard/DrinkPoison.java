@@ -10,7 +10,7 @@ import com.megacrit.cardcrawl.powers.PoisonPower;
 import superstitio.DataManager;
 import superstitio.InBattleDataManager;
 import superstitio.cards.maso.MasoCard;
-import superstitio.delayHpLose.DelayHpLosePower;
+import superstitio.delayHpLose.DelayHpLosePower_ApplyEachTurn;
 import superstitio.utils.CardUtility;
 
 public class DrinkPoison extends MasoCard {
@@ -38,8 +38,8 @@ public class DrinkPoison extends MasoCard {
 
     @Override
     public void use(AbstractPlayer player, AbstractMonster monster) {
-        int totalDelayHpLose = DelayHpLosePower.findAll(AbstractDungeon.player).mapToInt(power -> power.amount).sum();
-        DelayHpLosePower.addToBot_removePower(totalDelayHpLose / 2, AbstractDungeon.player, AbstractDungeon.player, true);
+        int totalDelayHpLose = DelayHpLosePower_ApplyEachTurn.findAll(AbstractDungeon.player).mapToInt(power -> power.amount).sum();
+        DelayHpLosePower_ApplyEachTurn.addToBot_removePower(totalDelayHpLose / 2, AbstractDungeon.player, AbstractDungeon.player, true);
         addToBot_applyPower(new PoisonPower(AbstractDungeon.player, AbstractDungeon.player,
                 (int) Math.sqrt((double) totalDelayHpLose / 2) + 1));
     }
@@ -61,7 +61,7 @@ public class DrinkPoison extends MasoCard {
     public void initializeDescription() {
         super.initializeDescription();
         if (CardUtility.isNotInBattle()) return;
-        int totalDelayHpLose = DelayHpLosePower.findAll(AbstractDungeon.player).mapToInt(power -> power.amount).sum();
+        int totalDelayHpLose = DelayHpLosePower_ApplyEachTurn.findAll(AbstractDungeon.player).mapToInt(power -> power.amount).sum();
         this.magicNumber = (int) Math.sqrt((double) totalDelayHpLose / 2) + 1;
     }
 

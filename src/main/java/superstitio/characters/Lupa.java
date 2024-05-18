@@ -5,6 +5,7 @@ import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.screens.CharSelectInfo;
 import superstitio.DataManager;
 import superstitio.cards.CardOwnerPlayerManager;
+import superstitio.cards.lupa.BaseCard.DrySemen;
 import superstitio.relics.a_starter.JokeDescription;
 import superstitio.relics.a_starter.Lupa.DevaBody_Lupa;
 import superstitio.relics.a_starter.Lupa.Sensitive;
@@ -39,8 +40,8 @@ public class Lupa extends BaseCharacter {
     public CharSelectInfo getLoadout() {
         return new CharSelectInfo(characterStrings.NAMES[0], // 人物名字
                 characterStrings.TEXT[0], // 人物介绍
-                60, // 当前血量
-                60, // 最大血量
+                70, // 当前血量
+                70, // 最大血量
                 0, // 初始充能球栏位
                 99, // 初始携带金币
                 5, // 每回合抽牌数量
@@ -49,6 +50,13 @@ public class Lupa extends BaseCharacter {
                 this.getStartingDeck(), // 初始卡组
                 false // 别动
         );
+    }
+
+    @Override
+    public ArrayList<String> getStartingDeck() {
+        ArrayList<String> startingDeck = super.getStartingDeck();
+        startingDeck.add(DrySemen.ID);
+        return startingDeck;
     }
 
     // 你的卡牌颜色（这个枚举在最下方创建）

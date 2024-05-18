@@ -2,17 +2,20 @@ package superstitio.relics.d_uncommon;
 
 import com.evacipated.cardcrawl.mod.stslib.relics.OnApplyPowerRelic;
 import com.megacrit.cardcrawl.actions.common.RelicAboveCreatureAction;
+import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.core.AbstractCreature;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
+import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import com.megacrit.cardcrawl.powers.AbstractPower;
 import com.megacrit.cardcrawl.powers.DexterityPower;
 import superstitio.DataManager;
+import superstitio.cards.general.FuckJob_Card;
 import superstitio.powers.lupaOnly.OutsideSemen;
 import superstitio.relics.AbstractLupaRelic;
 import superstitio.relics.interFace.Countup;
 import superstitio.utils.ActionUtility;
 
-public class CumOnShoes extends AbstractLupaRelic implements OnApplyPowerRelic, Countup {
+public class CumOnShoes extends AbstractLupaRelic implements Countup {
     public static final String ID = DataManager.MakeTextID(CumOnShoes.class);
     // 遗物类型
     private static final RelicTier RELIC_TIER = RelicTier.UNCOMMON;
@@ -34,12 +37,10 @@ public class CumOnShoes extends AbstractLupaRelic implements OnApplyPowerRelic, 
         setDescriptionArgs(NeedAmount);
     }
 
-
     @Override
-    public boolean onApplyPower(AbstractPower abstractPower, AbstractCreature abstractCreature, AbstractCreature abstractCreature1) {
-        if (abstractPower instanceof OutsideSemen)
-            this.counter += abstractPower.amount;
-        return true;
+    public void onPlayCard(AbstractCard c, AbstractMonster m) {
+        if (c instanceof FuckJob_Card)
+            CountAdd();
     }
 
     @Override

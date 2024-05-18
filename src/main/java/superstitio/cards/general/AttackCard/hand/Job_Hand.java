@@ -21,7 +21,7 @@ public class Job_Hand extends GeneralCard implements FuckJob_Card, GoSomewhereEl
 
     public static final CardRarity CARD_RARITY = CardRarity.COMMON;
 
-    public static final CardTarget CARD_TARGET = CardTarget.ALL_ENEMY;
+    public static final CardTarget CARD_TARGET = CardTarget.ENEMY;
 
     private static final int COST = 1;
     private static final int DAMAGE = 4;

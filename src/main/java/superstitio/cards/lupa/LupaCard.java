@@ -8,7 +8,7 @@ import com.megacrit.cardcrawl.vfx.combat.FlashAtkImgEffect;
 import superstitio.DataManager;
 import superstitio.cards.SuperstitioCard;
 import superstitio.delayHpLose.DelayHpLosePatch;
-import superstitio.delayHpLose.DelayHpLosePower;
+import superstitio.delayHpLose.DelayHpLosePower_ApplyEachTurn;
 import superstitio.delayHpLose.RemoveDelayHpLoseBlock;
 import superstitio.powers.lupaOnly.FloorSemen;
 import superstitio.powers.lupaOnly.InsideSemen;
@@ -61,7 +61,7 @@ public abstract class LupaCard extends SuperstitioCard implements IsLupaCard {
 
     public static void addToBot_gainBlock(SuperstitioCard card, int amount) {
         if (DelayHpLosePatch.GainBlockTypeFields.ifReduceDelayHpLose.get(card)) {
-            DelayHpLosePower.addToBot_removePower(amount, AbstractDungeon.player, AbstractDungeon.player, true);
+            DelayHpLosePower_ApplyEachTurn.addToBot_removePower(amount, AbstractDungeon.player, AbstractDungeon.player, true);
             AbstractDungeon.effectList.add(
                     new FlashAtkImgEffect(AbstractDungeon.player.hb.cX, AbstractDungeon.player.hb.cY,
                             AbstractGameAction.AttackEffect.SHIELD));

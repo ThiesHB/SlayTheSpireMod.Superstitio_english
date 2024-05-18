@@ -26,11 +26,11 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Stream;
 
-public class DelayHpLosePower extends AbstractSuperstitioPower implements
+public class DelayHpLosePower_ApplyEachTurn extends AbstractSuperstitioPower implements
         HealthBarRenderPower, DecreaseHealthBarNumberPower,
         InvisiblePower_InvisibleIconAndAmount, InvisiblePower_InvisibleTips,
         InvisiblePower_InvisibleApplyPowerEffect, InvisiblePower_InvisibleRemovePowerEffect {
-    private static final String POWER_ID = DataManager.MakeTextID(DelayHpLosePower.class);
+    private static final String POWER_ID = DataManager.MakeTextID(DelayHpLosePower_ApplyEachTurn.class);
     private static final Color ReadyToRemoveColor = new Color(1.0F, 0.5F, 0.0F, 1.0F);
     private static final Color ForAWhileColor = new Color(0.9412F, 0.4627f, 0.5451f, 1.0f);
     private static final Color OriginColor = new Color(1.0F, 0.85f, 0.90f, 1.0f);
@@ -41,20 +41,20 @@ public class DelayHpLosePower extends AbstractSuperstitioPower implements
     private boolean atEnemyTurn;
     protected boolean isRemoveByTimePass = false;
 
-    public DelayHpLosePower(final AbstractCreature owner, int amount) {
+    public DelayHpLosePower_ApplyEachTurn(final AbstractCreature owner, int amount) {
         super(POWER_ID, owner, amount);
         this.Turn = TURN_INIT;
         this.ID = getUniqueID();
-        ReflectionHacks.setPrivate(this, DelayHpLosePower.class, "greenColor", Color.PINK.cpy());
+        ReflectionHacks.setPrivate(this, DelayHpLosePower_ApplyEachTurn.class, "greenColor", Color.PINK.cpy());
     }
 
     public static void addToBot_removePower(int amount, AbstractCreature target, AbstractCreature source, boolean removeOther) {
         if (amount <= 0) return;
-        DelayHpLosePower.addToBot_removePower(amount, target, source, TURN_READY, removeOther);
+        DelayHpLosePower_ApplyEachTurn.addToBot_removePower(amount, target, source, TURN_READY, removeOther);
     }
 
-    public static Stream<DelayHpLosePower> findAll(AbstractCreature target) {
-        return target.powers.stream().filter(power -> power instanceof DelayHpLosePower).map(power -> (DelayHpLosePower) power);
+    public static Stream<DelayHpLosePower_ApplyEachTurn> findAll(AbstractCreature target) {
+        return target.powers.stream().filter(power -> power instanceof DelayHpLosePower_ApplyEachTurn).map(power -> (DelayHpLosePower_ApplyEachTurn) power);
     }
 
     private static void addToBot_removePower(int amount, AbstractCreature target, AbstractCreature source, int turn, boolean removeOther) {

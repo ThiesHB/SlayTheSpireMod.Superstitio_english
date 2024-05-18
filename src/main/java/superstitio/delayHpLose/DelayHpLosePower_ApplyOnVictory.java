@@ -9,7 +9,7 @@ import superstitio.actions.AutoDoneInstantAction;
 import superstitio.cards.DamageActionMaker;
 import superstitio.utils.PowerUtility;
 
-public class DelayHpLosePower_ApplyOnVictory extends DelayHpLosePower {
+public class DelayHpLosePower_ApplyOnVictory extends DelayHpLosePower_ApplyEachTurn {
     private static final String POWER_ID = DataManager.MakeTextID(DelayHpLosePower_ApplyOnVictory.class);
 
     public DelayHpLosePower_ApplyOnVictory(AbstractCreature owner, int amount) {
