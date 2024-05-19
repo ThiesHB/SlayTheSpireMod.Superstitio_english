@@ -8,7 +8,7 @@
   "SuperstitioMod:JuicyPussy": {
     "NAME": "多汁小穴",
     "NAME_SFW": "怒火护体",
-    "DESCRIPTION": "高潮时，移除 !M! superstitiomod:腐朽 。",
+    "DESCRIPTION": "高潮时，移除 !M! *腐朽 。",
     "FLAVOR": ""
   },
   "SuperstitioMod:Ahegao": {
@@ -143,7 +143,7 @@
   "SuperstitioMod:PassiveGangBang": {
     "NAME": "躺平任肏",
     "NAME_SFW": "超级无敌我爱你",
-    "DESCRIPTION": "移除 !B! 点 superstitiomod:腐朽 。 NL 触发所有 superstitiomod:助兴 卡牌 !M! 次",
+    "DESCRIPTION": "移除 !B! 点 *腐朽 。 NL 触发所有 superstitiomod:助兴 卡牌 !M! 次",
     "FLAVOR": ""
   },
   "SuperstitioMod:OneMoreHour": {
@@ -154,7 +154,7 @@
   },
   "SuperstitioMod:EroSion": {
     "NAME": "腐化",
-    "DESCRIPTION": "失去 !M! 点生命。 NL 造成等同于 superstitiomod:腐朽 的伤害。  NL （ !D! 点）",
+    "DESCRIPTION": "失去 !M! 点生命。 NL 造成等同于 *腐朽 的伤害。  NL （ !D! 点）",
     "FLAVOR": ""
   },
   "SuperstitioMod:ForcePutSexToy": {
@@ -176,12 +176,21 @@
     "FLAVOR": ""
   },
   "SuperstitioMod:MeasureDick": {
-    "NAME": "测量鸡巴",
+    "NAME": "测量阴茎",
     "NAME_SFW": "投掷武器",
     "DESCRIPTION": "从手牌中丢弃至多 !M! 张牌， NL 获得它们当前 [E] 花费相对于原始 [E] 花费的减免值。",
     "FLAVOR": "看看谁插的最深？",
     "EXTENDED_DESCRIPTION":[
       "选择%d张牌并丢弃。"
+    ]
+  },
+  "SuperstitioMod:HideInPussy": {
+    "NAME": "藏器于屄",
+    "NAME_SFW": "秘密武器",
+    "DESCRIPTION": "回合结束时，保留 !M! 张牌，并让其下次打出时不消耗能量。",
+    "FLAVOR": "",
+    "EXTENDED_DESCRIPTION":[
+      "选择%d张牌，保留并免费一次。"
     ]
   }
 }

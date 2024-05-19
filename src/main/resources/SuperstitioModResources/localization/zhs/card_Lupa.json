@@ -8,7 +8,7 @@
   "SuperstitioMod:LupaCard:ExposeSelf": {
     "NAME": "自我暴露",
     "NAME_SFW": "战局剖析",
-    "DESCRIPTION": "移除 !B! 点 superstitiomod:腐朽 。 NL 到 下回合 开始前 ， NL 受到攻击伤害 时， NL 获得其数值一半的 superstitiomod:体表精液 。",
+    "DESCRIPTION": "移除 !B! 点 *腐朽 。 NL 到 下回合 开始前 ， NL 受到攻击伤害 时， NL 获得其数值一半的 superstitiomod:体表精液 。",
     "FLAVOR": "要做爱，不作战。"
   },
   "SuperstitioMod:LupaCard:DrinkSemenBeer": {

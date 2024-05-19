@@ -19,13 +19,17 @@ import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.localization.CardStrings;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import com.megacrit.cardcrawl.powers.AbstractPower;
+import com.megacrit.cardcrawl.vfx.combat.FlashAtkImgEffect;
 import superstitio.InBattleDataManager;
 import superstitio.Logger;
 import superstitio.cards.lupa.LupaCard;
-import superstitio.cards.maso.MasoCard;
 import superstitio.characters.Lupa;
 import superstitio.characters.Maso;
 import superstitio.customStrings.CardStringsWithFlavorSet;
+import superstitio.delayHpLose.DelayHpLosePower_ApplyEachTurn;
+import superstitio.delayHpLose.DelayRemoveDelayHpLoseBlock;
+import superstitio.delayHpLose.DelayRemoveDelayHpLosePower;
+import superstitio.delayHpLose.RemoveDelayHpLoseBlock;
 import superstitio.utils.ActionUtility;
 import superstitio.utils.updateDescriptionAdvanced;
 
@@ -40,11 +44,13 @@ import static superstitio.DataManager.*;
 import static superstitio.cards.CardOwnerPlayerManager.getCardClass;
 import static superstitio.cards.CardOwnerPlayerManager.getImgPath;
 import static superstitio.customStrings.HasSFWVersion.getCustomStringsWithSFW;
+import static superstitio.delayHpLose.DelayHpLosePatch.GainBlockTypeFields.ifDelayReduceDelayHpLose;
+import static superstitio.delayHpLose.DelayHpLosePatch.GainBlockTypeFields.ifReduceDelayHpLose;
 
 public abstract class SuperstitioCard extends CustomCard implements updateDescriptionAdvanced {
     private final static float DESC_LINE_WIDTH = 418.0f * Settings.scale;
     //调用父类的构造方法，传参为super(卡牌ID，卡牌名称，图片地址，能量花费，卡牌描述，卡牌类型，卡牌颜色，卡牌稀有度，卡牌目标)
-    protected final CardStringsWithFlavorSet cardStrings;
+    public final CardStringsWithFlavorSet cardStrings;
     private int damageAutoUpgrade = 0;
     private int blockAutoUpgrade = 0;
     private int magicAutoUpgrade = 0;
@@ -97,17 +103,38 @@ public abstract class SuperstitioCard extends CustomCard implements updateDescri
         return type;
     }
 
-    protected static void setupBlock(SuperstitioCard card, final int amount, int amountOfAutoUpgrade, AbstractBlockModifier... blockModifiers) {
+    public static void setupBlock(SuperstitioCard card, int amount, int amountOfAutoUpgrade, AbstractBlockModifier... blockModifiers) {
         card.baseBlock = amount;
         card.block = amount;
         card.blockAutoUpgrade = amountOfAutoUpgrade;
         if (blockModifiers == null || blockModifiers.length == 0) return;
         BlockModifierManager.addModifiers(card, (ArrayList<AbstractBlockModifier>)
                 Arrays.stream(blockModifiers).collect(Collectors.toList()));
+        if (Arrays.stream(blockModifiers).anyMatch(block -> block instanceof DelayRemoveDelayHpLoseBlock))
+            ifDelayReduceDelayHpLose.set(card, true);
+        if (Arrays.stream(blockModifiers).anyMatch(block -> block instanceof RemoveDelayHpLoseBlock))
+            ifReduceDelayHpLose.set(card, true);
     }
 
-    public static void addToBot_gainBlock(SuperstitioCard card, final int amount) {
-        card.addToBot(new GainBlockAction(AbstractDungeon.player, amount));
+    public static void addToBot_gainBlock(SuperstitioCard card, int amount) {
+        if (ifReduceDelayHpLose.get(card) && ifDelayReduceDelayHpLose.get(card))
+            Logger.warning("Do not use 'addToBot_gainBlock(int amount)' when setup this two block type.");
+
+        if (ifReduceDelayHpLose.get(card)) {
+            DelayHpLosePower_ApplyEachTurn.addToBot_removePower(amount, AbstractDungeon.player, AbstractDungeon.player, true);
+            AbstractDungeon.effectList.add(
+                    new FlashAtkImgEffect(AbstractDungeon.player.hb.cX, AbstractDungeon.player.hb.cY,
+                            AttackEffect.SHIELD));
+            return;
+        }
+        if (ifDelayReduceDelayHpLose.get(card)) {
+            ActionUtility.addToBot_applyPower(new DelayRemoveDelayHpLosePower(AbstractDungeon.player, amount));
+            AbstractDungeon.effectList.add(
+                    new FlashAtkImgEffect(AbstractDungeon.player.hb.cX, AbstractDungeon.player.hb.cY,
+                            AttackEffect.SHIELD));
+            return;
+        }
+        AbstractDungeon.actionManager.addToBottom(new GainBlockAction(AbstractDungeon.player, amount));
     }
 
     public String makeFormatDESCRIPTION() {
@@ -190,15 +217,7 @@ public abstract class SuperstitioCard extends CustomCard implements updateDescri
     }
 
     protected final void setupBlock(final int amount, int amountOfAutoUpgrade, AbstractBlockModifier... blockModifiers) {
-        if (getCardClass(this).equalsIgnoreCase(getIdOnly(Lupa.ID))) {
-            LupaCard.setupBlock(this, amount, amountOfAutoUpgrade, blockModifiers);
-            return;
-        }
-        if (getCardClass(this).equalsIgnoreCase(getIdOnly(Maso.ID))) {
-            MasoCard.setupBlock(this, amount, amountOfAutoUpgrade, blockModifiers);
-            return;
-        }
-        MasoCard.setupBlock(this, amount, amountOfAutoUpgrade, blockModifiers);
+        setupBlock(this, amount, amountOfAutoUpgrade, blockModifiers);
     }
 
     protected final void setupMagicNumber(final int amount) {
@@ -249,17 +268,7 @@ public abstract class SuperstitioCard extends CustomCard implements updateDescri
     }
 
     public final void addToBot_gainBlock(final int amount) {
-        if (AbstractDungeon.player != null) {
-            if (AbstractDungeon.player instanceof Lupa && CardOwnerPlayerManager.isLupaCard(this)) {
-                LupaCard.addToBot_gainBlock(this, amount);
-                return;
-            }
-            if (AbstractDungeon.player instanceof Maso && CardOwnerPlayerManager.isMasoCard(this)) {
-                MasoCard.addToBot_gainBlock(this, amount);
-                return;
-            }
-        }
-        SuperstitioCard.addToBot_gainBlock(this, amount);
+        addToBot_gainBlock(this, amount);
     }
 
     public final void addToBot_gainCustomBlock(AbstractBlockModifier blockModifier) {

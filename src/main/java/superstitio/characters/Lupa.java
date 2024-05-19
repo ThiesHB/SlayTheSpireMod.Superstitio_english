@@ -4,8 +4,12 @@ import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.screens.CharSelectInfo;
 import superstitio.DataManager;
+import superstitio.Logger;
 import superstitio.cards.CardOwnerPlayerManager;
+import superstitio.cards.general.BaseCard.Kiss;
+import superstitio.cards.general.BaseCard.Masturbate;
 import superstitio.cards.lupa.BaseCard.DrySemen;
+import superstitio.cards.lupa.BaseCard.Invite_Lupa;
 import superstitio.relics.a_starter.JokeDescription;
 import superstitio.relics.a_starter.Lupa.DevaBody_Lupa;
 import superstitio.relics.a_starter.Lupa.Sensitive;
@@ -54,7 +58,15 @@ public class Lupa extends BaseCharacter {
 
     @Override
     public ArrayList<String> getStartingDeck() {
-        ArrayList<String> startingDeck = super.getStartingDeck();
+        ArrayList<String> startingDeck = new ArrayList<>();
+        Logger.run("Begin loading starter Deck Strings");
+        for (int x = 0; x < 5; x++) {
+            startingDeck.add(Kiss.ID);
+        }
+        for (int x = 0; x < 4; x++) {
+            startingDeck.add(Invite_Lupa.ID);
+        }
+        startingDeck.add(Masturbate.ID);
         startingDeck.add(DrySemen.ID);
         return startingDeck;
     }

@@ -20,11 +20,11 @@ public class DelayHpLosePower_HealOnVictory extends DelayHpLosePower_ApplyEachTu
 
     @Override
     public void onVictory() {
-        this.isRemoveByTimePass = true;
-        AutoDoneInstantAction.addToTopAbstract(() -> {
+        this.isRemovedForApplyDamage = true;
+//        AutoDoneInstantAction.addToTopAbstract(() -> {
             AbstractDungeon.effectsQueue.add(new HealEffect(owner.hb.cX - owner.animX, owner.hb.cY, amount));
             playRemoveEffect();
-        });
-        addToTop(new RemoveSpecificPowerAction(this.owner, this.owner, this));
+//        });
+//        addToTop(new RemoveSpecificPowerAction(this.owner, this.owner, this));
     }
 }

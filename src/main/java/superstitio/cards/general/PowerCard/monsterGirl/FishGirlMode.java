@@ -1,9 +1,9 @@
 package superstitio.cards.general.PowerCard.monsterGirl;
 
-import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import superstitio.DataManager;
+import superstitio.cards.SuperstitioCard;
 import superstitio.cards.general.AbstractTempCard;
 import superstitio.cards.general.PowerCard.ChokeChoker;
 import superstitio.powers.EasyBuildAbstractPowerForPowerCard;
@@ -45,7 +45,7 @@ public class FishGirlMode extends AbstractTempCard {
         }
 
         @Override
-        protected AbstractCard getPowerCard() {
+        protected SuperstitioCard makePowerCard() {
             return new FishGirlMode();
         }
 

@@ -1,13 +1,12 @@
 package superstitio.cards.general.BaseCard;
 
+import com.evacipated.cardcrawl.mod.stslib.blockmods.AbstractBlockModifier;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import superstitio.DataManager;
-import superstitio.cards.general.GeneralCard;
-import superstitio.delayHpLose.RemoveDelayHpLoseBlock;
+import superstitio.cards.SuperstitioCard;
 
-public class Invite extends GeneralCard {
-    public static final String ID = DataManager.MakeTextID(Invite.class);
+public abstract class Invite extends SuperstitioCard {
 
     public static final CardType CARD_TYPE = CardType.SKILL;
 
@@ -19,11 +18,13 @@ public class Invite extends GeneralCard {
     private static final int BLOCK = 5;
     private static final int UPGRADE_PLUS_BLOCK = 3;
 
-    public Invite() {
-        super(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET, "base");
+    public Invite(String id) {
+        super(id, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET, DataManager.SPTT_DATA.GeneralEnums.GENERAL_CARD, "base");
         this.tags.add(CardTags.STARTER_DEFEND);
-        this.setupBlock(BLOCK, UPGRADE_PLUS_BLOCK, new RemoveDelayHpLoseBlock());
+        this.setupBlock(BLOCK, UPGRADE_PLUS_BLOCK, makeNewBlockType());
     }
+
+    protected abstract AbstractBlockModifier makeNewBlockType();
 
     @Override
     public void use(AbstractPlayer player, AbstractMonster monster) {

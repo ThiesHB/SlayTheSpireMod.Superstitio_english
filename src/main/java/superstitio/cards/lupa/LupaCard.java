@@ -51,25 +51,6 @@ public abstract class LupaCard extends SuperstitioCard implements IsLupaCard {
         super(id, cardType, cost, cardRarity, cardTarget, cardColor, imgSubFolder);
     }
 
-    public static void setupBlock(SuperstitioCard card, int amount, int amountOfAutoUpgrade, AbstractBlockModifier... blockModifiers) {
-        SuperstitioCard.setupBlock(card, amount, amountOfAutoUpgrade, blockModifiers);
-        if (blockModifiers == null || blockModifiers.length == 0) return;
-        if (Arrays.stream(blockModifiers).anyMatch(blockModifier -> blockModifier instanceof RemoveDelayHpLoseBlock)) {
-            DelayHpLosePatch.GainBlockTypeFields.ifReduceDelayHpLose.set(card, true);
-        }
-    }
-
-    public static void addToBot_gainBlock(SuperstitioCard card, int amount) {
-        if (DelayHpLosePatch.GainBlockTypeFields.ifReduceDelayHpLose.get(card)) {
-            DelayHpLosePower_ApplyEachTurn.addToBot_removePower(amount, AbstractDungeon.player, AbstractDungeon.player, true);
-            AbstractDungeon.effectList.add(
-                    new FlashAtkImgEffect(AbstractDungeon.player.hb.cX, AbstractDungeon.player.hb.cY,
-                            AbstractGameAction.AttackEffect.SHIELD));
-        }
-        else
-            SuperstitioCard.addToBot_gainBlock(card, amount);
-    }
-
     protected void useSemen(int amount) {
         if (!hasEnoughSemen(amount)) {
             for (AbstractPower power : AbstractDungeon.player.powers) {

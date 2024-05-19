@@ -1,35 +1,16 @@
 package superstitio.delayHpLose;
 
-import basemod.ReflectionHacks;
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.evacipated.cardcrawl.mod.stslib.powers.interfaces.HealthBarRenderPower;
-import com.megacrit.cardcrawl.actions.AbstractGameAction;
 import com.megacrit.cardcrawl.core.AbstractCreature;
-import com.megacrit.cardcrawl.core.CardCrawlGame;
-import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.powers.AbstractPower;
-import com.megacrit.cardcrawl.vfx.combat.PowerBuffEffect;
 import superstitio.DataManager;
-import superstitio.actions.AutoDoneInstantAction;
-import superstitio.cards.DamageActionMaker;
-import superstitio.powers.AbstractSuperstitioPower;
-import superstitio.powers.patchAndInterface.interfaces.DecreaseHealthBarNumberPower;
-import superstitio.powers.patchAndInterface.interfaces.invisible.InvisiblePower_InvisibleApplyPowerEffect;
-import superstitio.powers.patchAndInterface.interfaces.invisible.InvisiblePower_InvisibleIconAndAmount;
-import superstitio.powers.patchAndInterface.interfaces.invisible.InvisiblePower_InvisibleRemovePowerEffect;
-import superstitio.powers.patchAndInterface.interfaces.invisible.InvisiblePower_InvisibleTips;
 import superstitio.utils.ActionUtility;
-import superstitio.utils.PowerUtility;
 
 import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Stream;
 
-public class DelayHpLosePower_ApplyEachTurn extends AbstractSuperstitioPower implements
-        HealthBarRenderPower, DecreaseHealthBarNumberPower,
-        InvisiblePower_InvisibleIconAndAmount, InvisiblePower_InvisibleTips,
-        InvisiblePower_InvisibleApplyPowerEffect, InvisiblePower_InvisibleRemovePowerEffect {
+public class DelayHpLosePower_ApplyEachTurn extends DelayHpLosePower {
     private static final String POWER_ID = DataManager.MakeTextID(DelayHpLosePower_ApplyEachTurn.class);
     private static final Color ReadyToRemoveColor = new Color(1.0F, 0.5F, 0.0F, 1.0F);
     private static final Color ForAWhileColor = new Color(0.9412F, 0.4627f, 0.5451f, 1.0f);
@@ -39,13 +20,11 @@ public class DelayHpLosePower_ApplyEachTurn extends AbstractSuperstitioPower imp
 
     private int Turn;
     private boolean atEnemyTurn;
-    protected boolean isRemoveByTimePass = false;
 
     public DelayHpLosePower_ApplyEachTurn(final AbstractCreature owner, int amount) {
         super(POWER_ID, owner, amount);
         this.Turn = TURN_INIT;
         this.ID = getUniqueID();
-        ReflectionHacks.setPrivate(this, DelayHpLosePower_ApplyEachTurn.class, "greenColor", Color.PINK.cpy());
     }
 
     public static void addToBot_removePower(int amount, AbstractCreature target, AbstractCreature source, boolean removeOther) {
@@ -82,57 +61,23 @@ public class DelayHpLosePower_ApplyEachTurn extends AbstractSuperstitioPower imp
         return this.Turn > 0;
     }
 
-    @Override
-    public void onVictory() {
-        addToBot_removeSpecificPower(this);
-    }
+//    @Override
+//    public void atStartOfTurn() {
+//        if (Turn <= 0) {
+//            addToBot_applyDamage();
+//        }
+//        Turn--;
+//        atEnemyTurn = false;
+//    }
 
     @Override
-    public void reducePower(int reduceAmount) {
-        super.reducePower(reduceAmount);
-        if (!isRemoveByTimePass)
-            playRemoveEffect();
-    }
-
-    @Override
-    public void onRemove() {
-        super.onRemove();
-        if (!isRemoveByTimePass)
-            playRemoveEffect();
-    }
-
-    protected void playRemoveEffect() {
-        AbstractDungeon.effectList.add(
-                new PowerBuffEffect(this.owner.hb.cX - this.owner.animX, this.owner.hb.cY + this.owner.hb.height / 2.0F,
-                        pureName() + CardCrawlGame.languagePack.getUIString("ApplyPowerAction").TEXT[0]));
-    }
-
-    protected String pureName() {
-        return this.name.replace("#r", "");
-    }
-
-    @Override
-    public void atStartOfTurn() {
+    public void atEndOfRound() {
         if (Turn <= 0) {
-            ApplyDamage();
+            addToBot_applyDamage();
         }
         Turn--;
         atEnemyTurn = false;
         this.updateDescription();
-    }
-
-    private void ApplyDamage() {
-        this.isRemoveByTimePass = true;
-        AutoDoneInstantAction.addToBotAbstract(() -> {
-            PowerUtility.BubbleMessage(this, true, pureName());
-            CardCrawlGame.sound.play("POWER_TIME_WARP", 0.05f);
-        });
-        DamageActionMaker.maker(this.amount, this.owner)
-                .setDamageModifier(this, new UnBlockAbleDamage())
-                .setEffect(AbstractGameAction.AttackEffect.LIGHTNING)
-                .setDamageType(DataManager.CanOnlyDamageDamageType.UnBlockAbleDamageType)
-                .addToBot();
-        addToBot_removeSpecificPower(this);
     }
 
     @Override
@@ -142,18 +87,8 @@ public class DelayHpLosePower_ApplyEachTurn extends AbstractSuperstitioPower imp
     }
 
     @Override
-    public void updateDescriptionArgs() {
-        setDescriptionArgs(this.amount);
-    }
-
-    @Override
     public void atEndOfTurn(boolean isPlayer) {
         atEnemyTurn = true;
-    }
-
-    @Override
-    public int getHealthBarAmount() {
-        return this.amount;
     }
 
     @Override
@@ -161,21 +96,5 @@ public class DelayHpLosePower_ApplyEachTurn extends AbstractSuperstitioPower imp
         if (Turn <= 0)
             return atEnemyTurn ? ReadyToRemoveColor : ForAWhileColor;
         return OriginColor;
-    }
-
-    @Override
-    public int getDecreaseAmount() {
-        return this.amount;
-    }
-
-    @Override
-    public void setDecreaseAmount(int amount) {
-        this.amount = amount;
-    }
-
-    @Override
-    public void renderAmount(SpriteBatch sb, float x, float y, Color c) {
-        super.renderAmount(sb, x, y, c);
-        renderAmount2(sb, x, y, c, this.Turn);
     }
 }

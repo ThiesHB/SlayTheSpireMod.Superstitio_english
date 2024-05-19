@@ -5,6 +5,7 @@ import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import superstitio.DataManager;
+import superstitio.cards.SuperstitioCard;
 import superstitio.cards.general.GeneralCard;
 import superstitio.delayHpLose.DelayHpLosePower_ApplyEachTurn;
 import superstitio.powers.EasyBuildAbstractPowerForPowerCard;
@@ -46,7 +47,7 @@ public class JuicyPussy extends GeneralCard {
         }
 
         @Override
-        protected AbstractCard getPowerCard() {
+        protected SuperstitioCard makePowerCard() {
             return new JuicyPussy();
         }
 

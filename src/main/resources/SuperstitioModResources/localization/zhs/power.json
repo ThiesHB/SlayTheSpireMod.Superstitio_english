@@ -160,10 +160,16 @@
       "回合开始时，受到 #b%d 点伤害。"
     ]
   },
-  "SuperstitioMod:DelayHpLosePower": {
+  "SuperstitioMod:DelayHpLosePower_HealOnVictory": {
     "NAME": "#r腐朽",
     "DESCRIPTIONS": [
-      "下回合开始时： NL #r降低 #r%d #r点生命。"
+      "敌人行动结束时： NL #r降低 #r%d #r点生命。"
+    ]
+  },
+  "SuperstitioMod:DelayHpLosePower_ApplyOnlyOnVictory": {
+    "NAME": "#r腐朽",
+    "DESCRIPTIONS": [
+      "战斗结束时： NL #r降低 #r%d #r点生命。"
     ]
   },
   "SuperstitioMod:FastWindUpPower": {

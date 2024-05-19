@@ -140,21 +140,6 @@ public abstract class BaseCharacter extends CustomPlayer {
         this.healthHb.move(this.hb.cX, this.hb.cY - this.hb_h / 2.0F - this.healthHb.height / 2.0F);
     }
 
-    @Override
-    // 初始卡组的ID，可直接写或引用变量
-    public ArrayList<String> getStartingDeck() {
-        ArrayList<String> retVal = new ArrayList<>();
-        Logger.run("Begin loading starter Deck Strings");
-        for (int x = 0; x < 5; x++) {
-            retVal.add(Kiss.ID);
-        }
-        for (int x = 0; x < 4; x++) {
-            retVal.add(Invite.ID);
-        }
-        retVal.add(Masturbate.ID);
-        return retVal;
-    }
-
     // 人物名字（出现在游戏左上角）
     @Override
     public String getTitle(PlayerClass playerClass) {

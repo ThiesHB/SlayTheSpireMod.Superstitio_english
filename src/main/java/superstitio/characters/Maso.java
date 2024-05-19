@@ -4,7 +4,13 @@ import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.screens.CharSelectInfo;
 import superstitio.DataManager;
+import superstitio.Logger;
 import superstitio.cards.CardOwnerPlayerManager;
+import superstitio.cards.general.BaseCard.Invite;
+import superstitio.cards.general.BaseCard.Kiss;
+import superstitio.cards.general.BaseCard.Masturbate;
+import superstitio.cards.maso.BaseCard.FistIn;
+import superstitio.cards.maso.BaseCard.Invite_Maso;
 import superstitio.relics.a_starter.JokeDescription;
 import superstitio.relics.a_starter.Maso.DevaBody_Masochism;
 import superstitio.relics.a_starter.Maso.MasochismMode;
@@ -54,8 +60,16 @@ public class Maso extends BaseCharacter {
 
     @Override
     public ArrayList<String> getStartingDeck() {
-        ArrayList<String> startingDeck = super.getStartingDeck();
-        startingDeck.add()
+        ArrayList<String> startingDeck = new ArrayList<>();
+        Logger.run("Begin loading starter Deck Strings");
+        for (int x = 0; x < 5; x++) {
+            startingDeck.add(Kiss.ID);
+        }
+        for (int x = 0; x < 4; x++) {
+            startingDeck.add(Invite_Maso.ID);
+        }
+        startingDeck.add(Masturbate.ID);
+        startingDeck.add(FistIn.ID);
         return startingDeck;
     }
 

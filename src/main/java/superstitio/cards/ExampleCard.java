@@ -1,10 +1,11 @@
-package superstitio.cards.lupa;
+package superstitio.cards;
 
 import basemod.AutoAdd;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import superstitio.DataManager;
 import superstitio.cardModifier.modifiers.block.SexBlock;
+import superstitio.cards.lupa.LupaCard;
 
 @AutoAdd.Ignore
 public class ExampleCard extends LupaCard {

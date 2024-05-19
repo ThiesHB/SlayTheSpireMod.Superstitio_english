@@ -42,6 +42,18 @@
     "DESCRIPTION": "回合开始时，获得 !M! superstitiomod:窒息 。",
     "FLAVOR": "鱼人来到了陆地上。"
   },
+  "SuperstitioMod:KaakaGirlMode": {
+    "NAME": "咔咔变形",
+    "NAME_SFW": "咔咔变形",
+    "DESCRIPTION": "获得 !M! 仪式 。",
+    "FLAVOR": ""
+  },
+  "SuperstitioMod:BirdGirlMode": {
+    "NAME": "鸟娘变形",
+    "NAME_SFW": "鸟人变形",
+    "DESCRIPTION": "回合开始时，获得 !M! *飞行 。",
+    "FLAVOR": ""
+  },
   "SuperstitioMod:FeelPhantomBody": {
     "NAME": "感受幻肢",
     "NAME_SFW": "义体",

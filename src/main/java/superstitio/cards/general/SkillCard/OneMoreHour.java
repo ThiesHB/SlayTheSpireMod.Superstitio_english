@@ -5,6 +5,7 @@ import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import superstitio.DataManager;
 import superstitio.cards.general.GeneralCard;
 import superstitio.delayHpLose.DelayRemoveDelayHpLoseBlock;
+import superstitio.delayHpLose.RemoveDelayHpLoseBlock;
 import superstitio.orbs.CardOrb_CardTrigger;
 import superstitio.orbs.Card_AvoidAllCardUsedCheckOfCardOrb_ManuallyTriggerCardOrb;
 
@@ -28,7 +29,7 @@ public class OneMoreHour extends GeneralCard implements Card_AvoidAllCardUsedChe
 
     public OneMoreHour() {
         super(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET);
-        this.setupBlock(BLOCK, UPGRADE_BLOCK, new DelayRemoveDelayHpLoseBlock());
+        this.setupBlock(BLOCK, UPGRADE_BLOCK, new RemoveDelayHpLoseBlock());
         this.setupMagicNumber(MAGIC, UPGRADE_MAGIC);
     }
 

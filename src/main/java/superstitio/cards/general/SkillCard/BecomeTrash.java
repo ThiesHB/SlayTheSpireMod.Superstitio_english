@@ -29,12 +29,12 @@ public class BecomeTrash extends GeneralCard {
 
     @Override
     public void use(AbstractPlayer player, AbstractMonster monster) {
-        this.addToBot(new ChoseCardFromGridSelectWindowAction(
+        new ChoseCardFromGridSelectWindowAction(
                 AbstractDungeon.player.drawPile, card -> new ExhaustSpecificCardAction(card, AbstractDungeon.player.drawPile))
                 .setWindowText(String.format(getEXTENDED_DESCRIPTION()[0], this.magicNumber))
                 .setAnyNumber(true)
                 .setChoseAmount(this.magicNumber)
-        );
+                .addToBot();
     }
 
     @Override

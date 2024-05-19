@@ -5,6 +5,11 @@ import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.cutscenes.CutscenePanel;
 import com.megacrit.cardcrawl.screens.CharSelectInfo;
 import superstitio.DataManager;
+import superstitio.Logger;
+import superstitio.cards.general.BaseCard.Kiss;
+import superstitio.cards.general.BaseCard.Masturbate;
+import superstitio.cards.maso.BaseCard.FistIn;
+import superstitio.cards.maso.BaseCard.Invite_Maso;
 import superstitio.characters.BaseCharacter;
 import superstitio.relics.a_starter.JokeDescription;
 
@@ -16,6 +21,16 @@ public class TempCardVirtualCharacter extends BaseCharacter {
 
     public TempCardVirtualCharacter(String name) {
         super(ID, name, DataManager.SPTT_DATA.TempCardEnums.TempCard_Virtual_Character);
+    }
+
+    @Override
+    public ArrayList<String> getStartingDeck() {
+        ArrayList<String> startingDeck = new ArrayList<>();
+        for (int x = 0; x < 5; x++) {
+            startingDeck.add(Kiss.ID);
+        }
+        startingDeck.add(Masturbate.ID);
+        return startingDeck;
     }
 
     @Override

@@ -9,7 +9,7 @@ import superstitio.DataManager;
 import superstitio.cards.SuperstitioCard;
 import superstitio.cards.general.FuckJob_Card;
 import superstitio.delayHpLose.DelayHpLosePatch;
-import superstitio.delayHpLose.DelayHpLosePower_ApplyOnVictory;
+import superstitio.delayHpLose.DelayHpLosePower_ApplyOnlyOnVictory;
 import superstitio.relics.AbstractLupaRelic;
 
 import static com.megacrit.cardcrawl.dungeons.AbstractDungeon.player;
@@ -35,7 +35,7 @@ public class DevaBody_Lupa extends AbstractLupaRelic {
                     if (damageInfo.type == UnBlockAbleDamageType) {
                         return false;
                     }
-                    addToTop_applyPower(new DelayHpLosePower_ApplyOnVictory(AbstractDungeon.player, damageAmount));
+                    addToTop_applyPower(new DelayHpLosePower_ApplyOnlyOnVictory(AbstractDungeon.player, damageAmount));
                     return true;
                 }));
     }

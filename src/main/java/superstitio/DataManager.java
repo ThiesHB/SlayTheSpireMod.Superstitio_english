@@ -15,7 +15,7 @@ import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.core.Settings;
 import com.megacrit.cardcrawl.helpers.CardLibrary;
 import com.megacrit.cardcrawl.localization.LocalizedStrings;
-import superstitio.cards.SuperstitioCard;
+import superstitio.cards.CardOwnerPlayerManager;
 import superstitio.cards.lupa.LupaCard;
 import superstitio.cards.maso.MasoCard;
 import superstitio.customStrings.*;
@@ -172,13 +172,23 @@ public class DataManager {
     }
 
     public static String MakeTextID(Class<?> idClass) {
-        if (SuperstitioCard.class.isAssignableFrom(idClass)) {
-            if (LupaCard.class.isAssignableFrom(idClass))
-                return getModID() + ":" + LupaCard.class.getSimpleName() + ":" + idClass.getSimpleName();
-            else if (MasoCard.class.isAssignableFrom(idClass))
-                return getModID() + ":" + MasoCard.class.getSimpleName() + ":" + idClass.getSimpleName();
-        }
+        if (CardOwnerPlayerManager.isGeneralCard(idClass))
+            return getModID() + ":" + idClass.getSimpleName();
+        if (CardOwnerPlayerManager.isLupaCard(idClass))
+            return getModID() + ":" + LupaCard.class.getSimpleName() + ":" + idClass.getSimpleName();
+        if (CardOwnerPlayerManager.isMasoCard(idClass))
+            return getModID() + ":" + MasoCard.class.getSimpleName() + ":" + idClass.getSimpleName();
         return getModID() + ":" + idClass.getSimpleName();
+    }
+
+    public static String MakeTextID(String idText, Class<?> idClass) {
+        if (CardOwnerPlayerManager.isGeneralCard(idClass))
+            return getModID() + ":" + idText;
+        if (CardOwnerPlayerManager.isLupaCard(idClass))
+            return getModID() + ":" + LupaCard.class.getSimpleName() + ":" + idText;
+        if (CardOwnerPlayerManager.isMasoCard(idClass))
+            return getModID() + ":" + MasoCard.class.getSimpleName() + ":" + idText;
+        return getModID() + ":" + idText;
     }
 
 
