@@ -1,4 +1,4 @@
-package superstitio.cards.general.SkillCard;
+package superstitio.cards.general.SkillCard.cardManipulation;
 
 import basemod.cardmods.RetainMod;
 import basemod.helpers.CardModifierManager;

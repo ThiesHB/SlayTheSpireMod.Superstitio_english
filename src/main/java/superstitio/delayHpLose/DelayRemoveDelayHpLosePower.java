@@ -4,6 +4,7 @@ import com.evacipated.cardcrawl.mod.stslib.blockmods.AbstractBlockModifier;
 import com.evacipated.cardcrawl.mod.stslib.blockmods.BlockInstance;
 import com.evacipated.cardcrawl.mod.stslib.powers.interfaces.InvisiblePower;
 import com.megacrit.cardcrawl.core.AbstractCreature;
+import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import superstitio.DataManager;
 import superstitio.cardModifier.modifiers.RenderAsBlockPower;
 import superstitio.cardModifier.modifiers.RenderStackedBlockInstancesPatch;
@@ -22,7 +23,7 @@ public class DelayRemoveDelayHpLosePower extends AbstractSuperstitioPower implem
 
     @Override
     public void atStartOfTurnPostDraw() {
-        DelayHpLosePower_ApplyEachTurn.addToBot_removePower(amount, this.owner, this.owner, false);
+        DelayHpLosePower.addToBot_removePower(DelayHpLosePower.class, amount, AbstractDungeon.player, true);
         addToBot_removeSpecificPower(this);
     }
 

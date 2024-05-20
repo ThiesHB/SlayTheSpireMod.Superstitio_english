@@ -45,5 +45,11 @@
     "NAME_SFW": "血液护盾",
     "DESCRIPTION": "superstitiomod:精欲 !M! 。 NL 获得 !B! *格挡 。",
     "FLAVOR": "让我想想看……"
+  },
+  "SuperstitioMod:LupaCard:PutEveryCumInBody": {
+    "NAME": "精液倒灌",
+    "NAME_SFW": "鲜血环绕",
+    "DESCRIPTION": "失去所有 superstitiomod:地板精液 和 superstitiomod:体表精液 ，获得等量 superstitiomod:体内精液 。 NL 将 superstitiomod:体内精液 的上限提升到其当前层数最近的整十数（向下取整）。",
+    "FLAVOR": "满满当当，好舒服~"
   }
 }

@@ -8,7 +8,7 @@ import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import superstitio.DataManager;
 import superstitio.actions.AutoDoneInstantAction;
 import superstitio.cards.general.GeneralCard;
-import superstitio.delayHpLose.DelayHpLosePower_ApplyEachTurn;
+import superstitio.delayHpLose.DelayHpLosePower_ApplyAtEndOfRound;
 
 public class EroSion extends GeneralCard {
     public static final String ID = DataManager.MakeTextID(EroSion.class);
@@ -37,8 +37,8 @@ public class EroSion extends GeneralCard {
 
     private void updateDamage() {
         float damageUp = AbstractDungeon.player.powers.stream()
-                .filter(power -> power instanceof DelayHpLosePower_ApplyEachTurn)
-                .mapToInt(power -> ((DelayHpLosePower_ApplyEachTurn) power).getDecreaseAmount()).sum();
+                .filter(power -> power instanceof DelayHpLosePower_ApplyAtEndOfRound)
+                .mapToInt(power -> ((DelayHpLosePower_ApplyAtEndOfRound) power).getDecreaseAmount()).sum();
 //        if (damageUp >= 1)
 //            this.isDamageModified = true;
         this.baseDamage = (int) (this.getOriginDamage() + damageUp);

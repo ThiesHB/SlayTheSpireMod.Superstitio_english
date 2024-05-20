@@ -1,4 +1,4 @@
-package superstitio.cards.general.SkillCard;
+package superstitio.cards.general.SkillCard.gainEnergy;
 
 import com.megacrit.cardcrawl.actions.AbstractGameAction;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;

@@ -1,4 +1,4 @@
-package superstitio.cards.general.SkillCard;
+package superstitio.cards.general.SkillCard.drawCard;
 
 import com.badlogic.gdx.graphics.Color;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;

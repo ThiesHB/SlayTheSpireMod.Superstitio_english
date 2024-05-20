@@ -1,4 +1,4 @@
-package superstitio.cards.general.PowerCard;
+package superstitio.cards.general.PowerCard.drawAndEnergy;
 
 import com.megacrit.cardcrawl.actions.common.ApplyPowerAction;
 import com.megacrit.cardcrawl.actions.common.LoseHPAction;

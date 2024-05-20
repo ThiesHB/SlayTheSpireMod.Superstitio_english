@@ -40,7 +40,8 @@ public class ChooseCoitalPosture extends LupaCard {
 
     public static List<AbstractCard> getAllFuckJobCard() {
         return CardLibrary.cards.values().stream()
-                .filter(card -> card instanceof FuckJob_Card).collect(Collectors.toList());
+                .filter(card -> card instanceof FuckJob_Card && card instanceof LupaCard)
+                .collect(Collectors.toList());
     }
 
     @Override

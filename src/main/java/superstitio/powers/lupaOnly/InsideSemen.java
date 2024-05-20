@@ -8,27 +8,22 @@ import superstitio.DataManager;
 import superstitio.actions.AutoDoneInstantAction;
 import superstitio.powers.AbstractSuperstitioPower;
 import superstitio.powers.patchAndInterface.barIndepend.HasBarRenderOnCreature_Power;
-import superstitio.powers.patchAndInterface.interfaces.OnPostApplyThisPower;
 import superstitio.powers.patchAndInterface.interfaces.invisible.InvisiblePower_InvisibleIconAndAmount;
 import superstitio.powers.patchAndInterface.interfaces.invisible.InvisiblePower_InvisibleTips;
 import superstitio.utils.PowerUtility;
 
 import static superstitio.cards.general.FuckJob_Card.InsideSemenRate;
 
-public class InsideSemen extends AbstractSuperstitioPower implements OnPostApplyThisPower,
+public class InsideSemen extends AbstractSuperstitioPower implements
         InvisiblePower_InvisibleTips, InvisiblePower_InvisibleIconAndAmount, HasBarRenderOnCreature_Power {
     public static final String POWER_ID = DataManager.MakeTextID(InsideSemen.class);
-    public static final int MAX_Semen = 10;
+    public static final int MAX_Semen_Origin = 10;
     private static final int ToOutSideSemenRate = 1;
+    public int maxSemen;
 
     public InsideSemen(final AbstractCreature owner, final int amount) {
         super(POWER_ID, owner, amount, owner.isPlayer ? PowerType.BUFF : PowerType.DEBUFF, false);
-    }
-
-    @Override
-    public void InitializePostApplyThisPower() {
-        CheckOverflow();
-        updateDescription();
+        maxSemen = MAX_Semen_Origin;
     }
 
     @Override
@@ -41,6 +36,10 @@ public class InsideSemen extends AbstractSuperstitioPower implements OnPostApply
         if (this.amount < 0)
             this.amount = 0;
         super.stackPower(stackAmount);
+    }
+
+    @Override
+    public void atEndOfTurn(boolean isPlayer) {
         CheckOverflow();
     }
 
@@ -53,7 +52,7 @@ public class InsideSemen extends AbstractSuperstitioPower implements OnPostApply
     private void Overflow(int flowAmount) {
         AbstractPower power = this;
         AutoDoneInstantAction.addToBotAbstract(() ->
-                PowerUtility.BubbleMessageHigher(power, false, powerStrings.getDESCRIPTIONS()[1]));
+                PowerUtility.BubbleMessageHigher(power, true, powerStrings.getDESCRIPTIONS()[1]));
         this.addToBot_applyPower(new OutsideSemen(this.owner, flowAmount / ToOutSideSemenRate));
     }
 
@@ -79,6 +78,17 @@ public class InsideSemen extends AbstractSuperstitioPower implements OnPostApply
 
     @Override
     public int maxBarAmount() {
-        return MAX_Semen;
+        return maxSemen;
+    }
+
+    /**
+     * 扩张到最接近的整十数
+     */
+    public void expand(int tryExpandValue) {
+        int newMaxSemen = tryExpandValue - (tryExpandValue % MAX_Semen_Origin);
+        if (newMaxSemen >= this.maxSemen)
+            PowerUtility.BubbleMessageHigher(this, false, powerStrings.getDESCRIPTIONS()[2]);
+        this.maxSemen = newMaxSemen;
+        updateDescription();
     }
 }

@@ -104,7 +104,6 @@ public class HangUpCardGroup extends OrbGroup implements OnCardUseSubscriber {
     @Override
     public void receiveCardUsed(AbstractCard abstractCard) {
         this.forEachOrbInThisOrbGroup(CardOrb_CardTrigger.class, CardOrb_CardTrigger::onCardUsed, abstractCard);
-        Logger.temp("receiveCardUsed+GroupOrb");
     }
 
 //    @Override

@@ -1,4 +1,4 @@
-package superstitio.cards.general.SkillCard;
+package superstitio.cards.general.SkillCard.cardManipulation;
 
 import com.megacrit.cardcrawl.actions.common.ExhaustSpecificCardAction;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;

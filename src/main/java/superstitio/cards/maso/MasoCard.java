@@ -6,10 +6,7 @@ import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.vfx.combat.FlashAtkImgEffect;
 import superstitio.cards.CardOwnerPlayerManager;
 import superstitio.cards.SuperstitioCard;
-import superstitio.delayHpLose.DelayHpLosePower_ApplyEachTurn;
-import superstitio.delayHpLose.DelayRemoveDelayHpLoseBlock;
-import superstitio.delayHpLose.DelayRemoveDelayHpLosePower;
-import superstitio.delayHpLose.RemoveDelayHpLoseBlock;
+import superstitio.delayHpLose.*;
 
 import static superstitio.DataManager.SPTT_DATA.MasoEnums.MASO_CARD;
 
@@ -48,7 +45,7 @@ public abstract class MasoCard extends SuperstitioCard implements CardOwnerPlaye
             return;
         }
         if (blockModifier instanceof RemoveDelayHpLoseBlock) {
-            DelayHpLosePower_ApplyEachTurn.addToBot_removePower(amount, AbstractDungeon.player, AbstractDungeon.player, true);
+            DelayHpLosePower.addToBot_removePower(amount, AbstractDungeon.player, true);
             AbstractDungeon.effectList.add(
                     new FlashAtkImgEffect(AbstractDungeon.player.hb.cX, AbstractDungeon.player.hb.cY,
                             AbstractGameAction.AttackEffect.SHIELD));

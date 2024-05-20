@@ -10,8 +10,10 @@ import com.megacrit.cardcrawl.powers.PoisonPower;
 import superstitio.DataManager;
 import superstitio.InBattleDataManager;
 import superstitio.cards.maso.MasoCard;
-import superstitio.delayHpLose.DelayHpLosePower_ApplyEachTurn;
+import superstitio.delayHpLose.DelayHpLosePower;
 import superstitio.utils.CardUtility;
+
+import static superstitio.delayHpLose.DelayHpLosePower.findAll;
 
 public class DrinkPoison extends MasoCard {
     public static final String ID = DataManager.MakeTextID(DrinkPoison.class);
@@ -23,23 +25,19 @@ public class DrinkPoison extends MasoCard {
     public static final CardTarget CARD_TARGET = CardTarget.SELF;
 
     private static final int COST = 1;
-    private static final int MAGIC = 1;
-    private static final int UPGRADE_MAGIC = 1;
-    private static final int ExtraDrawNum = 1;
-
-
-    private static final int HeatReduce = 6;
+    private static final int MAGIC = 0;
 
 
     public DrinkPoison() {
         super(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET);
-//        this.setupMagicNumber(MAGIC, UPGRADE_MAGIC);
+        this.setupMagicNumber(MAGIC);
     }
 
     @Override
     public void use(AbstractPlayer player, AbstractMonster monster) {
-        int totalDelayHpLose = DelayHpLosePower_ApplyEachTurn.findAll(AbstractDungeon.player).mapToInt(power -> power.amount).sum();
-        DelayHpLosePower_ApplyEachTurn.addToBot_removePower(totalDelayHpLose / 2, AbstractDungeon.player, AbstractDungeon.player, true);
+        int totalDelayHpLose = findAll(AbstractDungeon.player, DelayHpLosePower.class)
+                .mapToInt(power -> power.amount).sum();
+        DelayHpLosePower.addToBot_removePower(totalDelayHpLose / 2, AbstractDungeon.player, true);
         addToBot_applyPower(new PoisonPower(AbstractDungeon.player, AbstractDungeon.player,
                 (int) Math.sqrt((double) totalDelayHpLose / 2) + 1));
     }
@@ -61,7 +59,8 @@ public class DrinkPoison extends MasoCard {
     public void initializeDescription() {
         super.initializeDescription();
         if (CardUtility.isNotInBattle()) return;
-        int totalDelayHpLose = DelayHpLosePower_ApplyEachTurn.findAll(AbstractDungeon.player).mapToInt(power -> power.amount).sum();
+        int totalDelayHpLose = findAll(AbstractDungeon.player, DelayHpLosePower.class)
+                .mapToInt(power -> power.amount).sum();
         this.magicNumber = (int) Math.sqrt((double) totalDelayHpLose / 2) + 1;
     }
 

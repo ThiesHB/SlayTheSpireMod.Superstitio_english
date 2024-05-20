@@ -47,7 +47,6 @@ public class SuperstitioModSubscriber implements
     @Override
     public void receiveCardUsed(AbstractCard abstractCard) {
         ApplyAll((sub) -> sub.receiveCardUsed(abstractCard), OnCardUseSubscriber.class);
-        Logger.temp("receiveCardUsed+ApplyAll");
     }
 
     @Override

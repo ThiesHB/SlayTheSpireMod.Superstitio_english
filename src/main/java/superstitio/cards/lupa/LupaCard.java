@@ -1,20 +1,12 @@
 package superstitio.cards.lupa;
 
-import com.evacipated.cardcrawl.mod.stslib.blockmods.AbstractBlockModifier;
-import com.megacrit.cardcrawl.actions.AbstractGameAction;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.powers.AbstractPower;
-import com.megacrit.cardcrawl.vfx.combat.FlashAtkImgEffect;
 import superstitio.DataManager;
 import superstitio.cards.SuperstitioCard;
-import superstitio.delayHpLose.DelayHpLosePatch;
-import superstitio.delayHpLose.DelayHpLosePower_ApplyEachTurn;
-import superstitio.delayHpLose.RemoveDelayHpLoseBlock;
 import superstitio.powers.lupaOnly.FloorSemen;
 import superstitio.powers.lupaOnly.InsideSemen;
 import superstitio.powers.lupaOnly.OutsideSemen;
-
-import java.util.Arrays;
 
 import static superstitio.cards.CardOwnerPlayerManager.IsLupaCard;
 import static superstitio.cards.general.FuckJob_Card.*;

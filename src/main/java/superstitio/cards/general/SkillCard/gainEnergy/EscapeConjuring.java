@@ -1,4 +1,4 @@
-package superstitio.cards.general.SkillCard;
+package superstitio.cards.general.SkillCard.gainEnergy;
 
 import basemod.cardmods.ExhaustMod;
 import basemod.helpers.CardModifierManager;

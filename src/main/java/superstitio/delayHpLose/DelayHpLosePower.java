@@ -3,12 +3,13 @@ package superstitio.delayHpLose;
 import com.badlogic.gdx.graphics.Color;
 import com.evacipated.cardcrawl.mod.stslib.powers.interfaces.HealthBarRenderPower;
 import com.megacrit.cardcrawl.actions.AbstractGameAction;
-import com.megacrit.cardcrawl.actions.common.RemoveSpecificPowerAction;
 import com.megacrit.cardcrawl.core.AbstractCreature;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
+import com.megacrit.cardcrawl.powers.AbstractPower;
 import com.megacrit.cardcrawl.vfx.combat.PowerBuffEffect;
 import superstitio.DataManager;
+import superstitio.Logger;
 import superstitio.actions.AutoDoneInstantAction;
 import superstitio.cards.DamageActionMaker;
 import superstitio.powers.AbstractSuperstitioPower;
@@ -19,6 +20,10 @@ import superstitio.powers.patchAndInterface.interfaces.invisible.InvisiblePower_
 import superstitio.powers.patchAndInterface.interfaces.invisible.InvisiblePower_InvisibleTips;
 import superstitio.utils.PowerUtility;
 
+import java.lang.reflect.Modifier;
+import java.util.ArrayList;
+import java.util.stream.Stream;
+
 public abstract class DelayHpLosePower extends AbstractSuperstitioPower implements
         HealthBarRenderPower, DecreaseHealthBarNumberPower,
         InvisiblePower_InvisibleIconAndAmount, InvisiblePower_InvisibleTips,
@@ -28,8 +33,71 @@ public abstract class DelayHpLosePower extends AbstractSuperstitioPower implemen
     protected boolean isRemovedForApplyDamage = false;
 
     public DelayHpLosePower(String id, final AbstractCreature owner, int amount) {
-        super(id, owner, amount);
+        super(id, owner, amount, PowerType.BUFF, false);
+        this.updateDescription();
     }
+
+    public static <T extends DelayHpLosePower> Stream<T> findAll(AbstractCreature target, Class<T> tClass) {
+        return target.powers.stream()
+                .filter(tClass::isInstance)
+                .map(power -> (T) power);
+    }
+
+    /**
+     * 只会对每个子类的移除方法调用一次
+     *
+     * @param powerClass  优先移除的类
+     * @param amount      移除数量
+     * @param removeOther 是否移除其他的
+     */
+    public static <T extends DelayHpLosePower> void addToBot_removePower(Class<T> powerClass, final int amount, AbstractCreature owner, boolean removeOther) {
+        if (amount <= 0) return;
+        int lastAmount = 0;
+        if (Modifier.isAbstract(powerClass.getModifiers())) {
+            Logger.warning("class " + powerClass.getSimpleName() + " is abstract, pls check usages of DelayHpLosePower.addToBot_removePower()");
+        }
+        ArrayList<Class<? extends DelayHpLosePower>> hasRemovedClass = new ArrayList<>();
+        for (AbstractPower power : owner.powers) {
+            if (!(powerClass.isInstance(power))) continue;
+            DelayHpLosePower delayHpLosePower = ((DelayHpLosePower) power);
+            lastAmount = delayHpLosePower.addToBot_removeDelayHpLoss(amount, removeOther);
+            hasRemovedClass.add(delayHpLosePower.getClass());
+            break;
+        }
+        if (lastAmount <= 0) return;
+        if (!removeOther) return;
+
+        for (AbstractPower power : owner.powers) {
+            if (!(power instanceof DelayHpLosePower)) continue;
+            if (hasRemovedClass.stream().anyMatch(tClass -> tClass.isInstance(power))) continue;
+            DelayHpLosePower delayHpLosePower = ((DelayHpLosePower) power);
+            lastAmount = delayHpLosePower.addToBot_removeDelayHpLoss(lastAmount, removeOther);
+            hasRemovedClass.add(delayHpLosePower.getClass());
+            if (lastAmount <= 0) break;
+        }
+    }
+
+    public static void addToBot_removePower(final int amount, AbstractCreature owner, boolean removeOther) {
+        if (amount <= 0) return;
+        int lastAmount = amount;
+        ArrayList<Class<? extends DelayHpLosePower>> hasRemovedClass = new ArrayList<>();
+        for (AbstractPower power : owner.powers) {
+            if (!(power instanceof DelayHpLosePower)) continue;
+            if (hasRemovedClass.stream().anyMatch(tClass -> tClass.isInstance(power))) continue;
+            DelayHpLosePower delayHpLosePower = ((DelayHpLosePower) power);
+            lastAmount = delayHpLosePower.addToBot_removeDelayHpLoss(lastAmount, removeOther);
+            hasRemovedClass.add(delayHpLosePower.getClass());
+            if (!removeOther) break;
+            if (lastAmount <= 0) break;
+        }
+    }
+
+    /**
+     * @param amount      需要移除的值
+     * @param removeOther 是否移除其他的
+     * @return 剩余的amount
+     */
+    protected abstract int addToBot_removeDelayHpLoss(int amount, boolean removeOther);
 
     @Override
     public void reducePower(int reduceAmount) {
@@ -72,6 +140,7 @@ public abstract class DelayHpLosePower extends AbstractSuperstitioPower implemen
             CardCrawlGame.sound.play("POWER_TIME_WARP", 0.05f);
         });
         getDelayHpLoseDamageActionMaker().addToBot();
+        AutoDoneInstantAction.addToBotAbstract(() -> this.amount = 0);
         addToBot_removeSpecificPower(this);
     }
 

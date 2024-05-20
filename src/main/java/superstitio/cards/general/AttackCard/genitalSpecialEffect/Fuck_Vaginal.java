@@ -1,4 +1,4 @@
-package superstitio.cards.general.AttackCard.genital;
+package superstitio.cards.general.AttackCard.genitalSpecialEffect;
 
 
 import com.megacrit.cardcrawl.characters.AbstractPlayer;

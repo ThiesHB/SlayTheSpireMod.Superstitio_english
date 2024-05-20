@@ -1,4 +1,4 @@
-package superstitio.cards.general.AttackCard.genital;
+package superstitio.cards.general.AttackCard.genitalSpecialEffect;
 
 
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
@@ -19,8 +19,7 @@ public class Fuck_Anal extends GeneralCard implements FuckJob_Card {
     public static final CardRarity CARD_RARITY = CardRarity.COMMON;
 
     public static final CardTarget CARD_TARGET = CardTarget.ENEMY;
-
-
+    private static final float DAMAGE_RATE = 0.1f;
     private static final int COST = 1;
     private static final int DAMAGE = 6;
     private static final int UPGRADE_DAMAGE = 2;
@@ -43,8 +42,9 @@ public class Fuck_Anal extends GeneralCard implements FuckJob_Card {
         addToBot_dealDamage(monster);
         addToBotAbstract(() ->
                 monster.powers.stream().filter(power -> power instanceof SexualDamage).map(power -> (SexualDamage) power)
-                        .findAny().ifPresent(sexualDamage -> addToBot_applyPower(
-                                new SexualDamage(monster, (int) (sexualDamage.amount * 0.1 * this.magicNumber), AbstractDungeon.player))));
+                        .findAny()
+                        .ifPresent(sexualDamage -> addToBot_applyPower(new SexualDamage(
+                                monster, (int) (sexualDamage.amount * DAMAGE_RATE * this.magicNumber), AbstractDungeon.player))));
 
     }
 }

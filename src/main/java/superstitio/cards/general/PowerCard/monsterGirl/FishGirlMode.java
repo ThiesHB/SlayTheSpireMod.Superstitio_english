@@ -5,7 +5,7 @@ import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import superstitio.DataManager;
 import superstitio.cards.SuperstitioCard;
 import superstitio.cards.general.AbstractTempCard;
-import superstitio.cards.general.PowerCard.ChokeChoker;
+import superstitio.cards.general.PowerCard.drawAndEnergy.ChokeChoker;
 import superstitio.powers.EasyBuildAbstractPowerForPowerCard;
 
 public class FishGirlMode extends AbstractTempCard {

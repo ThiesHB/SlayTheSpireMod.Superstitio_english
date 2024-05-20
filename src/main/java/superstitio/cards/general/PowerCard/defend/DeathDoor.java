@@ -1,4 +1,4 @@
-package superstitio.cards.general.PowerCard;
+package superstitio.cards.general.PowerCard.defend;
 
 import com.evacipated.cardcrawl.mod.stslib.powers.interfaces.OnPlayerDeathPower;
 import com.megacrit.cardcrawl.actions.common.HealAction;

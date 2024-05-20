@@ -15,10 +15,22 @@ public class DelayHpLosePower_ApplyOnlyOnVictory extends DelayHpLosePower {
     }
 
     @Override
+    public boolean checkShouldInvisibleTips() {
+        return false;
+    }
+
+    @Override
     public void onVictory() {
         this.isRemovedForApplyDamage = true;
         PowerUtility.BubbleMessage(this, false, pureName());
         CardCrawlGame.sound.play("POWER_TIME_WARP", 0.05f);
         AbstractDungeon.player.damage(new DamageInfo(AbstractDungeon.player, this.amount, DataManager.CanOnlyDamageDamageType.UnBlockAbleDamageType));
+    }
+
+    @Override
+    protected int addToBot_removeDelayHpLoss(int amount, boolean removeOther) {
+        int lastAmount = amount - this.amount;
+        addToBot_reducePowerToOwner(this.ID, amount);
+        return lastAmount;
     }
 }

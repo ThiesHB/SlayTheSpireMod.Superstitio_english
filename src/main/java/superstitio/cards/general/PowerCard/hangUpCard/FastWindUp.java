@@ -1,4 +1,4 @@
-package superstitio.cards.general.PowerCard;
+package superstitio.cards.general.PowerCard.hangUpCard;
 
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.core.AbstractCreature;

@@ -1,4 +1,4 @@
-package superstitio.cards.general.AttackCard.breast;
+package superstitio.cards.maso.AttackCard;
 
 import basemod.AutoAdd;
 import com.megacrit.cardcrawl.actions.AbstractGameAction;
@@ -9,10 +9,10 @@ import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import superstitio.DataManager;
 import superstitio.cards.general.FuckJob_Card;
-import superstitio.cards.general.GeneralCard;
+import superstitio.cards.maso.MasoCard;
 
 @AutoAdd.Ignore
-public class Fuck_Nipple extends GeneralCard implements FuckJob_Card {
+public class Fuck_Nipple extends MasoCard implements FuckJob_Card {
     public static final String ID = DataManager.MakeTextID(Fuck_Nipple.class);
 
     public static final CardType CARD_TYPE = CardType.ATTACK;

@@ -22,14 +22,8 @@ import com.megacrit.cardcrawl.powers.AbstractPower;
 import com.megacrit.cardcrawl.vfx.combat.FlashAtkImgEffect;
 import superstitio.InBattleDataManager;
 import superstitio.Logger;
-import superstitio.cards.lupa.LupaCard;
-import superstitio.characters.Lupa;
-import superstitio.characters.Maso;
 import superstitio.customStrings.CardStringsWithFlavorSet;
-import superstitio.delayHpLose.DelayHpLosePower_ApplyEachTurn;
-import superstitio.delayHpLose.DelayRemoveDelayHpLoseBlock;
-import superstitio.delayHpLose.DelayRemoveDelayHpLosePower;
-import superstitio.delayHpLose.RemoveDelayHpLoseBlock;
+import superstitio.delayHpLose.*;
 import superstitio.utils.ActionUtility;
 import superstitio.utils.updateDescriptionAdvanced;
 
@@ -41,7 +35,6 @@ import java.util.stream.Collectors;
 import static com.megacrit.cardcrawl.actions.AbstractGameAction.AttackEffect;
 import static com.megacrit.cardcrawl.cards.DamageInfo.DamageType;
 import static superstitio.DataManager.*;
-import static superstitio.cards.CardOwnerPlayerManager.getCardClass;
 import static superstitio.cards.CardOwnerPlayerManager.getImgPath;
 import static superstitio.customStrings.HasSFWVersion.getCustomStringsWithSFW;
 import static superstitio.delayHpLose.DelayHpLosePatch.GainBlockTypeFields.ifDelayReduceDelayHpLose;
@@ -121,7 +114,7 @@ public abstract class SuperstitioCard extends CustomCard implements updateDescri
             Logger.warning("Do not use 'addToBot_gainBlock(int amount)' when setup this two block type.");
 
         if (ifReduceDelayHpLose.get(card)) {
-            DelayHpLosePower_ApplyEachTurn.addToBot_removePower(amount, AbstractDungeon.player, AbstractDungeon.player, true);
+            DelayHpLosePower.addToBot_removePower(amount, AbstractDungeon.player, true);
             AbstractDungeon.effectList.add(
                     new FlashAtkImgEffect(AbstractDungeon.player.hb.cX, AbstractDungeon.player.hb.cY,
                             AttackEffect.SHIELD));

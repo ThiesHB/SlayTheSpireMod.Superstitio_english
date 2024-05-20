@@ -16,7 +16,7 @@ public class SexualDamage extends AbstractSuperstitioPower implements HealthBarR
     public SexualDamage(final AbstractCreature owner, int amount, AbstractCreature giver) {
         super(POWER_ID, owner, amount);
         this.giver = giver;
-//        ReflectionHacks.setPrivate(this, DelayHpLosePower.class, "greenColor", Color.PINK.cpy());
+//        ReflectionHacks.setPrivate(this, "greenColor", Color.PINK.cpy());
     }
 
     @Override
