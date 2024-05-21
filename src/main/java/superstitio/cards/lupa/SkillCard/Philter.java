@@ -1,12 +1,16 @@
 package superstitio.cards.lupa.SkillCard;
 
+import com.megacrit.cardcrawl.actions.common.GainBlockAction;
 import com.megacrit.cardcrawl.actions.common.RemoveAllBlockAction;
+import com.megacrit.cardcrawl.cards.DamageInfo;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
+import com.megacrit.cardcrawl.core.AbstractCreature;
+import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import superstitio.DataManager;
 import superstitio.cards.lupa.LupaCard;
-import superstitio.powers.SexPlateArmorPower;
+import superstitio.powers.AbstractSuperstitioPower;
 
 //春药
 public class Philter extends LupaCard {
@@ -36,5 +40,35 @@ public class Philter extends LupaCard {
     public void use(AbstractPlayer player, AbstractMonster monster) {
         addToBot_applyPower(new SexPlateArmorPower(AbstractDungeon.player, AbstractDungeon.player.currentBlock / this.magicNumber));
         addToBot(new RemoveAllBlockAction(AbstractDungeon.player, AbstractDungeon.player));
+    }
+
+    public static class SexPlateArmorPower extends AbstractSuperstitioPower {
+        public static final String POWER_ID = DataManager.MakeTextID(SexPlateArmorPower.class);
+
+        public SexPlateArmorPower(final AbstractCreature owner, int amount) {
+            super(POWER_ID, owner, amount);
+            this.loadRegion("platedarmor");
+        }
+
+        @Override
+        public void updateDescriptionArgs() {
+            setDescriptionArgs(this.amount);
+        }
+
+        public void playApplyPowerSfx() {
+            CardCrawlGame.sound.play("POWER_PLATED", 0.05F);
+        }
+
+        public void wasHPLost(DamageInfo info, int damageAmount) {
+            if (info.owner != null && info.owner != this.owner && info.type != DamageInfo.DamageType.HP_LOSS && info.type != DamageInfo.DamageType.THORNS && damageAmount > 0) {
+                this.flash();
+                addToBot_reducePowerToOwner(SexPlateArmorPower.POWER_ID, 1);
+            }
+        }
+
+        public void atEndOfTurnPreEndTurnCards(boolean isPlayer) {
+            this.flash();
+            this.addToBot(new GainBlockAction(this.owner, this.owner, this.amount));
+        }
     }
 }

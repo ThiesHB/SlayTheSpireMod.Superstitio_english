@@ -1,4 +1,4 @@
-package superstitio.cards.general.PowerCard;
+package superstitio.cards.lupa.PowerCard;
 
 import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.cards.DamageInfo;
@@ -8,12 +8,13 @@ import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import superstitio.DataManager;
 import superstitio.cards.general.GeneralCard;
+import superstitio.cards.lupa.LupaCard;
 import superstitio.powers.AbstractSuperstitioPower;
 import superstitio.utils.ActionUtility;
 import superstitio.utils.CardUtility;
 
 //咕杀/くっころ
-public class Ku_Koro extends GeneralCard {
+public class Ku_Koro extends LupaCard {
     public static final String ID = DataManager.MakeTextID(Ku_Koro.class);
 
     public static final CardType CARD_TYPE = CardType.POWER;

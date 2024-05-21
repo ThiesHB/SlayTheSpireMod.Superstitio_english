@@ -23,7 +23,7 @@
   "SuperstitioMod:Job_Breast": {
     "NAME": "胸交",
     "NAME_SFW": "木兰飞弹",
-    "DESCRIPTION": "造成 !D! 点 伤害 。",
+    "DESCRIPTION": "造成 !D! 点 伤害 。 NL 获得 !M! 层 superstitiomod:乳汁 。",
     "FLAVOR": "养胸千日，用胸一时。胸越大，胸就能挺的越高。",
     "EXTENDED_DESCRIPTION": [
       "胸口"
@@ -107,7 +107,7 @@
   "SuperstitioMod:Fuck_Nipple": {
     "NAME": "乳奸",
     "NAME_SFW": "猴形拳",
-    "DESCRIPTION": "对随机敌人 造成 2 次 !D! 点 伤害 。",
+    "DESCRIPTION": "重复两次： NL 对随机敌人 造成 !D! 点 伤害 ，施加 !M! superstitiomod:乳汁 。",
     "FLAVOR": "大奶子特权。"
   },
   "SuperstitioMod:Fuck_Throat": {

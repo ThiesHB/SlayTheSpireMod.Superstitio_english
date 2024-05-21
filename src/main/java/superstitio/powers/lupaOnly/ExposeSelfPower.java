@@ -7,10 +7,10 @@ import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import superstitio.DataManager;
 import superstitio.powers.AbstractSuperstitioPower;
 
-public class ExposeSelf extends AbstractSuperstitioPower {
-    public static final String POWER_ID = DataManager.MakeTextID(ExposeSelf.class);
+public class ExposeSelfPower extends AbstractSuperstitioPower {
+    public static final String POWER_ID = DataManager.MakeTextID(ExposeSelfPower.class);
 
-    public ExposeSelf(final AbstractCreature owner, int amount) {
+    public ExposeSelfPower(final AbstractCreature owner, int amount) {
         super(POWER_ID, owner, amount);
 
     }
@@ -21,7 +21,7 @@ public class ExposeSelf extends AbstractSuperstitioPower {
         if (info.type == DamageInfo.DamageType.NORMAL) {
             this.flash();
             this.addToBot(new ApplyPowerAction(
-                    AbstractDungeon.player, AbstractDungeon.player, new OutsideSemen(AbstractDungeon.player, damageAmount)));
+                    AbstractDungeon.player, AbstractDungeon.player, new OutsideSemen(AbstractDungeon.player, damageAmount/2)));
         }
         return super.onAttacked(info, damageAmount);
     }

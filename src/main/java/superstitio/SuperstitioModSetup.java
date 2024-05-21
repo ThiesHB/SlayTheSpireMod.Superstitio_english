@@ -185,6 +185,8 @@ public class SuperstitioModSetup implements
         DataManager.loadCustomStringsFile("modifier_damage", DataManager.modifiers, ModifierStringsSet.class);
         DataManager.loadCustomStringsFile("modifier_block", DataManager.modifiers, ModifierStringsSet.class);
         DataManager.loadCustomStringsFile("power", DataManager.powers, PowerStringsSet.class);
+        DataManager.loadCustomStringsFile("power_Lupa", DataManager.powers, PowerStringsSet.class);
+        DataManager.loadCustomStringsFile("power_Maso", DataManager.powers, PowerStringsSet.class);
         DataManager.loadCustomStringsFile("orb", DataManager.orbs, OrbStringsSet.class);
 //        BaseMod.loadCustomStringsFile(EventStrings.class, makeLocPath(Settings.language,"event"));
 //        BaseMod.loadCustomStringsFile(PotionStrings.class, makeLocPath(Settings.language,"potion"));

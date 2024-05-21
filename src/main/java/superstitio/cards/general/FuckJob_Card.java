@@ -57,7 +57,7 @@ public interface FuckJob_Card {
         addToBot_GiveMarkToOrbGroup(sexName, SexMarkType.OutSide);
     }
 
-    static BodyPart getBodyCard(FuckJob_Card fuckJob) {
+    static BodyPart getBodyPartType(FuckJob_Card fuckJob) {
         if (fuckJob instanceof Fuck_Nipple || fuckJob instanceof Job_Breast)
             return BodyPart.breast;
         if (fuckJob instanceof Job_Foot || fuckJob instanceof Job_LegPit)

@@ -149,6 +149,9 @@ public abstract class SuperstitioCard extends CustomCard implements updateDescri
             this.rawDescription = makeFormatDESCRIPTION();
     }
 
+    /**
+     * 使用后别忘了updateRawDescription
+     */
     @Override
     public void updateDescriptionArgs() {
     }

@@ -25,7 +25,7 @@ public abstract class AbstractSuperstitioPower extends AbstractPower implements 
         SetupPower(id, powerStrings, owner, amount, powerType, needUpdateDescription);
     }
 
-    public AbstractSuperstitioPower() {
+    protected AbstractSuperstitioPower() {
     }
 
     public AbstractSuperstitioPower(String id, final AbstractCreature owner, int amount, PowerType powerType, boolean needUpdateDescription) {

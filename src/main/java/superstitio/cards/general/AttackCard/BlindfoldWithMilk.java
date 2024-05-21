@@ -6,6 +6,7 @@ import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import superstitio.DataManager;
 import superstitio.actions.AutoDoneInstantAction;
 import superstitio.cards.general.GeneralCard;
+import superstitio.powers.Milk;
 
 public class BlindfoldWithMilk extends GeneralCard {
     public static final String ID = DataManager.MakeTextID(BlindfoldWithMilk.class);
@@ -19,10 +20,12 @@ public class BlindfoldWithMilk extends GeneralCard {
     private static final int COST = 2;
     private static final int DAMAGE = 20;
     private static final int UPGRADE_DAMAGE = 8;
+    private static final int MAGIC = 2;
 
     public BlindfoldWithMilk() {
         super(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET);
         this.setupDamage(DAMAGE, UPGRADE_DAMAGE);
+        this.setupMagicNumber(MAGIC);
     }
 
     @Override
@@ -34,6 +37,7 @@ public class BlindfoldWithMilk extends GeneralCard {
                     monster.createIntent();
                 }
         );
+        addToBot_applyPower(new Milk(monster, magicNumber));
     }
 
     @Override

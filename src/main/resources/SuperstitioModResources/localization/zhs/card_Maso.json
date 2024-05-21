@@ -35,8 +35,30 @@
     "NAME_SFW": "强制打出",
     "DESCRIPTION": "选择一张手牌，失去其当前费用 !M! 倍的血量，强制打出。",
     "FLAVOR": "",
-    "EXTENDED_DESCRIPTION":[
+    "EXTENDED_DESCRIPTION": [
       "选择一张牌，强制打出。"
     ]
+  },
+  "SuperstitioMod:MasoCard:BodyModification_CutOff": {
+    "NAME": "改造：身体欠损",
+    "NAME_SFW": "改造：义体升级",
+    "DESCRIPTION": "%s 攻击力提升 !M! %% 。 %s",
+    "FLAVOR": "",
+    "EXTENDED_DESCRIPTION": [
+      "移除 !B! *腐朽 。",
+      " NL 选择一个部位，其对应的 *性交牌 无法打出。"
+    ]
+  },
+  "SuperstitioMod:MasoCard:BodyModification_CutOff_Chose": {
+    "NAME": "欠损部位选择",
+    "NAME_SFW": "部位选择",
+    "DESCRIPTION": "这张牌用于选择，它的名称和描述都会在选择界面改变。",
+    "FLAVOR": ""
+  },
+  "SuperstitioMod:MasoCard:BodyModification_SuperHugeBreast": {
+    "NAME": "改造：超巨乳化",
+    "NAME_SFW": "改造：仁慈之心",
+    "DESCRIPTION": "受到攻击时，获得 !M! superstitiomod:乳汁 。",
+    "FLAVOR": ""
   }
 }

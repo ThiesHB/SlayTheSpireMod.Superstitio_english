@@ -8,10 +8,10 @@ import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import com.megacrit.cardcrawl.powers.AbstractPower;
 import superstitio.DataManager;
 import superstitio.cards.lupa.LupaCard;
+import superstitio.powers.SexualHeat;
 import superstitio.powers.lupaOnly.FloorSemen;
 import superstitio.powers.lupaOnly.InsideSemen;
 import superstitio.powers.lupaOnly.OutsideSemen;
-import superstitio.utils.PowerUtility;
 
 import static superstitio.actions.AutoDoneInstantAction.addToBotAbstract;
 
@@ -25,7 +25,7 @@ public class PutEveryCumInBody extends LupaCard {
 
     public static final CardTarget CARD_TARGET = CardTarget.SELF;
 
-    private static final int COST = 1;
+    private static final int COST = 2;
 
 
     public PutEveryCumInBody() {
@@ -43,6 +43,7 @@ public class PutEveryCumInBody extends LupaCard {
         for (AbstractPower power : AbstractDungeon.player.powers) {
             if (power instanceof OutsideSemen || power instanceof FloorSemen) {
                 addToBot_removeSpecificPower(power);
+                addToBot_applyPower(new SexualHeat(AbstractDungeon.player, power.amount));
                 addToBot_applyPower(new InsideSemen(AbstractDungeon.player, power.amount));
             }
         }

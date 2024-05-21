@@ -52,7 +52,7 @@
   "SuperstitioMod:BlindfoldWithMilk": {
     "NAME": "以乳蒙眼",
     "NAME_SFW": "以血蒙眼",
-    "DESCRIPTION": "造成 !D! 点 伤害 。 NL 目标敌人跳过一个动作。",
+    "DESCRIPTION": "造成 !D! 点 伤害 。 NL 目标敌人跳过一个动作。 NL 施加 !M! superstitiomod:乳汁 。",
     "FLAVOR": "这招如何？"
   },
   "SuperstitioMod:SelfBind": {

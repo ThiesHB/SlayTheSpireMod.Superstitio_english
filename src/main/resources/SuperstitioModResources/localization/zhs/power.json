@@ -26,18 +26,6 @@
       "本回合潮吹减少的快感提高 #b%d 点每 [E] 。"
     ]
   },
-  "SuperstitioMod:Ku_KoroPower": {
-    "NAME": "咕杀",
-    "DESCRIPTIONS": [
-      "每次受到 #y攻击伤害 时，获得 #b1 随机 #y状态 牌。 NL 所有 #y消耗 牌会回到 抽牌堆 。"
-    ]
-  },
-  "SuperstitioMod:ExposeSelf": {
-    "NAME": "自我暴露",
-    "DESCRIPTIONS": [
-      "到 下回合 开始前 ，失去 #y格挡 时，获得失去数值一半的 #y体表精液 。 NL #y体表精液 会在 回合结束时 转换为 #y干涸精痕 。 "
-    ]
-  },
   "SuperstitioMod:SexToy": {
     "NAME": "情趣玩具",
     "DESCRIPTIONS": [
@@ -57,22 +45,10 @@
       "每当你使用卡牌，抽 1 张牌。"
     ]
   },
-  "SuperstitioMod:TimeStop": {
+  "SuperstitioMod:TimeStopPower": {
     "NAME": "时间静滞",
     "DESCRIPTIONS": [
       "持续 #b%d 回合。当前回合快感不改变。 NL 回合开始时，释放吸收的快感并且翻 #b%d 倍。"
-    ]
-  },
-  "SuperstitioMod:SexMark_Outside": {
-    "NAME": "精液覆身",
-    "DESCRIPTIONS": [
-      "当前：%s ， NL 收集 #b%d 个即可获得 #b%d 临时生命。 NL （数值取决于战斗中的内射和外射牌数量）"
-    ]
-  },
-  "SuperstitioMod:SexMark_Inside": {
-    "NAME": "插入动作",
-    "DESCRIPTIONS": [
-      "当前：%s ， NL 收集 #b%d 个即可造成 #b%d 全体伤害。 NL （数值取决于战斗中的内射和外射牌数量）"
     ]
   },
   "SuperstitioMod:DelaySexualHeat": {
@@ -102,45 +78,10 @@
       " NL 效果未启动。"
     ]
   },
-  "SuperstitioMod:OnApplyDamage_ThenRemoveLoseStrength": {
-    "NAME": "M性格：渴求",
-    "DESCRIPTIONS": [
-      "下次受伤后移除所有的临时力量。"
-    ]
-  },
   "SuperstitioMod:Overdraft": {
     "NAME": "透支",
     "DESCRIPTIONS": [
       "回合开始时，消耗 #b%d 张牌。"
-    ]
-  },
-  "SuperstitioMod:InsideSemen": {
-    "NAME": "体内精液",
-    "DESCRIPTIONS": [
-      "当前价值： #b%d 。 NL 回合结束时，超过 #b%d 点的部分会溢出，每点溢出转化为 #b%d 点 #y体表精液 。 NL 用作卡牌资源。",
-      "溢出！",
-      "扩张！"
-    ]
-  },
-  "SuperstitioMod:OutsideSemen": {
-    "NAME": "体表精液",
-    "DESCRIPTIONS": [
-      "当前价值： #b%d 。 NL 用作卡牌资源。"
-    ]
-  },
-  "SuperstitioMod:FloorSemen": {
-    "NAME": "地板精液",
-    "DESCRIPTIONS": [
-      "当前价值： #b%d 。 NL 用作卡牌资源。"
-    ]
-  },
-  "SuperstitioMod:BeerCupSemen": {
-    "NAME": "杯中精液",
-    "DESCRIPTIONS": [
-      " 获得其他 #y精液 时， 转化为 #y杯中精液 。 当收集满 %d 或 战斗结束 时，回复 其 数量的 生命 。",
-      "收集",
-      "杯满！",
-      "痛饮！"
     ]
   },
   "SuperstitioMod:DeathDoorPower": {
@@ -161,18 +102,6 @@
       "回合开始时，受到 #b%d 点伤害。"
     ]
   },
-  "SuperstitioMod:DelayHpLosePower_HealOnVictory": {
-    "NAME": "#r腐朽",
-    "DESCRIPTIONS": [
-      "敌人行动结束时： NL #r降低 #r%d #r点生命。"
-    ]
-  },
-  "SuperstitioMod:DelayHpLosePower_ApplyOnlyOnVictory": {
-    "NAME": "#r腐朽",
-    "DESCRIPTIONS": [
-      "战斗结束时： NL #r降低 #r%d #r点生命。"
-    ]
-  },
   "SuperstitioMod:FastWindUpPower": {
     "NAME": "快速收尾",
     "DESCRIPTIONS": [
@@ -185,10 +114,10 @@
       "在下回合开始时，移除 #b%d #r腐朽 。 NL 只能移除从本回合开始到下回合开始前获得的 #r腐朽 。"
     ]
   },
-  "SuperstitioMod:DoubleRemoveHpLostWhenHasVulnerablePower": {
-    "NAME": "翻倍格挡",
+  "SuperstitioMod:Milk": {
+    "NAME": "乳汁",
     "DESCRIPTIONS": [
-      "当有易伤时，翻倍来自卡牌的 #r腐朽 移除量。"
+      "造成伤害时，目标和自身都获得 %d 点 #y临时生命 ，然后移除 #b%d 层。"
     ]
   }
 }

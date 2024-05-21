@@ -1,6 +1,5 @@
 package superstitio.powers;
 
-import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.localization.LocalizedStrings;
 import superstitio.DataManager;
@@ -37,6 +36,7 @@ public abstract class EasyBuildAbstractPowerForPowerCard extends AbstractSuperst
         desc = desc.replace("!D", "#b%d");
         desc = desc.replace("!B", "#b%d");
         desc = desc.replace("%d!", "%d");
+        desc = desc.replace("%s", "");
 
         return desc;
     }

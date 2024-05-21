@@ -1,12 +1,14 @@
 package superstitio.cards.maso.PowerCard;
 
-import com.megacrit.cardcrawl.actions.common.ExhaustSpecificCardAction;
 import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.core.AbstractCreature;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
+import com.megacrit.cardcrawl.ui.panels.EnergyPanel;
+import com.megacrit.cardcrawl.vfx.cardManip.PurgeCardEffect;
 import superstitio.DataManager;
+import superstitio.actions.AutoDoneInstantAction;
 import superstitio.cards.general.TempCard.FeelPhantomBody;
 import superstitio.cards.maso.MasoCard;
 import superstitio.powers.AbstractSuperstitioPower;
@@ -47,16 +49,28 @@ public class OrgasmWithLostBody extends MasoCard {
             super(POWER_ID, owner, -1);
         }
 
+        private static boolean hasEnoughEnergyOrTurnEnd(AbstractCard card) {
+            if (AbstractDungeon.actionManager.turnHasEnded) {
+                return false;
+            }
+            return EnergyPanel.totalCount >= card.costForTurn || card.freeToPlay() || card.isInAutoplay;
+        }
 
         @Override
         public void onCardDraw(AbstractCard card) {
             super.onCardDraw(card);
+            tryBecomeFeelPhantomBodyCard(card);
+        }
+
+        private void tryBecomeFeelPhantomBodyCard(AbstractCard card) {
             if (card.canUse(AbstractDungeon.player, null)) return;
             //不是因为能量不够或者对象不对而无法打出
-            if (!(card.cardPlayable(null) && card.hasEnoughEnergy())) return;
-
-            addToBot(new ExhaustSpecificCardAction(card, AbstractDungeon.player.hand));
-            addToBot_makeTempCardInBattle(new FeelPhantomBody(), BattleCardPlace.Hand);
+            if (!(card.cardPlayable(null) && hasEnoughEnergyOrTurnEnd(card))) return;
+            AutoDoneInstantAction.addToBotAbstract(() -> {
+                AbstractDungeon.player.hand.removeCard(card);
+                AbstractDungeon.effectList.add(new PurgeCardEffect(card));
+            });
+            addToBot_makeTempCardInBattle(new FeelPhantomBody(card), BattleCardPlace.Hand);
         }
 
         @Override
