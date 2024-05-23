@@ -7,9 +7,9 @@ import superstitio.DataManager;
 import superstitio.actions.AutoDoneInstantAction;
 import superstitio.cards.general.FuckJob_Card;
 import superstitio.cards.general.GeneralCard;
-import superstitio.orbs.CardOrb_CardTrigger;
-import superstitio.orbs.CardOrb_EachCardTrigger;
-import superstitio.orbs.CardOrb_WaitCardTrigger;
+import superstitio.hangUpCard.CardOrb_CardTrigger;
+import superstitio.hangUpCard.CardOrb_EachCardTrigger;
+import superstitio.hangUpCard.CardOrb_WaitCardTrigger;
 import superstitio.orbs.Card_AvoidAllCardUsedCheckOfCardOrb_ManuallyTriggerCardOrb;
 
 import static superstitio.InBattleDataManager.getHangUpCardOrbGroup;

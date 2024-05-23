@@ -21,9 +21,9 @@ public class Milk extends AbstractSuperstitioPower {
     @Override
     public void onAttack(DamageInfo info, int damageAmount, AbstractCreature target) {
         if (info.type != DamageInfo.DamageType.NORMAL) return;
-        if (damageAmount <= 0) return;
+//        if (damageAmount <= 0) return;
         addToBot(new AddTemporaryHPAction(target, owner, this.amount));
         addToBot(new AddTemporaryHPAction(owner, owner, this.amount));
-        addToBot_AutoRemoveOne(this);
+        addToBot_reducePowerToOwner(Milk.POWER_ID, this.amount / 2);
     }
 }

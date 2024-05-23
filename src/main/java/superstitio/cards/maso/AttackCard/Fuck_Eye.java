@@ -12,8 +12,8 @@ import superstitio.cards.general.TempCard.Fuck_Ear;
 import superstitio.cards.maso.MasoCard;
 import superstitio.cards.patch.GoSomewhereElseAfterUse;
 import superstitio.delayHpLose.RemoveDelayHpLoseBlock;
-import superstitio.orbs.CardOrb_WaitCardTrigger;
-import superstitio.orbs.orbgroup.HangUpCardGroup;
+import superstitio.hangUpCard.CardOrb_WaitCardTrigger;
+import superstitio.hangUpCard.HangUpCardGroup;
 import superstitio.utils.ActionUtility;
 
 import static superstitio.cards.CardOwnerPlayerManager.IsNotLupaCard;
@@ -43,7 +43,7 @@ public class Fuck_Eye extends MasoCard implements FuckJob_Card, GoSomewhereElseA
         super(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET);
         FuckJob_Card.initFuckJobCard(this);
         this.setupDamage(DAMAGE, UPGRADE_DAMAGE);
-        this.setupBlock(BLOCK, UPGRADE_BLOCK, new RemoveDelayHpLoseBlock());
+        this.setupBlock(BLOCK, UPGRADE_BLOCK);
         this.setupMagicNumber(MAGIC);
         this.exhaust = true;
     }
@@ -67,7 +67,7 @@ public class Fuck_Eye extends MasoCard implements FuckJob_Card, GoSomewhereElseA
         HangUpCardGroup.addToBot_AddCardOrbToOrbGroup(
                 new CardOrb_WaitCardTrigger(this, cardGroup, (orb, card) -> {
                     orb.StartHitCreature(AbstractDungeon.player);
-                    addToBot_gainBlock();
+                    addToBot_gainCustomBlock(new RemoveDelayHpLoseBlock());
                     ActionUtility.addToBot_makeTempCardInBattle(new Fuck_Ear(), BattleCardPlace.Hand, this.upgraded);
                 }, this.magicNumber)
                         .setNotEvokeOnEndOfTurn()

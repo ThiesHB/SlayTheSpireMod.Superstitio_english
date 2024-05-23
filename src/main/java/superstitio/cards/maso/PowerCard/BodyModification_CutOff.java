@@ -5,6 +5,7 @@ import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.cards.DamageInfo;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
+import com.megacrit.cardcrawl.powers.watcher.VigorPower;
 import superstitio.DataManager;
 import superstitio.cards.SuperstitioCard;
 import superstitio.cards.general.AbstractTempCard;
@@ -20,7 +21,7 @@ public class BodyModification_CutOff extends MasoCard {
 
     public static final CardType CARD_TYPE = CardType.POWER;
 
-    public static final CardRarity CARD_RARITY = CardRarity.COMMON;
+    public static final CardRarity CARD_RARITY = CardRarity.UNCOMMON;
 
     public static final CardTarget CARD_TARGET = CardTarget.SELF;
 
@@ -38,7 +39,7 @@ public class BodyModification_CutOff extends MasoCard {
 
     @Override
     public void updateDescriptionArgs() {
-        setDescriptionArgs(this.cardStrings.getEXTENDED_DESCRIPTION()[0],this.cardStrings.getEXTENDED_DESCRIPTION()[1]);
+        setDescriptionArgs(this.cardStrings.getEXTENDED_DESCRIPTION()[0], this.cardStrings.getEXTENDED_DESCRIPTION()[1]);
     }
 
     @Override
@@ -67,8 +68,13 @@ public class BodyModification_CutOff extends MasoCard {
         }
 
         @Override
-        public int onAttackToChangeDamage(DamageInfo info, int damageAmount) {
-            return damageAmount * this.amount / PERCENTAGE;
+        public float atDamageFinalGive(float damage, DamageInfo.DamageType type) {
+            return super.atDamageFinalGive(damage + damage * this.amount / PERCENTAGE, type);
+        }
+
+        @Override
+        public float atDamageFinalGive(float damage, DamageInfo.DamageType type, AbstractCard card) {
+            return super.atDamageFinalGive(damage, type, card);
         }
 
         @Override
@@ -78,7 +84,7 @@ public class BodyModification_CutOff extends MasoCard {
 
         @Override
         protected SuperstitioCard makePowerCard() {
-            return null;
+            return new BodyModification_CutOff();
         }
     }
 

@@ -8,8 +8,8 @@ import superstitio.cards.DamageActionMaker;
 import superstitio.cards.general.FuckJob_Card;
 import superstitio.cards.general.GeneralCard;
 import superstitio.cards.patch.GoSomewhereElseAfterUse;
-import superstitio.orbs.CardOrb_WaitCardTrigger;
-import superstitio.orbs.orbgroup.HangUpCardGroup;
+import superstitio.hangUpCard.CardOrb_WaitCardTrigger;
+import superstitio.hangUpCard.HangUpCardGroup;
 
 public class Job_Armpit extends GeneralCard implements FuckJob_Card, GoSomewhereElseAfterUse {
     public static final String ID = DataManager.MakeTextID(Job_Armpit.class);

@@ -5,11 +5,9 @@ import superstitio.DataManager;
 import superstitio.cards.lupa.LupaCard;
 import superstitio.cards.maso.MasoCard;
 
-import static superstitio.DataManager.getIdOnly;
-
 public class CardOwnerPlayerManager {
     public static String getImgPath(final String tag, final String id) {
-        return DataManager.makeImgFilesPath_Card(getIdOnly(id), tag);
+        return DataManager.makeImgPath("default", DataManager::makeImgFilesPath_Card, id, tag);
     }
 
     public static boolean isLupaCard(AbstractCard card) {
@@ -20,13 +18,14 @@ public class CardOwnerPlayerManager {
         return IsLupaCard.class.isAssignableFrom(cardType) && !(IsNotLupaCard.class.isAssignableFrom(cardType));
     }
 
-    public static boolean isGeneralCard(Class<?> cardType){
+    public static boolean isGeneralCard(Class<?> cardType) {
         return isMasoCard(cardType) && isLupaCard(cardType);
     }
 
     public static boolean isMasoCard(AbstractCard card) {
         return card instanceof IsMasoCard && !(card instanceof IsNotMasoCard);
     }
+
     public static boolean isMasoCard(Class<?> cardType) {
         return IsMasoCard.class.isAssignableFrom(cardType) && !(IsNotMasoCard.class.isAssignableFrom(cardType));
     }

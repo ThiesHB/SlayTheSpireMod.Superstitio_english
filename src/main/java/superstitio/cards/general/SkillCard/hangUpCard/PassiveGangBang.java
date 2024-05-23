@@ -6,7 +6,7 @@ import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import superstitio.DataManager;
 import superstitio.cards.general.GeneralCard;
 import superstitio.delayHpLose.RemoveDelayHpLoseBlock;
-import superstitio.orbs.CardOrb_CardTrigger;
+import superstitio.hangUpCard.CardOrb_CardTrigger;
 import superstitio.orbs.Card_AvoidAllCardUsedCheckOfCardOrb_ManuallyTriggerCardOrb;
 
 import static superstitio.InBattleDataManager.getHangUpCardOrbGroup;
@@ -39,7 +39,7 @@ public class PassiveGangBang extends GeneralCard implements Card_AvoidAllCardUse
         AbstractCard self = this;
         for (int i = 0; i < this.magicNumber; i++) {
             addToBotAbstract(() -> getHangUpCardOrbGroup()
-                    .ifPresent(cardGroup -> cardGroup.orbs.stream()
+                    .ifPresent(cardGroup -> cardGroup.cards.stream()
                             .filter(orb -> orb instanceof CardOrb_CardTrigger)
                             .forEach(orb -> ((CardOrb_CardTrigger) orb).forceAcceptAction(self))));
         }

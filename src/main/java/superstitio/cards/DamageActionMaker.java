@@ -45,7 +45,11 @@ public class DamageActionMaker {
         return new DamageActionMaker(source, damageAmount, targets);
     }
 
-    public static DamageActionMaker maker(int damageAmount, final AbstractCreature... targets) {
+    public static DamageActionMaker maker(int damageAmount, final AbstractCreature targets) {
+        return new DamageActionMaker(damageAmount, targets);
+    }
+
+    public static DamageActionMaker maker(int damageAmount, final AbstractCreature[] targets) {
         return new DamageActionMaker(damageAmount, targets);
     }
 

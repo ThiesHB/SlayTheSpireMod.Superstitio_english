@@ -1,6 +1,8 @@
 package superstitio.delayHpLose;
 
 import com.evacipated.cardcrawl.mod.stslib.damagemods.AbstractDamageModifier;
+import com.evacipated.cardcrawl.mod.stslib.damagemods.BindingHelper;
+import com.evacipated.cardcrawl.mod.stslib.damagemods.DamageModContainer;
 import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.cards.DamageInfo;
 import com.megacrit.cardcrawl.core.AbstractCreature;
@@ -12,6 +14,10 @@ public class UnBlockAbleDamage extends AbstractLupaDamage {
 
     public UnBlockAbleDamage() {
         super(ID);
+    }
+
+    public static DamageInfo damageInfo(Object instigator, int amount) {
+        return BindingHelper.makeInfo(new DamageModContainer(instigator, new UnBlockAbleDamage()), null, amount, DataManager.CanOnlyDamageDamageType.UnBlockAbleDamageType);
     }
 
     @Override

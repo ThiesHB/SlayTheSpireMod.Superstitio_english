@@ -7,8 +7,8 @@ import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import superstitio.DataManager;
 import superstitio.cards.general.GeneralCard;
 import superstitio.cards.patch.GoSomewhereElseAfterUse;
-import superstitio.orbs.CardOrb_WaitCardTrigger;
-import superstitio.orbs.orbgroup.HangUpCardGroup;
+import superstitio.hangUpCard.CardOrb_WaitCardTrigger;
+import superstitio.hangUpCard.HangUpCardGroup;
 import superstitio.powers.SexualHeat;
 import superstitio.utils.PowerUtility;
 

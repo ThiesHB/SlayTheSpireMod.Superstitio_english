@@ -9,7 +9,7 @@ import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import superstitio.DataManager;
 import superstitio.cards.general.GeneralCard;
 import superstitio.cards.general.PowerCard.monsterGirl.FishGirlMode;
-import superstitio.cards.general.PowerCard.monsterGirl.KaakaGirlMode;
+import superstitio.cards.general.PowerCard.monsterGirl.KakaaGirlMode;
 
 import java.util.ArrayList;
 
@@ -33,7 +33,7 @@ public class MonsterGirlMode extends GeneralCard {
     public void use(AbstractPlayer player, AbstractMonster monster) {
         final ArrayList<AbstractCard> stanceChoices = new ArrayList<>();
         stanceChoices.add(new FishGirlMode());
-        stanceChoices.add(new KaakaGirlMode());
+        stanceChoices.add(new KakaaGirlMode());
 //        if (this.upgraded) {
 //            for (final AbstractCard c : stanceChoices) {
 //                c.upgrade();

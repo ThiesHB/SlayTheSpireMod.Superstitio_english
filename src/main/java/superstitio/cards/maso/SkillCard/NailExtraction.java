@@ -20,7 +20,7 @@ public class NailExtraction extends MasoCard {
 
     public static final CardType CARD_TYPE = CardType.SKILL;
 
-    public static final CardRarity CARD_RARITY = CardRarity.COMMON;
+    public static final CardRarity CARD_RARITY = CardRarity.UNCOMMON;
 
     public static final CardTarget CARD_TARGET = CardTarget.SELF;
 

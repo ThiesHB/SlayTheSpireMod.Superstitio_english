@@ -29,7 +29,6 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.util.*;
 import java.util.function.BiFunction;
-import java.util.function.Function;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
@@ -92,47 +91,48 @@ public class DataManager {
         return totalString.toString();
     }
 
-    public static String[] getCardsFolderName() {
-        return new String[]{"General", "Lupa", "Maso"};
-    }
+//    public static String[] getCardsFolderName() {
+//        return new String[]{"General", "Lupa", "Maso"};
+//    }
 
-    public static String makeImgFilesPath_Card(String fileName, String... folderPaths) {
-        FileHandle find = Arrays.stream(getCardsFolderName())
-                .map(folder -> Gdx.files.internal(makeImgFilesPath(fileName, "cards", folder, makeFolderTotalString(folderPaths))))
-                .filter(FileHandle::exists).findAny().orElse(null);
-
-        if (find == null) return makeImgFilesPath("default", "cards");
-        return find.path();
+    public static String makeImgFilesPath_Card(String fileName, String... subFolder) {
+//        FileHandle find = Arrays.stream(getCardsFolderName())
+//                .map(folder -> Gdx.files.internal(makeImgFilesPath(fileName, "cards", folder, makeFolderTotalString(subFolder))))
+//                .filter(FileHandle::exists).findAny().orElse(null);
+//
+//        if (find == null)
+            return makeImgFilesPath(fileName, "cards", makeFolderTotalString(subFolder));
+//        return find.path();
 
 //        return makeImgFilesPath(fileName, "cards", makeFolderTotalString(folderPaths));
     }
 
-    public static String makeImgFilesPath_Relic(String fileName, String... folderPaths) {
-        return makeImgFilesPath(fileName, "relics", makeFolderTotalString(folderPaths));
+    public static String makeImgFilesPath_Relic(String fileName, String... subFolder) {
+        return makeImgFilesPath(fileName, "relics", makeFolderTotalString(subFolder));
     }
 
-    public static String makeImgFilesPath_UI(String fileName, String... folderPaths) {
-        return makeImgFilesPath(fileName, "UI", makeFolderTotalString(folderPaths));
+    public static String makeImgFilesPath_UI(String fileName, String... subFolder) {
+        return makeImgFilesPath(fileName, "UI", makeFolderTotalString(subFolder));
     }
 
-    public static String makeImgFilesPath_Character_Lupa(String fileName, String... folderPaths) {
-        return makeImgFilesPath(fileName, "character_lupa", makeFolderTotalString(folderPaths));
+    public static String makeImgFilesPath_Character_Lupa(String fileName, String... subFolder) {
+        return makeImgFilesPath(fileName, "character_lupa", makeFolderTotalString(subFolder));
     }
 
-    public static String makeImgFilesPath_RelicOutline(String fileName, String... folderPaths) {
-        return makeImgFilesPath(fileName, "relics/outline", makeFolderTotalString(folderPaths));
+    public static String makeImgFilesPath_RelicOutline(String fileName, String... subFolder) {
+        return makeImgFilesPath(fileName, "relics/outline", makeFolderTotalString(subFolder));
     }
 
-    public static String makeImgFilesPath_Orb(String fileName, String... folderPaths) {
-        return makeImgFilesPath(fileName, "orbs", makeFolderTotalString(folderPaths));
+    public static String makeImgFilesPath_Orb(String fileName, String... subFolder) {
+        return makeImgFilesPath(fileName, "orbs", makeFolderTotalString(subFolder));
     }
 
-    public static String makeImgFilesPath_Power(String fileName, String... folderPaths) {
-        return makeImgFilesPath(fileName, "powers", makeFolderTotalString(folderPaths));
+    public static String makeImgFilesPath_Power(String fileName, String... subFolder) {
+        return makeImgFilesPath(fileName, "powers", makeFolderTotalString(subFolder));
     }
 
-    public static String makeImgFilesPath_Event(String fileName, String... folderPaths) {
-        return makeImgFilesPath(fileName, "events", makeFolderTotalString(folderPaths));
+    public static String makeImgFilesPath_Event(String fileName, String... subFolder) {
+        return makeImgFilesPath(fileName, "events", makeFolderTotalString(subFolder));
     }
 
 
@@ -234,10 +234,10 @@ public class DataManager {
     //        return null;
     //
 
-    public static String makeImgPath(String defaultFileName, BiFunction<String, String[], String> PathFinder, String fileName, String... folderPath) {
+    public static String makeImgPath(String defaultFileName, BiFunction<String, String[], String> PathFinder, String fileName, String... subFolder) {
         String path;
         String idOnlyNames = DataManager.getIdOnly(fileName);
-        path = PathFinder.apply(idOnlyNames, folderPath);
+        path = PathFinder.apply(idOnlyNames, subFolder);
 
         if (Gdx.files.internal(path).exists())
             return path;
@@ -247,52 +247,52 @@ public class DataManager {
 //        if (findFile != null) return findFile.path();
 //
 
-        final String defaultPath = PathFinder.apply(defaultFileName, folderPath);
+        final String defaultPath = PathFinder.apply(defaultFileName,new String[]{""});
         Logger.warning("Can't find " + path + ". Use default img instead.");
 
-//        if (Objects.equals(System.getenv().get("USERNAME"), "27435"))
-//            makeNeedDrawPicture(defaultFileName, PathFinder, fileName, defaultPath);
+//        if (Objects.equals(System.getenv().get("USERNAME"), "27435")) {
+//            try {
+//                makeNeedDrawPicture(defaultFileName, PathFinder, idOnlyNames, defaultPath, subFolder);
+//            } catch (IOException e) {
+//                Logger.error(e);
+//            }
+//        }
 
         return defaultPath;
     }
 
     //生成所有的需要绘制的图片，方便检查
-    private static void makeNeedDrawPicture(String defaultFileName, Function<String[], String> PathFinder, String[] fileName, String defaultPath) {
-        List<String> NeedDrawFileName = new ArrayList<>();
-        NeedDrawFileName.add("needDraw");
-        NeedDrawFileName.addAll(Arrays.asList(DataManager.getIdOnly(fileName)));
+    private static void makeNeedDrawPicture(String defaultFileName, BiFunction<String, String[], String> PathFinder, String fileName, String defaultPath, String... subFolder) throws IOException {
+        List<String> needDrawFileName = new ArrayList<>();
+        needDrawFileName.add("needDraw");
+        needDrawFileName.addAll(Arrays.asList(subFolder));
 
         final FileHandle defaultFileHandle;
 
-        if (PathFinder.apply(new String[]{""}).contains("card")) {
-            NeedDrawFileName.set(NeedDrawFileName.size() - 1, NeedDrawFileName.get(NeedDrawFileName.size() - 1) + "_p");
-            defaultFileHandle = Gdx.files.internal(PathFinder.apply(new String[]{defaultFileName + "_p"}));
+        if (PathFinder.apply("", subFolder).contains("card")) {
+            defaultFileHandle = Gdx.files.internal(PathFinder.apply(defaultFileName + "_p",new String[]{""}));
         }
-        else if (PathFinder.apply(new String[]{""}).contains("orb")) {
+        else if (PathFinder.apply("", subFolder).contains("orb")) {
             return;
         }
         else {
             defaultFileHandle = Gdx.files.internal(defaultPath);
         }
 
-        String defaultFilePath = PathFinder.apply(NeedDrawFileName.toArray(new String[]{}));
-        File defaultFileCopyTo = new File(defaultFilePath);
+        String needDrawFilePath = PathFinder.apply(fileName + "_p", needDrawFileName.toArray(new String[0]));
+        File defaultFileCopyTo = new File(needDrawFilePath);
         Pattern pattern = Pattern.compile("^(.+/)[^/]+$");
-        Matcher matcher = pattern.matcher(defaultFilePath);
-        String folderPath;
+        Matcher matcher = pattern.matcher(needDrawFilePath);
+        String totalFolderPath;
         if (matcher.find()) {
-            folderPath = matcher.group(1);
+            totalFolderPath = matcher.group(1);
         }
         else {
-            folderPath = defaultFilePath;
+            totalFolderPath = needDrawFilePath;
         }
-        new File(folderPath).mkdirs();
-        try {
-            if (!defaultFileCopyTo.exists())
-                Files.copy(defaultFileHandle.read(), defaultFileCopyTo.toPath());
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+        new File(totalFolderPath).mkdirs();
+        if (!defaultFileCopyTo.exists())
+            Files.copy(defaultFileHandle.read(), defaultFileCopyTo.toPath());
     }
 
     static <T> T makeJsonStringFromFile(String fileName, Class<T> objectClass) {

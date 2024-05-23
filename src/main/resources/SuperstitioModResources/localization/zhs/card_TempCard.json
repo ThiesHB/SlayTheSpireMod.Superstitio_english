@@ -42,16 +42,16 @@
     "DESCRIPTION": "回合开始时，获得 !M! superstitiomod:窒息 。",
     "FLAVOR": "鱼人来到了陆地上。"
   },
-  "SuperstitioMod:KaakaGirlMode": {
+  "SuperstitioMod:KakaaGirlMode": {
     "NAME": "咔咔变形",
     "NAME_SFW": "咔咔变形",
-    "DESCRIPTION": "获得 !M! 仪式 。",
+    "DESCRIPTION": "回合开始时，获得 !M! 力量 。",
     "FLAVOR": ""
   },
-  "SuperstitioMod:BirdGirlMode": {
-    "NAME": "鸟娘变形",
-    "NAME_SFW": "鸟人变形",
-    "DESCRIPTION": "回合开始时，获得 !M! *飞行 。",
+  "SuperstitioMod:SlimeGirlMode": {
+    "NAME": "史莱姆变形",
+    "NAME_SFW": "史莱姆变形",
+    "DESCRIPTION": "回合开始时，获得 !M! superstitiomod:史莱姆韧性 。",
     "FLAVOR": ""
   },
   "SuperstitioMod:FeelPhantomBody": {

@@ -32,9 +32,9 @@ import static superstitio.orbs.orbgroup.SexMarkOrbGroup.addToBot_GiveMarkToOrbGr
 import static superstitio.utils.ActionUtility.addToBot_applyPower;
 
 public interface FuckJob_Card {
-    static final int InsideSemenRate = 3;
-    static final int OutsideSemenRate = 2;
-    static final int FloorSemenRate = 1;
+    int InsideSemenRate = 3;
+    int OutsideSemenRate = 2;
+    int FloorSemenRate = 1;
 
     static void addToTop_Semen_Inside() {
         addToBot_applyPower(new InsideSemen(AbstractDungeon.player, InsideSemenRate));

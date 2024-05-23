@@ -95,7 +95,7 @@
   "SuperstitioMod:Fuck_Eye": {
     "NAME": "眼奸",
     "NAME_SFW": "蛇形拳",
-    "DESCRIPTION": "造成 2 次 !D! 点 伤害 。 NL  获得 1 虚弱 。 NL superstitiomod:助兴 。 NL superstitiomod:欲求 !M! 任何牌： NL 移除 !B! 点 *腐朽 ， 把 *耳奸 加入手牌 。 NL 消耗 。",
+    "DESCRIPTION": "对自身和目标敌人造成 2 次 !D! 点 伤害 ， 获得 1 虚弱 。 NL superstitiomod:助兴 。 NL superstitiomod:欲求 !M! 任何牌： NL 移除 !B! 点 *腐朽 ， 把 *耳奸 加入手牌 。 NL 消耗 。",
     "FLAVOR": "也许是脑交。总的来说还是取决于肉棒的主人敢不敢用力吧。"
   },
   "SuperstitioMod:Fuck_Navel": {
@@ -107,7 +107,7 @@
   "SuperstitioMod:Fuck_Nipple": {
     "NAME": "乳奸",
     "NAME_SFW": "猴形拳",
-    "DESCRIPTION": "重复两次： NL 对随机敌人 造成 !D! 点 伤害 ，施加 !M! superstitiomod:乳汁 。",
+    "DESCRIPTION": "重复两次： NL 对随机敌人 造成 !D! 点 伤害 ，给予 !M! superstitiomod:乳汁 。",
     "FLAVOR": "大奶子特权。"
   },
   "SuperstitioMod:Fuck_Throat": {

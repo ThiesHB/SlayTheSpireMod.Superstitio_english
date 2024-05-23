@@ -117,7 +117,13 @@
   "SuperstitioMod:Milk": {
     "NAME": "乳汁",
     "DESCRIPTIONS": [
-      "造成伤害时，目标和自身都获得 %d 点 #y临时生命 ，然后移除 #b%d 层。"
+      "造成伤害时，目标和自身都获得 %d 点 #y临时生命 ，然后移除 一半 。"
+    ]
+  },
+  "SuperstitioMod:PlayerFlightPower": {
+    "NAME": "史莱姆韧性",
+    "DESCRIPTIONS": [
+      "将下 %d 次 所受到的 #y攻击 伤害 减半 。"
     ]
   }
 }

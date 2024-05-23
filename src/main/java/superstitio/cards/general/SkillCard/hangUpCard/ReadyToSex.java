@@ -10,8 +10,8 @@ import superstitio.DataManager;
 import superstitio.actions.AutoDoneInstantAction;
 import superstitio.actions.ChoseCardFromHandCardSelectScreen;
 import superstitio.cards.general.GeneralCard;
-import superstitio.orbs.CardOrb_WaitCardTrigger;
-import superstitio.orbs.orbgroup.HangUpCardGroup;
+import superstitio.hangUpCard.CardOrb_WaitCardTrigger;
+import superstitio.hangUpCard.HangUpCardGroup;
 
 public class ReadyToSex extends GeneralCard {
     public static final String ID = DataManager.MakeTextID(ReadyToSex.class);

@@ -1,19 +1,18 @@
 package superstitio.cards.maso.PowerCard;
 
+import basemod.AutoAdd;
 import com.megacrit.cardcrawl.cards.DamageInfo;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import superstitio.DataManager;
 import superstitio.cards.SuperstitioCard;
-import superstitio.cards.general.AbstractTempCard;
 import superstitio.cards.maso.MasoCard;
-import superstitio.delayHpLose.RemoveDelayHpLoseBlock;
 import superstitio.powers.EasyBuildAbstractPowerForPowerCard;
 import superstitio.powers.Milk;
-import superstitio.powers.masoOnly.LostBodyPart;
 
-public class BodyModification_SuperHugeBreast extends MasoCard {
-    public static final String ID = DataManager.MakeTextID(BodyModification_SuperHugeBreast.class);
+@AutoAdd.Ignore
+public class BodyModification_Tattoo extends MasoCard {
+    public static final String ID = DataManager.MakeTextID(BodyModification_Tattoo.class);
 
     public static final CardType CARD_TYPE = CardType.POWER;
 
@@ -21,27 +20,27 @@ public class BodyModification_SuperHugeBreast extends MasoCard {
 
     public static final CardTarget CARD_TARGET = CardTarget.SELF;
 
-    private static final int COST = 2;
-    private static final int MAGIC = 4;
-    private static final int UPGRADE_MAGIC = 2;
+    private static final int COST = 3;
+    private static final int MAGIC = 3;
+    private static final int UPGRADE_MAGIC = 1;
 
-    public BodyModification_SuperHugeBreast() {
+    public BodyModification_Tattoo() {
         super(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET);
         this.setupMagicNumber(MAGIC, UPGRADE_MAGIC);
     }
 
     @Override
     public void use(AbstractPlayer player, AbstractMonster monster) {
-        addToBot_applyPower(new BodyModification_SuperHugeBreastPower(this.magicNumber));
+        addToBot_applyPower(new BodyModification_TattooPower(this.magicNumber));
     }
 
     @Override
     public void upgradeAuto() {
     }
 
-    public static class BodyModification_SuperHugeBreastPower extends EasyBuildAbstractPowerForPowerCard {
+    public static class BodyModification_TattooPower extends EasyBuildAbstractPowerForPowerCard {
 
-        public BodyModification_SuperHugeBreastPower(int amount) {
+        public BodyModification_TattooPower(int amount) {
             super(amount);
         }
 
@@ -59,7 +58,7 @@ public class BodyModification_SuperHugeBreast extends MasoCard {
 
         @Override
         protected SuperstitioCard makePowerCard() {
-            return new BodyModification_SuperHugeBreast();
+            return new BodyModification_Tattoo();
         }
     }
 }

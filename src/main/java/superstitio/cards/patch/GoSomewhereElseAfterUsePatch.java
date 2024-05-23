@@ -9,7 +9,7 @@ import javassist.CannotCompileException;
 import javassist.expr.ExprEditor;
 import javassist.expr.MethodCall;
 import superstitio.actions.AutoDoneInstantAction;
-import superstitio.orbs.CardOrb_CardTrigger;
+import superstitio.hangUpCard.CardOrb_CardTrigger;
 
 @SpirePatch(clz = UseCardAction.class, method = "update")
 public class GoSomewhereElseAfterUsePatch {

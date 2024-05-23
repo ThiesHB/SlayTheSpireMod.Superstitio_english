@@ -4,7 +4,7 @@
   "author_list": ["Creeper_of_Fire"],
   "description": "",
   "credits": "",
-  "version": "0.2",
+  "version": "0.3.1",
   "sts_version": "12-20-2018",
   "mts_version": "3.6.0",
   "dependencies": ["basemod"]

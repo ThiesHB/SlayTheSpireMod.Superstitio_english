@@ -8,8 +8,8 @@ import superstitio.cardModifier.modifiers.damage.SexDamage;
 import superstitio.cards.DamageActionMaker;
 import superstitio.cards.general.GeneralCard;
 import superstitio.cards.patch.GoSomewhereElseAfterUse;
-import superstitio.orbs.CardOrb_EachCardTrigger;
-import superstitio.orbs.orbgroup.HangUpCardGroup;
+import superstitio.hangUpCard.CardOrb_EachCardTrigger;
+import superstitio.hangUpCard.HangUpCardGroup;
 
 public class Ahegao extends GeneralCard implements GoSomewhereElseAfterUse {
     public static final String ID = DataManager.MakeTextID(Ahegao.class);

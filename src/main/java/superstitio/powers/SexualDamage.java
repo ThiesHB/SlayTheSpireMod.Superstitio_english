@@ -4,13 +4,15 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.evacipated.cardcrawl.mod.stslib.powers.interfaces.HealthBarRenderPower;
 import com.megacrit.cardcrawl.actions.AbstractGameAction;
-import com.megacrit.cardcrawl.actions.common.LoseHPAction;
 import com.megacrit.cardcrawl.core.AbstractCreature;
 import superstitio.DataManager;
+import superstitio.cards.DamageActionMaker;
+import superstitio.delayHpLose.UnBlockAbleDamage;
 import superstitio.powers.patchAndInterface.interfaces.DecreaseHealthBarNumberPower;
 
 public class SexualDamage extends AbstractSuperstitioPower implements HealthBarRenderPower, DecreaseHealthBarNumberPower {
     public static final String POWER_ID = DataManager.MakeTextID(SexualDamage.class);
+    private static final Color BarColor = Color.PURPLE.cpy();
     protected final AbstractCreature giver;
 
     public SexualDamage(final AbstractCreature owner, int amount, AbstractCreature giver) {
@@ -23,7 +25,10 @@ public class SexualDamage extends AbstractSuperstitioPower implements HealthBarR
     public void atStartOfTurn() {
 //        this.owner.damage(BindingHelper.makeInfo(new DamageModContainer(this, new UnBlockAbleDamage()), giver, amount, DamageType.HP_LOSS));
         this.flash();
-        addToBot(new LoseHPAction(this.owner, giver, this.amount, AbstractGameAction.AttackEffect.POISON));
+        DamageActionMaker.maker(this.giver, this.amount, this.owner)
+                .setDamageModifier(this, new UnBlockAbleDamage())
+                .setDamageType(DataManager.CanOnlyDamageDamageType.UnBlockAbleDamageType)
+                .setEffect(AbstractGameAction.AttackEffect.POISON);
         addToBot_removeSpecificPower(this);
     }
 
@@ -39,7 +44,7 @@ public class SexualDamage extends AbstractSuperstitioPower implements HealthBarR
 
     @Override
     public Color getColor() {
-        return Color.PINK.cpy();
+        return BarColor;
     }
 
     @Override

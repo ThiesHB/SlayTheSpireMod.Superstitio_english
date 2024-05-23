@@ -1,6 +1,5 @@
 package superstitio.delayHpLose;
 
-import com.megacrit.cardcrawl.cards.DamageInfo;
 import com.megacrit.cardcrawl.core.AbstractCreature;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
@@ -24,7 +23,7 @@ public class DelayHpLosePower_ApplyOnlyOnVictory extends DelayHpLosePower {
         this.isRemovedForApplyDamage = true;
         PowerUtility.BubbleMessage(this, false, pureName());
         CardCrawlGame.sound.play("POWER_TIME_WARP", 0.05f);
-        AbstractDungeon.player.damage(new DamageInfo(AbstractDungeon.player, this.amount, DataManager.CanOnlyDamageDamageType.UnBlockAbleDamageType));
+        AbstractDungeon.player.damage(UnBlockAbleDamage.damageInfo(this, amount));
     }
 
     @Override

@@ -8,6 +8,7 @@ import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.helpers.CardLibrary;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import superstitio.DataManager;
+import superstitio.cards.CardOwnerPlayerManager;
 import superstitio.cards.general.FuckJob_Card;
 import superstitio.cards.lupa.LupaCard;
 import superstitio.utils.ActionUtility;
@@ -40,7 +41,7 @@ public class ChooseCoitalPosture extends LupaCard {
 
     public static List<AbstractCard> getAllFuckJobCard() {
         return CardLibrary.cards.values().stream()
-                .filter(card -> card instanceof FuckJob_Card && card instanceof LupaCard)
+                .filter(card -> card instanceof FuckJob_Card && card instanceof CardOwnerPlayerManager.IsLupaCard)
                 .collect(Collectors.toList());
     }
 

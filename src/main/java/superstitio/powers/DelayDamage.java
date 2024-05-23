@@ -66,6 +66,8 @@ public class DelayDamage extends AbstractSuperstitioPower implements HealthBarRe
 
     @Override
     public Color getColor() {
-        return Color.ORANGE.cpy();
+        return BarColor;
     }
+
+    private static final Color BarColor = Color.ORANGE.cpy();
 }

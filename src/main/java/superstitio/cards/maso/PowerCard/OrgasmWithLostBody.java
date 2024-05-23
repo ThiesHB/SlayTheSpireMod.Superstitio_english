@@ -9,9 +9,11 @@ import com.megacrit.cardcrawl.ui.panels.EnergyPanel;
 import com.megacrit.cardcrawl.vfx.cardManip.PurgeCardEffect;
 import superstitio.DataManager;
 import superstitio.actions.AutoDoneInstantAction;
+import superstitio.cards.SuperstitioCard;
 import superstitio.cards.general.TempCard.FeelPhantomBody;
 import superstitio.cards.maso.MasoCard;
 import superstitio.powers.AbstractSuperstitioPower;
+import superstitio.powers.EasyBuildAbstractPowerForPowerCard;
 
 import static superstitio.utils.ActionUtility.addToBot_makeTempCardInBattle;
 
@@ -34,7 +36,7 @@ public class OrgasmWithLostBody extends MasoCard {
 
     @Override
     public void use(AbstractPlayer player, AbstractMonster monster) {
-        addToBot_applyPower(new OrgasmWithLostBodyPower(player));
+        addToBot_applyPower(new OrgasmWithLostBodyPower());
     }
 
     @Override
@@ -42,11 +44,9 @@ public class OrgasmWithLostBody extends MasoCard {
         this.upgradeCardsToPreview();
     }
 
-    public static class OrgasmWithLostBodyPower extends AbstractSuperstitioPower {
-        public static final String POWER_ID = DataManager.MakeTextID(OrgasmWithLostBodyPower.class);
-
-        public OrgasmWithLostBodyPower(final AbstractCreature owner) {
-            super(POWER_ID, owner, -1);
+    public static class OrgasmWithLostBodyPower extends EasyBuildAbstractPowerForPowerCard {
+        public OrgasmWithLostBodyPower() {
+            super(-1);
         }
 
         private static boolean hasEnoughEnergyOrTurnEnd(AbstractCard card) {
@@ -75,6 +75,11 @@ public class OrgasmWithLostBody extends MasoCard {
 
         @Override
         public void updateDescriptionArgs() {
+        }
+
+        @Override
+        protected SuperstitioCard makePowerCard() {
+            return new OrgasmWithLostBody();
         }
     }
 }

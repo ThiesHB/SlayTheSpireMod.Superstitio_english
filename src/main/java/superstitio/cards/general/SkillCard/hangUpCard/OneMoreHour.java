@@ -5,7 +5,7 @@ import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import superstitio.DataManager;
 import superstitio.cards.general.GeneralCard;
 import superstitio.delayHpLose.RemoveDelayHpLoseBlock;
-import superstitio.orbs.CardOrb_CardTrigger;
+import superstitio.hangUpCard.CardOrb_CardTrigger;
 import superstitio.orbs.Card_AvoidAllCardUsedCheckOfCardOrb_ManuallyTriggerCardOrb;
 
 import static superstitio.InBattleDataManager.getHangUpCardOrbGroup;
@@ -37,7 +37,7 @@ public class OneMoreHour extends GeneralCard implements Card_AvoidAllCardUsedChe
         addToBot_gainBlock();
         for (int i = 0; i < this.magicNumber; i++) {
             addToBotAbstract(() -> getHangUpCardOrbGroup()
-                    .ifPresent(cardGroup -> cardGroup.orbs.stream()
+                    .ifPresent(cardGroup -> cardGroup.cards.stream()
                             .filter(orb -> orb instanceof CardOrb_CardTrigger)
                             .forEach(orb -> ((CardOrb_CardTrigger) orb).OrbCounter += this.magicNumber)));
         }

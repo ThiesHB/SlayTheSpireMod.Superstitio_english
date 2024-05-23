@@ -35,6 +35,7 @@ public class FistIn extends MasoCard {
             addToBot(new LoseHPAction(AbstractDungeon.player, AbstractDungeon.player, card.costForTurn * magicNumber));
             addToBot(new NewQueueCardAction(card, true, false, true));
         }))
+                .setRetainFilter()
                 .setWindowText(cardStrings.getEXTENDED_DESCRIPTION()[0])
                 .addToBot();
     }

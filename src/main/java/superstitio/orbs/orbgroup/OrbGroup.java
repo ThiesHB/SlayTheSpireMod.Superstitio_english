@@ -30,9 +30,11 @@ import java.util.Objects;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 
+import static superstitio.SuperstitioModSubscriber.*;
+
 public abstract class OrbGroup implements
         RenderInBattle, OnPowersModifiedSubscriber, OnPlayerTurnStartSubscriber,
-        SuperstitioModSubscriber.AtStartOfMonsterTurnSubscriber {
+        AtStartOfMonsterTurnSubscriber {
     private static final String[] TEXT = new String[]{"  A  "};
     private static final int MAX_MAX_ORB = 10;
     public AbstractOrb CustomEmptyOrb;

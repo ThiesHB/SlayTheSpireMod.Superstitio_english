@@ -22,7 +22,7 @@ public class Job_Breast extends GeneralCard implements FuckJob_Card {
     private static final int COST = 2;
     private static final int DAMAGE = 18;
     private static final int UPGRADE_DAMAGE = 7;
-    private static final int MAGIC = 5;
+    private static final int MAGIC = 6;
 
     public Job_Breast() {
         super(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET);

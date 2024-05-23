@@ -52,7 +52,7 @@
   "SuperstitioMod:BlindfoldWithMilk": {
     "NAME": "以乳蒙眼",
     "NAME_SFW": "以血蒙眼",
-    "DESCRIPTION": "造成 !D! 点 伤害 。 NL 目标敌人跳过一个动作。 NL 施加 !M! superstitiomod:乳汁 。",
+    "DESCRIPTION": "造成 !D! 点 伤害 。 NL 目标敌人跳过一个动作。 NL 给予 !M! superstitiomod:乳汁 。",
     "FLAVOR": "这招如何？"
   },
   "SuperstitioMod:SelfBind": {
@@ -176,7 +176,7 @@
     "FLAVOR": ""
   },
   "SuperstitioMod:MeasureDick": {
-    "NAME": "测量阴茎",
+    "NAME": "肚量",
     "NAME_SFW": "投掷武器",
     "DESCRIPTION": "从手牌中丢弃至多 !M! 张牌， NL 获得它们当前 [E] 花费相对于原始 [E] 花费的减免值。",
     "FLAVOR": "看看谁插的最深？",

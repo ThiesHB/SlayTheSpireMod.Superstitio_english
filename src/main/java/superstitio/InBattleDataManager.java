@@ -2,7 +2,7 @@ package superstitio;
 
 import basemod.interfaces.ISubscriber;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
-import superstitio.orbs.orbgroup.HangUpCardGroup;
+import superstitio.hangUpCard.HangUpCardGroup;
 import superstitio.orbs.orbgroup.SexMarkOrbGroup;
 import superstitio.powers.patchAndInterface.barIndepend.BarRenderGroup;
 import superstitio.powers.patchAndInterface.barIndepend.RenderInBattle;

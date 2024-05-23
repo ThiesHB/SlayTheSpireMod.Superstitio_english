@@ -1,7 +1,5 @@
 package superstitio.powers.masoOnly;
 
-import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import superstitio.cards.general.FuckJob_Card;
@@ -27,11 +25,11 @@ public abstract class LostBodyPart extends AbstractSuperstitioPower {
     @Override
     public boolean canPlayCard(AbstractCard card) {
         if (!(card instanceof FuckJob_Card)) return true;
-        return checkCard((FuckJob_Card) card);
+        return canUseBody((FuckJob_Card) card);
     }
 
-    private boolean checkCard(FuckJob_Card card) {
-        return banedBodyPart.contains(FuckJob_Card.getBodyPartType(card));
+    private boolean canUseBody(FuckJob_Card card) {
+        return !banedBodyPart.contains(FuckJob_Card.getBodyPartType(card));
     }
 
     public abstract FuckJob_Card.BodyPart[] banedBodyPart();

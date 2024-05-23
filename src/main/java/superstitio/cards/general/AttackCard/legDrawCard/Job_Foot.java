@@ -11,8 +11,8 @@ import superstitio.cards.general.FuckJob_Card;
 import superstitio.cards.general.GeneralCard;
 import superstitio.cards.lupa.LupaCard;
 import superstitio.cards.patch.GoSomewhereElseAfterUse;
-import superstitio.orbs.CardOrb_EachCardTrigger;
-import superstitio.orbs.orbgroup.HangUpCardGroup;
+import superstitio.hangUpCard.CardOrb_EachCardTrigger;
+import superstitio.hangUpCard.HangUpCardGroup;
 import superstitio.utils.PowerUtility;
 
 public class Job_Foot extends GeneralCard implements FuckJob_Card, GoSomewhereElseAfterUse {

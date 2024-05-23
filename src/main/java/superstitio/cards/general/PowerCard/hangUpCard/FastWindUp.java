@@ -6,7 +6,7 @@ import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import superstitio.DataManager;
 import superstitio.cards.general.GeneralCard;
-import superstitio.orbs.CardOrb_CardTrigger;
+import superstitio.hangUpCard.CardOrb_CardTrigger;
 import superstitio.powers.AbstractSuperstitioPower;
 import superstitio.powers.SexualHeat;
 import superstitio.powers.patchAndInterface.interfaces.orgasm.OnOrgasm_onOrgasm;
@@ -55,7 +55,7 @@ public class FastWindUp extends GeneralCard {
             for (int i = 0; i < this.amount; i++) {
                 this.flash();
                 addToBotAbstract(() -> getHangUpCardOrbGroup()
-                        .ifPresent(cardGroup -> cardGroup.orbs.stream()
+                        .ifPresent(cardGroup -> cardGroup.cards.stream()
                                 .filter(orb -> orb instanceof CardOrb_CardTrigger)
                                 .forEach(orb -> ((CardOrb_CardTrigger) orb)
                                         .forceAcceptAction(new FastWindUp()))));

@@ -20,7 +20,7 @@ public class CutWrist extends MasoCard {
     private static final int COST = 1;
     private static final int MAGIC = 8;
     private static final int BLOCK = 18;
-    private static final int UPGRADE_BLOCK = 5;
+    private static final int UPGRADE_BLOCK = 4;
 
     public CutWrist() {
         super(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET);
