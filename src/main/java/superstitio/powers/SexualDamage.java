@@ -28,7 +28,8 @@ public class SexualDamage extends AbstractSuperstitioPower implements HealthBarR
         DamageActionMaker.maker(this.giver, this.amount, this.owner)
                 .setDamageModifier(this, new UnBlockAbleDamage())
                 .setDamageType(DataManager.CanOnlyDamageDamageType.UnBlockAbleDamageType)
-                .setEffect(AbstractGameAction.AttackEffect.POISON);
+                .setEffect(AbstractGameAction.AttackEffect.POISON)
+                .addToTop();
         addToBot_removeSpecificPower(this);
     }
 

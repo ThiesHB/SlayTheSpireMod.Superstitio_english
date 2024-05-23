@@ -21,6 +21,8 @@ public class PregnantBlock_sealPower extends PregnantBlock {
 
     @Override
     public void onAttacked(DamageInfo info, int damageAmount) {
+        if (sealCreature == null || sealCreature.isDeadOrEscaped()) return;
+        if (info.type != DamageInfo.DamageType.NORMAL) return;
         DamageActionMaker.maker(Math.min(damageAmount, getCurrentAmount()), sealCreature).addToBot();
         super.onAttacked(info, damageAmount);
     }
@@ -32,9 +34,10 @@ public class PregnantBlock_sealPower extends PregnantBlock {
 
     @Override
     public void removeUnNaturally(DamageInfo info, int remainingDamage) {
+        if (sealCreature == null || sealCreature.isDeadOrEscaped()) return;
 
         for (AbstractPower power : sealPower) {
-            addToBot(new ApplyPowerAction(this.owner, sealCreature == null ? this.owner : sealCreature, power));
+            addToBot(new ApplyPowerAction(this.owner, this.owner, power));
         }
     }
 

@@ -91,20 +91,8 @@ public class DataManager {
         return totalString.toString();
     }
 
-//    public static String[] getCardsFolderName() {
-//        return new String[]{"General", "Lupa", "Maso"};
-//    }
-
     public static String makeImgFilesPath_Card(String fileName, String... subFolder) {
-//        FileHandle find = Arrays.stream(getCardsFolderName())
-//                .map(folder -> Gdx.files.internal(makeImgFilesPath(fileName, "cards", folder, makeFolderTotalString(subFolder))))
-//                .filter(FileHandle::exists).findAny().orElse(null);
-//
-//        if (find == null)
             return makeImgFilesPath(fileName, "cards", makeFolderTotalString(subFolder));
-//        return find.path();
-
-//        return makeImgFilesPath(fileName, "cards", makeFolderTotalString(folderPaths));
     }
 
     public static String makeImgFilesPath_Relic(String fileName, String... subFolder) {
@@ -242,21 +230,17 @@ public class DataManager {
         if (Gdx.files.internal(path).exists())
             return path;
 
-//        String majorFolderPath = PathFinder.apply("", new String[]{});
-//        FileHandle findFile = tryMatchFileInFolder(majorFolderPath, fileName, 0);
-//        if (findFile != null) return findFile.path();
-//
 
         final String defaultPath = PathFinder.apply(defaultFileName,new String[]{""});
         Logger.warning("Can't find " + path + ". Use default img instead.");
 
-//        if (Objects.equals(System.getenv().get("USERNAME"), "27435")) {
-//            try {
-//                makeNeedDrawPicture(defaultFileName, PathFinder, idOnlyNames, defaultPath, subFolder);
-//            } catch (IOException e) {
-//                Logger.error(e);
-//            }
-//        }
+        if (Objects.equals(System.getenv().get("USERNAME"), "27435")) {
+            try {
+                makeNeedDrawPicture(defaultFileName, PathFinder, idOnlyNames, defaultPath, subFolder);
+            } catch (IOException e) {
+                Logger.error(e);
+            }
+        }
 
         return defaultPath;
     }
