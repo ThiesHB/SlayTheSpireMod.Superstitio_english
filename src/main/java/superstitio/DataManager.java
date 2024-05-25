@@ -116,7 +116,7 @@ public class DataManager {
     }
 
     public static String makeImgFilesPath_Character_Lupa(String fileName, String... subFolder) {
-        return makeImgFilesPath(fileName, "character_lupa", makeFolderTotalString(subFolder));
+        return makeImgFilesPath(fileName, "character", makeFolderTotalString(subFolder));
     }
 
     public static String makeImgFilesPath_RelicOutline(String fileName, String... subFolder) {
@@ -249,13 +249,13 @@ public class DataManager {
         final String defaultPath = PathFinder.apply(defaultFileName, new String[]{""});
         Logger.warning("Can't find " + path + ". Use default img instead.");
 
-//        if (Objects.equals(System.getenv().get("USERNAME"), "27435")) {
-//            try {
-//                makeNeedDrawPicture(defaultFileName, PathFinder, idOnlyNames, defaultPath, subFolder);
-//            } catch (IOException e) {
-//                Logger.error(e);
-//            }
-//        }
+        if (Objects.equals(System.getenv().get("USERNAME"), "27435")) {
+            try {
+                makeNeedDrawPicture(defaultFileName, PathFinder, idOnlyNames, defaultPath, subFolder);
+            } catch (IOException e) {
+                Logger.error(e);
+            }
+        }
 
         return defaultPath;
     }
@@ -423,6 +423,7 @@ public class DataManager {
         public String LUPA_CHARACTER_BUTTON = makeImgFilesPath_Character_Lupa("Character_Button");
         // 人物选择界面的立绘
         public String LUPA_CHARACTER_PORTRAIT = makeImgFilesPath_Character_Lupa("Character_Portrait");
+        public String MASO_CHARACTER_PORTRAIT = makeImgFilesPath_Character_Lupa("Character_Maso_Portrait");
 
         // 为原版人物枚举、卡牌颜色枚举扩展的枚举，需要写，接下来要用
         public static class LupaEnums {

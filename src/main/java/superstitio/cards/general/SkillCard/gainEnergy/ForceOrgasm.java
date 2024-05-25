@@ -35,7 +35,7 @@ public class ForceOrgasm extends GeneralCard {
         int magicNumber = this.magicNumber;
         addToBot(new XCostAction(this, AbstractGameAction.ActionType.ENERGY, effect -> {
             addToBot_applyPower(new SexualHeat(AbstractDungeon.player, effect * magicNumber));
-            addToBot_applyPower(new superstitio.powers.Overdraft(AbstractDungeon.player, ExhaustNum));
+            addToBot_applyPower(new superstitio.powers.Overdraft(AbstractDungeon.player, effect * ExhaustNum));
         }));
     }
 

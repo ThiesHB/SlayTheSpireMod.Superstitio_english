@@ -146,7 +146,7 @@ public class SuperstitioModSetup implements
                 data.spttData.LUPA_CHARACTER_BUTTON, data.spttData.LUPA_CHARACTER_PORTRAIT, LUPA_Character);
 //        if (getEnableSFW()) return;
         BaseMod.addCharacter(new Maso(CardCrawlGame.playerName),
-                data.spttData.LUPA_CHARACTER_BUTTON, data.spttData.LUPA_CHARACTER_PORTRAIT, MASO_Character);
+                data.spttData.LUPA_CHARACTER_BUTTON, data.spttData.MASO_CHARACTER_PORTRAIT, MASO_Character);
     }
 
     @Override
