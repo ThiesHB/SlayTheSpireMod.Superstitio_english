@@ -10,11 +10,20 @@ public abstract class AbstractLupaRelic extends CustomRelic implements updateDes
     private Object[] descriptionArgs;
 
     public AbstractLupaRelic(String id, RelicTier relicTier, LandingSound landingSound) {
-        super(id, ImageMaster.loadImage(makeImgPath(id)), relicTier, landingSound);
+        super(id, ImageMaster.loadImage(makeImgPath(id)),ImageMaster.loadImage(makeImgPathOutLine(id)), relicTier, landingSound);
+        this.largeImg = ImageMaster.loadImage(makeImgPathLarge(id));
     }
 
     private static String makeImgPath(final String id) {
         return DataManager.makeImgPath(DEFAULT_RELIC, DataManager::makeImgFilesPath_Relic, id);
+    }
+
+    private static String makeImgPathOutLine(final String id) {
+        return DataManager.makeImgPath(DEFAULT_RELIC, DataManager::makeImgFilesPath_RelicOutline, id);
+    }
+
+    private static String makeImgPathLarge(final String id) {
+        return DataManager.makeImgPath(DEFAULT_RELIC, DataManager::makeImgFilesPath_RelicLarge, id);
     }
 
     @Override

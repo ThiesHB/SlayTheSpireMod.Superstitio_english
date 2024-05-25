@@ -15,6 +15,7 @@ import superstitio.relics.AbstractLupaRelic;
 import superstitio.relics.interFace.Countup;
 import superstitio.utils.ActionUtility;
 
+
 public class CumOnShoes extends AbstractLupaRelic implements Countup {
     public static final String ID = DataManager.MakeTextID(CumOnShoes.class);
     // 遗物类型

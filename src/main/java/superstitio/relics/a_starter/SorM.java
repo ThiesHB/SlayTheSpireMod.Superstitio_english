@@ -19,7 +19,7 @@ import superstitio.utils.CardUtility;
  * S：每造成超过SadismModeRate的伤害获得一点快感。
  * M：每受到超过MasochismModeRate的伤害获得一点快感。
  */
-@AutoAdd.Seen
+@AutoAdd.Ignore
 public class SorM extends AbstractLupaRelic implements ClickableRelic, CustomSavable<Integer>, BetterOnLoseHpRelic {
     public static final String ID = DataManager.MakeTextID(SorM.class);
     // 遗物类型

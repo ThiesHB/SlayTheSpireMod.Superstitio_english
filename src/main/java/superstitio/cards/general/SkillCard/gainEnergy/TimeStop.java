@@ -49,6 +49,7 @@ public class TimeStop extends GeneralCard {
 
         public TimeStopPower(final AbstractCreature owner, int amount) {
             super(POWER_ID, owner, amount);
+            this.loadRegion("time");
         }
 
         @Override

@@ -6,7 +6,7 @@ import com.megacrit.cardcrawl.vfx.combat.HealEffect;
 import superstitio.DataManager;
 
 public class DelayHpLosePower_HealOnVictory extends DelayHpLosePower_ApplyAtEndOfRound {
-    private static final String POWER_ID = DataManager.MakeTextID(DelayHpLosePower_HealOnVictory.class);
+    public static final String POWER_ID = DataManager.MakeTextID(DelayHpLosePower_HealOnVictory.class);
 
     public DelayHpLosePower_HealOnVictory(AbstractCreature owner, int amount) {
         super(POWER_ID, owner, amount);

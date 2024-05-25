@@ -16,9 +16,21 @@ import com.megacrit.cardcrawl.core.Settings;
 import com.megacrit.cardcrawl.helpers.CardLibrary;
 import com.megacrit.cardcrawl.localization.LocalizedStrings;
 import superstitio.cards.CardOwnerPlayerManager;
+import superstitio.cards.general.PowerCard.drawAndEnergy.ChokeChoker;
+import superstitio.cards.general.SkillCard.gainEnergy.TimeStop;
 import superstitio.cards.lupa.LupaCard;
+import superstitio.cards.lupa.SkillCard.Philter;
 import superstitio.cards.maso.MasoCard;
 import superstitio.customStrings.*;
+import superstitio.delayHpLose.DelayHpLosePower_ApplyAtEndOfRound;
+import superstitio.delayHpLose.DelayHpLosePower_ApplyOnlyOnVictory;
+import superstitio.delayHpLose.DelayHpLosePower_HealOnVictory;
+import superstitio.delayHpLose.DelayRemoveDelayHpLosePower;
+import superstitio.powers.SexualHeat;
+import superstitio.powers.lupaOnly.BeerCupSemen;
+import superstitio.powers.lupaOnly.FloorSemen;
+import superstitio.powers.lupaOnly.InsideSemen;
+import superstitio.powers.lupaOnly.OutsideSemen;
 
 import java.io.File;
 import java.io.IOException;
@@ -92,7 +104,7 @@ public class DataManager {
     }
 
     public static String makeImgFilesPath_Card(String fileName, String... subFolder) {
-            return makeImgFilesPath(fileName, "cards", makeFolderTotalString(subFolder));
+        return makeImgFilesPath(fileName, "cards", makeFolderTotalString(subFolder));
     }
 
     public static String makeImgFilesPath_Relic(String fileName, String... subFolder) {
@@ -109,6 +121,9 @@ public class DataManager {
 
     public static String makeImgFilesPath_RelicOutline(String fileName, String... subFolder) {
         return makeImgFilesPath(fileName, "relics/outline", makeFolderTotalString(subFolder));
+    }
+    public static String makeImgFilesPath_RelicLarge(String fileName, String... subFolder) {
+        return makeImgFilesPath(fileName, "relics/large", makeFolderTotalString(subFolder));
     }
 
     public static String makeImgFilesPath_Orb(String fileName, String... subFolder) {
@@ -231,30 +246,35 @@ public class DataManager {
             return path;
 
 
-        final String defaultPath = PathFinder.apply(defaultFileName,new String[]{""});
+        final String defaultPath = PathFinder.apply(defaultFileName, new String[]{""});
         Logger.warning("Can't find " + path + ". Use default img instead.");
 
-//        if (Objects.equals(System.getenv().get("USERNAME"), "27435")) {
-//            try {
-//                makeNeedDrawPicture(defaultFileName, PathFinder, idOnlyNames, defaultPath, subFolder);
-//            } catch (IOException e) {
-//                Logger.error(e);
-//            }
-//        }
+        if (Objects.equals(System.getenv().get("USERNAME"), "27435")) {
+            try {
+                makeNeedDrawPicture(defaultFileName, PathFinder, idOnlyNames, defaultPath, subFolder);
+            } catch (IOException e) {
+                Logger.error(e);
+            }
+        }
 
         return defaultPath;
     }
+
+
 
     //生成所有的需要绘制的图片，方便检查
     private static void makeNeedDrawPicture(String defaultFileName, BiFunction<String, String[], String> PathFinder, String fileName, String defaultPath, String... subFolder) throws IOException {
         List<String> needDrawFileName = new ArrayList<>();
         needDrawFileName.add("needDraw");
         needDrawFileName.addAll(Arrays.asList(subFolder));
+        if (fileName.contains("32")) return;
+        if (fileName.contains("84") && noNeedDrawPower84(fileName)) return;
+
 
         final FileHandle defaultFileHandle;
 
         if (PathFinder.apply("", subFolder).contains("card")) {
-            defaultFileHandle = Gdx.files.internal(PathFinder.apply(defaultFileName + "_p",new String[]{""}));
+            defaultFileHandle = Gdx.files.internal(PathFinder.apply(defaultFileName + "_p", new String[]{""}));
         }
         else if (PathFinder.apply("", subFolder).contains("orb")) {
             return;
@@ -263,7 +283,12 @@ public class DataManager {
             defaultFileHandle = Gdx.files.internal(defaultPath);
         }
 
-        String needDrawFilePath = PathFinder.apply(fileName + "_p", needDrawFileName.toArray(new String[0]));
+        String needDrawFilePath;
+        if (PathFinder.apply("", subFolder).contains("card")) {
+            needDrawFilePath = PathFinder.apply(fileName + "_p", needDrawFileName.toArray(new String[0]));
+        }
+        else
+            needDrawFilePath = PathFinder.apply(fileName, needDrawFileName.toArray(new String[0]));
         File defaultFileCopyTo = new File(needDrawFilePath);
         Pattern pattern = Pattern.compile("^(.+/)[^/]+$");
         Matcher matcher = pattern.matcher(needDrawFilePath);
@@ -277,6 +302,33 @@ public class DataManager {
         new File(totalFolderPath).mkdirs();
         if (!defaultFileCopyTo.exists())
             Files.copy(defaultFileHandle.read(), defaultFileCopyTo.toPath());
+    }
+
+    private static boolean noNeedDrawPower84(String fileName) {
+        String checkName = fileName.replace("84", "");
+        if (checkName.equals(DataManager.getIdOnly(Philter.SexPlateArmorPower.POWER_ID)))
+            return true;
+        if (checkName.equals(DataManager.getIdOnly(TimeStop.TimeStopPower.POWER_ID)))
+            return true;
+        if (checkName.equals(DataManager.getIdOnly(ChokeChoker.ChokeChokerPower.POWER_ID)))
+            return true;
+        if (checkName.equals(DataManager.getIdOnly(SexualHeat.POWER_ID)))
+            return true;
+        if (checkName.equals(DataManager.getIdOnly(DelayHpLosePower_ApplyOnlyOnVictory.POWER_ID)))
+            return true;
+        if (checkName.equals(DataManager.getIdOnly(DelayHpLosePower_HealOnVictory.POWER_ID)))
+            return true;
+        if (checkName.equals(DataManager.getIdOnly(DelayRemoveDelayHpLosePower.POWER_ID)))
+            return true;
+        if (checkName.equals(DataManager.getIdOnly(FloorSemen.POWER_ID)))
+            return true;
+        if (checkName.equals(DataManager.getIdOnly(InsideSemen.POWER_ID)))
+            return true;
+        if (checkName.equals(DataManager.getIdOnly(OutsideSemen.POWER_ID)))
+            return true;
+        if (checkName.equals(DataManager.getIdOnly(BeerCupSemen.POWER_ID)))
+            return true;
+        return false;
     }
 
     static <T> T makeJsonStringFromFile(String fileName, Class<T> objectClass) {
