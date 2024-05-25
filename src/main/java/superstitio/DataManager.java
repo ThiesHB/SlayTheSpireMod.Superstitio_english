@@ -249,13 +249,13 @@ public class DataManager {
         final String defaultPath = PathFinder.apply(defaultFileName, new String[]{""});
         Logger.warning("Can't find " + path + ". Use default img instead.");
 
-        if (Objects.equals(System.getenv().get("USERNAME"), "27435")) {
-            try {
-                makeNeedDrawPicture(defaultFileName, PathFinder, idOnlyNames, defaultPath, subFolder);
-            } catch (IOException e) {
-                Logger.error(e);
-            }
-        }
+//        if (Objects.equals(System.getenv().get("USERNAME"), "27435")) {
+//            try {
+//                makeNeedDrawPicture(defaultFileName, PathFinder, idOnlyNames, defaultPath, subFolder);
+//            } catch (IOException e) {
+//                Logger.error(e);
+//            }
+//        }
 
         return defaultPath;
     }

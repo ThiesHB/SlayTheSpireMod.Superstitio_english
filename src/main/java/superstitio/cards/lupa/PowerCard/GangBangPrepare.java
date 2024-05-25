@@ -2,7 +2,6 @@ package superstitio.cards.lupa.PowerCard;
 
 import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
-import com.megacrit.cardcrawl.core.AbstractCreature;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import superstitio.DataManager;
@@ -12,7 +11,7 @@ import superstitio.cards.general.FuckJob_Card;
 import superstitio.cards.general.TempCard.GangBang;
 import superstitio.cards.lupa.LupaCard;
 import superstitio.orbs.orbgroup.SexMarkOrbGroup;
-import superstitio.powers.AbstractSuperstitioPower;
+import superstitio.powers.EasyBuildAbstractPowerForPowerCard;
 
 import static superstitio.cards.general.FuckJob_Card.addToTop_gainSexMark_Inside;
 import static superstitio.cards.general.FuckJob_Card.addToTop_gainSexMark_Outside;
@@ -40,7 +39,7 @@ public class GangBangPrepare extends LupaCard {
 
     @Override
     public void use(AbstractPlayer player, AbstractMonster monster) {
-        addToBot_applyPower(new GangBangPreparePower(AbstractDungeon.player));
+        addToBot_applyPower(new GangBangPreparePower());
         SexMarkOrbGroup sexMarkOrbGroup = InBattleDataManager.getSexMarkOrbGroup().orElse(null);
         if (sexMarkOrbGroup != null) return;
 
@@ -51,11 +50,10 @@ public class GangBangPrepare extends LupaCard {
     public void upgradeAuto() {
     }
 
-    public static class GangBangPreparePower extends AbstractSuperstitioPower {
-        public static final String POWER_ID = DataManager.MakeTextID(GangBangPreparePower.class);
+    public static class GangBangPreparePower extends EasyBuildAbstractPowerForPowerCard {
 
-        public GangBangPreparePower(final AbstractCreature owner) {
-            super(POWER_ID, owner, -1);
+        public GangBangPreparePower() {
+            super(-1);
         }
 
 
@@ -74,6 +72,11 @@ public class GangBangPrepare extends LupaCard {
 
         @Override
         public void updateDescriptionArgs() {
+        }
+
+        @Override
+        protected SuperstitioCard makePowerCard() {
+            return new GangBangPrepare();
         }
     }
 }
