@@ -7,10 +7,10 @@ import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.vfx.RainingGoldEffect;
 import superstitio.DataManager;
 import superstitio.cards.general.FuckJob_Card;
-import superstitio.relics.AbstractLupaRelic;
+import superstitio.relics.SuperstitioRelic;
 import superstitio.relics.interFace.Countup;
 
-public class Prostitution extends AbstractLupaRelic implements Countup {
+public class Prostitution extends SuperstitioRelic implements Countup {
     public static final String ID = DataManager.MakeTextID(Prostitution.class);
     // 遗物类型
     private static final RelicTier RELIC_TIER = RelicTier.COMMON;

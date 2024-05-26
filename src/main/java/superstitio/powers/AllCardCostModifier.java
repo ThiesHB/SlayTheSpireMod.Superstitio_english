@@ -216,7 +216,7 @@ public abstract class AllCardCostModifier extends AbstractSuperstitioPower imple
     }
 
     @Override
-    public void InitializePostApplyThisPower() {
+    public void InitializePostApplyThisPower(AbstractPower addedPower) {
         this.order = AllCardCostModifier.getAll().map(p -> p.order).min(Integer::compareTo).orElse(0);
 //        if (TempDecreaseCost.getAllTempDecreaseCost().findAny().isPresent()
 //                || TempDecreaseCost.getAllTempDecreaseCost().noneMatch(TempDecreaseCost::isActive))

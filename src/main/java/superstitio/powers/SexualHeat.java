@@ -78,7 +78,7 @@ public class SexualHeat extends AbstractSuperstitioPower implements
     }
 
     @Override
-    public void InitializePostApplyThisPower() {
+    public void InitializePostApplyThisPower(AbstractPower addedPower) {
         CheckOrgasm();
         updateDescription();
     }

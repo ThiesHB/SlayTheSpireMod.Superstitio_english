@@ -2,10 +2,10 @@ package superstitio.relics.a_starter;
 
 import basemod.AutoAdd;
 import superstitio.DataManager;
-import superstitio.relics.AbstractLupaRelic;
+import superstitio.relics.SuperstitioRelic;
 
 @AutoAdd.Seen
-public class JokeDescription extends AbstractLupaRelic {
+public class JokeDescription extends SuperstitioRelic {
     public static final String ID = DataManager.MakeTextID(JokeDescription.class);
     // 遗物类型
     private static final RelicTier RELIC_TIER = RelicTier.SPECIAL;

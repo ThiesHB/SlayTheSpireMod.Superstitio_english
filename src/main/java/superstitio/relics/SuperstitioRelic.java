@@ -1,16 +1,19 @@
 package superstitio.relics;
 
 import basemod.abstracts.CustomRelic;
+import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.helpers.ImageMaster;
 import superstitio.DataManager;
+import superstitio.characters.Lupa;
+import superstitio.characters.Maso;
 import superstitio.utils.updateDescriptionAdvanced;
 
-public abstract class AbstractLupaRelic extends CustomRelic implements updateDescriptionAdvanced {
+public abstract class SuperstitioRelic extends CustomRelic implements updateDescriptionAdvanced {
     public static final String DEFAULT_RELIC = "default_relic";
     private Object[] descriptionArgs;
 
-    public AbstractLupaRelic(String id, RelicTier relicTier, LandingSound landingSound) {
-        super(id, ImageMaster.loadImage(makeImgPath(id)),ImageMaster.loadImage(makeImgPathOutLine(id)), relicTier, landingSound);
+    public SuperstitioRelic(String id, RelicTier relicTier, LandingSound landingSound) {
+        super(id, ImageMaster.loadImage(makeImgPath(id)), ImageMaster.loadImage(makeImgPathOutLine(id)), relicTier, landingSound);
         this.largeImg = ImageMaster.loadImage(makeImgPathLarge(id));
     }
 
@@ -24,6 +27,11 @@ public abstract class AbstractLupaRelic extends CustomRelic implements updateDes
 
     private static String makeImgPathLarge(final String id) {
         return DataManager.makeImgPath(DEFAULT_RELIC, DataManager::makeImgFilesPath_RelicLarge, id);
+    }
+
+    @Override
+    public boolean canSpawn() {
+        return AbstractDungeon.player instanceof Maso || AbstractDungeon.player instanceof Lupa;
     }
 
     @Override

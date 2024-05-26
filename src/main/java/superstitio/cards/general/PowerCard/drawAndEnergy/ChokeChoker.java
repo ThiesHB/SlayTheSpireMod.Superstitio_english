@@ -2,10 +2,10 @@ package superstitio.cards.general.PowerCard.drawAndEnergy;
 
 import com.megacrit.cardcrawl.actions.AbstractGameAction;
 import com.megacrit.cardcrawl.actions.common.ApplyPowerAction;
-import com.megacrit.cardcrawl.actions.common.LoseHPAction;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.core.AbstractCreature;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
+import com.megacrit.cardcrawl.powers.AbstractPower;
 import superstitio.DataManager;
 import superstitio.actions.AutoDoneInstantAction;
 import superstitio.cards.DamageActionMaker;
@@ -61,6 +61,12 @@ public class ChokeChoker extends GeneralCard {
             AddPowers();
         }
 
+        @Override
+        public void InitializePostApplyThisPower(AbstractPower addedPower) {
+            if (addedPower instanceof ChokeChokerPower)
+                AutoDoneInstantAction.addToBotAbstract(() -> ((ChokeChokerPower) addedPower).AddPowers());
+        }
+
         public void AddPowers() {
             this.addToBot(new ApplyPowerAction(this.owner, this.owner, new SexualHeatNeededModifier(this.owner, amount)));
         }
@@ -69,7 +75,7 @@ public class ChokeChoker extends GeneralCard {
         @Override
         public void onOrgasm(SexualHeat SexualHeatPower) {
             this.flash();
-            DamageActionMaker.maker(this.owner,this.amount,this.owner)
+            DamageActionMaker.maker(this.owner, this.amount, this.owner)
                     .setEffect(AbstractGameAction.AttackEffect.NONE)
                     .setSuperFast(true)
                     .setDamageType(DataManager.CanOnlyDamageDamageType.NoTriggerMasoRelicDamageType)
@@ -83,11 +89,6 @@ public class ChokeChoker extends GeneralCard {
         @Override
         public void updateDescriptionArgs() {
             this.setDescriptionArgs(amount, ChokeAmount);
-        }
-
-        @Override
-        public void InitializePostApplyThisPower() {
-            AutoDoneInstantAction.addToBotAbstract(this::AddPowers);
         }
     }
 }

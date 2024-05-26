@@ -10,7 +10,7 @@ import superstitio.cards.SuperstitioCard;
 import superstitio.cards.general.FuckJob_Card;
 import superstitio.delayHpLose.DelayHpLosePatch;
 import superstitio.delayHpLose.DelayHpLosePower_ApplyOnlyOnVictory;
-import superstitio.relics.AbstractLupaRelic;
+import superstitio.relics.SuperstitioRelic;
 
 import static com.megacrit.cardcrawl.dungeons.AbstractDungeon.player;
 import static superstitio.DataManager.CanOnlyDamageDamageType.UnBlockAbleDamageType;
@@ -18,7 +18,7 @@ import static superstitio.cards.general.FuckJob_Card.*;
 import static superstitio.utils.ActionUtility.addToTop_applyPower;
 
 @AutoAdd.Seen
-public class DevaBody_Lupa extends AbstractLupaRelic {
+public class DevaBody_Lupa extends SuperstitioRelic {
     public static final String ID = DataManager.MakeTextID(DevaBody_Lupa.class);
     // 遗物类型
     private static final RelicTier RELIC_TIER = RelicTier.SPECIAL;

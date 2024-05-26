@@ -2,6 +2,7 @@ package superstitio.powers;
 
 import com.megacrit.cardcrawl.actions.common.RemoveSpecificPowerAction;
 import com.megacrit.cardcrawl.core.AbstractCreature;
+import com.megacrit.cardcrawl.powers.AbstractPower;
 import superstitio.DataManager;
 import superstitio.actions.AutoDoneInstantAction;
 import superstitio.powers.patchAndInterface.interfaces.OnPostApplyThisPower;
@@ -37,7 +38,7 @@ public class SexualHeatNeededModifier extends AbstractSuperstitioPower implement
     }
 
     @Override
-    public void InitializePostApplyThisPower() {
+    public void InitializePostApplyThisPower(AbstractPower addedPower) {
         AutoDoneInstantAction.addToBotAbstract(() ->
                 SexualHeat.getActiveSexualHeat(owner)
                         .ifPresent(SexualHeatPower -> SexualHeatPower.setHeatRequired(SexualHeat.HEAT_REQUIREDOrigin - this.amount)));

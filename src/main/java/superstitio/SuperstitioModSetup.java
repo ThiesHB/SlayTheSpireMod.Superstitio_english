@@ -2,6 +2,7 @@ package superstitio;
 
 import basemod.*;
 import basemod.abstracts.CustomRelic;
+import basemod.helpers.RelicType;
 import basemod.interfaces.*;
 import com.badlogic.gdx.graphics.Texture;
 import com.evacipated.cardcrawl.mod.stslib.Keyword;
@@ -15,12 +16,13 @@ import com.megacrit.cardcrawl.localization.CharacterStrings;
 import com.megacrit.cardcrawl.localization.LocalizedStrings;
 import com.megacrit.cardcrawl.localization.RelicStrings;
 import com.megacrit.cardcrawl.localization.UIStrings;
+import com.megacrit.cardcrawl.relics.AbstractRelic;
 import com.megacrit.cardcrawl.unlock.UnlockTracker;
 import superstitio.cards.SuperstitioCard;
 import superstitio.characters.Lupa;
 import superstitio.characters.Maso;
 import superstitio.customStrings.*;
-import superstitio.relics.AbstractLupaRelic;
+import superstitio.relics.SuperstitioRelic;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -165,12 +167,16 @@ public class SuperstitioModSetup implements
     @Override
     public void receiveEditRelics() {
         new AutoAdd(MOD_NAME.toLowerCase())
-                .packageFilter(AbstractLupaRelic.class)
+                .packageFilter(SuperstitioRelic.class)
                 .any(CustomRelic.class, (info, relic) -> {
-                    BaseMod.addRelicToCustomPool(relic, LUPA_CARD);
-//                    if (info.seen) {
-                    UnlockTracker.markRelicAsSeen(relic.relicId);
-//                    }
+//                    BaseMod.addRelicToCustomPool(relic, LUPA_CARD);
+//                    AbstractRelic relicMaso = relic.makeCopy();
+//                    relicMaso.isSeen = false;
+//                    BaseMod.addRelicToCustomPool(relic.makeCopy(), MASO_CARD);
+                    BaseMod.addRelic(relic, RelicType.SHARED);
+                    if (info.seen) {
+                        UnlockTracker.markRelicAsSeen(relic.relicId);
+                    }
                 });
     }
 

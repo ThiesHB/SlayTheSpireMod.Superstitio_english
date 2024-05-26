@@ -10,7 +10,7 @@ import superstitio.DataManager;
 import superstitio.delayHpLose.DelayHpLosePatch;
 import superstitio.delayHpLose.DelayHpLosePower_HealOnVictory;
 import superstitio.powers.AbstractSuperstitioPower;
-import superstitio.relics.AbstractLupaRelic;
+import superstitio.relics.SuperstitioRelic;
 
 import static com.megacrit.cardcrawl.dungeons.AbstractDungeon.player;
 import static superstitio.DataManager.CanOnlyDamageDamageType.UnBlockAbleDamageType;
@@ -18,7 +18,7 @@ import static superstitio.utils.ActionUtility.addToBot_applyPower;
 import static superstitio.utils.ActionUtility.addToTop_applyPower;
 
 @AutoAdd.Seen
-public class DevaBody_Masochism extends AbstractLupaRelic {
+public class DevaBody_Masochism extends SuperstitioRelic {
     public static final String ID = DataManager.MakeTextID(DevaBody_Masochism.class);
     // 遗物类型
     private static final RelicTier RELIC_TIER = RelicTier.SPECIAL;

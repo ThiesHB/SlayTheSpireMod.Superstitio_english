@@ -6,12 +6,12 @@ import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import superstitio.DataManager;
 import superstitio.powers.SexualHeat;
-import superstitio.relics.AbstractLupaRelic;
+import superstitio.relics.SuperstitioRelic;
 
 import static com.megacrit.cardcrawl.dungeons.AbstractDungeon.player;
 
 @AutoAdd.Seen
-public class Sensitive extends AbstractLupaRelic {
+public class Sensitive extends SuperstitioRelic {
     public static final String ID = DataManager.MakeTextID(Sensitive.class);
     // 遗物类型
     private static final RelicTier RELIC_TIER = RelicTier.SPECIAL;

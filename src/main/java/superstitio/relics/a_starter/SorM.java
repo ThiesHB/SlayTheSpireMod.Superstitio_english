@@ -11,7 +11,7 @@ import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.helpers.PowerTip;
 import superstitio.DataManager;
 import superstitio.powers.SexualHeat;
-import superstitio.relics.AbstractLupaRelic;
+import superstitio.relics.SuperstitioRelic;
 import superstitio.utils.CardUtility;
 
 /**
@@ -20,7 +20,7 @@ import superstitio.utils.CardUtility;
  * M：每受到超过MasochismModeRate的伤害获得一点快感。
  */
 @AutoAdd.Ignore
-public class SorM extends AbstractLupaRelic implements ClickableRelic, CustomSavable<Integer>, BetterOnLoseHpRelic {
+public class SorM extends SuperstitioRelic implements ClickableRelic, CustomSavable<Integer>, BetterOnLoseHpRelic {
     public static final String ID = DataManager.MakeTextID(SorM.class);
     // 遗物类型
     private static final RelicTier RELIC_TIER = RelicTier.SPECIAL;

@@ -4,8 +4,8 @@ import com.megacrit.cardcrawl.actions.watcher.ChooseOneAction;
 import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.cards.DamageInfo;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
+import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
-import com.megacrit.cardcrawl.powers.watcher.VigorPower;
 import superstitio.DataManager;
 import superstitio.cards.SuperstitioCard;
 import superstitio.cards.general.AbstractTempCard;
@@ -44,14 +44,21 @@ public class BodyModification_CutOff extends MasoCard {
 
     @Override
     public void use(AbstractPlayer player, AbstractMonster monster) {
+        final ArrayList<AbstractCard> bodyParts = new ArrayList<>();
+        if (!AbstractDungeon.player.hasPower(LostBodyPart_Arm.POWER_ID))
+            bodyParts.add(new BodyModification_CutOff_Chose(new LostBodyPart_Arm()));
+        if (!AbstractDungeon.player.hasPower(LostBodyPart_Breast.POWER_ID))
+            bodyParts.add(new BodyModification_CutOff_Chose(new LostBodyPart_Breast()));
+        if (!AbstractDungeon.player.hasPower(LostBodyPart_Castration.POWER_ID))
+            bodyParts.add(new BodyModification_CutOff_Chose(new LostBodyPart_Castration()));
+        if (!AbstractDungeon.player.hasPower(LostBodyPart_Head.POWER_ID))
+            bodyParts.add(new BodyModification_CutOff_Chose(new LostBodyPart_Head()));
+        if (!AbstractDungeon.player.hasPower(LostBodyPart_Leg.POWER_ID))
+            bodyParts.add(new BodyModification_CutOff_Chose(new LostBodyPart_Leg()));
+        if (bodyParts.isEmpty())
+            return;
         addToBot_gainBlock();
         addToBot_applyPower(new BodyModification_CutOffPower(this.magicNumber));
-        final ArrayList<AbstractCard> bodyParts = new ArrayList<>();
-        bodyParts.add(new BodyModification_CutOff_Chose(new LostBodyPart_Arm()));
-        bodyParts.add(new BodyModification_CutOff_Chose(new LostBodyPart_Breast()));
-        bodyParts.add(new BodyModification_CutOff_Chose(new LostBodyPart_Castration()));
-        bodyParts.add(new BodyModification_CutOff_Chose(new LostBodyPart_Head()));
-        bodyParts.add(new BodyModification_CutOff_Chose(new LostBodyPart_Leg()));
         this.addToBot(new ChooseOneAction(bodyParts));
     }
 

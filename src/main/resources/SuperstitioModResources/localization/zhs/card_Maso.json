@@ -8,13 +8,13 @@
   "SuperstitioMod:MasoCard:DrinkPoison": {
     "NAME": "饮鸩止渴",
     "NAME_SFW": "饮鸩止渴",
-    "DESCRIPTION": "移除一半的 *腐朽 ， NL 获得 移除量平方根的 中毒。 NL （预计中毒： !M! ）",
+    "DESCRIPTION": "移除一半的 *腐朽 ， NL 获得 移除量一半的 中毒。 NL （预计移除： !M! ）",
     "FLAVOR": "甜丝丝的，谁能想到呢？我可不是觉得有趣才喝的哦。"
   },
   "SuperstitioMod:MasoCard:CutWrist": {
     "NAME": "割腕",
     "NAME_SFW": "血液护甲",
-    "DESCRIPTION": "失去 !M! 生命 。 NL 获得 !B! 点 *格挡 。",
+    "DESCRIPTION": "失去 !M! 生命 。 NL 移除 !B! 点 *腐朽 。",
     "FLAVOR": "充满了魔性的魅力。"
   },
   "SuperstitioMod:MasoCard:NailExtraction": {
@@ -28,13 +28,13 @@
     "NAME": "慕残之心",
     "NAME_SFW": "加装义体",
     "DESCRIPTION": "抽到 无法打出 的牌时，将其消耗，在手牌中添加一张 *感受幻肢 。",
-    "FLAVOR": ""
+    "FLAVOR": "真希望我一开始就没有这些部位，那样一定很无助~❤"
   },
   "SuperstitioMod:MasoCard:FistIn": {
     "NAME": "拳头插入",
     "NAME_SFW": "强制打出",
     "DESCRIPTION": "选择一张手牌，失去其当前费用 !M! 倍的血量，强制打出。",
-    "FLAVOR": "",
+    "FLAVOR": "再深一点会更好。",
     "EXTENDED_DESCRIPTION": [
       "选择一张牌，强制打出。"
     ]
@@ -42,10 +42,10 @@
   "SuperstitioMod:MasoCard:BodyModification_CutOff": {
     "NAME": "改造：身体欠损",
     "NAME_SFW": "改造：义体升级",
-    "DESCRIPTION": "%s 攻击力提升 百分之 !M!  。 %s",
+    "DESCRIPTION": "%s 攻击力提升 百分之 !M! 。 %s",
     "FLAVOR": "",
     "EXTENDED_DESCRIPTION": [
-      "移除 !B! *腐朽 。",
+      "若还有可选择的部位：移除 !B! *腐朽 ，",
       " NL 选择一个部位，其对应的 *性交牌 无法打出。"
     ]
   },

@@ -32,7 +32,7 @@ public class DrinkPoison extends MasoCard {
     public DrinkPoison() {
         super(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET);
         this.setupMagicNumber(MAGIC);
-        CardModifierManager.addModifier(this,new ExhaustMod());
+        CardModifierManager.addModifier(this, new ExhaustMod());
     }
 
     @Override
@@ -41,7 +41,7 @@ public class DrinkPoison extends MasoCard {
                 .mapToInt(power -> power.amount).sum();
         DelayHpLosePower.addToBot_removePower(totalDelayHpLose / 2, AbstractDungeon.player, true);
         addToBot_applyPower(new PoisonPower(AbstractDungeon.player, AbstractDungeon.player,
-                (int) Math.sqrt((double) totalDelayHpLose / 2) + 1));
+                totalDelayHpLose / 4));
     }
 
     @Override

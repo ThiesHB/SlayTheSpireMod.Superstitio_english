@@ -7,7 +7,7 @@ import com.megacrit.cardcrawl.cards.DamageInfo;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import superstitio.DataManager;
 import superstitio.powers.SexualHeat;
-import superstitio.relics.AbstractLupaRelic;
+import superstitio.relics.SuperstitioRelic;
 import superstitio.utils.CardUtility;
 
 /**
@@ -16,7 +16,7 @@ import superstitio.utils.CardUtility;
  * M：每受到超过MasochismModeRate的伤害获得一点快感。
  */
 @AutoAdd.Seen
-public class MasochismMode extends AbstractLupaRelic implements BetterOnLoseHpRelic {
+public class MasochismMode extends SuperstitioRelic implements BetterOnLoseHpRelic {
     public static final String ID = DataManager.MakeTextID(MasochismMode.class);
     // 遗物类型
     private static final RelicTier RELIC_TIER = RelicTier.SPECIAL;

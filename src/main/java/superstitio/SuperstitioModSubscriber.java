@@ -82,7 +82,7 @@ public class SuperstitioModSubscriber implements
             if (abstractPower instanceof OnPostApplyThisPower)
                 target.powers.forEach(power -> {
                     if (Objects.equals(power.ID, abstractPower.ID) && power instanceof OnPostApplyThisPower) {
-                        ((OnPostApplyThisPower) power).InitializePostApplyThisPower();
+                        ((OnPostApplyThisPower) power).InitializePostApplyThisPower(abstractPower);
                     }
                 });
         });

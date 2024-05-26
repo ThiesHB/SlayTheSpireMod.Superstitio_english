@@ -8,9 +8,9 @@ import com.megacrit.cardcrawl.powers.StrengthPower;
 import superstitio.DataManager;
 import superstitio.powers.SexualHeat;
 import superstitio.powers.patchAndInterface.interfaces.orgasm.OnOrgasm_onOrgasm;
-import superstitio.relics.AbstractLupaRelic;
+import superstitio.relics.SuperstitioRelic;
 
-public class NippleRings extends AbstractLupaRelic implements OnOrgasm_onOrgasm {
+public class NippleRings extends SuperstitioRelic implements OnOrgasm_onOrgasm {
     public static final String ID = DataManager.MakeTextID(NippleRings.class);
     // 遗物类型
     private static final RelicTier RELIC_TIER = RelicTier.UNCOMMON;

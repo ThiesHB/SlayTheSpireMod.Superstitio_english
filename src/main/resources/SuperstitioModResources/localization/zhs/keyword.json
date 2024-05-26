@@ -1,193 +1,193 @@
 ﻿[
-  {
-    "PROPER_NAME": "精欲",
-    "NAMES": [
-      "精欲"
-    ],
-    "DESCRIPTION": "消耗足够价值的精液才能打出并发挥效果。"
-  },
-  {
-    "PROPER_NAME": "快感",
-    "NAMES": [
-      "快感"
-    ],
-    "DESCRIPTION": "每累计一定点数迎来一次 #y高潮 。"
-  },
-  {
-    "PROPER_NAME": "#r接纳腐朽",
-    "NAMES": [
-      "接纳腐朽"
-    ],
-    "DESCRIPTION": "接纳腐朽后，生命值才会真正失去。"
-  },
-  {
-    "PROPER_NAME": "#r新生腐朽",
-    "NAMES": [
-      "新生腐朽"
-    ],
-    "DESCRIPTION": "上回合获得的 #r腐朽 。"
-  },
-  {
-    "PROPER_NAME": "高潮",
-    "NAMES": [
-      "高潮",
-      "高潮中"
-    ],
-    "DESCRIPTION": " 你 #y高潮 时，所有卡牌耗能临时减少 [E] ， NL 敌人则会在 #y高潮 后 眩晕 。"
-  },
-  {
-    "PROPER_NAME": "连续高潮",
-    "NAMES": [
-      "连续高潮"
-    ],
-    "DESCRIPTION": " #y高潮 情况下，再积累 #y快感 就会 #y连续高潮 。 NL #y连续高潮 会进一步增加减免的 [E] 。"
-  },
-  {
-    "PROPER_NAME": "潮吹",
-    "NAMES": [
-      "潮吹"
-    ],
-    "DESCRIPTION": " 在 #y高潮 期间， 打出耗能降低的卡视作 #y潮吹 。"
-  },
-  {
-    "PROPER_NAME": "结束高潮",
-    "NAMES": [
-      "结束高潮"
-    ],
-    "DESCRIPTION": " #y快感 低于 #y高潮 阈值时，结束 #y高潮 。"
-  },
-  {
-    "PROPER_NAME": "快感修正",
-    "NAMES": [
-      "快感修正"
-    ],
-    "DESCRIPTION": " 本回合增加或减少 #y高潮 所需的 #y快感 数量 。"
-  },
-  {
-    "PROPER_NAME": "潮吹修正",
-    "NAMES": [
-      "潮吹修正"
-    ],
-    "DESCRIPTION": " 本回合增加或减少 潮吹 消耗的 #y快感 数量 。"
-  },
-  {
-    "PROPER_NAME": "情趣玩具",
-    "NAMES": [
-      "情趣玩具"
-    ],
-    "DESCRIPTION": "回合开始时， #y情趣玩具 会提供 #y快感 。"
-  },
-  {
-    "PROPER_NAME": "施虐者",
-    "NAMES": [
-      "施虐者"
-    ],
-    "DESCRIPTION": "对敌人使用时触发的额外效果。"
-  },
-  {
-    "PROPER_NAME": "受虐者",
-    "NAMES": [
-      "受虐者"
-    ],
-    "DESCRIPTION": "对自己使用时触发的额外效果。"
-  },
-  {
-    "PROPER_NAME": "濒死",
-    "NAMES": [
-      "濒死"
-    ],
-    "DESCRIPTION": "免疫 生命流失 和 荆棘 伤害。"
-  },
-  {
-    "PROPER_NAME": "助兴",
-    "NAMES": [
-      "助兴"
-    ],
-    "DESCRIPTION": "打出后，不进入牌堆，直到效果耗尽。"
-  },
-  {
-    "PROPER_NAME": "欲求",
-    "NAMES": [
-      "欲求"
-    ],
-    "DESCRIPTION": "累积打出卡牌后，触发效果。"
-  },
-  {
-    "PROPER_NAME": "缠绵",
-    "NAMES": [
-      "缠绵"
-    ],
-    "DESCRIPTION": "打出指定卡牌时，触发效果。"
-  },
-  {
-    "PROPER_NAME": "乐声不起",
-    "NAMES": [
-      "乐声不起"
-    ],
-    "DESCRIPTION": "遇到敌人时，不再根据战斗情节播放个人背景音乐。"
-  },
-  {
-    "PROPER_NAME": "身光忽灭",
-    "NAMES": [
-      "身光忽灭"
-    ],
-    "DESCRIPTION": "渲染图片时，屏幕亮度从百分之五亿调至凡人范围。"
-  },
-  {
-    "PROPER_NAME": "浴水着身",
-    "NAMES": [
-      "浴水着身"
-    ],
-    "DESCRIPTION": "掉入水坑时，无法毫发无损地从史莱姆黏液中逃脱。"
-  },
-  {
-    "PROPER_NAME": "着境不舍",
-    "NAMES": [
-      "着境不舍"
-    ],
-    "DESCRIPTION": "开始游戏时，必须选择一个涅奥的祝福选项以继续。"
-  },
-  {
-    "PROPER_NAME": "眼目数瞬",
-    "NAMES": [
-      "眼目数瞬"
-    ],
-    "DESCRIPTION": "查看地图时，无法看到问号房间中具体的事件内容。"
-  },
-  {
-    "PROPER_NAME": "时空递归",
-    "NAMES": [
-      "时空递归"
-    ],
-    "DESCRIPTION": "#b你摧毁了时空结构，你这个小坏蛋！ NL #y自动打出 。 NL 无法逃脱 。 NL 将这张牌放入你的抽牌堆。"
-  },
-  {
-    "PROPER_NAME": "爱欲",
-    "NAMES": [
-      "爱欲"
-    ],
-    "DESCRIPTION": "回合开始时，受到伤害。"
-  },
-  {
-    "PROPER_NAME": "窒息",
-    "NAMES": [
-      "窒息",
-      "窒息项圈"
-    ],
-    "DESCRIPTION": "进入 #y高潮 时 ，受到伤害。 NL 每回合都获得 #y快感修正 。"
-  },
-  {
-    "PROPER_NAME": "乳汁",
-    "NAMES": [
-      "乳汁"
-    ],
-    "DESCRIPTION": "造成伤害后，目标和自身都获得 #y临时生命 ，然后移除 #b1 层。"
-  },
-  {
-    "PROPER_NAME": "史莱姆韧性",
-    "NAMES": [
-      "史莱姆韧性"
-    ],
-    "DESCRIPTION": "下次受到的 #y攻击 伤害 减半。"
-  }
+    {
+        "PROPER_NAME": "精欲",
+        "NAMES": [
+            "精欲"
+        ],
+        "DESCRIPTION": "消耗足够价值的精液才能打出并发挥效果。"
+    },
+    {
+        "PROPER_NAME": "快感",
+        "NAMES": [
+            "快感"
+        ],
+        "DESCRIPTION": "每累计一定点数迎来一次 #y高潮 。"
+    },
+    {
+        "PROPER_NAME": "#r接纳腐朽",
+        "NAMES": [
+            "接纳腐朽"
+        ],
+        "DESCRIPTION": "接纳腐朽后，生命值才会真正失去。"
+    },
+    {
+        "PROPER_NAME": "#r新生腐朽",
+        "NAMES": [
+            "新生腐朽"
+        ],
+        "DESCRIPTION": "上回合获得的 #r腐朽 。"
+    },
+    {
+        "PROPER_NAME": "高潮",
+        "NAMES": [
+            "高潮",
+            "高潮中"
+        ],
+        "DESCRIPTION": " 你 #y高潮 时，所有卡牌耗能临时减少 [E] ， NL 敌人则会在 #y高潮 后 眩晕 。"
+    },
+    {
+        "PROPER_NAME": "连续高潮",
+        "NAMES": [
+            "连续高潮"
+        ],
+        "DESCRIPTION": " #y高潮 情况下，再积累 #y快感 就会 #y连续高潮 。 NL #y连续高潮 会进一步增加减免的 [E] 。"
+    },
+    {
+        "PROPER_NAME": "潮吹",
+        "NAMES": [
+            "潮吹"
+        ],
+        "DESCRIPTION": " 在 #y高潮 期间， 打出耗能降低的卡视作 #y潮吹 。"
+    },
+    {
+        "PROPER_NAME": "结束高潮",
+        "NAMES": [
+            "结束高潮"
+        ],
+        "DESCRIPTION": " #y快感 低于 #y高潮 阈值时，结束 #y高潮 。"
+    },
+    {
+        "PROPER_NAME": "快感修正",
+        "NAMES": [
+            "快感修正"
+        ],
+        "DESCRIPTION": " 本回合增加或减少 #y高潮 所需的 #y快感 数量 。"
+    },
+    {
+        "PROPER_NAME": "潮吹修正",
+        "NAMES": [
+            "潮吹修正"
+        ],
+        "DESCRIPTION": " 本回合增加或减少 潮吹 消耗的 #y快感 数量 。"
+    },
+    {
+        "PROPER_NAME": "情趣玩具",
+        "NAMES": [
+            "情趣玩具"
+        ],
+        "DESCRIPTION": "回合开始时， #y情趣玩具 会提供 #y快感 。"
+    },
+    {
+        "PROPER_NAME": "施虐者",
+        "NAMES": [
+            "施虐者"
+        ],
+        "DESCRIPTION": "对敌人使用时触发的额外效果。"
+    },
+    {
+        "PROPER_NAME": "受虐者",
+        "NAMES": [
+            "受虐者"
+        ],
+        "DESCRIPTION": "对自己使用时触发的额外效果。"
+    },
+    {
+        "PROPER_NAME": "濒死",
+        "NAMES": [
+            "濒死"
+        ],
+        "DESCRIPTION": "免疫 生命流失 和 荆棘 伤害。"
+    },
+    {
+        "PROPER_NAME": "助兴",
+        "NAMES": [
+            "助兴"
+        ],
+        "DESCRIPTION": "打出后，不进入牌堆，直到效果耗尽。"
+    },
+    {
+        "PROPER_NAME": "欲求",
+        "NAMES": [
+            "欲求"
+        ],
+        "DESCRIPTION": "累积打出卡牌后，触发效果。"
+    },
+    {
+        "PROPER_NAME": "缠绵",
+        "NAMES": [
+            "缠绵"
+        ],
+        "DESCRIPTION": "打出指定卡牌时，触发效果。"
+    },
+    {
+        "PROPER_NAME": "乐声不起",
+        "NAMES": [
+            "乐声不起"
+        ],
+        "DESCRIPTION": "遇到敌人时，不再根据战斗情节播放个人背景音乐。"
+    },
+    {
+        "PROPER_NAME": "身光忽灭",
+        "NAMES": [
+            "身光忽灭"
+        ],
+        "DESCRIPTION": "渲染图片时，屏幕亮度从百分之五亿调至凡人范围。"
+    },
+    {
+        "PROPER_NAME": "浴水着身",
+        "NAMES": [
+            "浴水着身"
+        ],
+        "DESCRIPTION": "掉入水坑时，无法毫发无损地从史莱姆黏液中逃脱。"
+    },
+    {
+        "PROPER_NAME": "着境不舍",
+        "NAMES": [
+            "着境不舍"
+        ],
+        "DESCRIPTION": "开始游戏时，必须选择一个涅奥的祝福选项以继续。"
+    },
+    {
+        "PROPER_NAME": "眼目数瞬",
+        "NAMES": [
+            "眼目数瞬"
+        ],
+        "DESCRIPTION": "查看地图时，无法看到问号房间中具体的事件内容。"
+    },
+    {
+        "PROPER_NAME": "时空递归",
+        "NAMES": [
+            "时空递归"
+        ],
+        "DESCRIPTION": "#b你摧毁了时空结构，你这个小坏蛋！ NL #y自动打出 。 NL 无法逃脱 。 NL 将这张牌放入你的抽牌堆。"
+    },
+    {
+        "PROPER_NAME": "爱欲",
+        "NAMES": [
+            "爱欲"
+        ],
+        "DESCRIPTION": "回合开始时，受到伤害。"
+    },
+    {
+        "PROPER_NAME": "窒息",
+        "NAMES": [
+            "窒息",
+            "窒息项圈"
+        ],
+        "DESCRIPTION": "进入 #y高潮 时 ，受到伤害。 NL 每回合都获得 #y快感修正 。"
+    },
+    {
+        "PROPER_NAME": "乳汁",
+        "NAMES": [
+            "乳汁"
+        ],
+        "DESCRIPTION": "造成伤害后，目标和自身都获得 #y临时生命 ，然后移除 #b1 层。"
+    },
+    {
+        "PROPER_NAME": "史莱姆韧性",
+        "NAMES": [
+            "史莱姆韧性"
+        ],
+        "DESCRIPTION": "下次受到的 #y攻击 伤害 减半。"
+    }
 ]

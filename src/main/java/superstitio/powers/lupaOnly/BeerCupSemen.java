@@ -40,7 +40,7 @@ public class BeerCupSemen extends AbstractSuperstitioPower implements
     }
 
     @Override
-    public void InitializePostApplyThisPower() {
+    public void InitializePostApplyThisPower(AbstractPower addedPower) {
         CheckFull();
         updateDescription();
     }
