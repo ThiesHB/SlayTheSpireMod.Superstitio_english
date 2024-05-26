@@ -142,11 +142,11 @@ public class SuperstitioModSetup implements
     @Override
     public void receiveEditCharacters() {
         //添加角色到MOD中
-        BaseMod.addCharacter(new Lupa(CardCrawlGame.playerName),
-                data.spttData.LUPA_CHARACTER_BUTTON, data.spttData.LUPA_CHARACTER_PORTRAIT, LUPA_Character);
-//        if (getEnableSFW()) return;
         BaseMod.addCharacter(new Maso(CardCrawlGame.playerName),
                 data.spttData.LUPA_CHARACTER_BUTTON, data.spttData.MASO_CHARACTER_PORTRAIT, MASO_Character);
+        BaseMod.addCharacter(new Lupa(CardCrawlGame.playerName),
+                data.spttData.LUPA_CHARACTER_BUTTON, data.spttData.LUPA_CHARACTER_PORTRAIT, LUPA_Character);
+
     }
 
     @Override

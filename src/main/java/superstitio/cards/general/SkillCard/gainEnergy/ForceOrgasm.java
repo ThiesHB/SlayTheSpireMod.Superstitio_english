@@ -19,7 +19,7 @@ public class ForceOrgasm extends GeneralCard {
     public static final CardTarget CARD_TARGET = CardTarget.SELF;
 
     private static final int COST = -1;
-    private static final int MAGIC = 10;
+    private static final int MAGIC = 15;
     private static final int UPGRADE_MAGIC = 5;
     private static final int ExhaustNum = 1;
 

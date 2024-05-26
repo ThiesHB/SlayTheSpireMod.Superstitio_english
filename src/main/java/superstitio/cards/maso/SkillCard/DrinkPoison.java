@@ -1,5 +1,6 @@
 package superstitio.cards.maso.SkillCard;
 
+import basemod.cardmods.ExhaustMod;
 import basemod.cardmods.RetainMod;
 import basemod.helpers.CardModifierManager;
 import com.badlogic.gdx.graphics.Color;
@@ -31,6 +32,7 @@ public class DrinkPoison extends MasoCard {
     public DrinkPoison() {
         super(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET);
         this.setupMagicNumber(MAGIC);
+        CardModifierManager.addModifier(this,new ExhaustMod());
     }
 
     @Override

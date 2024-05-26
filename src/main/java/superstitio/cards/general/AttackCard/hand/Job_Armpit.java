@@ -1,5 +1,6 @@
 package superstitio.cards.general.AttackCard.hand;
 
+import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.cards.CardGroup;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
@@ -26,15 +27,16 @@ public class Job_Armpit extends GeneralCard implements FuckJob_Card, GoSomewhere
     private static final int MAGIC = 2;
 
     public Job_Armpit() {
+        this(true);
+    }
+
+    public Job_Armpit(boolean hasCardToPreview) {
         super(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET);
         FuckJob_Card.initFuckJobCard(this);
         this.setupDamage(DAMAGE, UPGRADE_DAMAGE);
         this.setupMagicNumber(MAGIC);
-    }
-
-    public Job_Armpit(int damage) {
-        this();
-        this.setupDamage(damage);
+        if (hasCardToPreview)
+            this.cardsToPreview = new Job_Armpit(false);
     }
 
 
@@ -44,6 +46,7 @@ public class Job_Armpit extends GeneralCard implements FuckJob_Card, GoSomewhere
 
     @Override
     public void upgradeAuto() {
+        upgradeCardsToPreview();
     }
 
     @Override
@@ -57,8 +60,11 @@ public class Job_Armpit extends GeneralCard implements FuckJob_Card, GoSomewhere
                         .setCardPredicate(card -> card.type == CardType.ATTACK)
                         .setNotEvokeOnEndOfTurn()
         );
+        AbstractCard copyCard = this.makeCopy();
+        if (upgraded)
+            copyCard.upgrade();
         HangUpCardGroup.addToBot_AddCardOrbToOrbGroup(
-                new CardOrb_WaitCardTrigger(this.makeCopy(), cardGroup, (orb, card) -> {
+                new CardOrb_WaitCardTrigger(copyCard, cardGroup, (orb, card) -> {
                     AbstractMonster creature = DamageActionMaker.getMonsterOrFirstMonster(orb.lastTarget);
                     orb.StartHitCreature(creature);
                     DamageActionMaker.maker(orb.getOriginCard().damage, creature).setExampleCard(this).addToBot();

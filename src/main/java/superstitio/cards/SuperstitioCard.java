@@ -23,7 +23,10 @@ import com.megacrit.cardcrawl.vfx.combat.FlashAtkImgEffect;
 import superstitio.InBattleDataManager;
 import superstitio.Logger;
 import superstitio.customStrings.CardStringsWithFlavorSet;
-import superstitio.delayHpLose.*;
+import superstitio.delayHpLose.DelayHpLosePower;
+import superstitio.delayHpLose.DelayRemoveDelayHpLoseBlock;
+import superstitio.delayHpLose.DelayRemoveDelayHpLosePower;
+import superstitio.delayHpLose.RemoveDelayHpLoseBlock;
 import superstitio.utils.ActionUtility;
 import superstitio.utils.updateDescriptionAdvanced;
 
@@ -256,7 +259,11 @@ public abstract class SuperstitioCard extends CustomCard implements updateDescri
     }
 
     public final void addToBot_dealDamageToAllEnemies(final AttackEffect effect) {
-        this.addToBot(new DamageAllEnemiesAction(AbstractDungeon.player, this.multiDamage, this.damageTypeForTurn, effect));
+        if (!this.isMultiDamage) {
+            Logger.warning("错误，未设置isMultiDamage，可能会出错，所以群体攻击自动禁用，错误卡片："+this.name);
+            return;
+        }
+        this.addToBot(new DamageAllEnemiesAction(AbstractDungeon.player, this.multiDamage, DamageType.NORMAL, effect));
     }
 
     public final void addToBot_gainBlock() {

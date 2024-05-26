@@ -2,7 +2,6 @@ package superstitio.cards.maso.PowerCard;
 
 import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
-import com.megacrit.cardcrawl.core.AbstractCreature;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import com.megacrit.cardcrawl.ui.panels.EnergyPanel;
@@ -12,8 +11,8 @@ import superstitio.actions.AutoDoneInstantAction;
 import superstitio.cards.SuperstitioCard;
 import superstitio.cards.general.TempCard.FeelPhantomBody;
 import superstitio.cards.maso.MasoCard;
-import superstitio.powers.AbstractSuperstitioPower;
 import superstitio.powers.EasyBuildAbstractPowerForPowerCard;
+import superstitio.utils.CardUtility;
 
 import static superstitio.utils.ActionUtility.addToBot_makeTempCardInBattle;
 
@@ -59,13 +58,16 @@ public class OrgasmWithLostBody extends MasoCard {
         @Override
         public void onCardDraw(AbstractCard card) {
             super.onCardDraw(card);
+            if (CardUtility.isNotInBattle()) return;
             tryBecomeFeelPhantomBodyCard(card);
         }
 
         private void tryBecomeFeelPhantomBodyCard(AbstractCard card) {
             if (card.canUse(AbstractDungeon.player, null)) return;
             //不是因为能量不够或者对象不对而无法打出
-            if (!(card.cardPlayable(null) && hasEnoughEnergyOrTurnEnd(card))) return;
+//            if (!(card.cardPlayable(null) && hasEnoughEnergyOrTurnEnd(card))) return;
+            //似乎检测对象是否正确会导致攻击牌出问题，所以只加了这个检测，但是可能会引发其他错误
+            if (!(hasEnoughEnergyOrTurnEnd(card))) return;
             AutoDoneInstantAction.addToBotAbstract(() -> {
                 AbstractDungeon.player.hand.removeCard(card);
                 AbstractDungeon.effectList.add(new PurgeCardEffect(card));

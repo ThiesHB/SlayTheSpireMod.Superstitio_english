@@ -5,10 +5,10 @@ import com.megacrit.cardcrawl.actions.utility.NewQueueCardAction;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
+import com.megacrit.cardcrawl.ui.panels.EnergyPanel;
 import superstitio.DataManager;
 import superstitio.actions.AutoDoneInstantAction;
 import superstitio.actions.ChoseCardFromHandCardSelectScreen;
-import superstitio.cards.lupa.LupaCard;
 import superstitio.cards.maso.MasoCard;
 
 public class FistIn extends MasoCard {
@@ -32,7 +32,15 @@ public class FistIn extends MasoCard {
     @Override
     public void use(AbstractPlayer player, AbstractMonster monster) {
         new ChoseCardFromHandCardSelectScreen(card -> AutoDoneInstantAction.newAutoDone(() -> {
-            addToBot(new LoseHPAction(AbstractDungeon.player, AbstractDungeon.player, card.costForTurn * magicNumber));
+            int costSave;
+            if (card.costForTurn >= 0)
+                costSave = card.costForTurn;
+            else if (card.costForTurn == -1)
+                costSave = EnergyPanel.getCurrentEnergy();
+            else
+                costSave = 0;
+
+            addToBot(new LoseHPAction(AbstractDungeon.player, AbstractDungeon.player, costSave * magicNumber));
             addToBot(new NewQueueCardAction(card, true, false, true));
         }))
                 .setRetainFilter()

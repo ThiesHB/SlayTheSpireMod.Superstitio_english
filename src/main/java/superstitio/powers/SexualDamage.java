@@ -4,6 +4,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.evacipated.cardcrawl.mod.stslib.powers.interfaces.HealthBarRenderPower;
 import com.megacrit.cardcrawl.actions.AbstractGameAction;
+import com.megacrit.cardcrawl.cards.DamageInfo;
 import com.megacrit.cardcrawl.core.AbstractCreature;
 import superstitio.DataManager;
 import superstitio.cards.DamageActionMaker;
@@ -27,7 +28,8 @@ public class SexualDamage extends AbstractSuperstitioPower implements HealthBarR
         this.flash();
         DamageActionMaker.maker(this.giver, this.amount, this.owner)
                 .setDamageModifier(this, new UnBlockAbleDamage())
-                .setDamageType(DataManager.CanOnlyDamageDamageType.UnBlockAbleDamageType)
+                .setDamageType(DamageInfo.DamageType.HP_LOSS)
+//                .setDamageType(   DataManager.CanOnlyDamageDamageType.UnBlockAbleDamageType)
                 .setEffect(AbstractGameAction.AttackEffect.POISON)
                 .addToTop();
         addToBot_removeSpecificPower(this);

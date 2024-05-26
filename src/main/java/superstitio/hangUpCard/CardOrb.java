@@ -167,13 +167,13 @@ public abstract class CardOrb extends AbstractLupaOrb {
             this.card.target_x = this.cX;
             this.card.target_y = this.cY + YOffsetWhenHovered();
             card.targetDrawScale = DRAW_SCALE_BIG;
-            this.drawOrder = DrawOrder.top;
+//            this.drawOrder = DrawOrder.top;
         }
         else {
             this.card.target_x = this.cX;
             this.card.target_y = this.cY + YOffsetWhenHovered();
             card.targetDrawScale = DRAW_SCALE_SMALL;
-            this.drawOrder = DrawOrder.bottom;
+//            this.drawOrder = DrawOrder.bottom;
         }
     }
 

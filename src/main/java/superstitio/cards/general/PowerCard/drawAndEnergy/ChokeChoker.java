@@ -1,5 +1,6 @@
 package superstitio.cards.general.PowerCard.drawAndEnergy;
 
+import com.megacrit.cardcrawl.actions.AbstractGameAction;
 import com.megacrit.cardcrawl.actions.common.ApplyPowerAction;
 import com.megacrit.cardcrawl.actions.common.LoseHPAction;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
@@ -7,6 +8,7 @@ import com.megacrit.cardcrawl.core.AbstractCreature;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import superstitio.DataManager;
 import superstitio.actions.AutoDoneInstantAction;
+import superstitio.cards.DamageActionMaker;
 import superstitio.cards.general.GeneralCard;
 import superstitio.powers.AbstractSuperstitioPower;
 import superstitio.powers.SexualHeat;
@@ -67,7 +69,15 @@ public class ChokeChoker extends GeneralCard {
         @Override
         public void onOrgasm(SexualHeat SexualHeatPower) {
             this.flash();
-            this.addToBot(new LoseHPAction(this.owner, null, this.amount));
+            DamageActionMaker.maker(this.owner,this.amount,this.owner)
+                    .setEffect(AbstractGameAction.AttackEffect.NONE)
+                    .setSuperFast(true)
+                    .setDamageType(DataManager.CanOnlyDamageDamageType.NoTriggerMasoRelicDamageType)
+                    .addToTop();
+//            for (int i = 0; i < this.amount; i++) {
+//                this.addToBot(new LoseHPAction(this.owner, null, 1));
+//            }
+//            this.addToBot(new LoseHPAction(this.owner, null, this.amount));
         }
 
         @Override

@@ -34,7 +34,8 @@ public class MasochismMode extends AbstractLupaRelic implements BetterOnLoseHpRe
     public int betterOnLoseHp(DamageInfo damageInfo, int i) {
         if (CardUtility.isNotInBattle()) return i;
         if (damageInfo.type == DataManager.CanOnlyDamageDamageType.UnBlockAbleDamageType) return i;
-        AddSexualHeat(MasochismModeSexualHeatRate);
+        if (damageInfo.type == DataManager.CanOnlyDamageDamageType.NoTriggerMasoRelicDamageType) return i;
+//        AddSexualHeat(MasochismModeSexualHeatRate);
         this.flash();
         if (i < MasochismModeDamageNeed) return i;
         AddSexualHeat(i / MasochismModeDamageNeed * MasochismModeSexualHeatRate);

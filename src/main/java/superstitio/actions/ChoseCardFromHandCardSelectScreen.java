@@ -58,14 +58,14 @@ public class ChoseCardFromHandCardSelectScreen extends AbstractContinuallyAction
         this.player.hand.group.removeAll(this.temp_remove_from_hand.group);
 //        this.player.hand.group.clear();
 
-        if (this.player.hand.size() <= this.amount) {
+        if (this.player.hand.size() <= this.amount && !anyNumber && !canPickZero) {
             CardGroup hand = this.player.hand;
             this.amount = hand.size();
             hand.group.forEach(this::doAction);
             this.temp_remove_from_hand.group.forEach(card -> this.player.hand.addToTop(card));
             this.isDone = true;
         }
-        else if (this.player.hand.size() > this.amount)
+        else //if (this.player.hand.size() > this.amount)
             AbstractDungeon.handCardSelectScreen.open(windowText, this.amount, anyNumber, canPickZero);
         AbstractDungeon.player.hand.applyPowers();
     }

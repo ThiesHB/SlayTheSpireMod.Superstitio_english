@@ -68,7 +68,7 @@
   "SuperstitioMod:MasochismMode": {
     "NAME": "受虐狂",
     "DESCRIPTIONS": [
-      "失去生命时，获得 #b%d 点 #ysuperstitiomod:快感 。单次失去的生命每有 #b%d 点获得 #b%d 点 #ysuperstitiomod:快感 。"
+      "单次失去的生命每有 #b%d 点获得 #b%d 点 #ysuperstitiomod:快感 。"
     ],
     "FLAVOR": "是的，我是个受虐狂。"
   },

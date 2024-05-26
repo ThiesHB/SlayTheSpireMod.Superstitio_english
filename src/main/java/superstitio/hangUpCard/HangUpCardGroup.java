@@ -1,13 +1,11 @@
 package superstitio.hangUpCard;
 
-import basemod.ReflectionHacks;
 import basemod.interfaces.OnCardUseSubscriber;
 import basemod.interfaces.OnPlayerTurnStartSubscriber;
 import basemod.interfaces.OnPowersModifiedSubscriber;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.megacrit.cardcrawl.cards.AbstractCard;
-import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.helpers.Hitbox;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
@@ -30,6 +28,7 @@ public class HangUpCardGroup implements RenderInBattle,
     public Hitbox hitbox;
     public ArrayList<CardOrb> cards = new ArrayList<>();
     private int remove_check_counter = 10;
+    private CardOrb hoveredCard;
 
     public HangUpCardGroup(Hitbox hitbox) {
         this.hitbox = new Hitbox(hitbox.x, hitbox.y, hitbox.width, hitbox.height);
@@ -78,7 +77,6 @@ public class HangUpCardGroup implements RenderInBattle,
             }
         }
     }
-
 
     protected final Vector2 makeSlotPlaceLine(final float totalLength, int slotIndex) {
         final float offsetX = OffsetPercentageBySlotIndex_TwoEnd(slotIndex) * totalLength;
@@ -157,9 +155,11 @@ public class HangUpCardGroup implements RenderInBattle,
     @Override
     public void render(SpriteBatch sb) {
         if (CardUtility.isNotInBattle()) return;
-        getCardOrbStream().filter(orb -> orb.drawOrder == CardOrb.DrawOrder.bottom).forEach(orb -> orb.render(sb));
-        getCardOrbStream().filter(orb -> orb.drawOrder == CardOrb.DrawOrder.middle).forEach(orb -> orb.render(sb));
-        getCardOrbStream().filter(orb -> orb.drawOrder == CardOrb.DrawOrder.top).forEach(orb -> orb.render(sb));
+//        getCardOrbStream().filter(orb -> orb.drawOrder == CardOrb.DrawOrder.bottom).forEach(orb -> orb.render(sb));
+//        getCardOrbStream().filter(orb -> orb.drawOrder == CardOrb.DrawOrder.middle).forEach(orb -> orb.render(sb));
+        getCardOrbStream().forEach(orb -> orb.render(sb));
+        if (hoveredCard != null)
+            hoveredCard.render(sb);
     }
 
     private Stream<CardOrb> getCardOrbStream() {
@@ -169,6 +169,14 @@ public class HangUpCardGroup implements RenderInBattle,
     @Override
     public void update() {
         if (CardUtility.isNotInBattle()) return;
+
+        for (CardOrb cardOrb : this.cards) {
+            if (cardOrb.isCardHovered()) {
+                this.hoveredCard = cardOrb;
+                break;
+            }
+        }
+
         this.forEachOrbInThisOrbGroup(orb -> {
             orb.update();
             orb.updateAnimation();

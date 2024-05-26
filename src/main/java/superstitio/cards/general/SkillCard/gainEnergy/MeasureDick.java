@@ -35,7 +35,7 @@ public class MeasureDick extends GeneralCard {
                     addToTop(new DiscardSpecificCardAction(targetCard));
                 }))
                         .setAnyNumber(true)
-                        .setRetainFilter(card -> card.isCostModifiedForTurn || card.isCostModified)
+//                        .setRetainFilter(card -> card.isCostModifiedForTurn || card.isCostModified)
                         .setChoiceAmount(this.magicNumber)
                         .setWindowText(String.format(this.cardStrings.getEXTENDED_DESCRIPTION()[0], this.magicNumber))
         );

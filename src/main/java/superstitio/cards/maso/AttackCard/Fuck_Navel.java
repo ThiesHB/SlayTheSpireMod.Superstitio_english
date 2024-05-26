@@ -35,6 +35,7 @@ public class Fuck_Navel extends MasoCard implements FuckJob_Card, OnOrgasm_onOrg
         this.setupDamage(DAMAGE, UPGRADE_DAMAGE);
         this.setupMagicNumber(MAGIC, UPGRADE_MAGIC);
 //        this.retain = true;
+        this.isMultiDamage = true;
         this.selfRetain = true;
     }
 

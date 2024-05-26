@@ -41,6 +41,7 @@ public class GangBang extends AbstractTempCard {
         if (!CardUtility.isNotInBattle())
             this.beginGlowing();
         this.exhaust = true;
+        this.isMultiDamage = true;
 //        this.purgeOnUse = true;
         this.dontTriggerOnUseCard = true;
         AutoplayField.autoplay.set(this, true);
