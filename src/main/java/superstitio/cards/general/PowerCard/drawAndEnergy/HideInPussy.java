@@ -4,7 +4,6 @@ import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import superstitio.DataManager;
-import superstitio.actions.AutoDoneInstantAction;
 import superstitio.actions.ChoseCardFromHandCardSelectScreen;
 import superstitio.cards.SuperstitioCard;
 import superstitio.cards.general.GeneralCard;
@@ -52,11 +51,11 @@ public class HideInPussy extends GeneralCard {
         @Override
         public void atEndOfTurn(boolean isPlayer) {
             if (!isPlayer || AbstractDungeon.player.hand.isEmpty()) return;
-            new ChoseCardFromHandCardSelectScreen(card -> AutoDoneInstantAction.newAutoDone(() -> {
+            new ChoseCardFromHandCardSelectScreen(card -> {
                 card.freeToPlay();
                 card.retain = true;
-            }))
-                    .setWindowText(powerCard.cardStrings.getEXTENDED_DESCRIPTION()[0])
+            })
+                    .setWindowText(String.format(powerCard.cardStrings.getEXTENDED_DESCRIPTION()[0],this.amount))
                     .setChoiceAmount(this.amount)
                     .addToBot();
         }

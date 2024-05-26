@@ -59,11 +59,12 @@ public class DrinkPoison extends MasoCard {
 
     @Override
     public void initializeDescription() {
+        if (!CardUtility.isNotInBattle()) {
+            int totalDelayHpLose = findAll(AbstractDungeon.player, DelayHpLosePower.class)
+                    .mapToInt(power -> power.amount).sum();
+            this.magicNumber = totalDelayHpLose / 2;
+        }
         super.initializeDescription();
-        if (CardUtility.isNotInBattle()) return;
-        int totalDelayHpLose = findAll(AbstractDungeon.player, DelayHpLosePower.class)
-                .mapToInt(power -> power.amount).sum();
-        this.magicNumber = (int) Math.sqrt((double) totalDelayHpLose / 2) + 1;
     }
 
     @Override

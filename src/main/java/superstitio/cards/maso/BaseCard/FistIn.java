@@ -31,7 +31,7 @@ public class FistIn extends MasoCard {
 
     @Override
     public void use(AbstractPlayer player, AbstractMonster monster) {
-        new ChoseCardFromHandCardSelectScreen(card -> AutoDoneInstantAction.newAutoDone(() -> {
+        new ChoseCardFromHandCardSelectScreen(card -> AutoDoneInstantAction.addToBotAbstract(() -> {
             int costSave;
             if (card.costForTurn >= 0)
                 costSave = card.costForTurn;

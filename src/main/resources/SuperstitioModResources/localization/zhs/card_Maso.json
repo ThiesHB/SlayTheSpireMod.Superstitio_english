@@ -20,8 +20,8 @@
   "SuperstitioMod:MasoCard:NailExtraction": {
     "NAME": "拔指甲",
     "NAME_SFW": "以牙还牙",
-    "DESCRIPTION": "失去 !M! 点生命， NL 抽 %d 张牌， NL 往抽牌堆中塞入 %d 张 *拔指甲 。 NL 一回合只能打出 %d 张。",
-    "UPGRADE_DESCRIPTION": "对自身造成 !M! 点伤害， NL 抽 %d 张牌， NL 往抽牌堆中塞入 %d 张 *拔指甲 。 NL 一回合只能打出 %d 张。",
+    "DESCRIPTION": "失去 %d 点生命， NL 抽 %d 张牌， NL 往抽牌堆中塞入 %d 张 *拔指甲 。 NL 一回合只能打出 %d 张。 （已使用 !M! 张）",
+    "UPGRADE_DESCRIPTION": "对自身造成 %d 点伤害， NL 抽 %d 张牌， NL 往抽牌堆中塞入 %d 张 *拔指甲 。 NL 一回合只能打出 %d 张。 （已使用 !M! 张）",
     "FLAVOR": ""
   },
   "SuperstitioMod:MasoCard:OrgasmWithLostBody": {

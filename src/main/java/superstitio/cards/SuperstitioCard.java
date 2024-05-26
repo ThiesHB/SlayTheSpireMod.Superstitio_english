@@ -134,7 +134,7 @@ public abstract class SuperstitioCard extends CustomCard implements updateDescri
     }
 
     public String makeFormatDESCRIPTION() {
-        updateDescriptionArgs();
+        this.updateDescriptionArgs();
         if (descriptionArgs == null) return getDescriptionStrings();
         return String.format(getDescriptionStrings(), descriptionArgs);
     }
@@ -161,7 +161,7 @@ public abstract class SuperstitioCard extends CustomCard implements updateDescri
 
     @Override
     public String getDescriptionStrings() {
-        if (cardStrings.getUPGRADE_DESCRIPTION() != null && !cardStrings.getUPGRADE_DESCRIPTION().isEmpty())
+        if (this.upgraded && cardStrings.getUPGRADE_DESCRIPTION() != null && !cardStrings.getUPGRADE_DESCRIPTION().isEmpty())
             return cardStrings.getUPGRADE_DESCRIPTION();
         return cardStrings.getDESCRIPTION();
     }
@@ -260,7 +260,7 @@ public abstract class SuperstitioCard extends CustomCard implements updateDescri
 
     public final void addToBot_dealDamageToAllEnemies(final AttackEffect effect) {
         if (!this.isMultiDamage) {
-            Logger.warning("错误，未设置isMultiDamage，可能会出错，所以群体攻击自动禁用，错误卡片："+this.name);
+            Logger.warning("错误，未设置isMultiDamage，可能会出错，所以群体攻击自动禁用，错误卡片：" + this.name);
             return;
         }
         this.addToBot(new DamageAllEnemiesAction(AbstractDungeon.player, this.multiDamage, DamageType.NORMAL, effect));

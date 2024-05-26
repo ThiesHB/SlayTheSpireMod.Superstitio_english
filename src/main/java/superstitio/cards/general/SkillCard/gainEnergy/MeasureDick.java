@@ -30,7 +30,7 @@ public class MeasureDick extends GeneralCard {
 
     @Override
     public void use(AbstractPlayer player, AbstractMonster monster) {
-        addToBot(new ChoseCardFromHandCardSelectScreen(targetCard -> AutoDoneInstantAction.newAutoDone(() -> {
+        addToBot(new ChoseCardFromHandCardSelectScreen(targetCard -> AutoDoneInstantAction.addToBotAbstract(() -> {
                     addToTop(new GainEnergyAction(Math.max(targetCard.costForTurn - targetCard.makeCopy().costForTurn, 0)));
                     addToTop(new DiscardSpecificCardAction(targetCard));
                 }))

@@ -1,6 +1,5 @@
 package superstitio.cards.general.SkillCard.hangUpCard;
 
-import com.megacrit.cardcrawl.actions.AbstractGameAction;
 import com.megacrit.cardcrawl.actions.utility.NewQueueCardAction;
 import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
@@ -42,21 +41,18 @@ public class ReadyToSex extends GeneralCard {
         );
     }
 
-    private AbstractGameAction HangUpSpecificCard(AbstractCard card) {
-        return new AutoDoneInstantAction() {
-            @Override
-            public void autoDoneUpdate() {
-                AbstractDungeon.player.hand.removeCard(card);
-                AbstractCard copyCard = card.makeStatEquivalentCopy();
-                copyCard.exhaust = true;
-                HangUpCardGroup.addToBot_AddCardOrbToOrbGroup(
-                        new CardOrb_WaitCardTrigger(card, AbstractDungeon.player.discardPile, (orb, usedcard) -> {
-                            addToBot(new NewQueueCardAction(copyCard, true, false, true));
-                        }, magicNumber)
-                                .setNotEvokeOnEndOfTurn()
-                );
-            }
-        };
+    private void HangUpSpecificCard(AbstractCard card) {
+        AutoDoneInstantAction.addToBotAbstract(() -> {
+            AbstractDungeon.player.hand.removeCard(card);
+            AbstractCard copyCard = card.makeStatEquivalentCopy();
+            copyCard.exhaust = true;
+            HangUpCardGroup.addToBot_AddCardOrbToOrbGroup(
+                    new CardOrb_WaitCardTrigger(card, AbstractDungeon.player.discardPile, (orb, usedcard) -> {
+                        addToBot(new NewQueueCardAction(copyCard, true, false, true));
+                    }, magicNumber)
+                            .setNotEvokeOnEndOfTurn()
+            );
+        });
     }
 
     @Override

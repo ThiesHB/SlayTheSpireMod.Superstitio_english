@@ -13,6 +13,7 @@ import superstitio.InBattleDataManager;
 import superstitio.cards.DamageActionMaker;
 import superstitio.cards.maso.MasoCard;
 import superstitio.utils.ActionUtility;
+import superstitio.utils.CardUtility;
 
 //拔指甲/趾甲
 public class NailExtraction extends MasoCard {
@@ -26,7 +27,8 @@ public class NailExtraction extends MasoCard {
 
     private static final int COST = 0;
     private static final int DAMAGE = 1;
-    private static final int MAGIC = 2;
+    private static final int MAGIC = 0;
+    private static final int DAMAGE_TO_SELF = 2;
     //    private static final int UPGRADE_MAGIC = 1;
     private static final int DRAW_CARD = 2;
     private static final int COPY_SELF = 2;
@@ -48,17 +50,25 @@ public class NailExtraction extends MasoCard {
 
     @Override
     public void updateDescriptionArgs() {
-        setDescriptionArgs(DRAW_CARD, COPY_SELF, MAX_IN_TURN);
+        setDescriptionArgs(DAMAGE_TO_SELF, DRAW_CARD, COPY_SELF, MAX_IN_TURN);
+    }
+
+    @Override
+    public void initializeDescription() {
+        if (!CardUtility.isNotInBattle()) {
+            this.magicNumber = InBattleDataManager.NailExtractionPlayedInTurn;
+        }
+        super.initializeDescription();
     }
 
     @Override
     public void use(AbstractPlayer player, AbstractMonster monster) {
-        DamageActionMaker damageActionMaker = DamageActionMaker.maker(this.magicNumber, AbstractDungeon.player)
+        DamageActionMaker damageActionMaker = DamageActionMaker.maker(DAMAGE_TO_SELF, AbstractDungeon.player)
                 .setEffect(AbstractGameAction.AttackEffect.NONE);
         if (!upgraded)
             damageActionMaker.setDamageType(DamageInfo.DamageType.HP_LOSS).addToBot();
         else
-            damageActionMaker.setDamageType(DamageInfo.DamageType.NORMAL).addToBot();
+            damageActionMaker.setEffect(AbstractGameAction.AttackEffect.BLUNT_LIGHT).setDamageType(DamageInfo.DamageType.NORMAL).addToBot();
         addToBot_drawCards(DRAW_CARD);
         ActionUtility.addToBot_makeTempCardInBattle(new NailExtraction(), BattleCardPlace.DrawPile, COPY_SELF, this.upgraded);
         InBattleDataManager.NailExtractionPlayedInTurn++;

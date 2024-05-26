@@ -53,7 +53,7 @@ public class MasochismMode extends SuperstitioRelic implements BetterOnLoseHpRel
 
     @Override
     public String getDescriptionStrings() {
-        return String.format(this.DESCRIPTIONS[0], MasochismModeSexualHeatRate, MasochismModeDamageNeed, MasochismModeSexualHeatRate);
+        return String.format(this.DESCRIPTIONS[0], MasochismModeDamageNeed, MasochismModeSexualHeatRate);
     }
 
 }

@@ -5,7 +5,6 @@
 
 package superstitio.actions;
 
-import com.megacrit.cardcrawl.actions.AbstractGameAction;
 import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.cards.CardGroup;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
@@ -14,21 +13,21 @@ import com.megacrit.cardcrawl.core.Settings;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 
 import java.util.Arrays;
-import java.util.function.Function;
+import java.util.function.Consumer;
 import java.util.function.Predicate;
 
 public class ChoseCardFromHandCardSelectScreen extends AbstractContinuallyAction {
     private final AbstractPlayer player = AbstractDungeon.player;
-    private final Function<AbstractCard, AbstractGameAction> gameActionMaker;
+    private final Consumer<AbstractCard> actionApply;
     private final CardGroup temp_remove_from_hand = new CardGroup(CardGroup.CardGroupType.UNSPECIFIED);
     private String windowText = "";
     private boolean anyNumber = false;
     private boolean canPickZero = false;
     private Predicate<AbstractCard> retainFilter = card -> true;
 
-    public ChoseCardFromHandCardSelectScreen(Function<AbstractCard, AbstractGameAction> gameActionMaker) {
+    public ChoseCardFromHandCardSelectScreen(Consumer<AbstractCard> actionApply) {
         super(ActionType.CARD_MANIPULATION, Settings.ACTION_DUR_XFAST);
-        this.gameActionMaker = gameActionMaker;
+        this.actionApply = actionApply;
         this.target = player;
         this.source = player;
         this.amount = 1;
@@ -71,7 +70,7 @@ public class ChoseCardFromHandCardSelectScreen extends AbstractContinuallyAction
     }
 
     private void doAction(AbstractCard c) {
-        this.addToBot(this.gameActionMaker.apply(c));
+        this.actionApply.accept(c);
     }
 
     public ChoseCardFromHandCardSelectScreen setChoiceAmount(int choiceAmount) {

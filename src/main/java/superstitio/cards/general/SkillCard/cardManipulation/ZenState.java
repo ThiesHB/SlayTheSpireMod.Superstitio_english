@@ -2,7 +2,6 @@ package superstitio.cards.general.SkillCard.cardManipulation;
 
 import basemod.cardmods.ExhaustMod;
 import basemod.helpers.CardModifierManager;
-import com.megacrit.cardcrawl.actions.AbstractGameAction;
 import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
@@ -44,8 +43,8 @@ public class ZenState extends GeneralCard {
         );
     }
 
-    public AbstractGameAction letSpecificCardExhaust(AbstractCard card) {
-        return AutoDoneInstantAction.newAutoDone(() -> {
+    public void letSpecificCardExhaust(AbstractCard card) {
+        AutoDoneInstantAction.addToBotAbstract(() -> {
             card.superFlash();
             CardModifierManager.addModifier(card, new ExhaustMod());
         });
