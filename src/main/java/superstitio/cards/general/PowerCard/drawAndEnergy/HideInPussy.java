@@ -52,7 +52,7 @@ public class HideInPussy extends GeneralCard {
         public void atEndOfTurn(boolean isPlayer) {
             if (!isPlayer || AbstractDungeon.player.hand.isEmpty()) return;
             new ChoseCardFromHandCardSelectScreen(card -> {
-                card.freeToPlay();
+                card.freeToPlayOnce = true;
                 card.retain = true;
             })
                     .setWindowText(String.format(powerCard.cardStrings.getEXTENDED_DESCRIPTION()[0],this.amount))

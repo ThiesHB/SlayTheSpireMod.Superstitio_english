@@ -42,7 +42,7 @@ public class AllCardCostModifier_PerEnergy extends AllCardCostModifier {
     }
 
     public int totalCostDecreased(AbstractCard card) {
-        if (!InBattleDataManager.costMap.containsKey(card.uuid) || getOriginCost(card) <= card.costForTurn || card.freeToPlayOnce) {
+        if (!InBattleDataManager.costMap.containsKey(card.uuid) || getOriginCost(card) <= card.costForTurn || card.freeToPlay()) {
             return 0;
         }
         return getOriginCost(card) - card.costForTurn;

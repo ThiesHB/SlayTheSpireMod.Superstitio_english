@@ -11,12 +11,12 @@ import java.util.function.Consumer;
 
 public class XCostAction extends AutoDoneInstantAction {
     private final Consumer<Integer> actionMaker;
-    private boolean freeToPlayOnce;
+    private boolean freeToPlay;
     private int energyOnUse;
     private AbstractPlayer player = AbstractDungeon.player;
 
     public XCostAction(AbstractCard card, AbstractGameAction.ActionType actionType, final Consumer<Integer> actionMaker) {
-        this.freeToPlayOnce = card.freeToPlayOnce;
+        this.freeToPlay = card.freeToPlay();
         this.energyOnUse = card.energyOnUse;
         this.actionMaker = actionMaker;
         this.actionType = actionType;
@@ -33,8 +33,8 @@ public class XCostAction extends AutoDoneInstantAction {
         return this;
     }
 
-    public XCostAction setFreeToPlayOnce(boolean freeToPlayOnce) {
-        this.freeToPlayOnce = freeToPlayOnce;
+    public XCostAction setFreeToPlay(boolean freeToPlay) {
+        this.freeToPlay = freeToPlay;
         return this;
     }
 
@@ -50,7 +50,7 @@ public class XCostAction extends AutoDoneInstantAction {
         }
         if (effect > 0) {
             actionMaker.accept(effect);
-            if (!this.freeToPlayOnce) {
+            if (!this.freeToPlay) {
                 this.player.energy.use(EnergyPanel.totalCount);
             }
         }

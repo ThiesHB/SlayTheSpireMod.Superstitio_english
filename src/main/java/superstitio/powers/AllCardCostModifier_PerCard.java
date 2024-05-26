@@ -37,6 +37,6 @@ public class AllCardCostModifier_PerCard extends AllCardCostModifier {
     }
 
     public boolean isCostDecreased(AbstractCard card) {
-        return InBattleDataManager.costMap.containsKey(card.uuid) && getOriginCost(card) < card.costForTurn && !card.freeToPlayOnce;
+        return InBattleDataManager.costMap.containsKey(card.uuid) && getOriginCost(card) < card.costForTurn && !card.freeToPlay();
     }
 }

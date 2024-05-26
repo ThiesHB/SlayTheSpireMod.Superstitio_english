@@ -1,4 +1,4 @@
-package superstitio.cards.general.PowerCard.defend;
+package superstitio.cards.maso.PowerCard;
 
 import com.evacipated.cardcrawl.mod.stslib.powers.interfaces.OnPlayerDeathPower;
 import com.megacrit.cardcrawl.actions.common.HealAction;
@@ -8,11 +8,11 @@ import com.megacrit.cardcrawl.core.AbstractCreature;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import superstitio.DataManager;
-import superstitio.cards.general.GeneralCard;
+import superstitio.cards.maso.MasoCard;
 import superstitio.powers.AbstractSuperstitioPower;
 
 
-public class DeathDoor extends GeneralCard {
+public class DeathDoor extends MasoCard {
     public static final String ID = DataManager.MakeTextID(DeathDoor.class);
 
     public static final CardType CARD_TYPE = CardType.POWER;
