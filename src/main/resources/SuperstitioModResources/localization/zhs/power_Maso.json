@@ -2,7 +2,7 @@
     "SuperstitioMod:DelayHpLosePower_HealOnVictory": {
         "NAME": "#r腐朽",
         "DESCRIPTIONS": [
-            "敌人行动结束时： NL #r降低 #r%d #r点生命。"
+            "敌人行动结束时： NL #r降低 #r%d #r点生命。 NL 总腐朽： #r%d 层。"
         ]
     },
     "SuperstitioMod:DoubleRemoveHpLostWhenHasVulnerablePower": {

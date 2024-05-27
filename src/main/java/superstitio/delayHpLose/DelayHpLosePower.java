@@ -14,6 +14,7 @@ import superstitio.actions.AutoDoneInstantAction;
 import superstitio.cards.DamageActionMaker;
 import superstitio.powers.AbstractSuperstitioPower;
 import superstitio.powers.patchAndInterface.interfaces.DecreaseHealthBarNumberPower;
+import superstitio.powers.patchAndInterface.interfaces.OnPostApplyThisPower;
 import superstitio.powers.patchAndInterface.interfaces.invisible.InvisiblePower_InvisibleApplyPowerEffect;
 import superstitio.powers.patchAndInterface.interfaces.invisible.InvisiblePower_InvisibleIconAndAmount;
 import superstitio.powers.patchAndInterface.interfaces.invisible.InvisiblePower_InvisibleRemovePowerEffect;
@@ -138,9 +139,11 @@ public abstract class DelayHpLosePower extends AbstractSuperstitioPower implemen
         AutoDoneInstantAction.addToBotAbstract(() -> {
             PowerUtility.BubbleMessage(this, true, pureName());
             CardCrawlGame.sound.play("POWER_TIME_WARP", 0.05f);
+            AbstractDungeon.player.damage(UnBlockAbleDamage.damageInfo(this, amount));
+            this.amount = 0;
         });
-        getDelayHpLoseDamageActionMaker().addToBot();
-        AutoDoneInstantAction.addToBotAbstract(() -> this.amount = 0);
+//        getDelayHpLoseDamageActionMaker().addToBot();
+//        AutoDoneInstantAction.addToBotAbstract(() -> this.amount = 0);
         addToBot_removeSpecificPower(this);
     }
 
@@ -150,6 +153,89 @@ public abstract class DelayHpLosePower extends AbstractSuperstitioPower implemen
                 .setEffect(AbstractGameAction.AttackEffect.LIGHTNING)
                 .setDamageType(DataManager.CanOnlyDamageDamageType.UnBlockAbleDamageType);
     }
+
+//    public void triggerNothingDamage(AbstractPlayer player, DamageInfo info) {
+//        int damageAmount = info.output;
+//        boolean hadBlock = true;
+//        if (player.currentBlock == 0) {
+//            hadBlock = false;
+//        }
+//
+//        if (damageAmount < 0) {
+//            damageAmount = 0;
+//        }
+//
+//        if (damageAmount > 1 && player.hasPower("IntangiblePlayer")) {
+//            damageAmount = 1;
+//        }
+//
+//
+//        if (damageAmount > 0) {
+//
+//            if (info.owner != player) {
+//                player.useStaggerAnimation();
+//            }
+//
+//            player.currentHealth -= damageAmount;
+//
+//            AbstractDungeon.effectList.add(new StrikeEffect(player, player.hb.cX, player.hb.cY, damageAmount));
+//            if (player.currentHealth < 0) {
+//                player.currentHealth = 0;
+//            }
+//            else if (player.currentHealth < player.maxHealth / 4) {
+//                AbstractDungeon.topLevelEffects.add(new BorderFlashEffect(new Color(1.0F, 0.1F, 0.05F, 0.0F)));
+//            }
+//
+//            player.healthBarUpdatedEvent();
+//            if ((float) player.currentHealth <= (float) player.maxHealth / 2.0F && !player.isBloodied) {
+//                player.isBloodied = true;
+//                player.relics.forEach(AbstractRelic::onBloodied);
+//            }
+//
+//            if (player.currentHealth < 1) {
+//                if (!player.hasRelic("Mark of the Bloom")) {
+//                    if (player.hasPotion("FairyPotion")) {
+//                        player.potions.stream()
+//                        var4 = player.potions.iterator();
+//
+//                        while (var4.hasNext()) {
+//                            AbstractPotion p = (AbstractPotion) var4.next();
+//                            if (p.ID.equals("FairyPotion")) {
+//                                p.flash();
+//                                player.currentHealth = 0;
+//                                p.use(player);
+//                                AbstractDungeon.topPanel.destroyPotion(p.slot);
+//                                return;
+//                            }
+//                        }
+//                    }
+//                    else if (player.hasRelic("Lizard Tail") && ((LizardTail) player.getRelic("Lizard Tail")).counter == -1) {
+//                        player.currentHealth = 0;
+//                        player.getRelic("Lizard Tail").onTrigger();
+//                        return;
+//                    }
+//                }
+//
+//                player.isDead = true;
+//                AbstractDungeon.deathScreen = new DeathScreen(AbstractDungeon.getMonsters());
+//                player.currentHealth = 0;
+//                if (player.currentBlock > 0) {
+//                    player.loseBlock();
+//                    AbstractDungeon.effectList.add(new HbBlockBrokenEffect(player.hb.cX - player.hb.width / 2.0F + BLOCK_ICON_X, player.hb.cY - player.hb.height / 2.0F + BLOCK_ICON_Y));
+//                }
+//            }
+//        }
+//        else if (player.currentBlock > 0) {
+//            AbstractDungeon.effectList.add(new BlockedWordEffect(player, player.hb.cX, player.hb.cY, uiStrings.TEXT[0]));
+//        }
+//        else if (hadBlock) {
+//            AbstractDungeon.effectList.add(new BlockedWordEffect(player, player.hb.cX, player.hb.cY, uiStrings.TEXT[0]));
+//            AbstractDungeon.effectList.add(new HbBlockBrokenEffect(player.hb.cX - player.hb.width / 2.0F + BLOCK_ICON_X, player.hb.cY - player.hb.height / 2.0F + BLOCK_ICON_Y));
+//        }
+//        else {
+//            AbstractDungeon.effectList.add(new StrikeEffect(player, player.hb.cX, player.hb.cY, 0));
+//        }
+//    }
 
     @Override
     public Color getColor() {

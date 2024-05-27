@@ -3,7 +3,7 @@ package superstitio.delayHpLose;
 import com.badlogic.gdx.graphics.Color;
 import com.megacrit.cardcrawl.core.AbstractCreature;
 import com.megacrit.cardcrawl.powers.AbstractPower;
-import superstitio.Logger;
+import superstitio.actions.AutoDoneInstantAction;
 import superstitio.utils.ActionUtility;
 
 public abstract class DelayHpLosePower_ApplyAtEndOfRound extends DelayHpLosePower {
@@ -57,7 +57,19 @@ public abstract class DelayHpLosePower_ApplyAtEndOfRound extends DelayHpLosePowe
         return this.Turn > 0;
     }
 
-//    @Override
+    @Override
+    public int getDecreaseAmount() {
+        if (this.Turn > 0)
+            return 0;
+        return super.getDecreaseAmount();
+    }
+
+    @Override
+    public void updateDescriptionArgs() {
+        setDescriptionArgs(this.amount, findAll(this.owner, DelayHpLosePower_ApplyAtEndOfRound.class).mapToInt(power -> power.amount).sum());
+    }
+
+    //    @Override
 //    public void atStartOfTurn() {
 //        if (Turn <= 0) {
 //            addToBot_applyDamage();
@@ -70,11 +82,14 @@ public abstract class DelayHpLosePower_ApplyAtEndOfRound extends DelayHpLosePowe
     public void atEndOfRound() {
         if (Turn <= 0) {
             addToBot_applyDamage();
+            AutoDoneInstantAction.addToBotAbstract(() ->
+                    findAll(this.owner, DelayHpLosePower.class).forEach(DelayHpLosePower::updateDescription));
         }
         Turn--;
         atEnemyTurn = false;
         this.updateDescription();
     }
+
 
     @Override
     public void updateDescription() {

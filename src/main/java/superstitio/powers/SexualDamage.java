@@ -11,7 +11,7 @@ import superstitio.cards.DamageActionMaker;
 import superstitio.delayHpLose.UnBlockAbleDamage;
 import superstitio.powers.patchAndInterface.interfaces.DecreaseHealthBarNumberPower;
 
-public class SexualDamage extends AbstractSuperstitioPower implements HealthBarRenderPower, DecreaseHealthBarNumberPower {
+public class SexualDamage extends AbstractSuperstitioPower implements HealthBarRenderPower {
     public static final String POWER_ID = DataManager.MakeTextID(SexualDamage.class);
     private static final Color BarColor = Color.PURPLE.cpy();
     protected final AbstractCreature giver;
@@ -48,16 +48,6 @@ public class SexualDamage extends AbstractSuperstitioPower implements HealthBarR
     @Override
     public Color getColor() {
         return BarColor;
-    }
-
-    @Override
-    public int getDecreaseAmount() {
-        return this.amount;
-    }
-
-    @Override
-    public void setDecreaseAmount(int amount) {
-        this.amount = amount;
     }
 
     @Override
