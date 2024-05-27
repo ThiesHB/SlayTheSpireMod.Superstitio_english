@@ -29,7 +29,7 @@ public class PregnantBlock_chooseEffect extends PregnantBlock {
     }
 
     @Override
-    public void removeNaturally(DamageInfo info, int remainingDamage) {
+    public void removeNaturally(int remainingDamage) {
         removeNatural.get();
     }
 }

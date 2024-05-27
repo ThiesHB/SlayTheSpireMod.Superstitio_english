@@ -1,7 +1,9 @@
 package superstitio.cards.maso.AttackCard;
 
+import com.evacipated.cardcrawl.mod.stslib.blockmods.BlockModifierManager;
 import com.evacipated.cardcrawl.mod.stslib.cards.targeting.SelfOrEnemyTargeting;
 import com.megacrit.cardcrawl.actions.common.RemoveSpecificPowerAction;
+import com.megacrit.cardcrawl.cards.DamageInfo;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.core.AbstractCreature;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
@@ -10,6 +12,7 @@ import com.megacrit.cardcrawl.powers.LoseStrengthPower;
 import com.megacrit.cardcrawl.powers.StrengthPower;
 import superstitio.DataManager;
 import superstitio.actions.AutoDoneInstantAction;
+import superstitio.cardModifier.modifiers.block.PregnantBlock;
 import superstitio.cards.maso.MasoCard;
 
 
@@ -23,7 +26,7 @@ public class BellyStrike extends MasoCard {
     public static final CardTarget CARD_TARGET = SelfOrEnemyTargeting.SELF_OR_ENEMY;
 
     private static final int COST = 2;
-    private static final int DAMAGE = 24;
+    private static final int DAMAGE = 22;
     private static final int UPGRADE_DAMAGE = 8;
 
     private static final int MAGIC = 5;
@@ -48,6 +51,18 @@ public class BellyStrike extends MasoCard {
             if (AbstractDungeon.player.lastDamageTaken > 0)
                 this.addToBot(new RemoveSpecificPowerAction(AbstractDungeon.player, AbstractDungeon.player, LoseStrengthPower.POWER_ID));
         });
+//        AbstractCreature finalTarget = target;
+//        AutoDoneInstantAction.addToBotAbstract(() -> {
+//            BlockModifierManager.blockInstances(AbstractDungeon.player)
+//                    .forEach(blockInstance -> blockInstance.getBlockTypes().stream()
+//                            .filter(blockModifier -> blockModifier instanceof PregnantBlock)
+//                            .findFirst()
+//                            .ifPresent(blockModifier -> AutoDoneInstantAction.addToBotAbstract(() -> {
+//                                ((PregnantBlock) blockModifier).removeUnNaturally(
+//                                        new DamageInfo(finalTarget, blockInstance.getBlockAmount()), 0);
+//                                BlockModifierManager.removeSpecificBlockType(blockInstance);
+//                            })));
+//        });
     }
 
     @Override

@@ -33,7 +33,7 @@ public abstract class PregnantBlock extends AbstractLupaBlock {
         if (info != null)
             removeUnNaturally(info, remainingDamage);
         else
-            removeNaturally(info, remainingDamage);
+            removeNaturally(remainingDamage);
         return remainingDamage;
     }
 
@@ -41,7 +41,7 @@ public abstract class PregnantBlock extends AbstractLupaBlock {
     public abstract void removeUnNaturally(DamageInfo info, int remainingDamage);
 
     ///正常顺产的效果
-    public abstract void removeNaturally(DamageInfo info, int remainingDamage);
+    public abstract void removeNaturally(int remainingDamage);
 
     @Override
     public Priority priority() {

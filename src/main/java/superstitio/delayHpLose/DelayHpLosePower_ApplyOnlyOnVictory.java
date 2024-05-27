@@ -32,4 +32,9 @@ public class DelayHpLosePower_ApplyOnlyOnVictory extends DelayHpLosePower {
         addToBot_reducePowerToOwner(this.ID, amount);
         return lastAmount;
     }
+
+    @Override
+    public boolean showDecreaseAmount() {
+        return true;
+    }
 }

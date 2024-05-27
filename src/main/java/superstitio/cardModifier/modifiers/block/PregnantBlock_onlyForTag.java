@@ -22,6 +22,6 @@ public class PregnantBlock_onlyForTag extends PregnantBlock {
     }
 
     @Override
-    public void removeNaturally(DamageInfo info, int remainingDamage) {
+    public void removeNaturally(int remainingDamage) {
     }
 }

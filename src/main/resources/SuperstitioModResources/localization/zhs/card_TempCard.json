@@ -15,7 +15,7 @@
     "SuperstitioMod:GiveBirth": {
         "NAME": "分娩",
         "NAME_SFW": "力量释放",
-        "DESCRIPTION": "移除所有的 superstitiomod:妊娠 。获得 !B! 临时生命 。 NL 通过这张牌移除的 *妊娠 不会触发 *流产 。 NL 消耗 。",
+        "DESCRIPTION": "移除所有的 superstitiomod:妊娠 。获得 !B! 临时生命 。 NL 通过这张牌移除的 *妊娠 不会触发 superstitiomod:流产 。 NL 消耗 。",
         "FLAVOR": "重获新生吧。"
     },
     "SuperstitioMod:SexToy": {

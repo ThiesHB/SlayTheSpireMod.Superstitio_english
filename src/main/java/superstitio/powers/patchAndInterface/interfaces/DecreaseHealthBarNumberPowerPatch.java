@@ -14,7 +14,15 @@ import com.megacrit.cardcrawl.helpers.FontHelper;
 public class DecreaseHealthBarNumberPowerPatch {
     private static final float HIDDEN_DEEPER = 0.2f;
 
-    public static int GetAllDecreaseHealthBarNumber(AbstractCreature abstractCreature) {
+    public static int GetAllDecreaseHealthBarNumberShouldShown(AbstractCreature abstractCreature) {
+
+        return abstractCreature.powers.stream()
+                .filter(power -> power instanceof DecreaseHealthBarNumberPower)
+                .filter(power -> ((DecreaseHealthBarNumberPower) power).showDecreaseAmount())
+                .mapToInt(power -> ((DecreaseHealthBarNumberPower) power).getDecreaseAmount()).sum();
+    }
+
+    public static int GetAllDecreaseHealthBarNumberTotall(AbstractCreature abstractCreature) {
 
         return abstractCreature.powers.stream()
                 .filter(power -> power instanceof DecreaseHealthBarNumberPower)
@@ -51,7 +59,7 @@ public class DecreaseHealthBarNumberPowerPatch {
             }
 
             if (_inst.healthHb.hovered) {
-                int decreaseNumber = GetAllDecreaseHealthBarNumber(_inst);
+                int decreaseNumber = GetAllDecreaseHealthBarNumberTotall(_inst);
                 if (decreaseNumber <= 0) return SpireReturn.Continue();
 
                 hbTextColor.a *= HIDDEN_DEEPER;
@@ -67,7 +75,7 @@ public class DecreaseHealthBarNumberPowerPatch {
                         y + HEALTH_BAR_OFFSET_Y + HEALTH_TEXT_OFFSET_Y + 5.0F * Settings.scale, renderColor);
             }
             else {
-                int decreaseNumber = GetAllDecreaseHealthBarNumber(_inst);
+                int decreaseNumber = GetAllDecreaseHealthBarNumberShouldShown(_inst);
                 if (decreaseNumber <= 0) return SpireReturn.Continue();
                 float HEALTH_BAR_OFFSET_Y = -28.0F * Settings.scale;
                 float HEALTH_TEXT_OFFSET_Y = 6.0F * Settings.scale;

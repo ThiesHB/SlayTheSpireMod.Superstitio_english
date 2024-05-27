@@ -8,7 +8,7 @@
   "SuperstitioMod:MasoCard:BellyStrike": {
     "NAME": "腹部打击",
     "NAME_SFW": "猛击",
-    "DESCRIPTION": "对目标造成 !D! 伤害， NL 给予 !M! 临时力量 。 NL superstitiomod:受虐者 ： 造成未被格挡的伤害时， 临时力量 变为永久。",
+    "DESCRIPTION": "对目标造成 !D! 伤害， NL 给予 !M! 临时力量 。 NL superstitiomod:受虐者 ： 造成未被格挡的伤害时， 临时力量 变为永久 。",
     "FLAVOR": "对着这里来！"
   },
   "SuperstitioMod:MasoCard:DrinkPoison": {

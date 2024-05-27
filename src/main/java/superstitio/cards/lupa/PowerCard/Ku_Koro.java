@@ -7,7 +7,6 @@ import com.megacrit.cardcrawl.core.AbstractCreature;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import superstitio.DataManager;
-import superstitio.cards.general.GeneralCard;
 import superstitio.cards.lupa.LupaCard;
 import superstitio.powers.AbstractSuperstitioPower;
 import superstitio.utils.ActionUtility;
@@ -60,7 +59,7 @@ public class Ku_Koro extends LupaCard {
         public int onAttacked(DamageInfo info, int damageAmount) {
             if (damageAmount > 0 && info.owner != AbstractDungeon.player && info.type == DamageInfo.DamageType.NORMAL) {
                 this.flash();
-                final AbstractCard card = CardUtility.getRandomCurseCard(true, true);
+                final AbstractCard card = CardUtility.getRandomStatusCard(true, true);
                 ActionUtility.addToBot_makeTempCardInBattle(card, BattleCardPlace.Hand);
             }
 

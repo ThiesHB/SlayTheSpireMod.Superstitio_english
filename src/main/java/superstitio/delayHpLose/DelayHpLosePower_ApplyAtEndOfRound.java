@@ -4,9 +4,10 @@ import com.badlogic.gdx.graphics.Color;
 import com.megacrit.cardcrawl.core.AbstractCreature;
 import com.megacrit.cardcrawl.powers.AbstractPower;
 import superstitio.actions.AutoDoneInstantAction;
+import superstitio.powers.patchAndInterface.interfaces.OnPostApplyThisPower;
 import superstitio.utils.ActionUtility;
 
-public abstract class DelayHpLosePower_ApplyAtEndOfRound extends DelayHpLosePower {
+public abstract class DelayHpLosePower_ApplyAtEndOfRound extends DelayHpLosePower implements OnPostApplyThisPower {
     private static final Color ReadyToRemoveColor = new Color(1.0F, 0.5F, 0.0F, 1.0F);
     private static final Color ForAWhileColor = new Color(0.9412F, 0.4627f, 0.5451f, 1.0f);
     private static final Color OriginColor = new Color(1.0F, 0.85f, 0.90f, 1.0f);
@@ -58,13 +59,6 @@ public abstract class DelayHpLosePower_ApplyAtEndOfRound extends DelayHpLosePowe
     }
 
     @Override
-    public int getDecreaseAmount() {
-        if (this.Turn > 0)
-            return 0;
-        return super.getDecreaseAmount();
-    }
-
-    @Override
     public void updateDescriptionArgs() {
         setDescriptionArgs(this.amount, findAll(this.owner, DelayHpLosePower_ApplyAtEndOfRound.class).mapToInt(power -> power.amount).sum());
     }
@@ -79,6 +73,12 @@ public abstract class DelayHpLosePower_ApplyAtEndOfRound extends DelayHpLosePowe
 //    }
 
     @Override
+    public void InitializePostApplyThisPower(AbstractPower addedPower) {
+        AutoDoneInstantAction.addToBotAbstract(() ->
+                findAll(this.owner, DelayHpLosePower.class).forEach(DelayHpLosePower::updateDescription));
+    }
+
+    @Override
     public void atEndOfRound() {
         if (Turn <= 0) {
             addToBot_applyDamage();
@@ -88,6 +88,11 @@ public abstract class DelayHpLosePower_ApplyAtEndOfRound extends DelayHpLosePowe
         Turn--;
         atEnemyTurn = false;
         this.updateDescription();
+    }
+
+    @Override
+    public boolean showDecreaseAmount() {
+        return this.Turn <= 0;
     }
 
 

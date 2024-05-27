@@ -27,9 +27,10 @@ public class GangBangPrepare extends LupaCard {
     public static final CardTarget CARD_TARGET = CardTarget.SELF;
 
     private static final int COST = 3;
+//    private static final int COST_UPGRADED_NEW = 2;
 
-    private static final int MAGIC = 6;
-    private static final int UPGRADE_MAGIC = -2;
+    private static final int MAGIC = 15;
+    private static final int UPGRADE_MAGIC = 5;
 
     public GangBangPrepare() {
         super(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET);
@@ -39,21 +40,25 @@ public class GangBangPrepare extends LupaCard {
 
     @Override
     public void use(AbstractPlayer player, AbstractMonster monster) {
-        addToBot_applyPower(new GangBangPreparePower());
+        addToBot_applyPower(new GangBangPreparePower(this.magicNumber));
         SexMarkOrbGroup sexMarkOrbGroup = InBattleDataManager.getSexMarkOrbGroup().orElse(null);
-        if (sexMarkOrbGroup != null) return;
+        if (sexMarkOrbGroup != null) {
+            sexMarkOrbGroup.setScoreRate(sexMarkOrbGroup.scoreRate + (double) this.magicNumber / 100);
+            return;
+        }
 
-        InBattleDataManager.Subscribe(new SexMarkOrbGroup(AbstractDungeon.player.hb));
+        InBattleDataManager.Subscribe(new SexMarkOrbGroup(AbstractDungeon.player.hb, (double) this.magicNumber / 100));
     }
 
     @Override
     public void upgradeAuto() {
+        upgradeCardsToPreview();
     }
 
     public static class GangBangPreparePower extends EasyBuildAbstractPowerForPowerCard {
 
-        public GangBangPreparePower() {
-            super(-1);
+        public GangBangPreparePower(int scoreRateForShow) {
+            super(scoreRateForShow);
         }
 
 
@@ -72,6 +77,7 @@ public class GangBangPrepare extends LupaCard {
 
         @Override
         public void updateDescriptionArgs() {
+            setDescriptionArgs(amount);
         }
 
         @Override

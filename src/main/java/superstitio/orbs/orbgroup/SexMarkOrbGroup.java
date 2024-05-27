@@ -22,10 +22,11 @@ import java.util.stream.Collectors;
 public class SexMarkOrbGroup extends OrbGroup {
     public static final int SexMarkSetupOrbMax = 5;
     private final boolean fillSide;
+    public double scoreRate;
 
-
-    public SexMarkOrbGroup(Hitbox hitbox) {
+    public SexMarkOrbGroup(Hitbox hitbox, double scoreRate) {
         super(hitbox, SexMarkSetupOrbMax, new SexMarkEmptySlot());
+        this.scoreRate = scoreRate;
         this.hitbox.moveX(this.hitbox.cX + this.hitbox.width);
         this.hitbox.moveY(this.hitbox.cY - this.hitbox.height * 0.25f);
         this.letEachOrbToSlotPlaces();
@@ -47,6 +48,10 @@ public class SexMarkOrbGroup extends OrbGroup {
         AbstractDungeon.actionManager.addToBottom(
                 new GiveSexMarkToOrbGroupInstantAction(InBattleDataManager.getSexMarkOrbGroup().orElse(null),
                         makeSexMarkOrb(sexMarkType).setSexMarkName(sexName)));
+    }
+
+    public void setScoreRate(double scoreRate) {
+        this.scoreRate = scoreRate;
     }
 
     @Override
@@ -107,7 +112,7 @@ public class SexMarkOrbGroup extends OrbGroup {
                 blockAmount.addAndGet(sexMarkOrb.block());
             }
         });
-        GangBang gangBang = new GangBang(attackAmount.get(), blockAmount.get(), ScoreTheGangBang());
+        GangBang gangBang = new GangBang(attackAmount.get(), blockAmount.get(), ScoreTheGangBang(), scoreRate);
         AutoDoneInstantAction.addToBotAbstract(() ->
                 AbstractDungeon.actionManager.addCardQueueItem(new CardQueueItem(gangBang, null, 0, true,
                         true), true));

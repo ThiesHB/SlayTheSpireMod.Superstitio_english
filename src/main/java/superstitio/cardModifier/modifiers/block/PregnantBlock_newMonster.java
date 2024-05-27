@@ -41,7 +41,7 @@ public class PregnantBlock_newMonster extends PregnantBlock {
     }
 
     @Override
-    public void removeNaturally(DamageInfo info, int remainingDamage) {
+    public void removeNaturally(int remainingDamage) {
         removeNatural.get();
     }
 }

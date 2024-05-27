@@ -32,7 +32,7 @@
     "SuperstitioMod:LupaCard:GangBangPrepare": {
         "NAME": "轮奸准备",
         "NAME_SFW": "武学真髓",
-        "DESCRIPTION": "当你打出 *性交牌 时，获得对应的印记，集齐5个后，自动打出一张 *轮奸派对 。 除了印记本身的数值外，每多一种印记， *轮奸派对 就提高 百分之 15 的数值。",
+        "DESCRIPTION": "当你打出 *性交牌 时，获得对应的印记，集齐5个后，自动打出一张 *轮奸派对 。 使得除了印记本身的数值外，每多一种印记， *轮奸派对 就提高 百分之 !M! 的数值。",
         "FLAVOR": "要一起上吗？我全部都能接住！"
     },
     "SuperstitioMod:LupaCard:CultaeForm": {

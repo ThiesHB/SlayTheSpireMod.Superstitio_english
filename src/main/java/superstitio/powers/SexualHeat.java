@@ -162,7 +162,7 @@ public class SexualHeat extends AbstractSuperstitioPower implements
     }
 
     private void CheckEndOrgasm() {
-        if (amount <= getHeatRequired()) ForceEndOrgasm();
+        if (amount < getHeatRequired()) ForceEndOrgasm();
     }
 
     private void ForceEndOrgasm() {

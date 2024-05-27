@@ -20,7 +20,7 @@ import java.util.ArrayList;
 
 import static superstitio.utils.ActionUtility.addToBot_makeTempCardInBattle;
 
-//TODO 增加一个按照怪物体型获得格挡的效果
+//TODO 希望这个卡能制造一个跟班
 @AutoAdd.Ignore
 public class HaveBirthWith extends GeneralCard {
     public static final String ID = DataManager.MakeTextID(HaveBirthWith.class);

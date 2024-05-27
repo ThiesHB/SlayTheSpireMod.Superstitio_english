@@ -94,4 +94,12 @@ public class UnBirth extends GeneralCard {
         Big,
         VeryBig
     }
+
+//    MonsterBodyType getMonsterBodyType(AbstractCreature creature){
+//        if (creature.maxHealth < 10)
+//            return MonsterBodyType.Tiny;
+//        if (creature.maxHealth < 20)
+//            return MonsterBodyType.Middle
+//
+//    }
 }

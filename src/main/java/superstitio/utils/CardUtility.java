@@ -26,7 +26,7 @@ public class CardUtility {
      * @param Vanilla 当为true时， IsCardColorThisMod()被短路
      * @return 输入为true ture时，输出为满足两个条件之一的结果。输入为1true1false时，输出由true项决定。输入为false false时，输出两者都不满足的结果。
      */
-    public static AbstractCard getRandomCurseCard(boolean ThisMod, boolean Vanilla) {
+    public static AbstractCard getRandomStatusCard(boolean ThisMod, boolean Vanilla) {
         List<AbstractCard> list = getCardsListForMod(ThisMod, Vanilla).stream()
                 .filter(card -> card.type == AbstractCard.CardType.STATUS)
                 .collect(Collectors.toList());
@@ -38,7 +38,7 @@ public class CardUtility {
         list = CardLibrary.cards.values().stream()
                 .filter(card -> {
                     if (ThisMod && Vanilla)
-                        return !(!IsCardColorVanilla(card) && !IsCardColorThisMod(card));
+                        return IsCardColorVanilla(card) || IsCardColorThisMod(card);
                     else if (ThisMod)
                         return !IsCardColorVanilla(card) && IsCardColorThisMod(card);
                     else if (Vanilla)
@@ -64,7 +64,8 @@ public class CardUtility {
     }
 
     public static boolean IsCardColorVanilla(AbstractCard card) {
-        return !card.cardID.contains(":");
+        return card.getClass().getPackage().getName().contains("com.megacrit.cardcrawl");
+//        return !card.cardID.contains(":");
     }
 
     public static boolean IsCardColorThisMod(AbstractCard card) {

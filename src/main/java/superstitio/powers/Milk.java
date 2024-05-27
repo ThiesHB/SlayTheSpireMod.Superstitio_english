@@ -4,6 +4,7 @@ import com.evacipated.cardcrawl.mod.stslib.actions.tempHp.AddTemporaryHPAction;
 import com.megacrit.cardcrawl.cards.DamageInfo;
 import com.megacrit.cardcrawl.core.AbstractCreature;
 import superstitio.DataManager;
+import superstitio.actions.SuperFastAddTempHPAction;
 
 public class Milk extends AbstractSuperstitioPower {
     public static final String POWER_ID = DataManager.MakeTextID(Milk.class);
@@ -23,9 +24,9 @@ public class Milk extends AbstractSuperstitioPower {
         if (info.type != DamageInfo.DamageType.NORMAL) return;
 //        if (damageAmount <= 0) return;
         this.flash();
-        addToBot(new AddTemporaryHPAction(target, owner, this.amount));
-        addToBot(new AddTemporaryHPAction(owner, owner, this.amount));
-        this.amount = this.amount / 2;
+        addToBot(new SuperFastAddTempHPAction(target, owner, this.amount));
+        addToBot(new SuperFastAddTempHPAction(owner, owner, this.amount));
+        addToBot_removeSpecificPower(this);
 //        addToBot_reducePowerToOwner(Milk.POWER_ID, this.amount / 2);
     }
 }
