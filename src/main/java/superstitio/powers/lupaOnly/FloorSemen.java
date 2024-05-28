@@ -5,21 +5,28 @@ import com.megacrit.cardcrawl.core.AbstractCreature;
 import com.megacrit.cardcrawl.core.Settings;
 import com.megacrit.cardcrawl.powers.AbstractPower;
 import superstitio.DataManager;
+import superstitio.SuperstitioImg;
 import superstitio.powers.AbstractSuperstitioPower;
 import superstitio.powers.patchAndInterface.barIndepend.HasBarRenderOnCreature_Power;
 import superstitio.powers.patchAndInterface.interfaces.invisible.InvisiblePower_InvisibleIconAndAmount;
 import superstitio.powers.patchAndInterface.interfaces.invisible.InvisiblePower_InvisibleTips;
 
 import static superstitio.cards.general.FuckJob_Card.FloorSemenRate;
-import static superstitio.cards.general.FuckJob_Card.OutsideSemenRate;
 
+@SuperstitioImg.NoNeedImg
 public class FloorSemen extends AbstractSuperstitioPower implements
+        SemenPower,
         InvisiblePower_InvisibleTips, InvisiblePower_InvisibleIconAndAmount, HasBarRenderOnCreature_Power {
     public static final String POWER_ID = DataManager.MakeTextID(FloorSemen.class);
-
+    public static final int SEMEN_VALUE = 1;
 
     public FloorSemen(final AbstractCreature owner, int amount) {
         super(POWER_ID, owner, amount, owner.isPlayer ? PowerType.BUFF : PowerType.DEBUFF, false);
+    }
+
+    @Override
+    public int getSemenValue() {
+        return SEMEN_VALUE;
     }
 
     @Override

@@ -28,7 +28,7 @@
     "NAME_SFW": "以牙还牙",
     "DESCRIPTION": "失去 %d 点生命， NL 抽 %d 张牌， NL 往抽牌堆中塞入 %d 张 *拔指甲 。 NL 一回合只能打出 %d 张。 （已使用 !M! 张）",
     "UPGRADE_DESCRIPTION": "对自身造成 %d 点伤害， NL 抽 %d 张牌， NL 往抽牌堆中塞入 %d 张 *拔指甲 。 NL 一回合只能打出 %d 张。 （已使用 !M! 张）",
-    "FLAVOR": ""
+    "FLAVOR": "拔下来马上又会马上长回去，想往里面插根针都来不及。"
   },
   "SuperstitioMod:MasoCard:OrgasmWithLostBody": {
     "NAME": "慕残之心",
@@ -42,14 +42,14 @@
     "DESCRIPTION": "选择一张手牌，失去其当前费用 !M! 倍的血量，强制打出。",
     "FLAVOR": "再深一点会更好。",
     "EXTENDED_DESCRIPTION": [
-      "选择一张牌，强制打出。"
+      "强制打出。"
     ]
   },
   "SuperstitioMod:MasoCard:BodyModification_CutOff": {
     "NAME": "改造：身体欠损",
     "NAME_SFW": "改造：义体升级",
     "DESCRIPTION": "%s 攻击力提升 百分之 !M! 。 %s",
-    "FLAVOR": "",
+    "FLAVOR": "用刀砍，还是用手拽下来呢？这是个问题。",
     "EXTENDED_DESCRIPTION": [
       "若还有可选择的部位：移除 !B! *腐朽 ，",
       " NL 选择一个部位，其对应的 *性交牌 无法打出。"
@@ -59,13 +59,13 @@
     "NAME": "欠损部位选择",
     "NAME_SFW": "部位选择",
     "DESCRIPTION": "这张牌用于选择，它的名称和描述都会在选择界面改变。",
-    "FLAVOR": ""
+    "FLAVOR": "好难选啊，能手快全选吗？"
   },
   "SuperstitioMod:MasoCard:BodyModification_SuperHugeBreast": {
     "NAME": "改造：超巨乳化",
     "NAME_SFW": "改造：仁慈之心",
     "DESCRIPTION": "受到攻击时，获得 !M! superstitiomod:乳汁 。",
-    "FLAVOR": ""
+    "FLAVOR": "大大大大大！"
   },
   "SuperstitioMod:MasoCard:BodyModification_Tattoo": {
     "NAME": "改造：纹身穿刺",

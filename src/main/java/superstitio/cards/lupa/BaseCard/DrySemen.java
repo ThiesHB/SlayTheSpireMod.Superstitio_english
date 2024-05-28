@@ -18,7 +18,7 @@ public class DrySemen extends LupaCard {
     public static final CardTarget CARD_TARGET = CardTarget.SELF;
 
     private static final int COST = 1;
-    private static final int BLOCK = 12;
+    private static final int BLOCK = 13;
     private static final int UPGRADE_BLOCK = 5;
     private static final int MAGIC = 3;
     private static final int UPGRADE_MAGIC = 0;

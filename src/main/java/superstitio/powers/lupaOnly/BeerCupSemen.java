@@ -9,6 +9,7 @@ import com.megacrit.cardcrawl.core.Settings;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.powers.AbstractPower;
 import superstitio.DataManager;
+import superstitio.SuperstitioImg;
 import superstitio.actions.AutoDoneInstantAction;
 import superstitio.cards.lupa.PowerCard.DrinkSemenBeer;
 import superstitio.powers.AbstractSuperstitioPower;
@@ -18,6 +19,7 @@ import superstitio.powers.patchAndInterface.interfaces.invisible.InvisiblePower_
 import superstitio.powers.patchAndInterface.interfaces.invisible.InvisiblePower_InvisibleTips;
 import superstitio.utils.PowerUtility;
 
+@SuperstitioImg.NoNeedImg
 public class BeerCupSemen extends AbstractSuperstitioPower implements
         InvisiblePower_InvisibleTips, InvisiblePower_InvisibleIconAndAmount, HasBarRenderOnCreature_Power,
         OnPostApplyThisPower, BetterOnApplyPowerPower {
@@ -110,10 +112,11 @@ public class BeerCupSemen extends AbstractSuperstitioPower implements
 
     @Override
     public boolean betterOnApplyPower(AbstractPower power, AbstractCreature creature, AbstractCreature creature1) {
-        if ((power instanceof InsideSemen || power instanceof OutsideSemen) && power.amount > 0) {
+        if ((power instanceof SemenPower) && power.amount > 0) {
             AutoDoneInstantAction.addToBotAbstract(() ->
                     PowerUtility.BubbleMessageHigher(power, false, powerStrings.getDESCRIPTIONS()[1]));
-            this.semenAmount += power.amount;
+            SemenPower semenPower = (SemenPower) power;
+            this.semenAmount += power.amount * semenPower.getSemenValue();
             CheckFull();
             return false;
         }

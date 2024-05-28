@@ -13,8 +13,7 @@ import superstitio.cards.lupa.LupaCard;
 import superstitio.orbs.orbgroup.SexMarkOrbGroup;
 import superstitio.powers.EasyBuildAbstractPowerForPowerCard;
 
-import static superstitio.cards.general.FuckJob_Card.addToTop_gainSexMark_Inside;
-import static superstitio.cards.general.FuckJob_Card.addToTop_gainSexMark_Outside;
+import static superstitio.orbs.orbgroup.SexMarkOrbGroup.addToBot_GiveMarkToOrbGroup;
 
 
 public class GangBangPrepare extends LupaCard {
@@ -36,6 +35,14 @@ public class GangBangPrepare extends LupaCard {
         super(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET);
         this.setupMagicNumber(MAGIC, UPGRADE_MAGIC);
         this.cardsToPreview = new GangBang();
+    }
+
+    public static void addToBot_gainSexMark_Inside(String sexName) {
+        addToBot_GiveMarkToOrbGroup(sexName, SexMarkOrbGroup.SexMarkType.Inside);
+    }
+
+    public static void addToBot_gainSexMark_Outside(String sexName) {
+        addToBot_GiveMarkToOrbGroup(sexName, SexMarkOrbGroup.SexMarkType.OutSide);
     }
 
     @Override
@@ -66,11 +73,11 @@ public class GangBangPrepare extends LupaCard {
         public void onPlayCard(AbstractCard card, AbstractMonster m) {
             if (card instanceof FuckJob_Card && card instanceof SuperstitioCard) {
                 if (card.cardID.contains("Fuck_")) {
-                    addToTop_gainSexMark_Inside(card.name);
+                    addToBot_gainSexMark_Inside(card.name);
                     return;
                 }
                 if (card.cardID.contains("Job_")) {
-                    addToTop_gainSexMark_Outside(((SuperstitioCard) card).getEXTENDED_DESCRIPTION()[0]);
+                    addToBot_gainSexMark_Outside(((SuperstitioCard) card).getEXTENDED_DESCRIPTION()[0]);
                 }
             }
         }

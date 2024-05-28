@@ -14,6 +14,7 @@ import com.megacrit.cardcrawl.powers.AbstractPower;
 import superstitio.DataManager;
 import superstitio.InBattleDataManager;
 import superstitio.Logger;
+import superstitio.SuperstitioImg;
 import superstitio.powers.patchAndInterface.barIndepend.BarRenderUpdateMessage;
 import superstitio.powers.patchAndInterface.barIndepend.HasBarRenderOnCreature_Power;
 import superstitio.powers.patchAndInterface.interfaces.HasAllCardCostModifyEffect;
@@ -33,7 +34,7 @@ import static superstitio.InBattleDataManager.OrgasmTimesTotal;
 import static superstitio.actions.AutoDoneInstantAction.addToBotAbstract;
 import static superstitio.powers.AllCardCostModifier.*;
 import static superstitio.utils.PowerUtility.BubbleMessageHigher;
-
+@SuperstitioImg.NoNeedImg
 public class SexualHeat extends AbstractSuperstitioPower implements
         HasAllCardCostModifyEffect, OnPostApplyThisPower, HasBarRenderOnCreature_Power,
         InvisiblePower_InvisibleTips, InvisiblePower_InvisibleIconAndAmount,

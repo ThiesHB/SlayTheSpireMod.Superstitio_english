@@ -99,6 +99,10 @@ public abstract class LupaCard extends SuperstitioCard implements IsLupaCard {
     }
 
     protected boolean hasEnoughSemen(int amount) {
+        return amount <= getTotalSemenValue();
+    }
+
+    protected int getTotalSemenValue() {
         final int insideSemenValue = AbstractDungeon.player.powers.stream()
                 .filter(power -> power instanceof InsideSemen).map(power -> power.amount)
                 .findAny().orElse(0) * InsideSemenRate;
@@ -108,6 +112,6 @@ public abstract class LupaCard extends SuperstitioCard implements IsLupaCard {
         final int floorSemenValue = AbstractDungeon.player.powers.stream()
                 .filter(power -> power instanceof FloorSemen).map(power -> power.amount)
                 .findAny().orElse(0) * FloorSemenRate;
-        return amount <= insideSemenValue + outsideSemenValue + floorSemenValue;
+        return insideSemenValue + outsideSemenValue + floorSemenValue;
     }
 }

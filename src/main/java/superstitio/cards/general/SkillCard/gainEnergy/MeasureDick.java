@@ -9,7 +9,6 @@ import superstitio.actions.AutoDoneInstantAction;
 import superstitio.actions.ChoseCardFromHandCardSelectScreen;
 import superstitio.cards.general.GeneralCard;
 
-//TODO 打算用小腹刻度的图片（还没搞，有空再说）
 public class MeasureDick extends GeneralCard {
     public static final String ID = DataManager.MakeTextID(MeasureDick.class);
 
@@ -31,10 +30,11 @@ public class MeasureDick extends GeneralCard {
     @Override
     public void use(AbstractPlayer player, AbstractMonster monster) {
         addToBot(new ChoseCardFromHandCardSelectScreen(targetCard -> AutoDoneInstantAction.addToBotAbstract(() -> {
-                    addToTop(new GainEnergyAction(Math.max(targetCard.costForTurn - targetCard.makeCopy().costForTurn, 0)));
+                    addToTop(new GainEnergyAction(Math.max(targetCard.makeCopy().costForTurn - targetCard.costForTurn, 0)));
                     addToTop(new DiscardSpecificCardAction(targetCard));
                 }))
                         .setAnyNumber(true)
+                        .setCanPickZero(true)
 //                        .setRetainFilter(card -> card.isCostModifiedForTurn || card.isCostModified)
                         .setChoiceAmount(this.magicNumber)
                         .setWindowText(String.format(this.cardStrings.getEXTENDED_DESCRIPTION()[0], this.magicNumber))

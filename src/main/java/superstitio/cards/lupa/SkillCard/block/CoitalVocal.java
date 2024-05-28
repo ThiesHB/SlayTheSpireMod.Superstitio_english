@@ -1,5 +1,7 @@
-package superstitio.cards.lupa.SkillCard;
+package superstitio.cards.lupa.SkillCard.block;
 
+import basemod.cardmods.RetainMod;
+import basemod.helpers.CardModifierManager;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
@@ -24,6 +26,7 @@ public class CoitalVocal extends LupaCard {
     public CoitalVocal() {
         super(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET);
         this.setupBlock(BLOCK, UPGRADE_BLOCK, new SexBlock());
+        CardModifierManager.addModifier(this,new RetainMod());
     }
 
     @Override

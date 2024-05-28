@@ -7,6 +7,7 @@ import com.megacrit.cardcrawl.core.AbstractCreature;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import com.megacrit.cardcrawl.powers.AbstractPower;
 import superstitio.DataManager;
+import superstitio.SuperstitioImg;
 import superstitio.actions.AutoDoneInstantAction;
 import superstitio.cards.DamageActionMaker;
 import superstitio.cards.general.GeneralCard;
@@ -46,6 +47,7 @@ public class ChokeChoker extends GeneralCard {
     public void upgradeAuto() {
     }
 
+    @SuperstitioImg.NoNeedImg
     public static class ChokeChokerPower extends AbstractSuperstitioPower implements
             OnOrgasm_onOrgasm, OnPostApplyThisPower {
         public static final String POWER_ID = DataManager.MakeTextID(ChokeChokerPower.class);

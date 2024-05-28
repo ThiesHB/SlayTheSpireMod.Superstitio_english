@@ -1,4 +1,4 @@
-package superstitio.cards.lupa.SkillCard;
+package superstitio.cards.lupa.SkillCard.block;
 
 import com.megacrit.cardcrawl.actions.common.GainBlockAction;
 import com.megacrit.cardcrawl.actions.common.RemoveAllBlockAction;
@@ -9,6 +9,7 @@ import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import superstitio.DataManager;
+import superstitio.SuperstitioImg;
 import superstitio.cards.lupa.LupaCard;
 import superstitio.powers.AbstractSuperstitioPower;
 
@@ -42,6 +43,7 @@ public class Philter extends LupaCard {
         addToBot(new RemoveAllBlockAction(AbstractDungeon.player, AbstractDungeon.player));
     }
 
+    @SuperstitioImg.NoNeedImg
     public static class SexPlateArmorPower extends AbstractSuperstitioPower {
         public static final String POWER_ID = DataManager.MakeTextID(SexPlateArmorPower.class);
 

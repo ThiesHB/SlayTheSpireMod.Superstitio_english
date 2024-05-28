@@ -5,6 +5,7 @@ import com.megacrit.cardcrawl.core.AbstractCreature;
 import com.megacrit.cardcrawl.core.Settings;
 import com.megacrit.cardcrawl.powers.AbstractPower;
 import superstitio.DataManager;
+import superstitio.SuperstitioImg;
 import superstitio.actions.AutoDoneInstantAction;
 import superstitio.powers.AbstractSuperstitioPower;
 import superstitio.powers.patchAndInterface.barIndepend.HasBarRenderOnCreature_Power;
@@ -14,12 +15,21 @@ import superstitio.utils.PowerUtility;
 
 import static superstitio.cards.general.FuckJob_Card.InsideSemenRate;
 
+@SuperstitioImg.NoNeedImg
 public class InsideSemen extends AbstractSuperstitioPower implements
+        SemenPower,
         InvisiblePower_InvisibleTips, InvisiblePower_InvisibleIconAndAmount, HasBarRenderOnCreature_Power {
     public static final String POWER_ID = DataManager.MakeTextID(InsideSemen.class);
     public static final int MAX_Semen_Origin = 10;
+
+    public static final int SEMEN_VALUE = 3;
     private static final int ToOutSideSemenRate = 1;
     public int maxSemen;
+
+    @Override
+    public int getSemenValue() {
+        return SEMEN_VALUE;
+    }
 
     public InsideSemen(final AbstractCreature owner, final int amount) {
         super(POWER_ID, owner, amount, owner.isPlayer ? PowerType.BUFF : PowerType.DEBUFF, false);

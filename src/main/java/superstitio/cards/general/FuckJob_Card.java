@@ -1,14 +1,12 @@
 package superstitio.cards.general;
 
 import com.evacipated.cardcrawl.mod.stslib.damagemods.DamageModifierManager;
-import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import superstitio.DataManager;
 import superstitio.SuperstitioModSetup;
 import superstitio.cardModifier.modifiers.damage.SexDamage;
 import superstitio.cardModifier.modifiers.damage.SexDamage_Fuck;
 import superstitio.cardModifier.modifiers.damage.SexDamage_Job;
 import superstitio.cards.SuperstitioCard;
-import superstitio.cards.maso.AttackCard.Fuck_Nipple;
 import superstitio.cards.general.AttackCard.breast.Job_Breast;
 import superstitio.cards.general.AttackCard.genitalSpecialEffect.Fuck_Anal;
 import superstitio.cards.general.AttackCard.genitalSpecialEffect.Fuck_Vaginal;
@@ -23,39 +21,17 @@ import superstitio.cards.general.AttackCard.torsoJustDamage.Job_Groin;
 import superstitio.cards.general.TempCard.Fuck_Ear;
 import superstitio.cards.maso.AttackCard.Fuck_Eye;
 import superstitio.cards.maso.AttackCard.Fuck_Navel;
+import superstitio.cards.maso.AttackCard.Fuck_Nipple;
 import superstitio.powers.lupaOnly.FloorSemen;
 import superstitio.powers.lupaOnly.InsideSemen;
 import superstitio.powers.lupaOnly.OutsideSemen;
 
-import static superstitio.orbs.orbgroup.SexMarkOrbGroup.SexMarkType;
-import static superstitio.orbs.orbgroup.SexMarkOrbGroup.addToBot_GiveMarkToOrbGroup;
 import static superstitio.utils.ActionUtility.addToBot_applyPower;
 
 public interface FuckJob_Card {
-    int InsideSemenRate = 3;
-    int OutsideSemenRate = 2;
-    int FloorSemenRate = 1;
-
-    static void addToTop_Semen_Inside() {
-        addToBot_applyPower(new InsideSemen(AbstractDungeon.player, InsideSemenRate));
-    }
-
-    static void addToTop_Semen_Outside() {
-        addToBot_applyPower(new OutsideSemen(AbstractDungeon.player, OutsideSemenRate));
-    }
-
-    static void addToTop_Semen_Normal() {
-        addToBot_applyPower(new FloorSemen(AbstractDungeon.player, FloorSemenRate));
-    }
-
-
-    static void addToTop_gainSexMark_Inside(String sexName) {
-        addToBot_GiveMarkToOrbGroup(sexName, SexMarkType.Inside);
-    }
-
-    static void addToTop_gainSexMark_Outside(String sexName) {
-        addToBot_GiveMarkToOrbGroup(sexName, SexMarkType.OutSide);
-    }
+    int InsideSemenRate = InsideSemen.SEMEN_VALUE;
+    int OutsideSemenRate = OutsideSemen.SEMEN_VALUE;
+    int FloorSemenRate = FloorSemen.SEMEN_VALUE;
 
     static BodyPart getBodyPartType(FuckJob_Card fuckJob) {
         if (fuckJob instanceof Fuck_Nipple || fuckJob instanceof Job_Breast)

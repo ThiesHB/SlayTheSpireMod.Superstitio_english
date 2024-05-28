@@ -19,10 +19,9 @@ import superstitio.cards.CardOwnerPlayerManager;
 import superstitio.cards.general.PowerCard.drawAndEnergy.ChokeChoker;
 import superstitio.cards.general.SkillCard.gainEnergy.TimeStop;
 import superstitio.cards.lupa.LupaCard;
-import superstitio.cards.lupa.SkillCard.Philter;
+import superstitio.cards.lupa.SkillCard.block.Philter;
 import superstitio.cards.maso.MasoCard;
 import superstitio.customStrings.*;
-import superstitio.delayHpLose.DelayHpLosePower_ApplyAtEndOfRound;
 import superstitio.delayHpLose.DelayHpLosePower_ApplyOnlyOnVictory;
 import superstitio.delayHpLose.DelayHpLosePower_HealOnVictory;
 import superstitio.delayHpLose.DelayRemoveDelayHpLosePower;
@@ -58,11 +57,8 @@ public class DataManager {
             case ZHS:
                 ret = ret + "zhs/";
                 break;
-            case KOR:
-                ret = ret + "kor/";
-                break;
             default:
-                ret = ret + "eng/";
+                ret = ret + "zhs/";
                 break;
         }
 

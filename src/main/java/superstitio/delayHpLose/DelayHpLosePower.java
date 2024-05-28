@@ -10,6 +10,7 @@ import com.megacrit.cardcrawl.powers.AbstractPower;
 import com.megacrit.cardcrawl.vfx.combat.PowerBuffEffect;
 import superstitio.DataManager;
 import superstitio.Logger;
+import superstitio.SuperstitioImg;
 import superstitio.actions.AutoDoneInstantAction;
 import superstitio.cards.DamageActionMaker;
 import superstitio.powers.AbstractSuperstitioPower;
@@ -24,7 +25,7 @@ import superstitio.utils.PowerUtility;
 import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.stream.Stream;
-
+@SuperstitioImg.NoNeedImg
 public abstract class DelayHpLosePower extends AbstractSuperstitioPower implements
         HealthBarRenderPower, DecreaseHealthBarNumberPower,
         InvisiblePower_InvisibleIconAndAmount, InvisiblePower_InvisibleTips,

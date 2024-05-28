@@ -1,4 +1,4 @@
-package superstitio.cards.lupa.SkillCard;
+package superstitio.cards.lupa.SkillCard.semen;
 
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;

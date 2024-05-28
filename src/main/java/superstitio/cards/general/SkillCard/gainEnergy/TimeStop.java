@@ -9,6 +9,7 @@ import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import com.megacrit.cardcrawl.powers.AbstractPower;
 import com.megacrit.cardcrawl.powers.NoDrawPower;
 import superstitio.DataManager;
+import superstitio.SuperstitioImg;
 import superstitio.cards.general.GeneralCard;
 import superstitio.powers.AbstractSuperstitioPower;
 import superstitio.powers.DelaySexualHeat;
@@ -43,6 +44,7 @@ public class TimeStop extends GeneralCard {
         this.upgradeBaseCost(COST_UPGRADED_NEW);
     }
 
+    @SuperstitioImg.NoNeedImg
     public static class TimeStopPower extends AbstractSuperstitioPower implements BetterOnApplyPowerPower {
         public static final String POWER_ID = DataManager.MakeTextID(TimeStopPower.class);
         public static final int sexualReturnRate = 2;

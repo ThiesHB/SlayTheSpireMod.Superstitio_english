@@ -57,6 +57,8 @@ public class HideInPussy extends GeneralCard {
             })
                     .setWindowText(String.format(powerCard.cardStrings.getEXTENDED_DESCRIPTION()[0],this.amount))
                     .setChoiceAmount(this.amount)
+                    .setAnyNumber(true)
+                    .setCanPickZero(true)
                     .addToBot();
         }
 
