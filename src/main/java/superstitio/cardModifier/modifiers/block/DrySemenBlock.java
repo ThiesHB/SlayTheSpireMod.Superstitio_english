@@ -25,7 +25,7 @@ public class DrySemenBlock extends AbstractLupaBlock {
 
     @Override
     public Priority priority() {
-        return Priority.TOP;
+        return Priority.NORMAL;
     }
 
     @Override

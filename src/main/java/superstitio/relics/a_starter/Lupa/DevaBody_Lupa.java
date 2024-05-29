@@ -12,7 +12,6 @@ import superstitio.cards.general.FuckJob_Card;
 import superstitio.cards.lupa.OnAddSemenPower;
 import superstitio.delayHpLose.DelayHpLosePatch;
 import superstitio.delayHpLose.DelayHpLosePower_ApplyOnAttacked;
-import superstitio.delayHpLose.DelayHpLosePower_ApplyOnlyOnVictory;
 import superstitio.powers.lupaOnly.FloorSemen;
 import superstitio.powers.lupaOnly.InsideSemen;
 import superstitio.powers.lupaOnly.OutsideSemen;
@@ -20,7 +19,6 @@ import superstitio.relics.SuperstitioRelic;
 
 import static com.megacrit.cardcrawl.dungeons.AbstractDungeon.player;
 import static superstitio.DataManager.CanOnlyDamageDamageType.UnBlockAbleDamageType;
-import static superstitio.utils.ActionUtility.addToBot_applyPower;
 import static superstitio.utils.ActionUtility.addToTop_applyPower;
 
 @AutoAdd.Seen
@@ -46,38 +44,49 @@ public class DevaBody_Lupa extends SuperstitioRelic {
                 }));
     }
 
-    private static void addToBot_Cum_Inside() {
-        addToBot_applyPower(new InsideSemen(player, FuckJob_Card.InsideSemenRate));
-    }
-
-    private static void addToBot_Cum_Outside() {
-        addToBot_applyPower(new OutsideSemen(player, FuckJob_Card.OutsideSemenRate));
-    }
-
-    private static void addToBot_Cum_Normal() {
-        addToBot_applyPower(new FloorSemen(player, FuckJob_Card.FloorSemenRate));
-    }
+//    private static void addToBot_Cum_Inside() {
+//        addToBot_applyPower(new InsideSemen(player, FuckJob_Card.InsideSemenRate));
+//    }
+//
+//    private static void addToBot_Cum_Outside() {
+//        addToBot_applyPower(new OutsideSemen(player, FuckJob_Card.OutsideSemenRate));
+//    }
+//
+//    private static void addToBot_Cum_Normal() {
+//        addToBot_applyPower(new FloorSemen(player, FuckJob_Card.FloorSemenRate));
+//    }
 
     private static void addToBot_AddSemen(AbstractCard card) {
         boolean shouldApply = true;
         for (AbstractPower power : player.powers) {
-            if (power instanceof OnAddSemenPower && !((OnAddSemenPower) power).onAddSemen_shouldApply(power))
+            if (power instanceof OnAddSemenPower && !((OnAddSemenPower) power).onAddSemen_shouldApply(getSemenType(card)))
                 shouldApply = false;
         }
         if (shouldApply) {
-            forceAddToBot_AddSemen(card);
+            addToTop_applyPower(getSemenType(card));
         }
     }
 
-    private static void forceAddToBot_AddSemen(AbstractCard card) {
-        if (card.type != AbstractCard.CardType.ATTACK) return;
+    private static AbstractPower getSemenType(AbstractCard card) {
+        if (card.type != AbstractCard.CardType.ATTACK) return null;
         if (!(card instanceof FuckJob_Card && card instanceof SuperstitioCard))
-            addToBot_Cum_Normal();
+            return new FloorSemen(player, 1);
         else if (card.cardID.contains("Fuck_"))
-            addToBot_Cum_Inside();
+            return new InsideSemen(player, 1);
         else if (card.cardID.contains("Job_"))
-            addToBot_Cum_Outside();
+            return new OutsideSemen(player, 1);
+        return new FloorSemen(player, 1);
     }
+
+//    private static void forceAddToBot_AddSemen(AbstractCard card) {
+//        if (card.type != AbstractCard.CardType.ATTACK) return;
+//        if (!(card instanceof FuckJob_Card && card instanceof SuperstitioCard))
+//            addToBot_Cum_Normal();
+//        else if (card.cardID.contains("Fuck_"))
+//            addToBot_Cum_Inside();
+//        else if (card.cardID.contains("Job_"))
+//            addToBot_Cum_Outside();
+//    }
 
     @Override
     public void atBattleStart() {

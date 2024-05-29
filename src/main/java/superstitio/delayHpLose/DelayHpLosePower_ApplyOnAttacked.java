@@ -1,13 +1,14 @@
 package superstitio.delayHpLose;
 
 import com.megacrit.cardcrawl.cards.DamageInfo;
+import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.core.AbstractCreature;
 import com.megacrit.cardcrawl.powers.AbstractPower;
 import superstitio.DataManager;
 
 import java.util.Optional;
 
-public class DelayHpLosePower_ApplyOnAttacked extends DelayHpLosePower {
+public class DelayHpLosePower_ApplyOnAttacked extends DelayHpLosePower{
     public static final String POWER_ID = DataManager.MakeTextID(DelayHpLosePower_ApplyOnAttacked.class);
 
     public DelayHpLosePower_ApplyOnAttacked(final AbstractCreature owner, int amount) {
@@ -20,23 +21,24 @@ public class DelayHpLosePower_ApplyOnAttacked extends DelayHpLosePower {
     }
 
     @Override
-    public int onAttacked(DamageInfo info, int damageAmount) {
-        if (info.type != DamageInfo.DamageType.NORMAL) return damageAmount;
+    public void onInflictDamage(DamageInfo info, int damageAmount, AbstractCreature target) {
+        if (info.type != DamageInfo.DamageType.NORMAL) return;
         Optional<AbstractPower> preventHpLimit = owner.powers.stream().filter(power -> power instanceof IPreventHpLimit).findAny();
         Optional<IPreventHpLimit> iPreventHpLimit = preventHpLimit.map(power -> (IPreventHpLimit) power);
         if (!preventHpLimit.isPresent()) {
             immediate_applyDamage(this);
-            return damageAmount;
+            return;
         }
         else if (preventHpLimit.get().amount == 0) {
             immediate_applyDamage(this);
-            return damageAmount;
+            return;
         }
         else {
             iPreventHpLimit.ifPresent(IPreventHpLimit::onPreventHpLimit);
         }
-        return damageAmount;
+        return;
     }
+
 
     @Override
     public void onVictory() {

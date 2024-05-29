@@ -2,7 +2,7 @@
     "SuperstitioMod:Ku_KoroPower": {
         "NAME": "咕杀",
         "DESCRIPTIONS": [
-            "每次受到 #y攻击伤害 时，获得 #b1 随机 #y状态 牌。 NL 所有 #y消耗 牌会回到 抽牌堆 。"
+            "受到 #y攻击伤害 而失去生命时，获得 #b1 随机 #y状态 牌。 NL 所有 #y消耗 牌会回到 抽牌堆 。"
         ]
     },
     "SuperstitioMod:ExposeSelfPower": {
@@ -49,7 +49,7 @@
     "SuperstitioMod:DelayHpLosePower_ApplyOnAttacked": {
         "NAME": "#r腐朽",
         "DESCRIPTIONS": [
-            "下次受到攻击伤害或战斗结束时： NL #r降低 #r%d #r点生命。"
+            "下次受到攻击伤害而失去生命时或战斗结束时： NL #r降低 #r%d #r点生命。"
         ]
     },
     "SuperstitioMod:SexPlateArmorPower": {
@@ -67,13 +67,13 @@
     "SuperstitioMod:PreventHpLimit_Times": {
         "NAME": "激情",
         "DESCRIPTIONS": [
-            "下 #b%d 次受到 攻击伤害 时，不 #r接纳腐朽 。"
+            "下 #b%d 次受到攻击伤害而失去生命时，不 #r接纳腐朽 。"
         ]
     },
     "SuperstitioMod:PreventHpLimit_Turns": {
         "NAME": "激情",
         "DESCRIPTIONS": [
-            "受到 攻击伤害 时，不 #r接纳腐朽 ，生效 #b%d 回合。"
+            "受到攻击伤害而失去生命时，不 #r接纳腐朽 ，生效 #b%d 回合。"
         ]
     }
 }

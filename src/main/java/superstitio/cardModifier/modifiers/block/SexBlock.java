@@ -18,6 +18,9 @@ public class SexBlock extends AbstractLupaBlock {
     public void onThisBlockDamaged(DamageInfo info, int lostAmount) {
     }
 
+    public Priority priority() {
+        return Priority.TOP;
+    }
     @Override
     public AbstractBlockModifier makeCopy() {
         return new SexBlock();

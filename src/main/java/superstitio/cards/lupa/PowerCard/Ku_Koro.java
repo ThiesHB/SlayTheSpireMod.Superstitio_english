@@ -56,14 +56,12 @@ public class Ku_Koro extends LupaCard {
         }
 
         @Override
-        public int onAttacked(DamageInfo info, int damageAmount) {
+        public void onInflictDamage(DamageInfo info, int damageAmount, AbstractCreature target) {
             if (damageAmount > 0 && info.owner != AbstractDungeon.player && info.type == DamageInfo.DamageType.NORMAL) {
                 this.flash();
                 final AbstractCard card = CardUtility.getRandomStatusCard(true, true);
                 ActionUtility.addToBot_makeTempCardInBattle(card, BattleCardPlace.Hand);
             }
-
-            return super.onAttacked(info, damageAmount);
         }
 
         @Override

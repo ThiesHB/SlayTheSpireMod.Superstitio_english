@@ -35,7 +35,7 @@
     },
     "SuperstitioMod:Ku_Koro": {
         "NAME": "咕杀",
-        "DESCRIPTION": "每次受到 攻击伤害 时，获得 1 张 随机 状态 牌。 NL 所有 消耗 牌会送入 弃牌堆 。",
+        "DESCRIPTION": "受到攻击伤害而失去生命时，获得 1 张 随机 状态 牌。 NL 所有 消耗 牌会送入 弃牌堆 。",
         "FLAVOR": "咕……杀了我……并没有乐在其中，也没有主动放弃抵抗哦！"
     },
     "SuperstitioMod:Tease": {

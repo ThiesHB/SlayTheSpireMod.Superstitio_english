@@ -55,15 +55,6 @@ public class SemenTattoo extends LupaCard {
         }
 
         @Override
-        public void atStartOfTurnPostDraw() {
-            AddPowers();
-        }
-
-        public void AddPowers() {
-            this.addToBot(new ApplyPowerAction(this.owner, this.owner, new SexualHeatNeededModifier(this.owner, amount)));
-        }
-
-        @Override
         public void updateDescriptionArgs() {
             this.setDescriptionArgs(amount);
         }
