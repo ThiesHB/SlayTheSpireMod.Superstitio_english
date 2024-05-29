@@ -21,7 +21,7 @@ public class DelayHpLosePower_ApplyOnAttacked extends DelayHpLosePower{
     }
 
     @Override
-    public void onInflictDamage(DamageInfo info, int damageAmount, AbstractCreature target) {
+    public void wasHPLost(DamageInfo info, int damageAmount) {
         if (info.type != DamageInfo.DamageType.NORMAL) return;
         Optional<AbstractPower> preventHpLimit = owner.powers.stream().filter(power -> power instanceof IPreventHpLimit).findAny();
         Optional<IPreventHpLimit> iPreventHpLimit = preventHpLimit.map(power -> (IPreventHpLimit) power);

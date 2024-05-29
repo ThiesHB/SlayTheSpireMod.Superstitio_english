@@ -56,7 +56,7 @@ public class Ku_Koro extends LupaCard {
         }
 
         @Override
-        public void onInflictDamage(DamageInfo info, int damageAmount, AbstractCreature target) {
+        public void wasHPLost(DamageInfo info, int damageAmount) {
             if (damageAmount > 0 && info.owner != AbstractDungeon.player && info.type == DamageInfo.DamageType.NORMAL) {
                 this.flash();
                 final AbstractCard card = CardUtility.getRandomStatusCard(true, true);
