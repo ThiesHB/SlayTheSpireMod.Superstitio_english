@@ -11,13 +11,14 @@ import superstitio.DataManager;
 import superstitio.cardModifier.modifiers.block.SexBlock;
 import superstitio.cards.SuperstitioCard;
 import superstitio.cards.general.GeneralCard;
+import superstitio.cards.lupa.LupaCard;
 import superstitio.cards.lupa.OnAddSemenPower;
 import superstitio.powers.EasyBuildAbstractPowerForPowerCard;
 import superstitio.powers.SexualHeatNeededModifier;
 import superstitio.powers.lupaOnly.SemenPower;
 
 
-public class SemenTattoo extends GeneralCard {
+public class SemenTattoo extends LupaCard {
     public static final String ID = DataManager.MakeTextID(SemenTattoo.class);
 
     public static final CardType CARD_TYPE = CardType.POWER;
