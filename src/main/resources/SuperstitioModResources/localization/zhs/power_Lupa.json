@@ -64,10 +64,16 @@
             "无法获得精液。"
         ]
     },
-    "SuperstitioMod:PreventHpLimit": {
+    "SuperstitioMod:PreventHpLimit_Times": {
         "NAME": "激情",
         "DESCRIPTIONS": [
             "下 #b%d 次受到 攻击伤害 时，不 #r接纳腐朽 。"
+        ]
+    },
+    "SuperstitioMod:PreventHpLimit_Turns": {
+        "NAME": "激情",
+        "DESCRIPTIONS": [
+            "受到 攻击伤害 时，不 #r接纳腐朽 ，生效 #b%d 回合。"
         ]
     }
 }

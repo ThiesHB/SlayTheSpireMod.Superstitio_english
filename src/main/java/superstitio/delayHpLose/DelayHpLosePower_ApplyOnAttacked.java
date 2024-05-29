@@ -1,6 +1,5 @@
 package superstitio.delayHpLose;
 
-import com.megacrit.cardcrawl.actions.common.ReducePowerAction;
 import com.megacrit.cardcrawl.cards.DamageInfo;
 import com.megacrit.cardcrawl.core.AbstractCreature;
 import com.megacrit.cardcrawl.powers.AbstractPower;
@@ -24,6 +23,7 @@ public class DelayHpLosePower_ApplyOnAttacked extends DelayHpLosePower {
     public int onAttacked(DamageInfo info, int damageAmount) {
         if (info.type != DamageInfo.DamageType.NORMAL) return damageAmount;
         Optional<AbstractPower> preventHpLimit = owner.powers.stream().filter(power -> power instanceof IPreventHpLimit).findAny();
+        Optional<IPreventHpLimit> iPreventHpLimit = preventHpLimit.map(power -> (IPreventHpLimit) power);
         if (!preventHpLimit.isPresent()) {
             immediate_applyDamage(this);
             return damageAmount;
@@ -33,7 +33,7 @@ public class DelayHpLosePower_ApplyOnAttacked extends DelayHpLosePower {
             return damageAmount;
         }
         else {
-            addToTop(new ReducePowerAction(this.owner, this.owner, preventHpLimit.get(), 1));
+            iPreventHpLimit.ifPresent(IPreventHpLimit::onPreventHpLimit);
         }
         return damageAmount;
     }
@@ -56,5 +56,6 @@ public class DelayHpLosePower_ApplyOnAttacked extends DelayHpLosePower {
     }
 
     public interface IPreventHpLimit {
+        void onPreventHpLimit();
     }
 }
