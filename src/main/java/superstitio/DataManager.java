@@ -253,13 +253,13 @@ public class DataManager {
             isPathExist.put(path, false);
             Logger.warning("Can't find " + path + ". Use default img instead.");
 
-//                if (Objects.equals(System.getenv().get("USERNAME"), "27435")) {
-//                    try {
-//                        makeNeedDrawPicture(defaultFileName, PathFinder, idOnlyNames, defaultPath, subFolder);
-//                    } catch (IOException e) {
-//                        Logger.error(e);
-//                    }
+//            if (Objects.equals(System.getenv().get("USERNAME"), "27435")) {
+//                try {
+//                    makeNeedDrawPicture(defaultFileName, PathFinder, idOnlyNames, PathFinder.apply(defaultFileName, new String[]{""}), subFolder);
+//                } catch (IOException e) {
+//                    Logger.error(e);
 //                }
+//            }
 
             return PathFinder.apply(defaultFileName, new String[]{""});
         }
@@ -273,6 +273,9 @@ public class DataManager {
         needDrawFileName.addAll(Arrays.asList(subFolder));
         if (fileName.contains("32")) return;
         if (fileName.contains("84") && noNeedDrawPower84(fileName)) return;
+
+        if (defaultPath.contains("outline")) return;
+        if (defaultPath.contains("large")) return;
 
 
         final FileHandle defaultFileHandle;
