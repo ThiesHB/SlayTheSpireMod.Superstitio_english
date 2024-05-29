@@ -1,7 +1,7 @@
 ﻿{
     "SuperstitioMod:RemoveDelayHpLoseBlock": {
         "NAME": "情爱",
-        "NAME_SFW": "激情",
+        "NAME_SFW": "热血",
         "BASIC_INFO": "情爱唤起",
         "DESCRIPTION": "尝试一些刺激的事情，从而移除 #r腐朽 。"
     },
@@ -31,7 +31,7 @@
     },
     "SuperstitioMod:DelayRemoveDelayHpLoseBlock": {
         "NAME": "回味情爱",
-        "NAME_SFW": "回味激情",
+        "NAME_SFW": "回味热血",
         "BASIC_INFO": "情爱唤起（回味）",
         "DESCRIPTION": "在下回合开始时，回味一些刺激的事情，从而移除 #r腐朽 。"
     }

@@ -46,6 +46,12 @@
             "战斗结束时： NL #r降低 #r%d #r点生命。"
         ]
     },
+    "SuperstitioMod:DelayHpLosePower_ApplyOnAttacked": {
+        "NAME": "#r腐朽",
+        "DESCRIPTIONS": [
+            "下次受到攻击伤害或战斗结束时： NL #r降低 #r%d #r点生命。"
+        ]
+    },
     "SuperstitioMod:SexPlateArmorPower": {
         "NAME": "多层护甲",
         "DESCRIPTIONS": [
@@ -56,6 +62,12 @@
         "NAME": "无法获得精液",
         "DESCRIPTIONS": [
             "无法获得精液。"
+        ]
+    },
+    "SuperstitioMod:PreventHpLimit": {
+        "NAME": "激情",
+        "DESCRIPTIONS": [
+            "下 #b%d 次受到 攻击伤害 时，不 #r接纳腐朽 。"
         ]
     }
 }

@@ -11,7 +11,6 @@ import com.megacrit.cardcrawl.powers.AbstractPower;
 import superstitio.DataManager;
 import superstitio.SuperstitioImg;
 import superstitio.actions.AutoDoneInstantAction;
-import superstitio.cards.lupa.PowerCard.DrinkSemenBeer;
 import superstitio.powers.AbstractSuperstitioPower;
 import superstitio.powers.patchAndInterface.barIndepend.HasBarRenderOnCreature_Power;
 import superstitio.powers.patchAndInterface.interfaces.OnPostApplyThisPower;
@@ -32,6 +31,7 @@ public class BeerCupSemen extends AbstractSuperstitioPower implements
         super(POWER_ID, owner, -1, PowerType.BUFF, false);
         this.maxAmount = maxAmount;
         semenAmount = 0;
+        updateDescription();
     }
 
     @Override

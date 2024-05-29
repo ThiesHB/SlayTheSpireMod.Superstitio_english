@@ -15,7 +15,6 @@ import superstitio.actions.AutoDoneInstantAction;
 import superstitio.cards.DamageActionMaker;
 import superstitio.powers.AbstractSuperstitioPower;
 import superstitio.powers.patchAndInterface.interfaces.DecreaseHealthBarNumberPower;
-import superstitio.powers.patchAndInterface.interfaces.OnPostApplyThisPower;
 import superstitio.powers.patchAndInterface.interfaces.invisible.InvisiblePower_InvisibleApplyPowerEffect;
 import superstitio.powers.patchAndInterface.interfaces.invisible.InvisiblePower_InvisibleIconAndAmount;
 import superstitio.powers.patchAndInterface.interfaces.invisible.InvisiblePower_InvisibleRemovePowerEffect;
@@ -25,6 +24,7 @@ import superstitio.utils.PowerUtility;
 import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.stream.Stream;
+
 @SuperstitioImg.NoNeedImg
 public abstract class DelayHpLosePower extends AbstractSuperstitioPower implements
         HealthBarRenderPower, DecreaseHealthBarNumberPower,
@@ -137,15 +137,30 @@ public abstract class DelayHpLosePower extends AbstractSuperstitioPower implemen
 
     protected void addToBot_applyDamage() {
         this.isRemovedForApplyDamage = true;
+        AbstractPower self = this;
         AutoDoneInstantAction.addToBotAbstract(() -> {
-            PowerUtility.BubbleMessage(this, true, pureName());
-            CardCrawlGame.sound.play("POWER_TIME_WARP", 0.05f);
-            AbstractDungeon.player.damage(UnBlockAbleDamage.damageInfo(this, amount));
-            this.amount = 0;
+            immediate_applyDamage(self);
         });
 //        getDelayHpLoseDamageActionMaker().addToBot();
 //        AutoDoneInstantAction.addToBotAbstract(() -> this.amount = 0);
         addToBot_removeSpecificPower(this);
+    }
+
+//    protected void addToTop_applyDamage() {
+//        this.isRemovedForApplyDamage = true;
+//        AbstractPower self = this;
+//        AutoDoneInstantAction.addToTopAbstract(() -> {
+//            immediate_applyDamage(self);
+//        });
+//        addToBot_removeSpecificPower(this);
+//    }
+
+    protected void immediate_applyDamage(AbstractPower self) {
+        if (self.amount <= 0) return;
+        PowerUtility.BubbleMessage(self, true, pureName());
+        CardCrawlGame.sound.play("POWER_TIME_WARP", 0.05f);
+        AbstractDungeon.player.damage(UnBlockAbleDamage.damageInfo(this, self.amount));
+        self.amount = 0;
     }
 
     private DamageActionMaker getDelayHpLoseDamageActionMaker() {

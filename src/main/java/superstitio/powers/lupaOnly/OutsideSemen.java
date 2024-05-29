@@ -22,6 +22,7 @@ public class OutsideSemen extends AbstractSuperstitioPower implements
 
     public OutsideSemen(final AbstractCreature owner, int amount) {
         super(POWER_ID, owner, amount, owner.isPlayer ? PowerType.BUFF : PowerType.DEBUFF, false);
+        updateDescription();
     }
     public static final int SEMEN_VALUE = 2;
     @Override

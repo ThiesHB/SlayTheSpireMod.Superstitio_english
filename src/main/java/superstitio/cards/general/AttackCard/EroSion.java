@@ -2,6 +2,7 @@ package superstitio.cards.general.AttackCard;
 
 import com.megacrit.cardcrawl.actions.AbstractGameAction;
 import com.megacrit.cardcrawl.actions.common.LoseHPAction;
+import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
@@ -53,9 +54,10 @@ public class EroSion extends GeneralCard {
     @Override
     public void use(final AbstractPlayer player, final AbstractMonster monster) {
         addToBot(new LoseHPAction(AbstractDungeon.player, AbstractDungeon.player, this.magicNumber));
+        AbstractCard self = this;
         AutoDoneInstantAction.addToBotAbstract(() -> {
             calculateCardDamage(monster);
-            addToBot_dealDamage(monster, this.damage, AbstractGameAction.AttackEffect.BLUNT_HEAVY);
+            addToBot_dealDamage(monster, self.damage, AbstractGameAction.AttackEffect.BLUNT_HEAVY);
         });
     }
 

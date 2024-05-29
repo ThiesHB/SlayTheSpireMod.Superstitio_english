@@ -39,7 +39,8 @@ public class SexualHeat extends AbstractSuperstitioPower implements
         HasAllCardCostModifyEffect, OnPostApplyThisPower, HasBarRenderOnCreature_Power,
         InvisiblePower_InvisibleTips, InvisiblePower_InvisibleIconAndAmount,
         InvisiblePower_InvisibleApplyPowerEffect, InvisiblePower_InvisibleRemovePowerEffect,
-        OnOrgasm_onSuccessfullyPreventOrgasm, OnOrgasm_onOrgasm, OnOrgasm_onEndOrgasm, OnOrgasm_onSquirt, OnOrgasm_onContinuallyOrgasm {
+        OnOrgasm_onSuccessfullyPreventOrgasm, OnOrgasm_onOrgasm, OnOrgasm_onEndOrgasm,
+        OnOrgasm_onSquirt, OnOrgasm_onContinuallyOrgasm {
     public static final String POWER_ID = DataManager.MakeTextID(SexualHeat.class);
     public static final int HEAT_REQUIREDOrigin = 10;
     private static final int DRAW_CARD_INContinueOrgasm = 0;

@@ -29,7 +29,7 @@ public class Logger {
     }
 
     public static void warning(String string) {
-        if (Loader.DEBUG)
-            logger.warn("[WARNING] " + string);
+//        if (Loader.DEBUG)
+        logger.warn("[WARNING] " + string);
     }
 }

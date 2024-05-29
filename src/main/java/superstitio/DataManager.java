@@ -22,6 +22,7 @@ import superstitio.cards.lupa.LupaCard;
 import superstitio.cards.lupa.SkillCard.block.Philter;
 import superstitio.cards.maso.MasoCard;
 import superstitio.customStrings.*;
+import superstitio.delayHpLose.DelayHpLosePower_ApplyOnAttacked;
 import superstitio.delayHpLose.DelayHpLosePower_ApplyOnlyOnVictory;
 import superstitio.delayHpLose.DelayHpLosePower_HealOnVictory;
 import superstitio.delayHpLose.DelayRemoveDelayHpLosePower;
@@ -45,6 +46,7 @@ import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 public class DataManager {
+    public static final Map<String, Boolean> isPathExist = new HashMap<>();
     public static Map<String, CardStringsWithFlavorSet> cards = new HashMap<>();
     public static Map<String, PowerStringsSet> powers = new HashMap<>();
     public static Map<String, ModifierStringsSet> modifiers = new HashMap<>();
@@ -118,6 +120,7 @@ public class DataManager {
     public static String makeImgFilesPath_RelicOutline(String fileName, String... subFolder) {
         return makeImgFilesPath(fileName, "relics/outline", makeFolderTotalString(subFolder));
     }
+
     public static String makeImgFilesPath_RelicLarge(String fileName, String... subFolder) {
         return makeImgFilesPath(fileName, "relics/large", makeFolderTotalString(subFolder));
     }
@@ -133,7 +136,6 @@ public class DataManager {
     public static String makeImgFilesPath_Event(String fileName, String... subFolder) {
         return makeImgFilesPath(fileName, "events", makeFolderTotalString(subFolder));
     }
-
 
     static <T extends HasSFWVersion> void loadCustomStringsFile(String fileName, Map<String, T> target, Class<T> tSetClass) {
         Logger.debug("loadJsonStrings: " + tSetClass.getTypeName());
@@ -190,7 +192,6 @@ public class DataManager {
         return getModID() + ":" + idText;
     }
 
-
     /**
      * 只输出后面的id，不携带模组信息
      *
@@ -199,20 +200,6 @@ public class DataManager {
      */
     public static String[] getIdOnly(String... complexIds) {
         return Arrays.stream(complexIds).map(DataManager::getIdOnly).collect(Collectors.toList()).toArray(new String[]{});
-    }
-
-    public static String getIdOnly(String complexIds) {
-        // 定义正则表达式，匹配最后一个冒号及其后面的所有字符
-        Pattern pattern = Pattern.compile("(.*?):([^:]*)$");
-        Matcher matcher = pattern.matcher(complexIds);
-
-        // 如果匹配成功
-        if (matcher.find()) {
-            // 返回冒号后的内容
-            return matcher.group(2);
-        }
-        // 如果没有匹配到冒号，则返回原字符串
-        return complexIds;
     }
 
     //桌面应用不支持列出internal Files的目录
@@ -233,29 +220,50 @@ public class DataManager {
     //        return null;
     //
 
+    public static String getIdOnly(String complexIds) {
+        // 定义正则表达式，匹配最后一个冒号及其后面的所有字符
+        Pattern pattern = Pattern.compile("(.*?):([^:]*)$");
+        Matcher matcher = pattern.matcher(complexIds);
+
+        // 如果匹配成功
+        if (matcher.find()) {
+            // 返回冒号后的内容
+            return matcher.group(2);
+        }
+        // 如果没有匹配到冒号，则返回原字符串
+        return complexIds;
+    }
+
     public static String makeImgPath(String defaultFileName, BiFunction<String, String[], String> PathFinder, String fileName, String... subFolder) {
         String path;
         String idOnlyNames = DataManager.getIdOnly(fileName);
         path = PathFinder.apply(idOnlyNames, subFolder);
 
-        if (Gdx.files.internal(path).exists())
+        if (isPathExist.containsKey(path)) {
+            if (isPathExist.get(path))
+                return path;
+            else
+                return PathFinder.apply(defaultFileName, new String[]{""});
+        }
+        else if (Gdx.files.internal(path).exists()) {
+            isPathExist.put(path, true);
             return path;
+        }
+        else {
+            isPathExist.put(path, false);
+            Logger.warning("Can't find " + path + ". Use default img instead.");
 
+//                if (Objects.equals(System.getenv().get("USERNAME"), "27435")) {
+//                    try {
+//                        makeNeedDrawPicture(defaultFileName, PathFinder, idOnlyNames, defaultPath, subFolder);
+//                    } catch (IOException e) {
+//                        Logger.error(e);
+//                    }
+//                }
 
-        final String defaultPath = PathFinder.apply(defaultFileName, new String[]{""});
-        Logger.warning("Can't find " + path + ". Use default img instead.");
-
-//        if (Objects.equals(System.getenv().get("USERNAME"), "27435")) {
-//            try {
-//                makeNeedDrawPicture(defaultFileName, PathFinder, idOnlyNames, defaultPath, subFolder);
-//            } catch (IOException e) {
-//                Logger.error(e);
-//            }
-//        }
-
-        return defaultPath;
+            return PathFinder.apply(defaultFileName, new String[]{""});
+        }
     }
-
 
 
     //生成所有的需要绘制的图片，方便检查
@@ -311,6 +319,8 @@ public class DataManager {
         if (checkName.equals(DataManager.getIdOnly(SexualHeat.POWER_ID)))
             return true;
         if (checkName.equals(DataManager.getIdOnly(DelayHpLosePower_ApplyOnlyOnVictory.POWER_ID)))
+            return true;
+        if (checkName.equals(DataManager.getIdOnly(DelayHpLosePower_ApplyOnAttacked.POWER_ID)))
             return true;
         if (checkName.equals(DataManager.getIdOnly(DelayHpLosePower_HealOnVictory.POWER_ID)))
             return true;

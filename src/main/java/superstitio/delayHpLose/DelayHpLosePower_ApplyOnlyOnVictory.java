@@ -20,10 +20,7 @@ public class DelayHpLosePower_ApplyOnlyOnVictory extends DelayHpLosePower {
 
     @Override
     public void onVictory() {
-        this.isRemovedForApplyDamage = true;
-        PowerUtility.BubbleMessage(this, false, pureName());
-        CardCrawlGame.sound.play("POWER_TIME_WARP", 0.05f);
-        AbstractDungeon.player.damage(UnBlockAbleDamage.damageInfo(this, amount));
+        immediate_applyDamage(this);
     }
 
     @Override

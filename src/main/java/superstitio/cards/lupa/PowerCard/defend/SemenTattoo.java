@@ -1,4 +1,4 @@
-package superstitio.cards.lupa.PowerCard;
+package superstitio.cards.lupa.PowerCard.defend;
 
 import com.evacipated.cardcrawl.mod.stslib.blockmods.BlockModifierManager;
 import com.megacrit.cardcrawl.actions.common.ApplyPowerAction;

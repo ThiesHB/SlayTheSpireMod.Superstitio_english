@@ -11,6 +11,7 @@ import superstitio.cards.SuperstitioCard;
 import superstitio.cards.general.FuckJob_Card;
 import superstitio.cards.lupa.OnAddSemenPower;
 import superstitio.delayHpLose.DelayHpLosePatch;
+import superstitio.delayHpLose.DelayHpLosePower_ApplyOnAttacked;
 import superstitio.delayHpLose.DelayHpLosePower_ApplyOnlyOnVictory;
 import superstitio.powers.lupaOnly.FloorSemen;
 import superstitio.powers.lupaOnly.InsideSemen;
@@ -40,7 +41,7 @@ public class DevaBody_Lupa extends SuperstitioRelic {
                     if (damageInfo.type == UnBlockAbleDamageType) {
                         return false;
                     }
-                    addToTop_applyPower(new DelayHpLosePower_ApplyOnlyOnVictory(AbstractDungeon.player, damageAmount));
+                    addToTop_applyPower(new DelayHpLosePower_ApplyOnAttacked(AbstractDungeon.player, damageAmount));
                     return true;
                 }));
     }

@@ -1,4 +1,4 @@
-package superstitio.cards.lupa.PowerCard;
+package superstitio.cards.lupa.PowerCard.defend;
 
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;

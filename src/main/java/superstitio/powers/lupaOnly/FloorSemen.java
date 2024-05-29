@@ -22,6 +22,7 @@ public class FloorSemen extends AbstractSuperstitioPower implements
 
     public FloorSemen(final AbstractCreature owner, int amount) {
         super(POWER_ID, owner, amount, owner.isPlayer ? PowerType.BUFF : PowerType.DEBUFF, false);
+        updateDescription();
     }
 
     @Override

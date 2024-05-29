@@ -34,6 +34,7 @@ public class InsideSemen extends AbstractSuperstitioPower implements
     public InsideSemen(final AbstractCreature owner, final int amount) {
         super(POWER_ID, owner, amount, owner.isPlayer ? PowerType.BUFF : PowerType.DEBUFF, false);
         maxSemen = MAX_Semen_Origin;
+        updateDescription();
     }
 
     @Override
