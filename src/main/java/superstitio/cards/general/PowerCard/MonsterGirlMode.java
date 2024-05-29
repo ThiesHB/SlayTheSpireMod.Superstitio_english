@@ -10,6 +10,7 @@ import superstitio.DataManager;
 import superstitio.cards.general.GeneralCard;
 import superstitio.cards.general.PowerCard.monsterGirl.FishGirlMode;
 import superstitio.cards.general.PowerCard.monsterGirl.KakaaGirlMode;
+import superstitio.cards.general.PowerCard.monsterGirl.SlimeGirlMode;
 
 import java.util.ArrayList;
 
@@ -34,6 +35,7 @@ public class MonsterGirlMode extends GeneralCard {
         final ArrayList<AbstractCard> stanceChoices = new ArrayList<>();
         stanceChoices.add(new FishGirlMode());
         stanceChoices.add(new KakaaGirlMode());
+        stanceChoices.add(new SlimeGirlMode());
 //        if (this.upgraded) {
 //            for (final AbstractCard c : stanceChoices) {
 //                c.upgrade();
