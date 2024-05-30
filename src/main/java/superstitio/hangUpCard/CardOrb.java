@@ -21,7 +21,6 @@ public abstract class CardOrb extends AbstractLupaOrb {
     protected static final float DRAW_SCALE_SMALL_BIGGER = 0.30f;
     private static final float TIMER_ANIMATION = 2.0f;
     public final CardGroup thisCardGroup = new CardGroup(CardGroup.CardGroupType.UNSPECIFIED);
-    protected final AbstractCard card;
     protected final AbstractCard originCard;
     private final CardGroup cardHolder = new CardGroup(CardGroup.CardGroupType.UNSPECIFIED);
     public CardGroup cardGroupReturnAfterEvoke = null;
@@ -30,6 +29,7 @@ public abstract class CardOrb extends AbstractLupaOrb {
     public ActionUtility.FunctionReturnSelfType movingType;
     public DrawOrder drawOrder = CardOrb.DrawOrder.bottom;
     public boolean shouldRemove;
+    protected AbstractCard card;
     private boolean isRemoved;
 
     public CardOrb(AbstractCard card, CardGroup cardGroupReturnAfterEvoke) {
@@ -39,23 +39,26 @@ public abstract class CardOrb extends AbstractLupaOrb {
         this.originCard = card;
         this.originCard.targetDrawScale = DRAW_SCALE_SMALL;
 
-        this.card = card.makeStatEquivalentCopy(); //什么替身文学，绷不住了
-        this.card.drawScale = card.drawScale;
-        this.card.transparency = 1.0f;
-        this.card.current_x = card.current_x;
-        this.card.current_y = card.current_y;
-
-
-        this.card.targetDrawScale = DRAW_SCALE_SMALL;
-        this.card.isCostModified = false;
-
-        this.card.costForTurn = -2;
+        setUpShownCard(card.makeStatEquivalentCopy()); //什么替身文学，绷不住了
 
         this.targetType = this.card.target;
         this.thisCardGroup.addToTop(this.card);
         this.movingType = State_Idle();
 
         this.evokeOnEndOfTurn = true;
+    }
+
+    private void setUpShownCard(AbstractCard card) {
+        this.card = card;
+        this.card.drawScale = card.drawScale;
+        this.card.transparency = 1.0f;
+        this.card.current_x = card.current_x;
+        this.card.current_y = card.current_y;
+
+        this.card.targetDrawScale = DRAW_SCALE_SMALL;
+        this.card.isCostModified = false;
+
+        this.card.costForTurn = -2;
     }
 
     protected ActionUtility.FunctionReturnSelfType State_Idle() {
@@ -92,6 +95,19 @@ public abstract class CardOrb extends AbstractLupaOrb {
             AbstractDungeon.effectList.add(new ExhaustCardEffect(card));
         onRemoveCard();
     }
+//
+//    public static void renderCardPreview(){
+//        float tmpScale = this.drawScale * 0.8F;
+//        if (this.current_x > (float) Settings.WIDTH * 0.75F) {
+//            this.cardsToPreview.current_x = this.current_x + (IMG_WIDTH / 2.0F + IMG_WIDTH / 2.0F * 0.8F + 16.0F) * this.drawScale;
+//        } else {
+//            this.cardsToPreview.current_x = this.current_x - (IMG_WIDTH / 2.0F + IMG_WIDTH / 2.0F * 0.8F + 16.0F) * this.drawScale;
+//        }
+//
+//        this.cardsToPreview.current_y = this.current_y + (IMG_HEIGHT / 2.0F - IMG_HEIGHT / 2.0F * 0.8F) * this.drawScale;
+//        this.cardsToPreview.drawScale = tmpScale;
+//        this.cardsToPreview.render(sb);
+//    }
 
     @Override
     public void onEvoke() {
@@ -131,6 +147,11 @@ public abstract class CardOrb extends AbstractLupaOrb {
 
     public CardOrb setNotEvokeOnEndOfTurn() {
         this.evokeOnEndOfTurn = false;
+        return this;
+    }
+
+    public CardOrb setShowCard(AbstractCard showCard) {
+        setUpShownCard(showCard);
         return this;
     }
 

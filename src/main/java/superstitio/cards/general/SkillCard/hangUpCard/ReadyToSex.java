@@ -42,9 +42,9 @@ public class ReadyToSex extends GeneralCard {
     }
 
     private void HangUpSpecificCard(AbstractCard card) {
-        AbstractCard showUpCard = this.makeStatEquivalentCopy();
         AbstractCard copyCard = card.makeStatEquivalentCopy();
         copyCard.exhaust = true;
+        AbstractCard showUpCard = this.makeStatEquivalentCopy();
         showUpCard.cardsToPreview = copyCard;
         AutoDoneInstantAction.addToBotAbstract(() -> {
             AbstractDungeon.player.hand.removeCard(card);
@@ -53,6 +53,7 @@ public class ReadyToSex extends GeneralCard {
                         addToBot(new NewQueueCardAction(copyCard, true, false, true));
                     }, magicNumber)
                             .setNotEvokeOnEndOfTurn()
+                            .setShowCard(showUpCard)
             );
         });
     }
