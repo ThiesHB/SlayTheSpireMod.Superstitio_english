@@ -177,6 +177,9 @@ public class HangUpCardGroup implements RenderInBattle,
             }
         }
 
+        if (hoveredCard.shouldRemove)
+            hoveredCard = null;
+
         this.forEachOrbInThisOrbGroup(orb -> {
             orb.update();
             orb.updateAnimation();

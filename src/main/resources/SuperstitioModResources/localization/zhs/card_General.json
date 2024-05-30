@@ -8,7 +8,7 @@
     "SuperstitioMod:Ahegao": {
         "NAME": "阿嘿颜",
         "NAME_SFW": "强者纹",
-        "DESCRIPTION": "superstitiomod:助兴 。 NL superstitiomod:缠绵 !M! 攻击牌： NL 造成 !D! 点伤害。",
+        "DESCRIPTION": "superstitiomod:助兴 ： NL superstitiomod:缠绵 !M! 攻击牌： NL 造成 !D! 点伤害。",
         "FLAVOR": "想要保持专业的微笑，但是控制不住。"
     },
     "SuperstitioMod:CountSign": {
@@ -129,7 +129,7 @@
     "SuperstitioMod:ReadyToSex": {
         "NAME": "性交准备",
         "NAME_SFW": "马步",
-        "DESCRIPTION": "选择一张手牌，将其 superstitiomod:助兴 。 NL 其 superstitiomod:欲求 !M! 任何牌： NL 打出复制后进入弃牌堆。",
+        "DESCRIPTION": "选择一张手牌，将其 superstitiomod:助兴 ： NL 其 superstitiomod:欲求 !M! 任何牌： NL 打出复制后进入弃牌堆。",
         "FLAVOR": "来吧！一起上！我照单全收！",
         "EXTENDED_DESCRIPTION": [
             "将其助兴。"

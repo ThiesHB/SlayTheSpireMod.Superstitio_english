@@ -31,6 +31,8 @@ public abstract class CardOrb extends AbstractLupaOrb {
     public boolean shouldRemove;
     protected AbstractCard card;
     private boolean isRemoved;
+    //    public abstract void forceAcceptAction(AbstractCard card);
+    private boolean stopShowOriginCard = false;
 
     public CardOrb(AbstractCard card, CardGroup cardGroupReturnAfterEvoke) {
         super(ORB_ID);
@@ -66,6 +68,19 @@ public abstract class CardOrb extends AbstractLupaOrb {
         updateAnimationIdle();
         return this::State_Idle;
     }
+//
+//    public static void renderCardPreview(){
+//        float tmpScale = this.drawScale * 0.8F;
+//        if (this.current_x > (float) Settings.WIDTH * 0.75F) {
+//            this.cardsToPreview.current_x = this.current_x + (IMG_WIDTH / 2.0F + IMG_WIDTH / 2.0F * 0.8F + 16.0F) * this.drawScale;
+//        } else {
+//            this.cardsToPreview.current_x = this.current_x - (IMG_WIDTH / 2.0F + IMG_WIDTH / 2.0F * 0.8F + 16.0F) * this.drawScale;
+//        }
+//
+//        this.cardsToPreview.current_y = this.current_y + (IMG_HEIGHT / 2.0F - IMG_HEIGHT / 2.0F * 0.8F) * this.drawScale;
+//        this.cardsToPreview.drawScale = tmpScale;
+//        this.cardsToPreview.render(sb);
+//    }
 
     public final void onRemove() {
         if (isRemoved) return;
@@ -95,19 +110,6 @@ public abstract class CardOrb extends AbstractLupaOrb {
             AbstractDungeon.effectList.add(new ExhaustCardEffect(card));
         onRemoveCard();
     }
-//
-//    public static void renderCardPreview(){
-//        float tmpScale = this.drawScale * 0.8F;
-//        if (this.current_x > (float) Settings.WIDTH * 0.75F) {
-//            this.cardsToPreview.current_x = this.current_x + (IMG_WIDTH / 2.0F + IMG_WIDTH / 2.0F * 0.8F + 16.0F) * this.drawScale;
-//        } else {
-//            this.cardsToPreview.current_x = this.current_x - (IMG_WIDTH / 2.0F + IMG_WIDTH / 2.0F * 0.8F + 16.0F) * this.drawScale;
-//        }
-//
-//        this.cardsToPreview.current_y = this.current_y + (IMG_HEIGHT / 2.0F - IMG_HEIGHT / 2.0F * 0.8F) * this.drawScale;
-//        this.cardsToPreview.drawScale = tmpScale;
-//        this.cardsToPreview.render(sb);
-//    }
 
     @Override
     public void onEvoke() {
@@ -126,9 +128,14 @@ public abstract class CardOrb extends AbstractLupaOrb {
 
     @Override
     public void render(SpriteBatch spriteBatch) {
-        if (originCard.drawScale != originCard.targetDrawScale) {
-            originCard.render(spriteBatch);
-            return;
+        if (!stopShowOriginCard) {
+            if (originCard.drawScale != originCard.targetDrawScale) {
+                originCard.render(spriteBatch);
+                return;
+            }
+            else {
+                stopShowOriginCard = true;
+            }
         }
 
         float offset = YOffsetBoBing();
@@ -162,16 +169,19 @@ public abstract class CardOrb extends AbstractLupaOrb {
         shouldRemove = true;
     }
 
-//    public abstract void forceAcceptAction(AbstractCard card);
-
     @Override
     public void update() {
-        if (originCard.drawScale != originCard.targetDrawScale) {
-            originCard.target_x = this.cX;
-            originCard.target_y = this.cY + YOffsetWhenHovered();
-            originCard.targetDrawScale = DRAW_SCALE_SMALL;
-            originCard.current_y += YOffsetBoBing();
-            originCard.update();
+        if (!stopShowOriginCard) {
+            if (originCard.drawScale != originCard.targetDrawScale) {
+                originCard.target_x = this.cX;
+                originCard.target_y = this.cY + YOffsetWhenHovered();
+                originCard.targetDrawScale = DRAW_SCALE_SMALL;
+                originCard.current_y += YOffsetBoBing();
+                originCard.update();
+            }
+            else {
+                stopShowOriginCard = true;
+            }
         }
 
         this.hb.update();
@@ -229,12 +239,14 @@ public abstract class CardOrb extends AbstractLupaOrb {
     }
 
     protected void showEvokeNum() {
+        evokeAmount = Math.max(0, evokeAmount);
         card.costForTurn = evokeAmount;
         card.isCostModified = true;
         card.beginGlowing();
     }
 
     protected void showPassiveNum() {
+        passiveAmount = Math.max(0, passiveAmount);
         card.stopGlowing();
         card.costForTurn = passiveAmount;
         card.isCostModified = false;
