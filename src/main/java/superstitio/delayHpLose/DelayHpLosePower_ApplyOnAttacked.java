@@ -42,7 +42,7 @@ public class DelayHpLosePower_ApplyOnAttacked extends DelayHpLosePower{
 
     @Override
     public void onVictory() {
-        immediate_applyDamage(this);
+//        immediate_applyDamage(this);
     }
 
     @Override

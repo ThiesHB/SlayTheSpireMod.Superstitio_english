@@ -67,7 +67,7 @@
     "SuperstitioMod:PreventHpLimit_Times": {
         "NAME": "激情",
         "DESCRIPTIONS": [
-            "下 #b%d 次受到攻击伤害而失去生命时，不 #r接纳腐朽 。"
+            "本回合，下 #b%d 次受到攻击伤害而失去生命时，不 #r接纳腐朽 。"
         ]
     },
     "SuperstitioMod:PreventHpLimit_Turns": {

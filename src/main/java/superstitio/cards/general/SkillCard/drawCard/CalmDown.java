@@ -1,14 +1,22 @@
 package superstitio.cards.general.SkillCard.drawCard;
 
-import com.badlogic.gdx.graphics.Color;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import superstitio.DataManager;
-import superstitio.InBattleDataManager;
 import superstitio.cards.general.GeneralCard;
-import superstitio.powers.SexualHeat;
+import superstitio.hangUpCard.CardOrb;
+import superstitio.hangUpCard.CardOrb_CardTrigger;
+import superstitio.orbs.Card_AvoidAllCardUsedCheckOfCardOrb_ManuallyTriggerCardOrb;
 
-public class CalmDown extends GeneralCard {
+import java.util.List;
+import java.util.Objects;
+import java.util.Optional;
+import java.util.stream.Collectors;
+
+import static superstitio.InBattleDataManager.getHangUpCardOrbGroup;
+import static superstitio.actions.AutoDoneInstantAction.addToBotAbstract;
+
+public class CalmDown extends GeneralCard implements Card_AvoidAllCardUsedCheckOfCardOrb_ManuallyTriggerCardOrb {
     public static final String ID = DataManager.MakeTextID(CalmDown.class);
 
     public static final CardType CARD_TYPE = CardType.SKILL;
@@ -33,23 +41,27 @@ public class CalmDown extends GeneralCard {
 
     @Override
     public void use(AbstractPlayer player, AbstractMonster monster) {
-        this.addToBot_drawCards(this.magicNumber);
-        this.addToBot_reducePower(SexualHeat.POWER_ID, HeatReduce);
-        if (InBattleDataManager.InOrgasm) {
-            this.addToBot_drawCards(ExtraDrawNum);
-        }
-    }
-
-    @Override
-    public void triggerOnGlowCheck() {
-        this.glowColor = BLUE_BORDER_GLOW_COLOR.cpy();
-        if (InBattleDataManager.InOrgasm) {
-            this.glowColor = Color.PINK.cpy();
-        }
+        getHangUpCardOrbGroup().ifPresent(cardGroup -> {
+            cardGroup.cards.forEach(cardOrb -> {
+                        addToBotAbstract(() -> cardGroup.removeCard(cardOrb));
+                        addToBot_drawCards();
+                    });
+            addToBot_drawCards(cardGroup.cards.size());
+        });
     }
 
     @Override
     public void upgradeAuto() {
+    }
+
+    @Override
+    public boolean forceFilterCardOrbToHoveredMode(CardOrb_CardTrigger orb) {
+        return true;
+    }
+
+    @Override
+    public int forceChangeOrbCounterShown(CardOrb_CardTrigger orb) {
+        return 0;
     }
 }
 

@@ -23,4 +23,9 @@ public class PreventHpLimit_Times extends AbstractSuperstitioPower implements IP
     public void onPreventHpLimit() {
         addToTop(new ReducePowerAction(this.owner, this.owner, this, 1));
     }
+
+    @Override
+    public void atEndOfRound() {
+        addToBot_removeSpecificPower(this);
+    }
 }

@@ -25,7 +25,7 @@ public class PassiveGangBang extends GeneralCard implements Card_AvoidAllCardUse
     private static final int BLOCK = 14;
     private static final int UPGRADE_BLOCK = 4;
     private static final int MAGIC = 3;
-    private static final int UPGRADE_MAGIC = 2;
+    private static final int UPGRADE_MAGIC = 1;
 
     public PassiveGangBang() {
         super(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET);

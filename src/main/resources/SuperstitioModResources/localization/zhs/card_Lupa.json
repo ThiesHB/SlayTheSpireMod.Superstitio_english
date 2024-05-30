@@ -79,7 +79,7 @@
   "SuperstitioMod:LupaCard:PrivatePhoto": {
     "NAME": "私房照",
     "NAME_SFW": "回望过去",
-    "DESCRIPTION": "获得 !B! *格挡 。 NL 获得 !M! 次 superstitiomod:激情 。",
+    "DESCRIPTION": "获得 !B! *格挡 。 NL 本回合 获得 !M! 次 superstitiomod:激情 。",
     "FLAVOR": "哎呀，我“不小心”连带身份地址也发网上了，而且门锁也“不小心”坏掉了，这可怎么办是好~❤"
   },
   "SuperstitioMod:LupaCard:NudeLive": {

@@ -27,13 +27,14 @@ public class Job_Blow extends GeneralCard implements FuckJob_Card, GoSomewhereEl
     private static final int DAMAGE = 5;
     private static final int UPGRADE_DAMAGE = 3;
     private static final int MAGIC = 4;
-    private static final int HEAT_GIVE = 2;
+    private static final int UPGRADE_MAGIC = 4;
+    private static final int HEAT_GIVE = 1;
 
     public Job_Blow() {
         super(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET);
         FuckJob_Card.initFuckJobCard(this);
         this.setupDamage(DAMAGE, UPGRADE_DAMAGE);
-        this.setupMagicNumber(MAGIC);
+        this.setupMagicNumber(MAGIC, UPGRADE_MAGIC);
     }
 
     @Override

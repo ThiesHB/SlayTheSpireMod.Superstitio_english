@@ -20,7 +20,7 @@ public class NudeLive extends LupaCard {
     public static final CardTarget CARD_TARGET = CardTarget.SELF;
 
     private static final int COST = 2;
-    private static final int BLOCK = 16;
+    private static final int BLOCK = 6;
     private static final int UPGRADE_BLOCK = 6;
     private static final int MAGIC = 1;
     private static final int UPGRADE_MAGIC = 0;

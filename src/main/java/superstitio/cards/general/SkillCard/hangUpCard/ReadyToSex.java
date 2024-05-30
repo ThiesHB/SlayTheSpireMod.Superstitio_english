@@ -42,12 +42,14 @@ public class ReadyToSex extends GeneralCard {
     }
 
     private void HangUpSpecificCard(AbstractCard card) {
+        AbstractCard showUpCard = this.makeStatEquivalentCopy();
+        AbstractCard copyCard = card.makeStatEquivalentCopy();
+        copyCard.exhaust = true;
+        showUpCard.cardsToPreview = copyCard;
         AutoDoneInstantAction.addToBotAbstract(() -> {
             AbstractDungeon.player.hand.removeCard(card);
-            AbstractCard copyCard = card.makeStatEquivalentCopy();
-            copyCard.exhaust = true;
             HangUpCardGroup.addToBot_AddCardOrbToOrbGroup(
-                    new CardOrb_WaitCardTrigger(card, AbstractDungeon.player.discardPile, (orb, usedcard) -> {
+                    new CardOrb_WaitCardTrigger(card, null, (orb, usedcard) -> {
                         addToBot(new NewQueueCardAction(copyCard, true, false, true));
                     }, magicNumber)
                             .setNotEvokeOnEndOfTurn()
