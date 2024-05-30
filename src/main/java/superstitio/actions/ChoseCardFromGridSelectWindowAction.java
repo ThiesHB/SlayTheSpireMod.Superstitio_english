@@ -1,17 +1,16 @@
 package superstitio.actions;
 
-import com.megacrit.cardcrawl.actions.AbstractGameAction;
 import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.cards.CardGroup;
 import com.megacrit.cardcrawl.core.Settings;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 
 import java.util.Arrays;
-import java.util.function.Function;
+import java.util.function.Consumer;
 import java.util.function.Predicate;
 
 public class ChoseCardFromGridSelectWindowAction extends AbstractContinuallyAction {
-    private final Function<AbstractCard, AbstractGameAction> gameActionMaker;
+    private final Consumer<AbstractCard> gameActionMaker;
     private final CardGroup cardGroup;
     private String windowText = "";
     private boolean anyNumber = false;
@@ -19,7 +18,7 @@ public class ChoseCardFromGridSelectWindowAction extends AbstractContinuallyActi
 
     public ChoseCardFromGridSelectWindowAction(
             final CardGroup cardGroup,
-            Function<AbstractCard, AbstractGameAction> GameActionMaker) {
+            Consumer<AbstractCard> GameActionMaker) {
         super(ActionType.CARD_MANIPULATION, Settings.ACTION_DUR_FAST);
         this.cardGroup = cardGroup;
         this.gameActionMaker = GameActionMaker;
@@ -51,7 +50,7 @@ public class ChoseCardFromGridSelectWindowAction extends AbstractContinuallyActi
     protected void RunAction() {
         if (AbstractDungeon.gridSelectScreen.selectedCards.isEmpty()) return;
         for (final AbstractCard c : AbstractDungeon.gridSelectScreen.selectedCards) {
-            this.addToBot(gameActionMaker.apply(c));
+            gameActionMaker.accept(c);
         }
         AbstractDungeon.gridSelectScreen.selectedCards.clear();
         AbstractDungeon.player.hand.refreshHandLayout();

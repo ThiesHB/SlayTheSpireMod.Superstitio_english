@@ -1,6 +1,7 @@
 package superstitio.relics.a_starter;
 
 import basemod.AutoAdd;
+import com.megacrit.cardcrawl.cards.DamageInfo;
 import superstitio.DataManager;
 import superstitio.relics.SuperstitioRelic;
 
@@ -20,4 +21,13 @@ public class JokeDescription extends SuperstitioRelic {
     public void updateDescriptionArgs() {
     }
 
+//    @Override
+//    public int onAttackToChangeDamage(DamageInfo info, int damageAmount) {
+//        return super.onAttackToChangeDamage(info, damageAmount);
+//    }
+//
+//    @Override
+//    public int onAttackedToChangeDamage(DamageInfo info, int damageAmount) {
+//        return super.onAttackedToChangeDamage(info, damageAmount);
+//    }
 }

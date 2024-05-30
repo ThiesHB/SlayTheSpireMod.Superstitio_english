@@ -1,0 +1,9 @@
+﻿{
+    "SuperstitioMod:FindCardAndHang": {
+        "NAME": "超级搜寻",
+        "DESCRIPTION": "从卡组中选取最多 10 张牌，将其全部 superstitio:助兴 ，其 superstitio:欲求 !M! ： NL 送入手牌。",
+        "EXTENDED_DESCRIPTION": [
+            "将其助兴。"
+        ]
+    }
+}
