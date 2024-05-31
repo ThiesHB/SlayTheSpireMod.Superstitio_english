@@ -1,0 +1,11 @@
+{
+  "modid": "superstitioapi",
+  "name": "SuperstitioApi",
+  "author_list": ["Creeper_of_Fire"],
+  "description": "Superstitio模组的Api合集，可单独使用，bug反馈QQ群号：271147165",
+  "credits": "",
+  "version": "0.4.2",
+  "sts_version": "12-20-2018",
+  "mts_version": "3.6.0",
+  "dependencies": ["basemod", "stslib"]
+}

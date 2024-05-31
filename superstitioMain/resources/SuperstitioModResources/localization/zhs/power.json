@@ -1,0 +1,108 @@
+﻿{
+  "SuperstitioMod:SexualHeat": {
+    "NAME": "快感",
+    "DESCRIPTIONS": [
+      "每累计 #b%d 点迎来一次高潮。 %s",
+      "每累计 #b%d 点迎来一次高潮。高潮时，被眩晕。 %s",
+      " NL #y高潮 中，累计高潮: #b%d 次。",
+      "高潮！",
+      "连续高潮！",
+      "高潮结束…",
+      "潮吹！",
+      "高潮被阻止！"
+    ]
+  },
+  "SuperstitioMod:SexualHeatNeededModifier": {
+    "NAME": "快感修正",
+    "DESCRIPTIONS": [
+      "本回合高潮所需的快感降低了 #b%d 点。",
+      "本回合高潮所需的快感提高了 #b%d 点。"
+    ]
+  },
+  "SuperstitioMod:SexualHeatLoseModifier": {
+    "NAME": "潮吹修正",
+    "DESCRIPTIONS": [
+      "本回合潮吹减少的快感降低 #b%d 点每 [E] 。",
+      "本回合潮吹减少的快感提高 #b%d 点每 [E] 。"
+    ]
+  },
+  "SuperstitioMod:SexToy": {
+    "NAME": "情趣玩具",
+    "DESCRIPTIONS": [
+      "回合开始时， 每有 #b%d 个 #y情趣玩具 会提供 #b1 点 #y快感。 NL 当前携带的 #y情趣玩具 ： %s",
+      " NL %s ： #b%d ；"
+    ]
+  },
+  "SuperstitioMod:ChokeChokerPower": {
+    "NAME": "窒息",
+    "DESCRIPTIONS": [
+      "回合开始时，获得 #b%d #y快感修正 。 NL 进入 #y高潮 时 ，受到 #b%d 点伤害。"
+    ]
+  },
+  "SuperstitioMod:SamsaraPower": {
+    "NAME": "轮转",
+    "DESCRIPTIONS": [
+      "每当你使用卡牌，抽 1 张牌。"
+    ]
+  },
+  "SuperstitioMod:TimeStopPower": {
+    "NAME": "时间静滞",
+    "DESCRIPTIONS": [
+      "持续 #b%d 回合。当前回合快感不改变。 NL 回合开始时，释放吸收的快感并且翻 #b%d 倍。"
+    ]
+  },
+  "SuperstitioMod:DelaySexualHeat": {
+    "NAME": "延迟快感",
+    "DESCRIPTIONS": [
+      "下回合抽卡后，获得 #b%d 快感。"
+    ]
+  },
+  "SuperstitioMod:Overdraft": {
+    "NAME": "透支",
+    "DESCRIPTIONS": [
+      "回合开始时，消耗 #b%d 张牌。"
+    ]
+  },
+  "SuperstitioMod:DeathDoorPower": {
+    "NAME": "死亡抗拒",
+    "DESCRIPTIONS": [
+      "免除 %d 次死亡，第一次免除后，进入濒死状态。"
+    ]
+  },
+  "SuperstitioMod:AtDeathDoor": {
+    "NAME": "濒死",
+    "DESCRIPTIONS": [
+      "免疫 生命流失 和 荆棘 伤害。"
+    ]
+  },
+  "SuperstitioMod:SexualDamage": {
+    "NAME": "爱欲",
+    "DESCRIPTIONS": [
+      "回合开始时，受到 #b%d 点伤害。"
+    ]
+  },
+  "SuperstitioMod:FastWindUpPower": {
+    "NAME": "快速收尾",
+    "DESCRIPTIONS": [
+      "当你 #y高潮 时，触发所有 #y助兴 的卡牌 #b%d 次。"
+    ]
+  },
+  "SuperstitioMod:DelayRemoveDelayHpLosePower": {
+    "NAME": "回味情爱",
+    "DESCRIPTIONS": [
+      "在下回合开始时，移除 #b%d #r腐朽 。 NL 只能移除从本回合开始到下回合开始前获得的 #r腐朽 。"
+    ]
+  },
+  "SuperstitioMod:Milk": {
+    "NAME": "乳汁",
+    "DESCRIPTIONS": [
+      "在下一次攻击后，给予目标和自身 %d 点 #y临时生命 。"
+    ]
+  },
+  "SuperstitioMod:PlayerFlightPower": {
+    "NAME": "史莱姆韧性",
+    "DESCRIPTIONS": [
+      "将下 %d 次 所受到的 #y攻击 伤害 减半 。"
+    ]
+  }
+}

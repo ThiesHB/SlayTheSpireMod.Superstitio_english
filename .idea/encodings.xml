@@ -1,7 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="Encoding">
+    <file url="file://$PROJECT_DIR$/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/superstitioApi/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/superstitioApi/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/superstitioApi/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/superstitioApi/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/superstitioMain/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/superstitioMain/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/superstitioMain/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/superstitioMain/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/../../../../../../java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/../../../../../../resources" charset="UTF-8" />
   </component>
 </project>

@@ -36,8 +36,6 @@ build/
 
 ### Mac OS ###
 .DS_Store
-/lib/BaseMod.jar
-/lib/desktop-1.0.jar
-/lib/ModTheSpire.jar
-/.idea/modules.xml
-/lib/StSLib.jar
+/superstitioApi/lib/
+/superstitioMain/lib/
+/lib/

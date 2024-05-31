@@ -6,9 +6,21 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="superstitio" />
         <module name="examplemod" />
       </profile>
+      <profile name="Annotation profile for Superstitio" enabled="true">
+        <sourceOutputDir name="../target/${project.name}/generated-sources/annotations" />
+        <sourceTestOutputDir name="../target/${project.name}/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="superstitioapi" />
+        <module name="superstitioApi" />
+        <module name="superstitioMain" />
+        <module name="superstitiomain" />
+      </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="superstitioApi" target="1.8" />
+      <module name="superstitioMain" target="1.8" />
+    </bytecodeTargetLevel>
   </component>
 </project>

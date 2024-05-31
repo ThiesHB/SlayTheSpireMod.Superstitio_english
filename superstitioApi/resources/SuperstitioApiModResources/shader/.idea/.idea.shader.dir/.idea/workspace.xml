@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="032735cb-0f72-4d5d-b455-e51b366f8e36" name="更改" comment="">
+      <change afterPath="$PROJECT_DIR$/../../../java/superstitioapi/powers/barIndepend/BarRenderOnCreature_Ring.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../java/superstitioapi/powers/barIndepend/BarRenderOnCreature_Vertical.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../java/superstitioapi/utils/ImgUtility.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../java/superstitioapi/utils/SpriteBatchExtensionForBladeGunner.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/.idea.shader.dir/.idea/workspace.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ring_fragment.glsl" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ring_vertex.glsl" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../../superstitioMain/java/superstitio/cards/general/TempCard/VulnerableTogether.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../../superstitioMain/java/superstitio/relics/a_starter/DoubleBlockWithVulnerable.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../java/superstitioapi/DataUtility.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../../java/superstitioapi/DataUtility.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../java/superstitioapi/InBattleDataManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../../java/superstitioapi/InBattleDataManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../java/superstitioapi/SuperstitioApiSubscriber.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../../java/superstitioapi/SuperstitioApiSubscriber.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../java/superstitioapi/hangUpCard/CardOrb.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../../java/superstitioapi/hangUpCard/CardOrb.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../java/superstitioapi/hangUpCard/HangUpCardGroup.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../../java/superstitioapi/hangUpCard/HangUpCardGroup.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../java/superstitioapi/powers/barIndepend/BarRenderManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../../java/superstitioapi/powers/barIndepend/BarRenderManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../java/superstitioapi/powers/barIndepend/BarRenderOnCreature.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../../java/superstitioapi/powers/barIndepend/BarRenderOnCreature.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../java/superstitioapi/powers/barIndepend/BarRenderUpdateMessage.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../../java/superstitioapi/powers/barIndepend/BarRenderUpdateMessage.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../java/superstitioapi/powers/barIndepend/HasBarRenderOnCreature.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../../java/superstitioapi/powers/barIndepend/HasBarRenderOnCreature.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../java/superstitioapi/powers/barIndepend/HasBarRenderOnCreature_Power.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../../java/superstitioapi/powers/barIndepend/HasBarRenderOnCreature_Power.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../java/superstitioapi/relic/BlightWithRelic.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../../java/superstitioapi/relic/BlightWithRelic.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../java/superstitioapi/utils/ActionUtility.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../../java/superstitioapi/utils/ActionUtility.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../java/superstitioapi/utils/RenderInBattle.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../../java/superstitioapi/utils/RenderInBattle.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../superstitioMain/java/superstitio/SuperstitioModSubscriber.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../superstitioMain/java/superstitio/SuperstitioModSubscriber.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../superstitioMain/java/superstitio/cards/general/PowerCard/monsterGirl/SlimeGirlMode.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../superstitioMain/java/superstitio/cards/general/PowerCard/monsterGirl/SlimeGirlMode.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../superstitioMain/java/superstitio/cards/general/SkillCard/Tease.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../superstitioMain/java/superstitio/cards/general/SkillCard/Tease.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../superstitioMain/java/superstitio/cards/maso/AttackCard/Fuck_Eye.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../superstitioMain/java/superstitio/cards/maso/AttackCard/Fuck_Eye.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../superstitioMain/java/superstitio/characters/Lupa.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../superstitioMain/java/superstitio/characters/Lupa.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../superstitioMain/java/superstitio/characters/Maso.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../superstitioMain/java/superstitio/characters/Maso.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../superstitioMain/java/superstitio/orbs/orbgroup/OrbGroup.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../superstitioMain/java/superstitio/orbs/orbgroup/OrbGroup.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../superstitioMain/java/superstitio/powers/SexualHeat.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../superstitioMain/java/superstitio/powers/SexualHeat.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../superstitioMain/java/superstitio/powers/lupaOnly/BeerCupSemen.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../superstitioMain/java/superstitio/powers/lupaOnly/BeerCupSemen.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../superstitioMain/java/superstitio/powers/lupaOnly/FloorSemen.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../superstitioMain/java/superstitio/powers/lupaOnly/FloorSemen.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../superstitioMain/java/superstitio/powers/lupaOnly/InsideSemen.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../superstitioMain/java/superstitio/powers/lupaOnly/InsideSemen.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../superstitioMain/java/superstitio/powers/lupaOnly/OutsideSemen.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../superstitioMain/java/superstitio/powers/lupaOnly/OutsideSemen.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../superstitioMain/java/superstitio/relics/blight/DevaBody_Masochism.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../superstitioMain/java/superstitio/relics/blight/DevaBody_Masochism.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../superstitioMain/java/superstitio/relics/blight/MasochismMode.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../superstitioMain/java/superstitio/relics/blight/MasochismMode.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../superstitioMain/resources/SuperstitioModResources/img/cards/default.png" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../superstitioMain/resources/SuperstitioModResources/img/cards/default.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../superstitioMain/resources/SuperstitioModResources/img/cards/default_p.png" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../superstitioMain/resources/SuperstitioModResources/img/cards/default_p.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../superstitioMain/resources/SuperstitioModResources/imgSFW/cards/default.png" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../superstitioMain/resources/SuperstitioModResources/imgSFW/cards/default.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../superstitioMain/resources/SuperstitioModResources/imgSFW/cards/default_p.png" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../superstitioMain/resources/SuperstitioModResources/imgSFW/cards/default_p.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../superstitioMain/resources/SuperstitioModResources/imgSFW/powers/default32.png" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../superstitioMain/resources/SuperstitioModResources/imgSFW/powers/default32.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../superstitioMain/resources/SuperstitioModResources/imgSFW/powers/default84.png" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../superstitioMain/resources/SuperstitioModResources/imgSFW/powers/default84.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../superstitioMain/resources/SuperstitioModResources/localization/zhs/card_General.json" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../superstitioMain/resources/SuperstitioModResources/localization/zhs/card_General.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../superstitioMain/resources/SuperstitioModResources/localization/zhs/card_TempCard.json" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../superstitioMain/resources/SuperstitioModResources/localization/zhs/card_TempCard.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../superstitioMain/resources/SuperstitioModResources/localization/zhs/keyword_Maso.json" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../superstitioMain/resources/SuperstitioModResources/localization/zhs/keyword_Maso.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../superstitioMain/resources/SuperstitioModResources/localization/zhs/relic_Lupa.json" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../superstitioMain/resources/SuperstitioModResources/localization/zhs/relic_Lupa.json" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ProjectColorInfo"><![CDATA[{
+  "associatedIndex": 5
+}]]></component>
+  <component name="ProjectId" id="2hKvqOgw0gfaZWBsB1EFxrpPzhn" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "preferences.pluginManager",
+    "vue.rearranger.settings.migration": "true"
+  },
+  "keyToStringList": {
+    "rider.external.source.directories": [
+      "C:\\Users\\27435\\AppData\\Roaming\\JetBrains\\Rider2023.3\\resharper-host\\DecompilerCache",
+      "C:\\Users\\27435\\AppData\\Roaming\\JetBrains\\Rider2023.3\\resharper-host\\SourcesCache",
+      "C:\\Users\\27435\\AppData\\Local\\Symbols\\src"
+    ]
+  }
+}]]></component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="应用程序级" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="默认任务">
+      <changelist id="032735cb-0f72-4d5d-b455-e51b366f8e36" name="更改" comment="" />
+      <created>1717355775845</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1717355775845</updated>
+      <workItem from="1717355778958" duration="13429000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
+  </component>
+</project>

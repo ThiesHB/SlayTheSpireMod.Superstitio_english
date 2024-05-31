@@ -1,0 +1,23 @@
+﻿{
+  "SuperstitioApiMod:AllCardCostModifier": {
+    "NAME": "能量减免",
+    "DESCRIPTIONS": [
+      "所有牌的能量消耗减少 #b%d 点。 %s",
+      " NL 效果未启动。"
+    ]
+  },
+  "SuperstitioApiMod:AllCardCostModifier_PerEnergy": {
+    "NAME": "能量减免",
+    "DESCRIPTIONS": [
+      "所有牌的能量消耗减少 #b%d 点。减免 #b%d 点能量后失去本效果。 %s",
+      " NL 效果未启动。"
+    ]
+  },
+  "SuperstitioApiMod:AllCardCostModifier_PerCard": {
+    "NAME": "能量减免",
+    "DESCRIPTIONS": [
+      "所有牌的能量消耗减少 #b%d 点。使用 #b%d 张牌后失去本效果。 %s",
+      " NL 效果未启动。"
+    ]
+  }
+}
