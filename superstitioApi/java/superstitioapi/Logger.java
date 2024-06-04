@@ -11,6 +11,10 @@ public class Logger {
         logger.error("[ERROR] " + exception.getMessage());
     }
 
+    public static void error(String string){
+        logger.error(string);
+    }
+
     public static void info(String string) {
         logger.info(string);
     }

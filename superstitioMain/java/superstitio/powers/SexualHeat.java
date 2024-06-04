@@ -74,7 +74,8 @@ public class SexualHeat extends AbstractSuperstitioPower implements
         addAction_addSexualHeat(target, heatAmount, AutoDoneInstantAction::addToBotAbstract);
     }
 
-    public static void addAction_addSexualHeat(AbstractCreature target, int heatAmount, Consumer<VoidSupplier> action) {
+    public static void addAction_addSexualHeat(AbstractCreature target, int heatAmount,
+                                               Consumer<VoidSupplier> action) {
         if (heatAmount < 0) {
             Logger.warning("add error number " + SexualHeat.class.getSimpleName() + ". Amount: " + heatAmount);
             return;
@@ -85,8 +86,10 @@ public class SexualHeat extends AbstractSuperstitioPower implements
         }
         else {
             SexualHeat sexualHeat = new SexualHeat(target, 0);
-            target.addPower(sexualHeat);
-            action.accept(() -> sexualHeat.addSexualHeat(heatAmount));
+            action.accept(() -> {
+                target.addPower(sexualHeat);
+                sexualHeat.addSexualHeat(heatAmount);
+            });
         }
     }
 
@@ -109,7 +112,8 @@ public class SexualHeat extends AbstractSuperstitioPower implements
     }
 
     public static Optional<SexualHeat> getActiveSexualHeat(AbstractCreature creature) {
-        return Optional.ofNullable((SexualHeat) creature.powers.stream().filter(power -> power instanceof SexualHeat).findAny().orElse(null));
+        return Optional.ofNullable((SexualHeat) creature.powers.stream()
+                .filter(power -> power instanceof SexualHeat).findAny().orElse(null));
     }
 
     private static int getOrgasmTimesInTurn() {
@@ -200,7 +204,12 @@ public class SexualHeat extends AbstractSuperstitioPower implements
 
     @Override
     public BiFunction<Supplier<Hitbox>, HasBarRenderOnCreature, ? extends RenderOnThing> makeNewBarRenderOnCreature() {
-        return BarRenderOnThing_Ring_Text::new;
+        return (hitbox, power) -> {
+            if (BarRenderOnThing_Ring.ringShader.isCompiled() && this.owner instanceof AbstractPlayer)
+                return new BarRenderOnThing_Ring_Text(hitbox, power);
+            else
+                return new BarRenderOnThing(hitbox, power);
+        };
     }
 
     public void CheckOrgasm() {

@@ -52,8 +52,13 @@ public class BarRenderManager implements RenderInBattle, OnPowersModifiedSubscri
                 findPowers().filter(power -> !findMatch_powerPointToBar(power).isPresent()).collect(Collectors.toList());
         List<RenderOnThing> bar_HasNoPower =
                 bars.stream().filter(bar -> !findMatch_barHasPower(bar).isPresent()).collect(Collectors.toList());
-        bar_HasNoPower.forEach(this.bars::remove);
-        power_HasNoBar.forEach(power -> bars.add(power.makeNewBarRenderOnCreature().apply(power::getBarRenderHitBox, power)));
+        for (RenderOnThing renderOnThing : bar_HasNoPower) {
+            this.bars.remove(renderOnThing);
+        }
+        for (HasBarRenderOnCreature power : power_HasNoBar) {
+            RenderOnThing added = power.makeNewBarRenderOnCreature().apply(power::getBarRenderHitBox, power);
+            bars.add(added);
+        }
     }
 
     public void AutoMakeMessage() {
@@ -76,4 +81,5 @@ public class BarRenderManager implements RenderInBattle, OnPowersModifiedSubscri
         AutoRegisterAndRemove();
         AutoMakeMessage();
     }
+
 }

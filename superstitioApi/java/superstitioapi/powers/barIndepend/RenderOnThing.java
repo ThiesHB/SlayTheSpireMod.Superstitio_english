@@ -14,7 +14,7 @@ import java.util.stream.Collectors;
 public abstract class RenderOnThing {
     public static final float HIDE_SPEED = 4.0F;
     public static final float HEALTH_HIDE_TIMER_MIN = 0.2F;
-    protected static final float BAR_OFFSET_Y = 28.0f * Settings.scale;
+    public static final float BAR_OFFSET_Y = 28.0f * Settings.scale;
     protected static final float TEXT_OFFSET_Y = 11.0f * Settings.scale;
     //绘制相关
     protected static final float BAR_DIAMETER = 20.0f * Settings.scale;

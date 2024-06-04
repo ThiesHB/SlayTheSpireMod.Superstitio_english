@@ -14,6 +14,7 @@ import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.helpers.Hitbox;
 import com.megacrit.cardcrawl.helpers.ImageMaster;
 import com.megacrit.cardcrawl.helpers.input.InputHelper;
+import superstitioapi.Logger;
 
 import java.util.function.Supplier;
 
@@ -73,7 +74,7 @@ public class BarRenderOnThing_Ring extends BarRenderOnThing {
         String fragmentShader = Gdx.files.internal(makeShaderPath(fragmentShaderName)).readString();
         ShaderProgram shaderProgram = new ShaderProgram(vertexShader, fragmentShader);
         if (!shaderProgram.isCompiled())
-            throw new RuntimeException(shaderProgram.getLog());
+            Logger.error(shaderProgram.getLog());
         return shaderProgram;
     }
 

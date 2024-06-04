@@ -20,6 +20,11 @@ public interface HasBarRenderOnCreature_Power extends HasBarRenderOnCreature {
     }
 
     @Override
+    default String uuidPointTo() {
+        return HasBarRenderOnCreature.super.uuidPointTo() + ":" + this.getSelf().owner.id;
+    }
+
+    @Override
     default int getAmountForDraw() {
         return getSelf().amount;
     }

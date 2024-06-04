@@ -21,8 +21,9 @@ import superstitioapi.utils.PowerUtility;
 import java.util.function.BiFunction;
 import java.util.function.Supplier;
 
-import static superstitio.cards.general.FuckJob_Card.InsideSemenRate;
 import static superstitio.powers.lupaOnly.HasBarRenderOnCreature_SemenPower.semenColor;
+import static superstitioapi.powers.barIndepend.BarRenderOnThing_Vertical.BAR_WIDTH;
+import static superstitioapi.powers.barIndepend.RenderOnThing.BAR_OFFSET_Y;
 
 @SuperstitioImg.NoNeedImg
 public class InsideSemen extends AbstractSuperstitioPower implements
@@ -52,6 +53,7 @@ public class InsideSemen extends AbstractSuperstitioPower implements
         };
         bar.barTextColor = semenColor();
         bar.barLength = hitbox.get().height / 2;
+        bar.hitbox.height = bar.barLength + BAR_WIDTH - BAR_OFFSET_Y * 2;
         return bar;
     }
 
@@ -108,7 +110,7 @@ public class InsideSemen extends AbstractSuperstitioPower implements
 
     @Override
     public Color setupBarOrginColor() {
-        return ImgUtility.mixColor(semenColor(), Color.PINK, 0.3f,0.9f);
+        return ImgUtility.mixColor(semenColor(), Color.PINK, 0.3f, 0.9f);
     }
 
     @Override

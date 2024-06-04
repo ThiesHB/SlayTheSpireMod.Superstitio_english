@@ -1,3 +1,4 @@
+#version 100
 #ifdef GL_ES
 #define LOWP lowp
 precision mediump float;
@@ -13,7 +14,7 @@ uniform float u_radius;
 uniform float u_halfThick;
 
 vec2 toRound(vec2 texCoords){
-    texCoords -= 0.5;
+    texCoords -= 0.5f;
     float theta = degrees(atan(texCoords.y,texCoords.x));
     float radius = length(texCoords);
     theta += 180.0f;
@@ -30,7 +31,7 @@ void main(){
     texC.x = mod(texC.x,360.0f);
 
 
-    if ((u_degreeStart < texC.x && texC.x < u_degreeLength + u_degreeStart)||(u_degreeStart < texC.x - 360 && texC.x - 360 < u_degreeLength + u_degreeStart))
+    if ((u_degreeStart < texC.x && texC.x < u_degreeLength + u_degreeStart)||(u_degreeStart < texC.x - 360.0f && texC.x - 360.0f < u_degreeLength + u_degreeStart))
         shouldDraw.a = 1.0f;
 
     gl_FragColor = v_color * shouldDraw * texture2D(u_texture,texC);
