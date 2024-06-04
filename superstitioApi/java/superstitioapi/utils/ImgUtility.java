@@ -4,7 +4,11 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
+import java.nio.FloatBuffer;
+
 public class ImgUtility {
+    public static final FloatBuffer transColor = FloatBuffer.wrap(new float[]{0, 0, 0, 0});
+
     public static void draw(final SpriteBatch sb, Texture texture, float x, float y,
                             float width, float height, float rotation) {
         sb.draw(texture, x, y, 0, 0, width, height, 1.0f, 1.0f, rotation, 0, 0, texture.getWidth(), texture.getHeight(),
@@ -31,4 +35,6 @@ public class ImgUtility {
         float b = (colorBase.b + colorInsert.b * InsertRate) / (1.0f + InsertRate);
         return new Color(r, g, b, alpha);
     }
+
+
 }

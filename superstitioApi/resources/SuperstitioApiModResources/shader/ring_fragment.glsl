@@ -1,7 +1,7 @@
 #version 100
 #ifdef GL_ES
 #define LOWP lowp
-precision mediump float;
+precision lowp float;
 #else
 #define LOWP
 #endif
@@ -13,28 +13,28 @@ uniform float u_degreeLength;
 uniform float u_radius;
 uniform float u_halfThick;
 
-vec2 toRound(vec2 texCoords){
-    texCoords -= 0.5f;
-    float theta = degrees(atan(texCoords.y,texCoords.x));
-    float radius = length(texCoords);
-    theta += 180.0f;
-    return vec2(theta,radius);
-}
-
 void main(){
-    vec2 texC = toRound(v_texCoords);
-    texC.y -= (u_radius-u_halfThick);
-    texC.y /=  u_halfThick;
-    texC.y *= 0.5f;
+    vec2 texCoords = v_texCoords ;
+    texCoords -= 0.5f;
+    highp float theta = degrees(atan(texCoords.y,texCoords.x));
+    lowp float radius = length(texCoords);
+    theta += 180.0f;
 
-    vec4 shouldDraw = vec4(1.0f,1.0f,1.0f,0.0f);
-    texC.x = mod(texC.x,360.0f);
+    radius -= (u_radius-u_halfThick);
+    radius /=  u_halfThick;
+    radius *= 0.5f;
 
+    vec4 shouldDraw = vec4(1.0f);
+    theta -= u_degreeStart;
+    theta = mod(theta,360.0f);
 
-    if ((u_degreeStart < texC.x && texC.x < u_degreeLength + u_degreeStart)||(u_degreeStart < texC.x - 360.0f && texC.x - 360.0f < u_degreeLength + u_degreeStart))
-        shouldDraw.a = 1.0f;
+    shouldDraw.a *= step(0.0f,theta);
+    shouldDraw.a *= step(theta,u_degreeLength);
+    theta /= u_degreeLength;
+    shouldDraw.a *= step(0.0f,radius);
+    shouldDraw.a *= step(radius,1.0f);
 
-    gl_FragColor = v_color * shouldDraw * texture2D(u_texture,texC);
+    gl_FragColor = v_color * shouldDraw * texture2D(u_texture,vec2(theta,radius));
 }
 
 
