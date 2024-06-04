@@ -34,6 +34,7 @@ public class JokeDescription extends SuperstitioRelic implements BecomeBlight {
         public BlightWithRelic_JokeDescription() {
             super(ID);
         }
+
         @Override
         public AbstractRelic makeRelic() {
             return new JokeDescription();

@@ -21,6 +21,7 @@ public class SexBlock extends AbstractLupaBlock {
     public Priority priority() {
         return Priority.NORMAL;
     }
+
     @Override
     public AbstractBlockModifier makeCopy() {
         return new SexBlock();

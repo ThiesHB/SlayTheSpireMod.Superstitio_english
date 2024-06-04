@@ -24,6 +24,7 @@ public class SuperstitioApiSubscriber implements
         OnCardUseSubscriber, OnPowersModifiedSubscriber, PostDrawSubscriber, PostEnergyRechargeSubscriber, PreMonsterTurnSubscriber {
 
     public static boolean hasHadInMonsterTurn = false;
+
     public SuperstitioApiSubscriber() {
         BaseMod.subscribe(this);
         Logger.run("Done " + this + " subscribing");

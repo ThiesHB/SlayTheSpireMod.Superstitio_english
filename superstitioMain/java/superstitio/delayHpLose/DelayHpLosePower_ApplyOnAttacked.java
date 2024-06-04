@@ -7,7 +7,7 @@ import superstitio.DataManager;
 
 import java.util.Optional;
 
-public class DelayHpLosePower_ApplyOnAttacked extends DelayHpLosePower{
+public class DelayHpLosePower_ApplyOnAttacked extends DelayHpLosePower {
     public static final String POWER_ID = DataManager.MakeTextID(DelayHpLosePower_ApplyOnAttacked.class);
 
     public DelayHpLosePower_ApplyOnAttacked(final AbstractCreature owner, int amount) {

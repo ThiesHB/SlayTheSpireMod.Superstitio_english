@@ -326,5 +326,4 @@ public abstract class SuperstitioCard extends CustomCard implements updateDescri
     public abstract void use(AbstractPlayer player, AbstractMonster monster);
 
 
-
 }

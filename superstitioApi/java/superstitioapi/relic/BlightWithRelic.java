@@ -13,6 +13,7 @@ public abstract class BlightWithRelic extends AbstractBlight {
 
     public AbstractRelic relic;
     private boolean isInit = false;
+
     public BlightWithRelic(String id) {
         super(id, "BlightWithRelic", "Only a Relic carrier, do not spawn.", "maze.png", true);
         relic = makeRelic();
@@ -33,8 +34,8 @@ public abstract class BlightWithRelic extends AbstractBlight {
         if (!isInit) {
             initRelic();
             isInit = true;
-            if (Loader.isModLoadedOrSideloaded("VUPShionMod")){
-                    isInit = false;
+            if (Loader.isModLoadedOrSideloaded("VUPShionMod")) {
+                isInit = false;
             }
         }
 

@@ -21,7 +21,7 @@ public class ExposeSelfPower extends AbstractSuperstitioPower {
         if (info.type == DamageInfo.DamageType.NORMAL) {
             this.flash();
             this.addToBot(new ApplyPowerAction(
-                    AbstractDungeon.player, AbstractDungeon.player, new OutsideSemen(AbstractDungeon.player, damageAmount/2)));
+                    AbstractDungeon.player, AbstractDungeon.player, new OutsideSemen(AbstractDungeon.player, damageAmount / 2)));
         }
         return super.onAttacked(info, damageAmount);
     }

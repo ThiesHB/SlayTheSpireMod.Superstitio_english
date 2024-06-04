@@ -30,11 +30,14 @@ public class OutsideSemen extends AbstractSuperstitioPower implements
         super(POWER_ID, owner, amount, owner.isPlayer ? PowerType.BUFF : PowerType.DEBUFF, false);
         updateDescription();
     }
+
     public static final int SEMEN_VALUE = 2;
+
     @Override
     public int getSemenValue() {
         return SEMEN_VALUE;
     }
+
     @Override
     public void updateDescriptionArgs() {
         setDescriptionArgs(this.amount * OutsideSemenRate);

@@ -87,7 +87,7 @@ public class SuperstitioModSubscriber implements
                 if (floorNum <= 1 && CardCrawlGame.dungeon instanceof Exordium) {
                     player.currentHealth = player.getLoadout().currentHp;
                     if (ascensionLevel >= 6) {
-                        player.currentHealth = MathUtils.round((float)player.currentHealth * 0.9F);
+                        player.currentHealth = MathUtils.round((float) player.currentHealth * 0.9F);
                     }
                 }
                 addBlight(new MasochismMode.BlightWithRelic_MasochismMode());

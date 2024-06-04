@@ -1,79 +1,79 @@
 ﻿{
-    "SuperstitioMod:Ku_KoroPower": {
-        "NAME": "咕杀",
-        "DESCRIPTIONS": [
-            "受到 #y攻击伤害 而失去生命时，获得 #b1 随机 #y状态 牌。 NL 所有 #y消耗 牌会回到 抽牌堆 。"
-        ]
-    },
-    "SuperstitioMod:ExposeSelfPower": {
-        "NAME": "自我暴露",
-        "DESCRIPTIONS": [
-            "持续 %d 回合 ，受到攻击伤害 时，获得其数值一半的 #y体表精液 。 "
-        ]
-    },
-    "SuperstitioMod:InsideSemen": {
-        "NAME": "体内精液",
-        "DESCRIPTIONS": [
-            "当前价值： #b%d 。 NL 回合结束时，超过 #b%d 点的部分会溢出，每点溢出转化为 #b%d 点 #y体表精液 。 NL 用作卡牌资源。",
-            "溢出！",
-            "扩张！"
-        ]
-    },
-    "SuperstitioMod:OutsideSemen": {
-        "NAME": "体表精液",
-        "DESCRIPTIONS": [
-            "当前价值： #b%d 。 NL 用作卡牌资源。"
-        ]
-    },
-    "SuperstitioMod:FloorSemen": {
-        "NAME": "地板精液",
-        "DESCRIPTIONS": [
-            "当前价值： #b%d 。 NL 用作卡牌资源。"
-        ]
-    },
-    "SuperstitioMod:BeerCupSemen": {
-        "NAME": "杯中精液",
-        "DESCRIPTIONS": [
-            " 获得其他 #y精液 时， 转化为 #y杯中精液 。 当收集满 %d 或 战斗结束 时，回复 其 数量的 生命 。",
-            "收集",
-            "杯满！",
-            "痛饮！"
-        ]
-    },
-    "SuperstitioMod:DelayHpLosePower_ApplyOnlyOnVictory": {
-        "NAME": "#r腐朽",
-        "DESCRIPTIONS": [
-            "战斗结束时： NL #r降低 #r%d #r点生命。"
-        ]
-    },
-    "SuperstitioMod:DelayHpLosePower_ApplyOnAttacked": {
-        "NAME": "#r腐朽",
-        "DESCRIPTIONS": [
-            "下次受到攻击伤害而失去生命时或战斗结束时： NL #r降低 #r%d #r点生命。"
-        ]
-    },
-    "SuperstitioMod:SexPlateArmorPower": {
-        "NAME": "多层护甲",
-        "DESCRIPTIONS": [
-            "在你的回合结束时获得 #b%d 点 #y格挡 。受到攻击伤害而失去生命时，层数将会减少 #b1 。"
-        ]
-    },
-    "SuperstitioMod:CanNotGetSemen": {
-        "NAME": "无法获得精液",
-        "DESCRIPTIONS": [
-            "无法获得精液。"
-        ]
-    },
-    "SuperstitioMod:PreventHpLimit_Times": {
-        "NAME": "激情",
-        "DESCRIPTIONS": [
-            "本回合，下 #b%d 次受到攻击伤害而失去生命时，不 #r接纳腐朽 。"
-        ]
-    },
-    "SuperstitioMod:PreventHpLimit_Turns": {
-        "NAME": "激情",
-        "DESCRIPTIONS": [
-            "受到攻击伤害而失去生命时，不 #r接纳腐朽 ，生效 #b%d 回合。"
-        ]
-    }
+  "SuperstitioMod:Ku_KoroPower": {
+    "NAME": "咕杀",
+    "DESCRIPTIONS": [
+      "受到 #y攻击伤害 而失去生命时，获得 #b1 随机 #y状态 牌。 NL 所有 #y消耗 牌会回到 抽牌堆 。"
+    ]
+  },
+  "SuperstitioMod:ExposeSelfPower": {
+    "NAME": "自我暴露",
+    "DESCRIPTIONS": [
+      "持续 %d 回合 ，受到攻击伤害 时，获得其数值一半的 #y体表精液 。 "
+    ]
+  },
+  "SuperstitioMod:InsideSemen": {
+    "NAME": "体内精液",
+    "DESCRIPTIONS": [
+      "当前价值： #b%d 。 NL 回合结束时，超过 #b%d 点的部分会溢出，每点溢出转化为 #b%d 点 #y体表精液 。 NL 用作卡牌资源。",
+      "溢出！",
+      "扩张！"
+    ]
+  },
+  "SuperstitioMod:OutsideSemen": {
+    "NAME": "体表精液",
+    "DESCRIPTIONS": [
+      "当前价值： #b%d 。 NL 用作卡牌资源。"
+    ]
+  },
+  "SuperstitioMod:FloorSemen": {
+    "NAME": "地板精液",
+    "DESCRIPTIONS": [
+      "当前价值： #b%d 。 NL 用作卡牌资源。"
+    ]
+  },
+  "SuperstitioMod:BeerCupSemen": {
+    "NAME": "杯中精液",
+    "DESCRIPTIONS": [
+      " 获得其他 #y精液 时， 转化为 #y杯中精液 。 当收集满 %d 或 战斗结束 时，回复 其 数量的 生命 。",
+      "收集",
+      "杯满！",
+      "痛饮！"
+    ]
+  },
+  "SuperstitioMod:DelayHpLosePower_ApplyOnlyOnVictory": {
+    "NAME": "#r腐朽",
+    "DESCRIPTIONS": [
+      "战斗结束时： NL #r降低 #r%d #r点生命。"
+    ]
+  },
+  "SuperstitioMod:DelayHpLosePower_ApplyOnAttacked": {
+    "NAME": "#r腐朽",
+    "DESCRIPTIONS": [
+      "下次受到攻击伤害而失去生命时或战斗结束时： NL #r降低 #r%d #r点生命。"
+    ]
+  },
+  "SuperstitioMod:SexPlateArmorPower": {
+    "NAME": "多层护甲",
+    "DESCRIPTIONS": [
+      "在你的回合结束时获得 #b%d 点 #y格挡 。受到攻击伤害而失去生命时，层数将会减少 #b1 。"
+    ]
+  },
+  "SuperstitioMod:CanNotGetSemen": {
+    "NAME": "无法获得精液",
+    "DESCRIPTIONS": [
+      "无法获得精液。"
+    ]
+  },
+  "SuperstitioMod:PreventHpLimit_Times": {
+    "NAME": "激情",
+    "DESCRIPTIONS": [
+      "本回合，下 #b%d 次受到攻击伤害而失去生命时，不 #r接纳腐朽 。"
+    ]
+  },
+  "SuperstitioMod:PreventHpLimit_Turns": {
+    "NAME": "激情",
+    "DESCRIPTIONS": [
+      "受到攻击伤害而失去生命时，不 #r接纳腐朽 ，生效 #b%d 回合。"
+    ]
+  }
 }

@@ -19,7 +19,7 @@ public class BarRenderManager implements RenderInBattle, OnPowersModifiedSubscri
 
     public BarRenderManager() {
 //        this.creature = creature;
-        RenderInBattle.Register(RenderType.Panel,this);
+        RenderInBattle.Register(RenderType.Panel, this);
     }
 
     public Stream<HasBarRenderOnCreature> findPowers() {

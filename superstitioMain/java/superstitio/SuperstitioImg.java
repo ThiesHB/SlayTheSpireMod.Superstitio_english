@@ -4,5 +4,6 @@ import basemod.AutoAdd;
 
 @AutoAdd.Ignore
 public class SuperstitioImg {
-   public @interface NoNeedImg {}
+    public @interface NoNeedImg {
+    }
 }

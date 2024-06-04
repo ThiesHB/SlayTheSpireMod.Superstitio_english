@@ -30,7 +30,7 @@ public class CardOrb_AtEndOfTurn extends CardOrb implements ICardOrb_EachTime {
     }
 
     protected void actionAccept() {
-        AutoDoneInstantAction.addToBotAbstract(()->action.accept(this));
+        AutoDoneInstantAction.addToBotAbstract(() -> action.accept(this));
     }
 
     @Override

@@ -1,44 +1,44 @@
 ﻿{
-    "SuperstitioMod:DelayHpLosePower_HealOnVictory": {
-        "NAME": "#r腐朽",
-        "DESCRIPTIONS": [
-            "敌人行动结束时： NL #r降低 #r%d #r点生命。 NL 总腐朽： #r%d 层。"
-        ]
-    },
-    "SuperstitioMod:DoubleRemoveHpLostWhenHasVulnerablePower": {
-        "NAME": "翻倍格挡",
-        "DESCRIPTIONS": [
-            "当有 #y易伤 时，翻倍来自卡牌的 #r腐朽 移除量。"
-        ]
-    },
-    "SuperstitioMod:LostBodyPart_Arm": {
-        "NAME": "断臂",
-        "DESCRIPTIONS": [
-            "无法打出手臂相关的性交牌"
-        ]
-    },
-    "SuperstitioMod:LostBodyPart_Breast": {
-        "NAME": "剐乳",
-        "DESCRIPTIONS": [
-            "无法打出乳房相关的性交牌"
-        ]
-    },
-    "SuperstitioMod:LostBodyPart_Castration": {
-        "NAME": "去势",
-        "DESCRIPTIONS": [
-            "无法打出下体相关的性交牌"
-        ]
-    },
-    "SuperstitioMod:LostBodyPart_Head": {
-        "NAME": "砍头",
-        "DESCRIPTIONS": [
-            "无法打出头部相关的性交牌"
-        ]
-    },
-    "SuperstitioMod:LostBodyPart_Leg": {
-        "NAME": "断腿",
-        "DESCRIPTIONS": [
-            "无法打出腿部相关的性交牌"
-        ]
-    }
+  "SuperstitioMod:DelayHpLosePower_HealOnVictory": {
+    "NAME": "#r腐朽",
+    "DESCRIPTIONS": [
+      "敌人行动结束时： NL #r降低 #r%d #r点生命。 NL 总腐朽： #r%d 层。"
+    ]
+  },
+  "SuperstitioMod:DoubleRemoveHpLostWhenHasVulnerablePower": {
+    "NAME": "翻倍格挡",
+    "DESCRIPTIONS": [
+      "当有 #y易伤 时，翻倍来自卡牌的 #r腐朽 移除量。"
+    ]
+  },
+  "SuperstitioMod:LostBodyPart_Arm": {
+    "NAME": "断臂",
+    "DESCRIPTIONS": [
+      "无法打出手臂相关的性交牌"
+    ]
+  },
+  "SuperstitioMod:LostBodyPart_Breast": {
+    "NAME": "剐乳",
+    "DESCRIPTIONS": [
+      "无法打出乳房相关的性交牌"
+    ]
+  },
+  "SuperstitioMod:LostBodyPart_Castration": {
+    "NAME": "去势",
+    "DESCRIPTIONS": [
+      "无法打出下体相关的性交牌"
+    ]
+  },
+  "SuperstitioMod:LostBodyPart_Head": {
+    "NAME": "砍头",
+    "DESCRIPTIONS": [
+      "无法打出头部相关的性交牌"
+    ]
+  },
+  "SuperstitioMod:LostBodyPart_Leg": {
+    "NAME": "断腿",
+    "DESCRIPTIONS": [
+      "无法打出腿部相关的性交牌"
+    ]
+  }
 }

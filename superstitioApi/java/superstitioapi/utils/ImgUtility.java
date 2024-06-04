@@ -9,8 +9,9 @@ public class ImgUtility {
         sb.draw(texture, x, y, 0, 0, width, height, 1.0f, 1.0f, rotation, 0, 0, texture.getWidth(), texture.getHeight(),
                 false, false);
     }
+
     public static void draw(final SpriteBatch sb, Texture texture, float x, float y,
-                            float width, float height, float rotation,boolean flipX,boolean flipY) {
+                            float width, float height, float rotation, boolean flipX, boolean flipY) {
         sb.draw(texture, x, y, 0, 0, width, height, 1.0f, 1.0f, rotation, 0, 0, texture.getWidth(), texture.getHeight(),
                 flipX, flipY);
     }

@@ -27,7 +27,6 @@ public class Sensitive extends SuperstitioRelic implements BecomeBlight {
     }
 
 
-
     @Override
     public void updateDescriptionArgs() {
         setDescriptionArgs(SexualHeatRate);

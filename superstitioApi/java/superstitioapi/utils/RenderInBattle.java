@@ -23,7 +23,7 @@ public interface RenderInBattle {
     ArrayList<RenderInBattle> RENDER_IN_BATTLES_PANEL = new ArrayList<>();
     ArrayList<RenderInBattle> RENDER_IN_BATTLES_ABOVE_PANEL = new ArrayList<>();
 
-    static void clearAll(){
+    static void clearAll() {
         RENDER_IN_BATTLES.clear();
         RENDER_IN_BATTLES_PANEL.clear();
         RENDER_IN_BATTLES_ABOVE_PANEL.clear();
@@ -103,6 +103,7 @@ public interface RenderInBattle {
                 RENDER_IN_BATTLES_PANEL.forEach(renderInBattle -> renderInBattle.render(sb));
             }
         }
+
         @SpirePatch(clz = AbstractRoom.class, method = "renderAboveTopPanel", paramtypez = {SpriteBatch.class})
         public static class RenderAboveTopPanelPatch {
             @SpirePostfixPatch

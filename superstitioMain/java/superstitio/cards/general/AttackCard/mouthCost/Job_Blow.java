@@ -49,7 +49,7 @@ public class Job_Blow extends GeneralCard implements FuckJob_Card, GoSomewhereEl
     public void afterInterruptMoveToCardGroup(CardGroup cardGroup) {
         new CardOrb_WaitCardTrigger(this, cardGroup, this.magicNumber, (orb, card) -> {
             orb.StartHitCreature(AbstractDungeon.player);
-            SexualHeat.addToBot_addSexualHeat(AbstractDungeon.player,HEAT_GIVE);
+            SexualHeat.addToBot_addSexualHeat(AbstractDungeon.player, HEAT_GIVE);
         })
                 .setCardPredicate(card -> card instanceof FuckJob_Card)
                 .setNotEvokeOnEndOfTurn()

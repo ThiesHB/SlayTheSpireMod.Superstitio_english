@@ -21,7 +21,7 @@ public class DelaySexualHeat extends AbstractSuperstitioPower {
     @Override
     public void atStartOfTurn() {
         this.flash();
-        SexualHeat.addToBot_addSexualHeat(this.owner,amount);
+        SexualHeat.addToBot_addSexualHeat(this.owner, amount);
         this.addToBot(new RemoveSpecificPowerAction(this.owner, this.owner, POWER_ID));
     }
 

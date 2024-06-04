@@ -31,7 +31,7 @@ public class HangUpCardGroup implements RenderInBattle,
 
     public HangUpCardGroup(Hitbox hitbox) {
         this.hitbox = new Hitbox(hitbox.x, hitbox.y, hitbox.width, hitbox.height);
-        RenderInBattle.Register(RenderType.Normal,this);
+        RenderInBattle.Register(RenderType.Normal, this);
         this.hitbox.moveX(this.hitbox.cX + this.hitbox.width * 2);
         this.hitbox.moveY(this.hitbox.cY + this.hitbox.height * 0.5f);
     }

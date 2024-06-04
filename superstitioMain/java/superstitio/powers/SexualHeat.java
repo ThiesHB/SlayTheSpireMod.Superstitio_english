@@ -332,7 +332,7 @@ public class SexualHeat extends AbstractSuperstitioPower implements
     }
 
     private void bubbleMessage(boolean isDeBuffVer, String message) {
-        PowerUtility.BubbleMessage(this.getBarRenderHitBox(), isDeBuffVer, message, this.owner.hb.width / 2, PowerUtility.BubbleMessageHigher_HEIGHT + Height());
+        PowerUtility.BubbleMessage(this.getBarRenderHitBox(), isDeBuffVer, message, -this.owner.hb.width / 2, PowerUtility.BubbleMessageHigher_HEIGHT + Height());
     }
 
     @Override

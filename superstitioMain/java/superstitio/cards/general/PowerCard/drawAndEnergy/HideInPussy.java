@@ -55,7 +55,7 @@ public class HideInPussy extends GeneralCard {
                 card.freeToPlayOnce = true;
                 card.retain = true;
             })
-                    .setWindowText(String.format(powerCard.cardStrings.getEXTENDED_DESCRIPTION()[0],this.amount))
+                    .setWindowText(String.format(powerCard.cardStrings.getEXTENDED_DESCRIPTION()[0], this.amount))
                     .setChoiceAmount(this.amount)
                     .setAnyNumber(true)
                     .setCanPickZero(true)

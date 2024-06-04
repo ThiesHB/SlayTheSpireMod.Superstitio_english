@@ -1,69 +1,69 @@
 ﻿{
-    "SuperstitioMod:GangBang": {
-        "NAME": "轮奸派对",
-        "NAME_SFW": "血战沙场",
-        "DESCRIPTION": "stslib:自动打出 。 NL superstitiomod:助兴-缠绵 ： NL 本回合结束时 ： NL 对 全体敌人 造成 !D! 点伤害 。 获得 !B! superstitiomod:干涸精痕 。",
-        "FLAVOR": "开始狂欢吧！大家一起来！",
-        "EXTENDED_DESCRIPTION": [
-            "困倦的",
-            "平淡的",
-            "愉快的",
-            "满足的",
-            "完美的"
-        ]
-    },
-    "SuperstitioMod:GiveBirth": {
-        "NAME": "分娩",
-        "NAME_SFW": "力量释放",
-        "DESCRIPTION": "移除所有的 superstitiomod:妊娠 。获得 !B! 临时生命 。 NL 通过这张牌移除的 superstitiomod:妊娠 不会触发 superstitiomod:流产 。 NL 消耗 。",
-        "FLAVOR": "重获新生吧。"
-    },
-    "SuperstitioMod:SexToy": {
-        "NAME": "情趣玩具",
-        "NAME_SFW": "神圣旗帜",
-        "DESCRIPTION": "给目标装备 !M! 个 随机 superstitiomod:情趣玩具 。",
-        "FLAVOR": "越多越好！",
-        "EXTENDED_DESCRIPTION": [
-            "震动棒,肛塞,跳蛋"
-        ],
-        "EXTENDED_DESCRIPTION_SFW": [
-            "龙凤旗,花花旗,日月旗"
-        ]
-    },
-    "SuperstitioMod:SelfReference": {
-        "NAME": "自我指慰",
-        "NAME_SFW": "自我指涉",
-        "DESCRIPTION": "superstitiomod:时空递归 。 NL 移除 !B! *腐朽 。",
-        "FLAVOR": "罢了，事已至此，先指慰一下吧。"
-    },
-    "SuperstitioMod:FishGirlMode": {
-        "NAME": "鱼人变形",
-        "NAME_SFW": "火元素变形",
-        "DESCRIPTION": "回合开始时，获得 !M! superstitiomod:窒息 。",
-        "FLAVOR": "陆，陆地，要喘不过气来了~❤"
-    },
-    "SuperstitioMod:KakaaGirlMode": {
-        "NAME": "咔咔变形",
-        "NAME_SFW": "咔咔变形",
-        "DESCRIPTION": "回合开始时，获得 !M! 力量 。",
-        "FLAVOR": "Kakaa~~"
-    },
-    "SuperstitioMod:SlimeGirlMode": {
-        "NAME": "史莱姆变形",
-        "NAME_SFW": "史莱姆变形",
-        "DESCRIPTION": "回合开始时，获得 !M! superstitiomod:史莱姆韧性 。",
-        "FLAVOR": "史莱姆分裂~★"
-    },
-    "SuperstitioMod:FeelPhantomBody": {
-        "NAME": "感受幻肢",
-        "NAME_SFW": "义体",
-        "DESCRIPTION": "抽一张牌，使随机敌人流失 !M! 点生命值。 NL 若回合结束时在手牌中， 消耗 并把原本的卡牌加入弃牌堆。",
-        "FLAVOR": "全部……全部去掉……让我变成人棍，让我无法逃脱，让我……"
-    },
-    "SuperstitioMod:VulnerableTogether": {
-        "NAME": "共沉沦",
-        "NAME_SFW": "复仇怒火",
-        "DESCRIPTION": "给予敌我双方 !M! 层 易伤 。",
-        "FLAVOR": ""
-    }
+  "SuperstitioMod:GangBang": {
+    "NAME": "轮奸派对",
+    "NAME_SFW": "血战沙场",
+    "DESCRIPTION": "stslib:自动打出 。 NL superstitiomod:助兴-缠绵 ： NL 本回合结束时 ： NL 对 全体敌人 造成 !D! 点伤害 。 获得 !B! superstitiomod:干涸精痕 。",
+    "FLAVOR": "开始狂欢吧！大家一起来！",
+    "EXTENDED_DESCRIPTION": [
+      "困倦的",
+      "平淡的",
+      "愉快的",
+      "满足的",
+      "完美的"
+    ]
+  },
+  "SuperstitioMod:GiveBirth": {
+    "NAME": "分娩",
+    "NAME_SFW": "力量释放",
+    "DESCRIPTION": "移除所有的 superstitiomod:妊娠 。获得 !B! 临时生命 。 NL 通过这张牌移除的 superstitiomod:妊娠 不会触发 superstitiomod:流产 。 NL 消耗 。",
+    "FLAVOR": "重获新生吧。"
+  },
+  "SuperstitioMod:SexToy": {
+    "NAME": "情趣玩具",
+    "NAME_SFW": "神圣旗帜",
+    "DESCRIPTION": "给目标装备 !M! 个 随机 superstitiomod:情趣玩具 。",
+    "FLAVOR": "越多越好！",
+    "EXTENDED_DESCRIPTION": [
+      "震动棒,肛塞,跳蛋"
+    ],
+    "EXTENDED_DESCRIPTION_SFW": [
+      "龙凤旗,花花旗,日月旗"
+    ]
+  },
+  "SuperstitioMod:SelfReference": {
+    "NAME": "自我指慰",
+    "NAME_SFW": "自我指涉",
+    "DESCRIPTION": "superstitiomod:时空递归 。 NL 移除 !B! *腐朽 。",
+    "FLAVOR": "罢了，事已至此，先指慰一下吧。"
+  },
+  "SuperstitioMod:FishGirlMode": {
+    "NAME": "鱼人变形",
+    "NAME_SFW": "火元素变形",
+    "DESCRIPTION": "回合开始时，获得 !M! superstitiomod:窒息 。",
+    "FLAVOR": "陆，陆地，要喘不过气来了~❤"
+  },
+  "SuperstitioMod:KakaaGirlMode": {
+    "NAME": "咔咔变形",
+    "NAME_SFW": "咔咔变形",
+    "DESCRIPTION": "回合开始时，获得 !M! 力量 。",
+    "FLAVOR": "Kakaa~~"
+  },
+  "SuperstitioMod:SlimeGirlMode": {
+    "NAME": "史莱姆变形",
+    "NAME_SFW": "史莱姆变形",
+    "DESCRIPTION": "回合开始时，获得 !M! superstitiomod:史莱姆韧性 。",
+    "FLAVOR": "史莱姆分裂~★"
+  },
+  "SuperstitioMod:FeelPhantomBody": {
+    "NAME": "感受幻肢",
+    "NAME_SFW": "义体",
+    "DESCRIPTION": "抽一张牌，使随机敌人流失 !M! 点生命值。 NL 若回合结束时在手牌中， 消耗 并把原本的卡牌加入弃牌堆。",
+    "FLAVOR": "全部……全部去掉……让我变成人棍，让我无法逃脱，让我……"
+  },
+  "SuperstitioMod:VulnerableTogether": {
+    "NAME": "共沉沦",
+    "NAME_SFW": "复仇怒火",
+    "DESCRIPTION": "给予敌我双方 !M! 层 易伤 。",
+    "FLAVOR": ""
+  }
 }

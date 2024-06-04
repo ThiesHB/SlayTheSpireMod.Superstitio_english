@@ -202,7 +202,7 @@ public abstract class RenderOnThing {
         public int maxAmount = 0;
         public int nowAmount = 0;
 
-        public AmountChunk( int order) {
+        public AmountChunk(int order) {
             this.order = order;
         }
 

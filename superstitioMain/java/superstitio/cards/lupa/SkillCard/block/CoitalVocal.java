@@ -26,7 +26,7 @@ public class CoitalVocal extends LupaCard {
     public CoitalVocal() {
         super(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET);
         this.setupBlock(BLOCK, UPGRADE_BLOCK, new SexBlock());
-        CardModifierManager.addModifier(this,new RetainMod());
+        CardModifierManager.addModifier(this, new RetainMod());
     }
 
     @Override
