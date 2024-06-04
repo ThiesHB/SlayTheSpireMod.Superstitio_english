@@ -1,33 +1,21 @@
 package superstitioapi.powers.barIndepend;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.graphics.glutils.FrameBuffer;
 import com.badlogic.gdx.graphics.glutils.ShaderProgram;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.MathUtils;
 import com.megacrit.cardcrawl.core.Settings;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.helpers.Hitbox;
 import com.megacrit.cardcrawl.helpers.ImageMaster;
 import com.megacrit.cardcrawl.helpers.input.InputHelper;
-import superstitioapi.Logger;
 
 import java.util.function.Supplier;
 
-import static superstitioapi.DataUtility.makeShaderPath;
+import static superstitioapi.utils.ShaderUtility.*;
 
-/**
- * 如果要继承的话，绘制的图像的上下（径向）方向的末端像素点必须是透明的，或者也可以去shader里面再加一个(0.0f,1.0f)的判断。
- * 出于性能考虑，我就先不加了，单纯设置透明就行了。
- */
 public class BarRenderOnThing_Ring extends BarRenderOnThing {
-    public final static FrameBuffer buffer =
-            new FrameBuffer(Pixmap.Format.RGBA8888, Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), false, false);
-    public final static ShaderProgram ringShader = initShader("ring_vertex.glsl", "ring_fragment.glsl");
     protected static final float BAR_SIZE = BAR_DIAMETER * 6.0f;
     protected static final float BAR_THICK = BAR_DIAMETER * 1.2f;
     protected static final float BAR_HALF_THICK_RENORMALIZATION = BAR_THICK / 2.0f / BAR_SIZE;
@@ -44,19 +32,15 @@ public class BarRenderOnThing_Ring extends BarRenderOnThing {
     private static final TextureRegion BAR_L = new TextureRegion(ImageMaster.HEALTH_BAR_L);
     private static final TextureRegion BAR_B = new TextureRegion(ImageMaster.HEALTH_BAR_B);
     private static final TextureRegion BAR_R = new TextureRegion(ImageMaster.HEALTH_BAR_R);
-    public static ShapeRenderer shapeRenderer = new ShapeRenderer();
-    //    private final Mesh rectMesh;
-    public ShaderProgram originShader;
     public float initDegree;
     public float barAverageRadius_renormalization;
     public float barHalfThick_renormalization;
     public float barSize;
     public float barEndDegree;
+    protected ShaderProgram shader;
 
     public BarRenderOnThing_Ring(Supplier<Hitbox> hitbox, HasBarRenderOnCreature power) {
         super(hitbox, power);
-//        ringShader
-//        rectMesh = initMesh();
         this.barLength = BAR_DEGREE;
         this.initDegree = INIT_DEGREE;
         this.barSize = BAR_SIZE;
@@ -70,16 +54,9 @@ public class BarRenderOnThing_Ring extends BarRenderOnThing {
         this.hitbox.width = barSize;
         this.hitbox.height = barSize;
         updateHitBoxPlace(this.hitbox);
+        shader = ringShader_useHalfPic;
     }
 
-    public static ShaderProgram initShader(String vertexShaderName, String fragmentShaderName) { // 初始化着色器程序
-        String vertexShader = Gdx.files.internal(makeShaderPath(vertexShaderName)).readString();
-        String fragmentShader = Gdx.files.internal(makeShaderPath(fragmentShaderName)).readString();
-        ShaderProgram shaderProgram = new ShaderProgram(vertexShader, fragmentShader);
-        if (!shaderProgram.isCompiled())
-            Logger.error(shaderProgram.getLog());
-        return shaderProgram;
-    }
 
     @Override
     protected float getYDrawStart() {
@@ -102,55 +79,51 @@ public class BarRenderOnThing_Ring extends BarRenderOnThing {
     @Override
     protected void drawBarMinEnd(SpriteBatch sb, float x, float y, float startLength, float length) {
         if (length >= 360.0f) return;
-        sb.setShader(ringShader);
-        sb.getShader().setUniformf("u_radius", barAverageRadius_renormalization);
-        sb.getShader().setUniformf("u_halfThick", barHalfThick_renormalization);
-        sb.getShader().setUniformf("u_degreeStart", initDegree + startLength - barEndDegree);
-        sb.getShader().setUniformf("u_degreeLength", barEndDegree);// 似乎是浮点导致的偏移，很奇怪
+        setUpShader(sb,
+                initDegree + startLength - barEndDegree,
+                barEndDegree);
         sb.draw(ImageMaster.HEALTH_BAR_L, x, y, barSize, barSize);
     }
 
     @Override
     protected void drawBarMiddle(SpriteBatch sb, float x, float y, float startLength, float length) {
-        sb.setShader(ringShader);
-        sb.getShader().setUniformf("u_radius", barAverageRadius_renormalization);
-        sb.getShader().setUniformf("u_halfThick", barHalfThick_renormalization);
-        sb.getShader().setUniformf("u_degreeStart", initDegree + startLength);
-        sb.getShader().setUniformf("u_degreeLength", length);
+        setUpShader(sb,
+                initDegree + startLength,
+                length);
         sb.draw(ImageMaster.HEALTH_BAR_B, x, y, barSize, barSize);
     }
 
     @Override
     protected void drawBarMaxEnd(SpriteBatch sb, float x, float y, float startLength, float length) {
         if (length >= 360.0f) return;
-        sb.setShader(ringShader);
-        sb.getShader().setUniformf("u_radius", barAverageRadius_renormalization);
-        sb.getShader().setUniformf("u_halfThick", barHalfThick_renormalization);
-        sb.getShader().setUniformf("u_degreeStart", initDegree + startLength + length);
-        sb.getShader().setUniformf("u_degreeLength", barEndDegree);
+        setUpShader(sb,
+                initDegree + startLength + length,
+                barEndDegree);
         sb.draw(ImageMaster.HEALTH_BAR_R, x, y, barSize, barSize);
     }
 
     @Override
     protected void drawBarShadow(SpriteBatch sb, float x, float y, float startLength, float length) {
-        sb.setShader(ringShader);
-        sb.getShader().setUniformf("u_radius", barAverageRadius_renormalization);
-        sb.getShader().setUniformf("u_halfThick", barHalfThick_renormalization);
-        sb.getShader().setUniformf("u_degreeStart", initDegree + startLength - barEndDegree);
-        sb.getShader().setUniformf("u_degreeLength", barEndDegree);
+        setUpShader(sb,
+                initDegree + startLength - barEndDegree,
+                barEndDegree);
         sb.draw(ImageMaster.HB_SHADOW_L, x, y, barSize, barSize);
-        sb.setShader(ringShader);
-        sb.getShader().setUniformf("u_radius", barAverageRadius_renormalization);
-        sb.getShader().setUniformf("u_halfThick", barHalfThick_renormalization);
-        sb.getShader().setUniformf("u_degreeStart", initDegree + startLength);
-        sb.getShader().setUniformf("u_degreeLength", length);
+        setUpShader(sb,
+                initDegree + startLength,
+                length);
         sb.draw(ImageMaster.HB_SHADOW_B, x, y, barSize, barSize);
-        sb.setShader(ringShader);
+        setUpShader(sb,
+                initDegree + startLength + length,
+                barEndDegree);
+        sb.draw(ImageMaster.HB_SHADOW_R, x, y, barSize, barSize);
+    }
+
+    private void setUpShader(SpriteBatch sb, float startLength, float length) {
+        sb.setShader(shader);
         sb.getShader().setUniformf("u_radius", barAverageRadius_renormalization);
         sb.getShader().setUniformf("u_halfThick", barHalfThick_renormalization);
-        sb.getShader().setUniformf("u_degreeStart", initDegree + startLength + length);
-        sb.getShader().setUniformf("u_degreeLength", barEndDegree);
-        sb.draw(ImageMaster.HB_SHADOW_R, x, y, barSize, barSize);
+        sb.getShader().setUniformf("u_degreeStart", startLength);
+        sb.getShader().setUniformf("u_degreeLength", length);
     }
 
     @Override
@@ -220,7 +193,6 @@ public class BarRenderOnThing_Ring extends BarRenderOnThing {
         protected float lengthDegree;
         protected float halfThick;
         protected float averageRadius;
-        protected ShaderProgram originShader;
 
         public RingHitBox(float averageRadius, float halfThick, float startDegree, float lengthDegree) {
             super(2 * (averageRadius + halfThick), 2 * (averageRadius + halfThick));

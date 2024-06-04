@@ -20,6 +20,9 @@ void main(){
     radius -= (u_radius-u_halfThick);
     radius /=  u_halfThick;
     radius *= 0.5f;
+    radius -= 0.5f;
+    radius = abs(radius);
+    radius += 0.5f;
 
     vec4 shouldDraw = vec4(1.0f);
     theta -= u_degreeStart;

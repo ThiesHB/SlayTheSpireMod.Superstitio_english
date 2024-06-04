@@ -43,6 +43,7 @@ import static superstitio.InBattleDataManager.OrgasmTimesTotal;
 import static superstitioapi.actions.AutoDoneInstantAction.addToBotAbstract;
 import static superstitioapi.powers.AllCardCostModifier.*;
 import static superstitioapi.utils.ActionUtility.VoidSupplier;
+import static superstitioapi.utils.ShaderUtility.canUseShader;
 
 @SuperstitioImg.NoNeedImg
 public class SexualHeat extends AbstractSuperstitioPower implements
@@ -205,7 +206,7 @@ public class SexualHeat extends AbstractSuperstitioPower implements
     @Override
     public BiFunction<Supplier<Hitbox>, HasBarRenderOnCreature, ? extends RenderOnThing> makeNewBarRenderOnCreature() {
         return (hitbox, power) -> {
-            if (BarRenderOnThing_Ring.ringShader.isCompiled() && this.owner instanceof AbstractPlayer)
+            if (canUseShader && this.owner instanceof AbstractPlayer)
                 return new BarRenderOnThing_Ring_Text(hitbox, power);
             else
                 return new BarRenderOnThing(hitbox, power);

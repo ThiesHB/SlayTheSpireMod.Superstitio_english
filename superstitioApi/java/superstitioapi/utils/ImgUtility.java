@@ -1,13 +1,18 @@
 package superstitioapi.utils;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.glutils.ShaderProgram;
+import superstitioapi.Logger;
 
 import java.nio.FloatBuffer;
 
+import static superstitioapi.DataUtility.makeShaderPath;
+
 public class ImgUtility {
-    public static final FloatBuffer transColor = FloatBuffer.wrap(new float[]{0, 0, 0, 0});
+
 
     public static void draw(final SpriteBatch sb, Texture texture, float x, float y,
                             float width, float height, float rotation) {
