@@ -15,11 +15,18 @@ import java.util.stream.Stream;
 
 public class BarRenderManager implements RenderInBattle, OnPowersModifiedSubscriber {
     //    private final AbstractCreature creature;
-    private final List<RenderOnThing> powerBars = new ArrayList<>();
+    private final List<RenderOnThing> bars = new ArrayList<>();
 
     public BarRenderManager() {
 //        this.creature = creature;
         RenderInBattle.Register(RenderType.Panel, this);
+    }
+
+    /**
+     * 如果多个显示在同一个BAR上面，则必须调用这个函数，否则会显示错误
+     */
+    public void removeChunk(HasBarRenderOnCreature hasBarRenderOnCreature) {
+        bars.forEach(bar -> bar.removeChunk(hasBarRenderOnCreature));
     }
 
     public Stream<HasBarRenderOnCreature> findPowers() {
@@ -33,35 +40,35 @@ public class BarRenderManager implements RenderInBattle, OnPowersModifiedSubscri
     }
 
     public Optional<RenderOnThing> findMatch_powerPointToBar(HasBarRenderOnCreature power) {
-        return powerBars.stream().filter(bar -> Objects.equals(bar.uuid_self, power.uuidPointTo())).findAny();
+        return bars.stream().filter(bar -> Objects.equals(bar.uuid_self, power.uuidPointTo())).findAny();
     }
 
     public Optional<HasBarRenderOnCreature> findMatch_barHasPower(RenderOnThing bar) {
-        return findPowers().filter(power -> bar.isUuidInThis(power.uuidPointTo())).findAny();
+        return findPowers().filter(power -> bar.isUuidInThis(power.uuidOfSelf())).findAny();
     }
 
     public void AutoRegisterAndRemove() {
         List<HasBarRenderOnCreature> power_HasNoBar =
                 findPowers().filter(power -> !findMatch_powerPointToBar(power).isPresent()).collect(Collectors.toList());
         List<RenderOnThing> bar_HasNoPower =
-                powerBars.stream().filter(bar -> !findMatch_barHasPower(bar).isPresent()).collect(Collectors.toList());
-        bar_HasNoPower.forEach(this.powerBars::remove);
-        power_HasNoBar.forEach(power -> powerBars.add(power.makeNewBarRenderOnCreature().apply(power::getBarRenderHitBox, power)));
+                bars.stream().filter(bar -> !findMatch_barHasPower(bar).isPresent()).collect(Collectors.toList());
+        bar_HasNoPower.forEach(this.bars::remove);
+        power_HasNoBar.forEach(power -> bars.add(power.makeNewBarRenderOnCreature().apply(power::getBarRenderHitBox, power)));
     }
 
     public void AutoMakeMessage() {
-        findPowers().forEach(power -> powerBars.forEach(barRenderOnCreature -> barRenderOnCreature.tryApplyMessage(power.makeMessage())));
+        findPowers().forEach(power -> bars.forEach(barRenderOnCreature -> barRenderOnCreature.tryApplyMessage(power.makeMessage())));
     }
 
 
     @Override
     public void render(SpriteBatch sb) {
-        powerBars.forEach(bar -> bar.render(sb));
+        bars.forEach(bar -> bar.render(sb));
     }
 
     @Override
     public void update() {
-        powerBars.forEach(RenderOnThing::update);
+        bars.forEach(RenderOnThing::update);
     }
 
     @Override

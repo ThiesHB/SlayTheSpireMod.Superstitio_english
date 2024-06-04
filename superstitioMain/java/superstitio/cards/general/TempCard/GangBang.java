@@ -74,7 +74,7 @@ public class GangBang extends AbstractTempCard implements GoSomewhereElseAfterUs
         GangBang self = this;
         new CardOrb_AtEndOfTurn(this, cardGroup, 1, cardOrbAtEndOfTurn -> {
             cardOrbAtEndOfTurn.StartHitCreature(ActionUtility.getRandomMonsterWithoutRngSafe());
-            self.addToBot_gainBlock();
+            self.addToBot_gainCustomBlock(self.block, new DrySemenBlock());
             self.addToBot_dealDamageToAllEnemies(AbstractGameAction.AttackEffect.POISON);
             addToBot(new WaitAction(1.0f));
         })

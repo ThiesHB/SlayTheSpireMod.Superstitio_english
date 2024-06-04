@@ -33,7 +33,7 @@ import java.util.function.Consumer;
 
 public abstract class OrbGroup implements
         RenderInBattle, OnPowersModifiedSubscriber, OnPlayerTurnStartSubscriber,
-        SuperstitioApiSubscriber.AtStartOfMonsterTurnSubscriber {
+        SuperstitioApiSubscriber.AtEndOfPlayerTurnSubscriber {
     private static final String[] TEXT = new String[]{"  A  "};
     private static final int MAX_MAX_ORB = 10;
     public AbstractOrb CustomEmptyOrb;
@@ -355,7 +355,7 @@ public abstract class OrbGroup implements
     }
 
     @Override
-    public void atStartOfMonsterTurn() {
+    public void receiveAtEndOfPlayerTurn() {
         this.forEachOrbInThisOrbGroup(AbstractOrb::onEndOfTurn);
     }
 }

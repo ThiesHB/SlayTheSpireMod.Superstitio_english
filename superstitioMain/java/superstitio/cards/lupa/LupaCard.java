@@ -7,6 +7,12 @@ import superstitio.cards.SuperstitioCard;
 import superstitio.powers.lupaOnly.FloorSemen;
 import superstitio.powers.lupaOnly.InsideSemen;
 import superstitio.powers.lupaOnly.OutsideSemen;
+import superstitio.powers.lupaOnly.SemenPower;
+import superstitioapi.actions.AutoDoneInstantAction;
+
+import java.util.Collections;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import static superstitio.cards.CardOwnerPlayerManager.IsLupaCard;
 import static superstitio.cards.general.FuckJob_Card.*;
@@ -43,8 +49,27 @@ public abstract class LupaCard extends SuperstitioCard implements IsLupaCard {
         super(id, cardType, cost, cardRarity, cardTarget, cardColor, imgSubFolder);
     }
 
-    protected void useSemen(int amount) {
-        if (!hasEnoughSemen(amount)) {
+    protected List<SemenPower> sortedSemenList() {
+        List<SemenPower> collect = AbstractDungeon.player.powers.stream()
+                .filter(power -> power instanceof SemenPower)
+                .map(power -> (SemenPower) power).sorted(SemenPower::compareTo).collect(Collectors.toList());
+        Collections.reverse(collect);
+        return collect;
+    }
+
+    protected List<SemenPower> sortedSemenList(int maxValue) {
+        List<SemenPower> collect = AbstractDungeon.player.powers.stream()
+                .filter(power -> power instanceof SemenPower)
+                .map(power -> (SemenPower) power)
+                .filter(semenPower -> semenPower.getSemenValue() <= maxValue)
+                .sorted(SemenPower::compareTo)
+                .collect(Collectors.toList());
+        Collections.reverse(collect);
+        return collect;
+    }
+
+    protected void addToBot_useSemenAndAutoRemove(int valueNeed) {
+        if (!hasEnoughSemen(valueNeed)) {
             for (AbstractPower power : AbstractDungeon.player.powers) {
                 if (power instanceof InsideSemen || power instanceof OutsideSemen || power instanceof FloorSemen) {
                     addToBot_removeSpecificPower(power);
@@ -52,50 +77,27 @@ public abstract class LupaCard extends SuperstitioCard implements IsLupaCard {
             }
             return;
         }
-        int lastAmount = amount;
-        final int insideSemen = AbstractDungeon.player.powers.stream()
-                .filter(power -> power instanceof InsideSemen).map(power -> power.amount)
-                .findAny().orElse(0);
-        final int outsideSemen = AbstractDungeon.player.powers.stream()
-                .filter(power -> power instanceof OutsideSemen).map(power -> power.amount)
-                .findAny().orElse(0);
-        final int floorSemen = AbstractDungeon.player.powers.stream()
-                .filter(power -> power instanceof FloorSemen).map(power -> power.amount)
-                .findAny().orElse(0);
+        if (valueNeed <= 0) return;
+        int valueNeedRemain = valueNeed;
+        List<SemenPower> semenPowers = sortedSemenList();
+        List<SemenPower> smartCheapUse = sortedSemenList(valueNeed);
+        if (semenPowers == null || semenPowers.isEmpty()) return;
+        SemenPower semenPower;
+        if (smartCheapUse == null || smartCheapUse.isEmpty()) {
+            semenPower = semenPowers.get(0);
+        }
+        else
+            semenPower = smartCheapUse.get(0);
 
-        int insideSemenNeed = (lastAmount - (lastAmount % InsideSemenRate)) / InsideSemenRate;
-        if ((lastAmount % InsideSemenRate) > ((outsideSemen * OutsideSemenRate) + floorSemen))
-            insideSemenNeed += 1;
-        final int insideSemenRemove;
-        if (insideSemenNeed > insideSemen) {
-            lastAmount -= insideSemen * InsideSemenRate;
-            insideSemenRemove = insideSemen;
-        }
-        else {
-            lastAmount = lastAmount % InsideSemenRate;
-            insideSemenRemove = insideSemenNeed;
-        }
-        addToBot_reducePower(InsideSemen.POWER_ID, insideSemenRemove);
-        if (lastAmount <= 0) return;
-
-        int outsideSemenNeed = (lastAmount - (lastAmount % OutsideSemenRate)) / OutsideSemenRate;
-        if ((lastAmount % OutsideSemenRate) > floorSemen)
-            outsideSemenNeed += 1;
-        final int outsideSemenRemove;
-        if (outsideSemenNeed > insideSemen) {
-            lastAmount -= insideSemen * OutsideSemenRate;
-            outsideSemenRemove = outsideSemen;
-        }
-        else {
-            lastAmount = lastAmount % OutsideSemenRate;
-            outsideSemenRemove = outsideSemenNeed;
-        }
-        addToBot_reducePower(OutsideSemen.POWER_ID, outsideSemenRemove);
-        if (lastAmount <= 0) return;
-
-        final int floorSemenNeed = lastAmount;
-        final int floorSemenRemove = Math.min(floorSemenNeed, floorSemen);
-        addToBot_reducePower(FloorSemen.POWER_ID, floorSemenRemove);
+//        if (semenPower.getTotalValue() >= valueNeedRemain) {
+//            semenPower.addToBot_UseValue(valueNeedRemain);
+////            valueNeedRemain = 0;
+//            return;
+//        }
+        semenPower.addToBot_UseValue(semenPower.getSemenValue());
+        valueNeedRemain -= semenPower.getSemenValue();
+        int finalValueNeedRemain = valueNeedRemain;
+        AutoDoneInstantAction.addToBotAbstract(() -> addToBot_useSemenAndAutoRemove(finalValueNeedRemain));
     }
 
     protected boolean hasEnoughSemen(int amount) {

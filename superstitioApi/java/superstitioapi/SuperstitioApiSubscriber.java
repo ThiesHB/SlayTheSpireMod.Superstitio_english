@@ -3,7 +3,10 @@ package superstitioapi;
 import basemod.BaseMod;
 import basemod.interfaces.*;
 import com.evacipated.cardcrawl.modthespire.lib.SpireInitializer;
+import com.evacipated.cardcrawl.modthespire.lib.SpirePatch2;
+import com.evacipated.cardcrawl.modthespire.lib.SpirePrefixPatch;
 import com.megacrit.cardcrawl.cards.AbstractCard;
+import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.core.AbstractCreature;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import com.megacrit.cardcrawl.powers.AbstractPower;
@@ -23,7 +26,7 @@ public class SuperstitioApiSubscriber implements
         PostBattleSubscriber, PostDungeonInitializeSubscriber, OnStartBattleSubscriber, OnPlayerTurnStartSubscriber,
         OnCardUseSubscriber, OnPowersModifiedSubscriber, PostDrawSubscriber, PostEnergyRechargeSubscriber, PreMonsterTurnSubscriber {
 
-    public static boolean hasHadInMonsterTurn = false;
+//    public static boolean hasHadInMonsterTurn = false;
 
     public SuperstitioApiSubscriber() {
         BaseMod.subscribe(this);
@@ -98,27 +101,40 @@ public class SuperstitioApiSubscriber implements
     @Override
     public void receiveOnBattleStart(AbstractRoom abstractRoom) {
         InBattleDataManager.InitializeAtStartOfBattle();
-        hasHadInMonsterTurn = false;
+//        hasHadInMonsterTurn = false;
         ApplyAll((sub) -> sub.receiveOnBattleStart(abstractRoom), OnStartBattleSubscriber.class);
     }
 
     @Override
     public void receiveOnPlayerTurnStart() {
         InBattleDataManager.InitializeAtStartOfTurn();
-        hasHadInMonsterTurn = false;
+//        hasHadInMonsterTurn = false;
         ApplyAll(OnPlayerTurnStartSubscriber::receiveOnPlayerTurnStart, OnPlayerTurnStartSubscriber.class);
     }
 
     @Override
     public boolean receivePreMonsterTurn(AbstractMonster abstractMonster) {
-        if (!hasHadInMonsterTurn)
-            ApplyAll(AtStartOfMonsterTurnSubscriber::atStartOfMonsterTurn, AtStartOfMonsterTurnSubscriber.class);
-        hasHadInMonsterTurn = true;
+//        if (!hasHadInMonsterTurn)
+//            ApplyAll(AtStartOfMonsterTurnSubscriber::atStartOfMonsterTurn, AtStartOfMonsterTurnSubscriber.class);
+//        hasHadInMonsterTurn = true;
         ApplyAll((sub) -> sub.receivePreMonsterTurn(abstractMonster), PreMonsterTurnSubscriber.class);
         return true;
     }
 
-    public interface AtStartOfMonsterTurnSubscriber extends ISubscriber {
-        void atStartOfMonsterTurn();
+//    public interface AtStartOfMonsterTurnSubscriber extends ISubscriber {
+//        void atStartOfMonsterTurn();
+//    }
+
+    public interface AtEndOfPlayerTurnSubscriber extends ISubscriber {
+        void receiveAtEndOfPlayerTurn();
+
+        @SpirePatch2(clz = AbstractCreature.class, method = "applyEndOfTurnTriggers")
+        class AtEndOfTurnSubscriberSubscriberPatch {
+            @SpirePrefixPatch
+            public static void Prefix(AbstractCreature __instance) {
+                if (__instance instanceof AbstractPlayer)
+                    ApplyAll(AtEndOfPlayerTurnSubscriber::receiveAtEndOfPlayerTurn, AtEndOfPlayerTurnSubscriber.class);
+            }
+        }
     }
 }

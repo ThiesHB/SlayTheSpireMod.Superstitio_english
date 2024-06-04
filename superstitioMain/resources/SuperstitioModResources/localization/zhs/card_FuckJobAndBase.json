@@ -101,7 +101,7 @@
   "SuperstitioMod:Fuck_Navel": {
     "NAME": "脐奸",
     "NAME_SFW": "熊形拳",
-    "DESCRIPTION": "保留 。 NL 对敌我双方造成 !D! 点 伤害 。 NL 在手牌中时，每 superstitiomod:高潮 一次，提高 !M! 点伤害。",
+    "DESCRIPTION": "保留 。 NL 对 *敌我双方 造成 !D! 点 伤害 。 NL 在手牌中时，每 superstitiomod:高潮 一次，提高 !M! 点伤害。",
     "FLAVOR": "洞必试，试必捅。射进腹腔里会宫外孕吗？"
   },
   "SuperstitioMod:Fuck_Nipple": {

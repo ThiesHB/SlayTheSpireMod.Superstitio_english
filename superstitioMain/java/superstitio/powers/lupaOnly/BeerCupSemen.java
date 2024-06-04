@@ -91,11 +91,6 @@ public class BeerCupSemen extends AbstractSuperstitioPower implements
     }
 
     @Override
-    public String uuidOfSelf() {
-        return this.ID;
-    }
-
-    @Override
     public float Height() {
         return 20 * Settings.scale;
     }

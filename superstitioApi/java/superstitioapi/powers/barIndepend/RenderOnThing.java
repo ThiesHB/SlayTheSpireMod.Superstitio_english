@@ -28,8 +28,8 @@ public abstract class RenderOnThing {
     public String uuid_self;
     protected float fontScale;
     protected float healthHideTimer = 1.0f;
+    protected List<AmountChunk> sortedChunkList = new ArrayList<>();
     private String rawBarText = "%d/%d";
-
     public RenderOnThing(final Supplier<Hitbox> hitbox, HasBarRenderOnCreature power) {
         this.uuid_self = power.uuidPointTo();
         this.hitboxBondTo = hitbox;
@@ -38,6 +38,11 @@ public abstract class RenderOnThing {
 
         this.HeightOffset = power.Height();
         this.barTextColor = new Color(1.0f, 1.0f, 1.0f, 1.0f);
+    }
+
+    public void removeChunk(HasBarRenderOnCreature hasBarRenderOnCreature) {
+        amountChunkWithUuid.remove(hasBarRenderOnCreature.uuidOfSelf());
+        reMakeSortedChunkList();
     }
 
     public void updateHitBoxPlace(Hitbox hitbox) {
@@ -156,32 +161,12 @@ public abstract class RenderOnThing {
             addNewAmountChunk(message);
             return;
         }
+
         AmountChunk messageTargetChunk = amountChunkWithUuid.get(message.uuidOfPower);
-        rawBarText = message.rawTextOnBar;
+        this.rawBarText = message.rawTextOnBar;
         messageTargetChunk.applyNoPositionMessage(message);
         if (message.detail != null)
             message.detail.accept(this);
-    }
-
-    protected final int getTotalAmount(int sumToIndex_InFrontOf) {
-        if (sumToIndex_InFrontOf == 0) return 0;
-        return getMinOrdered(sumToIndex_InFrontOf).stream().mapToInt(chunk -> chunk.nowAmount).sum();
-    }
-
-    protected final List<AmountChunk> getMinOrdered(int index) {
-        if (getSortedChunkList().size() == 1)
-            return new ArrayList<>();
-        return getSortedChunkList().subList(0, index - 1);
-    }
-
-    protected List<AmountChunk> getSortedChunkList() {
-        List<AmountChunk> orderedList = new ArrayList<>();
-        amountChunkWithUuid.values().stream().sorted(AmountChunk::compareTo).forEachOrdered(orderedList::add);
-        return orderedList;
-    }
-
-    protected final int getTotalAmount() {
-        return amountChunkWithUuid.values().stream().mapToInt(value -> value.nowAmount).sum();
     }
 
     private void addNewAmountChunk(BarRenderUpdateMessage message) {
@@ -189,15 +174,39 @@ public abstract class RenderOnThing {
                 makeNewAmountChunk(message).applyNoPositionMessage(message));
     }
 
+    protected final int getTotalAmount_InFrontOf(int sumToIndex_InFrontOf) {
+        if (sumToIndex_InFrontOf <= 0)
+            return 0;
+        return getChunkOrdered(sumToIndex_InFrontOf - 1).stream().mapToInt(chunk -> chunk.nowAmount).sum();
+    }
+
+    protected final List<AmountChunk> getChunkOrdered(int index) {
+        reMakeSortedChunkList();
+        if (sortedChunkList.size() <= 1)
+            return sortedChunkList;
+        if (index <= 0)
+            return Collections.singletonList(sortedChunkList.get(0));
+        return sortedChunkList.subList(0, index);
+    }
+
+    protected void reMakeSortedChunkList() {
+        List<AmountChunk> orderedList = new ArrayList<>();
+        amountChunkWithUuid.values().stream().sorted(AmountChunk::compareTo).forEachOrdered(orderedList::add);
+        this.sortedChunkList = orderedList;
+    }
+
+    protected final int getTotalAmount() {
+        return amountChunkWithUuid.values().stream().mapToInt(value -> value.nowAmount).sum();
+    }
+
     protected abstract AmountChunk makeNewAmountChunk(BarRenderUpdateMessage message);
 
     protected int getNextOrder() {
-        return amountChunkWithUuid.values().stream().mapToInt(value -> value.order).max().orElse(0) + 1;
+        return amountChunkWithUuid.values().stream().mapToInt(value -> value.order).max().orElse(-1) + 1;
     }
 
     protected abstract static class AmountChunk implements Comparable<AmountChunk> {
         public final int order;
-
         public PowerTip tip;
         public int maxAmount = 0;
         public int nowAmount = 0;
@@ -226,16 +235,16 @@ public abstract class RenderOnThing {
             return this;
         }
 
-        public AmountChunk applyNoPositionMessage(BarRenderUpdateMessage message) {
-            if (message.newAmount != 0 && message.newAmount != this.nowAmount) {
-                this.nowAmount = message.newAmount;
-            }
-            if (message.maxAmount != 0)
-                this.maxAmount = message.maxAmount;
-            if (message.toolTip != null)
-                this.tip = new PowerTip(message.toolTip.name, message.toolTip.description);
-            return this;
-        }
+        public abstract AmountChunk applyNoPositionMessage(BarRenderUpdateMessage message);
+//            if (message.newAmount != 0 && message.newAmount != this.nowAmount) {
+//                this.nowAmount = message.newAmount;
+//            }
+//            if (message.maxAmount != 0)
+//                this.maxAmount = message.maxAmount;
+//            if (message.toolTip != null)
+//                this.tip = new PowerTip(message.toolTip.name, message.toolTip.description);
+//            return this;
+
 
         @Override
         public int compareTo(AmountChunk other) {

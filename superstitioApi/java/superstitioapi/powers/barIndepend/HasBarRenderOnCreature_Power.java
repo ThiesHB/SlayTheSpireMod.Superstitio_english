@@ -15,6 +15,11 @@ public interface HasBarRenderOnCreature_Power extends HasBarRenderOnCreature {
     }
 
     @Override
+    default String uuidOfSelf() {
+        return getSelf().ID;
+    }
+
+    @Override
     default int getAmountForDraw() {
         return getSelf().amount;
     }

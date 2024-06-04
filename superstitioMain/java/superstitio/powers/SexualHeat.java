@@ -301,11 +301,6 @@ public class SexualHeat extends AbstractSuperstitioPower implements
         return this;
     }
 
-    @Override
-    public String uuidOfSelf() {
-        return this.ID;
-    }
-
 //    @Override
 //    public String uuidPointTo() {
 //        return OutsideSemen.POWER_ID;

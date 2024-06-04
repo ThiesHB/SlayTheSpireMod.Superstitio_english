@@ -7,8 +7,11 @@ import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import superstitio.DataManager;
 import superstitio.cards.lupa.LupaCard;
+import superstitioapi.actions.AutoDoneInstantAction;
+import superstitioapi.utils.CardUtility;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 
@@ -36,20 +39,20 @@ public class SemenLubricate extends LupaCard {
     @Override
     public void use(AbstractPlayer player, AbstractMonster monster) {
         addToBot_dealDamage(monster);
-        List<AbstractCard> abstractCardStream =
-                AbstractDungeon.player.drawPile.group.stream().filter(card -> card.type == CardType.ATTACK)
-                        .collect(Collectors.toList());
-        int attackCardCount = abstractCardStream.size();
-        int semenCount = getTotalSemenValue() / this.magicNumber;
-        for (int i = 0; i < Math.min(semenCount, attackCardCount); i++) {
-            continuePlayCard(abstractCardStream.get(i));
-        }
+        AutoDoneInstantAction.addToBotAbstract(this::continuePlayCard);
     }
 
-    public void continuePlayCard(AbstractCard card) {
+    public void continuePlayCard() {
         if (!hasEnoughSemen(this.magicNumber)) return;
-        useSemen(this.magicNumber);
-        addToBot(new NewQueueCardAction(card, true, false, true));
+        if (CardUtility.isNotInBattle()) return;
+        Optional<AbstractCard> attackCard = AbstractDungeon.player.drawPile.group.stream()
+                .filter(card -> card.type == CardType.ATTACK)
+                .filter(card -> !(card instanceof SemenLubricate))
+                .findFirst();
+        if (!attackCard.isPresent())return;
+        addToBot_useSemenAndAutoRemove(this.magicNumber);
+        addToBot(new NewQueueCardAction(attackCard.get(), true, false, true));
+        AutoDoneInstantAction.addToBotAbstract(this::continuePlayCard);
     }
 
     @Override

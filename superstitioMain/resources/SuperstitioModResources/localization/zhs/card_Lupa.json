@@ -87,5 +87,11 @@
     "NAME_SFW": "回望岁月",
     "DESCRIPTION": "获得 !B! 点 *格挡 。 NL 获得 !M! 回合 superstitiomod:激情 。",
     "FLAVOR": ""
+  },
+  "SuperstitioMod:LupaCard:Whipping": {
+    "NAME": "鞭打",
+    "NAME_SFW": "鞭打",
+    "DESCRIPTION": "对 所有敌人 造成 !D! 点 伤害 。 NL 每对一个敌人造成 !M! 点 攻击伤害 ，获得 %d 点 superstitiomod:快感 。",
+    "FLAVOR": ""
   }
 }

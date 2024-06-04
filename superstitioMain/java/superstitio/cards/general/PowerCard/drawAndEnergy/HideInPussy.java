@@ -15,7 +15,7 @@ public class HideInPussy extends GeneralCard {
 
     public static final CardType CARD_TYPE = CardType.POWER;
 
-    public static final CardRarity CARD_RARITY = CardRarity.UNCOMMON;
+    public static final CardRarity CARD_RARITY = CardRarity.RARE;
 
     public static final CardTarget CARD_TARGET = CardTarget.SELF;
 

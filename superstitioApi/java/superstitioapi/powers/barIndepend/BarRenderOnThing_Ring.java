@@ -43,11 +43,11 @@ public class BarRenderOnThing_Ring extends BarRenderOnThing {
     public static ShapeRenderer shapeRenderer = new ShapeRenderer();
     //    private final Mesh rectMesh;
     public ShaderProgram originShader;
-    protected float initDegree;
-    protected float barAverageRadius_renormalization;
-    protected float barHalfThick_renormalization;
-    protected float barSize;
-    protected float barTopDegree;
+    public float initDegree;
+    public float barAverageRadius_renormalization;
+    public float barHalfThick_renormalization;
+    public float barSize;
+    public float barEndDegree;
 
     public BarRenderOnThing_Ring(Supplier<Hitbox> hitbox, HasBarRenderOnCreature power) {
         super(hitbox, power);
@@ -58,7 +58,7 @@ public class BarRenderOnThing_Ring extends BarRenderOnThing {
         this.barSize = BAR_SIZE;
         this.barHalfThick_renormalization = BAR_HALF_THICK_RENORMALIZATION;
         this.barAverageRadius_renormalization = BAR_AVERAGE_RADIUS_RENORMALIZATION;
-        this.barTopDegree = BAR_TOP_DEGREE;
+        this.barEndDegree = BAR_TOP_DEGREE;
         RingHitBox ringHitBox = new RingHitBox(this);
         ringHitBox.halfThick *= 1.1f;
         ringHitBox.averageRadius *= 1.1f;
@@ -96,14 +96,7 @@ public class BarRenderOnThing_Ring extends BarRenderOnThing {
     }
 
     @Override
-    protected void drawBar(SpriteBatch sb, float x, float y, float startLength, float length) {
-        sb.setShader(ringShader);
-        sb.getShader().setUniformf("u_degreeStart", initDegree + startLength);
-        sb.getShader().setUniformf("u_degreeLength", length);
-        sb.getShader().setUniformf("u_radius", barAverageRadius_renormalization);
-        sb.getShader().setUniformf("u_halfThick", barHalfThick_renormalization);
-        sb.draw(ImageMaster.HEALTH_BAR_B, x, y, barSize, barSize);
-
+    protected void drawBarMinEnd(SpriteBatch sb, float x, float y, float startLength, float length) {
         if (length >= 360.0f) return;
         sb.setShader(originShader);
         draw(sb, ImageMaster.HEALTH_BAR_R,
@@ -111,6 +104,22 @@ public class BarRenderOnThing_Ring extends BarRenderOnThing {
                 this.hitbox.cY + barSize * MathUtils.sinDeg(initDegree + startLength) * (barAverageRadius_renormalization + barHalfThick_renormalization),
                 barHalfThick_renormalization * 2 * barSize, barHalfThick_renormalization * 2 * barSize,
                 -(DEGREE_OFFSET + initDegree + startLength));
+    }
+
+    @Override
+    protected void drawBarMiddle(SpriteBatch sb, float x, float y, float startLength, float length) {
+        sb.setShader(ringShader);
+        sb.getShader().setUniformf("u_degreeStart", initDegree + startLength);
+        sb.getShader().setUniformf("u_degreeLength", length);
+        sb.getShader().setUniformf("u_radius", barAverageRadius_renormalization);
+        sb.getShader().setUniformf("u_halfThick", barHalfThick_renormalization);
+        sb.draw(ImageMaster.HEALTH_BAR_B, x, y, barSize, barSize);
+    }
+
+    @Override
+    protected void drawBarMaxEnd(SpriteBatch sb, float x, float y, float startLength, float length) {
+        if (length >= 360.0f) return;
+        sb.setShader(originShader);
         draw(sb, ImageMaster.HEALTH_BAR_L,
                 this.hitbox.cX - barSize * MathUtils.cosDeg(initDegree + startLength + length) * (barAverageRadius_renormalization - barHalfThick_renormalization),
                 this.hitbox.cY + barSize * MathUtils.sinDeg(initDegree + startLength + length) * (barAverageRadius_renormalization - barHalfThick_renormalization),
@@ -162,8 +171,8 @@ public class BarRenderOnThing_Ring extends BarRenderOnThing {
         if (!(amountChunk instanceof BarAmountChunk)) return amountChunk;
         BarAmountChunk barAmountChunk = (BarAmountChunk) amountChunk;
         RingHitBox ringHitBox = new RingHitBox(this);
-        ringHitBox.startDegree = initDegree + barAmountChunk.startLength - this.barTopDegree;
-        ringHitBox.lengthDegree = this.barTopDegree * 2 + barAmountChunk.length;
+        ringHitBox.startDegree = initDegree + barAmountChunk.startLength - this.barEndDegree;
+        ringHitBox.lengthDegree = this.barEndDegree * 2 + barAmountChunk.length;
         ringHitBox.averageRadius = this.barSize * barAverageRadius_renormalization;
         ringHitBox.halfThick = this.barSize * barHalfThick_renormalization;
         barAmountChunk.hitbox = ringHitBox;
@@ -177,8 +186,26 @@ public class BarRenderOnThing_Ring extends BarRenderOnThing {
             return;
         }
         RingHitBox ringHitBox = (RingHitBox) amountChunk.hitbox;
-        ringHitBox.startDegree = initDegree + amountChunk.startLength - this.barTopDegree;
-        ringHitBox.lengthDegree = this.barTopDegree * 2 + amountChunk.length;
+
+        switch (amountChunk.orderType) {
+            case Min:
+                ringHitBox.startDegree = initDegree + amountChunk.startLength - this.barEndDegree;
+                ringHitBox.lengthDegree = this.barEndDegree + amountChunk.length;
+                break;
+            case Middle:
+                ringHitBox.startDegree = initDegree + amountChunk.startLength;
+                ringHitBox.lengthDegree = amountChunk.length;
+                break;
+            case Max:
+                ringHitBox.startDegree = initDegree + amountChunk.startLength;
+                ringHitBox.lengthDegree = this.barEndDegree + amountChunk.length;
+                break;
+            case OnlyOne:
+                ringHitBox.startDegree = initDegree + amountChunk.startLength - this.barEndDegree;
+                ringHitBox.lengthDegree = this.barEndDegree * 2 + amountChunk.length;
+                break;
+        }
+
         ringHitBox.averageRadius = this.barSize * barAverageRadius_renormalization;
         ringHitBox.halfThick = this.barSize * barHalfThick_renormalization;
         ringHitBox.width = this.barSize;
@@ -205,8 +232,8 @@ public class BarRenderOnThing_Ring extends BarRenderOnThing {
             this(
                     ring.barSize * ring.barAverageRadius_renormalization,
                     ring.barSize * ring.barHalfThick_renormalization,
-                    ring.initDegree - ring.barTopDegree,
-                    ring.barTopDegree * 2 + ring.barLength);
+                    ring.initDegree - ring.barEndDegree,
+                    ring.barEndDegree * 2 + ring.barLength);
         }
 
         @Override

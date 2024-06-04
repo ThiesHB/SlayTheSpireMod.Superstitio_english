@@ -15,12 +15,14 @@ import superstitioapi.powers.barIndepend.HasBarRenderOnCreature_Power;
 import superstitioapi.powers.barIndepend.RenderOnThing;
 import superstitioapi.powers.interfaces.invisible.InvisiblePower_InvisibleIconAndAmount;
 import superstitioapi.powers.interfaces.invisible.InvisiblePower_InvisibleTips;
+import superstitioapi.utils.ImgUtility;
 import superstitioapi.utils.PowerUtility;
 
 import java.util.function.BiFunction;
 import java.util.function.Supplier;
 
 import static superstitio.cards.general.FuckJob_Card.InsideSemenRate;
+import static superstitio.powers.lupaOnly.HasBarRenderOnCreature_SemenPower.semenColor;
 
 @SuperstitioImg.NoNeedImg
 public class InsideSemen extends AbstractSuperstitioPower implements
@@ -32,11 +34,8 @@ public class InsideSemen extends AbstractSuperstitioPower implements
     public static final int SEMEN_VALUE = 3;
     private static final int ToOutSideSemenRate = 1;
     public int maxSemen;
-
-    @Override
-    public int getSemenValue() {
-        return SEMEN_VALUE;
-    }
+    //TODO 改装成不同怪物获得不同精液名称
+    public String semenSource;
 
     public InsideSemen(final AbstractCreature owner, final int amount) {
         super(POWER_ID, owner, amount, owner.isPlayer ? PowerType.BUFF : PowerType.DEBUFF, false);
@@ -44,9 +43,32 @@ public class InsideSemen extends AbstractSuperstitioPower implements
         updateDescription();
     }
 
+    protected static BarRenderOnThing_Vertical makeNewBar_InsideSemen(Supplier<Hitbox> hitbox, HasBarRenderOnCreature power) {
+        BarRenderOnThing_Vertical bar = new BarRenderOnThing_Vertical(hitbox, power) {
+            @Override
+            protected float chunkLength(int amount) {
+                return (this.barLength * (amount)) / (float) getMaxBarAmount();
+            }
+        };
+        bar.barTextColor = semenColor();
+        bar.barLength = hitbox.get().height / 2;
+        return bar;
+    }
+
+//    public InsideSemen(final AbstractCreature owner, final int amount) {
+//        super(POWER_ID, owner, amount, owner.isPlayer ? PowerType.BUFF : PowerType.DEBUFF, false);
+//        maxSemen = MAX_Semen_Origin;
+//        updateDescription();
+//    }
+
+    @Override
+    public int getSemenValue() {
+        return SEMEN_VALUE;
+    }
+
     @Override
     public void updateDescriptionArgs() {
-        setDescriptionArgs(this.amount * InsideSemenRate, maxBarAmount(), ToOutSideSemenRate);
+        setDescriptionArgs(this.amount, getTotalValue(), maxBarAmount(), ToOutSideSemenRate);
     }
 
     @Override
@@ -80,18 +102,13 @@ public class InsideSemen extends AbstractSuperstitioPower implements
     }
 
     @Override
-    public String uuidOfSelf() {
-        return this.ID;
-    }
-
-    @Override
     public float Height() {
         return 120 * Settings.scale;
     }
 
     @Override
     public Color setupBarOrginColor() {
-        return Color.WHITE.cpy();
+        return ImgUtility.mixColor(semenColor(), Color.PINK, 0.3f,0.9f);
     }
 
     @Override
@@ -117,12 +134,6 @@ public class InsideSemen extends AbstractSuperstitioPower implements
 
     @Override
     public BiFunction<Supplier<Hitbox>, HasBarRenderOnCreature, ? extends RenderOnThing> makeNewBarRenderOnCreature() {
-        return InsideSemen::makeNewBar_BodySemen;
-    }
-
-    protected static BarRenderOnThing_Vertical makeNewBar_BodySemen(Supplier<Hitbox> hitbox, HasBarRenderOnCreature power) {
-        BarRenderOnThing_Vertical bar = new BarRenderOnThing_Vertical(hitbox, power);
-        bar.barTextColor = Color.WHITE.cpy();
-        return bar;
+        return InsideSemen::makeNewBar_InsideSemen;
     }
 }

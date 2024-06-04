@@ -8,6 +8,7 @@ import com.megacrit.cardcrawl.helpers.*;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 import java.util.function.Supplier;
 
 public class BarRenderOnThing extends RenderOnThing {
@@ -21,7 +22,7 @@ public class BarRenderOnThing extends RenderOnThing {
 //    protected static final float BG_OFFSET_Y = -31.0f * Settings.scale;
     public Color barBgColor;
     public Color barShadowColor;
-    protected float barLength;
+    public float barLength;
     private boolean isChunkHovered = false;
 
     public BarRenderOnThing(final Supplier<Hitbox> hitbox, HasBarRenderOnCreature power) {
@@ -34,8 +35,19 @@ public class BarRenderOnThing extends RenderOnThing {
         this.barShadowColor = new Color(0f, 0f, 0f, 0.3f);
     }
 
+    protected void drawBarMaxEnd(SpriteBatch sb, float x, float y, float startLength, float length) {
+        sb.draw(ImageMaster.HEALTH_BAR_R, x + startLength + length, y, BAR_DIAMETER, BAR_DIAMETER);
+    }
 
-    protected final float chunkLength(int amount) {
+    protected void drawBarMiddle(SpriteBatch sb, float x, float y, float startLength, float length) {
+        sb.draw(ImageMaster.HEALTH_BAR_B, x + startLength, y, length, BAR_DIAMETER);
+    }
+
+    protected void drawBarMinEnd(SpriteBatch sb, float x, float y, float startLength, float length) {
+        sb.draw(ImageMaster.HEALTH_BAR_L, x + startLength - BAR_DIAMETER, y, BAR_DIAMETER, BAR_DIAMETER);
+    }
+
+    protected float chunkLength(int amount) {
         float v = (this.barLength * (amount % getMaxBarAmount())) / (float) getMaxBarAmount();
         if (amount % getMaxBarAmount() == 0 && amount != 0) v = this.barLength;
         return v;
@@ -60,14 +72,17 @@ public class BarRenderOnThing extends RenderOnThing {
     public void update() {
         updateHitBoxPlace(this.hitbox);
         this.hitbox.update();
-        for (AmountChunk amountChunk : this.amountChunkWithUuid.values()) {
+        List<AmountChunk> chunkList = this.sortedChunkList;
+        for (int i = chunkList.size() - 1; i >= 0; i--) {
+            AmountChunk amountChunk = chunkList.get(i);
             amountChunk.update();
-            if (amountChunk instanceof BarAmountChunk)
+            if (amountChunk instanceof BarAmountChunk) {
+                ((BarAmountChunk) amountChunk).teleport(getXDrawStart(), getYDrawStart());
                 ((BarAmountChunk) amountChunk).updateHitBox();
+            }
         }
         update_showTips(this.hitbox);
         updateHbHoverFade();
-        this.calculateAllPosition();
     }
 
     protected final void update_showTips(Hitbox hitbox) {
@@ -79,7 +94,7 @@ public class BarRenderOnThing extends RenderOnThing {
 
     protected void renderBar(SpriteBatch sb) {
         this.renderAmountBarBackGround(sb, getXDrawStart(), getYDrawStart());
-        this.amountChunkWithUuid.values().forEach(amountChunk -> amountChunk.render(sb));
+        this.sortedChunkList.forEach(amountChunk -> amountChunk.render(sb));
     }
 
     protected float getYDrawStart() {
@@ -93,6 +108,12 @@ public class BarRenderOnThing extends RenderOnThing {
     @Override
     public void tryApplyMessage(BarRenderUpdateMessage message) {
         super.tryApplyMessage(message);
+        calculateAllPosition();
+    }
+
+    @Override
+    public void removeChunk(HasBarRenderOnCreature hasBarRenderOnCreature) {
+        super.removeChunk(hasBarRenderOnCreature);
         calculateAllPosition();
     }
 
@@ -122,9 +143,30 @@ public class BarRenderOnThing extends RenderOnThing {
      * @param y getYDrawStart
      */
     protected void drawBar(SpriteBatch sb, float x, float y, float startLength, float length) {
-        sb.draw(ImageMaster.HEALTH_BAR_L, x + startLength - BAR_DIAMETER, y, BAR_DIAMETER, BAR_DIAMETER);
-        sb.draw(ImageMaster.HEALTH_BAR_B, x + startLength, y, length, BAR_DIAMETER);
-        sb.draw(ImageMaster.HEALTH_BAR_R, x + startLength + length, y, BAR_DIAMETER, BAR_DIAMETER);
+        drawBarMinEnd(sb, x, y, startLength, length);
+        drawBarMiddle(sb, x, y, startLength, length);
+        drawBarMaxEnd(sb, x, y, startLength, length);
+    }
+
+    protected void drawBarChunk(SpriteBatch sb, BarAmountChunk chunk) {
+        switch (chunk.orderType) {
+            case Min:
+                drawBarMinEnd(sb, chunk.drawX, chunk.drawY, chunk.startLength, chunk.length);
+                drawBarMiddle(sb, chunk.drawX, chunk.drawY, chunk.startLength, chunk.length);
+                break;
+            case Middle:
+                drawBarMiddle(sb, chunk.drawX, chunk.drawY, chunk.startLength, chunk.length);
+                break;
+            case Max:
+                drawBarMiddle(sb, chunk.drawX, chunk.drawY, chunk.startLength, chunk.length);
+                drawBarMaxEnd(sb, chunk.drawX, chunk.drawY, chunk.startLength, chunk.length);
+                break;
+            case OnlyOne:
+                drawBarMinEnd(sb, chunk.drawX, chunk.drawY, chunk.startLength, chunk.length);
+                drawBarMiddle(sb, chunk.drawX, chunk.drawY, chunk.startLength, chunk.length);
+                drawBarMaxEnd(sb, chunk.drawX, chunk.drawY, chunk.startLength, chunk.length);
+                break;
+        }
     }
 
     /**
@@ -163,16 +205,30 @@ public class BarRenderOnThing extends RenderOnThing {
         }
     }
 
-    protected void calculateAllPosition() {
-        for (int i = 0; i < getSortedChunkList().size(); i++) {
-            AmountChunk chunk = getSortedChunkList().get(i);
-            if (chunk instanceof BarAmountChunk)
-                ((BarAmountChunk) chunk).move(
-                        getXDrawStart(),
-                        getYDrawStart(),
-                        chunkLength(getTotalAmount(i)),
-                        chunkLength(chunk.nowAmount));
+    private void calculateAllPosition() {
+        reMakeSortedChunkList();
+        for (int i = 0; i < sortedChunkList.size(); i++) {
+            AmountChunk chunk = sortedChunkList.get(i);
+            if (!(chunk instanceof BarAmountChunk)) continue;
+            BarAmountChunk barAmountChunk = (BarAmountChunk) chunk;
+            barAmountChunkMoveByIndex(barAmountChunk, getTotalAmount_InFrontOf(i));
+
+            if (i == 0)
+                barAmountChunk.orderType = BarAmountChunk.OrderType.Min;
+            else if (i == sortedChunkList.size() - 1)
+                barAmountChunk.orderType = BarAmountChunk.OrderType.Max;
+            else
+                barAmountChunk.orderType = BarAmountChunk.OrderType.Middle;
+            if (sortedChunkList.size() == 1)
+                barAmountChunk.orderType = BarAmountChunk.OrderType.OnlyOne;
         }
+    }
+
+    protected void barAmountChunkMoveByIndex(BarAmountChunk barAmountChunk, int totalAmountInFront) {
+        barAmountChunk.teleport(getXDrawStart(), getYDrawStart());
+        barAmountChunk.targetNewLength(
+                chunkLength(totalAmountInFront),
+                chunkLength(barAmountChunk.nowAmount));
     }
 
     protected AmountChunk makeNewAmountChunk(BarRenderUpdateMessage message) {
@@ -185,14 +241,27 @@ public class BarRenderOnThing extends RenderOnThing {
     }
 
     protected void chunkHitBoxReSize(BarAmountChunk amountChunk) {
-        amountChunk.hitbox.width = amountChunk.length + BAR_DIAMETER;
-        amountChunk.hitbox.height = BAR_DIAMETER;
-        amountChunk.hitbox.x = amountChunk.drawX - BAR_DIAMETER / 2;
-        amountChunk.hitbox.moveY(this.hitbox.cY);
-    }
+        switch (amountChunk.orderType) {
+            case Min:
+                amountChunk.hitbox.width = amountChunk.length + BAR_DIAMETER / 2;
+                amountChunk.hitbox.x = amountChunk.drawX + amountChunk.startLength - BAR_DIAMETER / 2;
+                break;
+            case Middle:
+                amountChunk.hitbox.width = amountChunk.length;
+                amountChunk.hitbox.x = amountChunk.drawX + amountChunk.startLength;
+                break;
+            case Max:
+                amountChunk.hitbox.width = amountChunk.length + BAR_DIAMETER / 2;
+                amountChunk.hitbox.x = amountChunk.drawX + amountChunk.startLength;
+                break;
+            case OnlyOne:
+                amountChunk.hitbox.width = amountChunk.length + BAR_DIAMETER;
+                amountChunk.hitbox.x = amountChunk.drawX + amountChunk.startLength - BAR_DIAMETER / 2;
+                break;
+        }
 
-    protected int getNextOrder() {
-        return amountChunkWithUuid.values().stream().mapToInt(value -> value.order).max().orElse(0) + 1;
+        amountChunk.hitbox.height = BAR_DIAMETER;
+        amountChunk.hitbox.moveY(this.hitbox.cY);
     }
 
     protected static class BarAmountChunk extends RenderOnThing.AmountChunk {
@@ -212,6 +281,7 @@ public class BarRenderOnThing extends RenderOnThing {
         protected float animTimer;
         protected float healthHideTimer = 1.0f;
         protected float startLengthTarget;
+        protected OrderType orderType = OrderType.OnlyOne;
 
         public BarAmountChunk(float drawX, float drawY, float startLength, float length, int order, BarRenderOnThing bar) {
             super(order);
@@ -246,7 +316,6 @@ public class BarRenderOnThing extends RenderOnThing {
             }
         }
 
-
         public void render(final SpriteBatch sb) {
             renderAmountBar(sb);
         }
@@ -270,26 +339,24 @@ public class BarRenderOnThing extends RenderOnThing {
             final float tmp = this.chunkColor.a;
             this.chunkColor.a *= this.healthHideTimer;
             sb.setColor(this.chunkColor);
+            bar.drawBarChunk(sb, this);
             this.chunkColor.a = tmp;
-
-            bar.drawBar(sb, drawX, drawY, startLength, length);
         }
 
-        public BarAmountChunk teleport(float drawX, float drawY, float startLength, float length) {
+        public BarAmountChunk teleport(float drawX, float drawY) {
             this.drawX = drawX;
             this.drawY = drawY;
-            this.startLength = startLength;
-            this.length = 0;
             this.drawXTarget = drawX;
             this.drawYTarget = drawY;
-            this.startLengthTarget = startLength;
-            this.lengthTarget = length;
             return this;
         }
 
-        public void move(float drawXTarget, float drawYTarget, float startLengthTarget, float lengthTarget) {
+        public void move(float drawXTarget, float drawYTarget) {
             this.drawXTarget = drawXTarget;
             this.drawYTarget = drawYTarget;
+        }
+
+        public void targetNewLength(float startLengthTarget, float lengthTarget) {
             this.startLengthTarget = startLengthTarget;
             this.lengthTarget = lengthTarget;
         }
@@ -333,8 +400,11 @@ public class BarRenderOnThing extends RenderOnThing {
             return this;
         }
 
-        public int getOrder() {
-            return this.order;
+        protected enum OrderType {
+            Min,
+            Middle,
+            Max,
+            OnlyOne
         }
     }
 

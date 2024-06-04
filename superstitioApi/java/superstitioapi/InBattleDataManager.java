@@ -23,6 +23,8 @@ public class InBattleDataManager {
         });
     }
 
+
+
     public static void ClearOnEndOfBattle() {
         ResetAll();
     }
@@ -58,5 +60,11 @@ public class InBattleDataManager {
         return InBattleDataManager.subscribeManageGroups.stream()
                 .filter(orbGroup -> orbGroup instanceof HangUpCardGroup)
                 .map(orbGroup -> (HangUpCardGroup) orbGroup).findAny();
+    }
+
+    public static Optional<BarRenderManager> getBarRenderManager() {
+        return InBattleDataManager.subscribeManageGroups.stream()
+                .filter(barGroup -> barGroup instanceof BarRenderManager)
+                .map(barGroup -> (BarRenderManager) barGroup).findAny();
     }
 }

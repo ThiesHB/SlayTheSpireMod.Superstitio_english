@@ -1,21 +1,28 @@
 package superstitio.characters;
 
+import basemod.ReflectionHacks;
 import basemod.abstracts.CustomPlayer;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.MathUtils;
 import com.megacrit.cardcrawl.actions.AbstractGameAction;
 import com.megacrit.cardcrawl.cards.AbstractCard;
+import com.megacrit.cardcrawl.core.AbstractCreature;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.core.EnergyManager;
 import com.megacrit.cardcrawl.core.Settings;
 import com.megacrit.cardcrawl.cutscenes.CutscenePanel;
+import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.events.city.Vampires;
 import com.megacrit.cardcrawl.helpers.CardLibrary;
 import com.megacrit.cardcrawl.helpers.FontHelper;
 import com.megacrit.cardcrawl.helpers.ScreenShake;
 import com.megacrit.cardcrawl.localization.CharacterStrings;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
+import com.megacrit.cardcrawl.orbs.AbstractOrb;
+import com.megacrit.cardcrawl.rooms.RestRoom;
 import com.megacrit.cardcrawl.unlock.UnlockTracker;
 import superstitio.DataManager;
 import superstitio.SuperstitioModSetup;
@@ -57,6 +64,8 @@ public abstract class BaseCharacter extends CustomPlayer {
     protected final CharacterStrings characterStrings;
     private float offsetX;
     private float offsetY;
+    private float simpleAnim = 0.0f;
+
 
     public BaseCharacter(String ID, String name, PlayerClass playerClass) {
         super(name, playerClass, EnergyBall_TEXTURES, EnergyBall_VFX_Path, LAYER_SPEED, null, null);
@@ -89,7 +98,6 @@ public abstract class BaseCharacter extends CustomPlayer {
         // e.setTimeScale(1.2F);
     }
 
-
     @Override
     public void useCard(AbstractCard c, AbstractMonster monster, int energyOnUse) {
         super.useCard(c, monster, energyOnUse);
@@ -113,10 +121,52 @@ public abstract class BaseCharacter extends CustomPlayer {
     protected abstract boolean cardFilter(AbstractCard card);
 
     @Override
+    public void update() {
+        super.update();
+        simpleAnim += Gdx.graphics.getDeltaTime();
+        if (simpleAnim >= 1.0f)
+            simpleAnim = 0;
+    }
+
+    @Override
     public void render(SpriteBatch sb) {
-        super.render(sb);
+        this.stance.render(sb);
+
+        if (AbstractDungeon.getCurrRoom() instanceof RestRoom) {
+            sb.setColor(Color.WHITE);
+            this.renderShoulderImg(sb);
+            return;
+        }
+        if (this.atlas != null && !(boolean) ReflectionHacks.getPrivate(this, AbstractCreature.class, "renderCorpse")) {
+            this.renderPlayerImage(sb);
+        }
+        else {
+            sb.setColor(Color.WHITE);
+            drawImg(sb);
+        }
+
+        this.hb.render(sb);
+        this.healthHb.render(sb);
         if ((isNotInBattle()) || this.isDead) return;
         this.renderHealth(sb);
+        if (!this.orbs.isEmpty()) {
+            for (AbstractOrb o : this.orbs) {
+                o.render(sb);
+            }
+        }
+    }
+
+    private void drawImg(SpriteBatch sb) {
+        float scaleX = 1.0f;
+        float v = 0.005f * MathUtils.sinDeg(MathUtils.sinDeg(simpleAnim * 360) * 15);
+        float scaleY = 1.0f + v;
+        float rotation = 0;
+        sb.draw(this.img, this.drawX - (float) this.img.getWidth() * Settings.scale / 2.0F + this.animX,
+                this.drawY + this.hb.height * v,
+                0, 0,
+                (float) this.img.getWidth() * Settings.scale, (float) this.img.getHeight() * Settings.scale,
+                scaleX, scaleY, rotation,
+                0, 0, this.img.getWidth(), this.img.getHeight(), this.flipHorizontal, this.flipVertical);
     }
 
     public void setMoveOffset(float x, float y) {

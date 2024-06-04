@@ -24,14 +24,15 @@ public class Job_Hand extends GeneralCard implements FuckJob_Card, GoSomewhereEl
     private static final int COST = 1;
     private static final int DAMAGE = 4;
     private static final int UPGRADE_DAMAGE = 2;
-    private static final int MAGIC = 4;
+    private static final int MAGIC = 3;
+    private static final int UPGRADE_MAGIC = 1;
     private static final int STRENGTH_GET = 1;
 
     public Job_Hand() {
         super(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET);
         FuckJob_Card.initFuckJobCard(this);
         this.setupDamage(DAMAGE, UPGRADE_DAMAGE);
-        this.setupMagicNumber(MAGIC);
+        this.setupMagicNumber(MAGIC, UPGRADE_MAGIC);
     }
 
     @Override

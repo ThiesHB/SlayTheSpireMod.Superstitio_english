@@ -33,7 +33,7 @@ public class DrySemen extends LupaCard {
     @Override
     public void use(AbstractPlayer player, AbstractMonster monster) {
         if (hasEnoughSemen(this.magicNumber)) {
-            useSemen(this.magicNumber);
+            addToBot_useSemenAndAutoRemove(this.magicNumber);
             addToBot_gainBlock();
         }
     }

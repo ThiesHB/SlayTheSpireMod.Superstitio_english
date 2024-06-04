@@ -25,7 +25,7 @@ public class BarRenderOnThing_Vertical extends BarRenderOnThing {
     public void updateHitBoxPlace(Hitbox hitbox) {
         hitbox.move(
                 hitboxBondTo.get().cX - HeightOffset - hitboxBondTo.get().width / 2,
-                hitboxBondTo.get().cY + BAR_OFFSET_Y * 2);
+                hitboxBondTo.get().y + this.barLength / 2 + BAR_OFFSET_Y * 2);
     }
 
     @Override
@@ -46,21 +46,19 @@ public class BarRenderOnThing_Vertical extends BarRenderOnThing {
         ImgUtility.draw(sb, ImageMaster.HB_SHADOW_R, x, y + startLength + length, BAR_DIAMETER, BAR_BG_WIDTH, ROTATION);
     }
 
-    @SuppressWarnings("SuspiciousNameCombination")
     @Override
-    protected void drawBar(SpriteBatch sb, float x, float y, float startLength, float length) {
-        ImgUtility.draw(sb, ImageMaster.HEALTH_BAR_L, x, y + startLength - BAR_DIAMETER, BAR_DIAMETER, BAR_WIDTH, ROTATION);
-        ImgUtility.draw(sb, ImageMaster.HEALTH_BAR_B, x, y + startLength, length, BAR_WIDTH, ROTATION);
+    protected void drawBarMaxEnd(SpriteBatch sb, float x, float y, float startLength, float length) {
         ImgUtility.draw(sb, ImageMaster.HEALTH_BAR_R, x, y + startLength + length, BAR_DIAMETER, BAR_WIDTH, ROTATION);
     }
 
     @Override
-    protected BarAmountChunk makeNewAmountChunk(BarRenderUpdateMessage message) {
-        return new BarAmountChunk(
-                getXDrawStart(),
-                getYDrawStart(),
-                chunkLength(getTotalAmount()),
-                chunkLength(message.newAmount), getNextOrder(), this);
+    protected void drawBarMiddle(SpriteBatch sb, float x, float y, float startLength, float length) {
+        ImgUtility.draw(sb, ImageMaster.HEALTH_BAR_B, x, y + startLength, length, BAR_WIDTH, ROTATION);
+    }
+
+    @Override
+    protected void drawBarMinEnd(SpriteBatch sb, float x, float y, float startLength, float length) {
+        ImgUtility.draw(sb, ImageMaster.HEALTH_BAR_L, x, y + startLength - BAR_DIAMETER, BAR_DIAMETER, BAR_WIDTH, ROTATION);
     }
 
     @Override
@@ -75,9 +73,25 @@ public class BarRenderOnThing_Vertical extends BarRenderOnThing {
 
     @Override
     protected void chunkHitBoxReSize(BarAmountChunk amountChunk) {
+        switch (amountChunk.orderType) {
+            case Min:
+                amountChunk.hitbox.height = amountChunk.length + BAR_DIAMETER / 2;
+                amountChunk.hitbox.y = amountChunk.drawY + amountChunk.startLength - BAR_DIAMETER / 2;
+                break;
+            case Middle:
+                amountChunk.hitbox.height = amountChunk.length;
+                amountChunk.hitbox.y = amountChunk.drawY + amountChunk.startLength;
+                break;
+            case Max:
+                amountChunk.hitbox.height = amountChunk.length + BAR_DIAMETER / 2;
+                amountChunk.hitbox.y = amountChunk.drawY + amountChunk.startLength;
+                break;
+            case OnlyOne:
+                amountChunk.hitbox.height = amountChunk.length + BAR_DIAMETER;
+                amountChunk.hitbox.y = amountChunk.drawY + amountChunk.startLength - BAR_DIAMETER / 2;
+                break;
+        }
         amountChunk.hitbox.width = BAR_WIDTH;
-        amountChunk.hitbox.height = amountChunk.length + BAR_DIAMETER;
-        amountChunk.hitbox.y = amountChunk.drawY - BAR_DIAMETER / 2;
         amountChunk.hitbox.moveX(this.hitbox.cX);
     }
 }
