@@ -6,13 +6,22 @@ import com.evacipated.cardcrawl.modthespire.lib.SpireInsertPatch;
 import com.evacipated.cardcrawl.modthespire.lib.SpirePatch;
 import com.evacipated.cardcrawl.modthespire.lib.SpirePostfixPatch;
 import com.evacipated.cardcrawl.modthespire.lib.SpirePrefixPatch;
+import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.core.OverlayMenu;
 import com.megacrit.cardcrawl.core.Settings;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.rooms.AbstractRoom;
+import com.megacrit.cardcrawl.stances.AbstractStance;
+import com.megacrit.cardcrawl.stances.NeutralStance;
+import superstitioapi.Logger;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
+import java.util.List;
+import java.util.function.Consumer;
+
+import static superstitioapi.actions.AutoDoneInstantAction.addToBotAbstract;
 
 /**
  * 在Register之后就可以自动绘制和更新
@@ -20,11 +29,13 @@ import java.util.Collections;
 public interface RenderInBattle {
 
     ArrayList<RenderInBattle> RENDER_IN_BATTLES = new ArrayList<>();
+    ArrayList<RenderInBattle> RENDER_IN_BATTLES_STANCE = new ArrayList<>();
     ArrayList<RenderInBattle> RENDER_IN_BATTLES_PANEL = new ArrayList<>();
     ArrayList<RenderInBattle> RENDER_IN_BATTLES_ABOVE_PANEL = new ArrayList<>();
 
     static void clearAll() {
         RENDER_IN_BATTLES.clear();
+        RENDER_IN_BATTLES_STANCE.clear();
         RENDER_IN_BATTLES_PANEL.clear();
         RENDER_IN_BATTLES_ABOVE_PANEL.clear();
     }
@@ -37,12 +48,33 @@ public interface RenderInBattle {
             case AbovePanel:
                 Collections.addAll(RENDER_IN_BATTLES_ABOVE_PANEL, renderThings);
                 break;
+            case Stance:
+                Collections.addAll(RENDER_IN_BATTLES_STANCE, renderThings);
+                break;
             case Normal:
             default:
                 Collections.addAll(RENDER_IN_BATTLES, renderThings);
                 break;
         }
+        Logger.info("register " + Arrays.toString(renderThings) + " to " + renderType.name());
+    }
 
+    static void forEachRenderInBattle(Consumer<RenderInBattle> consumer) {
+        RENDER_IN_BATTLES_STANCE.forEach(consumer);
+        RENDER_IN_BATTLES.forEach(consumer);
+        RENDER_IN_BATTLES_PANEL.forEach(consumer);
+        RENDER_IN_BATTLES_ABOVE_PANEL.forEach(consumer);
+    }
+
+    static void forEachRenderInBattleGroup(Consumer<List<RenderInBattle>> consumer) {
+        consumer.accept(RENDER_IN_BATTLES_STANCE);
+        consumer.accept(RENDER_IN_BATTLES);
+        consumer.accept(RENDER_IN_BATTLES_PANEL);
+        consumer.accept(RENDER_IN_BATTLES_ABOVE_PANEL);
+    }
+
+    default boolean shouldRemove() {
+        return false;
     }
 
     void render(SpriteBatch sb);
@@ -51,6 +83,7 @@ public interface RenderInBattle {
 
     default void updateAnimation() {
     }
+
 
     enum RenderType {
         /**
@@ -64,7 +97,8 @@ public interface RenderInBattle {
         /**
          * 最高层
          */
-        AbovePanel//Top
+        AbovePanel,//Top
+        Stance//比姿态还靠前一点点
     }
 
     class RenderInBattlePatch {
@@ -73,14 +107,40 @@ public interface RenderInBattle {
             public static void Postfix(final AbstractRoom _inst) {
                 if (AbstractDungeon.isScreenUp) return;
                 if (CardUtility.isNotInBattle()) return;
-                RENDER_IN_BATTLES.forEach(RenderInBattle::update);
-                RENDER_IN_BATTLES.forEach(RenderInBattle::updateAnimation);
-                RENDER_IN_BATTLES_PANEL.forEach(RenderInBattle::update);
-                RENDER_IN_BATTLES_PANEL.forEach(RenderInBattle::updateAnimation);
-                RENDER_IN_BATTLES_ABOVE_PANEL.forEach(RenderInBattle::update);
-                RENDER_IN_BATTLES_ABOVE_PANEL.forEach(RenderInBattle::updateAnimation);
+                forEachRenderInBattle(RenderInBattle::update);
+                forEachRenderInBattle(RenderInBattle::updateAnimation);
+                forEachRenderInBattle(renderInBattle -> {
+                    if (renderInBattle.shouldRemove())
+                        addToBotAbstract(() ->
+                                forEachRenderInBattleGroup(renderInBattles -> {
+                                    Logger.info("stopRender" + renderInBattle);
+                                    renderInBattles.remove(renderInBattle);
+                                })
+                        );
+                });
             }
         }
+
+        @SpirePatch(clz = AbstractStance.class, method = "render", paramtypez = {SpriteBatch.class})
+        public static class StanceRenderPatch1 {
+            @SpirePrefixPatch
+            public static void Prefix(final AbstractStance _inst, final SpriteBatch sb) {
+                if (CardUtility.isNotInBattle()) return;
+                sb.setColor(Color.WHITE);
+                RENDER_IN_BATTLES_STANCE.forEach(renderInBattle -> renderInBattle.render(sb));
+            }
+        }
+
+        @SpirePatch(clz = NeutralStance.class, method = "render", paramtypez = {SpriteBatch.class})
+        public static class StanceRenderPatch2 {
+            @SpirePrefixPatch
+            public static void Prefix(final NeutralStance _inst, final SpriteBatch sb) {
+                if (CardUtility.isNotInBattle()) return;
+                sb.setColor(Color.WHITE);
+                RENDER_IN_BATTLES_STANCE.forEach(renderInBattle -> renderInBattle.render(sb));
+            }
+        }
+
 
         @SpirePatch(clz = AbstractRoom.class, method = "render", paramtypez = {SpriteBatch.class})
         public static class InGameRenderPatch {

@@ -17,7 +17,7 @@ public class InvisiblePower_InvisibleRemovePowerEffectPatch {
                 public void edit(final MethodCall m) throws CannotCompileException {
                     if (m.getClassName().equals(ArrayList.class.getName()) && m.getMethodName().equals("add")) {
                         m.replace("if (!(" + InvisiblePower_InvisibleRemovePowerEffect.class.getName() +
-                                ".shouldInvisible(removeMe))) {$_ = $proceed($$);}");
+                                ".shouldInvisibleRemovePowerEffect(removeMe))) {$_ = $proceed($$);}");
                     }
                 }
             };

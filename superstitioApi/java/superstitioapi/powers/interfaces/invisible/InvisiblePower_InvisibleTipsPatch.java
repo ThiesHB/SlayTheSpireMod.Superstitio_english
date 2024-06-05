@@ -19,7 +19,7 @@ public class InvisiblePower_InvisibleTipsPatch {
             public void edit(MethodCall m) throws CannotCompileException {
                 if (m.getClassName().equals(ArrayList.class.getName()) && m.getMethodName().equals("add")) {
                     if (this.count > 0) {
-                        m.replace("if (!( " + InvisiblePower_InvisibleTips.class.getName() + ".shouldInvisible(p)" +
+                        m.replace("if (!( " + InvisiblePower_InvisibleTips.class.getName() + ".shouldInvisibleTips(p)" +
                                 ")) {$_ = $proceed($$);}");
                     }
 
@@ -61,7 +61,7 @@ public class InvisiblePower_InvisibleTipsPatch {
 
                 public void edit(MethodCall m) throws CannotCompileException {
                     if (!m.getClassName().equals(ArrayList.class.getName()) || !m.getMethodName().equals("add")) return;
-                    m.replace("if (!(" + InvisiblePower_InvisibleTips.class.getName() + ".shouldInvisible(p)" +
+                    m.replace("if (!(" + InvisiblePower_InvisibleTips.class.getName() + ".shouldInvisibleTips(p)" +
                             ")) {$_ = $proceed($$);}");
 
                 }

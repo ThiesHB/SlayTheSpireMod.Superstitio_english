@@ -1,7 +1,10 @@
 package superstitio.powers;
 
 import basemod.ReflectionHacks;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Vector2;
 import com.evacipated.cardcrawl.mod.stslib.powers.StunMonsterPower;
 import com.megacrit.cardcrawl.actions.common.ApplyPowerAction;
 import com.megacrit.cardcrawl.actions.common.DrawCardAction;
@@ -30,6 +33,8 @@ import superstitioapi.powers.interfaces.invisible.InvisiblePower_InvisibleIconAn
 import superstitioapi.powers.interfaces.invisible.InvisiblePower_InvisibleRemovePowerEffect;
 import superstitioapi.powers.interfaces.invisible.InvisiblePower_InvisibleTips;
 import superstitioapi.utils.PowerUtility;
+import superstitioapi.utils.RenderInBattle;
+import superstitioapi.utils.ShaderUtility;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.Optional;
@@ -40,10 +45,11 @@ import java.util.function.Supplier;
 
 import static superstitio.InBattleDataManager.OrgasmTimesInTurn;
 import static superstitio.InBattleDataManager.OrgasmTimesTotal;
+import static superstitioapi.actions.AutoDoneInstantAction.*;
 import static superstitioapi.actions.AutoDoneInstantAction.addToBotAbstract;
 import static superstitioapi.powers.AllCardCostModifier.*;
 import static superstitioapi.utils.ActionUtility.VoidSupplier;
-import static superstitioapi.utils.ShaderUtility.canUseShader;
+import static superstitioapi.utils.ShaderUtility.*;
 
 @SuperstitioImg.NoNeedImg
 public class SexualHeat extends AbstractSuperstitioPower implements
@@ -126,6 +132,7 @@ public class SexualHeat extends AbstractSuperstitioPower implements
         OrgasmTimesTotal++;
     }
 
+
     @Override
     public Hitbox getBarRenderHitBox() {
         if (!(owner instanceof AbstractPlayer)) return owner.hb;
@@ -189,6 +196,16 @@ public class SexualHeat extends AbstractSuperstitioPower implements
                 });
     }
 
+    @Override
+    public BiFunction<Supplier<Hitbox>, HasBarRenderOnCreature, ? extends RenderOnThing> makeNewBarRenderOnCreature() {
+        return (hitbox, power) -> {
+            if (canUseShader && this.owner instanceof AbstractPlayer)
+                return new BarRenderOnThing_Ring_Text(hitbox, power);
+            else
+                return new BarRenderOnThing(hitbox, power);
+        };
+    }
+
 //    @Override
 //    public void stackPower(final int stackAmount) {
 //        if (this.amount < 0) this.amount = 0;
@@ -202,16 +219,6 @@ public class SexualHeat extends AbstractSuperstitioPower implements
 //        super.reducePower(reduceAmount);
 //        CheckEndOrgasm();
 //    }
-
-    @Override
-    public BiFunction<Supplier<Hitbox>, HasBarRenderOnCreature, ? extends RenderOnThing> makeNewBarRenderOnCreature() {
-        return (hitbox, power) -> {
-            if (canUseShader && this.owner instanceof AbstractPlayer)
-                return new BarRenderOnThing_Ring_Text(hitbox, power);
-            else
-                return new BarRenderOnThing(hitbox, power);
-        };
-    }
 
     public void CheckOrgasm() {
         OnOrgasm.AllOnOrgasm(owner).forEach(power -> power.onCheckOrgasm(this));
@@ -311,15 +318,15 @@ public class SexualHeat extends AbstractSuperstitioPower implements
         return this;
     }
 
-//    @Override
-//    public String uuidPointTo() {
-//        return OutsideSemen.POWER_ID;
-//    }
-
     @Override
     public float Height() {
         return HEIGHT;
     }
+
+//    @Override
+//    public String uuidPointTo() {
+//        return OutsideSemen.POWER_ID;
+//    }
 
     @Override
     public Color setupBarOrginColor() {
@@ -330,7 +337,6 @@ public class SexualHeat extends AbstractSuperstitioPower implements
     public int maxBarAmount() {
         return getHeatRequired();
     }
-
 
     private void bubbleMessage(boolean isDeBuffVer, int messageIndex) {
         bubbleMessage(isDeBuffVer, powerStrings.getDESCRIPTIONS()[messageIndex]);
@@ -354,6 +360,9 @@ public class SexualHeat extends AbstractSuperstitioPower implements
     @Override
     public void onOrgasm(SexualHeat SexualHeatPower) {
         addToBotAbstract(() -> bubbleMessage(false, IsContinueOrgasm() ? 4 : 3));
+        if (!canUseShader || !isInOrgasm() || !(this.owner instanceof AbstractPlayer)) return;
+        addToBotAbstract(() ->
+                RenderInBattle.Register(RenderInBattle.RenderType.Stance, new RenderOrgasm(this)));
     }
 
     @Override
@@ -382,5 +391,60 @@ public class SexualHeat extends AbstractSuperstitioPower implements
     @Override
     public void onContinuallyOrgasm(SexualHeat SexualHeatPower) {
         this.addToBot(new DrawCardAction(DRAW_CARD_INContinueOrgasm));
+    }
+
+    public static class RenderOrgasm implements RenderInBattle {
+        public static final float ALPHA_TIME = 2.0f;
+        SexualHeat sexualHeat;
+        private float anim_timer = 0.0f;
+
+        public RenderOrgasm(SexualHeat sexualHeat) {
+            this.sexualHeat = sexualHeat;
+            Logger.info("addRender" + this);
+        }
+
+        @Override
+        public void render(SpriteBatch sb) {
+            ShaderUtility.originShader = sb.getShader();
+            this.drawHeartStream(sb, 0.6f, 0.1f, 1.2f, new Vector2(4, 4));
+            this.drawHeartStream(sb, 0.4f, 0.2f, 0.8f, new Vector2(8, 8));
+            this.drawHeartStream(sb, 0.6f, 0.3f, 0.6f, new Vector2(12, 12));
+            this.drawHeartStream(sb, 0.6f, 0.4f, 0.4f, new Vector2(16, 16));
+        }
+
+        private void drawHeartStream(SpriteBatch sb, float density, float startTime, float speed, Vector2 tileTimes) {
+            sb.setShader(heartStream);
+            float spawnRemoveTimer = Math.min(ALPHA_TIME, Math.max(anim_timer, 0.0f)) / ALPHA_TIME;
+            sb.getShader().setUniformf("u_density", density);
+            sb.getShader().setUniformf("u_startTime", startTime);
+            sb.getShader().setUniformf("u_speed", speed);
+            sb.getShader().setUniformf("u_tileTimes", tileTimes);
+            sb.getShader().setUniformf("u_time", anim_timer);
+            float height = Gdx.graphics.getHeight();
+            float width = Gdx.graphics.getWidth();
+            sb.getShader().setUniformf("u_whRate", width / height);
+            sb.getShader().setUniformf("u_offset", new Vector2((width / 2 - this.sexualHeat.owner.hb.cX) / width, 0.0f));
+            sb.getShader().setUniformf("u_spawnRemoveTimer",spawnRemoveTimer);
+            sb.draw(NOISE_TEXTURE, 0, 0, width, height);
+            sb.setShader(originShader);
+        }
+
+        @Override
+        public boolean shouldRemove() {
+            if (!InBattleDataManager.InOrgasm && anim_timer < 0.0f)
+                return true;
+            return false;
+        }
+
+        @Override
+        public void update() {
+            if (InBattleDataManager.InOrgasm) {
+                anim_timer += Gdx.graphics.getDeltaTime();
+                return;
+            }
+            if (anim_timer >= ALPHA_TIME)
+                anim_timer = ALPHA_TIME;
+            anim_timer -= Gdx.graphics.getDeltaTime();
+        }
     }
 }

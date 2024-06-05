@@ -106,7 +106,7 @@ public class DataManager {
     }
 
     public static String makeImgFilesPath_UI(String fileName, String... subFolder) {
-        return makeImgFilesPath(fileName, "UI", makeFolderTotalString(subFolder));
+        return makeImgFilesPath(fileName, "ui", makeFolderTotalString(subFolder));
     }
 
     public static String makeImgFilesPath_Character_Lupa(String fileName, String... subFolder) {

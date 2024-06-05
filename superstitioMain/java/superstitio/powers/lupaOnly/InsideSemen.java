@@ -1,6 +1,7 @@
 package superstitio.powers.lupaOnly;
 
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.megacrit.cardcrawl.core.AbstractCreature;
 import com.megacrit.cardcrawl.core.Settings;
 import com.megacrit.cardcrawl.helpers.Hitbox;
@@ -31,7 +32,9 @@ public class InsideSemen extends AbstractSuperstitioPower implements
         InvisiblePower_InvisibleTips, InvisiblePower_InvisibleIconAndAmount, HasBarRenderOnCreature_Power {
     public static final String POWER_ID = DataManager.MakeTextID(InsideSemen.class);
     public static final int MAX_Semen_Origin = 10;
-
+    @Override
+    public void renderAmount(SpriteBatch sb, float x, float y, Color c) {
+    }
     public static final int SEMEN_VALUE = 3;
     private static final int ToOutSideSemenRate = 1;
     public int maxSemen;

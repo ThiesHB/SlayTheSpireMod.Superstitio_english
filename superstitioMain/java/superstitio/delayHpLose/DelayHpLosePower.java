@@ -1,6 +1,7 @@
 package superstitio.delayHpLose;
 
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.evacipated.cardcrawl.mod.stslib.powers.interfaces.HealthBarRenderPower;
 import com.megacrit.cardcrawl.actions.AbstractGameAction;
 import com.megacrit.cardcrawl.core.AbstractCreature;
@@ -43,6 +44,9 @@ public abstract class DelayHpLosePower extends AbstractSuperstitioPower implemen
         return target.powers.stream()
                 .filter(tClass::isInstance)
                 .map(power -> (T) power);
+    }
+    @Override
+    public void renderAmount(SpriteBatch sb, float x, float y, Color c) {
     }
 
     /**

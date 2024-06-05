@@ -8,7 +8,7 @@ package superstitioapi.powers.interfaces.invisible;
 import com.megacrit.cardcrawl.powers.AbstractPower;
 
 public interface InvisiblePower_InvisibleTips {
-    static boolean shouldInvisible(AbstractPower power) {
+    static boolean shouldInvisibleTips(AbstractPower power) {
         if (power instanceof InvisiblePower_InvisibleTips)
             return ((InvisiblePower_InvisibleTips) power).checkShouldInvisibleTips();
         return false;

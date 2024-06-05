@@ -1,6 +1,7 @@
 package superstitio.powers.lupaOnly;
 
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.evacipated.cardcrawl.mod.stslib.powers.interfaces.BetterOnApplyPowerPower;
 import com.megacrit.cardcrawl.actions.common.HealAction;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
@@ -32,6 +33,10 @@ public class BeerCupSemen extends AbstractSuperstitioPower implements
         this.maxAmount = maxAmount;
         semenAmount = 0;
         updateDescription();
+    }
+
+    @Override
+    public void renderAmount(SpriteBatch sb, float x, float y, Color c) {
     }
 
     @Override
