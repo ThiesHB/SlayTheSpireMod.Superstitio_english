@@ -6,11 +6,17 @@ import com.evacipated.cardcrawl.mod.stslib.powers.interfaces.HealthBarRenderPowe
 import com.megacrit.cardcrawl.actions.AbstractGameAction;
 import com.megacrit.cardcrawl.cards.DamageInfo;
 import com.megacrit.cardcrawl.core.AbstractCreature;
+import com.megacrit.cardcrawl.powers.AbstractPower;
 import superstitio.DataManager;
 import superstitio.delayHpLose.UnBlockAbleDamage;
+import superstitioapi.InBattleDataManager;
+import superstitioapi.SuperstitioApiSubscriber;
 import superstitioapi.cards.DamageActionMaker;
+import superstitioapi.powers.interfaces.OnPostApplyThisPower;
 
-public class SexualDamage extends AbstractSuperstitioPower implements HealthBarRenderPower {
+import static superstitioapi.InBattleDataManager.subscribeManageGroups;
+
+public class SexualDamage extends AbstractSuperstitioPower implements HealthBarRenderPower, OnPostApplyThisPower, SuperstitioApiSubscriber.AtEndOfPlayerTurnSubscriber {
     public static final String POWER_ID = DataManager.MakeTextID(SexualDamage.class);
     private static final Color BarColor = Color.PURPLE.cpy();
     protected final AbstractCreature giver;
@@ -19,19 +25,6 @@ public class SexualDamage extends AbstractSuperstitioPower implements HealthBarR
         super(POWER_ID, owner, amount);
         this.giver = giver;
 //        ReflectionHacks.setPrivate(this, "greenColor", Color.PINK.cpy());
-    }
-
-    @Override
-    public void atStartOfTurn() {
-//        this.owner.damage(BindingHelper.makeInfo(new DamageModContainer(this, new UnBlockAbleDamage()), giver, amount, DamageType.HP_LOSS));
-        this.flash();
-        DamageActionMaker.maker(this.giver, this.amount, this.owner)
-                .setDamageModifier(this, new UnBlockAbleDamage())
-                .setDamageType(DamageInfo.DamageType.HP_LOSS)
-//                .setDamageType(   DataManager.CanOnlyDamageDamageType.UnBlockAbleDamageType)
-                .setEffect(AbstractGameAction.AttackEffect.POISON)
-                .addToTop();
-        addToBot_removeSpecificPower(this);
     }
 
     @Override
@@ -55,5 +48,31 @@ public class SexualDamage extends AbstractSuperstitioPower implements HealthBarR
         this.fontScale *= 1.5f;
         super.renderAmount(sb, x, y, c);
         this.fontScale = temp;
+    }
+
+    @Override
+    public void receiveAtEndOfPlayerTurn() {
+//        this.owner.damage(BindingHelper.makeInfo(new DamageModContainer(this, new UnBlockAbleDamage()), giver, amount, DamageType.HP_LOSS));
+        this.flash();
+        DamageActionMaker.maker(this.giver, this.amount, this.owner)
+                .setDamageModifier(this, new UnBlockAbleDamage())
+                .setDamageType(DamageInfo.DamageType.HP_LOSS)
+//                .setDamageType(   DataManager.CanOnlyDamageDamageType.UnBlockAbleDamageType)
+                .setEffect(AbstractGameAction.AttackEffect.POISON)
+                .addToTop();
+        addToBot_removeSpecificPower(this);
+    }
+
+    @Override
+    public void InitializePostApplyThisPower(AbstractPower addedPower) {
+        if (subscribeManageGroups.stream()
+                .anyMatch(iSubscriber -> iSubscriber instanceof SexualDamage && ((SexualDamage) iSubscriber).owner == this.owner))
+            return;
+        InBattleDataManager.Subscribe(this);
+    }
+
+    @Override
+    public void onRemove() {
+        InBattleDataManager.UnSubscribe(this);
     }
 }

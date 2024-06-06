@@ -21,9 +21,9 @@ import superstitio.cards.SuperstitioCard;
 import superstitio.characters.Lupa;
 import superstitio.characters.Maso;
 import superstitio.customStrings.*;
-import superstitio.relics.BecomeBlight;
+import superstitioapi.relicToBlight.BecomeBlight;
 import superstitio.relics.SuperstitioRelic;
-import superstitioapi.relic.CustomBlightPatch;
+import superstitioapi.relicToBlight.CustomBlightPatch;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -191,10 +191,6 @@ public class SuperstitioModSetup implements
                         CustomBlightPatch.Assign(((BecomeBlight) relic).makeNewBlightWithRelic());
                         return;
                     }
-//                    BaseMod.addRelicToCustomPool(relic, LUPA_CARD);
-//                    AbstractRelic relicMaso = relic.makeCopy();
-//                    relicMaso.isSeen = false;
-//                    BaseMod.addRelicToCustomPool(relic.makeCopy(), MASO_CARD);
                     BaseMod.addRelic(relic, RelicType.SHARED);
                     if (info.seen) {
                         UnlockTracker.markRelicAsSeen(relic.relicId);

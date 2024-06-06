@@ -9,7 +9,7 @@ import com.megacrit.cardcrawl.powers.AbstractPower;
 import com.megacrit.cardcrawl.powers.ArtifactPower;
 import superstitio.DataManager;
 import superstitio.cardModifier.modifiers.block.PregnantBlock_chooseEffect;
-import superstitio.cardModifier.modifiers.block.PregnantBlock_onlyForTag;
+import superstitio.cardModifier.modifiers.block.PregnantBlock_newMonster;
 import superstitio.cardModifier.modifiers.block.PregnantBlock_sealPower;
 import superstitio.cards.general.GeneralCard;
 import superstitio.cards.general.TempCard.GiveBirth;
@@ -38,7 +38,7 @@ public class HaveBirthWith extends GeneralCard {
 
     public HaveBirthWith() {
         super(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET);
-        this.setupBlock(BLOCK, UPGRADE_BLOCK, new PregnantBlock_onlyForTag().removeAutoBind());
+        this.setupBlock(BLOCK, UPGRADE_BLOCK, new PregnantBlock_newMonster(null).removeAutoBind());
         this.cardsToPreview = new GiveBirth();
         //this.exhaust = true;
     }

@@ -44,6 +44,13 @@ public class InBattleDataManager {
                 .forEach(subscriberConsumer);
     }
 
+//    public static <T extends ISubscriber> void ApplyAllForPower(Consumer<T> subscriberConsumer, Class<T> tClass) {
+//        Manager.stream()
+//                .filter(tClass::isInstance)
+//                .map(object -> (T) object)
+//                .forEach(subscriberConsumer);
+//    }
+
 
     public static void InitializeAtStartOfTurn() {
     }

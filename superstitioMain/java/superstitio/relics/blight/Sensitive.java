@@ -5,11 +5,11 @@ import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import com.megacrit.cardcrawl.relics.AbstractRelic;
 import superstitio.DataManager;
 import superstitio.powers.SexualHeat;
-import superstitio.relics.BecomeBlight;
+import superstitioapi.relicToBlight.BecomeBlight;
 import superstitio.relics.SuperstitioRelic;
 import superstitioapi.DataUtility;
 import superstitioapi.actions.AutoDoneInstantAction;
-import superstitioapi.relic.BlightWithRelic;
+import superstitioapi.relicToBlight.BlightWithRelic;
 
 import static com.megacrit.cardcrawl.dungeons.AbstractDungeon.player;
 

@@ -1,13 +1,52 @@
-package superstitioapi.relic;
+package superstitioapi.relicToBlight;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.evacipated.cardcrawl.modthespire.Loader;
 import com.megacrit.cardcrawl.blights.AbstractBlight;
-import com.megacrit.cardcrawl.characters.AbstractPlayer;
+import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.relics.AbstractRelic;
+
+import static com.megacrit.cardcrawl.relics.AbstractRelic.MAX_RELICS_PER_PAGE;
+import static com.megacrit.cardcrawl.relics.AbstractRelic.relicPage;
+/*
+    以下是原版荒疫可以调用的接口名单，其他的可以看看我的BlightHook
+    public void onPlayCard(AbstractCard card, AbstractMonster m) {
+    }
+
+    public boolean canPlay(AbstractCard card) {
+        return true;
+    }
+
+    public void onVictory() {
+    }
+
+    public void atBattleStart() {
+    }
+
+    public void atTurnStart() {
+    }
+
+    public void onPlayerEndTurn() {
+    }
+
+    public void onBossDefeat() {
+    }
+
+    public void onCreateEnemy(AbstractMonster m) {
+    }
+
+    public void effect() {
+    //不知道这个effect是干嘛的，总之也放在这里
+    }
+
+    public void onEquip() {
+    }
+ */
+
 
 /**
  * 可以用这个荒疫来携带一个遗物，这个遗物可以正常被查看和点击
+ * 荒疫需要手动添加哦
  */
 public abstract class BlightWithRelic extends AbstractBlight {
 
@@ -19,68 +58,37 @@ public abstract class BlightWithRelic extends AbstractBlight {
         relic = makeRelic();
     }
 
-    @Override
-    public void setIncrement(int newInc) {
-        super.setIncrement(newInc);
-//        AbstractDungeon.getCurrRoom().spawnBlightAndObtain()
-    }
-
+    /*
+    一般来说，makeNewBlightWithRelic只会在创建遗物（receiveEditRelics）时被手动调用
+    所以不会造成循环调用
+     */
     public abstract AbstractRelic makeRelic();
 
     @Override
     public void update() {
-//        super.update();
-//        if (!this.isDone) return;
         if (!isInit) {
             initRelic();
             isInit = true;
+            //给紫音写的patch
             if (Loader.isModLoadedOrSideloaded("VUPShionMod")) {
                 isInit = false;
             }
         }
 
-        this.hb.update();
+
+        //翻页时不显示，不更新碰撞箱，Relic本来就有这个功能所以不写
+        if (AbstractDungeon.player != null && AbstractDungeon.player.blights.indexOf(this) / MAX_RELICS_PER_PAGE == relicPage) {
+            this.hb.update();
+        } else {
+            this.hb.hovered = false;
+        }
+
         this.relic.update();
-//        this.relic.hb.move(this.hb.cX,this.hb.cY);
-//        this.relic.currentX = this.currentX;
-//        this.relic.currentY = this.currentY;
-//        this.hb.update();
-//        if (this.hb.hovered && AbstractDungeon.topPanel.potionUi.isHidden) {
-//            this.scale = Settings.scale * 1.25F;
-//            CardCrawlGame.cursor.changeType(GameCursor.CursorType.INSPECT);
-//        }
-//        else {
-//            this.scale = MathHelper.scaleLerpSnap(this.scale, Settings.scale);
-//        }
-////        this.relic.updateRelicPopupClick();
-//        ReflectionHacks.RMethod relic_updateRelicPopupClick =
-//                ReflectionHacks.privateMethod(AbstractRelic.class, "updateRelicPopupClick");
-//        relic_updateRelicPopupClick.invoke(this.relic);
     }
 
     @Override
     public void renderTip(SpriteBatch sb) {
         this.relic.renderTip(sb);
-    }
-
-    @Override
-    public void obtain() {
-        super.obtain();
-    }
-
-    @Override
-    public void instantObtain(AbstractPlayer p, int slot, boolean callOnEquip) {
-        super.instantObtain(p, slot, callOnEquip);
-    }
-
-    @Override
-    public void bossObtainLogic() {
-        super.bossObtainLogic();
-    }
-
-    @Override
-    public void spawn(float x, float y) {
-        super.spawn(x, y);
     }
 
     @Override
@@ -100,7 +108,6 @@ public abstract class BlightWithRelic extends AbstractBlight {
 
     @Override
     public void render(SpriteBatch sb) {
-//        super.render(sb);
         this.relic.render(sb);
     }
 }

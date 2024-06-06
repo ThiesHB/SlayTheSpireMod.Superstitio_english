@@ -6,10 +6,10 @@ import com.megacrit.cardcrawl.relics.AbstractRelic;
 import superstitio.DataManager;
 import superstitio.delayHpLose.DelayHpLosePatch;
 import superstitio.delayHpLose.DelayHpLosePower_HealOnVictory;
-import superstitio.relics.BecomeBlight;
+import superstitioapi.relicToBlight.BecomeBlight;
 import superstitio.relics.SuperstitioRelic;
 import superstitioapi.DataUtility;
-import superstitioapi.relic.BlightWithRelic;
+import superstitioapi.relicToBlight.BlightWithRelic;
 import superstitioapi.utils.ActionUtility;
 
 import static com.megacrit.cardcrawl.dungeons.AbstractDungeon.player;

@@ -8,11 +8,11 @@ import com.megacrit.cardcrawl.relics.AbstractRelic;
 import superstitio.DataManager;
 import superstitio.powers.AbstractSuperstitioPower;
 import superstitio.powers.SexualHeat;
-import superstitio.relics.BecomeBlight;
+import superstitioapi.relicToBlight.BecomeBlight;
 import superstitio.relics.SuperstitioRelic;
 import superstitioapi.DataUtility;
 import superstitioapi.actions.AutoDoneInstantAction;
-import superstitioapi.relic.BlightWithRelic;
+import superstitioapi.relicToBlight.BlightWithRelic;
 import superstitioapi.utils.ActionUtility;
 import superstitioapi.utils.CardUtility;
 

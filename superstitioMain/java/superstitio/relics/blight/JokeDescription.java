@@ -2,10 +2,10 @@ package superstitio.relics.blight;
 
 import com.megacrit.cardcrawl.relics.AbstractRelic;
 import superstitio.DataManager;
-import superstitio.relics.BecomeBlight;
+import superstitioapi.relicToBlight.BecomeBlight;
 import superstitio.relics.SuperstitioRelic;
 import superstitioapi.DataUtility;
-import superstitioapi.relic.BlightWithRelic;
+import superstitioapi.relicToBlight.BlightWithRelic;
 
 public class JokeDescription extends SuperstitioRelic implements BecomeBlight {
     public static final String ID = DataManager.MakeTextID(JokeDescription.class);
