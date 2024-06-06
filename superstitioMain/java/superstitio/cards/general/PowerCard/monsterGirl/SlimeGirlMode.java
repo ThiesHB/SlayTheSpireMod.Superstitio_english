@@ -108,6 +108,7 @@ public class SlimeGirlMode extends AbstractTempCard {
 
         @Override
         public void updateDescriptionArgs() {
+            setDescriptionArgs(this.amount);
         }
 
 

@@ -23,7 +23,9 @@ public class PregnantBlock_sealPower extends PregnantBlock {
     public void onAttacked(DamageInfo info, int damageAmount) {
         if (sealCreature == null || sealCreature.isDeadOrEscaped()) return;
         if (info.type != DamageInfo.DamageType.NORMAL) return;
-        DamageActionMaker.maker(Math.min(damageAmount, getCurrentAmount()), sealCreature).addToBot();
+        DamageActionMaker.maker(Math.min(damageAmount, getCurrentAmount()), sealCreature)
+                .setDamageType(DamageInfo.DamageType.THORNS)
+                .addToBot();
         super.onAttacked(info, damageAmount);
     }
 

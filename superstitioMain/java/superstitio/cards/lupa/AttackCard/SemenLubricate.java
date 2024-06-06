@@ -1,18 +1,22 @@
 package superstitio.cards.lupa.AttackCard;
 
+import com.evacipated.cardcrawl.mod.stslib.powers.interfaces.InvisiblePower;
 import com.megacrit.cardcrawl.actions.utility.NewQueueCardAction;
 import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import superstitio.DataManager;
+import superstitio.SuperstitioImg;
+import superstitio.cards.SuperstitioCard;
 import superstitio.cards.lupa.LupaCard;
+import superstitio.powers.EasyBuildAbstractPowerForPowerCard;
 import superstitioapi.actions.AutoDoneInstantAction;
 import superstitioapi.utils.CardUtility;
 
-import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
+
+import static superstitioapi.actions.AutoDoneInstantAction.addToBotAbstract;
 
 
 public class SemenLubricate extends LupaCard {
@@ -29,6 +33,7 @@ public class SemenLubricate extends LupaCard {
     private static final int UPGRADE_DAMAGE = 4;
 
     private static final int MAGIC = 3;
+    private boolean inPlayingCard = false;
 
     public SemenLubricate() {
         super(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET);
@@ -39,20 +44,34 @@ public class SemenLubricate extends LupaCard {
     @Override
     public void use(AbstractPlayer player, AbstractMonster monster) {
         addToBot_dealDamage(monster);
-        AutoDoneInstantAction.addToBotAbstract(this::continuePlayCard);
+        inPlayingCard = true;
+        addToBotAbstract(this::continuePlayCard);
     }
 
     public void continuePlayCard() {
-        if (!hasEnoughSemen(this.magicNumber)) return;
-        if (CardUtility.isNotInBattle()) return;
+        if (!inPlayingCard) return;
+        if (!hasEnoughSemen(this.magicNumber)) {
+            inPlayingCard = false;
+            return;
+        }
+        if (CardUtility.isNotInBattle()) {
+            inPlayingCard = false;
+            return;
+        }
         Optional<AbstractCard> attackCard = AbstractDungeon.player.drawPile.group.stream()
                 .filter(card -> card.type == CardType.ATTACK)
                 .filter(card -> !(card instanceof SemenLubricate))
+//                .filter(card -> card != notCard)
+                .filter(card -> card.canUse(AbstractDungeon.player, null))
                 .findFirst();
-        if (!attackCard.isPresent())return;
+        if (!attackCard.isPresent()) {
+            inPlayingCard = false;
+            return;
+        }
         addToBot_useSemenAndAutoRemove(this.magicNumber);
+        AutoDoneInstantAction.addToBotAbstract(() -> AbstractDungeon.player.drawPile.group.remove(attackCard.get()));
+        addToBot_applyPower(new ContinuePlayCardPower(this));
         addToBot(new NewQueueCardAction(attackCard.get(), true, false, true));
-        AutoDoneInstantAction.addToBotAbstract(this::continuePlayCard);
     }
 
     @Override
@@ -62,6 +81,38 @@ public class SemenLubricate extends LupaCard {
 
     @Override
     public void upgradeAuto() {
+    }
+
+    @SuperstitioImg.NoNeedImg
+    private static class ContinuePlayCardPower extends EasyBuildAbstractPowerForPowerCard implements InvisiblePower {
+        private final SemenLubricate semenLubricate;
+
+        public ContinuePlayCardPower(AbstractCard card) {
+            super(-1);
+            if (card instanceof SemenLubricate)
+                semenLubricate = (SemenLubricate) card;
+            else
+                semenLubricate = null;
+        }
+
+        @Override
+        public void onAfterCardPlayed(AbstractCard usedCard) {
+            if (!(this.owner instanceof AbstractPlayer)) return;
+            if (semenLubricate == null || !semenLubricate.inPlayingCard) {
+                addToBot_removeSpecificPower(this);
+                return;
+            }
+            addToBotAbstract(semenLubricate::continuePlayCard);
+        }
+
+        @Override
+        public void updateDescriptionArgs() {
+        }
+
+        @Override
+        protected SuperstitioCard makePowerCard() {
+            return new SemenLubricate();
+        }
     }
 
 }

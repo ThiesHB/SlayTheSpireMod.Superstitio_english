@@ -36,7 +36,7 @@ public class OrgasmWithLostBody extends MasoCard {
 
     @Override
     public void use(AbstractPlayer player, AbstractMonster monster) {
-        addToBot_applyPower(new OrgasmWithLostBodyPower());
+        addToBot_applyPower(new OrgasmWithLostBodyPower().upgradeCardInThis(upgraded));
     }
 
     @Override
@@ -73,7 +73,7 @@ public class OrgasmWithLostBody extends MasoCard {
                 AbstractDungeon.player.hand.removeCard(card);
                 AbstractDungeon.effectList.add(new PurgeCardEffect(card));
             });
-            addToBot_makeTempCardInBattle(new FeelPhantomBody(card), ActionUtility.BattleCardPlace.Hand);
+            addToBot_makeTempCardInBattle(new FeelPhantomBody(card), ActionUtility.BattleCardPlace.Hand, this.powerCard.upgraded);
         }
 
         @Override

@@ -24,6 +24,12 @@ public abstract class EasyBuildAbstractPowerForPowerCard extends AbstractSuperst
         updateDescription();
     }
 
+    public EasyBuildAbstractPowerForPowerCard upgradeCardInThis(boolean shouldUpgrade) {
+        if (shouldUpgrade)
+            this.powerCard.upgrade();
+        return this;
+    }
+
     //    @NotNull
     protected abstract SuperstitioCard makePowerCard();
 

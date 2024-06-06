@@ -52,6 +52,7 @@ public class Sensitive extends SuperstitioRelic implements BecomeBlight {
 
         @Override
         public void onPlayCard(AbstractCard card, AbstractMonster monster) {
+            if (card.isInAutoplay) return;
             int amount = 0;
             if (card.costForTurn >= 1)
                 amount += card.costForTurn;

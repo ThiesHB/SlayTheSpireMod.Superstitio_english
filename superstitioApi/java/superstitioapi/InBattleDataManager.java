@@ -4,6 +4,7 @@ import basemod.interfaces.ISubscriber;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import superstitioapi.actions.AutoDoneInstantAction;
 import superstitioapi.hangUpCard.HangUpCardGroup;
+import superstitioapi.pet.PetManager;
 import superstitioapi.powers.barIndepend.BarRenderManager;
 import superstitioapi.utils.RenderInBattle;
 
@@ -20,6 +21,7 @@ public class InBattleDataManager {
         {
             Subscribe(new HangUpCardGroup(AbstractDungeon.player.hb));
             Subscribe(new BarRenderManager());
+            Subscribe(new PetManager());
         });
     }
 
@@ -66,5 +68,11 @@ public class InBattleDataManager {
         return InBattleDataManager.subscribeManageGroups.stream()
                 .filter(barGroup -> barGroup instanceof BarRenderManager)
                 .map(barGroup -> (BarRenderManager) barGroup).findAny();
+    }
+
+    public static Optional<PetManager> getPetManager() {
+        return InBattleDataManager.subscribeManageGroups.stream()
+                .filter(petGroup -> petGroup instanceof PetManager)
+                .map(petGroup -> (PetManager) petGroup).findAny();
     }
 }

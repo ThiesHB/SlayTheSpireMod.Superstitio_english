@@ -1,6 +1,7 @@
 package superstitio.cards.general.SkillCard;
 
 import com.evacipated.cardcrawl.mod.stslib.cards.targeting.SelfOrEnemyTargeting;
+import com.evacipated.cardcrawl.mod.stslib.powers.interfaces.InvisiblePower;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.core.AbstractCreature;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
@@ -55,7 +56,8 @@ public class UnBirth extends GeneralCard {
     private void ForPlayer(AbstractPlayer player) {
         ArrayList<AbstractPower> sealPower = new ArrayList<>();
         player.powers.forEach(power -> {
-            if (power.type == AbstractPower.PowerType.DEBUFF || power instanceof ArtifactPower) {
+            if ((power.type == AbstractPower.PowerType.DEBUFF || power instanceof ArtifactPower)
+                    && power instanceof InvisiblePower) {
                 power.owner = AbstractDungeon.player;
                 power.amount = power.amount * 2;
                 sealPower.add(power);
@@ -71,7 +73,8 @@ public class UnBirth extends GeneralCard {
     private void ForMonster(AbstractMonster monster) {
         ArrayList<AbstractPower> sealPower = new ArrayList<>();
         monster.powers.forEach(power -> {
-            if (power.type == AbstractPower.PowerType.DEBUFF || power instanceof ArtifactPower) {
+            if ((power.type == AbstractPower.PowerType.DEBUFF || power instanceof ArtifactPower)
+                    && power instanceof InvisiblePower) {
                 power.owner = AbstractDungeon.player;
                 power.amount = power.amount * 2;
                 sealPower.add(power);
