@@ -14,6 +14,7 @@ import com.megacrit.cardcrawl.core.AbstractCreature;
 import com.megacrit.cardcrawl.core.Settings;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.helpers.Hitbox;
+import com.megacrit.cardcrawl.helpers.MathHelper;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import com.megacrit.cardcrawl.powers.AbstractPower;
 import com.megacrit.cardcrawl.ui.panels.EnergyPanel;
@@ -37,6 +38,8 @@ import superstitioapi.utils.RenderInBattle;
 import superstitioapi.utils.ShaderUtility;
 
 import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.BiFunction;
@@ -45,7 +48,6 @@ import java.util.function.Supplier;
 
 import static superstitio.InBattleDataManager.OrgasmTimesInTurn;
 import static superstitio.InBattleDataManager.OrgasmTimesTotal;
-import static superstitioapi.actions.AutoDoneInstantAction.*;
 import static superstitioapi.actions.AutoDoneInstantAction.addToBotAbstract;
 import static superstitioapi.powers.AllCardCostModifier.*;
 import static superstitioapi.utils.ActionUtility.VoidSupplier;
@@ -360,9 +362,8 @@ public class SexualHeat extends AbstractSuperstitioPower implements
     @Override
     public void onOrgasm(SexualHeat SexualHeatPower) {
         addToBotAbstract(() -> bubbleMessage(false, IsContinueOrgasm() ? 4 : 3));
-        if (!canUseShader || !isInOrgasm() || !(this.owner instanceof AbstractPlayer)) return;
-        addToBotAbstract(() ->
-                RenderInBattle.Register(RenderInBattle.RenderType.Stance, new RenderOrgasm(this)));
+        if (!isInOrgasm() || !(this.owner instanceof AbstractPlayer)) return;
+        RenderOrgasm.addToBot_addOrgasmEffect(this);
     }
 
     @Override
@@ -394,57 +395,110 @@ public class SexualHeat extends AbstractSuperstitioPower implements
     }
 
     public static class RenderOrgasm implements RenderInBattle {
-        public static final float ALPHA_TIME = 2.0f;
         SexualHeat sexualHeat;
-        private float anim_timer = 0.0f;
+        private float level;
+        private float levelTarget;
 
-        public RenderOrgasm(SexualHeat sexualHeat) {
+        private ArrayList<SubRender> subRenders = new ArrayList<>();
+
+        private RenderOrgasm(SexualHeat sexualHeat) {
             this.sexualHeat = sexualHeat;
             Logger.info("addRender" + this);
+            level = 3.0f;
+            levelTarget = 3.5f;
+            levelUp();
         }
+
+        public static void addToBot_addOrgasmEffect(SexualHeat sexualHeat) {
+            if (!canUseShader) return;
+            List<RenderInBattle> renderGroup =
+                    RenderInBattle.getRenderGroup(RenderType.Stance);
+            Optional<RenderOrgasm> renderOrgasm = renderGroup.stream()
+                    .filter(renderInBattle -> renderInBattle instanceof RenderOrgasm)
+                    .map(renderInBattle -> (RenderOrgasm) renderInBattle)
+                    .findAny();
+            if (renderOrgasm.isPresent())
+                addToBotAbstract(() ->
+                        renderOrgasm.get().levelUp());
+            else
+                RenderInBattle.Register(RenderType.Stance, new RenderOrgasm(sexualHeat));
+
+        }
+
+        private void levelUp() {
+            levelTarget += 1.0f;
+            if (subRenders.size() >= 12) return;
+            int newIndex = (int) Math.min(12, Math.ceil(level));
+            subRenders.add(new SubRender(
+                    0.1f + 0.1f * newIndex,
+                    1.4f - 0.08f * newIndex,
+                    new Vector2(4 + newIndex, 4 + newIndex)));
+        }
+
 
         @Override
         public void render(SpriteBatch sb) {
             ShaderUtility.originShader = sb.getShader();
-            this.drawHeartStream(sb, 0.6f, 0.1f, 1.2f, new Vector2(4, 4));
-            this.drawHeartStream(sb, 0.4f, 0.2f, 0.8f, new Vector2(8, 8));
-            this.drawHeartStream(sb, 0.6f, 0.3f, 0.6f, new Vector2(12, 12));
-            this.drawHeartStream(sb, 0.6f, 0.4f, 0.4f, new Vector2(16, 16));
-        }
+            float density = (float) (1.0f / Math.pow(level, 0.5f));
 
-        private void drawHeartStream(SpriteBatch sb, float density, float startTime, float speed, Vector2 tileTimes) {
-            sb.setShader(heartStream);
-            float spawnRemoveTimer = Math.min(ALPHA_TIME, Math.max(anim_timer, 0.0f)) / ALPHA_TIME;
-            sb.getShader().setUniformf("u_density", density);
-            sb.getShader().setUniformf("u_startTime", startTime);
-            sb.getShader().setUniformf("u_speed", speed);
-            sb.getShader().setUniformf("u_tileTimes", tileTimes);
-            sb.getShader().setUniformf("u_time", anim_timer);
-            float height = Gdx.graphics.getHeight();
-            float width = Gdx.graphics.getWidth();
-            sb.getShader().setUniformf("u_whRate", width / height);
-            sb.getShader().setUniformf("u_offset", new Vector2((width / 2 - this.sexualHeat.owner.hb.cX) / width, 0.0f));
-            sb.getShader().setUniformf("u_spawnRemoveTimer",spawnRemoveTimer);
-            sb.draw(NOISE_TEXTURE, 0, 0, width, height);
-            sb.setShader(originShader);
+            this.subRenders.forEach(subRender ->
+                    subRender.drawHeartStream(sb, (float) (0.8 * density),
+                            new Vector2((Gdx.graphics.getWidth() / 2.0f - this.sexualHeat.owner.drawX) / Gdx.graphics.getWidth(), 0.0f)));
         }
 
         @Override
         public boolean shouldRemove() {
-            if (!InBattleDataManager.InOrgasm && anim_timer < 0.0f)
+            if (!InBattleDataManager.InOrgasm && subRenders.stream().allMatch(subRender -> subRender.anim_timer < 0.0f))
                 return true;
             return false;
         }
 
         @Override
         public void update() {
-            if (InBattleDataManager.InOrgasm) {
-                anim_timer += Gdx.graphics.getDeltaTime();
-                return;
+            if (level != levelTarget)
+                level = MathHelper.uiLerpSnap(this.level, this.levelTarget);
+            subRenders.forEach(SubRender::update);
+        }
+
+        private static class SubRender {
+            public static final float ALPHA_TIME = 2.0f;
+            private final float startTime;
+            private final float speed;
+            private final Vector2 tileTimes;
+            private float anim_timer = 0.0f;
+
+            private SubRender(float startTime, float speed, Vector2 tileTimes) {
+                this.startTime = startTime;
+                this.speed = speed;
+                this.tileTimes = tileTimes;
             }
-            if (anim_timer >= ALPHA_TIME)
-                anim_timer = ALPHA_TIME;
-            anim_timer -= Gdx.graphics.getDeltaTime();
+
+            public void update() {
+                if (InBattleDataManager.InOrgasm) {
+                    anim_timer += Gdx.graphics.getDeltaTime();
+                    return;
+                }
+                if (anim_timer >= ALPHA_TIME)
+                    anim_timer = ALPHA_TIME;
+                anim_timer -= Gdx.graphics.getDeltaTime();
+            }
+
+            private void drawHeartStream(SpriteBatch sb, float density, Vector2 offset) {
+                sb.setShader(heartStream);
+                float spawnRemoveTimer = Math.min(ALPHA_TIME, Math.max(anim_timer, 0.0f)) / ALPHA_TIME;
+                sb.getShader().setUniformf("u_density", density);
+                sb.getShader().setUniformf("u_startTime", startTime);
+                sb.getShader().setUniformf("u_speed", speed);
+                sb.getShader().setUniformf("u_tileTimes", tileTimes);
+                sb.getShader().setUniformf("u_time", anim_timer);
+                float height = Gdx.graphics.getHeight();
+                float width = Gdx.graphics.getWidth();
+                sb.getShader().setUniformf("u_whRate", width / height);
+                sb.getShader().setUniformf("u_offset", offset);
+                sb.getShader().setUniformf("u_spawnRemoveTimer", spawnRemoveTimer);
+                sb.draw(NOISE_TEXTURE, 0, 0, width, height);
+                sb.setShader(originShader);
+            }
         }
     }
 }

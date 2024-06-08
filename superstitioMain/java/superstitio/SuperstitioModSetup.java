@@ -21,13 +21,13 @@ import superstitio.cards.SuperstitioCard;
 import superstitio.characters.Lupa;
 import superstitio.characters.Maso;
 import superstitio.customStrings.*;
-import superstitioapi.relicToBlight.BecomeBlight;
 import superstitio.relics.SuperstitioRelic;
-import superstitioapi.relicToBlight.CustomBlightPatch;
+import superstitioapi.relicToBlight.InfoBlight;
 
 import java.util.*;
 import java.util.stream.Collectors;
 
+import static com.badlogic.gdx.utils.reflect.ClassReflection.getAnnotations;
 import static superstitio.DataManager.SPTT_DATA.GeneralEnums.GENERAL_CARD;
 import static superstitio.DataManager.SPTT_DATA.LupaEnums.LUPA_CARD;
 import static superstitio.DataManager.SPTT_DATA.LupaEnums.LUPA_Character;
@@ -187,8 +187,8 @@ public class SuperstitioModSetup implements
         new AutoAdd(MOD_NAME.toLowerCase())
                 .packageFilter(SuperstitioRelic.class)
                 .any(CustomRelic.class, (info, relic) -> {
-                    if (relic instanceof BecomeBlight) {
-                        CustomBlightPatch.Assign(((BecomeBlight) relic).makeNewBlightWithRelic());
+                    if (relic instanceof InfoBlight.BecomeInfoBlight) {
+                        InfoBlight.initInfoBlight(relic);
                         return;
                     }
                     BaseMod.addRelic(relic, RelicType.SHARED);

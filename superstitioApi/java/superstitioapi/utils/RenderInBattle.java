@@ -6,7 +6,6 @@ import com.evacipated.cardcrawl.modthespire.lib.SpireInsertPatch;
 import com.evacipated.cardcrawl.modthespire.lib.SpirePatch;
 import com.evacipated.cardcrawl.modthespire.lib.SpirePostfixPatch;
 import com.evacipated.cardcrawl.modthespire.lib.SpirePrefixPatch;
-import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.core.OverlayMenu;
 import com.megacrit.cardcrawl.core.Settings;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
@@ -41,22 +40,22 @@ public interface RenderInBattle {
     }
 
     static void Register(RenderType renderType, RenderInBattle... renderThings) {
+        Collections.addAll(getRenderGroup(renderType), renderThings);
+        Logger.info("register " + Arrays.toString(renderThings) + " to " + renderType.name());
+    }
+
+    static ArrayList<RenderInBattle> getRenderGroup(RenderType renderType) {
         switch (renderType) {
             case Panel:
-                Collections.addAll(RENDER_IN_BATTLES_PANEL, renderThings);
-                break;
+                return RENDER_IN_BATTLES_PANEL;
             case AbovePanel:
-                Collections.addAll(RENDER_IN_BATTLES_ABOVE_PANEL, renderThings);
-                break;
+                return RENDER_IN_BATTLES_ABOVE_PANEL;
             case Stance:
-                Collections.addAll(RENDER_IN_BATTLES_STANCE, renderThings);
-                break;
+                return RENDER_IN_BATTLES_STANCE;
             case Normal:
             default:
-                Collections.addAll(RENDER_IN_BATTLES, renderThings);
-                break;
+                return RENDER_IN_BATTLES;
         }
-        Logger.info("register " + Arrays.toString(renderThings) + " to " + renderType.name());
     }
 
     static void forEachRenderInBattle(Consumer<RenderInBattle> consumer) {

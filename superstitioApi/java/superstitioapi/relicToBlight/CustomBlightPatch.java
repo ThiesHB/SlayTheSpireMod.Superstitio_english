@@ -15,19 +15,25 @@ public class CustomBlightPatch {
     public static final Set<AbstractBlight> myCustomBlight = new HashSet<>();
 
     /**
-     * 需要在初始化时就添加好
+     * 需要在初始化时就添加好，使用InfoBlight的话，只需要用它的注册函数就行了，不需要用这个
      */
     public static void Assign(AbstractBlight addedBlight) {
         if (myCustomBlight.stream().anyMatch(blight -> Objects.equals(blight.blightID, addedBlight.blightID))) return;
         myCustomBlight.add(addedBlight);
     }
 
+    /**
+     * 为InfoBlight写了特殊判定，如果要生成多个遗物的话会有用
+     */
     @SpirePatch2(clz = BlightHelper.class, method = "getBlight")
     public static class AddMyCustomBlight {
         @SpirePrefixPatch
         public static SpireReturn<AbstractBlight> Map(String id) {
-            Optional<AbstractBlight> blightOptional = myCustomBlight.stream().filter(blight -> Objects.equals(blight.blightID, id)).findAny();
+            Optional<AbstractBlight> blightOptional = myCustomBlight.stream()
+                    .filter(blight -> Objects.equals(blight.blightID, id)).findAny();
             if (blightOptional.isPresent()) {
+                if (blightOptional.get() instanceof InfoBlight)
+                    return SpireReturn.Return(((InfoBlight) blightOptional.get()).makeCopy());
                 return SpireReturn.Return(blightOptional.get());
             }
             return SpireReturn.Continue();

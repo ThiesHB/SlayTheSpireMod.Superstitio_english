@@ -2,21 +2,21 @@ package superstitio.relics.blight;
 
 import com.evacipated.cardcrawl.mod.stslib.powers.interfaces.InvisiblePower;
 import com.megacrit.cardcrawl.cards.DamageInfo;
+import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.core.AbstractCreature;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.relics.AbstractRelic;
 import superstitio.DataManager;
 import superstitio.powers.AbstractSuperstitioPower;
 import superstitio.powers.SexualHeat;
-import superstitioapi.relicToBlight.BecomeBlight;
 import superstitio.relics.SuperstitioRelic;
 import superstitioapi.DataUtility;
 import superstitioapi.actions.AutoDoneInstantAction;
-import superstitioapi.relicToBlight.BlightWithRelic;
+import superstitioapi.relicToBlight.InfoBlight;
 import superstitioapi.utils.ActionUtility;
 import superstitioapi.utils.CardUtility;
 
-public class MasochismMode extends SuperstitioRelic implements BecomeBlight {
+public class MasochismMode extends SuperstitioRelic implements InfoBlight.BecomeInfoBlight {
     public static final String ID = DataManager.MakeTextID(MasochismMode.class);
     // 遗物类型
     private static final RelicTier RELIC_TIER = RelicTier.SPECIAL;
@@ -44,27 +44,23 @@ public class MasochismMode extends SuperstitioRelic implements BecomeBlight {
     }
 
     @Override
-    public BlightWithRelic makeNewBlightWithRelic() {
-        return new BlightWithRelic_MasochismMode();
+    public void atBattleStart() {
+        ActionUtility.addToBot_applyPower(new MasochismModePower(AbstractDungeon.player));
     }
 
-    public static class BlightWithRelic_MasochismMode extends BlightWithRelic {
+    @Override
+    public void obtain() {
+        InfoBlight.obtain(this);
+    }
 
-        public static final String ID = DataUtility.MakeTextID(BlightWithRelic_MasochismMode.class);
+    @Override
+    public void instantObtain(AbstractPlayer p, int slot, boolean callOnEquip) {
+        InfoBlight.instanceObtain(this, callOnEquip);
+    }
 
-        public BlightWithRelic_MasochismMode() {
-            super(ID);
-        }
-
-        @Override
-        public AbstractRelic makeRelic() {
-            return new MasochismMode();
-        }
-
-        @Override
-        public void atBattleStart() {
-            ActionUtility.addToBot_applyPower(new MasochismModePower(AbstractDungeon.player));
-        }
+    @Override
+    public void instantObtain() {
+        InfoBlight.instanceObtain(this, true);
     }
 
     private static class MasochismModePower extends AbstractSuperstitioPower implements InvisiblePower {
@@ -87,5 +83,6 @@ public class MasochismMode extends SuperstitioRelic implements BecomeBlight {
         @Override
         public void updateDescriptionArgs() {
         }
+
     }
 }

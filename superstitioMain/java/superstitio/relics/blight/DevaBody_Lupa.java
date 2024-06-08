@@ -3,6 +3,7 @@ package superstitio.relics.blight;
 import basemod.AutoAdd;
 import com.megacrit.cardcrawl.actions.common.RelicAboveCreatureAction;
 import com.megacrit.cardcrawl.cards.AbstractCard;
+import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import com.megacrit.cardcrawl.powers.AbstractPower;
@@ -16,10 +17,9 @@ import superstitio.delayHpLose.DelayHpLosePower_ApplyOnAttacked;
 import superstitio.powers.lupaOnly.FloorSemen;
 import superstitio.powers.lupaOnly.InsideSemen;
 import superstitio.powers.lupaOnly.OutsideSemen;
-import superstitioapi.relicToBlight.BecomeBlight;
 import superstitio.relics.SuperstitioRelic;
 import superstitioapi.DataUtility;
-import superstitioapi.relicToBlight.BlightWithRelic;
+import superstitioapi.relicToBlight.InfoBlight;
 import superstitioapi.utils.ActionUtility;
 
 import static com.megacrit.cardcrawl.dungeons.AbstractDungeon.player;
@@ -27,7 +27,7 @@ import static superstitio.DataManager.CanOnlyDamageDamageType.UnBlockAbleDamageT
 import static superstitioapi.utils.ActionUtility.addToTop_applyPower;
 
 @AutoAdd.Seen
-public class DevaBody_Lupa extends SuperstitioRelic implements BecomeBlight {
+public class DevaBody_Lupa extends SuperstitioRelic implements InfoBlight.BecomeInfoBlight {
     public static final String ID = DataManager.MakeTextID(DevaBody_Lupa.class);
     // 遗物类型
     private static final RelicTier RELIC_TIER = RelicTier.SPECIAL;
@@ -71,42 +71,37 @@ public class DevaBody_Lupa extends SuperstitioRelic implements BecomeBlight {
         return new FloorSemen(player, 1);
     }
 
+    @Override
+    public void atBattleStart() {
+        this.flash();
+        ActionUtility.addToBot(new RelicAboveCreatureAction(AbstractDungeon.player, this));
+        DevaBody_Lupa.SetPlayerImmunity();
+    }
+
+    @Override
+    public void onPlayCard(AbstractCard card, AbstractMonster m) {
+        if (card.type == AbstractCard.CardType.ATTACK)
+            addToBot_AddSemen(card);
+    }
+
 
     @Override
     public void updateDescriptionArgs() {
     }
 
     @Override
-    public BlightWithRelic makeNewBlightWithRelic() {
-        return new BlightWithRelic_DevaBody_Lupa();
+    public void obtain() {
+        InfoBlight.obtain(this);
     }
 
-    public static class BlightWithRelic_DevaBody_Lupa extends BlightWithRelic {
+    @Override
+    public void instantObtain(AbstractPlayer p, int slot, boolean callOnEquip) {
+        InfoBlight.instanceObtain(this, callOnEquip);
+    }
 
-        public static final String ID = DataUtility.MakeTextID(BlightWithRelic_DevaBody_Lupa.class);
-
-        public BlightWithRelic_DevaBody_Lupa() {
-            super(ID);
-        }
-
-        @Override
-        public AbstractRelic makeRelic() {
-            return new DevaBody_Lupa();
-        }
-
-        @Override
-        public void atBattleStart() {
-            this.flash();
-            ActionUtility.addToBot(new RelicAboveCreatureAction(AbstractDungeon.player, this.relic));
-            DevaBody_Lupa.SetPlayerImmunity();
-        }
-
-        @Override
-        public void onPlayCard(AbstractCard card, AbstractMonster m) {
-            if (card.type == AbstractCard.CardType.ATTACK)
-                addToBot_AddSemen(card);
-        }
-
+    @Override
+    public void instantObtain() {
+        InfoBlight.instanceObtain(this, true);
     }
 
 }

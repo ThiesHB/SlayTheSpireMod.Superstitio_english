@@ -1,19 +1,19 @@
 package superstitio.relics.blight;
 
 import com.megacrit.cardcrawl.cards.AbstractCard;
+import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import com.megacrit.cardcrawl.relics.AbstractRelic;
 import superstitio.DataManager;
 import superstitio.powers.SexualHeat;
-import superstitioapi.relicToBlight.BecomeBlight;
 import superstitio.relics.SuperstitioRelic;
 import superstitioapi.DataUtility;
 import superstitioapi.actions.AutoDoneInstantAction;
-import superstitioapi.relicToBlight.BlightWithRelic;
+import superstitioapi.relicToBlight.InfoBlight;
 
 import static com.megacrit.cardcrawl.dungeons.AbstractDungeon.player;
 
-public class Sensitive extends SuperstitioRelic implements BecomeBlight {
+public class Sensitive extends SuperstitioRelic implements InfoBlight.BecomeInfoBlight  {
     public static final String ID = DataManager.MakeTextID(Sensitive.class);
     // 遗物类型
     private static final RelicTier RELIC_TIER = RelicTier.SPECIAL;
@@ -33,33 +33,29 @@ public class Sensitive extends SuperstitioRelic implements BecomeBlight {
     }
 
     @Override
-    public BlightWithRelic makeNewBlightWithRelic() {
-        return new BlightWithRelic_Sensitive();
+    public void onPlayCard(AbstractCard card, AbstractMonster monster) {
+        if (card.isInAutoplay) return;
+        int amount = 0;
+        if (card.costForTurn >= 1)
+            amount += card.costForTurn;
+        if (card.costForTurn == -1)
+            amount += card.energyOnUse;
+        if (amount == 0) return;
+        SexualHeat.addAction_addSexualHeat(player, amount * SexualHeatRate, AutoDoneInstantAction::addToTopAbstract);
     }
 
-    public static class BlightWithRelic_Sensitive extends BlightWithRelic {
+    @Override
+    public void obtain() {
+        InfoBlight.obtain(this);
+    }
 
-        public static final String ID = DataUtility.MakeTextID(BlightWithRelic_Sensitive.class);
+    @Override
+    public void instantObtain(AbstractPlayer p, int slot, boolean callOnEquip) {
+        InfoBlight.instanceObtain(this, callOnEquip);
+    }
 
-        public BlightWithRelic_Sensitive() {
-            super(ID);
-        }
-
-        @Override
-        public AbstractRelic makeRelic() {
-            return new Sensitive();
-        }
-
-        @Override
-        public void onPlayCard(AbstractCard card, AbstractMonster monster) {
-            if (card.isInAutoplay) return;
-            int amount = 0;
-            if (card.costForTurn >= 1)
-                amount += card.costForTurn;
-            if (card.costForTurn == -1)
-                amount += card.energyOnUse;
-            if (amount == 0) return;
-            SexualHeat.addAction_addSexualHeat(player, amount * SexualHeatRate, AutoDoneInstantAction::addToTopAbstract);
-        }
+    @Override
+    public void instantObtain() {
+        InfoBlight.instanceObtain(this, true);
     }
 }

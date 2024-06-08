@@ -44,7 +44,7 @@ public interface BlightOnEnterRoom {
         @SpireInsertPatch(
                 locator = OnJustEnterRoomLocator.class
         )
-        public static void OnJustEnterRoomInsert(AbstractDungeon __instance,SaveFile saveFile) {
+        public static void OnJustEnterRoomInsert(AbstractDungeon __instance, SaveFile saveFile) {
             boolean isLoadingPostCombatSave = CardCrawlGame.loadingSave && saveFile != null && saveFile.post_combat;
             if (getCurrRoom() != null && !isLoadingPostCombatSave) {
                 for (final AbstractBlight blight : AbstractDungeon.player.blights) {

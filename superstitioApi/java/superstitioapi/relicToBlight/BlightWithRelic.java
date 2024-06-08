@@ -53,36 +53,33 @@ public abstract class BlightWithRelic extends AbstractBlight {
     public AbstractRelic relic;
     private boolean isInit = false;
 
-    public BlightWithRelic(String id) {
-        super(id, "BlightWithRelic", "Only a Relic carrier, do not spawn.", "maze.png", true);
-        relic = makeRelic();
+    public BlightWithRelic(AbstractRelic relic) {
+        super(relic.relicId, "BlightWithRelic", "Only a Relic carrier, do not spawn.", "maze.png", true);
+        this.relic = relic;
     }
 
-    /*
-    一般来说，makeNewBlightWithRelic只会在创建遗物（receiveEditRelics）时被手动调用
-    所以不会造成循环调用
-     */
-    public abstract AbstractRelic makeRelic();
+//    protected static String getIdWithRelic(AbstractRelic relic) {
+//        return "blight_" + relic.relicId;
+//    }
 
     @Override
     public void update() {
         if (!isInit) {
             initRelic();
-            isInit = true;
             //给紫音写的patch
-            if (Loader.isModLoadedOrSideloaded("VUPShionMod")) {
-                isInit = false;
-            }
+            isInit = !Loader.isModLoadedOrSideloaded("VUPShionMod");
         }
 
 
         //翻页时不显示，不更新碰撞箱，Relic本来就有这个功能所以不写
         if (AbstractDungeon.player != null && AbstractDungeon.player.blights.indexOf(this) / MAX_RELICS_PER_PAGE == relicPage) {
             this.hb.update();
-        } else {
+        }
+        else {
             this.hb.hovered = false;
         }
 
+        super.update();
         this.relic.update();
     }
 
@@ -110,4 +107,5 @@ public abstract class BlightWithRelic extends AbstractBlight {
     public void render(SpriteBatch sb) {
         this.relic.render(sb);
     }
+
 }

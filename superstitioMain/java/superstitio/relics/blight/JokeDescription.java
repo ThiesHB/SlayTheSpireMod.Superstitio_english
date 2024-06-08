@@ -1,13 +1,13 @@
 package superstitio.relics.blight;
 
+import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.relics.AbstractRelic;
 import superstitio.DataManager;
-import superstitioapi.relicToBlight.BecomeBlight;
 import superstitio.relics.SuperstitioRelic;
 import superstitioapi.DataUtility;
-import superstitioapi.relicToBlight.BlightWithRelic;
+import superstitioapi.relicToBlight.InfoBlight;
 
-public class JokeDescription extends SuperstitioRelic implements BecomeBlight {
+public class JokeDescription extends SuperstitioRelic implements InfoBlight.BecomeInfoBlight  {
     public static final String ID = DataManager.MakeTextID(JokeDescription.class);
     // 遗物类型
     private static final RelicTier RELIC_TIER = RelicTier.SPECIAL;
@@ -22,25 +22,6 @@ public class JokeDescription extends SuperstitioRelic implements BecomeBlight {
     public void updateDescriptionArgs() {
     }
 
-    @Override
-    public BlightWithRelic makeNewBlightWithRelic() {
-        return new BlightWithRelic_JokeDescription();
-    }
-
-    public static class BlightWithRelic_JokeDescription extends BlightWithRelic {
-
-        public static final String ID = DataUtility.MakeTextID(BlightWithRelic_JokeDescription.class);
-
-        public BlightWithRelic_JokeDescription() {
-            super(ID);
-        }
-
-        @Override
-        public AbstractRelic makeRelic() {
-            return new JokeDescription();
-        }
-    }
-
 //    @Override
 //    public int onAttackToChangeDamage(DamageInfo info, int damageAmount) {
 //        return super.onAttackToChangeDamage(info, damageAmount);
@@ -50,4 +31,19 @@ public class JokeDescription extends SuperstitioRelic implements BecomeBlight {
 //    public int onAttackedToChangeDamage(DamageInfo info, int damageAmount) {
 //        return super.onAttackedToChangeDamage(info, damageAmount);
 //    }
+
+    @Override
+    public void obtain() {
+        InfoBlight.obtain(this);
+    }
+
+    @Override
+    public void instantObtain(AbstractPlayer p, int slot, boolean callOnEquip) {
+        InfoBlight.instanceObtain(this, callOnEquip);
+    }
+
+    @Override
+    public void instantObtain() {
+        InfoBlight.instanceObtain(this, true);
+    }
 }

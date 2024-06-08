@@ -4,7 +4,6 @@ import basemod.BaseMod;
 import basemod.interfaces.*;
 import com.badlogic.gdx.math.MathUtils;
 import com.evacipated.cardcrawl.modthespire.lib.SpireInitializer;
-import com.megacrit.cardcrawl.blights.AbstractBlight;
 import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.cards.CardGroup;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
@@ -19,6 +18,7 @@ import superstitio.characters.BaseCharacter;
 import superstitio.characters.Lupa;
 import superstitio.characters.Maso;
 import superstitio.relics.blight.*;
+import superstitioapi.relicToBlight.InfoBlight;
 
 import java.util.ArrayList;
 
@@ -78,10 +78,10 @@ public class SuperstitioModSubscriber implements
     @Override
     public void receivePostDungeonInitialize() {
         if (player instanceof BaseCharacter) {
-            addBlight(new JokeDescription.BlightWithRelic_JokeDescription());
+            addAsInfoBlight(new JokeDescription());
             if (player instanceof Lupa) {
-                addBlight(new Sensitive.BlightWithRelic_Sensitive());
-                addBlight(new DevaBody_Lupa.BlightWithRelic_DevaBody_Lupa());
+                addAsInfoBlight(new Sensitive());
+                addAsInfoBlight(new DevaBody_Lupa());
             }
             else if (player instanceof Maso) {
                 if (floorNum <= 1 && CardCrawlGame.dungeon instanceof Exordium) {
@@ -90,16 +90,16 @@ public class SuperstitioModSubscriber implements
                         player.currentHealth = MathUtils.round((float) player.currentHealth * 0.9F);
                     }
                 }
-                addBlight(new MasochismMode.BlightWithRelic_MasochismMode());
-                addBlight(new DevaBody_Masochism.BlightWithRelic_DevaBody_Maso());
+                addAsInfoBlight(new MasochismMode());
+                addAsInfoBlight(new DevaBody_Masochism());
             }
         }
     }
 
-    public void addBlight(AbstractBlight blight) {
+    public void addAsInfoBlight(AbstractRelic relic) {
         if (player == null) return;
-        if (player.hasBlight(blight.blightID)) return;
-        blight.instantObtain(player, player.blights.size(), false);
+        if (player.hasRelic(relic.relicId)) return;
+        InfoBlight.instanceObtain(relic, false);
     }
 
     @Override

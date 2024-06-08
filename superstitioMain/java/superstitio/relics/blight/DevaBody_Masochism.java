@@ -1,22 +1,22 @@
 package superstitio.relics.blight;
 
 import com.megacrit.cardcrawl.actions.common.RelicAboveCreatureAction;
+import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.relics.AbstractRelic;
 import superstitio.DataManager;
 import superstitio.delayHpLose.DelayHpLosePatch;
 import superstitio.delayHpLose.DelayHpLosePower_HealOnVictory;
-import superstitioapi.relicToBlight.BecomeBlight;
 import superstitio.relics.SuperstitioRelic;
 import superstitioapi.DataUtility;
-import superstitioapi.relicToBlight.BlightWithRelic;
+import superstitioapi.relicToBlight.InfoBlight;
 import superstitioapi.utils.ActionUtility;
 
 import static com.megacrit.cardcrawl.dungeons.AbstractDungeon.player;
 import static superstitio.DataManager.CanOnlyDamageDamageType.UnBlockAbleDamageType;
 import static superstitioapi.utils.ActionUtility.addToTop_applyPower;
 
-public class DevaBody_Masochism extends SuperstitioRelic implements BecomeBlight {
+public class DevaBody_Masochism extends SuperstitioRelic implements InfoBlight.BecomeInfoBlight {
     public static final String ID = DataManager.MakeTextID(DevaBody_Masochism.class);
     // 遗物类型
     private static final RelicTier RELIC_TIER = RelicTier.SPECIAL;
@@ -37,35 +37,31 @@ public class DevaBody_Masochism extends SuperstitioRelic implements BecomeBlight
                     return true;
                 }));
     }
+    @Override
+    public void atBattleStart() {
+        this.flash();
+        ActionUtility.addToBot(new RelicAboveCreatureAction(AbstractDungeon.player, this));
+        DevaBody_Masochism.SetPlayerImmunity();
+    }
+
 
     @Override
     public void updateDescriptionArgs() {
     }
 
     @Override
-    public BlightWithRelic makeNewBlightWithRelic() {
-        return new BlightWithRelic_DevaBody_Maso();
+    public void obtain() {
+        InfoBlight.obtain(this);
     }
 
-    public static class BlightWithRelic_DevaBody_Maso extends BlightWithRelic {
+    @Override
+    public void instantObtain(AbstractPlayer p, int slot, boolean callOnEquip) {
+        InfoBlight.instanceObtain(this, callOnEquip);
+    }
 
-        public static final String ID = DataUtility.MakeTextID(BlightWithRelic_DevaBody_Maso.class);
-
-        public BlightWithRelic_DevaBody_Maso() {
-            super(ID);
-        }
-
-        @Override
-        public AbstractRelic makeRelic() {
-            return new DevaBody_Masochism();
-        }
-
-        @Override
-        public void atBattleStart() {
-            this.flash();
-            ActionUtility.addToBot(new RelicAboveCreatureAction(AbstractDungeon.player, this.relic));
-            DevaBody_Masochism.SetPlayerImmunity();
-        }
+    @Override
+    public void instantObtain() {
+        InfoBlight.instanceObtain(this, true);
     }
 }
 
