@@ -62,7 +62,7 @@ public class ActionUtility {
         if (m != null && !m.isDeadOrEscaped() && !m.isDead) {
             return m;
         }
-        return null;
+        return new ApologySlime();
     }
 
     public static AbstractMonster getRandomMonsterWithoutRngSafe() {
@@ -70,7 +70,7 @@ public class ActionUtility {
         if (m != null && !m.isDeadOrEscaped() && !m.isDead) {
             return m;
         }
-        return null;
+        return new ApologySlime();
     }
 
     public static ArrayList<AbstractMonster> getMonsters() {

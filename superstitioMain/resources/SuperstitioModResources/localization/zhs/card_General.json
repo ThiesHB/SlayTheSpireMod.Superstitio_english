@@ -41,7 +41,7 @@
   "SuperstitioMod:Tease": {
     "NAME": "挑逗",
     "NAME_SFW": "温水煮青蛙",
-    "DESCRIPTION": "目标敌人 获得 脆弱， NL 失去上限的 !M! % 生命 ， NL 失去的 生命 转化为 格挡 。 NL 给予 *壁垒 。 NL 消耗 。",
+    "DESCRIPTION": "目标敌人 获得 脆弱 和 虚弱 ， NL 失去上限的 !M! % 生命 ， NL 失去的 生命 转化为 格挡 。 NL 给予 *壁垒 。 NL 消耗 。",
     "FLAVOR": "让敌人硬邦邦，不过也让自己湿漉漉。"
   },
   "SuperstitioMod:BlindfoldWithMilk": {

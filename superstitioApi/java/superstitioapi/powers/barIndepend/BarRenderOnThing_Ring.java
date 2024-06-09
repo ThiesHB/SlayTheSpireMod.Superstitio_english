@@ -13,7 +13,7 @@ import com.megacrit.cardcrawl.helpers.input.InputHelper;
 
 import java.util.function.Supplier;
 
-import static superstitioapi.utils.ShaderUtility.*;
+import static superstitioapi.shader.ShaderUtility.*;
 
 public class BarRenderOnThing_Ring extends BarRenderOnThing {
     protected static final float BAR_SIZE = BAR_DIAMETER * 6.0f;

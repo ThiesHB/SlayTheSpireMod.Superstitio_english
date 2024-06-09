@@ -35,7 +35,7 @@ import superstitioapi.powers.interfaces.invisible.InvisiblePower_InvisibleRemove
 import superstitioapi.powers.interfaces.invisible.InvisiblePower_InvisibleTips;
 import superstitioapi.utils.PowerUtility;
 import superstitioapi.utils.RenderInBattle;
-import superstitioapi.utils.ShaderUtility;
+import superstitioapi.shader.ShaderUtility;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
@@ -51,7 +51,7 @@ import static superstitio.InBattleDataManager.OrgasmTimesTotal;
 import static superstitioapi.actions.AutoDoneInstantAction.addToBotAbstract;
 import static superstitioapi.powers.AllCardCostModifier.*;
 import static superstitioapi.utils.ActionUtility.VoidSupplier;
-import static superstitioapi.utils.ShaderUtility.*;
+import static superstitioapi.shader.ShaderUtility.*;
 
 @SuperstitioImg.NoNeedImg
 public class SexualHeat extends AbstractSuperstitioPower implements
@@ -486,13 +486,13 @@ public class SexualHeat extends AbstractSuperstitioPower implements
             private void drawHeartStream(SpriteBatch sb, float density, Vector2 offset) {
                 sb.setShader(heartStream);
                 float spawnRemoveTimer = Math.min(ALPHA_TIME, Math.max(anim_timer, 0.0f)) / ALPHA_TIME;
+                float height = Gdx.graphics.getHeight();
+                float width = Gdx.graphics.getWidth();
                 sb.getShader().setUniformf("u_density", density);
                 sb.getShader().setUniformf("u_startTime", startTime);
                 sb.getShader().setUniformf("u_speed", speed);
                 sb.getShader().setUniformf("u_tileTimes", tileTimes);
                 sb.getShader().setUniformf("u_time", anim_timer);
-                float height = Gdx.graphics.getHeight();
-                float width = Gdx.graphics.getWidth();
                 sb.getShader().setUniformf("u_whRate", width / height);
                 sb.getShader().setUniformf("u_offset", offset);
                 sb.getShader().setUniformf("u_spawnRemoveTimer", spawnRemoveTimer);

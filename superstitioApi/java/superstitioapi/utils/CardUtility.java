@@ -1,6 +1,7 @@
 package superstitioapi.utils;
 
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.utils.Array;
 import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.cards.CardGroup;
 import com.megacrit.cardcrawl.core.AbstractCreature;
@@ -52,6 +53,10 @@ public class CardUtility {
 
     public static <T> T getRandomFromList(List<T> list, Random random) {
         return list.get(random.random(list.size() - 1));
+    }
+
+    public static <T> T getRandomFromList(Array<T> list, Random random) {
+        return list.get(random.random(list.size - 1));
     }
 
     public static <T> T getRandomFromList(Stream<T> stream, Random random) {

@@ -5,6 +5,7 @@ import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import com.megacrit.cardcrawl.powers.BarricadePower;
 import com.megacrit.cardcrawl.powers.FrailPower;
+import com.megacrit.cardcrawl.powers.WeakPower;
 import superstitio.DataManager;
 import superstitio.cards.general.GeneralCard;
 import superstitioapi.actions.AutoDoneInstantAction;
@@ -34,6 +35,7 @@ public class Tease extends GeneralCard {
         AutoDoneInstantAction.addToBotAbstract(() ->
                 monster.decreaseMaxHealth(a));
         addToBot_applyPower(new FrailPower(monster, 1, false));
+        addToBot_applyPower(new WeakPower(monster, 1, false));
         addToBot(new GainBlockAction(monster, (int) (a * 0.75f)));//乐，实际上脆弱还是不起效
         addToBot_applyPower(new BarricadePower(monster));
     }
