@@ -16,13 +16,11 @@ import superstitio.cards.general.TempCard.GiveBirth;
 import superstitio.cards.general.TempCard.SelfReference;
 import superstitioapi.InBattleDataManager;
 import superstitioapi.actions.AutoDoneInstantAction;
-import superstitioapi.pet.Minion;
 import superstitioapi.pet.PetManager;
 import superstitioapi.utils.ActionUtility;
 
 import java.util.ArrayList;
 
-import static superstitioapi.pet.CopyAndSpawnMonsterUtility.motherFuckerWhyIShouldUseThisToCopyMonster;
 import static superstitioapi.utils.ActionUtility.addToBot_makeTempCardInBattle;
 
 //TODO 希望这个卡能制造一个跟班
@@ -52,10 +50,9 @@ public class HaveBirthWith extends GeneralCard {
         AbstractCreature target = SelfOrEnemyTargeting.getTarget(this);
         if (target instanceof AbstractMonster)
             InBattleDataManager.getPetManager()
-                    .ifPresent(petManager -> PetManager.spawnMonster(new Minion(
-                            motherFuckerWhyIShouldUseThisToCopyMonster((
-                                    (AbstractMonster) target).getClass())
-                    )));
+                    .ifPresent(petManager -> PetManager.spawnMinion((
+                            (AbstractMonster) target).getClass()
+                    ));
 //        ForMonster(monster);
     }
 

@@ -1,17 +1,26 @@
 package superstitioapi.pet;
 
+import basemod.interfaces.PostPowerApplySubscriber;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.megacrit.cardcrawl.actions.GameActionManager;
+import com.badlogic.gdx.math.MathUtils;
+import com.megacrit.cardcrawl.actions.IntentFlashAction;
+import com.megacrit.cardcrawl.actions.common.ShowMoveNameAction;
 import com.megacrit.cardcrawl.core.AbstractCreature;
 import com.megacrit.cardcrawl.core.Settings;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
+import com.megacrit.cardcrawl.helpers.TipTracker;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import com.megacrit.cardcrawl.monsters.MonsterGroup;
+import com.megacrit.cardcrawl.powers.AbstractPower;
+import superstitioapi.InBattleDataManager;
 import superstitioapi.SuperstitioApiSubscriber;
 import superstitioapi.utils.RenderInBattle;
 
-public class PetManager implements RenderInBattle, SuperstitioApiSubscriber.AtEndOfPlayerTurnSubscriber {
-    public static final MonsterGroup monsterGroup = new MonsterGroup(new AbstractMonster[]{});
+import static superstitioapi.actions.AutoDoneInstantAction.addToBotAbstract;
+
+public class PetManager implements RenderInBattle, SuperstitioApiSubscriber.AtEndOfPlayerTurnSubscriber, PostPowerApplySubscriber {
+    public final MinionGroup monsterGroup = new MinionGroup(new AbstractMonster[]{});
 
     public PetManager() {
         RenderInBattle.Register(RenderType.Normal, this);
@@ -23,7 +32,10 @@ public class PetManager implements RenderInBattle, SuperstitioApiSubscriber.AtEn
 
     public static AbstractMonster spawnMonster(final AbstractMonster monsterInstance) {
         final AbstractMonster monster = monsterInstance;
-        final MonsterGroup roomMonsters = monsterGroup;//AbstractDungeon.getMonsters();
+        if (!InBattleDataManager.getPetManager().isPresent()) return monster;
+        final MonsterGroup roomMonsters =
+                InBattleDataManager.getPetManager().get().monsterGroup;
+//        AbstractDungeon.getMonsters();
         float monsterDX = Settings.WIDTH / 2.0f;
         float monsterDY = AbstractDungeon.player.drawY;
         AbstractMonster lastMonster = null;
@@ -37,6 +49,11 @@ public class PetManager implements RenderInBattle, SuperstitioApiSubscriber.AtEn
         else
             monster.drawX = monsterDX - 200.0f * Settings.scale;
         monster.drawY = monsterDY;
+        if (monster.drawX < 0.0f || monster.drawX > Gdx.graphics.getWidth()
+                || monster.drawY < 0.0f || monster.drawY > Gdx.graphics.getHeight()) {
+            monster.drawX = MathUtils.random(0.0f, Gdx.graphics.getWidth());
+            monster.drawY = MathUtils.random(0.0f, Gdx.graphics.getHeight());
+        }
         monster.hb.move(monster.drawX, monster.drawY);
         monster.init();
         monster.applyPowers();
@@ -47,42 +64,16 @@ public class PetManager implements RenderInBattle, SuperstitioApiSubscriber.AtEn
         roomMonsters.add(monster);
         return monster;
     }
-//
-//    public static AbstractMonster spawnMonster(final Minion monsterInstance) {
-//        final Minion monster = monsterInstance;
-//        final MonsterGroup roomMonsters = monsterGroup;//AbstractDungeon.getMonsters();
-//        float monsterDX = Settings.WIDTH / 2.0f;
-//        float monsterDY = AbstractDungeon.player.drawY;
-//        AbstractMonster lastMonster = null;
-//        if (!roomMonsters.monsters.isEmpty()) {
-//            lastMonster = roomMonsters.monsters.get(roomMonsters.monsters.size() - 1);
-//            monsterDX = lastMonster.drawX;
-//            monsterDY = lastMonster.drawY;
-//        }
-//        if (lastMonster != null)
-//            monster.drawX = monsterDX - calculateSmartDistance(lastMonster, monster) * Settings.scale;
-//        else
-//            monster.drawX = monsterDX - 200.0f * Settings.scale;
-//        monster.drawY = monsterDY;
-//        monster.monster.drawX = monster.drawX;
-//        monster.monster.drawY = monster.drawY;
-//        monster.hb.move(monster.drawX, monster.drawY);
-//        monster.monster.hb.move(monster.drawX, monster.drawY);
-//        monster.init();
-//        monster.applyPowers();
-//        monster.useUniversalPreBattleAction();
-//        monster.showHealthBar();
-//        monster.createIntent();
-//        monster.usePreBattleAction();
-//        roomMonsters.add(monster);
-//        return monster;
-//    }
+
+    public static AbstractMonster spawnMinion(final Class<? extends AbstractMonster> monsterClass) {
+        Minion minion = new Minion(CopyAndSpawnMonsterUtility.motherFuckerWhyIShouldUseThisToCopyMonster(monsterClass));
+        return spawnMonster(minion);
+    }
 
     public static AbstractMonster spawnMonster(final Class<? extends AbstractMonster> monsterClass) {
         final AbstractMonster monster =
                 CopyAndSpawnMonsterUtility.motherFuckerWhyIShouldUseThisToCopyMonster(monsterClass);
-        spawnMonster(monster);
-        return monster;
+        return spawnMonster(monster);
     }
 
     public void addPet(AbstractMonster monster) {
@@ -91,12 +82,31 @@ public class PetManager implements RenderInBattle, SuperstitioApiSubscriber.AtEn
 
     @Override
     public void receiveAtEndOfPlayerTurn() {
-//        GameActionManager
-//        monsterGroup.monsters.forEach(AbstractMonster::takeTurn);
-        monsterGroup.applyEndOfTurnPowers();
-        monsterGroup.queueMonsters();
-//        monsterGroup.applyPreTurnLogic();
-//        monsterGroup.applyEndOfTurnPowers();
+        addToBotAbstract(monsterGroup::applyPreTurnLogic);
+        monsterGroup.monsters.forEach(this::monsterTurn);
+        addToBotAbstract(monsterGroup::applyEndOfTurnPowers);
+        addToBotAbstract(() -> addToBotAbstract(monsterGroup::showIntent));
+    }
+
+    private void monsterTurn(AbstractMonster monster) {
+        if (!monster.isDeadOrEscaped() || monster.halfDead) {
+            if (monster.intent != AbstractMonster.Intent.NONE) {
+                AbstractDungeon.actionManager.addToBottom(new ShowMoveNameAction(monster));
+                AbstractDungeon.actionManager.addToBottom(new IntentFlashAction(monster));
+            }
+
+            if (!(Boolean) TipTracker.tips.get("INTENT_TIP") && AbstractDungeon.player.currentBlock == 0 && (monster.intent == AbstractMonster.Intent.ATTACK || monster.intent == AbstractMonster.Intent.ATTACK_DEBUFF || monster.intent == AbstractMonster.Intent.ATTACK_BUFF || monster.intent == AbstractMonster.Intent.ATTACK_DEFEND)) {
+                if (AbstractDungeon.floorNum <= 5) {
+                    ++TipTracker.blockCounter;
+                }
+                else {
+                    TipTracker.neverShowAgain("INTENT_TIP");
+                }
+            }
+
+            monster.takeTurn();
+            monster.applyTurnPowers();
+        }
     }
 
     @Override
@@ -119,5 +129,10 @@ public class PetManager implements RenderInBattle, SuperstitioApiSubscriber.AtEn
     @Override
     public void updateAnimation() {
         monsterGroup.updateAnimations();
+    }
+
+    @Override
+    public void receivePostPowerApplySubscriber(AbstractPower abstractPower, AbstractCreature abstractCreature, AbstractCreature abstractCreature1) {
+        monsterGroup.monsters.forEach(AbstractMonster::applyPowers);
     }
 }

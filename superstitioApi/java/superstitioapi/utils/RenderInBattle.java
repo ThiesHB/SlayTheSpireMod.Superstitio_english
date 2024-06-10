@@ -31,12 +31,14 @@ public interface RenderInBattle {
     ArrayList<RenderInBattle> RENDER_IN_BATTLES_STANCE = new ArrayList<>();
     ArrayList<RenderInBattle> RENDER_IN_BATTLES_PANEL = new ArrayList<>();
     ArrayList<RenderInBattle> RENDER_IN_BATTLES_ABOVE_PANEL = new ArrayList<>();
+    ArrayList<RenderInBattle> ShouldRemove = new ArrayList<>();
 
     static void clearAll() {
         RENDER_IN_BATTLES.clear();
         RENDER_IN_BATTLES_STANCE.clear();
         RENDER_IN_BATTLES_PANEL.clear();
         RENDER_IN_BATTLES_ABOVE_PANEL.clear();
+        ShouldRemove.clear();
     }
 
     static void Register(RenderType renderType, RenderInBattle... renderThings) {
@@ -83,12 +85,15 @@ public interface RenderInBattle {
     default void updateAnimation() {
     }
 
-
     enum RenderType {
+        /**
+         * 比姿态还靠前一点点
+         */
+        Stance,
         /**
          * 在UI层，但是是优先级最低的UI
          */
-        Panel,//UI
+        Panel,
         /**
          * 在战斗中，会被UI等遮盖
          */
@@ -97,7 +102,6 @@ public interface RenderInBattle {
          * 最高层
          */
         AbovePanel,//Top
-        Stance//比姿态还靠前一点点
     }
 
     class RenderInBattlePatch {
@@ -109,13 +113,17 @@ public interface RenderInBattle {
                 forEachRenderInBattle(RenderInBattle::update);
                 forEachRenderInBattle(RenderInBattle::updateAnimation);
                 forEachRenderInBattle(renderInBattle -> {
-                    if (renderInBattle.shouldRemove())
+                    if (renderInBattle.shouldRemove() && !ShouldRemove.contains(renderInBattle)) {
+                        ShouldRemove.add(renderInBattle);
                         addToBotAbstract(() ->
                                 forEachRenderInBattleGroup(renderInBattles -> {
                                     Logger.info("stopRender" + renderInBattle);
                                     renderInBattles.remove(renderInBattle);
+                                    ShouldRemove.remove(renderInBattle);
                                 })
                         );
+                    }
+
                 });
             }
         }
@@ -143,7 +151,7 @@ public interface RenderInBattle {
 
         @SpirePatch(clz = AbstractRoom.class, method = "render", paramtypez = {SpriteBatch.class})
         public static class InGameRenderPatch {
-            @SpireInsertPatch(rloc = 13)
+            @SpireInsertPatch(rloc = 16)
             public static void Insert(final AbstractRoom _inst, final SpriteBatch sb) {
                 if (CardUtility.isNotInBattle()) return;
                 sb.setColor(Color.WHITE);
