@@ -23,16 +23,28 @@
     "BASIC_INFO": "乳液狂飙",
     "DESCRIPTION": "持续到下回合开始前，阻挡伤害。"
   },
-  "SuperstitioMod:PregnantBlock": {
-    "NAME": "妊娠",
-    "NAME_SFW": "吞噬",
-    "BASIC_INFO": "妊娠大肚",
-    "DESCRIPTION": "回合结束时不消失，阻挡伤害。"
-  },
   "SuperstitioMod:DelayRemoveDelayHpLoseBlock": {
     "NAME": "回味情爱",
     "NAME_SFW": "回味热血",
     "BASIC_INFO": "情爱唤起（回味）",
     "DESCRIPTION": "在下回合开始时，回味一些刺激的事情，从而移除 #r腐朽 。"
+  },
+  "SuperstitioMod:PregnantBlock": {
+    "NAME": "妊娠大肚",
+    "NAME_SFW": "仪式护盾",
+    "BASIC_INFO": "妊娠大肚",
+    "DESCRIPTION": "回合结束时不消失，阻挡伤害。"
+  },
+  "SuperstitioMod:PregnantBlock_sealPower": {
+    "NAME": "妊娠-回归",
+    "NAME_SFW": "仪式-吞噬",
+    "BASIC_INFO": "妊娠大肚-回归",
+    "DESCRIPTION": "回合结束时不消失，阻挡伤害。 NL 受到伤害而失去本格挡时，对造成伤害者造成相当于失去格挡值的伤害。 NL #y流产 ： NL 被移除的效果翻倍，并且重新给予给自身。"
+  },
+  "SuperstitioMod:PregnantBlock_newMonster": {
+    "NAME": "妊娠-孕育",
+    "NAME_SFW": "仪式-召唤",
+    "BASIC_INFO": "妊娠大肚-孕育",
+    "DESCRIPTION": "回合结束时不消失，阻挡伤害。 NL #y顺产 ： NL 生成 #y宝宝 。"
   }
 }

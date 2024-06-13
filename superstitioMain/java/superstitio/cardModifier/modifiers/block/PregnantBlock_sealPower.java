@@ -5,16 +5,19 @@ import com.megacrit.cardcrawl.actions.common.ApplyPowerAction;
 import com.megacrit.cardcrawl.cards.DamageInfo;
 import com.megacrit.cardcrawl.core.AbstractCreature;
 import com.megacrit.cardcrawl.powers.AbstractPower;
+import superstitio.DataManager;
 import superstitioapi.cards.DamageActionMaker;
 
 import java.util.ArrayList;
 
 public class PregnantBlock_sealPower extends PregnantBlock {
+    public static final String ID = DataManager.MakeTextID(PregnantBlock_sealPower.class);
+
     private final ArrayList<AbstractPower> sealPower;
     private final AbstractCreature sealCreature;
 
     public PregnantBlock_sealPower(ArrayList<AbstractPower> sealPower, AbstractCreature sealCreature) {
-        super();
+        super(ID);
         this.sealPower = sealPower;
         this.sealCreature = sealCreature;
     }

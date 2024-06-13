@@ -81,7 +81,11 @@
   },
   {
     "WordOrigin": "流产",
-    "WordReplace": "崩溃"
+    "WordReplace": "仪式崩溃"
+  },
+  {
+    "WordOrigin": "顺产",
+    "WordReplace": "仪式成功"
   },
   {
     "WordOrigin": "助兴",
@@ -102,5 +106,9 @@
   {
     "WordOrigin": "受虐狂",
     "WordReplace": "复仇者"
+  },
+  {
+    "WordOrigin": "迅捷",
+    "WordReplace": "极速"
   }
 ]

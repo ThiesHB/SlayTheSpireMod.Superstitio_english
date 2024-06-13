@@ -66,8 +66,8 @@ public class PetManager implements RenderInBattle, SuperstitioApiSubscriber.AtEn
     }
 
     public static AbstractMonster spawnMinion(final Class<? extends AbstractMonster> monsterClass) {
-        Minion minion = new Minion(CopyAndSpawnMonsterUtility.motherFuckerWhyIShouldUseThisToCopyMonster(monsterClass));
-        return spawnMonster(minion);
+        MinionMonster minionMonster = new MinionMonster(CopyAndSpawnMonsterUtility.motherFuckerWhyIShouldUseThisToCopyMonster(monsterClass));
+        return spawnMonster(minionMonster);
     }
 
     public static AbstractMonster spawnMonster(final Class<? extends AbstractMonster> monsterClass) {
@@ -111,18 +111,11 @@ public class PetManager implements RenderInBattle, SuperstitioApiSubscriber.AtEn
 
     @Override
     public void render(SpriteBatch sb) {
-//        monsterGroup.monsters.forEach(m -> m.render(sb));
         monsterGroup.render(sb);
-//        monsterGroup.renderReticle(sb);
     }
 
     @Override
     public void update() {
-//        monsters.monsters.forEach(monster -> {
-////            if (monster.isDeadOrEscaped())
-////                addToBotAbstract(() -> monsters.remove(monster));
-//            monster.update();
-//        });
         monsterGroup.update();
     }
 

@@ -6,10 +6,8 @@ import superstitio.cardModifier.modifiers.AbstractLupaBlock;
 
 public abstract class PregnantBlock extends AbstractLupaBlock {
 
-    public static final String ID = DataManager.MakeTextID(PregnantBlock.class);
-
-    public PregnantBlock() {
-        super(ID);
+    public PregnantBlock(String id) {
+        super(id);
     }
 
     @Override

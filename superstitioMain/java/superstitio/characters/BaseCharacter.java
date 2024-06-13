@@ -36,13 +36,13 @@ import static superstitioapi.utils.CardUtility.isNotInBattle;
 // 继承CustomPlayer类
 public abstract class BaseCharacter extends CustomPlayer {
     // 人物立绘
-    private static final String LUPA_CHARACTER = DataManager.makeImgFilesPath_Character_Lupa("character");
+    public static final String LUPA_CHARACTER = DataManager.makeImgFilesPath_Character_Lupa("character");
     // 火堆的人物立绘（行动前）
-    private static final String LUPA_CHARACTER_SHOULDER_1 = DataManager.makeImgFilesPath_Character_Lupa("shoulder1");
+    public static final String LUPA_CHARACTER_SHOULDER_1 = DataManager.makeImgFilesPath_Character_Lupa("shoulder1");
     // 火堆的人物立绘（行动后）
-    private static final String LUPA_CHARACTER_SHOULDER_2 = DataManager.makeImgFilesPath_Character_Lupa("shoulder2");
+    public static final String LUPA_CHARACTER_SHOULDER_2 = DataManager.makeImgFilesPath_Character_Lupa("shoulder2");
     // 人物死亡图像
-    private static final String LUPA_CORPSE_IMAGE = DataManager.makeImgFilesPath_Character_Lupa("corpse");
+    public static final String LUPA_CORPSE_IMAGE = DataManager.makeImgFilesPath_Character_Lupa("corpse");
     private static final String EnergyBall_Path = "EnergyBall_Lupa/";
     private static final String EnergyBall_VFX_Path = DataManager.makeImgFilesPath_UI(EnergyBall_Path + "vfx");
     // 战斗界面左下角能量图标的每个图层

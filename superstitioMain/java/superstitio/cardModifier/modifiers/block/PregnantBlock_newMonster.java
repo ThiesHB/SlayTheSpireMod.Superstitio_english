@@ -2,30 +2,37 @@ package superstitio.cardModifier.modifiers.block;
 
 import com.evacipated.cardcrawl.mod.stslib.blockmods.AbstractBlockModifier;
 import com.megacrit.cardcrawl.cards.DamageInfo;
-import com.megacrit.cardcrawl.core.AbstractCreature;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
-import com.megacrit.cardcrawl.monsters.exordium.ApologySlime;
-import superstitio.Logger;
-import superstitioapi.pet.CopyAndSpawnMonsterUtility;
+import superstitio.DataManager;
+import superstitioapi.pet.Minion;
 import superstitioapi.pet.PetManager;
 
 public class PregnantBlock_newMonster extends PregnantBlock {
-    private final AbstractMonster sealCreature;
+    public static final String ID = DataManager.MakeTextID(PregnantBlock_newMonster.class);
+
+    private final Minion sealCreature;
     private final AbstractMonster father;
-    public PregnantBlock_newMonster(){
-        sealCreature = null;
-        father = null;
+
+    public PregnantBlock_newMonster() {
+        super(ID);
+        this.sealCreature = null;
+        this.father = null;
     }
 
     public PregnantBlock_newMonster(AbstractMonster father) {
-        super();
+        super(ID);
         AbstractMonster fatherCreature;
-        AbstractMonster sealCreature;
         fatherCreature = father;
-        sealCreature = CopyAndSpawnMonsterUtility.motherFuckerWhyIShouldUseThisToCopyMonster(father.getClass());
+        this.father = fatherCreature;
+        this.sealCreature = null;
+    }
+
+    public PregnantBlock_newMonster(AbstractMonster father, Minion sealCreature) {
+        super(ID);
+        AbstractMonster fatherCreature;
+        fatherCreature = father;
         this.father = fatherCreature;
         this.sealCreature = sealCreature;
-        this.sealCreature.currentHealth = Math.max(this.sealCreature.currentHealth / 4, 20);
     }
 
     @Override
@@ -43,5 +50,10 @@ public class PregnantBlock_newMonster extends PregnantBlock {
     @Override
     public void removeNaturally(int remainingDamage) {
 //        removeNatural.get();
+        if (father == null) return;
+        if (sealCreature == null)
+            PetManager.spawnMinion(father.getClass());
+        else
+            PetManager.spawnMonster(sealCreature);
     }
 }

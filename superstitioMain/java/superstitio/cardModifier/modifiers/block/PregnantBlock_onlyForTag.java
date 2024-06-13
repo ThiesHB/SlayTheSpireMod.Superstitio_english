@@ -9,7 +9,7 @@ public class PregnantBlock_onlyForTag extends PregnantBlock {
     public static final String ID = DataManager.MakeTextID(PregnantBlock_onlyForTag.class);
 
     public PregnantBlock_onlyForTag() {
-        super();
+        super(ID);
     }
 
     @Override

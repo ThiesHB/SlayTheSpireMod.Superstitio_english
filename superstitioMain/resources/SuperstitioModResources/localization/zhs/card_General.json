@@ -59,7 +59,7 @@
   "SuperstitioMod:UnBirth": {
     "NAME": "胎内回归",
     "NAME_SFW": "力量汲取",
-    "DESCRIPTION": "获得 !B! *妊娠 。 NL 把目标所有的 负面效果 和 人工制品 封印入 *妊娠 。 NL 受到伤害时，若本牌所给予的 *妊娠 存在，移除目标敌人相同生命值。 NL superstitiomod:流产 时，获得两倍封印的效果。",
+    "DESCRIPTION": "获得 !B! superstitiomod:妊娠 。 NL 移除目标所有的 负面效果 和 人工制品 。 NL superstitiomod:流产 时，自身获得两倍封印的效果。",
     "FLAVOR": "我会包容你的一切：你的欲望、你的梦想、你的爱…… NL 请把你的一切交给我。"
   },
   "SuperstitioMod:ChokeChoker": {
@@ -189,9 +189,9 @@
     ]
   },
   "SuperstitioMod:HaveBirthWith": {
-    "NAME": "生宝宝",
+    "NAME": "孕育",
     "NAME_SFW": "呼唤",
-    "DESCRIPTION": "还在测试阶段的卡，用于体验召唤系统，之后应该会接入妊娠系统。 NL 生成目标敌人的宝宝版。宝宝的攻击和尺寸是目标敌人的三分之一，血量则是三分之一。 NL 宝宝目前不会受到攻击，不会吸引火力，只会攻击敌人和强化自身而不会给敌人附加负面状态。 NL 宝宝可以左键拖动。",
+    "DESCRIPTION": "获得 !B! superstitiomod:妊娠 。 NL 顺产： 生成和目标对应的 superstitiomod:宝宝 。",
     "FLAVOR": ""
   }
 }

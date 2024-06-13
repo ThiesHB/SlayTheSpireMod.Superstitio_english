@@ -49,8 +49,6 @@ public class UnBirth extends GeneralCard {
             ForPlayer(AbstractDungeon.player);
         else
             ForMonster((AbstractMonster) target);
-
-
     }
 
     private void ForPlayer(AbstractPlayer player) {

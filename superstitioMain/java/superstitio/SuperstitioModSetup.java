@@ -12,10 +12,7 @@ import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.core.Settings;
 import com.megacrit.cardcrawl.helpers.FontHelper;
 import com.megacrit.cardcrawl.helpers.ImageMaster;
-import com.megacrit.cardcrawl.localization.CharacterStrings;
-import com.megacrit.cardcrawl.localization.LocalizedStrings;
-import com.megacrit.cardcrawl.localization.RelicStrings;
-import com.megacrit.cardcrawl.localization.UIStrings;
+import com.megacrit.cardcrawl.localization.*;
 import com.megacrit.cardcrawl.unlock.UnlockTracker;
 import superstitio.cards.SuperstitioCard;
 import superstitio.characters.Lupa;
@@ -220,6 +217,7 @@ public class SuperstitioModSetup implements
                 DataManager.makeLocalizationPath(Settings.language, getEnableSFW() ? "character_LupaSFW" : "character_Lupa"));
         BaseMod.loadCustomStringsFile(RelicStrings.class, DataManager.makeLocalizationPath(Settings.language, "relic_Lupa"));
         BaseMod.loadCustomStringsFile(UIStrings.class, DataManager.makeLocalizationPath(Settings.language, "UIStrings"));
+        BaseMod.loadCustomStringsFile(MonsterStrings.class, DataManager.makeLocalizationPath(Settings.language, "monsters"));
         if (getEnableSFW()) {
             MakeSFWWord();
             SFWWordReplace();

@@ -1,7 +1,5 @@
 package superstitioapi.powers.interfaces.invisible;
 
-import com.evacipated.cardcrawl.mod.stslib.patches.powerInterfaces.InvisiblePowerPatch;
-import com.evacipated.cardcrawl.mod.stslib.powers.interfaces.InvisiblePower;
 import com.evacipated.cardcrawl.modthespire.lib.SpirePatch;
 import com.megacrit.cardcrawl.core.AbstractCreature;
 import javassist.CannotCompileException;
