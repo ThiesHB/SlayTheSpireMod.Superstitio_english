@@ -4,6 +4,7 @@ import com.evacipated.cardcrawl.mod.stslib.damagemods.AbstractDamageModifier;
 import com.evacipated.cardcrawl.mod.stslib.damagemods.BindingHelper;
 import com.evacipated.cardcrawl.mod.stslib.damagemods.DamageModContainer;
 import com.evacipated.cardcrawl.mod.stslib.damagemods.DamageModifierManager;
+import com.evacipated.cardcrawl.modthespire.lib.SpireEnum;
 import com.megacrit.cardcrawl.actions.common.DamageAction;
 import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.cards.DamageInfo;
@@ -12,6 +13,8 @@ import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import com.megacrit.cardcrawl.monsters.exordium.ApologySlime;
 import superstitioapi.Logger;
+import superstitioapi.actions.AutoDoneInstantAction;
+import superstitioapi.shader.HeartShader;
 import superstitioapi.utils.ActionUtility;
 
 import java.util.Arrays;
@@ -24,9 +27,11 @@ import static com.megacrit.cardcrawl.actions.AbstractGameAction.AttackEffect;
 public class DamageActionMaker {
     private final AbstractCreature[] _targets;
     private final AbstractCreature source;
-    public int damageAmount;
+    private final int damageAmount;
+    private int[] damages;
+    private boolean aoeDamage;
     private DamageInfo.DamageType damageType = DamageInfo.DamageType.NORMAL;
-    private AttackEffect effect = AttackEffect.BLUNT_LIGHT;
+    private AttackEffect effect = DamageActionMaker.DamageEffect.HeartMultiInOne;
     private boolean superFast = false;
     private Object instigator;
     private List<AbstractDamageModifier> damageModifiers = null;
@@ -90,11 +95,19 @@ public class DamageActionMaker {
     }
 
     public void addToBot() {
-        getTargets().forEach(target -> AbstractDungeon.actionManager.addToBottom(this.get(target)));
+        for (AbstractCreature target : getTargets()) {
+            AbstractDungeon.actionManager.addToBottom(this.get(target));
+            if (this.effect == DamageEffect.HeartMultiInOne)
+                AutoDoneInstantAction.addToBotAbstract(() -> new HeartShader.HeartMultiAtOneEffect(target.hb).addToEffectsQueue());
+        }
     }
 
     public void addToTop() {
-        getTargets().forEach(target -> AbstractDungeon.actionManager.addToTop(this.get(target)));
+        for (AbstractCreature target : getTargets()) {
+            AbstractDungeon.actionManager.addToTop(this.get(target));
+            if (this.effect == DamageEffect.HeartMultiInOne)
+                AutoDoneInstantAction.addToTopAbstract(() -> new HeartShader.HeartMultiAtOneEffect(target.hb).addToEffectsQueue());
+        }
     }
 
     public DamageActionMaker setDamageType(DamageInfo.DamageType damageType) {
@@ -125,20 +138,30 @@ public class DamageActionMaker {
     }
 
     private DamageAction get(AbstractCreature target) {
+        AttackEffect attackEffect;
+        if (effect == DamageEffect.HeartMultiInOne)
+            attackEffect = AttackEffect.NONE;
+        else
+            attackEffect = effect;
         if (damageModifiers != null)
             return new DamageAction(target,
                     BindingHelper.makeInfo(new DamageModContainer(instigator, damageModifiers), source, damageAmount, damageType),
-                    effect, superFast);
+                    attackEffect, superFast);
         return new DamageAction(target,
                 new DamageInfo(source, damageAmount, damageType),
-                effect, superFast);
+                attackEffect, superFast);
     }
 
-    private DamageAction get() {
-        if (damageModifiers != null)
-            return new DamageAction(getTargets().get(0),
-                    BindingHelper.makeInfo(new DamageModContainer(instigator, damageModifiers), source, damageAmount, damageType),
-                    effect, superFast);
-        return new DamageAction(getTargets().get(0), new DamageInfo(source, damageAmount, damageType), effect, superFast);
+//    private DamageAction get() {
+//        if (damageModifiers != null)
+//            return new DamageAction(getTargets().get(0),
+//                    BindingHelper.makeInfo(new DamageModContainer(instigator, damageModifiers), source, damageAmount, damageType),
+//                    effect, superFast);
+//        return new DamageAction(getTargets().get(0), new DamageInfo(source, damageAmount, damageType), effect, superFast);
+//    }
+
+    public static class DamageEffect {
+        @SpireEnum
+        public static AttackEffect HeartMultiInOne;
     }
 }

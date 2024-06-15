@@ -9,14 +9,23 @@
 // #define SOLID_HEARTS 1
 
 // heart(p) = 0 is a heart-shaped curve.
+#version 100
 #ifdef GL_ES
 precision lowp float;
 #else
-precision lowp float;
+precision mediump float;
 #endif
 #define RANDOMSEED 114.514
+
 varying vec2 v_texCoords;
 uniform float u_time;
+uniform float u_speed;//速度
+uniform vec2 u_tileTimes;//径向和轴向的爱心个数
+uniform float u_startTime;//初始时间，使得不同的种子错位，也作为随机数种子使用
+uniform float u_density;//密度，越小密度越大
+uniform float u_whRate;//长宽比例
+uniform vec2 u_offset;//偏移量
+
 // const vec3 u_color = vec3(0.5);
 
 vec2 noise(vec2 p) {
@@ -30,13 +39,6 @@ float heart(vec2 p, float s) {
     q.y -= abs(p.x) * .63;
     return (length(q) - .7) * s;
 }
-uniform float u_speed;//速度
-uniform vec2 u_tileTimes;//径向和轴向的爱心个数
-uniform float u_startTime;//初始时间，使得不同的种子错位，也作为随机数种子使用
-uniform float u_density;//密度，越小密度越大
-uniform float u_whRate;//长宽比例
-uniform vec2 u_offset;//偏移量
-
 
 #define PI 3.14159
 #define TESTMODS
@@ -74,7 +76,7 @@ vec4 hearts(vec2 polar, float time, vec2 tileTimes,float randomSeed) {
     // float heartDist = heart(polar + offset, n.y * 100.);
 
     float a = smoothstep(.0, 0.25, n.x*n.x);
-    vec4 heartGlow = smoothstep(0.1, -.05, heartDist) * .85 * a * vec4(0.900,0.568,0.884,1.0) + smoothstep(0.06, -0.2 / n.y, heartDist) * .75 * vec4(0.950,0.234,0.494,1.0);
+    vec4 heartGlow = smoothstep(0.1, -.05, heartDist) * .85 * a * vec4(0.900,0.568,0.884,1.0) + smoothstep(0.12, -0.02, heartDist) * .75 * vec4(0.950,0.234,0.494,1.0);
     vec4 heartCol = smoothstep(0., -.05, heartDist) * .25 * a *vec4(0.900,0.186,0.856,1.0) + heartGlow;
     // vec3 totalCol = vec3(0.15 + l / 2., .0, 0.);
 
@@ -84,7 +86,7 @@ vec4 hearts(vec2 polar, float time, vec2 tileTimes,float randomSeed) {
 #ifdef TESTMOD
     return vec4(vec4(0.15 + l / 2., .0, 0.,1.0) * 11.+ heartCol)*alpha;
 #else
-    vec4 totalCol = heartCol * step(0.6, noise(polarID + .4+ randomSeed).x);
+    vec4 totalCol = heartCol * step(u_density, noise(polarID + .4+ randomSeed).x);
     return vec4(totalCol*alpha*4.);
     // 这个step使得不是每个tile里面都有东西
 #endif

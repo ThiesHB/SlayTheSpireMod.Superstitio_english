@@ -8,7 +8,7 @@ import com.megacrit.cardcrawl.cards.DamageInfo;
 import com.megacrit.cardcrawl.core.AbstractCreature;
 import com.megacrit.cardcrawl.powers.AbstractPower;
 import superstitio.DataManager;
-import superstitio.delayHpLose.UnBlockAbleDamage;
+import superstitio.delayHpLose.UnBlockAbleIgnoresTempHPDamage;
 import superstitioapi.InBattleDataManager;
 import superstitioapi.SuperstitioApiSubscriber;
 import superstitioapi.cards.DamageActionMaker;
@@ -16,7 +16,7 @@ import superstitioapi.powers.interfaces.OnPostApplyThisPower;
 
 import static superstitioapi.InBattleDataManager.subscribeManageGroups;
 
-public class SexualDamage extends AbstractSuperstitioPower implements HealthBarRenderPower, OnPostApplyThisPower, SuperstitioApiSubscriber.AtEndOfPlayerTurnSubscriber {
+public class SexualDamage extends AbstractSuperstitioPower implements HealthBarRenderPower, OnPostApplyThisPower, SuperstitioApiSubscriber.AtEndOfPlayerTurnPreCardSubscriber {
     public static final String POWER_ID = DataManager.MakeTextID(SexualDamage.class);
     private static final Color BarColor = Color.PURPLE.cpy();
     protected final AbstractCreature giver;
@@ -51,11 +51,11 @@ public class SexualDamage extends AbstractSuperstitioPower implements HealthBarR
     }
 
     @Override
-    public void receiveAtEndOfPlayerTurn() {
+    public void receiveAtEndOfPlayerTurnPreCard() {
 //        this.owner.damage(BindingHelper.makeInfo(new DamageModContainer(this, new UnBlockAbleDamage()), giver, amount, DamageType.HP_LOSS));
         this.flash();
         DamageActionMaker.maker(this.giver, this.amount, this.owner)
-                .setDamageModifier(this, new UnBlockAbleDamage())
+                .setDamageModifier(this, new UnBlockAbleIgnoresTempHPDamage())
                 .setDamageType(DamageInfo.DamageType.HP_LOSS)
 //                .setDamageType(   DataManager.CanOnlyDamageDamageType.UnBlockAbleDamageType)
                 .setEffect(AbstractGameAction.AttackEffect.POISON)

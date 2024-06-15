@@ -11,6 +11,7 @@ import superstitio.cards.general.FuckJob_Card;
 import superstitio.cards.general.GeneralCard;
 import superstitio.powers.SexualHeat;
 import superstitioapi.actions.AutoDoneInstantAction;
+import superstitioapi.cards.DamageActionMaker;
 
 public class Job_LegPit extends GeneralCard implements FuckJob_Card {
     public static final String ID = DataManager.MakeTextID(Job_LegPit.class);
@@ -36,7 +37,7 @@ public class Job_LegPit extends GeneralCard implements FuckJob_Card {
     @Override
     public void use(AbstractPlayer player, AbstractMonster monster) {
         for (int i = 0; i < Attack_Num; i++) {
-            addToBot_dealDamage(monster, AbstractGameAction.AttackEffect.BLUNT_LIGHT);
+            addToBot_dealDamage(monster, DamageActionMaker.DamageEffect.HeartMultiInOne);
             AutoDoneInstantAction.addToBotAbstract(() -> {
                 if (monster.lastDamageTaken > 0 && SexualHeat.isInOrgasm(AbstractDungeon.player))
                     addToBot_drawCards();

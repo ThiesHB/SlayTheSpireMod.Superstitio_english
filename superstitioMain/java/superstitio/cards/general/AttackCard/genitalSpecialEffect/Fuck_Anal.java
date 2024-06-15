@@ -8,6 +8,7 @@ import superstitio.DataManager;
 import superstitio.cards.general.FuckJob_Card;
 import superstitio.cards.general.GeneralCard;
 import superstitio.powers.SexualDamage;
+import superstitioapi.cards.DamageActionMaker;
 
 import static superstitioapi.actions.AutoDoneInstantAction.addToBotAbstract;
 
@@ -39,7 +40,7 @@ public class Fuck_Anal extends GeneralCard implements FuckJob_Card {
 
     @Override
     public void use(final AbstractPlayer player, final AbstractMonster monster) {
-        addToBot_dealDamage(monster);
+        addToBot_dealDamage(monster, DamageActionMaker.DamageEffect.HeartMultiInOne);
         addToBotAbstract(() ->
                 monster.powers.stream().filter(power -> power instanceof SexualDamage).map(power -> (SexualDamage) power)
                         .findAny()

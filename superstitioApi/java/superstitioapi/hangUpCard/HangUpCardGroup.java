@@ -23,7 +23,7 @@ import java.util.stream.Stream;
 
 public class HangUpCardGroup implements RenderInBattle,
         OnCardUseSubscriber, OnPowersModifiedSubscriber, OnPlayerTurnStartSubscriber,
-        SuperstitioApiSubscriber.AtEndOfPlayerTurnSubscriber {
+        SuperstitioApiSubscriber.AtEndOfPlayerTurnPreCardSubscriber {
     public Hitbox hitbox;
     public ArrayList<CardOrb> cards = new ArrayList<>();
     private int remove_check_counter = 10;
@@ -208,7 +208,7 @@ public class HangUpCardGroup implements RenderInBattle,
     }
 
     @Override
-    public void receiveAtEndOfPlayerTurn() {
+    public void receiveAtEndOfPlayerTurnPreCard() {
         this.forEachOrbInThisOrbGroup(AbstractOrb::onEndOfTurn);
     }
 }

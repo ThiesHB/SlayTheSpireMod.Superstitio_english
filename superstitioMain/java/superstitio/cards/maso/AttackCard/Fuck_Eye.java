@@ -11,6 +11,7 @@ import superstitio.cards.general.FuckJob_Card;
 import superstitio.cards.general.TempCard.Fuck_Ear;
 import superstitio.cards.maso.MasoCard;
 import superstitio.delayHpLose.RemoveDelayHpLoseBlock;
+import superstitioapi.cards.DamageActionMaker;
 import superstitioapi.cards.patch.GoSomewhereElseAfterUse;
 import superstitioapi.hangUpCard.CardOrb_WaitCardTrigger;
 import superstitioapi.utils.ActionUtility;
@@ -49,8 +50,8 @@ public class Fuck_Eye extends MasoCard implements FuckJob_Card, GoSomewhereElseA
 
     @Override
     public void use(AbstractPlayer player, AbstractMonster monster) {
-        addToBot_dealDamage(monster, AbstractGameAction.AttackEffect.BLUNT_LIGHT);
-        addToBot_dealDamage(monster, AbstractGameAction.AttackEffect.BLUNT_LIGHT);
+        addToBot_dealDamage(monster, DamageActionMaker.DamageEffect.HeartMultiInOne);
+        addToBot_dealDamage(monster, DamageActionMaker.DamageEffect.HeartMultiInOne);
         addToBot_dealDamage(AbstractDungeon.player, AbstractGameAction.AttackEffect.BLUNT_LIGHT);
         addToBot_dealDamage(AbstractDungeon.player, AbstractGameAction.AttackEffect.BLUNT_LIGHT);
         addToBot_applyPower(new WeakPower(AbstractDungeon.player, 1, false));

@@ -3,11 +3,9 @@ package superstitioapi;
 
 import basemod.ReflectionHacks;
 import com.badlogic.gdx.Gdx;
-import com.evacipated.cardcrawl.modthespire.lib.SpireEnum;
 import com.evacipated.cardcrawl.modthespire.lib.SpireInitializer;
 import com.google.gson.Gson;
 import com.google.gson.internal.$Gson$Types;
-import com.megacrit.cardcrawl.cards.DamageInfo;
 import com.megacrit.cardcrawl.core.Settings;
 import com.megacrit.cardcrawl.localization.LocalizedStrings;
 
@@ -229,13 +227,5 @@ public class DataUtility {
 
     public interface hasUuid {
         String getUuid();
-    }
-
-    public static class CanOnlyDamageDamageType {
-        @SpireEnum
-        public static DamageInfo.DamageType UnBlockAbleDamageType;
-
-        @SpireEnum
-        public static DamageInfo.DamageType NoTriggerMasoRelicDamageType;
     }
 }

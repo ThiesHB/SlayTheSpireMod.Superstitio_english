@@ -93,7 +93,8 @@ public abstract class Minion extends CustomMonster {
 
     @Override
     public void render(SpriteBatch sb) {
-        this.getPetCore().tint.color.a = 0;
+        if (this.img != null)
+            this.getPetCore().tint.color.a = 0;
         this.getPetCore().render(sb);
         if (this.isDead || this.escaped) return;
         if (this.atlas != null) {
@@ -135,14 +136,12 @@ public abstract class Minion extends CustomMonster {
         super.update();
         updatePetCore();
 
-        if (isHovered()) {
+        if (isHovered() && !AbstractDungeon.player.isDraggingCard) {
             if (InputHelper.justClickedLeft) {
                 this.Drag_Press();
-            }
-            else if (InputHelper.isMouseDown) {
+            } else if (InputHelper.isMouseDown) {
                 this.Drag_Hold();
-            }
-            else if (InputHelper.justReleasedClickLeft) {
+            } else if (InputHelper.justReleasedClickLeft) {
                 this.Drag_Release();
             }
         }

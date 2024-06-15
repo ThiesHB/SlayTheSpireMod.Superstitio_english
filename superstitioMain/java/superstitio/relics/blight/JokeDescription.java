@@ -1,10 +1,8 @@
 package superstitio.relics.blight;
 
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
-import com.megacrit.cardcrawl.relics.AbstractRelic;
 import superstitio.DataManager;
 import superstitio.relics.SuperstitioRelic;
-import superstitioapi.DataUtility;
 import superstitioapi.relicToBlight.InfoBlight;
 
 public class JokeDescription extends SuperstitioRelic implements InfoBlight.BecomeInfoBlight  {

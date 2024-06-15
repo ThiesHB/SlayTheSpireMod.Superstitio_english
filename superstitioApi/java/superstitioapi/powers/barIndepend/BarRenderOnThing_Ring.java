@@ -3,17 +3,17 @@ package superstitioapi.powers.barIndepend;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.graphics.glutils.ShaderProgram;
 import com.badlogic.gdx.math.MathUtils;
 import com.megacrit.cardcrawl.core.Settings;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.helpers.Hitbox;
 import com.megacrit.cardcrawl.helpers.ImageMaster;
 import com.megacrit.cardcrawl.helpers.input.InputHelper;
+import superstitioapi.shader.RingShader;
 
 import java.util.function.Supplier;
 
-import static superstitioapi.shader.ShaderUtility.*;
+import static superstitioapi.shader.ShaderUtility.originShader;
 
 public class BarRenderOnThing_Ring extends BarRenderOnThing {
     protected static final float BAR_SIZE = BAR_DIAMETER * 6.0f;
@@ -37,7 +37,7 @@ public class BarRenderOnThing_Ring extends BarRenderOnThing {
     public float barHalfThick_renormalization;
     public float barSize;
     public float barEndDegree;
-    protected ShaderProgram shader;
+//    protected ShaderProgram shader;
 
     public BarRenderOnThing_Ring(Supplier<Hitbox> hitbox, HasBarRenderOnCreature power) {
         super(hitbox, power);
@@ -54,7 +54,7 @@ public class BarRenderOnThing_Ring extends BarRenderOnThing {
         this.hitbox.width = barSize;
         this.hitbox.height = barSize;
         updateHitBoxPlace(this.hitbox);
-        shader = ringShader_useHalfPic;
+//        shader = RingShader.ringShader_useHalfPic;
     }
 
 
@@ -119,11 +119,7 @@ public class BarRenderOnThing_Ring extends BarRenderOnThing {
     }
 
     private void setUpShader(SpriteBatch sb, float startLength, float length) {
-        sb.setShader(shader);
-        sb.getShader().setUniformf("u_radius", barAverageRadius_renormalization);
-        sb.getShader().setUniformf("u_halfThick", barHalfThick_renormalization);
-        sb.getShader().setUniformf("u_degreeStart", startLength);
-        sb.getShader().setUniformf("u_degreeLength", length);
+        RingShader.setUp_ringShader_useHalfPic(sb, barAverageRadius_renormalization, barHalfThick_renormalization, startLength, length);
     }
 
     @Override
@@ -220,8 +216,7 @@ public class BarRenderOnThing_Ring extends BarRenderOnThing {
 
             if (this.hovered) {
                 this.hovered = isHovered(x, y);
-            }
-            else {
+            } else {
                 this.hovered = isHovered(x, y);
                 if (this.hovered) {
                     this.justHovered = true;
@@ -234,17 +229,17 @@ public class BarRenderOnThing_Ring extends BarRenderOnThing {
             if (!Settings.isDebug && !Settings.isInfo) return;
             if (this.clickStarted) {
                 sb.setColor(Color.CHARTREUSE);
-            }
-            else {
+            } else {
                 sb.setColor(Color.RED);
             }
 
             originShader = sb.getShader();
-            sb.setShader(ringShader);
-            sb.getShader().setUniformf("u_degreeStart", startDegree);
-            sb.getShader().setUniformf("u_degreeLength", lengthDegree);
-            sb.getShader().setUniformf("u_radius", averageRadius / width);
-            sb.getShader().setUniformf("u_halfThick", halfThick / width);
+            RingShader.setUp_ringShader_useHalfPic(sb, startDegree, lengthDegree, averageRadius / width,  halfThick / width);
+//            sb.setShader(RingShader.ringShader);
+//            sb.getShader().setUniformf("u_degreeStart", startDegree);
+//            sb.getShader().setUniformf("u_degreeLength", lengthDegree);
+//            sb.getShader().setUniformf("u_radius", averageRadius / width);
+//            sb.getShader().setUniformf("u_halfThick", halfThick / width);
             sb.draw(ImageMaster.DEBUG_HITBOX_IMG, this.x, this.y, this.width, this.height);
             sb.setShader(originShader);
         }

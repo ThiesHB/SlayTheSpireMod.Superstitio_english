@@ -5,12 +5,10 @@ import com.megacrit.cardcrawl.cards.DamageInfo;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.core.AbstractCreature;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
-import com.megacrit.cardcrawl.relics.AbstractRelic;
 import superstitio.DataManager;
 import superstitio.powers.AbstractSuperstitioPower;
 import superstitio.powers.SexualHeat;
 import superstitio.relics.SuperstitioRelic;
-import superstitioapi.DataUtility;
 import superstitioapi.actions.AutoDoneInstantAction;
 import superstitioapi.relicToBlight.InfoBlight;
 import superstitioapi.utils.ActionUtility;
@@ -74,7 +72,7 @@ public class MasochismMode extends SuperstitioRelic implements InfoBlight.Become
         public void wasHPLost(DamageInfo info, int damageAmount) {
             if (CardUtility.isNotInBattle()) return;
             if (info.type == DataManager.CanOnlyDamageDamageType.UnBlockAbleDamageType) return;
-            if (info.type == DataManager.CanOnlyDamageDamageType.NoTriggerMasoRelicDamageType) return;
+            if (info.type == DataManager.CanOnlyDamageDamageType.NoTriggerLupaAndMasoRelicHpLose) return;
             this.flash();
             if (damageAmount < MasochismModeDamageNeed) return;
             AddSexualHeat(damageAmount / MasochismModeDamageNeed * MasochismModeSexualHeatRate);
@@ -83,6 +81,5 @@ public class MasochismMode extends SuperstitioRelic implements InfoBlight.Become
         @Override
         public void updateDescriptionArgs() {
         }
-
     }
 }

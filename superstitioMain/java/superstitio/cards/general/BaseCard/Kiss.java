@@ -5,6 +5,7 @@ import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import superstitio.DataManager;
 import superstitio.cards.general.GeneralCard;
+import superstitioapi.cards.DamageActionMaker;
 
 public class Kiss extends GeneralCard {
     public static final String ID = DataManager.MakeTextID(Kiss.class);
@@ -28,7 +29,7 @@ public class Kiss extends GeneralCard {
 
     @Override
     public void use(AbstractPlayer player, AbstractMonster monster) {
-        addToBot_dealDamage(monster, AbstractGameAction.AttackEffect.BLUNT_LIGHT);
+        addToBot_dealDamage(monster, DamageActionMaker.DamageEffect.HeartMultiInOne);
     }
 
     @Override

@@ -9,6 +9,7 @@ import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import superstitio.DataManager;
 import superstitio.InBattleDataManager;
 import superstitio.cards.general.GeneralCard;
+import superstitioapi.cards.DamageActionMaker;
 import superstitioapi.utils.CardUtility;
 
 import java.util.Collections;
@@ -67,7 +68,7 @@ public class CountSign extends GeneralCard {
     @Override
     public void use(final AbstractPlayer player, final AbstractMonster monster) {
         updateDamage();
-        addToBot_dealDamage(monster, AbstractGameAction.AttackEffect.BLUNT_HEAVY);
+        addToBot_dealDamage(monster, DamageActionMaker.DamageEffect.HeartMultiInOne);
     }
 
     @Override

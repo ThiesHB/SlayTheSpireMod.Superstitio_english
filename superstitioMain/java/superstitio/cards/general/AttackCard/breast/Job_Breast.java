@@ -8,6 +8,7 @@ import superstitio.DataManager;
 import superstitio.cards.general.FuckJob_Card;
 import superstitio.cards.general.GeneralCard;
 import superstitio.powers.Milk;
+import superstitioapi.cards.DamageActionMaker;
 
 public class Job_Breast extends GeneralCard implements FuckJob_Card {
     public static final String ID = DataManager.MakeTextID(Job_Breast.class);
@@ -32,7 +33,7 @@ public class Job_Breast extends GeneralCard implements FuckJob_Card {
 
     @Override
     public void use(AbstractPlayer player, AbstractMonster monster) {
-        addToBot_dealDamage(monster, AbstractGameAction.AttackEffect.BLUNT_LIGHT);
+        addToBot_dealDamage(monster, DamageActionMaker.DamageEffect.HeartMultiInOne);
         addToBot_applyPower(new Milk(AbstractDungeon.player, this.magicNumber));
     }
 

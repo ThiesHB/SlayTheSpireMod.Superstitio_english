@@ -39,7 +39,9 @@ public class PregnantBlock_newMonster extends PregnantBlock {
     public AbstractBlockModifier makeCopy() {
         if (this.father == null)
             return new PregnantBlock_newMonster();
-        return new PregnantBlock_newMonster(this.father);
+        if (this.sealCreature == null)
+            return new PregnantBlock_newMonster(this.father);
+        return new PregnantBlock_newMonster(this.father, this.sealCreature);
     }
 
     @Override

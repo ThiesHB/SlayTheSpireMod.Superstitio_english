@@ -7,6 +7,7 @@ import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import superstitio.DataManager;
 import superstitio.cards.general.FuckJob_Card;
 import superstitio.cards.general.GeneralCard;
+import superstitioapi.cards.DamageActionMaker;
 
 //腹股沟
 public class Job_Groin extends GeneralCard implements FuckJob_Card {
@@ -57,7 +58,7 @@ public class Job_Groin extends GeneralCard implements FuckJob_Card {
     @Override
     public void use(final AbstractPlayer player, final AbstractMonster monster) {
         updateDamage();
-        addToBot_dealDamage(monster, AbstractGameAction.AttackEffect.BLUNT_HEAVY);
+        addToBot_dealDamage(monster, DamageActionMaker.DamageEffect.HeartMultiInOne);
     }
 
     @Override

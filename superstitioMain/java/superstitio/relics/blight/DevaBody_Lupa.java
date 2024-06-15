@@ -7,7 +7,6 @@ import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import com.megacrit.cardcrawl.powers.AbstractPower;
-import com.megacrit.cardcrawl.relics.AbstractRelic;
 import superstitio.DataManager;
 import superstitio.cards.SuperstitioCard;
 import superstitio.cards.general.FuckJob_Card;
@@ -18,11 +17,11 @@ import superstitio.powers.lupaOnly.FloorSemen;
 import superstitio.powers.lupaOnly.InsideSemen;
 import superstitio.powers.lupaOnly.OutsideSemen;
 import superstitio.relics.SuperstitioRelic;
-import superstitioapi.DataUtility;
 import superstitioapi.relicToBlight.InfoBlight;
 import superstitioapi.utils.ActionUtility;
 
 import static com.megacrit.cardcrawl.dungeons.AbstractDungeon.player;
+import static superstitio.DataManager.CanOnlyDamageDamageType.NoTriggerLupaAndMasoRelicHpLose;
 import static superstitio.DataManager.CanOnlyDamageDamageType.UnBlockAbleDamageType;
 import static superstitioapi.utils.ActionUtility.addToTop_applyPower;
 
@@ -42,6 +41,9 @@ public class DevaBody_Lupa extends SuperstitioRelic implements InfoBlight.Become
         DelayHpLosePatch.IsImmunityFields.checkShouldImmunity.set(
                 player, ((player, damageInfo, damageAmount) -> {
                     if (damageInfo.type == UnBlockAbleDamageType) {
+                        return false;
+                    }
+                    if (damageInfo.type == NoTriggerLupaAndMasoRelicHpLose) {
                         return false;
                     }
                     addToTop_applyPower(new DelayHpLosePower_ApplyOnAttacked(AbstractDungeon.player, damageAmount));

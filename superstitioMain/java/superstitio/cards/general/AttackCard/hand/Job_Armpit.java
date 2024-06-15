@@ -53,7 +53,9 @@ public class Job_Armpit extends GeneralCard implements FuckJob_Card, GoSomewhere
         new CardOrb_WaitCardTrigger(this, cardGroup, this.magicNumber, (orb, card) -> {
             AbstractMonster creature = DamageActionMaker.getMonsterOrFirstMonster(orb.lastTarget);
             orb.StartHitCreature(creature);
-            DamageActionMaker.maker(orb.getOriginCard().damage, creature).setExampleCard(this).addToBot();
+            DamageActionMaker.maker(orb.getOriginCard().damage, creature)
+                    .setEffect(DamageActionMaker.DamageEffect.HeartMultiInOne)
+                    .setExampleCard(this).addToBot();
         })
                 .setCardPredicate(card -> card.type == CardType.ATTACK)
                 .setNotEvokeOnEndOfTurn()
@@ -64,7 +66,9 @@ public class Job_Armpit extends GeneralCard implements FuckJob_Card, GoSomewhere
         new CardOrb_WaitCardTrigger(copyCard, cardGroup, this.magicNumber, (orb, card) -> {
             AbstractMonster creature = DamageActionMaker.getMonsterOrFirstMonster(orb.lastTarget);
             orb.StartHitCreature(creature);
-            DamageActionMaker.maker(orb.getOriginCard().damage, creature).setExampleCard(this).addToBot();
+            DamageActionMaker.maker(orb.getOriginCard().damage, creature)
+                    .setEffect(DamageActionMaker.DamageEffect.HeartMultiInOne)
+                    .setExampleCard(this).addToBot();
         })
                 .setCardPredicate(card -> card.type == CardType.ATTACK)
                 .setNotEvokeOnEndOfTurn()

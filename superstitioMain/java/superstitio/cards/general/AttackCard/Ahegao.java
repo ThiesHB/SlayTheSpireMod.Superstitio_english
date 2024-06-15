@@ -44,7 +44,9 @@ public class Ahegao extends GeneralCard implements GoSomewhereElseAfterUse {
         new CardOrb_EachCardTrigger(this, cardGroup, this.magicNumber, (orb, card) -> {
             AbstractMonster creature = DamageActionMaker.getMonsterOrFirstMonster(orb.lastTarget);
             orb.StartHitCreature(creature);
-            DamageActionMaker.maker(orb.getOriginCard().damage, creature).setExampleCard(this).addToBot();
+            DamageActionMaker.maker(orb.getOriginCard().damage, creature).setExampleCard(this)
+                    .setEffect(DamageActionMaker.DamageEffect.HeartMultiInOne)
+                    .addToBot();
         })
                 .setCardPredicate(card -> card.type == CardType.ATTACK)
                 .setNotEvokeOnEndOfTurn()

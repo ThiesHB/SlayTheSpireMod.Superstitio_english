@@ -5,8 +5,8 @@ import basemod.interfaces.*;
 import com.evacipated.cardcrawl.modthespire.lib.SpireInitializer;
 import com.evacipated.cardcrawl.modthespire.lib.SpirePatch2;
 import com.evacipated.cardcrawl.modthespire.lib.SpirePrefixPatch;
+import com.megacrit.cardcrawl.actions.GameActionManager;
 import com.megacrit.cardcrawl.cards.AbstractCard;
-import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.core.AbstractCreature;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import com.megacrit.cardcrawl.powers.AbstractPower;
@@ -125,18 +125,19 @@ public class SuperstitioApiSubscriber implements
 //        void atStartOfMonsterTurn();
 //    }
 
-    public interface AtEndOfPlayerTurnSubscriber extends ISubscriber {
-        void receiveAtEndOfPlayerTurn();
+    public interface AtEndOfPlayerTurnPreCardSubscriber extends ISubscriber {
+        void receiveAtEndOfPlayerTurnPreCard();
 
-        @SpirePatch2(clz = AbstractCreature.class, method = "applyEndOfTurnTriggers")
+        @SpirePatch2(clz = GameActionManager.class, method = "callEndOfTurnActions")
         class AtEndOfTurnSubscriberPatch {
             @SpirePrefixPatch
-            public static void Prefix(AbstractCreature __instance) {
-                if (__instance instanceof AbstractPlayer)
-                    ApplyAll(AtEndOfPlayerTurnSubscriber::receiveAtEndOfPlayerTurn, AtEndOfPlayerTurnSubscriber.class);
+            public static void Prefix(GameActionManager __instance) {
+//                if (__instance instanceof AbstractPlayer)
+                    ApplyAll(AtEndOfPlayerTurnPreCardSubscriber::receiveAtEndOfPlayerTurnPreCard, AtEndOfPlayerTurnPreCardSubscriber.class);
             }
         }
     }
+
 
 //    public interface AtEndOfRoundSubscriber extends ISubscriber {
 //        void receiveAtEndOfRound();

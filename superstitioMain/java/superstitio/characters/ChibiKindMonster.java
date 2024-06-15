@@ -4,8 +4,8 @@ import basemod.ReflectionHacks;
 import basemod.abstracts.CustomMonster;
 import com.evacipated.cardcrawl.modthespire.lib.SpireOverride;
 import com.megacrit.cardcrawl.actions.common.RollMoveAction;
-import com.megacrit.cardcrawl.actions.utility.NewQueueCardAction;
 import com.megacrit.cardcrawl.cards.AbstractCard;
+import com.megacrit.cardcrawl.cards.CardQueueItem;
 import com.megacrit.cardcrawl.cards.DamageInfo;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.core.Settings;
@@ -16,14 +16,19 @@ import com.megacrit.cardcrawl.localization.MonsterStrings;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import superstitio.DataManager;
 import superstitioapi.pet.MinionMonster;
+import superstitioapi.utils.ActionUtility;
 import superstitioapi.utils.CardUtility;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import static superstitio.characters.BaseCharacter.LUPA_CHARACTER;
+import static superstitioapi.actions.AutoDoneInstantAction.addToBotAbstract;
 
 public class ChibiKindMonster extends CustomMonster {
     public static final String ID = DataManager.MakeTextID(ChibiKindMonster.class);
+    private static final List<AbstractCard> willPlayCards = new ArrayList<>();
 
     private static final MonsterStrings monsterStrings = CardCrawlGame.languagePack.getMonsterStrings(ID);
     public static final String NAME = monsterStrings.NAME;
@@ -45,30 +50,49 @@ public class ChibiKindMonster extends CustomMonster {
 
     @Override
     public void takeTurn() {
+        this.flashIntent();
         switch (this.intent) {
             case ATTACK:
-                if (!playStrike())
-                    playDefend();
+//                addToBotAbstract(() -> {
+//                if (!playStrike())
+//                    playDefend();
+//                });
+                playStrike();
                 break;
             case DEFEND:
-                if (!playDefend())
-                    playStrike();
+                playDefend();
+//                addToBotAbstract(() -> {
+//                if (!playDefend())
+//                    playStrike();
+//                });
                 break;
         }
         addToBot(new RollMoveAction(this));
+//        addToBotAbstract(() ->
+        addToBotAbstract(() -> addToBotAbstract(willPlayCards::clear));
+//        );
     }
 
     private boolean playStrike() {
-        Optional<AbstractCard> strike = CardUtility.AllCardInBattle_ButWithoutCardInUse()
-                .stream().filter(card -> card.hasTag(AbstractCard.CardTags.STARTER_STRIKE)).findAny();
-        strike.ifPresent(card -> addToBot(new NewQueueCardAction(card, true, true, true)));
+        Optional<AbstractCard> strike = CardUtility.AllCardInBattle_ButWithoutCardInUse().stream()
+                .filter(card -> !willPlayCards.contains(card)).filter(card -> card.hasTag(AbstractCard.CardTags.STARTER_STRIKE)).findAny();
+        strike.ifPresent(card -> {
+            willPlayCards.add(card);
+//            addToBot(new UseCardAction(card));
+            AbstractDungeon.actionManager.cardQueue.add(new CardQueueItem(card, ActionUtility.getRandomMonsterSafe(),0,true,true));
+        });
         return strike.isPresent();
     }
 
     private boolean playDefend() {
-        Optional<AbstractCard> defend = CardUtility.AllCardInBattle_ButWithoutCardInUse()
-                .stream().filter(card -> card.hasTag(AbstractCard.CardTags.STARTER_DEFEND)).findAny();
-        defend.ifPresent(card -> addToBot(new NewQueueCardAction(card, AbstractDungeon.player, true, true)));
+        Optional<AbstractCard> defend = CardUtility.AllCardInBattle_ButWithoutCardInUse().stream()
+                .filter(card -> !willPlayCards.contains(card)).filter(card -> card.hasTag(AbstractCard.CardTags.STARTER_DEFEND)).findAny();
+        defend.ifPresent(card -> {
+            willPlayCards.add(card);
+//            card.dontTriggerOnUseCard
+//            addToBot(new UseCardAction(card));
+            AbstractDungeon.actionManager.cardQueue.add(new CardQueueItem(card, ActionUtility.getRandomMonsterSafe(),0,true,true));
+        });
         return defend.isPresent();
     }
 
@@ -102,8 +126,7 @@ public class ChibiKindMonster extends CustomMonster {
     protected void getMove(int num) {
         if (num < 50) {
             this.setMove(STRIKE, (byte) 1, Intent.ATTACK, 6);
-        }
-        else {
+        } else {
             this.setMove(DEFEND, (byte) 2, Intent.DEFEND);
         }
     }

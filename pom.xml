@@ -11,6 +11,7 @@
     <properties>
         <lib.dir>${user.home}\Desktop\Project For Fun\SuperstitioMod\SlayTheSpireMod.Superstitio</lib.dir>
         <steam.path>C:/Program Files (x86)/Steam/steamapps/common/SlayTheSpire</steam.path>
+        <sts_workshop.path>C:/Program Files (x86)/Steam/steamapps/workshop/content/646570</sts_workshop.path>
         <maven.compiler.source>8</maven.compiler.source>
         <maven.compiler.target>8</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -27,28 +28,28 @@
             <artifactId>slaythespire</artifactId>
             <version>016</version>
             <scope>system</scope>
-            <systemPath>${lib.dir}/lib/desktop-1.0.jar</systemPath>
+            <systemPath>${steam.path}/desktop-1.0.jar</systemPath>
         </dependency>
         <dependency>
             <groupId>basemod</groupId>
             <artifactId>basemod</artifactId>
             <version>2.10.0</version>
             <scope>system</scope>
-            <systemPath>${lib.dir}/lib/BaseMod.jar</systemPath>
+            <systemPath>${sts_workshop.path}/1605833019/BaseMod.jar</systemPath>
         </dependency>
         <dependency>
             <groupId>stsLib</groupId>
             <artifactId>stsLib</artifactId>
             <version>2.11.0</version>
             <scope>system</scope>
-            <systemPath>${lib.dir}/lib/StSLib.jar</systemPath>
+            <systemPath>${sts_workshop.path}/1609158507/StSLib.jar</systemPath>
         </dependency>
         <dependency>
             <groupId>com.evacipated.cardcrawl</groupId>
             <artifactId>ModTheSpire</artifactId>
             <version>3.24.0</version>
             <scope>system</scope>
-            <systemPath>${lib.dir}/lib/ModTheSpire.jar</systemPath>
+            <systemPath>${sts_workshop.path}/1605060445/ModTheSpire.jar</systemPath>
         </dependency>
     </dependencies>
 </project>

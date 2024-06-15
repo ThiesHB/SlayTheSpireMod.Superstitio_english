@@ -9,6 +9,7 @@ import superstitio.DataManager;
 import superstitio.cards.general.FuckJob_Card;
 import superstitio.cards.general.GeneralCard;
 import superstitioapi.InBattleDataManager;
+import superstitioapi.cards.DamageActionMaker;
 
 public class Fuck_Throat extends GeneralCard implements FuckJob_Card {
     public static final String ID = DataManager.MakeTextID(Fuck_Throat.class);
@@ -33,7 +34,7 @@ public class Fuck_Throat extends GeneralCard implements FuckJob_Card {
 
     @Override
     public void use(AbstractPlayer player, AbstractMonster monster) {
-        addToBot_dealDamage(monster, AbstractGameAction.AttackEffect.BLUNT_LIGHT);
+        addToBot_dealDamage(monster, DamageActionMaker.DamageEffect.HeartMultiInOne);
         superstitioapi.InBattleDataManager.getHangUpCardOrbGroup().ifPresent(group -> {
             if (group.hasOrb())
                 addToBot(new GainEnergyAction(this.magicNumber));

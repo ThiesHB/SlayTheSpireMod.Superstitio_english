@@ -424,6 +424,6 @@ public class DataManager {
         public static DamageInfo.DamageType UnBlockAbleDamageType;
 
         @SpireEnum
-        public static DamageInfo.DamageType NoTriggerMasoRelicDamageType;
+        public static DamageInfo.DamageType NoTriggerLupaAndMasoRelicHpLose;
     }
 }

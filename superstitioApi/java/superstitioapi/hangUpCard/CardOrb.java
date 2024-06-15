@@ -172,8 +172,7 @@ public abstract class CardOrb extends AbstractOrb {
                     cardHolder.moveToDiscardPile(originCard);
                     break;
             }
-        }
-        else
+        } else
             AbstractDungeon.effectList.add(new ExhaustCardEffect(card));
         onRemoveCard();
     }
@@ -202,8 +201,7 @@ public abstract class CardOrb extends AbstractOrb {
             if (originCard.drawScale != originCard.targetDrawScale) {
                 originCard.render(spriteBatch);
                 return;
-            }
-            else {
+            } else {
                 stopShowOriginCard = true;
             }
         }
@@ -236,8 +234,7 @@ public abstract class CardOrb extends AbstractOrb {
                 originCard.targetDrawScale = DRAW_SCALE_SMALL;
                 originCard.current_y += YOffsetBoBing();
                 originCard.update();
-            }
-            else {
+            } else {
                 stopShowOriginCard = true;
             }
         }
@@ -261,8 +258,7 @@ public abstract class CardOrb extends AbstractOrb {
             this.card.target_y = this.cY + YOffsetWhenHovered();
             card.targetDrawScale = DRAW_SCALE_BIG;
 //            this.drawOrder = DrawOrder.top;
-        }
-        else {
+        } else {
             this.card.target_x = this.cX;
             this.card.target_y = this.cY + YOffsetWhenHovered();
             card.targetDrawScale = DRAW_SCALE_SMALL;

@@ -19,7 +19,7 @@ import superstitioapi.utils.RenderInBattle;
 
 import static superstitioapi.actions.AutoDoneInstantAction.addToBotAbstract;
 
-public class PetManager implements RenderInBattle, SuperstitioApiSubscriber.AtEndOfPlayerTurnSubscriber, PostPowerApplySubscriber {
+public class PetManager implements RenderInBattle, SuperstitioApiSubscriber.AtEndOfPlayerTurnPreCardSubscriber, PostPowerApplySubscriber {
     public final MinionGroup monsterGroup = new MinionGroup(new AbstractMonster[]{});
 
     public PetManager() {
@@ -81,7 +81,7 @@ public class PetManager implements RenderInBattle, SuperstitioApiSubscriber.AtEn
     }
 
     @Override
-    public void receiveAtEndOfPlayerTurn() {
+    public void receiveAtEndOfPlayerTurnPreCard() {
         addToBotAbstract(monsterGroup::applyPreTurnLogic);
         monsterGroup.monsters.forEach(this::monsterTurn);
         addToBotAbstract(monsterGroup::applyEndOfTurnPowers);

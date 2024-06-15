@@ -7,6 +7,7 @@ import superstitio.DataManager;
 import superstitio.cards.general.FuckJob_Card;
 import superstitio.cards.general.GeneralCard;
 import superstitioapi.actions.AutoDoneInstantAction;
+import superstitioapi.cards.DamageActionMaker;
 import superstitioapi.hangUpCard.*;
 
 import static superstitioapi.InBattleDataManager.getHangUpCardOrbGroup;
@@ -38,7 +39,7 @@ public class Fuck_Vaginal extends GeneralCard implements FuckJob_Card, Card_Trig
 
     @Override
     public void use(final AbstractPlayer player, final AbstractMonster monster) {
-        addToBot_dealDamage(monster);
+        addToBot_dealDamage(monster, DamageActionMaker.DamageEffect.HeartMultiInOne);
         for (int i = 0; i < this.magicNumber; i++) {
             AutoDoneInstantAction.addToBotAbstract(() -> getHangUpCardOrbGroup().ifPresent(orbGroup -> {
                 orbGroup.forEachOrbInThisOrbGroup(CardOrb.class, (orb) -> {

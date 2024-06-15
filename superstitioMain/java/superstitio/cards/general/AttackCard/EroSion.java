@@ -10,6 +10,7 @@ import superstitio.DataManager;
 import superstitio.cards.general.GeneralCard;
 import superstitio.delayHpLose.DelayHpLosePower;
 import superstitioapi.actions.AutoDoneInstantAction;
+import superstitioapi.cards.DamageActionMaker;
 
 public class EroSion extends GeneralCard {
     public static final String ID = DataManager.MakeTextID(EroSion.class);
@@ -56,7 +57,7 @@ public class EroSion extends GeneralCard {
         AbstractCard self = this;
         AutoDoneInstantAction.addToBotAbstract(() -> {
             calculateCardDamage(monster);
-            addToBot_dealDamage(monster, self.damage, AbstractGameAction.AttackEffect.BLUNT_HEAVY);
+            addToBot_dealDamage(monster, self.damage, DamageActionMaker.DamageEffect.HeartMultiInOne);
         });
     }
 

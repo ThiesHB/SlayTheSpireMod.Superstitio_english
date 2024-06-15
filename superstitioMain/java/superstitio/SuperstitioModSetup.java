@@ -24,7 +24,6 @@ import superstitioapi.relicToBlight.InfoBlight;
 import java.util.*;
 import java.util.stream.Collectors;
 
-import static com.badlogic.gdx.utils.reflect.ClassReflection.getAnnotations;
 import static superstitio.DataManager.SPTT_DATA.GeneralEnums.GENERAL_CARD;
 import static superstitio.DataManager.SPTT_DATA.LupaEnums.LUPA_CARD;
 import static superstitio.DataManager.SPTT_DATA.LupaEnums.LUPA_Character;
@@ -186,6 +185,7 @@ public class SuperstitioModSetup implements
                 .any(CustomRelic.class, (info, relic) -> {
                     if (relic instanceof InfoBlight.BecomeInfoBlight) {
                         InfoBlight.initInfoBlight(relic);
+                        relic.isSeen = true;
                         return;
                     }
                     BaseMod.addRelic(relic, RelicType.SHARED);

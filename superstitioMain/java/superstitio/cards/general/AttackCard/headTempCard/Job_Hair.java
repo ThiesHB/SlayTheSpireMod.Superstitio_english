@@ -10,6 +10,7 @@ import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import superstitio.DataManager;
 import superstitio.cards.general.FuckJob_Card;
 import superstitio.cards.general.GeneralCard;
+import superstitioapi.cards.DamageActionMaker;
 import superstitioapi.cards.patch.GoSomewhereElseAfterUse;
 import superstitioapi.hangUpCard.CardOrb_WaitCardTrigger;
 import superstitioapi.utils.ActionUtility;
@@ -52,7 +53,7 @@ public class Job_Hair extends GeneralCard implements FuckJob_Card, GoSomewhereEl
 
     @Override
     public void use(AbstractPlayer player, AbstractMonster monster) {
-        addToBot_dealDamage(monster, AbstractGameAction.AttackEffect.BLUNT_LIGHT);
+        addToBot_dealDamage(monster, DamageActionMaker.DamageEffect.HeartMultiInOne);
     }
 
     @Override

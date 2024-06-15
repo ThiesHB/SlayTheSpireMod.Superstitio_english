@@ -8,6 +8,7 @@ import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import com.megacrit.cardcrawl.powers.AbstractPower;
 import superstitio.DataManager;
 import superstitio.SuperstitioImg;
+import superstitio.cardModifier.modifiers.damage.UnBlockAbleDamage;
 import superstitio.cards.general.GeneralCard;
 import superstitio.powers.AbstractSuperstitioPower;
 import superstitio.powers.SexualHeat;
@@ -80,7 +81,8 @@ public class ChokeChoker extends GeneralCard {
             DamageActionMaker.maker(this.owner, this.amount, this.owner)
                     .setEffect(AbstractGameAction.AttackEffect.NONE)
                     .setSuperFast(true)
-                    .setDamageType(DataManager.CanOnlyDamageDamageType.NoTriggerMasoRelicDamageType)
+                    .setDamageModifier(this,new UnBlockAbleDamage())
+                    .setDamageType(DataManager.CanOnlyDamageDamageType.NoTriggerLupaAndMasoRelicHpLose)
                     .addToTop();
 //            for (int i = 0; i < this.amount; i++) {
 //                this.addToBot(new LoseHPAction(this.owner, null, 1));

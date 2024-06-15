@@ -9,6 +9,7 @@ import superstitio.DataManager;
 import superstitio.cards.general.AbstractTempCard;
 import superstitio.cards.general.FuckJob_Card;
 import superstitio.cards.maso.AttackCard.Fuck_Eye;
+import superstitioapi.cards.DamageActionMaker;
 import superstitioapi.utils.ActionUtility;
 
 public class Fuck_Ear extends AbstractTempCard implements FuckJob_Card {
@@ -38,8 +39,8 @@ public class Fuck_Ear extends AbstractTempCard implements FuckJob_Card {
 
     @Override
     public void use(AbstractPlayer player, AbstractMonster monster) {
-        addToBot_dealDamage(monster, AbstractGameAction.AttackEffect.BLUNT_LIGHT);
-        addToBot_dealDamage(monster, AbstractGameAction.AttackEffect.BLUNT_LIGHT);
+        addToBot_dealDamage(monster, DamageActionMaker.DamageEffect.HeartMultiInOne);
+        addToBot_dealDamage(monster, DamageActionMaker.DamageEffect.HeartMultiInOne);
         ActionUtility.addToBot_makeTempCardInBattle(new Fuck_Eye(), ActionUtility.BattleCardPlace.Hand, this.upgraded);
         addToBot_applyPower(new FrailPower(AbstractDungeon.player, 1, false));
 

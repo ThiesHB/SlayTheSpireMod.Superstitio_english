@@ -163,13 +163,13 @@ public abstract class DelayHpLosePower extends AbstractSuperstitioPower implemen
         if (self.amount <= 0) return;
         PowerUtility.BubbleMessage(self, true, pureName());
         CardCrawlGame.sound.play("POWER_TIME_WARP", 0.05f);
-        AbstractDungeon.player.damage(UnBlockAbleDamage.damageInfo(this, self.amount));
+        AbstractDungeon.player.damage(UnBlockAbleIgnoresTempHPDamage.damageInfo(this, self.amount));
         self.amount = 0;
     }
 
     private DamageActionMaker getDelayHpLoseDamageActionMaker() {
         return DamageActionMaker.maker(this.amount, this.owner)
-                .setDamageModifier(this, new UnBlockAbleDamage())
+                .setDamageModifier(this, new UnBlockAbleIgnoresTempHPDamage())
                 .setEffect(AbstractGameAction.AttackEffect.LIGHTNING)
                 .setDamageType(DataManager.CanOnlyDamageDamageType.UnBlockAbleDamageType);
     }

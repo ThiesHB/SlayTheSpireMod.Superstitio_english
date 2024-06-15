@@ -1,6 +1,5 @@
 package superstitio.cards.general.AttackCard.mouthCost;
 
-import com.megacrit.cardcrawl.actions.AbstractGameAction;
 import com.megacrit.cardcrawl.cards.CardGroup;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
@@ -9,8 +8,9 @@ import superstitio.DataManager;
 import superstitio.cards.general.FuckJob_Card;
 import superstitio.cards.general.GeneralCard;
 import superstitio.powers.SexualHeat;
+import superstitioapi.cards.DamageActionMaker;
 import superstitioapi.cards.patch.GoSomewhereElseAfterUse;
-import superstitioapi.hangUpCard.CardOrb_WaitCardTrigger;
+import superstitioapi.hangUpCard.CardOrb_EachCardTrigger;
 
 
 public class Job_Blow extends GeneralCard implements FuckJob_Card, GoSomewhereElseAfterUse {
@@ -38,7 +38,7 @@ public class Job_Blow extends GeneralCard implements FuckJob_Card, GoSomewhereEl
 
     @Override
     public void use(AbstractPlayer player, AbstractMonster monster) {
-        addToBot_dealDamage(monster, AbstractGameAction.AttackEffect.SLASH_HORIZONTAL);
+        addToBot_dealDamage(monster, DamageActionMaker.DamageEffect.HeartMultiInOne);
     }
 
     @Override
@@ -47,7 +47,7 @@ public class Job_Blow extends GeneralCard implements FuckJob_Card, GoSomewhereEl
 
     @Override
     public void afterInterruptMoveToCardGroup(CardGroup cardGroup) {
-        new CardOrb_WaitCardTrigger(this, cardGroup, this.magicNumber, (orb, card) -> {
+        new CardOrb_EachCardTrigger(this, cardGroup, this.magicNumber, (orb, card) -> {
             orb.StartHitCreature(AbstractDungeon.player);
             SexualHeat.addToBot_addSexualHeat(AbstractDungeon.player, HEAT_GIVE);
         })
