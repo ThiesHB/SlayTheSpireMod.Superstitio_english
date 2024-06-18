@@ -11,7 +11,7 @@ import com.megacrit.cardcrawl.helpers.PowerTip;
 import superstitio.DataManager;
 import superstitio.powers.SexualHeat;
 import superstitio.relics.SuperstitioRelic;
-import superstitioapi.utils.CardUtility;
+import superstitioapi.utils.ActionUtility;
 
 /**
  * 右键点击切换S和M形态。
@@ -74,7 +74,7 @@ public class SorM extends SuperstitioRelic implements ClickableRelic, CustomSava
 
     @Override
     public int betterOnLoseHp(DamageInfo damageInfo, int i) {
-        if (CardUtility.isNotInBattle()) return i;
+        if (ActionUtility.isNotInBattle()) return i;
         if (!MasochismMode) return i;
         if (i < MasochismModeDamageNeed) return i;
         if (damageInfo.type == DataManager.CanOnlyDamageDamageType.UnBlockAbleDamageType) return i;
@@ -114,7 +114,7 @@ public class SorM extends SuperstitioRelic implements ClickableRelic, CustomSava
 
     @Override
     public void onRightClick() {
-        if (!CardUtility.isNotInBattle()) return;
+        if (!ActionUtility.isNotInBattle()) return;
         this.flash();
         if (ClickTime >= 99) {
             MasochismMode = true;

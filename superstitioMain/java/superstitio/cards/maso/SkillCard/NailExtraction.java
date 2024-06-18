@@ -13,7 +13,6 @@ import superstitio.InBattleDataManager;
 import superstitio.cards.maso.MasoCard;
 import superstitioapi.cards.DamageActionMaker;
 import superstitioapi.utils.ActionUtility;
-import superstitioapi.utils.CardUtility;
 
 //拔指甲/趾甲
 public class NailExtraction extends MasoCard {
@@ -55,7 +54,7 @@ public class NailExtraction extends MasoCard {
 
     @Override
     public void initializeDescription() {
-        if (!CardUtility.isNotInBattle()) {
+        if (!ActionUtility.isNotInBattle()) {
             this.magicNumber = InBattleDataManager.NailExtractionPlayedInTurn;
         }
         super.initializeDescription();

@@ -22,7 +22,7 @@ import superstitioapi.utils.PowerUtility;
 @SuperstitioImg.NoNeedImg
 public class BeerCupSemen extends AbstractSuperstitioPower implements
         InvisiblePower_InvisibleTips, InvisiblePower_InvisibleIconAndAmount, HasBarRenderOnCreature_Power,
-        OnPostApplyThisPower, BetterOnApplyPowerPower {
+        OnPostApplyThisPower<BeerCupSemen>, BetterOnApplyPowerPower {
     public static final String POWER_ID = DataManager.MakeTextID(BeerCupSemen.class);
     //绘制相关
     private int maxAmount;
@@ -47,7 +47,7 @@ public class BeerCupSemen extends AbstractSuperstitioPower implements
     }
 
     @Override
-    public void InitializePostApplyThisPower(AbstractPower addedPower) {
+    public void InitializePostApplyThisPower(BeerCupSemen addedPower) {
         CheckFull();
         updateDescription();
     }

@@ -4,11 +4,12 @@ import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import superstitio.characters.BaseCharacter;
 import superstitio.orbs.orbgroup.SexMarkOrbGroup;
 import superstitio.powers.SexualHeat;
+import superstitioapi.utils.CreatureUtility;
 
 import java.util.Optional;
 
 public class InBattleDataManager {
-    public static boolean InOrgasm = false;
+//    public static boolean InOrgasm = false;
 
     public static int OrgasmTimesInTurn = 0;
 
@@ -27,7 +28,8 @@ public class InBattleDataManager {
     }
 
     private static void ResetAll() {
-        InOrgasm = false;
+        CreatureUtility.forPlayerAndEachMonsters(SexualHeat.Orgasm::endOrgasm);
+
         OrgasmTimesInTurn = 0;
         OrgasmTimesTotal = 0;
         NailExtractionPlayedInTurn = 0;

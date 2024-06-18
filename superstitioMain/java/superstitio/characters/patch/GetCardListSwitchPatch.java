@@ -1,4 +1,4 @@
-package superstitio.characters;
+package superstitio.characters.patch;
 
 import basemod.BaseMod;
 import com.evacipated.cardcrawl.modthespire.lib.SpirePatch;

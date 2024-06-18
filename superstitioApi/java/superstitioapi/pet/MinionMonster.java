@@ -14,27 +14,32 @@ import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import com.megacrit.cardcrawl.monsters.EnemyMoveInfo;
 import com.megacrit.cardcrawl.monsters.exordium.ApologySlime;
 import superstitioapi.Logger;
-import superstitioapi.utils.ActionUtility;
-import superstitioapi.utils.CardUtility;
+import superstitioapi.utils.CreatureUtility;
+import superstitioapi.utils.ListUtility;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static basemod.ReflectionHacks.*;
+import static basemod.ReflectionHacks.getPrivate;
+import static basemod.ReflectionHacks.privateMethod;
 
 public class MinionMonster extends Minion {
-    public static final float SCALE = 3f;
+    public static final float DAMAGE_SCALE = 3f;
     private static final AbstractMonster DefaultMonster = new ApologySlime();
 
-    public MinionMonster(AbstractMonster petCore) {
-        super(petCore);
+    protected MinionMonster(AbstractMonster petCore, float drawScale) {
+        super(petCore, drawScale);
 
         for (DamageInfo d : this.getPetCoreMonster().damage) {
-            d.base /= (int) SCALE;
+            d.base /= (int) DAMAGE_SCALE;
             d.output = d.base;
         }
         this.getPetCoreMonster().refreshIntentHbLocation();
 
+    }
+
+    public MinionMonster(AbstractMonster petCore) {
+        this(petCore, DEFAULT_DRAW_SCALE);
     }
 
     public static boolean isMonsterHovered(AbstractMonster monster) {
@@ -63,7 +68,7 @@ public class MinionMonster extends Minion {
     @Override
     public void applyPowers() {
         for (DamageInfo dmg : this.getPetCoreMonster().damage) {
-            dmg.applyPowers(this, ActionUtility.getRandomMonsterWithoutRngSafe());
+            dmg.applyPowers(this, CreatureUtility.getRandomMonsterWithoutRngSafe());
         }
 
         EnemyMoveInfo monsterMove = ReflectionHacks.getPrivate(getPetCoreMonster(), AbstractMonster.class, "move");
@@ -120,7 +125,7 @@ public class MinionMonster extends Minion {
                 for (int i = 0; i < Math.max(1, intentMultiAmt); i++) {
                     AbstractDungeon.actionManager.addToBottom(
                             new DamageAction(
-                                    CardUtility.getRandomFromList(monsters, AbstractDungeon.cardRandomRng),
+                                    ListUtility.getRandomFromList(monsters, AbstractDungeon.cardRandomRng),
                                     new DamageInfo(this, this.getPetCoreMonster().getIntentDmg()),
                                     AbstractGameAction.AttackEffect.BLUNT_HEAVY));
                 }
@@ -167,7 +172,8 @@ public class MinionMonster extends Minion {
     protected void getMove(int i) {
         privateMethod(AbstractMonster.class, "getMove", int.class).invoke(this.getPetCoreMonster(), i);
         EnemyMoveInfo moveInfo = getPrivate(getPetCoreMonster(), AbstractMonster.class, "move");
-        this.setMove(getPetCoreMonster().moveName, moveInfo.nextMove, moveInfo.intent, moveInfo.baseDamage, moveInfo.multiplier, moveInfo.isMultiDamage);
+        this.setMove(getPetCoreMonster().moveName, moveInfo.nextMove, moveInfo.intent, moveInfo.baseDamage, moveInfo.multiplier,
+                moveInfo.isMultiDamage);
     }
 
     public AbstractMonster getPetCoreMonster() {

@@ -6,7 +6,6 @@ import com.evacipated.cardcrawl.mod.stslib.powers.interfaces.HealthBarRenderPowe
 import com.megacrit.cardcrawl.actions.AbstractGameAction;
 import com.megacrit.cardcrawl.cards.DamageInfo;
 import com.megacrit.cardcrawl.core.AbstractCreature;
-import com.megacrit.cardcrawl.powers.AbstractPower;
 import superstitio.DataManager;
 import superstitio.delayHpLose.UnBlockAbleIgnoresTempHPDamage;
 import superstitioapi.InBattleDataManager;
@@ -16,7 +15,7 @@ import superstitioapi.powers.interfaces.OnPostApplyThisPower;
 
 import static superstitioapi.InBattleDataManager.subscribeManageGroups;
 
-public class SexualDamage extends AbstractSuperstitioPower implements HealthBarRenderPower, OnPostApplyThisPower, SuperstitioApiSubscriber.AtEndOfPlayerTurnPreCardSubscriber {
+public class SexualDamage extends AbstractSuperstitioPower implements HealthBarRenderPower, OnPostApplyThisPower<SexualDamage>, SuperstitioApiSubscriber.AtEndOfPlayerTurnPreCardSubscriber {
     public static final String POWER_ID = DataManager.MakeTextID(SexualDamage.class);
     private static final Color BarColor = Color.PURPLE.cpy();
     protected final AbstractCreature giver;
@@ -64,7 +63,7 @@ public class SexualDamage extends AbstractSuperstitioPower implements HealthBarR
     }
 
     @Override
-    public void InitializePostApplyThisPower(AbstractPower addedPower) {
+    public void InitializePostApplyThisPower(SexualDamage addedPower) {
         if (subscribeManageGroups.stream()
                 .anyMatch(iSubscriber -> iSubscriber instanceof SexualDamage && ((SexualDamage) iSubscriber).owner == this.owner))
             return;

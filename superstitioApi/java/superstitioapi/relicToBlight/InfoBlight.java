@@ -128,6 +128,12 @@ public class InfoBlight extends BlightWithRelic implements
         return list;
     }
 
+    public static void addAsInfoBlight(AbstractRelic relic) {
+        if (player == null) return;
+        if (player.hasRelic(relic.relicId)) return;
+        instanceObtain(relic, false);
+    }
+
     /**
      * 单纯的复制一下，主要是在CustomBlightPatch中使用，可以不用管
      */

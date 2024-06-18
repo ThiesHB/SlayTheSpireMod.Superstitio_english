@@ -4,6 +4,7 @@ import com.evacipated.cardcrawl.mod.stslib.blockmods.AbstractBlockModifier;
 import com.megacrit.cardcrawl.cards.DamageInfo;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import superstitio.DataManager;
+import superstitio.monster.ChibiKindMonster;
 import superstitioapi.pet.Minion;
 import superstitioapi.pet.PetManager;
 
@@ -45,17 +46,28 @@ public class PregnantBlock_newMonster extends PregnantBlock {
     }
 
     @Override
-    public void removeUnNaturally(DamageInfo info, int remainingDamage) {
-//        removeUnNatural.get();
+    public String getDescription() {
+        if (father == null)
+            return super.getDescription();
+        if (sealCreature == null)
+            return super.getDescription() + this.blockStrings.getEXTENDED_DESCRIPTION()[0] + father.name;
+        if (sealCreature instanceof ChibiKindMonster.MinionChibi)
+            return super.getDescription() + this.blockStrings.getEXTENDED_DESCRIPTION()[0] + this.blockStrings.getEXTENDED_DESCRIPTION()[1];
+        return super.getDescription();
     }
 
     @Override
-    public void removeNaturally(int remainingDamage) {
-//        removeNatural.get();
-        if (father == null) return;
+    public int removeUnNaturally(DamageInfo info, int remainingDamage) {
+        return super.removeUnNaturally(info, remainingDamage * 2);
+    }
+
+    @Override
+    public int removeNaturally(int remainingDamage) {
+        if (father == null) return super.removeNaturally(remainingDamage);
         if (sealCreature == null)
             PetManager.spawnMinion(father.getClass());
         else
             PetManager.spawnMonster(sealCreature);
+        return super.removeNaturally(remainingDamage);
     }
 }

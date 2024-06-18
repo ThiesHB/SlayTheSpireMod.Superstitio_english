@@ -1,14 +1,13 @@
 package superstitio.relics.blight;
 
+import basemod.AutoAdd;
 import com.megacrit.cardcrawl.actions.common.RelicAboveCreatureAction;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
-import com.megacrit.cardcrawl.relics.AbstractRelic;
 import superstitio.DataManager;
 import superstitio.delayHpLose.DelayHpLosePatch;
 import superstitio.delayHpLose.DelayHpLosePower_HealOnVictory;
 import superstitio.relics.SuperstitioRelic;
-import superstitioapi.DataUtility;
 import superstitioapi.relicToBlight.InfoBlight;
 import superstitioapi.utils.ActionUtility;
 
@@ -16,6 +15,7 @@ import static com.megacrit.cardcrawl.dungeons.AbstractDungeon.player;
 import static superstitio.DataManager.CanOnlyDamageDamageType.UnBlockAbleDamageType;
 import static superstitioapi.utils.ActionUtility.addToTop_applyPower;
 
+@AutoAdd.Seen
 public class DevaBody_Masochism extends SuperstitioRelic implements InfoBlight.BecomeInfoBlight {
     public static final String ID = DataManager.MakeTextID(DevaBody_Masochism.class);
     // 遗物类型

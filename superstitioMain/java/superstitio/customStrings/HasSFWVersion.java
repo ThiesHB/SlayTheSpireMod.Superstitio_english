@@ -1,18 +1,18 @@
 package superstitio.customStrings;
 
 import superstitio.Logger;
-import superstitio.SuperstitioModSetup;
+import superstitio.SuperstitioConfig;
 
 import java.util.List;
 import java.util.Map;
 
 public interface HasSFWVersion {
     static boolean shouldReturnSFWVersion(String sfwSting) {
-        return SuperstitioModSetup.getEnableSFW() && !isNullOrEmpty(sfwSting);
+        return SuperstitioConfig.isEnableSFW() && !isNullOrEmpty(sfwSting);
     }
 
     static boolean shouldReturnSFWVersion(String[] sfwStings) {
-        return SuperstitioModSetup.getEnableSFW() && !isNullOrEmpty(sfwStings);
+        return SuperstitioConfig.isEnableSFW() && !isNullOrEmpty(sfwStings);
     }
 
     static boolean isNullOrEmpty(String sfwStings) {

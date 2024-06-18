@@ -7,7 +7,7 @@ import superstitio.cards.general.FuckJob_Card;
 import superstitio.cards.maso.MasoCard;
 import superstitio.powers.Milk;
 import superstitioapi.cards.DamageActionMaker;
-import superstitioapi.utils.ActionUtility;
+import superstitioapi.utils.CreatureUtility;
 
 
 public class Fuck_Nipple extends MasoCard implements FuckJob_Card {
@@ -35,7 +35,7 @@ public class Fuck_Nipple extends MasoCard implements FuckJob_Card {
     @Override
     public void use(AbstractPlayer player, AbstractMonster monster) {
         for (int i = 0; i < DAMAGE_TIME; i++) {
-            AbstractMonster randomMonster = ActionUtility.getRandomMonsterSafe();
+            AbstractMonster randomMonster = CreatureUtility.getRandomMonsterSafe();
             addToBot_dealDamage(randomMonster, DamageActionMaker.DamageEffect.HeartMultiInOne);
             addToBot_applyPower(new Milk(randomMonster, this.magicNumber));
         }

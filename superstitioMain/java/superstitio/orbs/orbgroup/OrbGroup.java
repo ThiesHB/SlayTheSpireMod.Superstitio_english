@@ -21,7 +21,6 @@ import superstitio.orbs.actions.EvokeFirstOnMonsterAction;
 import superstitio.orbs.actions.FlashOrbEffect;
 import superstitioapi.SuperstitioApiSubscriber;
 import superstitioapi.utils.ActionUtility;
-import superstitioapi.utils.CardUtility;
 import superstitioapi.utils.RenderInBattle;
 
 import java.util.ArrayList;
@@ -341,13 +340,13 @@ public abstract class OrbGroup implements
 
     @Override
     public void render(SpriteBatch sb) {
-        if (CardUtility.isNotInBattle()) return;
+        if (ActionUtility.isNotInBattle()) return;
         this.forEachOrbInThisOrbGroup(AbstractOrb::render, sb);
     }
 
     @Override
     public void update() {
-        if (CardUtility.isNotInBattle()) return;
+        if (ActionUtility.isNotInBattle()) return;
         this.forEachOrbInThisOrbGroup(orb -> {
             orb.update();
             orb.updateAnimation();

@@ -8,11 +8,13 @@ import com.evacipated.cardcrawl.modthespire.lib.SpirePrefixPatch;
 import com.megacrit.cardcrawl.actions.GameActionManager;
 import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.core.AbstractCreature;
+import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import com.megacrit.cardcrawl.powers.AbstractPower;
 import com.megacrit.cardcrawl.relics.AbstractRelic;
 import com.megacrit.cardcrawl.rooms.AbstractRoom;
 import superstitioapi.actions.AutoDoneInstantAction;
+import superstitioapi.player.PlayerInitPostDungeonInitialize;
 import superstitioapi.powers.interfaces.OnPostApplyThisPower;
 
 import java.util.Objects;
@@ -71,6 +73,9 @@ public class SuperstitioApiSubscriber implements
     @Override
     public void receivePostDungeonInitialize() {
         ApplyAll(PostDungeonInitializeSubscriber::receivePostDungeonInitialize, PostDungeonInitializeSubscriber.class);
+        if (AbstractDungeon.player instanceof PlayerInitPostDungeonInitialize) {
+            ((PlayerInitPostDungeonInitialize) AbstractDungeon.player).initPostDungeonInitialize();
+        }
     }
 
     @Override
@@ -80,16 +85,17 @@ public class SuperstitioApiSubscriber implements
 
     @Override
     public void receivePostPowerApplySubscriber(
-            AbstractPower abstractPower, AbstractCreature target, AbstractCreature source) {
+            AbstractPower appliedPower, AbstractCreature target, AbstractCreature source) {
         AutoDoneInstantAction.addToTopAbstract(() -> {
-            if (abstractPower instanceof OnPostApplyThisPower)
+            if (appliedPower instanceof OnPostApplyThisPower)
                 target.powers.forEach(power -> {
-                    if (Objects.equals(power.ID, abstractPower.ID) && power instanceof OnPostApplyThisPower) {
-                        ((OnPostApplyThisPower) power).InitializePostApplyThisPower(abstractPower);
-                    }
+                    if (power instanceof OnPostApplyThisPower)
+                        if (Objects.equals(power.ID, appliedPower.ID)) {
+                            ((OnPostApplyThisPower) power).tryInitializePostApplyThisPower(appliedPower, power.getClass());
+                        }
                 });
         });
-        ApplyAll((sub) -> sub.receivePostPowerApplySubscriber(abstractPower, source, source), PostPowerApplySubscriber.class);
+        ApplyAll((sub) -> sub.receivePostPowerApplySubscriber(appliedPower, source, source), PostPowerApplySubscriber.class);
 
     }
 
@@ -133,7 +139,7 @@ public class SuperstitioApiSubscriber implements
             @SpirePrefixPatch
             public static void Prefix(GameActionManager __instance) {
 //                if (__instance instanceof AbstractPlayer)
-                    ApplyAll(AtEndOfPlayerTurnPreCardSubscriber::receiveAtEndOfPlayerTurnPreCard, AtEndOfPlayerTurnPreCardSubscriber.class);
+                ApplyAll(AtEndOfPlayerTurnPreCardSubscriber::receiveAtEndOfPlayerTurnPreCard, AtEndOfPlayerTurnPreCardSubscriber.class);
             }
         }
     }

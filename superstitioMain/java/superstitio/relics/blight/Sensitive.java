@@ -1,18 +1,18 @@
 package superstitio.relics.blight;
 
+import basemod.AutoAdd;
 import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
-import com.megacrit.cardcrawl.relics.AbstractRelic;
 import superstitio.DataManager;
 import superstitio.powers.SexualHeat;
 import superstitio.relics.SuperstitioRelic;
-import superstitioapi.DataUtility;
 import superstitioapi.actions.AutoDoneInstantAction;
 import superstitioapi.relicToBlight.InfoBlight;
 
 import static com.megacrit.cardcrawl.dungeons.AbstractDungeon.player;
 
+@AutoAdd.Seen
 public class Sensitive extends SuperstitioRelic implements InfoBlight.BecomeInfoBlight  {
     public static final String ID = DataManager.MakeTextID(Sensitive.class);
     // 遗物类型

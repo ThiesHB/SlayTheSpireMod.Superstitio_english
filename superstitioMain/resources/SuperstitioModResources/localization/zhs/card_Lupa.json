@@ -93,5 +93,22 @@
     "NAME_SFW": "鞭打",
     "DESCRIPTION": "对 所有敌人 造成 !D! 点 伤害 。 NL 每对一个敌人造成 !M! 点 攻击伤害 ，获得 %d 点 superstitiomod:快感 。",
     "FLAVOR": ""
+  },
+  "SuperstitioMod:LupaCard:NakedToSchool": {
+    "NAME": "全裸上学日",
+    "NAME_SFW": "奋笔疾书",
+    "DESCRIPTION": "从弃牌堆中选择最多 !M! 张牌，将它们升级并放入抽牌堆。",
+    "FLAVOR": "",
+    "EXTENDED_DESCRIPTION": [
+      "升级并放入抽牌堆，最多选择%d张牌。"
+    ]
+  },
+  "SuperstitioMod:LupaCard:ZenState": {
+    "NAME": "禅意",
+    "DESCRIPTION": "移除 !B! 点 *腐朽 。 NL 从手牌中选择 !M! 张不具有 消耗 的牌赋予 消耗 ， 若其为 superstitiomod:无法打出 的牌，直接将其 消耗 。",
+    "FLAVOR": "保持不动……深呼吸……要维持这个姿势被干。",
+    "EXTENDED_DESCRIPTION": [
+      "赋予消耗，最多选择%d张牌 。"
+    ]
   }
 }

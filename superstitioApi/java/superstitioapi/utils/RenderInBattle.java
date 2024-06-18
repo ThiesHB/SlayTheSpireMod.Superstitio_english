@@ -109,7 +109,7 @@ public interface RenderInBattle {
         public static class UpdatePatch {
             public static void Postfix(final AbstractRoom _inst) {
                 if (AbstractDungeon.isScreenUp) return;
-                if (CardUtility.isNotInBattle()) return;
+                if (ActionUtility.isNotInBattle()) return;
                 forEachRenderInBattle(RenderInBattle::update);
                 forEachRenderInBattle(RenderInBattle::updateAnimation);
                 forEachRenderInBattle(renderInBattle -> {
@@ -132,7 +132,7 @@ public interface RenderInBattle {
         public static class StanceRenderPatch1 {
             @SpirePrefixPatch
             public static void Prefix(final AbstractStance _inst, final SpriteBatch sb) {
-                if (CardUtility.isNotInBattle()) return;
+                if (ActionUtility.isNotInBattle()) return;
                 sb.setColor(Color.WHITE);
                 RENDER_IN_BATTLES_STANCE.forEach(renderInBattle -> renderInBattle.render(sb));
             }
@@ -142,7 +142,7 @@ public interface RenderInBattle {
         public static class StanceRenderPatch2 {
             @SpirePrefixPatch
             public static void Prefix(final NeutralStance _inst, final SpriteBatch sb) {
-                if (CardUtility.isNotInBattle()) return;
+                if (ActionUtility.isNotInBattle()) return;
                 sb.setColor(Color.WHITE);
                 RENDER_IN_BATTLES_STANCE.forEach(renderInBattle -> renderInBattle.render(sb));
             }
@@ -153,7 +153,7 @@ public interface RenderInBattle {
         public static class InGameRenderPatch {
             @SpireInsertPatch(rloc = 16)
             public static void Insert(final AbstractRoom _inst, final SpriteBatch sb) {
-                if (CardUtility.isNotInBattle()) return;
+                if (ActionUtility.isNotInBattle()) return;
                 sb.setColor(Color.WHITE);
                 RENDER_IN_BATTLES.forEach(renderInBattle -> renderInBattle.render(sb));
             }
@@ -165,7 +165,7 @@ public interface RenderInBattle {
             @SpirePrefixPatch
             public static void Prefix(final OverlayMenu _inst, final SpriteBatch sb) {
                 if (Settings.hideLowerElements) return;
-                if (CardUtility.isNotInBattle()) return;
+                if (ActionUtility.isNotInBattle()) return;
                 sb.setColor(Color.WHITE);
                 RENDER_IN_BATTLES_PANEL.forEach(renderInBattle -> renderInBattle.render(sb));
             }
@@ -176,7 +176,7 @@ public interface RenderInBattle {
             @SpirePostfixPatch
             public static void Postfix(final AbstractRoom _inst, final SpriteBatch sb) {
                 if (AbstractDungeon.isScreenUp) return;
-                if (CardUtility.isNotInBattle()) return;
+                if (ActionUtility.isNotInBattle()) return;
                 sb.setColor(Color.WHITE);
                 RENDER_IN_BATTLES_ABOVE_PANEL.forEach(renderInBattle -> renderInBattle.render(sb));
             }

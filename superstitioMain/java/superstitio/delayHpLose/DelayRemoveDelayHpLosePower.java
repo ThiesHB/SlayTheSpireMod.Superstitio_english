@@ -5,7 +5,6 @@ import com.evacipated.cardcrawl.mod.stslib.blockmods.BlockInstance;
 import com.evacipated.cardcrawl.mod.stslib.powers.interfaces.InvisiblePower;
 import com.megacrit.cardcrawl.core.AbstractCreature;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
-import com.megacrit.cardcrawl.powers.AbstractPower;
 import superstitio.DataManager;
 import superstitio.powers.AbstractSuperstitioPower;
 import superstitioapi.cardModifier.RenderAsBlockPower;
@@ -14,7 +13,7 @@ import superstitioapi.powers.interfaces.OnPostApplyThisPower;
 
 import java.util.ArrayList;
 
-public class DelayRemoveDelayHpLosePower extends AbstractSuperstitioPower implements RenderAsBlockPower, InvisiblePower, OnPostApplyThisPower {
+public class DelayRemoveDelayHpLosePower extends AbstractSuperstitioPower implements RenderAsBlockPower, InvisiblePower, OnPostApplyThisPower<DelayRemoveDelayHpLosePower> {
     public static final String POWER_ID = DataManager.MakeTextID(DelayRemoveDelayHpLosePower.class);
     public BlockInstance blockInstance;
 
@@ -43,7 +42,7 @@ public class DelayRemoveDelayHpLosePower extends AbstractSuperstitioPower implem
     }
 
     @Override
-    public void InitializePostApplyThisPower(AbstractPower addedPower) {
+    public void InitializePostApplyThisPower(DelayRemoveDelayHpLosePower addedPower) {
         this.blockInstance = makeBlockInstance();
         RenderStackedBlockInstancesPatch.BlockStackElementField.forceDrawBlock.set(owner, true);
     }

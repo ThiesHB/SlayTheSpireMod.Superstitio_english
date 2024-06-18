@@ -5,15 +5,15 @@ import com.megacrit.cardcrawl.actions.common.ApplyPowerAction;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.core.AbstractCreature;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
-import com.megacrit.cardcrawl.powers.AbstractPower;
 import superstitio.DataManager;
 import superstitio.SuperstitioImg;
-import superstitio.cardModifier.modifiers.damage.UnBlockAbleDamage;
+import superstitio.cardModifier.modifiers.damage.UnBlockAbleHpLoseLikeDamage;
 import superstitio.cards.general.GeneralCard;
 import superstitio.powers.AbstractSuperstitioPower;
 import superstitio.powers.SexualHeat;
-import superstitio.powers.SexualHeatNeededModifier;
 import superstitio.powers.patchAndInterface.interfaces.orgasm.OnOrgasm_onOrgasm;
+import superstitio.powers.sexualHeatNeedModifier.InTurnSexualHeatNeededModifier;
+import superstitio.powers.sexualHeatNeedModifier.SexualHeatNeedModifier;
 import superstitioapi.actions.AutoDoneInstantAction;
 import superstitioapi.cards.DamageActionMaker;
 import superstitioapi.powers.interfaces.OnPostApplyThisPower;
@@ -50,7 +50,7 @@ public class ChokeChoker extends GeneralCard {
 
     @SuperstitioImg.NoNeedImg
     public static class ChokeChokerPower extends AbstractSuperstitioPower implements
-            OnOrgasm_onOrgasm, OnPostApplyThisPower {
+            OnOrgasm_onOrgasm, OnPostApplyThisPower<ChokeChokerPower>, SexualHeatNeedModifier {
         public static final String POWER_ID = DataManager.MakeTextID(ChokeChokerPower.class);
         public static final int ChokeAmount = 1;
 
@@ -65,13 +65,12 @@ public class ChokeChoker extends GeneralCard {
         }
 
         @Override
-        public void InitializePostApplyThisPower(AbstractPower addedPower) {
-            if (addedPower instanceof ChokeChokerPower)
-                AutoDoneInstantAction.addToBotAbstract(() -> ((ChokeChokerPower) addedPower).AddPowers());
+        public void InitializePostApplyThisPower(ChokeChokerPower addedPower) {
+            AutoDoneInstantAction.addToBotAbstract(addedPower::AddPowers);
         }
 
         public void AddPowers() {
-            this.addToBot(new ApplyPowerAction(this.owner, this.owner, new SexualHeatNeededModifier(this.owner, amount)));
+            this.addToBot(new ApplyPowerAction(this.owner, this.owner, new InTurnSexualHeatNeededModifier(this.owner, amount)));
         }
 
 
@@ -81,7 +80,7 @@ public class ChokeChoker extends GeneralCard {
             DamageActionMaker.maker(this.owner, this.amount, this.owner)
                     .setEffect(AbstractGameAction.AttackEffect.NONE)
                     .setSuperFast(true)
-                    .setDamageModifier(this,new UnBlockAbleDamage())
+                    .setDamageModifier(this, new UnBlockAbleHpLoseLikeDamage())
                     .setDamageType(DataManager.CanOnlyDamageDamageType.NoTriggerLupaAndMasoRelicHpLose)
                     .addToTop();
 //            for (int i = 0; i < this.amount; i++) {
@@ -93,6 +92,11 @@ public class ChokeChoker extends GeneralCard {
         @Override
         public void updateDescriptionArgs() {
             this.setDescriptionArgs(amount, ChokeAmount);
+        }
+
+        @Override
+        public int reduceSexualHeatNeeded() {
+            return this.amount;
         }
     }
 }

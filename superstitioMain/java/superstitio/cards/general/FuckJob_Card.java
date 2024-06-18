@@ -2,7 +2,7 @@ package superstitio.cards.general;
 
 import com.evacipated.cardcrawl.mod.stslib.damagemods.DamageModifierManager;
 import superstitio.DataManager;
-import superstitio.SuperstitioModSetup;
+import superstitio.SuperstitioConfig;
 import superstitio.cardModifier.modifiers.damage.SexDamage;
 import superstitio.cardModifier.modifiers.damage.SexDamage_Fuck;
 import superstitio.cardModifier.modifiers.damage.SexDamage_Job;
@@ -50,7 +50,7 @@ public interface FuckJob_Card {
     }
 
     static void initFuckJobCard(SuperstitioCard card) {
-        if (!SuperstitioModSetup.getEnableSFW())
+        if (!SuperstitioConfig.isEnableSFW())
             card.setBackgroundTexture(
                     DataManager.SPTT_DATA.BG_ATTACK_512_SEMEN,
                     DataManager.SPTT_DATA.BG_ATTACK_SEMEN);
@@ -61,6 +61,20 @@ public interface FuckJob_Card {
             DamageModifierManager.addModifier(card, new SexDamage_Job());
         else
             DamageModifierManager.addModifier(card, new SexDamage());
+    }
+
+    static void initFuckJobCardWithoutBond(SuperstitioCard card) {
+        if (!SuperstitioConfig.isEnableSFW())
+            card.setBackgroundTexture(
+                    DataManager.SPTT_DATA.BG_ATTACK_512_SEMEN,
+                    DataManager.SPTT_DATA.BG_ATTACK_SEMEN);
+
+        if (card.cardID.contains("Fuck"))
+            DamageModifierManager.addModifier(card, new SexDamage_Fuck().removeAutoBind());
+        else if (card.cardID.contains("Job"))
+            DamageModifierManager.addModifier(card, new SexDamage_Job().removeAutoBind());
+        else
+            DamageModifierManager.addModifier(card, new SexDamage().removeAutoBind());
     }
 
     enum BodyPart {

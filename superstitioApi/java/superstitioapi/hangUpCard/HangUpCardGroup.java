@@ -13,7 +13,7 @@ import com.megacrit.cardcrawl.orbs.AbstractOrb;
 import superstitioapi.InBattleDataManager;
 import superstitioapi.SuperstitioApiSubscriber;
 import superstitioapi.actions.AutoDoneInstantAction;
-import superstitioapi.utils.CardUtility;
+import superstitioapi.utils.ActionUtility;
 import superstitioapi.utils.RenderInBattle;
 
 import java.util.ArrayList;
@@ -149,7 +149,7 @@ public class HangUpCardGroup implements RenderInBattle,
 
     @Override
     public void render(SpriteBatch sb) {
-        if (CardUtility.isNotInBattle()) return;
+        if (ActionUtility.isNotInBattle()) return;
 //        getCardOrbStream().filter(orb -> orb.drawOrder == CardOrb.DrawOrder.bottom).forEach(orb -> orb.render(sb));
 //        getCardOrbStream().filter(orb -> orb.drawOrder == CardOrb.DrawOrder.middle).forEach(orb -> orb.render(sb));
         getCardOrbStream().forEach(orb -> orb.render(sb));
@@ -163,7 +163,7 @@ public class HangUpCardGroup implements RenderInBattle,
 
     @Override
     public void update() {
-        if (CardUtility.isNotInBattle()) return;
+        if (ActionUtility.isNotInBattle()) return;
 
         for (CardOrb cardOrb : this.cards) {
             if (cardOrb.isCardHovered()) {
@@ -197,7 +197,7 @@ public class HangUpCardGroup implements RenderInBattle,
         this.remove_check_counter = 10;
         this.forEachOrbInThisOrbGroup(CardOrb.class, orb -> {
             orb.checkShouldRemove();
-            if (orb.shouldRemove || CardUtility.isNotInBattle())
+            if (orb.shouldRemove || ActionUtility.isNotInBattle())
                 AutoDoneInstantAction.addToBotAbstract(() -> removeCard(orb));
         });
     }

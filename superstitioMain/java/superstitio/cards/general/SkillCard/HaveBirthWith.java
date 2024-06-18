@@ -9,7 +9,7 @@ import superstitio.DataManager;
 import superstitio.cardModifier.modifiers.block.PregnantBlock_newMonster;
 import superstitio.cards.general.GeneralCard;
 import superstitio.cards.general.TempCard.GiveBirth;
-import superstitio.characters.ChibiKindMonster;
+import superstitio.monster.ChibiKindMonster;
 import superstitioapi.utils.ActionUtility;
 
 import static superstitioapi.utils.ActionUtility.addToBot_makeTempCardInBattle;

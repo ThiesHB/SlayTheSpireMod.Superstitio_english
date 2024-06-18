@@ -37,7 +37,7 @@ public class PetManager implements RenderInBattle, SuperstitioApiSubscriber.AtEn
                 InBattleDataManager.getPetManager().get().monsterGroup;
 //        AbstractDungeon.getMonsters();
         float monsterDX = Settings.WIDTH / 2.0f;
-        float monsterDY = AbstractDungeon.player.drawY;
+        float monsterDY = AbstractDungeon.player.hb.y;
         AbstractMonster lastMonster = null;
         if (!roomMonsters.monsters.isEmpty()) {
             lastMonster = roomMonsters.monsters.get(roomMonsters.monsters.size() - 1);
@@ -52,7 +52,7 @@ public class PetManager implements RenderInBattle, SuperstitioApiSubscriber.AtEn
         if (monster.drawX < 0.0f || monster.drawX > Gdx.graphics.getWidth()
                 || monster.drawY < 0.0f || monster.drawY > Gdx.graphics.getHeight()) {
             monster.drawX = MathUtils.random(0.0f, Gdx.graphics.getWidth());
-            monster.drawY = MathUtils.random(0.0f, Gdx.graphics.getHeight());
+            monster.drawY = MathUtils.random(Gdx.graphics.getHeight() * 0.15f, Gdx.graphics.getHeight() * 0.85f);
         }
         monster.hb.move(monster.drawX, monster.drawY);
         monster.init();
@@ -85,7 +85,7 @@ public class PetManager implements RenderInBattle, SuperstitioApiSubscriber.AtEn
         addToBotAbstract(monsterGroup::applyPreTurnLogic);
         monsterGroup.monsters.forEach(this::monsterTurn);
         addToBotAbstract(monsterGroup::applyEndOfTurnPowers);
-        addToBotAbstract(() -> addToBotAbstract(monsterGroup::showIntent));
+        addToBotAbstract(monsterGroup::showIntent, 2);
     }
 
     private void monsterTurn(AbstractMonster monster) {
@@ -98,8 +98,7 @@ public class PetManager implements RenderInBattle, SuperstitioApiSubscriber.AtEn
             if (!(Boolean) TipTracker.tips.get("INTENT_TIP") && AbstractDungeon.player.currentBlock == 0 && (monster.intent == AbstractMonster.Intent.ATTACK || monster.intent == AbstractMonster.Intent.ATTACK_DEBUFF || monster.intent == AbstractMonster.Intent.ATTACK_BUFF || monster.intent == AbstractMonster.Intent.ATTACK_DEFEND)) {
                 if (AbstractDungeon.floorNum <= 5) {
                     ++TipTracker.blockCounter;
-                }
-                else {
+                } else {
                     TipTracker.neverShowAgain("INTENT_TIP");
                 }
             }

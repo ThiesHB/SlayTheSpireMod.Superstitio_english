@@ -5,16 +5,12 @@ import com.megacrit.cardcrawl.actions.common.*;
 import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.core.AbstractCreature;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
-import com.megacrit.cardcrawl.monsters.AbstractMonster;
-import com.megacrit.cardcrawl.monsters.exordium.ApologySlime;
 import com.megacrit.cardcrawl.powers.AbstractPower;
-import com.megacrit.cardcrawl.random.Random;
+import com.megacrit.cardcrawl.rooms.AbstractRoom;
 import com.megacrit.cardcrawl.vfx.AbstractGameEffect;
-import superstitioapi.Logger;
 import superstitioapi.actions.AutoDoneInstantAction;
 import superstitioapi.powers.AllCardCostModifier;
 
-import java.util.ArrayList;
 import java.util.Optional;
 
 import static com.megacrit.cardcrawl.dungeons.AbstractDungeon.currMapNode;
@@ -57,35 +53,6 @@ public class ActionUtility {
         addToBot_makeTempCardInBattle(card, battleCardPlace, amount, false);
     }
 
-    public static AbstractMonster getRandomMonsterSafe() {
-        final AbstractMonster m = AbstractDungeon.getRandomMonster();
-        if (m != null && !m.isDeadOrEscaped() && !m.isDead) {
-            return m;
-        }
-        return new ApologySlime();
-    }
-
-    public static AbstractMonster getRandomMonsterWithoutRngSafe() {
-        final AbstractMonster m = currMapNode.room.monsters.getRandomMonster(null, true, new Random());
-        if (m != null && !m.isDeadOrEscaped() && !m.isDead) {
-            return m;
-        }
-        return new ApologySlime();
-    }
-
-    public static ArrayList<AbstractMonster> getMonsters() {
-        return AbstractDungeon.getMonsters().monsters;
-    }
-
-    public static AbstractMonster[] getAllAliveMonsters() {
-        AbstractMonster[] monsters = getMonsters().stream().filter(ActionUtility::isAlive).toArray(AbstractMonster[]::new);
-        if (monsters.length == 0) {
-            Logger.warning("no monsters alive, all monsters: " + getMonsters().stream().findAny().orElse(null));
-            return new AbstractMonster[]{new ApologySlime()};
-        }
-        return monsters;
-    }
-
     public static void addToBot_makeTempCardInBattle(AbstractCard card, BattleCardPlace battleCardPlace, int amount,
                                                      boolean upgrade) {
         if (upgrade)
@@ -116,9 +83,6 @@ public class ActionUtility {
         addToBot_makeTempCardInBattle(card, battleCardPlace, 1, upgrade);
     }
 
-    public static boolean isAlive(final AbstractCreature c) {
-        return c != null && !c.isDeadOrEscaped() && !c.isDead;
-    }
 
     public static void addEffect(final AbstractGameEffect effect) {
         AbstractDungeon.effectList.add(effect);
@@ -126,6 +90,15 @@ public class ActionUtility {
 
     public static void addToBot(AbstractGameAction action) {
         AbstractDungeon.actionManager.addToBottom(action);
+    }
+
+    public static boolean isNotInBattle() {
+        if (currMapNode == null) return true;
+        if (AbstractDungeon.getCurrRoom() == null) return true;
+        if (AbstractDungeon.getCurrRoom().phase != AbstractRoom.RoomPhase.COMBAT) return true;
+        if (AbstractDungeon.getCurrRoom().monsters == null) return true;
+        if (AbstractDungeon.getCurrRoom().monsters.monsters == null) return true;
+        return AbstractDungeon.getCurrRoom().monsters.monsters.stream().allMatch(AbstractCreature::isDeadOrEscaped);
     }
 
     public enum BattleCardPlace {

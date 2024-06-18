@@ -1,7 +1,6 @@
 package superstitio.cardModifier.modifiers.block;
 
 import com.megacrit.cardcrawl.cards.DamageInfo;
-import superstitio.DataManager;
 import superstitio.cardModifier.modifiers.AbstractLupaBlock;
 
 public abstract class PregnantBlock extends AbstractLupaBlock {
@@ -10,10 +9,10 @@ public abstract class PregnantBlock extends AbstractLupaBlock {
         super(id);
     }
 
-    @Override
-    public void onThisBlockDamaged(DamageInfo info, int lostAmount) {
-
-    }
+//    @Override
+//    public void onThisBlockDamaged(DamageInfo info, int lostAmount) {
+//
+//    }
 
     @Override
     public boolean shouldStack() {
@@ -28,18 +27,23 @@ public abstract class PregnantBlock extends AbstractLupaBlock {
 
     @Override
     public final int onRemove(boolean lostByStartOfTurn, DamageInfo info, int remainingDamage) {
+        int remain = remainingDamage;
         if (info != null)
-            removeUnNaturally(info, remainingDamage);
+            remain = removeUnNaturally(info, remain);
         else
-            removeNaturally(remainingDamage);
-        return remainingDamage;
+            remain = removeNaturally(remain);
+        return remain;
     }
 
     ///受到外力则为流产
-    public abstract void removeUnNaturally(DamageInfo info, int remainingDamage);
+    public int removeUnNaturally(DamageInfo info, int remainingDamage) {
+        return remainingDamage;
+    }
 
     ///正常顺产的效果
-    public abstract void removeNaturally(int remainingDamage);
+    public int removeNaturally(int remainingDamage) {
+        return remainingDamage;
+    }
 
     @Override
     public Priority priority() {

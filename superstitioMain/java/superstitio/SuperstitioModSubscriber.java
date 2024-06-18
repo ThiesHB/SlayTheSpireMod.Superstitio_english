@@ -2,27 +2,20 @@ package superstitio;
 
 import basemod.BaseMod;
 import basemod.interfaces.*;
-import com.badlogic.gdx.math.MathUtils;
 import com.evacipated.cardcrawl.modthespire.lib.SpireInitializer;
 import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.cards.CardGroup;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.core.AbstractCreature;
-import com.megacrit.cardcrawl.core.CardCrawlGame;
-import com.megacrit.cardcrawl.dungeons.Exordium;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import com.megacrit.cardcrawl.powers.AbstractPower;
 import com.megacrit.cardcrawl.relics.AbstractRelic;
 import com.megacrit.cardcrawl.rooms.AbstractRoom;
-import superstitio.characters.BaseCharacter;
-import superstitio.characters.Lupa;
 import superstitio.characters.Maso;
-import superstitio.relics.blight.*;
-import superstitioapi.relicToBlight.InfoBlight;
 
 import java.util.ArrayList;
 
-import static com.megacrit.cardcrawl.dungeons.AbstractDungeon.*;
+import static com.megacrit.cardcrawl.dungeons.AbstractDungeon.player;
 
 
 @SpireInitializer
@@ -49,9 +42,7 @@ public class SuperstitioModSubscriber implements
 
     @Override
     public void receiveStartGame() {
-        if (!SuperstitioModSetup.getEnableGuroCharacter() && player instanceof Maso) {
-            SuperstitioModSetup.setEnableGuroCharacter(true);
-        }
+
 //        if (player instanceof BaseCharacter) {
 //            if (!player.hasRelic(JokeDescription.ID))
 //                RelicLibrary.getRelic(JokeDescription.ID).makeCopy().instantObtain(player, player.relics.size(), false);
@@ -77,29 +68,6 @@ public class SuperstitioModSubscriber implements
 
     @Override
     public void receivePostDungeonInitialize() {
-        if (player instanceof BaseCharacter) {
-            addAsInfoBlight(new JokeDescription());
-            if (player instanceof Lupa) {
-                addAsInfoBlight(new Sensitive());
-                addAsInfoBlight(new DevaBody_Lupa());
-            }
-            else if (player instanceof Maso) {
-                if (floorNum <= 1 && CardCrawlGame.dungeon instanceof Exordium) {
-                    player.currentHealth = player.getLoadout().currentHp;
-                    if (ascensionLevel >= 6) {
-                        player.currentHealth = MathUtils.round((float) player.currentHealth * 0.9F);
-                    }
-                }
-                addAsInfoBlight(new MasochismMode());
-                addAsInfoBlight(new DevaBody_Masochism());
-            }
-        }
-    }
-
-    public void addAsInfoBlight(AbstractRelic relic) {
-        if (player == null) return;
-        if (player.hasRelic(relic.relicId)) return;
-        InfoBlight.instanceObtain(relic, false);
     }
 
     @Override

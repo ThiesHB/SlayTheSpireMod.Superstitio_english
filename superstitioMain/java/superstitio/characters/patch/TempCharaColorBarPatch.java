@@ -1,4 +1,4 @@
-package superstitio.characters;
+package superstitio.characters.patch;
 
 import basemod.patches.com.megacrit.cardcrawl.screens.mainMenu.ColorTabBar.ColorTabBarFix;
 import com.evacipated.cardcrawl.modthespire.lib.SpirePatch;
@@ -11,7 +11,7 @@ import superstitio.cards.general.GeneralCardVirtualCharacter;
 import superstitio.cards.general.TempCardVirtualCharacter;
 
 @SpirePatch(clz = ColorTabBarFix.class, method = "capitalizeWord")
-public class TempCharaColorBarPath {
+public class TempCharaColorBarPatch {
 
     private static final AbstractPlayer generalCardVirtualCharacter = new GeneralCardVirtualCharacter(CardCrawlGame.playerName);
     private static final AbstractPlayer tempCardVirtualCharacter = new TempCardVirtualCharacter(CardCrawlGame.playerName);

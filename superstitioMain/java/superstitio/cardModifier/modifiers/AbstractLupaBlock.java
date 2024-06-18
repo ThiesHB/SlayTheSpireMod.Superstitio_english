@@ -8,7 +8,7 @@ import superstitio.customStrings.ModifierStringsSet;
 
 import java.util.ArrayList;
 
-public abstract class AbstractLupaBlock extends AbstractBlockModifier {
+public abstract class AbstractLupaBlock extends AbstractBlockModifier{
     public final ModifierStringsSet blockStrings;
     TooltipInfo tooltip = null;
 
@@ -31,6 +31,9 @@ public abstract class AbstractLupaBlock extends AbstractBlockModifier {
         return blockStrings.getNAME();
     }
 
+    /**
+     * 卡牌的描述
+     */
     @Override
     public final ArrayList<TooltipInfo> getCustomTooltips() {
         if (tooltip == null) {
@@ -41,11 +44,17 @@ public abstract class AbstractLupaBlock extends AbstractBlockModifier {
         return tooltipInfos;
     }
 
+    /**
+     * 鼠标放到格挡上的描述
+     */
     @Override
-    public final String getDescription() {
+    public String getDescription() {
         return blockStrings.getDESCRIPTION();
     }
 
+    /**
+     * 显示在卡牌的类型旁边的那玩意
+     */
     @Override
     public final String getCardDescriptor() {
         return blockStrings.getNAME();

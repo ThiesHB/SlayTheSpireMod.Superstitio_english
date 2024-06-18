@@ -8,7 +8,7 @@ import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import com.megacrit.cardcrawl.random.Random;
 import superstitio.DataManager;
 import superstitio.cards.general.AbstractTempCard;
-import superstitioapi.utils.CardUtility;
+import superstitioapi.utils.ListUtility;
 
 import java.util.stream.IntStream;
 
@@ -32,12 +32,12 @@ public class SexToy extends AbstractTempCard {
     }
 
     public static String getRandomSexToyName() {
-        return CardUtility.getRandomFromList(sexToyNames, AbstractDungeon.cardRandomRng);
+        return ListUtility.getRandomFromList(sexToyNames, AbstractDungeon.cardRandomRng);
     }
 
     public static String getRandomSexToyNameWithoutRng() {
         Random random = new Random(System.nanoTime());
-        return CardUtility.getRandomFromList(sexToyNames, random);
+        return ListUtility.getRandomFromList(sexToyNames, random);
     }
 
     @Override

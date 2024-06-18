@@ -9,7 +9,7 @@ import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import com.megacrit.cardcrawl.powers.VulnerablePower;
 import superstitio.DataManager;
 import superstitio.cards.general.AbstractTempCard;
-import superstitioapi.utils.ActionUtility;
+import superstitioapi.utils.CreatureUtility;
 
 import java.util.Arrays;
 
@@ -36,7 +36,7 @@ public class VulnerableTogether extends AbstractTempCard {
     @Override
     public void use(AbstractPlayer player, AbstractMonster monster) {
         addToBot_applyPower(new VulnerablePower(AbstractDungeon.player, 1, false));
-        Arrays.stream(ActionUtility.getAllAliveMonsters()).forEach(creature -> {
+        Arrays.stream(CreatureUtility.getAllAliveMonsters()).forEach(creature -> {
             addToBot_applyPower(new VulnerablePower(creature, 1, false));
         });
     }

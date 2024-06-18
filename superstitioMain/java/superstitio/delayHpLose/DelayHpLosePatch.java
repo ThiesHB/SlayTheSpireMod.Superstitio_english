@@ -9,7 +9,7 @@ import javassist.CannotCompileException;
 import javassist.expr.ExprEditor;
 import javassist.expr.FieldAccess;
 import superstitioapi.powers.interfaces.TriPredicate;
-import superstitioapi.utils.CardUtility;
+import superstitioapi.utils.ActionUtility;
 
 @SpirePatch(clz = AbstractPlayer.class, method = "damage")
 public class DelayHpLosePatch {
@@ -35,7 +35,7 @@ public class DelayHpLosePatch {
     }
 
     public static boolean isImmunity(AbstractPlayer abstractPlayer, DamageInfo info, int damageAmount) {
-        if (CardUtility.isNotInBattle()) return false;
+        if (ActionUtility.isNotInBattle()) return false;
         TriPredicate<AbstractPlayer, DamageInfo, Integer> predicate =
                 IsImmunityFields.checkShouldImmunity.get(abstractPlayer);
         if (predicate == null) return false;

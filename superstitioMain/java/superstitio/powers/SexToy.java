@@ -3,6 +3,7 @@ package superstitio.powers;
 import com.megacrit.cardcrawl.core.AbstractCreature;
 import com.megacrit.cardcrawl.powers.AbstractPower;
 import superstitio.DataManager;
+import superstitioapi.actions.AutoDoneInstantAction;
 import superstitioapi.utils.PowerUtility;
 
 import java.util.HashMap;
@@ -31,7 +32,8 @@ public class SexToy extends AbstractSuperstitioPower {
 
     @Override
     public void atStartOfTurn() {
-        Trigger();
+        AutoDoneInstantAction.addToBotAbstract(this::Trigger);
+//        Trigger();
     }
 
     public void Trigger() {

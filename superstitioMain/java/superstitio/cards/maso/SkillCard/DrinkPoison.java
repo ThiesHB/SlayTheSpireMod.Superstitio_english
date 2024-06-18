@@ -9,10 +9,10 @@ import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import com.megacrit.cardcrawl.powers.PoisonPower;
 import superstitio.DataManager;
-import superstitio.InBattleDataManager;
 import superstitio.cards.maso.MasoCard;
 import superstitio.delayHpLose.DelayHpLosePower;
-import superstitioapi.utils.CardUtility;
+import superstitio.powers.SexualHeat;
+import superstitioapi.utils.ActionUtility;
 
 import static superstitio.delayHpLose.DelayHpLosePower.findAll;
 
@@ -47,7 +47,7 @@ public class DrinkPoison extends MasoCard {
     @Override
     public void triggerOnGlowCheck() {
         this.glowColor = BLUE_BORDER_GLOW_COLOR.cpy();
-        if (InBattleDataManager.InOrgasm) {
+        if (SexualHeat.Orgasm.isPlayerInOrgasm()) {
             this.glowColor = Color.PINK.cpy();
         }
     }
@@ -59,7 +59,7 @@ public class DrinkPoison extends MasoCard {
 
     @Override
     public void initializeDescription() {
-        if (!CardUtility.isNotInBattle()) {
+        if (!ActionUtility.isNotInBattle()) {
             int totalDelayHpLose = findAll(AbstractDungeon.player, DelayHpLosePower.class)
                     .mapToInt(power -> power.amount).sum();
             this.magicNumber = totalDelayHpLose / 2;

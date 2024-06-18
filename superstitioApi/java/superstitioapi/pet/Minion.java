@@ -2,8 +2,10 @@ package superstitioapi.pet;
 
 import basemod.ReflectionHacks;
 import basemod.abstracts.CustomMonster;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.MathUtils;
 import com.megacrit.cardcrawl.cards.DamageInfo;
 import com.megacrit.cardcrawl.core.AbstractCreature;
 import com.megacrit.cardcrawl.core.Settings;
@@ -17,24 +19,27 @@ import static basemod.ReflectionHacks.privateMethod;
 
 public abstract class Minion extends CustomMonster {
     public static final int HEALTH_DIV = 10;
-    public static final float SCALE = 3f;
+    public static final float DEFAULT_DRAW_SCALE = 3f;
+    protected final float drawScale;
     protected final AbstractCreature petCore;
     protected Hitbox petCoreHitbox;
     private float oldMX;
     private float oldMY;
+    private float simpleAnim = 0.0f;
 
-    public Minion(AbstractCreature petCore) {
+    protected Minion(AbstractCreature petCore, float drawScale) {
         super(petCore.name, petCore.id, petCore.maxHealth,
-                petCore.hb_x, petCore.hb_y, petCore.hb_w / SCALE, petCore.hb_h / SCALE, null, 0, 0, true);
+                petCore.hb_x, petCore.hb_y, petCore.hb_w / drawScale, petCore.hb_h / drawScale, null, 0, 0, true);
         this.animX = 0.0f;
         this.animY = 0.0f;
+        this.drawScale = drawScale;
         this.petCore = petCore;
         if (getPrivate(petCore, AbstractCreature.class, "atlas") != null)
             try {
-                AnimationSize.reloadAnimation(petCore, SCALE);
+                AnimationSize.reloadAnimation(petCore, drawScale);
             } catch (Exception e) {
-                this.hb_w *= SCALE;
-                this.hb_h *= SCALE;
+                this.hb_w *= drawScale;
+                this.hb_h *= drawScale;
             }
         this.dialogX = this.petCore.dialogX;
         this.dialogY = this.petCore.dialogY;
@@ -50,6 +55,10 @@ public abstract class Minion extends CustomMonster {
         this.tips = getPrivate(petCore, AbstractCreature.class, "tips");
 
         this.img = setupImg();
+    }
+
+    public Minion(AbstractCreature petCore) {
+        this(petCore, DEFAULT_DRAW_SCALE);
     }
 
     public static boolean isCreatureHovered(AbstractCreature creature) {
@@ -115,13 +124,20 @@ public abstract class Minion extends CustomMonster {
     }
 
     private void drawImg(SpriteBatch sb) {
-        sb.draw(this.img,
-                this.drawX - (float) this.img.getWidth() / SCALE * Settings.scale / 2.0F + this.animX,
-                this.drawY + this.animY,
-                (float) this.img.getWidth() / SCALE * Settings.scale,
-                (float) this.img.getHeight() / SCALE * Settings.scale,
-                0, 0, (int) (this.img.getWidth()), (int) (this.img.getHeight()),
-                this.flipHorizontal, this.flipVertical);
+        simpleAnim += Gdx.graphics.getDeltaTime();
+        if (simpleAnim >= 1.0f)
+            simpleAnim = 0;
+        float scaleX = 1.0f;
+        float v = 0.005f * MathUtils.sinDeg(MathUtils.sinDeg(simpleAnim * 360) * 15);
+        float scaleY = 1.0f + v;
+        float rotation = 0;
+        sb.draw(this.img, this.drawX - (float) this.img.getWidth() / drawScale * Settings.scale / 2.0F + this.animX,
+                this.drawY + this.hb.height * v,
+                0, 0,
+                (float) this.img.getWidth() / drawScale * Settings.scale,
+                (float) this.img.getHeight() / drawScale * Settings.scale,
+                scaleX, scaleY, rotation,
+                0, 0, this.img.getWidth(), this.img.getHeight(), this.flipHorizontal, this.flipVertical);
     }
 
     @Override
@@ -136,7 +152,7 @@ public abstract class Minion extends CustomMonster {
         super.update();
         updatePetCore();
 
-        if (isHovered() && !AbstractDungeon.player.isDraggingCard) {
+        if (!AbstractDungeon.player.isDraggingCard && AbstractDungeon.player.hoveredCard == null && isHovered()) {
             if (InputHelper.justClickedLeft) {
                 this.Drag_Press();
             } else if (InputHelper.isMouseDown) {

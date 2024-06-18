@@ -11,6 +11,7 @@ import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import superstitio.DataManager;
 import superstitio.cards.general.AbstractTempCard;
 import superstitioapi.utils.ActionUtility;
+import superstitioapi.utils.CreatureUtility;
 
 public class FeelPhantomBody extends AbstractTempCard {
     public static final String ID = DataManager.MakeTextID(FeelPhantomBody.class);
@@ -41,7 +42,7 @@ public class FeelPhantomBody extends AbstractTempCard {
     @Override
     public void use(AbstractPlayer player, AbstractMonster monster) {
         addToBot_drawCards();
-        addToBot(new LoseHPAction(ActionUtility.getRandomMonsterSafe(), AbstractDungeon.player, this.magicNumber));
+        addToBot(new LoseHPAction(CreatureUtility.getRandomMonsterSafe(), AbstractDungeon.player, this.magicNumber));
     }
 
     @Override

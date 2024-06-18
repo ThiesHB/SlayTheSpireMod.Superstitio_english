@@ -1,10 +1,12 @@
 package superstitio.relics.blight;
 
+import basemod.AutoAdd;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import superstitio.DataManager;
 import superstitio.relics.SuperstitioRelic;
 import superstitioapi.relicToBlight.InfoBlight;
 
+@AutoAdd.Seen
 public class JokeDescription extends SuperstitioRelic implements InfoBlight.BecomeInfoBlight  {
     public static final String ID = DataManager.MakeTextID(JokeDescription.class);
     // 遗物类型

@@ -1,24 +1,35 @@
 package superstitio.characters;
 
+import com.badlogic.gdx.math.MathUtils;
 import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
+import com.megacrit.cardcrawl.core.CardCrawlGame;
+import com.megacrit.cardcrawl.dungeons.Exordium;
 import com.megacrit.cardcrawl.screens.CharSelectInfo;
 import superstitio.DataManager;
 import superstitio.Logger;
+import superstitio.SuperstitioConfig;
 import superstitio.cards.CardOwnerPlayerManager;
 import superstitio.cards.general.BaseCard.Kiss;
 import superstitio.cards.general.BaseCard.Masturbate;
 import superstitio.cards.maso.BaseCard.FistIn;
 import superstitio.cards.maso.BaseCard.Invite_Maso;
 import superstitio.relics.a_starter.DoubleBlockWithVulnerable;
+import superstitio.relics.blight.DevaBody_Masochism;
+import superstitio.relics.blight.JokeDescription;
+import superstitio.relics.blight.MasochismMode;
+import superstitioapi.player.PlayerInitPostDungeonInitialize;
 
 import java.util.ArrayList;
 
+import static com.megacrit.cardcrawl.dungeons.AbstractDungeon.*;
+import static com.megacrit.cardcrawl.dungeons.AbstractDungeon.player;
 import static superstitio.DataManager.SPTT_DATA.MasoEnums.MASO_CARD;
 import static superstitio.DataManager.SPTT_DATA.MasoEnums.MASO_Character;
+import static superstitioapi.relicToBlight.InfoBlight.addAsInfoBlight;
 
 // 继承CustomPlayer类
-public class Maso extends BaseCharacter {
+public class Maso extends BaseCharacter implements PlayerInitPostDungeonInitialize {
     public static final String ID = DataManager.MakeTextID("Maso");
 
     public Maso(String name) {
@@ -84,5 +95,20 @@ public class Maso extends BaseCharacter {
     @Override
     public AbstractPlayer newInstance() {
         return new Maso(this.name);
+    }
+
+    @Override
+    public void initPostDungeonInitialize() {
+        if (!SuperstitioConfig.isEnableGuroCharacter()) {
+            SuperstitioConfig.setEnableGuroCharacter(true);
+        }
+        addAsInfoBlight(new JokeDescription());
+        addAsInfoBlight(new MasochismMode());
+        addAsInfoBlight(new DevaBody_Masochism());
+        if (floorNum > 1 || !(CardCrawlGame.dungeon instanceof Exordium)) return;
+        player.currentHealth = player.getLoadout().currentHp;
+        if (ascensionLevel >= 6) {
+            player.currentHealth = MathUtils.round((float) player.currentHealth * 0.9F);
+        }
     }
 }

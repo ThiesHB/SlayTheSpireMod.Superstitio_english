@@ -1,17 +1,20 @@
-package superstitio.cards.general.SkillCard.cardManipulation;
+package superstitio.cards.lupa.SkillCard.cardManipulation;
 
 import basemod.cardmods.ExhaustMod;
 import basemod.helpers.CardModifierManager;
+import com.megacrit.cardcrawl.actions.common.ExhaustSpecificCardAction;
 import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
+import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import superstitio.DataManager;
-import superstitio.cards.general.GeneralCard;
+import superstitio.cards.lupa.LupaCard;
 import superstitio.delayHpLose.RemoveDelayHpLoseBlock;
 import superstitioapi.actions.AutoDoneInstantAction;
 import superstitioapi.actions.ChoseCardFromHandCardSelectScreen;
+import superstitioapi.utils.CardUtility;
 
-public class ZenState extends GeneralCard {
+public class ZenState extends LupaCard {
     public static final String ID = DataManager.MakeTextID(ZenState.class);
 
     public static final CardType CARD_TYPE = CardType.SKILL;
@@ -36,14 +39,18 @@ public class ZenState extends GeneralCard {
     public void use(AbstractPlayer player, AbstractMonster monster) {
         addToBot_gainBlock();
         addToBot(new ChoseCardFromHandCardSelectScreen(
-                this::letSpecificCardExhaust)
+                card -> {
+                    addToBot_letSpecificCardExhaust(card);
+                    if (CardUtility.canNotUseWithoutEnvironment(card))
+                        addToBot(new ExhaustSpecificCardAction(card, AbstractDungeon.player.hand));
+                })
                 .setWindowText(String.format(getEXTENDED_DESCRIPTION()[0], this.magicNumber))
                 .setChoiceAmount(this.magicNumber)
                 .setRetainFilter(card -> !card.exhaust, card -> !CardModifierManager.hasModifier(card, ExhaustMod.ID))
         );
     }
 
-    public void letSpecificCardExhaust(AbstractCard card) {
+    public void addToBot_letSpecificCardExhaust(AbstractCard card) {
         AutoDoneInstantAction.addToBotAbstract(() -> {
             card.superFlash();
             CardModifierManager.addModifier(card, new ExhaustMod());

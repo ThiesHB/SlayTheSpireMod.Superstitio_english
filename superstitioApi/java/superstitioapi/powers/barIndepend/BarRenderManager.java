@@ -1,9 +1,11 @@
 package superstitioapi.powers.barIndepend;
 
 import basemod.interfaces.OnPowersModifiedSubscriber;
+import basemod.interfaces.PostPowerApplySubscriber;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
+import com.megacrit.cardcrawl.core.AbstractCreature;
 import com.megacrit.cardcrawl.powers.AbstractPower;
+import superstitioapi.utils.CreatureUtility;
 import superstitioapi.utils.RenderInBattle;
 
 import java.util.ArrayList;
@@ -13,7 +15,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-public class BarRenderManager implements RenderInBattle, OnPowersModifiedSubscriber {
+public class BarRenderManager implements RenderInBattle, OnPowersModifiedSubscriber, PostPowerApplySubscriber {
     //    private final AbstractCreature creature;
     private final List<RenderOnThing> bars = new ArrayList<>();
 
@@ -34,9 +36,7 @@ public class BarRenderManager implements RenderInBattle, OnPowersModifiedSubscri
     }
 
     private ArrayList<AbstractPower> getAllPowers() {
-        ArrayList<AbstractPower> allPower = new ArrayList<>(AbstractDungeon.player.powers);
-        AbstractDungeon.getMonsters().monsters.forEach(monster -> allPower.addAll(monster.powers));
-        return allPower;
+        return CreatureUtility.getListMemberFromPlayerAndEachMonsters(creature -> creature.powers);
     }
 
     public Optional<RenderOnThing> findMatch_powerPointToBar(HasBarRenderOnCreature power) {
@@ -82,4 +82,9 @@ public class BarRenderManager implements RenderInBattle, OnPowersModifiedSubscri
         AutoMakeMessage();
     }
 
+    @Override
+    public void receivePostPowerApplySubscriber(AbstractPower abstractPower, AbstractCreature abstractCreature, AbstractCreature abstractCreature1) {
+        AutoRegisterAndRemove();
+        AutoMakeMessage();
+    }
 }

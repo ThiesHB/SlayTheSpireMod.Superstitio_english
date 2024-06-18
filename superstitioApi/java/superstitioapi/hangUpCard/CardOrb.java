@@ -15,6 +15,7 @@ import com.megacrit.cardcrawl.vfx.cardManip.ExhaustCardEffect;
 import superstitioapi.DataUtility;
 import superstitioapi.cards.DamageActionMaker;
 import superstitioapi.utils.CardUtility;
+import superstitioapi.utils.CreatureUtility;
 
 import java.util.Optional;
 
@@ -354,13 +355,13 @@ public abstract class CardOrb extends AbstractOrb {
 
     protected void updateIfFocusOnMonster() {
         AbstractCreature target = CardOrb.getHoveredMonster().orElse(null);
-        if (!isAlive(target)) return;
+        if (!CreatureUtility.isAlive(target)) return;
         this.lastTarget = target;
         this.tryMoveTo(new Vector2(this.cX - (this.cX - target.hb.cX) / 3, this.cY - (this.cY - target.hb.cY) / 3 + YOffsetWhenHovered()));
     }
 
     protected void updateIfFocusOnSelf() {
-        if (!isAlive(AbstractDungeon.player)) return;
+        if (!CreatureUtility.isAlive(AbstractDungeon.player)) return;
         this.lastTarget = AbstractDungeon.player;
         this.tryMoveTo(new Vector2(this.cX - (this.cX - AbstractDungeon.player.hb.cX) / 2.5f,
                 this.cY - (this.cY - AbstractDungeon.player.hb.cY) / 2.5f + YOffsetWhenHovered()));

@@ -28,7 +28,7 @@ import java.util.stream.Stream;
 import static superstitioapi.actions.AutoDoneInstantAction.addToBotAbstract;
 
 
-public abstract class AllCardCostModifier extends SuperstitioApiPower implements NonStackablePower, OnPostApplyThisPower {
+public abstract class AllCardCostModifier extends SuperstitioApiPower implements NonStackablePower, OnPostApplyThisPower<AllCardCostModifier> {
     private static final float CHECK_TIME = 1.0f;
     private final HasAllCardCostModifyEffect holder;
     public int order = 0;
@@ -216,7 +216,7 @@ public abstract class AllCardCostModifier extends SuperstitioApiPower implements
     }
 
     @Override
-    public void InitializePostApplyThisPower(AbstractPower addedPower) {
+    public void InitializePostApplyThisPower(AllCardCostModifier addedPower) {
         this.order = AllCardCostModifier.getAll().map(p -> p.order).min(Integer::compareTo).orElse(0);
 //        if (TempDecreaseCost.getAllTempDecreaseCost().findAny().isPresent()
 //                || TempDecreaseCost.getAllTempDecreaseCost().noneMatch(TempDecreaseCost::isActive))

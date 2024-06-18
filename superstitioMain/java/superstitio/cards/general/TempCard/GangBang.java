@@ -2,7 +2,6 @@ package superstitio.cards.general.TempCard;
 
 import com.badlogic.gdx.graphics.Color;
 import com.evacipated.cardcrawl.mod.stslib.fields.cards.AbstractCard.AutoplayField;
-import com.megacrit.cardcrawl.actions.AbstractGameAction;
 import com.megacrit.cardcrawl.actions.utility.WaitAction;
 import com.megacrit.cardcrawl.cards.CardGroup;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
@@ -15,7 +14,7 @@ import superstitioapi.cards.DamageActionMaker;
 import superstitioapi.cards.patch.GoSomewhereElseAfterUse;
 import superstitioapi.hangUpCard.CardOrb_AtEndOfTurn;
 import superstitioapi.utils.ActionUtility;
-import superstitioapi.utils.CardUtility;
+import superstitioapi.utils.CreatureUtility;
 
 public class GangBang extends AbstractTempCard implements GoSomewhereElseAfterUse {
     public static final String ID = DataManager.MakeTextID(GangBang.class);
@@ -44,7 +43,7 @@ public class GangBang extends AbstractTempCard implements GoSomewhereElseAfterUs
         this.setupDamage((int) (attackAmount * (1 + (score - 1) * scoreRate)), new SexDamage());
         this.setupBlock((int) (blockAmount * (1 + (score - 1) * scoreRate)), new DrySemenBlock());
         this.glowColor = Color.WHITE.cpy();
-        if (!CardUtility.isNotInBattle())
+        if (!ActionUtility.isNotInBattle())
             this.beginGlowing();
         this.exhaust = true;
         this.isMultiDamage = true;
@@ -74,7 +73,7 @@ public class GangBang extends AbstractTempCard implements GoSomewhereElseAfterUs
     public void afterInterruptMoveToCardGroup(CardGroup cardGroup) {
         GangBang self = this;
         new CardOrb_AtEndOfTurn(this, cardGroup, 1, cardOrbAtEndOfTurn -> {
-            cardOrbAtEndOfTurn.StartHitCreature(ActionUtility.getRandomMonsterWithoutRngSafe());
+            cardOrbAtEndOfTurn.StartHitCreature(CreatureUtility.getRandomMonsterWithoutRngSafe());
             self.addToBot_gainCustomBlock(self.block, new DrySemenBlock());
             self.addToBot_dealDamageToAllEnemies(DamageActionMaker.DamageEffect.HeartMultiInOne);
             addToBot(new WaitAction(1.0f));

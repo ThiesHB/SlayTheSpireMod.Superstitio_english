@@ -27,12 +27,14 @@ public class PregnantBlock_chooseEffect extends PregnantBlock {
     }
 
     @Override
-    public void removeUnNaturally(DamageInfo info, int remainingDamage) {
+    public int removeUnNaturally(DamageInfo info, int remainingDamage) {
         removeUnNatural.get();
+        return super.removeUnNaturally(info, remainingDamage);
     }
 
     @Override
-    public void removeNaturally(int remainingDamage) {
+    public int removeNaturally(int remainingDamage) {
         removeNatural.get();
+        return super.removeNaturally(remainingDamage);
     }
 }

@@ -2,15 +2,15 @@ package superstitio.cards.general.AttackCard;
 
 import basemod.helpers.TooltipInfo;
 import com.badlogic.gdx.graphics.Color;
-import com.megacrit.cardcrawl.actions.AbstractGameAction;
 import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import superstitio.DataManager;
 import superstitio.InBattleDataManager;
 import superstitio.cards.general.GeneralCard;
+import superstitio.powers.SexualHeat;
 import superstitioapi.cards.DamageActionMaker;
-import superstitioapi.utils.CardUtility;
+import superstitioapi.utils.ActionUtility;
 
 import java.util.Collections;
 import java.util.List;
@@ -56,8 +56,8 @@ public class CountSign extends GeneralCard {
 
     private void updateDamage() {
         this.baseDamage = getOriginDamage();
-        if (CardUtility.isNotInBattle()) return;
-        if (!InBattleDataManager.InOrgasm) return;
+        if (ActionUtility.isNotInBattle()) return;
+        if (!SexualHeat.Orgasm.isPlayerInOrgasm()) return;
         int damageUp;
         damageUp = this.magicNumber * InBattleDataManager.OrgasmTimesTotal;
 //        if (damageUp >= 1)
@@ -92,7 +92,7 @@ public class CountSign extends GeneralCard {
     @Override
     public void triggerOnGlowCheck() {
         this.glowColor = BLUE_BORDER_GLOW_COLOR.cpy();
-        if (InBattleDataManager.InOrgasm) {
+        if (SexualHeat.Orgasm.isPlayerInOrgasm()) {
             this.glowColor = Color.PINK.cpy();
         }
     }

@@ -33,7 +33,7 @@
   "SuperstitioMod:MasoCard:OrgasmWithLostBody": {
     "NAME": "慕残之心",
     "NAME_SFW": "加装义体",
-    "DESCRIPTION": "抽到 无法打出 的牌时，将其消耗，在手牌中添加一张 *感受幻肢 。",
+    "DESCRIPTION": "抽到 superstitiomod:无法打出 的牌时，将其消耗，在手牌中添加一张 *感受幻肢 。",
     "FLAVOR": "真希望我一开始就没有这些部位，那样一定很无助~❤"
   },
   "SuperstitioMod:MasoCard:FistIn": {

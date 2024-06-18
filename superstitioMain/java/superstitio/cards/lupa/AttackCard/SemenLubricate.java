@@ -12,7 +12,7 @@ import superstitio.cards.SuperstitioCard;
 import superstitio.cards.lupa.LupaCard;
 import superstitio.powers.EasyBuildAbstractPowerForPowerCard;
 import superstitioapi.actions.AutoDoneInstantAction;
-import superstitioapi.utils.CardUtility;
+import superstitioapi.utils.ActionUtility;
 
 import java.util.Optional;
 
@@ -54,7 +54,7 @@ public class SemenLubricate extends LupaCard {
             inPlayingCard = false;
             return;
         }
-        if (CardUtility.isNotInBattle()) {
+        if (ActionUtility.isNotInBattle()) {
             inPlayingCard = false;
             return;
         }

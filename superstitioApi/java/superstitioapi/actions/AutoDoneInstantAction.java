@@ -3,12 +3,18 @@ package superstitioapi.actions;
 import com.megacrit.cardcrawl.actions.AbstractGameAction;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import superstitioapi.utils.ActionUtility;
-import superstitioapi.utils.CardUtility;
 
 public abstract class AutoDoneInstantAction extends AbstractGameAction {
 
     public static void addToBotAbstract(final ActionUtility.VoidSupplier func) {
         AbstractDungeon.actionManager.addToBottom(newAutoDone(func));
+    }
+
+    public static void addToBotAbstract(final ActionUtility.VoidSupplier func, int time) {
+        if (time <= 1)
+            AbstractDungeon.actionManager.addToBottom(newAutoDone(func));
+        else
+           addToBotAbstract(()-> addToBotAbstract(func, time - 1));
     }
 
     public static void addToTopAbstract(final ActionUtility.VoidSupplier func) {
@@ -27,7 +33,7 @@ public abstract class AutoDoneInstantAction extends AbstractGameAction {
     @Override
     public final void update() {
         this.isDone = true;
-        if (CardUtility.isNotInBattle()) return;
+        if (ActionUtility.isNotInBattle()) return;
         autoDoneUpdate();
     }
 

@@ -1,5 +1,6 @@
 package superstitio.cards.general.SkillCard;
 
+import com.evacipated.cardcrawl.mod.stslib.blockmods.BlockModifierManager;
 import com.evacipated.cardcrawl.mod.stslib.cards.targeting.SelfOrEnemyTargeting;
 import com.evacipated.cardcrawl.mod.stslib.powers.interfaces.InvisiblePower;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
@@ -37,7 +38,7 @@ public class UnBirth extends GeneralCard {
 
     public UnBirth() {
         super(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET);
-        this.setupBlock(BLOCK, UPGRADE_BLOCK, new PregnantBlock_sealPower(new ArrayList<>(),null).removeAutoBind());
+        this.setupBlock(BLOCK, UPGRADE_BLOCK, new PregnantBlock_sealPower(new ArrayList<>(), null).removeAutoBind());
         this.cardsToPreview = new GiveBirth();
         //this.exhaust = true;
     }
@@ -47,6 +48,11 @@ public class UnBirth extends GeneralCard {
         AbstractCreature target = SelfOrEnemyTargeting.getTarget(this);
         if (target == null || target instanceof AbstractPlayer)
             ForPlayer(AbstractDungeon.player);
+        else if (BlockModifierManager.blockInstances(target).stream()
+                .anyMatch(blockInstance -> blockInstance.getBlockTypes().stream()
+                        .filter(blockModifier -> blockModifier instanceof PregnantBlock_sealPower)
+                        .anyMatch(blockModifier -> ((PregnantBlock_sealPower) blockModifier).sealCreature == monster)))
+            ForMonsterBrokenSpaceStructure((AbstractMonster) target);
         else
             ForMonster((AbstractMonster) target);
     }
@@ -66,6 +72,22 @@ public class UnBirth extends GeneralCard {
         this.exhaust = true;
         addToBot_makeTempCardInBattle(new SelfReference(), ActionUtility.BattleCardPlace.Hand, upgraded);
 
+    }
+
+    private void ForMonsterBrokenSpaceStructure(AbstractMonster monster) {
+        ArrayList<AbstractPower> sealPower = new ArrayList<>();
+        monster.powers.forEach(power -> {
+            if ((power.type == AbstractPower.PowerType.DEBUFF || power instanceof ArtifactPower)
+                    && power instanceof InvisiblePower) {
+                power.owner = AbstractDungeon.player;
+                power.amount = power.amount * 2;
+                sealPower.add(power);
+                AutoDoneInstantAction.addToBotAbstract(() -> monster.powers.remove(power));
+            }
+        });
+        addToBot_gainCustomBlock(new PregnantBlock_sealPower(sealPower, monster));
+        this.exhaust = true;
+        addToBot_makeTempCardInBattle(new SelfReference(), ActionUtility.BattleCardPlace.Hand, upgraded);
     }
 
     private void ForMonster(AbstractMonster monster) {

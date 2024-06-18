@@ -3,6 +3,8 @@ package superstitio.powers;
 import basemod.ReflectionHacks;
 import com.badlogic.gdx.graphics.Color;
 import com.evacipated.cardcrawl.mod.stslib.powers.StunMonsterPower;
+import com.evacipated.cardcrawl.modthespire.lib.SpireField;
+import com.evacipated.cardcrawl.modthespire.lib.SpirePatch;
 import com.megacrit.cardcrawl.actions.common.ApplyPowerAction;
 import com.megacrit.cardcrawl.actions.common.DrawCardAction;
 import com.megacrit.cardcrawl.cards.AbstractCard;
@@ -15,10 +17,12 @@ import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import com.megacrit.cardcrawl.powers.AbstractPower;
 import com.megacrit.cardcrawl.ui.panels.EnergyPanel;
 import superstitio.DataManager;
-import superstitio.InBattleDataManager;
 import superstitio.Logger;
+import superstitio.SuperstitioConfig;
 import superstitio.SuperstitioImg;
 import superstitio.powers.patchAndInterface.interfaces.orgasm.*;
+import superstitio.powers.sexualHeatNeedModifier.RefractoryPeriod;
+import superstitio.powers.sexualHeatNeedModifier.SexualHeatNeedModifier;
 import superstitioapi.actions.AutoDoneInstantAction;
 import superstitioapi.powers.AllCardCostModifier;
 import superstitioapi.powers.AllCardCostModifier_PerEnergy;
@@ -48,7 +52,7 @@ import static superstitioapi.utils.ActionUtility.VoidSupplier;
 
 @SuperstitioImg.NoNeedImg
 public class SexualHeat extends AbstractSuperstitioPower implements
-        HasAllCardCostModifyEffect, OnPostApplyThisPower, HasBarRenderOnCreature_Power,
+        HasAllCardCostModifyEffect, OnPostApplyThisPower<SexualHeat>, HasBarRenderOnCreature_Power,
         InvisiblePower_InvisibleTips, InvisiblePower_InvisibleIconAndAmount,
         InvisiblePower_InvisibleApplyPowerEffect, InvisiblePower_InvisibleRemovePowerEffect,
         OnOrgasm_onSuccessfullyPreventOrgasm, OnOrgasm_onOrgasm, OnOrgasm_onEndOrgasm,
@@ -56,12 +60,12 @@ public class SexualHeat extends AbstractSuperstitioPower implements
     public static final String POWER_ID = DataManager.MakeTextID(SexualHeat.class);
     public static final int HEAT_REQUIREDOrigin = 10;
     public static final float HEIGHT = 55 * Settings.scale;
+    public static final int MIN_HEAT_REQUIRE = 2;
     private static final int DRAW_CARD_INContinueOrgasm = 0;
     //绘制相关
     private static final Color PINK = new Color(1f, 0.7529f, 0.7961f, 1.0f);
     public final Color barOrgasmShadowColor;
     private final Color barShadowColorOrigin;
-    private int heatRequired = HEAT_REQUIREDOrigin;
     private int heatAmount;
 
     protected SexualHeat(final AbstractCreature owner, final int heatAmount) {
@@ -70,6 +74,13 @@ public class SexualHeat extends AbstractSuperstitioPower implements
         this.barOrgasmShadowColor = Color.YELLOW.cpy();
         this.barOrgasmShadowColor.a = 0.6f;
         this.barShadowColorOrigin = this.setupBarShadowColor();
+    }
+
+    public static int getMAX_ORGASM_HEART_STREAM_LEVEL() {
+        if (SuperstitioConfig.isEnablePerformanceMode())
+            return 3;
+        else
+            return 12;
     }
 
     public static void addToBot_addSexualHeat(AbstractCreature target, int heatAmount) {
@@ -127,7 +138,8 @@ public class SexualHeat extends AbstractSuperstitioPower implements
     }
 
     private static void addToBot_addOrgasmEffect(SexualHeat sexualHeat) {
-        addToBot_addHeartStreamEffect(12, () -> !InBattleDataManager.InOrgasm, () -> sexualHeat.owner.hb);
+        addToBot_addHeartStreamEffect(getMAX_ORGASM_HEART_STREAM_LEVEL(), () -> !Orgasm.isPlayerInOrgasm(),
+                () -> sexualHeat.owner.hb);
     }
 
     @Override
@@ -169,13 +181,13 @@ public class SexualHeat extends AbstractSuperstitioPower implements
     }
 
     @Override
-    public void InitializePostApplyThisPower(AbstractPower addedPower) {
+    public void InitializePostApplyThisPower(SexualHeat addedPower) {
         CheckOrgasm();
         updateDescription();
     }
 
     public boolean isInOrgasm() {
-        return InBattleDataManager.InOrgasm;
+        return Orgasm.isInOrgasm(owner);
     }
 
     @Override
@@ -243,7 +255,10 @@ public class SexualHeat extends AbstractSuperstitioPower implements
         AddOrgasmTime();
         if (!this.owner.isPlayer) {
             this.addToBot(new ApplyPowerAction(this.owner, this.owner, new StunMonsterPower((AbstractMonster) this.owner)));
-            addToBot_reduceSexualHeat(this.owner, getHeatRequired());
+//            addToBot_reduceSexualHeat(this.owner, this.heatAmount);
+            this.reduceSexualHeat(this.heatAmount);
+            ForceEndOrgasm();
+            addToBot_applyPower(new RefractoryPeriod(this.owner, HEAT_REQUIREDOrigin));
             return;
         }
         final int decreaseCost = Math.min(getOrgasmTimesInTurn(), AbstractDungeon.player.energy.energyMaster);
@@ -264,7 +279,7 @@ public class SexualHeat extends AbstractSuperstitioPower implements
             }
         });
 
-        InBattleDataManager.InOrgasm = true;
+        Orgasm.startOrgasm(owner);
     }
 
     private void CheckEndOrgasm() {
@@ -276,7 +291,7 @@ public class SexualHeat extends AbstractSuperstitioPower implements
 //        OrgasmTimesInTurn = 0;
         OnOrgasm.AllOnOrgasm(owner).filter(power -> !(power instanceof SexualHeat)).forEach(power -> power.onEndOrgasm(this));
         this.onEndOrgasm(this);
-        InBattleDataManager.InOrgasm = false;
+        Orgasm.endOrgasm(owner);
     }
 
     @Override
@@ -298,12 +313,14 @@ public class SexualHeat extends AbstractSuperstitioPower implements
     }
 
     private int getHeatRequired() {
-        return heatRequired;
+        return Math.max(HEAT_REQUIREDOrigin -
+                this.owner.powers.stream().filter(power -> power instanceof SexualHeatNeedModifier)
+                        .mapToInt(power -> ((SexualHeatNeedModifier) power).reduceSexualHeatNeeded()).sum(), MIN_HEAT_REQUIRE);
     }
 
-    public void setHeatRequired(int heatRequired) {
-        this.heatRequired = heatRequired > 0 ? heatRequired : 1;
-    }
+//    public void setHeatRequired(int heatRequired) {
+//        this.heatRequired = heatRequired > 0 ? heatRequired : MIN_HEAT_REQUIRE;
+//    }
 
     @Override
     public Optional<AllCardCostModifier> getActiveEffectHold() {
@@ -390,4 +407,30 @@ public class SexualHeat extends AbstractSuperstitioPower implements
         this.addToBot(new DrawCardAction(DRAW_CARD_INContinueOrgasm));
     }
 
+
+    public static class Orgasm {
+        public static void endOrgasm(AbstractCreature creature) {
+            OrgasmField.isInOrgasm.set(creature, false);
+        }
+
+        public static boolean isPlayerInOrgasm() {
+            return OrgasmField.isInOrgasm.get(AbstractDungeon.player);
+        }
+
+        public static void startOrgasm(AbstractCreature creature) {
+            OrgasmField.isInOrgasm.set(creature, true);
+        }
+
+        public static boolean isInOrgasm(AbstractCreature creature) {
+            return OrgasmField.isInOrgasm.get(creature);
+        }
+
+        @SpirePatch(
+                clz = AbstractCreature.class,
+                method = "<class>"
+        )
+        private static class OrgasmField {
+            public static SpireField<Boolean> isInOrgasm = new SpireField<>(() -> false);
+        }
+    }
 }

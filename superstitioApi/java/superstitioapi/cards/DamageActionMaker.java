@@ -15,7 +15,7 @@ import com.megacrit.cardcrawl.monsters.exordium.ApologySlime;
 import superstitioapi.Logger;
 import superstitioapi.actions.AutoDoneInstantAction;
 import superstitioapi.shader.HeartShader;
-import superstitioapi.utils.ActionUtility;
+import superstitioapi.utils.CreatureUtility;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -59,28 +59,28 @@ public class DamageActionMaker {
     }
 
     public static DamageActionMaker makeAnAoeAction(int damageAmount) {
-        return new DamageActionMaker(damageAmount, ActionUtility.getAllAliveMonsters());
+        return new DamageActionMaker(damageAmount, CreatureUtility.getAllAliveMonsters());
     }
 
     public static DamageActionMaker makeAnAoeAction(final AbstractCreature source, int damageAmount) {
-        return new DamageActionMaker(source, damageAmount, ActionUtility.getAllAliveMonsters());
+        return new DamageActionMaker(source, damageAmount, CreatureUtility.getAllAliveMonsters());
     }
 
     public static AbstractCreature getTargetOrFirstMonster(AbstractCreature target) {
-        if (ActionUtility.isAlive(target)) {
+        if (CreatureUtility.isAlive(target)) {
             return target;
         }
-        AbstractMonster first = ActionUtility.getAllAliveMonsters()[0];
+        AbstractMonster first = CreatureUtility.getAllAliveMonsters()[0];
         if (first != null)
             return first;
         return new ApologySlime();
     }
 
     public static AbstractMonster getMonsterOrFirstMonster(AbstractCreature target) {
-        if (target instanceof AbstractMonster && ActionUtility.isAlive(target)) {
+        if (target instanceof AbstractMonster && CreatureUtility.isAlive(target)) {
             return (AbstractMonster) target;
         }
-        AbstractMonster first = ActionUtility.getAllAliveMonsters()[0];
+        AbstractMonster first = CreatureUtility.getAllAliveMonsters()[0];
         if (first != null)
             return first;
         Logger.warning("NoAliveMonsters");
@@ -88,9 +88,9 @@ public class DamageActionMaker {
     }
 
     private List<AbstractCreature> getTargets() {
-        List<AbstractCreature> alive = Arrays.stream(_targets).filter(ActionUtility::isAlive).collect(Collectors.toList());
+        List<AbstractCreature> alive = Arrays.stream(_targets).filter(CreatureUtility::isAlive).collect(Collectors.toList());
         if (alive.isEmpty())
-            return Collections.singletonList(ActionUtility.getAllAliveMonsters()[0]);
+            return Collections.singletonList(CreatureUtility.getAllAliveMonsters()[0]);
         return alive;
     }
 

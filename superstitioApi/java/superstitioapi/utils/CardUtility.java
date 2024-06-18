@@ -1,20 +1,16 @@
 package superstitioapi.utils;
 
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.utils.Array;
 import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.cards.CardGroup;
-import com.megacrit.cardcrawl.core.AbstractCreature;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.helpers.CardLibrary;
-import com.megacrit.cardcrawl.random.Random;
-import com.megacrit.cardcrawl.rooms.AbstractRoom;
+import com.megacrit.cardcrawl.ui.panels.EnergyPanel;
 import superstitioapi.DataUtility;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 public class CardUtility {
 
@@ -31,7 +27,7 @@ public class CardUtility {
         List<AbstractCard> list = getCardsListForMod(ThisMod, Vanilla).stream()
                 .filter(card -> card.type == AbstractCard.CardType.STATUS)
                 .collect(Collectors.toList());
-        return getRandomFromList(list, AbstractDungeon.cardRandomRng).makeCopy();
+        return ListUtility.getRandomFromList(list, AbstractDungeon.cardRandomRng).makeCopy();
     }
 
     public static List<AbstractCard> getCardsListForMod(boolean ThisMod, boolean Vanilla) {
@@ -49,23 +45,6 @@ public class CardUtility {
                 })
                 .collect(Collectors.toList());
         return list;
-    }
-
-    public static <T> T getRandomFromList(List<T> list, Random random) {
-        return list.get(random.random(list.size() - 1));
-    }
-
-    public static <T> T getRandomFromList(Array<T> list, Random random) {
-        return list.get(random.random(list.size - 1));
-    }
-
-    public static <T> T getRandomFromList(Stream<T> stream, Random random) {
-        List<T> list = stream.collect(Collectors.toList());
-        return getRandomFromList(list, random);
-    }
-
-    public static <T> T getRandomFromList(T[] list, Random random) {
-        return list[random.random(list.length - 1)];
     }
 
     public static boolean IsCardColorVanilla(AbstractCard card) {
@@ -151,12 +130,18 @@ public class CardUtility {
         }
     }
 
-    public static boolean isNotInBattle() {
-        if (AbstractDungeon.currMapNode == null) return true;
-        if (AbstractDungeon.getCurrRoom() == null) return true;
-        if (AbstractDungeon.getCurrRoom().phase != AbstractRoom.RoomPhase.COMBAT) return true;
-        if (AbstractDungeon.getCurrRoom().monsters == null) return true;
-        if (AbstractDungeon.getCurrRoom().monsters.monsters == null) return true;
-        return AbstractDungeon.getCurrRoom().monsters.monsters.stream().allMatch(AbstractCreature::isDeadOrEscaped);
+    private static boolean hasEnoughEnergyOrTurnEnd(AbstractCard card) {
+        if (AbstractDungeon.actionManager.turnHasEnded) {
+            return false;
+        }
+        return EnergyPanel.totalCount >= card.costForTurn || card.freeToPlay() || card.isInAutoplay;
+    }
+
+    public static boolean canNotUseWithoutEnvironment(AbstractCard card) {
+        if (card.canUse(AbstractDungeon.player, null)) return true;
+        //不是因为能量不够或者对象不对而无法打出
+//            if (!(card.cardPlayable(null) && hasEnoughEnergyOrTurnEnd(card))) return;
+        //似乎检测对象是否正确会导致攻击牌出问题，所以只加了这个检测，但是可能会引发其他错误
+        return !(hasEnoughEnergyOrTurnEnd(card));
     }
 }

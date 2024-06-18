@@ -1,12 +1,10 @@
 package superstitio.cards.general.AttackCard.legDrawCard;
 
 import com.badlogic.gdx.graphics.Color;
-import com.megacrit.cardcrawl.actions.AbstractGameAction;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import superstitio.DataManager;
-import superstitio.InBattleDataManager;
 import superstitio.cards.general.FuckJob_Card;
 import superstitio.cards.general.GeneralCard;
 import superstitio.powers.SexualHeat;
@@ -48,7 +46,7 @@ public class Job_LegPit extends GeneralCard implements FuckJob_Card {
     @Override
     public void triggerOnGlowCheck() {
         this.glowColor = BLUE_BORDER_GLOW_COLOR.cpy();
-        if (InBattleDataManager.InOrgasm) {
+        if (SexualHeat.Orgasm.isPlayerInOrgasm()) {
             this.glowColor = Color.PINK.cpy();
         }
     }

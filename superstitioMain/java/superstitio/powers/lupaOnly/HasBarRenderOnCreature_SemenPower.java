@@ -3,7 +3,7 @@ package superstitio.powers.lupaOnly;
 import com.badlogic.gdx.graphics.Color;
 import com.megacrit.cardcrawl.core.Settings;
 import com.megacrit.cardcrawl.helpers.Hitbox;
-import superstitio.SuperstitioModSetup;
+import superstitio.SuperstitioConfig;
 import superstitioapi.powers.barIndepend.BarRenderOnThing_Vertical;
 import superstitioapi.powers.barIndepend.HasBarRenderOnCreature;
 import superstitioapi.powers.barIndepend.HasBarRenderOnCreature_Power;
@@ -12,7 +12,7 @@ import java.util.function.Supplier;
 
 public interface HasBarRenderOnCreature_SemenPower extends HasBarRenderOnCreature_Power, SemenPower {
     static Color semenColor() {
-        if (SuperstitioModSetup.getEnableSFW())
+        if (SuperstitioConfig.isEnableSFW())
             return Color.RED.cpy();
         else
             return Color.WHITE.cpy();

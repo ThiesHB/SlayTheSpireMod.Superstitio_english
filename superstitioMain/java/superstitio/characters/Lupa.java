@@ -11,14 +11,19 @@ import superstitio.cards.general.BaseCard.Masturbate;
 import superstitio.cards.lupa.BaseCard.DrySemen;
 import superstitio.cards.lupa.BaseCard.Invite_Lupa;
 import superstitio.relics.a_starter.StartWithSexToy;
+import superstitio.relics.blight.DevaBody_Lupa;
+import superstitio.relics.blight.JokeDescription;
+import superstitio.relics.blight.Sensitive;
+import superstitioapi.player.PlayerInitPostDungeonInitialize;
 
 import java.util.ArrayList;
 
 import static superstitio.DataManager.SPTT_DATA.LupaEnums.LUPA_CARD;
 import static superstitio.DataManager.SPTT_DATA.LupaEnums.LUPA_Character;
+import static superstitioapi.relicToBlight.InfoBlight.addAsInfoBlight;
 
 // 继承CustomPlayer类
-public class Lupa extends BaseCharacter {
+public class Lupa extends BaseCharacter implements PlayerInitPostDungeonInitialize {
     public static final String ID = DataManager.MakeTextID("Lupa");
 
     public Lupa(String name) {
@@ -87,5 +92,12 @@ public class Lupa extends BaseCharacter {
     @Override
     public int getAscensionMaxHPLoss() {
         return 5;
+    }
+
+    @Override
+    public void initPostDungeonInitialize() {
+        addAsInfoBlight(new JokeDescription());
+        addAsInfoBlight(new Sensitive());
+        addAsInfoBlight(new DevaBody_Lupa());
     }
 }

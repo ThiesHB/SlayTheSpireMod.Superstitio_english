@@ -3,7 +3,7 @@ package superstitio.customStrings;
 import com.evacipated.cardcrawl.mod.stslib.patches.FlavorText;
 import com.megacrit.cardcrawl.localization.CardStrings;
 import com.megacrit.cardcrawl.localization.LocalizedStrings;
-import superstitio.SuperstitioModSetup;
+import superstitio.SuperstitioConfig;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -76,7 +76,7 @@ public class CardStringsWithFlavorSet implements HasSFWVersionWithT<CardStrings>
     }
 
     public String getFLAVOR() {
-        if (SuperstitioModSetup.getEnableSFW())
+        if (SuperstitioConfig.isEnableSFW())
             return "";
         return FLAVOR;
     }

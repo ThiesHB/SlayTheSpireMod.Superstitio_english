@@ -14,10 +14,10 @@ public class DelayRemoveDelayHpLoseBlock extends AbstractLupaBlock {
         super(ID);
     }
 
-    @Override
-    public float onModifyBlock(float block, AbstractCard card) {
-        return super.onModifyBlock(block, card);
-    }
+//    @Override
+//    public float onModifyBlock(float block, AbstractCard card) {
+//        return super.onModifyBlock(block, card);
+//    }
 
     @Override
     public AbstractBlockModifier makeCopy() {

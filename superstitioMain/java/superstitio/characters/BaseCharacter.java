@@ -25,24 +25,24 @@ import com.megacrit.cardcrawl.orbs.AbstractOrb;
 import com.megacrit.cardcrawl.rooms.RestRoom;
 import com.megacrit.cardcrawl.unlock.UnlockTracker;
 import superstitio.DataManager;
-import superstitio.SuperstitioModSetup;
+import superstitio.SuperstitioConfig;
 import superstitio.cards.general.BaseCard.Kiss;
 
 import java.util.ArrayList;
 
 import static superstitio.DataManager.SPTT_DATA.GeneralEnums.GENERAL_CARD;
-import static superstitioapi.utils.CardUtility.isNotInBattle;
+import static superstitioapi.utils.ActionUtility.isNotInBattle;
 
 // 继承CustomPlayer类
 public abstract class BaseCharacter extends CustomPlayer {
     // 人物立绘
-    public static final String LUPA_CHARACTER = DataManager.makeImgFilesPath_Character_Lupa("character");
+    public static final String LUPA_CHARACTER = DataManager.makeImgFilesPath_Character("character");
     // 火堆的人物立绘（行动前）
-    public static final String LUPA_CHARACTER_SHOULDER_1 = DataManager.makeImgFilesPath_Character_Lupa("shoulder1");
+    public static final String LUPA_CHARACTER_SHOULDER_1 = DataManager.makeImgFilesPath_Character("shoulder1");
     // 火堆的人物立绘（行动后）
-    public static final String LUPA_CHARACTER_SHOULDER_2 = DataManager.makeImgFilesPath_Character_Lupa("shoulder2");
+    public static final String LUPA_CHARACTER_SHOULDER_2 = DataManager.makeImgFilesPath_Character("shoulder2");
     // 人物死亡图像
-    public static final String LUPA_CORPSE_IMAGE = DataManager.makeImgFilesPath_Character_Lupa("corpse");
+    public static final String LUPA_CORPSE_IMAGE = DataManager.makeImgFilesPath_Character("corpse");
     private static final String EnergyBall_Path = "EnergyBall_Lupa/";
     private static final String EnergyBall_VFX_Path = DataManager.makeImgFilesPath_UI(EnergyBall_Path + "vfx");
     // 战斗界面左下角能量图标的每个图层
@@ -86,7 +86,7 @@ public abstract class BaseCharacter extends CustomPlayer {
                 new EnergyManager(3) // 初始每回合的能量
         );
 
-        if (!SuperstitioModSetup.getEnableSFW()) {
+        if (!SuperstitioConfig.isEnableSFW()) {
             this.setMoveOffset(0, -hb.height / 3.0f);
         }
 
@@ -235,9 +235,9 @@ public abstract class BaseCharacter extends CustomPlayer {
     public ArrayList<CutscenePanel> getCutscenePanels() {
         ArrayList<CutscenePanel> panels = new ArrayList<>();
         // 有两个参数的，第二个参数表示出现图片时播放的音效
-        panels.add(new CutscenePanel(DataManager.makeImgFilesPath_Character_Lupa("Victory1"), "ATTACK_MAGIC_FAST_1"));
-        panels.add(new CutscenePanel(DataManager.makeImgFilesPath_Character_Lupa("Victory2")));
-        panels.add(new CutscenePanel(DataManager.makeImgFilesPath_Character_Lupa("Victory3")));
+        panels.add(new CutscenePanel(DataManager.makeImgFilesPath_Character("Victory1"), "ATTACK_MAGIC_FAST_1"));
+        panels.add(new CutscenePanel(DataManager.makeImgFilesPath_Character("Victory2")));
+        panels.add(new CutscenePanel(DataManager.makeImgFilesPath_Character("Victory3")));
         return panels;
     }
 

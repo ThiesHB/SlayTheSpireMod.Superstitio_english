@@ -1,5 +1,6 @@
 package superstitio.relics.blight;
 
+import basemod.AutoAdd;
 import com.evacipated.cardcrawl.mod.stslib.powers.interfaces.InvisiblePower;
 import com.megacrit.cardcrawl.cards.DamageInfo;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
@@ -12,8 +13,8 @@ import superstitio.relics.SuperstitioRelic;
 import superstitioapi.actions.AutoDoneInstantAction;
 import superstitioapi.relicToBlight.InfoBlight;
 import superstitioapi.utils.ActionUtility;
-import superstitioapi.utils.CardUtility;
 
+@AutoAdd.Seen
 public class MasochismMode extends SuperstitioRelic implements InfoBlight.BecomeInfoBlight {
     public static final String ID = DataManager.MakeTextID(MasochismMode.class);
     // 遗物类型
@@ -70,7 +71,7 @@ public class MasochismMode extends SuperstitioRelic implements InfoBlight.Become
 
         @Override
         public void wasHPLost(DamageInfo info, int damageAmount) {
-            if (CardUtility.isNotInBattle()) return;
+            if (ActionUtility.isNotInBattle()) return;
             if (info.type == DataManager.CanOnlyDamageDamageType.UnBlockAbleDamageType) return;
             if (info.type == DataManager.CanOnlyDamageDamageType.NoTriggerLupaAndMasoRelicHpLose) return;
             this.flash();

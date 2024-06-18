@@ -12,7 +12,7 @@ import superstitio.cards.CardOwnerPlayerManager;
 import superstitio.cards.general.FuckJob_Card;
 import superstitio.cards.lupa.LupaCard;
 import superstitioapi.utils.ActionUtility;
-import superstitioapi.utils.CardUtility;
+import superstitioapi.utils.ListUtility;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -36,7 +36,7 @@ public class ChooseCoitalPosture extends LupaCard {
     }
 
     public static AbstractCard getRandomFuckJobCard() {
-        return CardUtility.getRandomFromList(getAllFuckJobCard(), AbstractDungeon.cardRandomRng);
+        return ListUtility.getRandomFromList(getAllFuckJobCard(), AbstractDungeon.cardRandomRng);
     }
 
     public static List<AbstractCard> getAllFuckJobCard() {

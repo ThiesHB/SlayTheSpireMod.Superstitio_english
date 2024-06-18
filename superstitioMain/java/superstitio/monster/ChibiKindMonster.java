@@ -1,4 +1,4 @@
-package superstitio.characters;
+package superstitio.monster;
 
 import basemod.ReflectionHacks;
 import basemod.abstracts.CustomMonster;
@@ -10,26 +10,32 @@ import com.megacrit.cardcrawl.cards.DamageInfo;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.core.Settings;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
+import com.megacrit.cardcrawl.helpers.Hitbox;
 import com.megacrit.cardcrawl.helpers.ImageMaster;
 import com.megacrit.cardcrawl.helpers.PowerTip;
 import com.megacrit.cardcrawl.localization.MonsterStrings;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
+import com.megacrit.cardcrawl.random.Random;
 import superstitio.DataManager;
 import superstitioapi.pet.MinionMonster;
-import superstitioapi.utils.ActionUtility;
 import superstitioapi.utils.CardUtility;
+import superstitioapi.utils.CreatureUtility;
+import superstitioapi.utils.ListUtility;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import static superstitio.characters.BaseCharacter.LUPA_CHARACTER;
 import static superstitioapi.actions.AutoDoneInstantAction.addToBotAbstract;
 
 public class ChibiKindMonster extends CustomMonster {
     public static final String ID = DataManager.MakeTextID(ChibiKindMonster.class);
+    public static final String[] CHIBI_CHARACTER = new String[]{
+            DataManager.makeImgFilesPath_Character("chibiCharacter0"),
+            DataManager.makeImgFilesPath_Character("chibiCharacter1"),
+            DataManager.makeImgFilesPath_Character("chibiCharacter2")
+    };
     private static final List<AbstractCard> willPlayCards = new ArrayList<>();
-
     private static final MonsterStrings monsterStrings = CardCrawlGame.languagePack.getMonsterStrings(ID);
     public static final String NAME = monsterStrings.NAME;
     public static final String[] MOVES = monsterStrings.MOVES;
@@ -38,7 +44,7 @@ public class ChibiKindMonster extends CustomMonster {
     public static final String[] DIALOG = monsterStrings.DIALOG;
 
     public ChibiKindMonster() {
-        super(NAME, ID, AbstractDungeon.player.maxHealth, 0, 0, 250.0f, 375.0f, LUPA_CHARACTER);
+        super(NAME, ID, AbstractDungeon.player.maxHealth, 0, 0, 250.0f, 250.0f, ListUtility.getRandomFromList(CHIBI_CHARACTER, new Random()));
         this.setHp(AbstractDungeon.player.maxHealth);
         this.animX = 0.0f;
         this.animY = 0.0f;
@@ -46,6 +52,18 @@ public class ChibiKindMonster extends CustomMonster {
         this.dialogX = -70.0F * Settings.scale;
         this.dialogY = 50.0F * Settings.scale;
         this.damage.add(new DamageInfo(this, 6));
+
+        if (img == null) return;
+        this.hb_w = img.getWidth() * Settings.scale;
+        this.hb_h = img.getHeight() * Settings.xScale;
+//        this.hb_x = hb_x * Settings.scale;
+//        this.hb_y = hb_y * Settings.scale;
+
+//        this.intentHb = new Hitbox(INTENT_HB_W, INTENT_HB_W);
+        this.hb = new Hitbox(this.hb_w, this.hb_h);
+        this.healthHb = new Hitbox(this.hb_w, 72.0F * Settings.scale);
+        this.refreshHitboxLocation();
+        this.refreshIntentHbLocation();
     }
 
     @Override
@@ -69,7 +87,7 @@ public class ChibiKindMonster extends CustomMonster {
         }
         addToBot(new RollMoveAction(this));
 //        addToBotAbstract(() ->
-        addToBotAbstract(() -> addToBotAbstract(willPlayCards::clear));
+        addToBotAbstract(willPlayCards::clear, 2);
 //        );
     }
 
@@ -79,7 +97,7 @@ public class ChibiKindMonster extends CustomMonster {
         strike.ifPresent(card -> {
             willPlayCards.add(card);
 //            addToBot(new UseCardAction(card));
-            AbstractDungeon.actionManager.cardQueue.add(new CardQueueItem(card, ActionUtility.getRandomMonsterSafe(),0,true,true));
+            AbstractDungeon.actionManager.cardQueue.add(new CardQueueItem(card, CreatureUtility.getRandomMonsterSafe(), 0, true, true));
         });
         return strike.isPresent();
     }
@@ -91,7 +109,7 @@ public class ChibiKindMonster extends CustomMonster {
             willPlayCards.add(card);
 //            card.dontTriggerOnUseCard
 //            addToBot(new UseCardAction(card));
-            AbstractDungeon.actionManager.cardQueue.add(new CardQueueItem(card, ActionUtility.getRandomMonsterSafe(),0,true,true));
+            AbstractDungeon.actionManager.cardQueue.add(new CardQueueItem(card, CreatureUtility.getRandomMonsterSafe(), 0, true, true));
         });
         return defend.isPresent();
     }
@@ -133,10 +151,11 @@ public class ChibiKindMonster extends CustomMonster {
 
     public static class MinionChibi extends MinionMonster {
 
+        private static final float CHIBI_DRAW_SCALE = 2.0f;
         private final ChibiKindMonster petCoreChibi;
 
         public MinionChibi(ChibiKindMonster petCoreChibi) {
-            super(petCoreChibi);
+            super(petCoreChibi, CHIBI_DRAW_SCALE);
             this.petCoreChibi = petCoreChibi;
             this.flipHorizontal = false;
         }

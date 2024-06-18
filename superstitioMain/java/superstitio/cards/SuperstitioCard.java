@@ -1,23 +1,30 @@
 package superstitio.cards;
 
 import basemod.abstracts.CustomCard;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.math.MathUtils;
 import com.evacipated.cardcrawl.mod.stslib.actions.common.GainCustomBlockAction;
 import com.evacipated.cardcrawl.mod.stslib.blockmods.AbstractBlockModifier;
 import com.evacipated.cardcrawl.mod.stslib.blockmods.BlockModContainer;
 import com.evacipated.cardcrawl.mod.stslib.blockmods.BlockModifierManager;
+import com.evacipated.cardcrawl.mod.stslib.cards.targeting.SelfOrEnemyTargeting;
 import com.evacipated.cardcrawl.mod.stslib.damagemods.AbstractDamageModifier;
 import com.evacipated.cardcrawl.mod.stslib.damagemods.DamageModifierManager;
 import com.evacipated.cardcrawl.mod.stslib.patches.FlavorText;
 import com.megacrit.cardcrawl.actions.common.DrawCardAction;
 import com.megacrit.cardcrawl.actions.common.GainBlockAction;
+import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.core.AbstractCreature;
 import com.megacrit.cardcrawl.core.Settings;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
+import com.megacrit.cardcrawl.helpers.controller.CInputActionSet;
+import com.megacrit.cardcrawl.helpers.input.InputActionSet;
 import com.megacrit.cardcrawl.localization.CardStrings;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import com.megacrit.cardcrawl.powers.AbstractPower;
+import com.megacrit.cardcrawl.relics.AbstractRelic;
 import com.megacrit.cardcrawl.vfx.AbstractGameEffect;
 import com.megacrit.cardcrawl.vfx.combat.FlashAtkImgEffect;
 import superstitio.Logger;
@@ -38,6 +45,7 @@ import java.util.Objects;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
+import static com.evacipated.cardcrawl.mod.stslib.patches.CustomTargeting.targetingMap;
 import static com.megacrit.cardcrawl.actions.AbstractGameAction.AttackEffect;
 import static com.megacrit.cardcrawl.cards.DamageInfo.DamageType;
 import static superstitio.DataManager.cards;
@@ -135,6 +143,27 @@ public abstract class SuperstitioCard extends CustomCard implements updateDescri
             return;
         }
         AbstractDungeon.actionManager.addToBottom(new GainBlockAction(AbstractDungeon.player, amount));
+    }
+
+    public static void updateSelfOrEnemyTargetingTargetHovered(AbstractPlayer player, SelfOrEnemyTargeting targeting) {
+        if (player.isInKeyboardMode) {
+            if (!InputActionSet.releaseCard.isJustPressed() && !CInputActionSet.cancel.isJustPressed()) {
+                targeting.updateKeyboardTarget();
+            } else {
+                AbstractCard cardFromHotkey = player.hoveredCard;
+                player.inSingleTargetMode = false;
+                player.toHover = cardFromHotkey;
+                if (Settings.isControllerMode && AbstractDungeon.actionManager.turnHasEnded) {
+                    player.toHover = null;
+                }
+
+                if (cardFromHotkey != null && !player.inspectMode) {
+                    Gdx.input.setCursorPosition((int) cardFromHotkey.hb.cX, (int) ((float) Settings.HEIGHT - AbstractPlayer.HOVER_CARD_Y_POSITION));
+                }
+            }
+        } else {
+            targeting.updateHovered();
+        }
     }
 
     public String makeFormatDESCRIPTION() {
@@ -316,13 +345,13 @@ public abstract class SuperstitioCard extends CustomCard implements updateDescri
         this.addToBot(new DrawCardAction(1));
     }
 
-    public final void addToBot_applyPower(final AbstractPower power) {
-        ActionUtility.addToBot_applyPower(power);
-    }
-
 //    protected final void addToBot_reducePower(final AbstractPower power) {
 //        ActionUtility.addToBot_reducePower(power, AbstractDungeon.player);
 //    }
+
+    public final void addToBot_applyPower(final AbstractPower power) {
+        ActionUtility.addToBot_applyPower(power);
+    }
 
     public final void addToBot_reducePower(final String powerID, int amount) {
         ActionUtility.addToBot_reducePower(powerID, amount, AbstractDungeon.player, AbstractDungeon.player);
@@ -349,5 +378,88 @@ public abstract class SuperstitioCard extends CustomCard implements updateDescri
     @Override
     public abstract void use(AbstractPlayer player, AbstractMonster monster);
 
+    protected final void calculateMultipleDamage(AbstractPlayer player) {
+        final ArrayList<AbstractMonster> monsters = AbstractDungeon.getCurrRoom().monsters.monsters;
+        final float[] tmpDamages = new float[monsters.size()];
+        Arrays.fill(tmpDamages, (float) this.baseDamage);
+        this.multiDamage = new int[tmpDamages.length];
+        for (int i = 0; i < tmpDamages.length; ++i) {
+            float tmpDamage = tmpDamages[i];
+            if (monsters.get(i).isDying || monsters.get(i).isEscaping) continue;
+            tmpDamage = getTmpDamage(player, tmpDamage, monsters.get(i));
+            this.multiDamage[i] = MathUtils.floor(tmpDamage);
+        }
+        this.damage = this.multiDamage[0];
+    }
 
+    protected final float getTmpDamage(AbstractPlayer player, float baseDamage, AbstractCreature creature) {
+        float tempDamage = baseDamage;
+        for (final AbstractRelic r2 : player.relics) {
+            tempDamage = r2.atDamageModify(tempDamage, this);
+            if (this.baseDamage != (int) tempDamage) {
+                this.isDamageModified = true;
+            }
+        }
+        for (final AbstractPower p2 : player.powers) {
+            tempDamage = p2.atDamageGive(tempDamage, this.damageTypeForTurn, this);
+        }
+        tempDamage = player.stance.atDamageGive(tempDamage, this.damageTypeForTurn, this);
+        if (this.baseDamage != (int) tempDamage) {
+            this.isDamageModified = true;
+        }
+        for (final AbstractPower p2 : creature.powers) {
+            tempDamage = p2.atDamageReceive(tempDamage, this.damageTypeForTurn, this);
+        }
+        for (final AbstractPower p2 : player.powers) {
+            tempDamage = p2.atDamageFinalGive(tempDamage, this.damageTypeForTurn, this);
+        }
+        for (final AbstractPower p2 : creature.powers) {
+            tempDamage = p2.atDamageFinalReceive(tempDamage, this.damageTypeForTurn, this);
+        }
+        if (tempDamage < 0.0f) {
+            tempDamage = 0.0f;
+        }
+        if (this.baseDamage != MathUtils.floor(tempDamage)) {
+            this.isDamageModified = true;
+        }
+        return tempDamage;
+    }
+
+    public void calculateCardDamageForSelfOrEnemyTargeting() {
+        if (!(targetingMap.get(this.target) instanceof SelfOrEnemyTargeting)) {
+            super.calculateCardDamage(null);
+            initializeDescription();
+            return;
+        }
+        SelfOrEnemyTargeting selfOrEnemyTargeting = (SelfOrEnemyTargeting) targetingMap.get(this.target);
+        updateSelfOrEnemyTargetingTargetHovered(AbstractDungeon.player, selfOrEnemyTargeting);
+        AbstractCreature target = selfOrEnemyTargeting.getHovered();
+        if (target instanceof AbstractMonster) {
+            super.calculateCardDamage((AbstractMonster) target);
+            initializeDescription();
+            return;
+        }
+
+        if (target == null) {
+            super.calculateCardDamage(null);
+            initializeDescription();
+            return;
+        }
+        this.applyPowersToBlock();
+        final AbstractPlayer player = AbstractDungeon.player;
+        this.isDamageModified = false;
+        if (!this.isMultiDamage) {
+            calculateSingleDamage(player, target);
+        } else {
+            calculateMultipleDamage(player);
+        }
+        selfOrEnemyTargeting.clearHovered();
+        initializeDescription();
+    }
+
+    protected final void calculateSingleDamage(AbstractPlayer player, AbstractCreature creature) {
+        float tmpDamage = (float) this.baseDamage;
+        tmpDamage = getTmpDamage(player, tmpDamage, creature);
+        this.damage = MathUtils.floor(tmpDamage);
+    }
 }

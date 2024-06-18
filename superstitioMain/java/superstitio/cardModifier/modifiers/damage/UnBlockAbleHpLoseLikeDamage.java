@@ -9,15 +9,15 @@ import com.megacrit.cardcrawl.core.AbstractCreature;
 import superstitio.DataManager;
 import superstitio.cardModifier.modifiers.AbstractLupaDamage;
 
-public class UnBlockAbleDamage extends AbstractLupaDamage {
-    public static final String ID = DataManager.MakeTextID(UnBlockAbleDamage.class);
+public class UnBlockAbleHpLoseLikeDamage extends AbstractLupaDamage {
+    public static final String ID = DataManager.MakeTextID(UnBlockAbleHpLoseLikeDamage.class);
 
-    public UnBlockAbleDamage() {
+    public UnBlockAbleHpLoseLikeDamage() {
         super(ID);
     }
 
     public static DamageInfo damageInfo(Object instigator, int amount) {
-        return BindingHelper.makeInfo(new DamageModContainer(instigator, new UnBlockAbleDamage()), null, amount, DataManager.CanOnlyDamageDamageType.NoTriggerLupaAndMasoRelicHpLose);
+        return BindingHelper.makeInfo(new DamageModContainer(instigator, new UnBlockAbleHpLoseLikeDamage()), null, amount, DataManager.CanOnlyDamageDamageType.NoTriggerLupaAndMasoRelicHpLose);
     }
 
     @Override
@@ -37,6 +37,6 @@ public class UnBlockAbleDamage extends AbstractLupaDamage {
 
     @Override
     public AbstractDamageModifier makeCopy() {
-        return new UnBlockAbleDamage();
+        return new UnBlockAbleHpLoseLikeDamage();
     }
 }

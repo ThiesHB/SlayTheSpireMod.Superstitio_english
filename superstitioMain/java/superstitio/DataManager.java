@@ -78,10 +78,9 @@ public class DataManager {
         String allLevelPath = getResourcesFilesPath() + "img" + path;
         String sfwLevelPath = getResourcesFilesPath() + "imgSFW" + path;
 
-        if (!SuperstitioModSetup.getEnableSFW()) {
+        if (!SuperstitioConfig.isEnableSFW()) {
             return allLevelPath;
-        }
-        else
+        } else
             return sfwLevelPath;
     }
 
@@ -109,7 +108,7 @@ public class DataManager {
         return makeImgFilesPath(fileName, "ui", makeFolderTotalString(subFolder));
     }
 
-    public static String makeImgFilesPath_Character_Lupa(String fileName, String... subFolder) {
+    public static String makeImgFilesPath_Character(String fileName, String... subFolder) {
         return makeImgFilesPath(fileName, "character", makeFolderTotalString(subFolder));
     }
 
@@ -160,12 +159,18 @@ public class DataManager {
     public static String makeImgPath(
             String defaultFileName, BiFunction<String, String[], String> PathFinder, String fileName, String... subFolder) {
 
-        if (!SuperstitioModSetup.getEnableGuroCharacter() && fileName.contains(MasoCard.class.getSimpleName()))
+        if (!SuperstitioConfig.isEnableGuroCharacter() && fileName.contains(MasoCard.class.getSimpleName()))
             return makeDefaultPath(defaultFileName, PathFinder);
 
         return DataUtility.makeImgPath((string) -> {
             try {
-                makeNeedDrawPicture(defaultFileName, PathFinder, DataUtility.getIdOnly(fileName), makeDefaultPath(defaultFileName, PathFinder), subFolder);
+                if (Objects.equals(System.getenv().get("COMPUTERNAME"), "DESKTOP-VK8L63C"))
+                    makeNeedDrawPicture(defaultFileName, PathFinder, DataUtility.getIdOnly(fileName), makeDefaultPath(defaultFileName, PathFinder),
+                            subFolder);
+//                else //if (Gdx.files.external(getResourcesFilesPath()).exists())
+//                    JOptionPane.showMessageDialog(null,
+//                    "非常抱歉，检测到之前误调用的调试用代码，请前往“Steam\\steamapps\\common\\SlayTheSpire”目录下，删除SuperstitioModResources
+//                    文件夹。当然你也可以保留，我只是想告诉你这个文件夹是不小心产生的，没有任何实际用处，并且可以删除。");
             } catch (IOException e) {
                 Logger.error(e);
             }
@@ -174,7 +179,8 @@ public class DataManager {
 
 
     //生成所有的需要绘制的图片，方便检查
-    private static void makeNeedDrawPicture(String defaultFileName, BiFunction<String, String[], String> PathFinder, String fileName, String defaultPath, String... subFolder) throws IOException {
+    private static void makeNeedDrawPicture(String defaultFileName, BiFunction<String, String[], String> PathFinder, String fileName,
+                                            String defaultPath, String... subFolder) throws IOException {
         List<String> needDrawFileName = new ArrayList<>();
         needDrawFileName.add("needDraw");
         needDrawFileName.addAll(Arrays.asList(subFolder));
@@ -189,19 +195,16 @@ public class DataManager {
 
         if (PathFinder.apply("", subFolder).contains("card")) {
             defaultFileHandle = Gdx.files.internal(PathFinder.apply(defaultFileName + "_p", new String[]{""}));
-        }
-        else if (PathFinder.apply("", subFolder).contains("orb")) {
+        } else if (PathFinder.apply("", subFolder).contains("orb")) {
             return;
-        }
-        else {
+        } else {
             defaultFileHandle = Gdx.files.internal(defaultPath);
         }
 
         String needDrawFilePath;
         if (PathFinder.apply("", subFolder).contains("card")) {
             needDrawFilePath = PathFinder.apply(fileName + "_p", needDrawFileName.toArray(new String[0]));
-        }
-        else
+        } else
             needDrawFilePath = PathFinder.apply(fileName, needDrawFileName.toArray(new String[0]));
         File defaultFileCopyTo = new File(needDrawFilePath);
         Pattern pattern = Pattern.compile("^(.+/)[^/]+$");
@@ -209,8 +212,7 @@ public class DataManager {
         String totalFolderPath;
         if (matcher.find()) {
             totalFolderPath = matcher.group(1);
-        }
-        else {
+        } else {
             totalFolderPath = needDrawFilePath;
         }
         new File(totalFolderPath).mkdirs();
@@ -265,8 +267,7 @@ public class DataManager {
                     value = value.replace(wordReplace.WordOrigin, wordReplace.WordReplace);
                     field.set(obj, value);
 
-                }
-                else if (field.get(obj) instanceof String[]) {
+                } else if (field.get(obj) instanceof String[]) {
                     String[] values = (String[]) field.get(obj);
                     if (values == null || values.length == 0)
                         continue;
@@ -344,16 +345,15 @@ public class DataManager {
 
     @SpireInitializer
     public static class SPTT_DATA {
-
         public static final Color SEX_COLOR = new Color(250.0F / 255.0F, 20.0F / 255.0F, 147.0F / 255.0F, 1.0F);
         public static final String BG_ATTACK_SEMEN = makeImgFilesPath_UI("bg_attack_semen");
         public static final String BG_ATTACK_512_SEMEN = makeImgFilesPath_UI("bg_attack_512_semen");
         // 在卡牌和遗物描述中的能量图标
-        public String SMALL_ORB = makeImgFilesPath_Character_Lupa("small_orb");
+        public String SMALL_ORB = makeImgFilesPath_Character("small_orb");
         // 在卡牌预览界面的能量图标
-        public String BIG_ORB = makeImgFilesPath_Character_Lupa("card_orb");
+        public String BIG_ORB = makeImgFilesPath_Character("card_orb");
         // 小尺寸的能量图标（战斗中，牌堆预览）
-        public String ENERGY_ORB = makeImgFilesPath_Character_Lupa("cost_orb");
+        public String ENERGY_ORB = makeImgFilesPath_Character("cost_orb");
         // 攻击牌的背景（小尺寸）
         public String BG_ATTACK_512 = makeImgFilesPath("bg_attack_512", "512");
         // 能力牌的背景（小尺寸）
@@ -367,10 +367,14 @@ public class DataManager {
         // 技能牌的背景（大尺寸）
         public String BG_SKILL_1024 = makeImgFilesPath("bg_skill", "1024");
         //选英雄界面的角色图标、选英雄时的背景图片
-        public String LUPA_CHARACTER_BUTTON = makeImgFilesPath_Character_Lupa("Character_Button");
+        public String LUPA_CHARACTER_BUTTON = makeImgFilesPath_Character("Character_Button");
         // 人物选择界面的立绘
-        public String LUPA_CHARACTER_PORTRAIT = makeImgFilesPath_Character_Lupa("Character_Portrait");
-        public String MASO_CHARACTER_PORTRAIT = makeImgFilesPath_Character_Lupa("Character_Maso_Portrait");
+        public String LUPA_CHARACTER_PORTRAIT = makeImgFilesPath_Character("Character_Portrait");
+        public String MASO_CHARACTER_PORTRAIT = makeImgFilesPath_Character("Character_Maso_Portrait");
+
+        public static void initialize() {
+            new SPTT_DATA();
+        }
 
         // 为原版人物枚举、卡牌颜色枚举扩展的枚举，需要写，接下来要用
         public static class LupaEnums {

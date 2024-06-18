@@ -4,14 +4,10 @@ import basemod.*;
 import basemod.abstracts.CustomRelic;
 import basemod.helpers.RelicType;
 import basemod.interfaces.*;
-import com.badlogic.gdx.graphics.Texture;
 import com.evacipated.cardcrawl.mod.stslib.Keyword;
-import com.evacipated.cardcrawl.modthespire.lib.SpireConfig;
 import com.evacipated.cardcrawl.modthespire.lib.SpireInitializer;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.core.Settings;
-import com.megacrit.cardcrawl.helpers.FontHelper;
-import com.megacrit.cardcrawl.helpers.ImageMaster;
 import com.megacrit.cardcrawl.localization.*;
 import com.megacrit.cardcrawl.unlock.UnlockTracker;
 import superstitio.cards.SuperstitioCard;
@@ -24,6 +20,7 @@ import superstitioapi.relicToBlight.InfoBlight;
 import java.util.*;
 import java.util.stream.Collectors;
 
+import static com.megacrit.cardcrawl.unlock.UnlockTracker.relicSeenPref;
 import static superstitio.DataManager.SPTT_DATA.GeneralEnums.GENERAL_CARD;
 import static superstitio.DataManager.SPTT_DATA.LupaEnums.LUPA_CARD;
 import static superstitio.DataManager.SPTT_DATA.LupaEnums.LUPA_Character;
@@ -37,27 +34,11 @@ public class SuperstitioModSetup implements
         EditCharactersSubscriber, AddAudioSubscriber, PostInitializeSubscriber {
 
     public static final String MOD_NAME = "Superstitio";
-    private static final String ENABLE_SFW_STRING = "enableSFW";
-    private static final String ENABLE_GURO_CHARACTER_STRING = "enableGuroCharacter";
-    public static SpireConfig config = null;
-    public static Properties theDefaultDefaultSettings = new Properties();
-    private static boolean enableSFW = true;
-    private static boolean enableGuroCharacter = false;
     public DataManager data;
 
     public SuperstitioModSetup() {
         BaseMod.subscribe(this);
-        SuperstitioModSetup.theDefaultDefaultSettings.setProperty(ENABLE_SFW_STRING, "TRUE");
-        SuperstitioModSetup.theDefaultDefaultSettings.setProperty(ENABLE_GURO_CHARACTER_STRING, "FALSE");
-        try {
-            SuperstitioModSetup.config = new SpireConfig(DataManager.getModID(), DataManager.getModID() + "Config",
-                    SuperstitioModSetup.theDefaultDefaultSettings);
-            SuperstitioModSetup.config.load();
-            SuperstitioModSetup.enableSFW = SuperstitioModSetup.config.getBool(ENABLE_SFW_STRING);
-            SuperstitioModSetup.enableGuroCharacter = SuperstitioModSetup.config.getBool(ENABLE_GURO_CHARACTER_STRING);
-        } catch (Exception e) {
-            Logger.error(e);
-        }
+        SuperstitioConfig.loadConfig();
 
         // 这里注册颜色
         data = new DataManager();
@@ -105,56 +86,6 @@ public class SuperstitioModSetup implements
         new SuperstitioModSetup();
     }
 
-    private static void setUpModOptions() {
-        Logger.run("Loading badge image and mod options");
-        final Texture badgeTexture = ImageMaster.loadImage(DataManager.makeImgFilesPath_UI("ModIcon"));
-        final ModPanel settingsPanel = new ModPanel();
-        float settingXPos = 350.0f;
-        float settingYPos = 750.0f;
-        final float lineSpacing = 50.0f;
-        final UIStrings UIStrings = CardCrawlGame.languagePack.getUIString(DataManager.MakeTextID("OptionsMenu"));
-        final String[] SettingText = UIStrings.TEXT;
-
-        settingsPanel.addUIElement(new ModLabeledToggleButton(SettingText[0], settingXPos, settingYPos,
-                Settings.CREAM_COLOR, FontHelper.charDescFont, enableSFW, settingsPanel, label -> {
-        }, button -> {
-            SuperstitioModSetup.enableSFW = button.enabled;
-            try {
-                SuperstitioModSetup.config.setBool(ENABLE_SFW_STRING, enableSFW);
-                SuperstitioModSetup.config.save();
-            } catch (Exception e) {
-                Logger.error(e);
-            }
-        }));
-
-        settingYPos -= 3 * lineSpacing;
-
-        settingsPanel.addUIElement(new ModLabeledToggleButton(SettingText[1], settingXPos, settingYPos,
-                Settings.CREAM_COLOR, FontHelper.charDescFont, enableGuroCharacter, settingsPanel, label -> {
-        }, button -> {
-            SuperstitioModSetup.enableGuroCharacter = button.enabled;
-            setEnableGuroCharacter(enableGuroCharacter);
-        }));
-        BaseMod.registerModBadge(badgeTexture, MOD_NAME + " Mod", "Creeper_of_Fire", "A NSFW mod", settingsPanel);
-    }
-
-    public static boolean getEnableSFW() {
-        return enableSFW;
-    }
-
-    public static boolean getEnableGuroCharacter() {
-        return enableSFW || enableGuroCharacter;
-    }
-
-    public static void setEnableGuroCharacter(boolean value) {
-        try {
-            SuperstitioModSetup.config.setBool(ENABLE_GURO_CHARACTER_STRING, value);
-            SuperstitioModSetup.config.save();
-        } catch (Exception e) {
-            Logger.error(e);
-        }
-    }
-
     @Override
     public void receiveEditCharacters() {
         //添加角色到MOD中
@@ -185,6 +116,8 @@ public class SuperstitioModSetup implements
                 .any(CustomRelic.class, (info, relic) -> {
                     if (relic instanceof InfoBlight.BecomeInfoBlight) {
                         InfoBlight.initInfoBlight(relic);
+                        relicSeenPref.putInteger(relic.relicId, 1);
+                        relicSeenPref.flush();
                         relic.isSeen = true;
                         return;
                     }
@@ -214,11 +147,11 @@ public class SuperstitioModSetup implements
 //        BaseMod.loadCustomStringsFile(PotionStrings.class, makeLocPath(Settings.language,"potion"));
 //        BaseMod.loadCustomStringsFile(OrbStrings.class, makeLocPath(Settings.language,"orb"));
         BaseMod.loadCustomStringsFile(CharacterStrings.class,
-                DataManager.makeLocalizationPath(Settings.language, getEnableSFW() ? "character_LupaSFW" : "character_Lupa"));
+                DataManager.makeLocalizationPath(Settings.language, SuperstitioConfig.isEnableSFW() ? "character_LupaSFW" : "character_Lupa"));
         BaseMod.loadCustomStringsFile(RelicStrings.class, DataManager.makeLocalizationPath(Settings.language, "relic_Lupa"));
         BaseMod.loadCustomStringsFile(UIStrings.class, DataManager.makeLocalizationPath(Settings.language, "UIStrings"));
         BaseMod.loadCustomStringsFile(MonsterStrings.class, DataManager.makeLocalizationPath(Settings.language, "monsters"));
-        if (getEnableSFW()) {
+        if (SuperstitioConfig.isEnableSFW()) {
             MakeSFWWord();
             SFWWordReplace();
         }
@@ -292,7 +225,7 @@ public class SuperstitioModSetup implements
     @Override
     public void receivePostInitialize() {
 //        CustomTargeting.registerCustomTargeting(SelfOrEnemyTargeting.SELF_OR_ENEMY, new SelfOrEnemyTargeting());
-        setUpModOptions();
+        SuperstitioConfig.setUpModOptions();
     }
 
 }

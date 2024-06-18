@@ -2,7 +2,7 @@ package superstitioapi.actions;
 
 import com.megacrit.cardcrawl.actions.AbstractGameAction;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
-import superstitioapi.utils.CardUtility;
+import superstitioapi.utils.ActionUtility;
 
 public abstract class AbstractContinuallyAction extends AbstractGameAction {
 
@@ -15,7 +15,7 @@ public abstract class AbstractContinuallyAction extends AbstractGameAction {
 
     @Override
     public final void update() {
-        if (CardUtility.isNotInBattle()) {
+        if (ActionUtility.isNotInBattle()) {
             this.isDone = true;
             return;
         }

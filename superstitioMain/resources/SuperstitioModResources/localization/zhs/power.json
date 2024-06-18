@@ -12,11 +12,18 @@
       "高潮被阻止！"
     ]
   },
-  "SuperstitioMod:SexualHeatNeededModifier": {
+  "SuperstitioMod:InTurnSexualHeatNeededModifier": {
     "NAME": "快感修正",
     "DESCRIPTIONS": [
       "本回合高潮所需的快感降低了 #b%d 点。",
       "本回合高潮所需的快感提高了 #b%d 点。"
+    ]
+  },
+  "SuperstitioMod:RefractoryPeriod": {
+    "NAME": "不应期",
+    "DESCRIPTIONS": [
+      "高潮所需的快感提高了 #b%d 点。若下回合结束前没有 #y高潮 ，则移除。",
+      "高潮所需的快感提高了 #b%d 点。若本回合没有 #y高潮 ，则移除。"
     ]
   },
   "SuperstitioMod:SexualHeatLoseModifier": {
