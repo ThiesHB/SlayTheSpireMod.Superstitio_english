@@ -425,25 +425,22 @@ public abstract class SuperstitioCard extends CustomCard implements updateDescri
         return tempDamage;
     }
 
-    public void calculateCardDamageForSelfOrEnemyTargeting() {
+    public AbstractCreature calculateCardDamageForSelfOrEnemyTargeting() {
         if (!(targetingMap.get(this.target) instanceof SelfOrEnemyTargeting)) {
-            super.calculateCardDamage(null);
-            initializeDescription();
-            return;
+            applyPowers();
+            return null;
         }
         SelfOrEnemyTargeting selfOrEnemyTargeting = (SelfOrEnemyTargeting) targetingMap.get(this.target);
         updateSelfOrEnemyTargetingTargetHovered(AbstractDungeon.player, selfOrEnemyTargeting);
         AbstractCreature target = selfOrEnemyTargeting.getHovered();
-        if (target instanceof AbstractMonster) {
-            super.calculateCardDamage((AbstractMonster) target);
-            initializeDescription();
-            return;
+        if (target == null) {
+            applyPowers();
+            return null;
         }
 
-        if (target == null) {
-            super.calculateCardDamage(null);
-            initializeDescription();
-            return;
+        if (target instanceof AbstractMonster) {
+            super.calculateCardDamage((AbstractMonster) target);
+            return target;
         }
         this.applyPowersToBlock();
         final AbstractPlayer player = AbstractDungeon.player;
@@ -454,7 +451,7 @@ public abstract class SuperstitioCard extends CustomCard implements updateDescri
             calculateMultipleDamage(player);
         }
         selfOrEnemyTargeting.clearHovered();
-        initializeDescription();
+        return target;
     }
 
     protected final void calculateSingleDamage(AbstractPlayer player, AbstractCreature creature) {

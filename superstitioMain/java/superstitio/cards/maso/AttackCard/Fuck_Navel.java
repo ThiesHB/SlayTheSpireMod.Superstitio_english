@@ -25,8 +25,8 @@ public class Fuck_Navel extends MasoCard implements FuckJob_Card, OnOrgasm_onOrg
     public static final CardTarget CARD_TARGET = CardTarget.ALL;
 
     private static final int COST = 2;
-    private static final int DAMAGE = 18;
-    private static final int UPGRADE_DAMAGE = 6;
+    private static final int DAMAGE = 15;
+    private static final int UPGRADE_DAMAGE = 5;
 
     private static final int MAGIC = 5;
     private static final int UPGRADE_MAGIC = 2;

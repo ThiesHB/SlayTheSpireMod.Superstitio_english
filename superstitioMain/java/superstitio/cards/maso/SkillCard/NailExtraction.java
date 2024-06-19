@@ -48,6 +48,12 @@ public class NailExtraction extends MasoCard {
     }
 
     @Override
+    public void applyPowers() {
+        super.applyPowers();
+        initializeDescription();
+    }
+
+    @Override
     public void updateDescriptionArgs() {
         setDescriptionArgs(DAMAGE_TO_SELF, DRAW_CARD, COPY_SELF, MAX_IN_TURN);
     }
@@ -55,7 +61,8 @@ public class NailExtraction extends MasoCard {
     @Override
     public void initializeDescription() {
         if (!ActionUtility.isNotInBattle()) {
-            this.magicNumber = InBattleDataManager.NailExtractionPlayedInTurn;
+            this.baseMagicNumber = InBattleDataManager.NailExtractionPlayedInTurn;
+            this.magicNumber = this.baseMagicNumber;
         }
         super.initializeDescription();
     }

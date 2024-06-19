@@ -39,7 +39,7 @@ public class FistIn extends MasoCard {
                 costSave = EnergyPanel.getCurrentEnergy();
             else
                 costSave = 0;
-
+            card.dontTriggerOnUseCard = true;
             addToBot(new LoseHPAction(AbstractDungeon.player, AbstractDungeon.player, costSave * magicNumber));
             if (card.target != CardTarget.ENEMY || monster == null)
                 addToBot(new NewQueueCardAction(card, true, false, true));

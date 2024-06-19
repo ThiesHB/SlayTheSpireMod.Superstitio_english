@@ -48,7 +48,6 @@ public class GangBang extends AbstractTempCard implements GoSomewhereElseAfterUs
         this.exhaust = true;
         this.isMultiDamage = true;
 //        this.purgeOnUse = true;
-        this.dontTriggerOnUseCard = true;
         AutoplayField.autoplay.set(this, true);
         this.setBackgroundTexture(
                 DataManager.SPTT_DATA.BG_ATTACK_512_SEMEN,
@@ -58,6 +57,7 @@ public class GangBang extends AbstractTempCard implements GoSomewhereElseAfterUs
 
     @Override
     public void use(AbstractPlayer player, AbstractMonster monster) {
+        this.dontTriggerOnUseCard = true;
     }
 
     @Override

@@ -13,8 +13,6 @@ import superstitio.DataManager;
 import superstitio.cards.maso.MasoCard;
 import superstitioapi.actions.AutoDoneInstantAction;
 
-import static com.evacipated.cardcrawl.mod.stslib.patches.CustomTargeting.targetingMap;
-
 
 public class BellyStrike extends MasoCard {
     public static final String ID = DataManager.MakeTextID(BellyStrike.class);
@@ -74,52 +72,27 @@ public class BellyStrike extends MasoCard {
     @Override
     public void update() {
         super.update();
-        if (AbstractDungeon.player.hoveredCard == this) {
+        if (AbstractDungeon.player != null && AbstractDungeon.player.hoveredCard == this) {
             calculateCardDamageForSelfOrEnemyTargeting();
+            initializeDescription();
         }
     }
 
     @Override
     public void unhover() {
         super.unhover();
-        super.calculateCardDamage(null);
+        applyPowers();
+        initializeDescription();
     }
 
     @Override
-    public void calculateCardDamageForSelfOrEnemyTargeting() {
-        if (!(targetingMap.get(this.target) instanceof SelfOrEnemyTargeting)) {
-            super.calculateCardDamage(null);
-            initializeDescription();
-            return;
-        }
-        SelfOrEnemyTargeting selfOrEnemyTargeting = (SelfOrEnemyTargeting) targetingMap.get(this.target);
-        updateSelfOrEnemyTargetingTargetHovered(AbstractDungeon.player, selfOrEnemyTargeting);
-        AbstractCreature target = selfOrEnemyTargeting.getHovered();
-        if (target instanceof AbstractMonster) {
-            super.calculateCardDamage((AbstractMonster) target);
-            initializeDescription();
-            return;
-        }
-
-        if (target == null) {
-            super.calculateCardDamage(null);
-            initializeDescription();
-            return;
-        }
-        this.applyPowersToBlock();
-        final AbstractPlayer player = AbstractDungeon.player;
-        this.isDamageModified = false;
-        if (!this.isMultiDamage) {
-            calculateSingleDamage(player, target);
-        } else {
-            calculateMultipleDamage(player);
-        }
+    public AbstractCreature calculateCardDamageForSelfOrEnemyTargeting() {
+        AbstractCreature target = super.calculateCardDamageForSelfOrEnemyTargeting();
         if (target instanceof AbstractPlayer) {
             this.damage /= 2;
             this.isDamageModified = true;
         }
-        selfOrEnemyTargeting.clearHovered();
-        initializeDescription();
+        return target;
     }
 
     @Override

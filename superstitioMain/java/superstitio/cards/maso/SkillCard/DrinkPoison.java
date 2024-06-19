@@ -53,16 +53,12 @@ public class DrinkPoison extends MasoCard {
     }
 
     @Override
-    public void calculateCardDamage(AbstractMonster mo) {
-        super.calculateCardDamage(mo);
-    }
-
-    @Override
     public void initializeDescription() {
         if (!ActionUtility.isNotInBattle()) {
             int totalDelayHpLose = findAll(AbstractDungeon.player, DelayHpLosePower.class)
                     .mapToInt(power -> power.amount).sum();
             this.magicNumber = totalDelayHpLose / 2;
+            this.baseMagicNumber = totalDelayHpLose / 2;
         }
         super.initializeDescription();
     }

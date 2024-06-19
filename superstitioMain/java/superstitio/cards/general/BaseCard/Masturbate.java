@@ -52,9 +52,4 @@ public class Masturbate extends GeneralCard implements GoSomewhereElseAfterUse {
     @Override
     public void upgradeAuto() {
     }
-
-    @Override
-    public void initializeDescription() {
-        super.initializeDescription();
-    }
 }

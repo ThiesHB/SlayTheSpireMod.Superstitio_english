@@ -8,7 +8,7 @@
   "SuperstitioMod:Ahegao": {
     "NAME": "阿嘿颜",
     "NAME_SFW": "强者纹",
-    "DESCRIPTION": "superstitiomod:助兴-缠绵 ：打出 !M! 攻击牌： NL 造成 !D! 点 伤害。",
+    "DESCRIPTION": "superstitiomod:助兴-缠绵 ： NL 打出 !M! 攻击牌： NL 造成 !D! 点 伤害。",
     "FLAVOR": "想要保持专业的微笑，但是控制不住。"
   },
   "SuperstitioMod:CountSign": {
@@ -31,6 +31,7 @@
   "SuperstitioMod:CalmDown": {
     "NAME": "冷静",
     "DESCRIPTION": "抽当前 superstitiomod:助兴 数量的 牌。 NL 使所有处于 *助兴 的卡牌回到 *助兴 前应当去往的牌堆。",
+    "UPGRADE_DESCRIPTION": "抽当前 superstitiomod:助兴 数量 +1 的 牌。 NL 使所有处于 *助兴 的卡牌回到 *助兴 前应当去往的牌堆。",
     "FLAVOR": "冥想……冷静，冷静，冥想……果然还是好想自慰。 NL o(TヘTo)"
   },
   "SuperstitioMod:Ku_Koro": {

@@ -20,7 +20,7 @@ public class CalmDown extends GeneralCard implements Card_TriggerHangCardManuall
     public static final CardTarget CARD_TARGET = CardTarget.SELF;
 
     private static final int COST = 0;
-    private static final int MAGIC = 1;
+    private static final int MAGIC = 0;
     private static final int UPGRADE_MAGIC = 1;
     private static final int ExtraDrawNum = 1;
 
@@ -40,7 +40,8 @@ public class CalmDown extends GeneralCard implements Card_TriggerHangCardManuall
                 addToBotAbstract(() -> cardGroup.removeCard(cardOrb));
                 addToBot_drawCards();
             });
-            addToBot_drawCards(cardGroup.cards.size());
+            if (this.magicNumber >= 1)
+                addToBot_drawCards(this.magicNumber);
         });
     }
 

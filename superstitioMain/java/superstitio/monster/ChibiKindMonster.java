@@ -107,6 +107,7 @@ public class ChibiKindMonster extends CustomMonster {
                 .filter(card -> !willPlayCards.contains(card)).filter(card -> card.hasTag(AbstractCard.CardTags.STARTER_DEFEND)).findAny();
         defend.ifPresent(card -> {
             willPlayCards.add(card);
+            card.dontTriggerOnUseCard = true;
 //            card.dontTriggerOnUseCard
 //            addToBot(new UseCardAction(card));
             AbstractDungeon.actionManager.cardQueue.add(new CardQueueItem(card, CreatureUtility.getRandomMonsterSafe(), 0, true, true));
