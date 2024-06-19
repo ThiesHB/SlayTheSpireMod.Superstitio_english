@@ -13,6 +13,7 @@ import superstitioapi.shader.HeartShader;
 
 import static superstitio.cards.CardOwnerPlayerManager.IsNotLupaCard;
 import static superstitio.cards.CardOwnerPlayerManager.IsNotMasoCard;
+import static superstitioapi.utils.CardUtility.getSelfOrEnemyTarget;
 
 //@AutoAdd.Ignore
 public class HaveBirthWith_Test extends GeneralCard implements IsNotLupaCard, IsNotMasoCard {
@@ -32,7 +33,7 @@ public class HaveBirthWith_Test extends GeneralCard implements IsNotLupaCard, Is
 
     @Override
     public void use(AbstractPlayer player, AbstractMonster monster) {
-        AbstractCreature target = SelfOrEnemyTargeting.getTarget(this);
+        AbstractCreature target = getSelfOrEnemyTarget(this, monster);
         if (target instanceof AbstractMonster)
             InBattleDataManager.getPetManager()
                     .ifPresent(petManager -> {

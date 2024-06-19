@@ -13,6 +13,7 @@ import superstitio.monster.ChibiKindMonster;
 import superstitioapi.utils.ActionUtility;
 
 import static superstitioapi.utils.ActionUtility.addToBot_makeTempCardInBattle;
+import static superstitioapi.utils.CardUtility.getSelfOrEnemyTarget;
 
 //@AutoAdd.Ignore
 public class HaveBirthWith extends GeneralCard {
@@ -37,8 +38,8 @@ public class HaveBirthWith extends GeneralCard {
 
     @Override
     public void use(AbstractPlayer player, AbstractMonster monster) {
-        AbstractCreature target = SelfOrEnemyTargeting.getTarget(this);
-        if (target == null || target instanceof AbstractPlayer)
+        AbstractCreature target = getSelfOrEnemyTarget(this, monster);
+        if (target instanceof AbstractPlayer)
             ForPlayer(AbstractDungeon.player);
         else
             ForMonster((AbstractMonster) target);

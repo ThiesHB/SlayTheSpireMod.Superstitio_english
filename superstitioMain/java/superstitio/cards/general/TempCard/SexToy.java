@@ -12,6 +12,8 @@ import superstitioapi.utils.ListUtility;
 
 import java.util.stream.IntStream;
 
+import static superstitioapi.utils.CardUtility.getSelfOrEnemyTarget;
+
 
 public class SexToy extends AbstractTempCard {
     public static final String ID = DataManager.MakeTextID(SexToy.class);
@@ -42,7 +44,7 @@ public class SexToy extends AbstractTempCard {
 
     @Override
     public void use(AbstractPlayer player, AbstractMonster monster) {
-        AbstractCreature target = SelfOrEnemyTargeting.getTarget(this);
+        AbstractCreature target = getSelfOrEnemyTarget(this, monster);
         if (target == null)
             target = AbstractDungeon.player;
         AbstractCreature finalTarget = target;

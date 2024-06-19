@@ -13,6 +13,8 @@ import superstitio.DataManager;
 import superstitio.cards.maso.MasoCard;
 import superstitioapi.actions.AutoDoneInstantAction;
 
+import static superstitioapi.utils.CardUtility.getSelfOrEnemyTarget;
+
 
 public class BellyStrike extends MasoCard {
     public static final String ID = DataManager.MakeTextID(BellyStrike.class);
@@ -39,9 +41,7 @@ public class BellyStrike extends MasoCard {
 
     @Override
     public void use(AbstractPlayer player, AbstractMonster monster) {
-        AbstractCreature target = SelfOrEnemyTargeting.getTarget(this);
-        if (target == null)
-            target = AbstractDungeon.player;
+        AbstractCreature target = getSelfOrEnemyTarget(this, monster);
         addToBot_applyPower(new LoseStrengthPower(target, this.magicNumber));
         if (target instanceof AbstractPlayer)
             addToBot_dealDamage(target, this.damage / 2, AbstractGameAction.AttackEffect.BLUNT_HEAVY);
@@ -55,19 +55,8 @@ public class BellyStrike extends MasoCard {
                 addToBot_applyPower(new StrengthPower(AbstractDungeon.player, strength.amount));
             }
         });
-//        AbstractCreature finalTarget = target;
-//        AutoDoneInstantAction.addToBotAbstract(() -> {
-//            BlockModifierManager.blockInstances(AbstractDungeon.player)
-//                    .forEach(blockInstance -> blockInstance.getBlockTypes().stream()
-//                            .filter(blockModifier -> blockModifier instanceof PregnantBlock)
-//                            .findFirst()
-//                            .ifPresent(blockModifier -> AutoDoneInstantAction.addToBotAbstract(() -> {
-//                                ((PregnantBlock) blockModifier).removeUnNaturally(
-//                                        new DamageInfo(finalTarget, blockInstance.getBlockAmount()), 0);
-//                                BlockModifierManager.removeSpecificBlockType(blockInstance);
-//                            })));
-//        });
     }
+
 
     @Override
     public void update() {

@@ -1,10 +1,13 @@
 package superstitioapi.utils;
 
 import com.badlogic.gdx.graphics.Color;
+import com.evacipated.cardcrawl.mod.stslib.cards.targeting.SelfOrEnemyTargeting;
 import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.cards.CardGroup;
+import com.megacrit.cardcrawl.core.AbstractCreature;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.helpers.CardLibrary;
+import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import com.megacrit.cardcrawl.ui.panels.EnergyPanel;
 import superstitioapi.DataUtility;
 
@@ -28,6 +31,16 @@ public class CardUtility {
                 .filter(card -> card.type == AbstractCard.CardType.STATUS)
                 .collect(Collectors.toList());
         return ListUtility.getRandomFromList(list, AbstractDungeon.cardRandomRng).makeCopy();
+    }
+
+    public static AbstractCreature getSelfOrEnemyTarget(AbstractCard card, AbstractMonster monster) {
+        if (card.target != SelfOrEnemyTargeting.SELF_OR_ENEMY) {
+            return CreatureUtility.getRandomMonsterSafe();
+        }
+        AbstractCreature target = SelfOrEnemyTargeting.getTarget(card);
+        if (target != null) return target;
+        if (monster != null) return monster;
+        return AbstractDungeon.player;
     }
 
     public static List<AbstractCard> getCardsListForMod(boolean ThisMod, boolean Vanilla) {

@@ -20,6 +20,7 @@ import superstitioapi.utils.ActionUtility;
 import java.util.ArrayList;
 
 import static superstitioapi.utils.ActionUtility.addToBot_makeTempCardInBattle;
+import static superstitioapi.utils.CardUtility.getSelfOrEnemyTarget;
 
 
 //TODO 增加一个按照怪物体型获得格挡的效果
@@ -45,8 +46,8 @@ public class UnBirth extends GeneralCard {
 
     @Override
     public void use(AbstractPlayer player, AbstractMonster monster) {
-        AbstractCreature target = SelfOrEnemyTargeting.getTarget(this);
-        if (target == null || target instanceof AbstractPlayer)
+        AbstractCreature target = getSelfOrEnemyTarget(this, monster);
+        if (target instanceof AbstractPlayer)
             ForPlayer(AbstractDungeon.player);
         else if (BlockModifierManager.blockInstances(target).stream()
                 .anyMatch(blockInstance -> blockInstance.getBlockTypes().stream()
