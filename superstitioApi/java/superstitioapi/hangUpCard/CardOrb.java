@@ -19,7 +19,8 @@ import superstitioapi.utils.CreatureUtility;
 
 import java.util.Optional;
 
-import static superstitioapi.utils.ActionUtility.*;
+import static superstitioapi.utils.ActionUtility.FunctionReturnSelfType;
+import static superstitioapi.utils.ActionUtility.VoidSupplier;
 
 public abstract class CardOrb extends AbstractOrb {
     public static final String ORB_ID = DataUtility.MakeTextID(CardOrb.class);
@@ -34,7 +35,7 @@ public abstract class CardOrb extends AbstractOrb {
     public final HangOnTarget targetTypeOrigin;
     public final HangEffectType actionTypeOrigin;
     protected final AbstractCard originCard;
-    private final CardGroup cardHolder = new CardGroup(CardGroup.CardGroupType.UNSPECIFIED);
+    public final CardGroup cardHolder = new CardGroup(CardGroup.CardGroupType.UNSPECIFIED);
     public CardGroup cardGroupReturnAfterEvoke = null;
     public HangOnTarget targetType = HangOnTarget.None;
     public HangEffectType actionType = HangEffectType.None;
@@ -150,13 +151,16 @@ public abstract class CardOrb extends AbstractOrb {
 //        this.cardsToPreview.render(sb);
 //    }
 
-    public final void onRemove() {
+    /**
+     * 这个函数是被addToBot调用的
+     */
+    public void onRemove() {
         if (isRemoved) return;
         this.isRemoved = true;
-        this.originCard.current_x = this.card.current_x;
-        this.originCard.current_y = this.card.current_y;
-        this.originCard.drawScale = this.card.drawScale;
-        if (cardGroupReturnAfterEvoke != null) {
+        if (cardGroupReturnAfterEvoke != null && cardHolder.contains(originCard)) {
+            this.originCard.current_x = this.card.current_x;
+            this.originCard.current_y = this.card.current_y;
+            this.originCard.drawScale = this.card.drawScale;
             switch (cardGroupReturnAfterEvoke.type) {
                 case DRAW_PILE:
                     cardHolder.moveToDeck(originCard, true);

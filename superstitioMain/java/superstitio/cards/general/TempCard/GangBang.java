@@ -49,6 +49,7 @@ public class GangBang extends AbstractTempCard implements GoSomewhereElseAfterUs
         this.isMultiDamage = true;
 //        this.purgeOnUse = true;
         AutoplayField.autoplay.set(this, true);
+        this.dontTriggerOnUseCard = true;
         this.setBackgroundTexture(
                 DataManager.SPTT_DATA.BG_ATTACK_512_SEMEN,
                 DataManager.SPTT_DATA.BG_ATTACK_SEMEN);

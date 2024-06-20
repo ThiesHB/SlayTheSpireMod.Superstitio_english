@@ -186,5 +186,14 @@
     "NAME_SFW": "呼唤",
     "DESCRIPTION": "获得 !B! superstitiomod:妊娠 。 NL 顺产： 生成和目标对应的 superstitiomod:宝宝 。",
     "FLAVOR": ""
+  },
+  "SuperstitioMod:TempName_HangUpCardForDraw": {
+    "NAME": "TempName_HangUpCardForDraw",
+    "NAME_SFW": "TempName_HangUpCardForDraw",
+    "DESCRIPTION": "选择最多 !M! 张手牌，抽对应数量的牌，将选中手牌 superstitiomod:助兴-欲求 ： NL 本回合打出 %d 任何牌： NL 回到手牌。",
+    "FLAVOR": "",
+    "EXTENDED_DESCRIPTION": [
+      "助兴并抽一张牌，最多选择%d张牌。"
+    ]
   }
 }

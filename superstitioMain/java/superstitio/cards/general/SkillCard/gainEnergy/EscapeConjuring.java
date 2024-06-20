@@ -44,7 +44,7 @@ public class EscapeConjuring extends GeneralCard {
         SexualHeat.addToBot_addSexualHeat(AbstractDungeon.player, deBuffNum * this.magicNumber);
         addToBot(new GainEnergyAction(statusCardNum));
 
-        AbstractDungeon.player.hand.group.stream().filter(card -> card.costForTurn != 0)
+        AbstractDungeon.player.hand.group.stream().filter(card -> card.costForTurn != 0 && !card.freeToPlay())
                 .map(DiscardSpecificCardAction::new).forEach(this::addToBot);
     }
 

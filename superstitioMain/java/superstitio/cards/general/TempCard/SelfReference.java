@@ -25,6 +25,7 @@ public class SelfReference extends AbstractTempCard {
         super(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET);
         this.setupBlock(BLOCK, UPGRADE_PLUS_BLOCK, new RemoveDelayHpLoseBlock());
         AutoplayField.autoplay.set(this, true);
+        this.dontTriggerOnUseCard = true;
         this.shuffleBackIntoDrawPile = true;
     }
 

@@ -57,22 +57,44 @@ public class ActionUtility {
                                                      boolean upgrade) {
         if (upgrade)
             card.upgrade();
-        switch (battleCardPlace) {
-            case Hand:
-                AbstractDungeon.actionManager.addToBottom(new MakeTempCardInHandAction(card, amount));
-                break;
-            case DrawPile:
-                AbstractDungeon.actionManager.addToBottom(new MakeTempCardInDrawPileAction(card, amount, true, true));
-                break;
-            case Discard:
-                AbstractDungeon.actionManager.addToBottom(new MakeTempCardInDiscardAction(card, amount));
-                break;
-        }
+        final AbstractGameAction gameAction;
+        gameAction = getMakeTempCardAction(card, battleCardPlace, amount);
+        addToBot(gameAction);
 
         AutoDoneInstantAction.addToBotAbstract(() -> {
             Optional<AllCardCostModifier> power = AllCardCostModifier.getActivateOne();
             power.ifPresent(AllCardCostModifier::tryUseEffect);
         });
+    }
+
+    public static void addToTop_makeTempCardInBattle(AbstractCard card, BattleCardPlace battleCardPlace, int amount,
+                                                     boolean upgrade) {
+        if (upgrade)
+            card.upgrade();
+        final AbstractGameAction gameAction;
+        gameAction = getMakeTempCardAction(card, battleCardPlace, amount);
+        AutoDoneInstantAction.addToTopAbstract(() -> {
+            Optional<AllCardCostModifier> power = AllCardCostModifier.getActivateOne();
+            power.ifPresent(AllCardCostModifier::tryUseEffect);
+        });
+        addToTop(gameAction);
+    }
+
+    private static AbstractGameAction getMakeTempCardAction(AbstractCard card, BattleCardPlace battleCardPlace, int amount) {
+        final AbstractGameAction gameAction;
+        switch (battleCardPlace) {
+            case Hand:
+                gameAction = new MakeTempCardInHandAction(card, amount);
+                break;
+            case DrawPile:
+                gameAction = new MakeTempCardInDrawPileAction(card, amount, true, true);
+                break;
+            case Discard:
+            default:
+                gameAction = new MakeTempCardInDiscardAction(card, amount);
+                break;
+        }
+        return gameAction;
     }
 
     public static void addToBot_makeTempCardInBattle(AbstractCard card, BattleCardPlace battleCardPlace) {
@@ -90,6 +112,10 @@ public class ActionUtility {
 
     public static void addToBot(AbstractGameAction action) {
         AbstractDungeon.actionManager.addToBottom(action);
+    }
+
+    public static void addToTop(AbstractGameAction action) {
+        AbstractDungeon.actionManager.addToTop(action);
     }
 
     public static boolean isNotInBattle() {

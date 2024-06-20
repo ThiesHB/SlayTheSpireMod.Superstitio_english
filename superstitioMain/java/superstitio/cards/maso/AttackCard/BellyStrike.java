@@ -67,12 +67,13 @@ public class BellyStrike extends MasoCard {
         }
     }
 
-    @Override
-    public void unhover() {
-        super.unhover();
-        applyPowers();
-        initializeDescription();
-    }
+//    @Override
+//    public void unhover() {
+//        super.unhover();
+//        if (ActionUtility.isNotInBattle()) return;
+//        applyPowers();
+//        initializeDescription();
+//    }
 
     @Override
     public AbstractCreature calculateCardDamageForSelfOrEnemyTargeting() {

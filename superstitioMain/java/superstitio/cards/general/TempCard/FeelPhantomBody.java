@@ -40,26 +40,30 @@ public class FeelPhantomBody extends AbstractTempCard {
     }
 
     @Override
+    public AbstractCard makeCopy() {
+        if (sealCard != null)
+            return new FeelPhantomBody(sealCard);
+        return super.makeCopy();
+    }
+
+    @Override
     public void use(AbstractPlayer player, AbstractMonster monster) {
         addToBot_drawCards();
         addToBot(new LoseHPAction(CreatureUtility.getRandomMonsterSafe(), AbstractDungeon.player, this.magicNumber));
     }
 
     @Override
-    public void triggerOnExhaust() {
-//        this.dontTriggerOnUseCard = true;
-    }
-
-    @Override
-    public void moveToDiscardPile() {
-    }
-
-    @Override
-    public void triggerOnEndOfTurnForPlayingCard() {
-        addToBot(new ExhaustSpecificCardAction(this, AbstractDungeon.player.hand));
+    public void triggerOnEndOfPlayerTurn() {
+        super.triggerOnEndOfPlayerTurn();
+        addToTop(new ExhaustSpecificCardAction(this, AbstractDungeon.player.hand));
         if (sealCard == null) return;
-        ActionUtility.addToBot_makeTempCardInBattle(sealCard, ActionUtility.BattleCardPlace.Discard);
+        ActionUtility.addToTop_makeTempCardInBattle(sealCard, ActionUtility.BattleCardPlace.Hand, 1, sealCard.upgraded);
     }
+
+//    @Override
+//    public void triggerOnEndOfTurnForPlayingCard() {
+//
+//    }
 
     @Override
     public void upgradeAuto() {
