@@ -22,13 +22,10 @@ public class HotPillar extends MasoCard implements GoSomewhereElseAfterUse {
     public static final CardRarity CARD_RARITY = CardRarity.UNCOMMON;
 
     public static final CardTarget CARD_TARGET = CardTarget.SELF;
-
+    public static final int BURN_CARD_NUM = 2;
     private static final int COST = 1;
     private static final int MAGIC = 3;
     private static final int UPGRADE_MAGIC = 1;
-//    private static final int BLOCK = 18;
-//    private static final int UPGRADE_BLOCK = 4;
-
     public HotPillar() {
         super(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET);
         this.setupMagicNumber(MAGIC, UPGRADE_MAGIC);
@@ -37,7 +34,13 @@ public class HotPillar extends MasoCard implements GoSomewhereElseAfterUse {
     }
 
     @Override
+    public void updateDescriptionArgs() {
+        setDescriptionArgs(BURN_CARD_NUM);
+    }
+
+    @Override
     public void use(AbstractPlayer player, AbstractMonster monster) {
+        ActionUtility.addToBot_makeTempCardInBattle(new Burn(), ActionUtility.BattleCardPlace.Discard, BURN_CARD_NUM);
         addTempDexterity(this);
     }
 
@@ -58,6 +61,5 @@ public class HotPillar extends MasoCard implements GoSomewhereElseAfterUse {
     private void addTempDexterity(HotPillar self) {
         self.addToBot_applyPower(new DexterityPower(AbstractDungeon.player, this.magicNumber));
         self.addToBot_applyPower(new LoseDexterityPower(AbstractDungeon.player, this.magicNumber));
-        ActionUtility.addToBot_makeTempCardInBattle(new Burn(), ActionUtility.BattleCardPlace.Discard);
     }
 }

@@ -1,4 +1,4 @@
-package superstitio.cards.general.SkillCard.gainEnergy;
+package superstitio.cards.general.SkillCard.energyAndDraw;
 
 import basemod.cardmods.ExhaustMod;
 import basemod.helpers.CardModifierManager;
@@ -46,6 +46,7 @@ public class EscapeConjuring extends GeneralCard {
 
         AbstractDungeon.player.hand.group.stream().filter(card -> card.costForTurn != 0 && !card.freeToPlay())
                 .map(DiscardSpecificCardAction::new).forEach(this::addToBot);
+        addToBot_drawCards(statusCardNum);
     }
 
     @Override

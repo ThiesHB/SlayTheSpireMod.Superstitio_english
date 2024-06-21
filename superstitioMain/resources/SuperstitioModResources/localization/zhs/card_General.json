@@ -160,7 +160,7 @@
   "SuperstitioMod:EscapeConjuring": {
     "NAME": "逃脱魔术",
     "NAME_SFW": "金蝉脱壳",
-    "DESCRIPTION": "获得手牌中 状态 和 诅咒 数量的 [E] 。 NL 获得 当前负面状态 !M! 倍的 superstitiomod:快感 。 NL 丢弃所有费用不为0的手牌。",
+    "DESCRIPTION": "获得手牌中 状态 和 诅咒 数量的 [E] 。 NL 获得 当前负面状态 !M! 倍的 superstitiomod:快感 。 NL 丢弃所有费用不为0的手牌， NL 每丢弃一张 状态 或 诅咒 牌，抽一张牌。",
     "FLAVOR": "也许不挣脱也是一个好选择？"
   },
   "SuperstitioMod:MeasureDick": {
