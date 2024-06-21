@@ -1,0 +1,64 @@
+package superstitio.cards.maso.SkillCard;
+
+import com.megacrit.cardcrawl.actions.common.LoseHPAction;
+import com.megacrit.cardcrawl.characters.AbstractPlayer;
+import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
+import com.megacrit.cardcrawl.monsters.AbstractMonster;
+import superstitio.DataManager;
+import superstitio.cards.maso.MasoCard;
+import superstitio.delayHpLose.RemoveDelayHpLoseBlock;
+import superstitioapi.hangUpCard.CardOrb;
+import superstitioapi.hangUpCard.Card_TriggerHangCardManually;
+
+import static superstitioapi.InBattleDataManager.getHangUpCardOrbGroup;
+
+//凌迟
+public class Dismember extends MasoCard implements Card_TriggerHangCardManually {
+    public static final String ID = DataManager.MakeTextID(Dismember.class);
+
+    public static final CardType CARD_TYPE = CardType.SKILL;
+
+    public static final CardRarity CARD_RARITY = CardRarity.COMMON;
+
+    public static final CardTarget CARD_TARGET = CardTarget.SELF;
+
+    private static final int COST = 1;
+    private static final int MAGIC = 1;
+    private static final int BLOCK = 3;
+    private static final int UPGRADE_BLOCK = 1;
+
+
+    public Dismember() {
+        super(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET);
+        this.setupMagicNumber(MAGIC);
+        this.tags.add(DataManager.CardTagsType.CruelTorture);
+        this.setupBlock(BLOCK, UPGRADE_BLOCK, new RemoveDelayHpLoseBlock());
+    }
+
+    @Override
+    public void use(AbstractPlayer player, AbstractMonster monster) {
+        getHangUpCardOrbGroup().ifPresent(cardGroup -> {
+            cardGroup.cards.forEach(cardOrb -> {
+                addToBot(new LoseHPAction(AbstractDungeon.player, AbstractDungeon.player, this.magicNumber));
+                addToBot_gainBlock();
+            });
+        });
+    }
+
+    @Override
+    public void upgradeAuto() {
+    }
+
+    @Override
+    public boolean forceFilterCardOrbToHoveredMode(CardOrb orb) {
+        orb.targetType = CardOrb.HangOnTarget.Self;
+        orb.actionType = CardOrb.HangEffectType.Good;
+        return true;
+    }
+
+    @Override
+    public int forceChangeOrbCounterShown(CardOrb orb) {
+        return 0;
+    }
+}
+

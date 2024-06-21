@@ -60,11 +60,6 @@ public class FeelPhantomBody extends AbstractTempCard {
         ActionUtility.addToTop_makeTempCardInBattle(sealCard, ActionUtility.BattleCardPlace.Hand, 1, sealCard.upgraded);
     }
 
-//    @Override
-//    public void triggerOnEndOfTurnForPlayingCard() {
-//
-//    }
-
     @Override
     public void upgradeAuto() {
     }

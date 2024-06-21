@@ -430,4 +430,19 @@ public class DataManager {
         @SpireEnum
         public static DamageInfo.DamageType NoTriggerLupaAndMasoRelicHpLose;
     }
+
+    public static class CardTagsType {
+        @SpireEnum
+        public static AbstractCard.CardTags CruelTorture;
+
+//        @SpireEnum
+//        public static AbstractCard.CardTags Coitus;
+
+        @SpireEnum
+        public static AbstractCard.CardTags InsideEjaculation;
+
+
+        @SpireEnum
+        public static AbstractCard.CardTags OutsideEjaculation;
+    }
 }

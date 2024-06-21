@@ -42,7 +42,7 @@ public class PassiveGangBang extends GeneralCard implements Card_TriggerHangCard
             addToBotAbstract(() -> getHangUpCardOrbGroup()
                     .ifPresent(cardGroup -> cardGroup.cards.stream()
                             .filter(orb -> orb instanceof CardOrb_CardTrigger)
-                            .forEach(orb -> ((CardOrb_CardTrigger) orb).forceAcceptAction(self))));
+                            .forEach(orb -> orb.forceAcceptAction(self))));
         }
     }
 

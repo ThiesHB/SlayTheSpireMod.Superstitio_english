@@ -49,6 +49,10 @@ public abstract class CardOrb extends AbstractOrb {
     //    public abstract void forceAcceptAction(AbstractCard card);
     private boolean stopShowOriginCard = false;
 
+    @Override
+    public void onStartOfTurn() {
+    }
+
     public CardOrb(AbstractCard card, CardGroup cardGroupReturnAfterEvoke, int OrbCounter) {
         this.ID = ORB_ID;
         this.name = "";

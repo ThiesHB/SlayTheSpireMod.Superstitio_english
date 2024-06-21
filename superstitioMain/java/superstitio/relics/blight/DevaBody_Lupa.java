@@ -66,9 +66,9 @@ public class DevaBody_Lupa extends SuperstitioRelic implements InfoBlight.Become
         if (card.type != AbstractCard.CardType.ATTACK) return null;
         if (!(card instanceof FuckJob_Card && card instanceof SuperstitioCard))
             return new FloorSemen(player, 1);
-        else if (card.cardID.contains("Fuck_"))
+        else if (card.hasTag(DataManager.CardTagsType.InsideEjaculation))
             return new InsideSemen(player, 1);
-        else if (card.cardID.contains("Job_"))
+        else if (card.hasTag(DataManager.CardTagsType.OutsideEjaculation))
             return new OutsideSemen(player, 1);
         return new FloorSemen(player, 1);
     }

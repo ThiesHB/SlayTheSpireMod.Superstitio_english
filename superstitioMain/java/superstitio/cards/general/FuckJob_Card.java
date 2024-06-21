@@ -54,12 +54,13 @@ public interface FuckJob_Card {
             card.setBackgroundTexture(
                     DataManager.SPTT_DATA.BG_ATTACK_512_SEMEN,
                     DataManager.SPTT_DATA.BG_ATTACK_SEMEN);
-
-        if (card.cardID.contains("Fuck"))
+        if (card.cardID.contains("Fuck")) {
+            card.tags.add(DataManager.CardTagsType.InsideEjaculation);
             DamageModifierManager.addModifier(card, new SexDamage_Fuck());
-        else if (card.cardID.contains("Job"))
+        } else if (card.cardID.contains("Job")) {
+            card.tags.add(DataManager.CardTagsType.OutsideEjaculation);
             DamageModifierManager.addModifier(card, new SexDamage_Job());
-        else
+        } else
             DamageModifierManager.addModifier(card, new SexDamage());
     }
 

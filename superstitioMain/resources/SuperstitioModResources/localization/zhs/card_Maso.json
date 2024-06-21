@@ -75,5 +75,17 @@
     "EXTENDED_DESCRIPTION": [
       "永久妆容/全身皮肤改色/眼球纹身/淫语固化/分舌/乳房贯穿/脸颊贯穿/悬挂穿刺/紧身胸衣穿孔/阴唇常开/尿道穿孔/阴蒂吊坠"
     ]
+  },
+  "SuperstitioMod:MasoCard:Dismember": {
+    "NAME": "凌迟",
+    "NAME_SFW": "鲜血护体",
+    "DESCRIPTION": "superstitiomod:并行 。 NL 每有一张处于 superstitiomod:助兴 的卡牌，失去 !M! 生命，移除 !B! superstitiomod:腐朽 。",
+    "FLAVOR": ""
+  },
+  "SuperstitioMod:MasoCard:HotPillar": {
+    "NAME": "炮烙",
+    "NAME_SFW": "超载",
+    "DESCRIPTION": "superstitiomod:助兴-急切 。 NL superstitiomod:助兴-缠绵 ： NL 接下来99回合开始时 ： NL 获得 !M! 点 临时敏捷 ，将一张 *灼伤 放入你的弃牌堆中。",
+    "FLAVOR": ""
   }
 }

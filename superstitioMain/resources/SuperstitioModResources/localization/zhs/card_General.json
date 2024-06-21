@@ -131,13 +131,13 @@
   "SuperstitioMod:PassiveGangBang": {
     "NAME": "躺平任肏",
     "NAME_SFW": "超级无敌我爱你",
-    "DESCRIPTION": "superstitiomod:迅捷 。 NL 移除 !B! 点 *腐朽 。 NL 强制 *满足 所有 superstitiomod:助兴 卡牌 !M! 次。",
+    "DESCRIPTION": "superstitiomod:并行 。 NL 移除 !B! 点 *腐朽 。 NL 强制 *满足 所有 superstitiomod:助兴 卡牌 !M! 次。",
     "FLAVOR": "请便，我今天不想动。"
   },
   "SuperstitioMod:OneMoreHour": {
     "NAME": "再战一回",
     "NAME_SFW": "再战一回",
-    "DESCRIPTION": "superstitiomod:迅捷 。 NL 获得 !B! 点 *格挡 。 NL 所有 superstitiomod:助兴 卡牌的计数变为 !M! 倍。",
+    "DESCRIPTION": "superstitiomod:并行 。 NL 获得 !B! 点 *格挡 。 NL 所有 superstitiomod:助兴 卡牌的计数变为 !M! 倍。",
     "FLAVOR": "拜托啦，别走嘛，我会好好服侍您的。"
   },
   "SuperstitioMod:EroSion": {
