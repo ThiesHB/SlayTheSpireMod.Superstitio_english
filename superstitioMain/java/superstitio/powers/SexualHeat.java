@@ -46,7 +46,7 @@ import static superstitio.InBattleDataManager.OrgasmTimesInTurn;
 import static superstitio.InBattleDataManager.OrgasmTimesTotal;
 import static superstitioapi.actions.AutoDoneInstantAction.addToBotAbstract;
 import static superstitioapi.powers.AllCardCostModifier.*;
-import static superstitioapi.shader.HeartShader.RenderHeartStream.addToBot_addHeartStreamEffect;
+import static superstitioapi.shader.heart.HeartStreamShader.RenderHeartStream.addToBot_addHeartStreamEffect;
 import static superstitioapi.shader.ShaderUtility.canUseShader;
 import static superstitioapi.utils.ActionUtility.VoidSupplier;
 
@@ -80,7 +80,7 @@ public class SexualHeat extends AbstractSuperstitioPower implements
         if (SuperstitioConfig.isEnablePerformanceMode())
             return 3;
         else
-            return 12;
+            return 8;
     }
 
     public static void addToBot_addSexualHeat(AbstractCreature target, int heatAmount) {

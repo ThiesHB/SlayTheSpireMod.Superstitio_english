@@ -9,7 +9,7 @@ import superstitio.cards.general.GeneralCard;
 import superstitio.monster.ChibiKindMonster;
 import superstitioapi.InBattleDataManager;
 import superstitioapi.pet.PetManager;
-import superstitioapi.shader.HeartShader;
+import superstitioapi.shader.heart.HeartMultiAtOneShader;
 
 import static superstitio.cards.CardOwnerPlayerManager.IsNotLupaCard;
 import static superstitio.cards.CardOwnerPlayerManager.IsNotMasoCard;
@@ -40,14 +40,14 @@ public class HaveBirthWith_Test extends GeneralCard implements IsNotLupaCard, Is
                         PetManager.spawnMinion((
                                 (AbstractMonster) target).getClass(
                         ));
-                        new HeartShader.HeartMultiAtOneEffect(target.hb).addToEffectsQueue();
+                        new HeartMultiAtOneShader.HeartMultiAtOneEffect(target.hb).addToEffectsQueue();
                     });
 
         else
             InBattleDataManager.getPetManager()
                     .ifPresent(petManager -> {
                         PetManager.spawnMonster(new ChibiKindMonster.MinionChibi(new ChibiKindMonster()));
-                        new HeartShader.HeartMultiAtOneEffect(target.hb).addToEffectsQueue();
+                        new HeartMultiAtOneShader.HeartMultiAtOneEffect(target.hb).addToEffectsQueue();
                     });
     }
 

@@ -14,7 +14,7 @@ import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import com.megacrit.cardcrawl.monsters.exordium.ApologySlime;
 import superstitioapi.Logger;
 import superstitioapi.actions.AutoDoneInstantAction;
-import superstitioapi.shader.HeartShader;
+import superstitioapi.shader.heart.HeartMultiAtOneShader;
 import superstitioapi.utils.CreatureUtility;
 
 import java.util.Arrays;
@@ -98,7 +98,7 @@ public class DamageActionMaker {
         for (AbstractCreature target : getTargets()) {
             AbstractDungeon.actionManager.addToBottom(this.get(target));
             if (this.effect == DamageEffect.HeartMultiInOne)
-                AutoDoneInstantAction.addToBotAbstract(() -> new HeartShader.HeartMultiAtOneEffect(target.hb).addToEffectsQueue());
+                AutoDoneInstantAction.addToBotAbstract(() -> new HeartMultiAtOneShader.HeartMultiAtOneEffect(target.hb).addToEffectsQueue());
         }
     }
 
@@ -106,7 +106,7 @@ public class DamageActionMaker {
         for (AbstractCreature target : getTargets()) {
             AbstractDungeon.actionManager.addToTop(this.get(target));
             if (this.effect == DamageEffect.HeartMultiInOne)
-                AutoDoneInstantAction.addToTopAbstract(() -> new HeartShader.HeartMultiAtOneEffect(target.hb).addToEffectsQueue());
+                AutoDoneInstantAction.addToTopAbstract(() -> new HeartMultiAtOneShader.HeartMultiAtOneEffect(target.hb).addToEffectsQueue());
         }
     }
 
