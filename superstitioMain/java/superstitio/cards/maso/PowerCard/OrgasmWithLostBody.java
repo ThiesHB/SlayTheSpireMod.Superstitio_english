@@ -56,7 +56,7 @@ public class OrgasmWithLostBody extends MasoCard {
         }
 
         private void tryBecomeFeelPhantomBodyCard(AbstractCard card) {
-            if (CardUtility.canUseWithoutEnvironment(card)) return;
+            if (CardUtility.canNotUseWithoutEnvironment(card)) return;
             AutoDoneInstantAction.addToBotAbstract(() -> {
                 AbstractDungeon.player.hand.removeCard(card);
                 AbstractDungeon.effectList.add(new PurgeCardEffect(card));

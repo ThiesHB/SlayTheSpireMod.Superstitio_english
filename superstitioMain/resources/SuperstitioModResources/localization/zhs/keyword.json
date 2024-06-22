@@ -1,6 +1,5 @@
 ﻿[
   {
-    "ID": "SuperstitioMod:WantSemen",
     "PROPER_NAME": "精欲",
     "NAMES": [
       "精欲",
@@ -9,7 +8,6 @@
     "DESCRIPTION": "消耗足够价值的精液才能发挥下述效果。 NL 若精液价值不足，这张牌不能被打出。"
   },
   {
-    "ID": "SuperstitioMod:SexualHeat",
     "PROPER_NAME": "快感",
     "NAMES": [
       "快感"
@@ -31,7 +29,6 @@
     "DESCRIPTION": "上回合获得的 #r腐朽 。"
   },
   {
-    "ID": "SuperstitioMod:Orgasm",
     "PROPER_NAME": "高潮",
     "NAMES": [
       "高潮",

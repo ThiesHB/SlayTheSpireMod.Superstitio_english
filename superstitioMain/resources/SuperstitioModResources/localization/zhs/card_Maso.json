@@ -46,8 +46,8 @@
     ]
   },
   "SuperstitioMod:MasoCard:BodyModification_CutOff": {
-    "NAME": "身体欠损",
-    "NAME_SFW": "义体升级",
+    "NAME": "改造：身体欠损",
+    "NAME_SFW": "改造：义体升级",
     "DESCRIPTION": "%s NL 攻击力提升 百分之 !M! 。 %s",
     "FLAVOR": "用刀砍，还是用手拽下来呢？这是个问题。",
     "EXTENDED_DESCRIPTION": [
@@ -62,29 +62,29 @@
     "FLAVOR": "好难选啊，能手快全选吗？"
   },
   "SuperstitioMod:MasoCard:BodyModification_SuperHugeBreast": {
-    "NAME": "超巨乳化",
-    "NAME_SFW": "仁慈之心",
+    "NAME": "改造：超巨乳化",
+    "NAME_SFW": "改造：仁慈之心",
     "DESCRIPTION": "受到攻击时，获得 !M! superstitiomod:乳汁 。",
     "FLAVOR": "大大大大大！"
   },
   "SuperstitioMod:MasoCard:BodyModification_Tattoo": {
-    "NAME": "纹身穿刺",
-    "NAME_SFW": "战纹绘制",
+    "NAME": "改造：纹身穿刺",
+    "NAME_SFW": "改造：战纹绘制",
     "DESCRIPTION": "",
     "FLAVOR": "",
     "EXTENDED_DESCRIPTION": [
       "永久妆容/全身皮肤改色/眼球纹身/淫语固化/分舌/乳房贯穿/脸颊贯穿/悬挂穿刺/紧身胸衣穿孔/阴唇常开/尿道穿孔/阴蒂吊坠"
     ]
   },
-  "SuperstitioMod:MasoCard:CruelTorture_Dismember": {
-    "NAME": "酷刑：凌迟",
-    "NAME_SFW": "怨魂：鲜血护体",
+  "SuperstitioMod:MasoCard:Dismember": {
+    "NAME": "凌迟",
+    "NAME_SFW": "鲜血护体",
     "DESCRIPTION": "superstitiomod:并行 。 NL 每有一张处于 superstitiomod:助兴 的卡牌，失去 !M! 生命，移除 !B! *腐朽 。",
     "FLAVOR": ""
   },
-  "SuperstitioMod:MasoCard:CruelTorture_HotPillar": {
-    "NAME": "酷刑：炮烙",
-    "NAME_SFW": "怨魂：超载",
+  "SuperstitioMod:MasoCard:HotPillar": {
+    "NAME": "炮烙",
+    "NAME_SFW": "超载",
     "DESCRIPTION": "将%d张 *灼伤 放入你的弃牌堆中 。superstitiomod:助兴-急切 。 NL superstitiomod:助兴-缠绵 ： NL 接下来99回合开始时 ： NL 获得 !M! 点 临时敏捷 。",
     "FLAVOR": ""
   }

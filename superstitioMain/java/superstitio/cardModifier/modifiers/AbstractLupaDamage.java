@@ -3,8 +3,8 @@ package superstitio.cardModifier.modifiers;
 import basemod.helpers.TooltipInfo;
 import com.evacipated.cardcrawl.mod.stslib.damagemods.AbstractDamageModifier;
 import superstitio.DataManager;
+import superstitio.customStrings.HasSFWVersion;
 import superstitio.customStrings.ModifierStringsSet;
-import superstitio.customStrings.interFace.StringSetUtility;
 
 import java.util.ArrayList;
 
@@ -19,7 +19,7 @@ public abstract class AbstractLupaDamage extends AbstractDamageModifier {
     }
 
     public static ModifierStringsSet getDamageStringsWithSFW(String cardName) {
-        return StringSetUtility.getCustomStringsWithSFW(cardName, DataManager.modifiers, ModifierStringsSet.class);
+        return HasSFWVersion.getCustomStringsWithSFW(cardName, DataManager.modifiers, ModifierStringsSet.class);
     }
 
     public AbstractLupaDamage removeAutoBind() {

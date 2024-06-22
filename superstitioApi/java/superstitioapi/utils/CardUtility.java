@@ -150,7 +150,7 @@ public class CardUtility {
         return EnergyPanel.totalCount >= card.costForTurn || card.freeToPlay() || card.isInAutoplay;
     }
 
-    public static boolean canUseWithoutEnvironment(AbstractCard card) {
+    public static boolean canNotUseWithoutEnvironment(AbstractCard card) {
         if (card.canUse(AbstractDungeon.player, null)) return true;
         //不是因为能量不够或者对象不对而无法打出
 //            if (!(card.cardPlayable(null) && hasEnoughEnergyOrTurnEnd(card))) return;

@@ -36,7 +36,6 @@ public class BodyModification_CutOff extends MasoCard {
         super(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET);
         this.setupMagicNumber(MAGIC, UPGRADE_MAGIC);
         this.setupBlock(BLOCK, UPGRADE_BLOCK, new RemoveDelayHpLoseBlock());
-        this.tags.add(DataManager.CardTagsType.BodyModification);
     }
 
     @Override

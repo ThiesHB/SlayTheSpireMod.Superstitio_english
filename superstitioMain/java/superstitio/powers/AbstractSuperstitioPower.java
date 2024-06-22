@@ -10,8 +10,8 @@ import com.megacrit.cardcrawl.core.Settings;
 import com.megacrit.cardcrawl.helpers.*;
 import com.megacrit.cardcrawl.powers.AbstractPower;
 import superstitio.DataManager;
+import superstitio.customStrings.HasSFWVersion;
 import superstitio.customStrings.PowerStringsSet;
-import superstitio.customStrings.interFace.StringSetUtility;
 import superstitioapi.utils.ActionUtility;
 import superstitioapi.utils.updateDescriptionAdvanced;
 
@@ -41,7 +41,7 @@ public abstract class AbstractSuperstitioPower extends AbstractPower implements 
     }
 
     public static PowerStringsSet getPowerStringsWithSFW(String powerID) {
-        return StringSetUtility.getCustomStringsWithSFW(powerID, DataManager.powers, PowerStringsSet.class);
+        return HasSFWVersion.getCustomStringsWithSFW(powerID, DataManager.powers, PowerStringsSet.class);
     }
 
     protected void SetupPower(String id, PowerStringsSet powerStrings, final AbstractCreature owner, int amount, PowerType powerType,

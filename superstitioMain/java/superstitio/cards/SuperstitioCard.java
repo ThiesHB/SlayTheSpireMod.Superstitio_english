@@ -51,7 +51,7 @@ import static com.megacrit.cardcrawl.cards.DamageInfo.DamageType;
 import static superstitio.DataManager.cards;
 import static superstitio.DataManager.getModID;
 import static superstitio.cards.CardOwnerPlayerManager.getImgPath;
-import static superstitio.customStrings.interFace.StringSetUtility.getCustomStringsWithSFW;
+import static superstitio.customStrings.HasSFWVersion.getCustomStringsWithSFW;
 import static superstitio.delayHpLose.DelayHpLosePatch.GainBlockTypeFields.ifDelayReduceDelayHpLose;
 import static superstitio.delayHpLose.DelayHpLosePatch.GainBlockTypeFields.ifReduceDelayHpLose;
 
