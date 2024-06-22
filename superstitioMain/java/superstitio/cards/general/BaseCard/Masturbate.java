@@ -6,6 +6,7 @@ import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import superstitio.DataManager;
 import superstitio.cards.general.GeneralCard;
+import superstitio.customStrings.SuperstitioKeyWord;
 import superstitio.powers.SexualHeat;
 import superstitioapi.cards.patch.GoSomewhereElseAfterUse;
 import superstitioapi.hangUpCard.CardOrb_WaitCardTrigger;
@@ -31,6 +32,12 @@ public class Masturbate extends GeneralCard implements GoSomewhereElseAfterUse {
     public Masturbate() {
         super(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET, "base");
         this.setupMagicNumber(MAGIC, UPGRADE_MAGIC);
+    }
+
+    @Override
+    public void initializeDescription() {
+        super.initializeDescription();
+        SuperstitioKeyWord.addToCard(this, "Orgasm");
     }
 
     @Override

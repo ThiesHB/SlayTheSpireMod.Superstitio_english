@@ -20,6 +20,9 @@ import superstitio.cards.lupa.LupaCard;
 import superstitio.cards.lupa.SkillCard.block.Philter;
 import superstitio.cards.maso.MasoCard;
 import superstitio.customStrings.*;
+import superstitio.customStrings.interFace.HasDifferentVersionStringSet;
+import superstitio.customStrings.interFace.HasTextID;
+import superstitio.customStrings.interFace.WordReplace;
 import superstitio.delayHpLose.DelayHpLosePower_ApplyOnAttacked;
 import superstitio.delayHpLose.DelayHpLosePower_ApplyOnlyOnVictory;
 import superstitio.delayHpLose.DelayHpLosePower_HealOnVictory;
@@ -50,6 +53,7 @@ public class DataManager {
     public static Map<String, PowerStringsSet> powers = new HashMap<>();
     public static Map<String, ModifierStringsSet> modifiers = new HashMap<>();
     public static Map<String, OrbStringsSet> orbs = new HashMap<>();
+    public static Map<String, UIStringsSet> uiStrings = new HashMap<>();
     public SPTT_DATA spttData = new SPTT_DATA();
 
     static String makeLocalizationPath(Settings.GameLanguage language, String filename) {
@@ -311,7 +315,7 @@ public class DataManager {
 //        ReflectionHacks.setPrivateStaticFinal(LocalizedStrings.class, mapName, localizationStrings);
 //    }
 
-    public static <T extends HasSFWVersion> void loadCustomStringsFile(String fileName, Map<String, T> target, Class<T> tSetClass) {
+    public static <T extends HasDifferentVersionStringSet<?>> void loadCustomStringsFile(String fileName, Map<String, T> target, Class<T> tSetClass) {
         superstitioapi.Logger.debug("loadJsonStrings: " + tSetClass.getTypeName());
         String jsonString = Gdx.files.internal(makeLocalizationPath(Settings.language, fileName))
                 .readString(String.valueOf(StandardCharsets.UTF_8));
@@ -320,7 +324,7 @@ public class DataManager {
         Gson gson = new Gson();
         Map<String, T> map = gson.fromJson(jsonString, typeToken);
         map.forEach((id, strings) -> {
-            strings.initialOrigin();
+            strings.initial();
             if (strings instanceof HasTextID)
                 ((HasTextID) strings).setTextID(id);
         });
@@ -435,8 +439,8 @@ public class DataManager {
         @SpireEnum
         public static AbstractCard.CardTags CruelTorture;
 
-//        @SpireEnum
-//        public static AbstractCard.CardTags Coitus;
+        @SpireEnum
+        public static AbstractCard.CardTags BodyModification;
 
         @SpireEnum
         public static AbstractCard.CardTags InsideEjaculation;

@@ -4,8 +4,8 @@ import com.badlogic.gdx.graphics.Texture;
 import com.megacrit.cardcrawl.helpers.ImageMaster;
 import com.megacrit.cardcrawl.orbs.AbstractOrb;
 import superstitio.DataManager;
-import superstitio.customStrings.HasSFWVersion;
 import superstitio.customStrings.OrbStringsSet;
+import superstitio.customStrings.interFace.StringSetUtility;
 import superstitioapi.utils.updateDescriptionAdvanced;
 
 import java.util.HashMap;
@@ -48,7 +48,7 @@ public abstract class AbstractLupaOrb extends AbstractOrb implements updateDescr
     public abstract void applyFocus();
 
     public static OrbStringsSet getPowerStringsWithSFW(String cardName) {
-        return HasSFWVersion.getCustomStringsWithSFW(cardName, DataManager.orbs, OrbStringsSet.class);
+        return StringSetUtility.getCustomStringsWithSFW(cardName, DataManager.orbs, OrbStringsSet.class);
     }
 
     //    @Override

@@ -27,6 +27,7 @@ public class BodyModification_Tattoo extends MasoCard {
     public BodyModification_Tattoo() {
         super(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET);
         this.setupMagicNumber(MAGIC, UPGRADE_MAGIC);
+        this.tags.add(DataManager.CardTagsType.BodyModification);
     }
 
     @Override

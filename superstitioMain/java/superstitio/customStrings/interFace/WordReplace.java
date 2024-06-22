@@ -1,4 +1,4 @@
-package superstitio.customStrings;
+package superstitio.customStrings.interFace;
 
 import java.util.List;
 import java.util.regex.Matcher;
@@ -16,9 +16,9 @@ public class WordReplace {
         this.WordReplace = WordReplace;
     }
 
-    public static String replaceWord(final String string, List<superstitio.customStrings.WordReplace> replaceRules) {
+    public static String replaceWord(final String string, List<superstitio.customStrings.interFace.WordReplace> replaceRules) {
         final String[] newString = {string};
-        for (superstitio.customStrings.WordReplace replaceRule : replaceRules) {
+        for (superstitio.customStrings.interFace.WordReplace replaceRule : replaceRules) {
             newString[0] = replace(newString[0], replaceRule.WordOrigin, replaceRule.WordReplace);
         }
         return newString[0];
@@ -31,7 +31,7 @@ public class WordReplace {
                 .replaceAll(Matcher.quoteReplacement(replacement.toString()));
     }
 
-    public static String[] replaceWord(String[] strings, List<superstitio.customStrings.WordReplace> replaceRule) {
+    public static String[] replaceWord(String[] strings, List<superstitio.customStrings.interFace.WordReplace> replaceRule) {
         if (strings.length != 0)
             for (int i = 0; i < strings.length; i++)
                 strings[i] = replaceWord(strings[i], replaceRule);
@@ -39,7 +39,7 @@ public class WordReplace {
     }
 
     public boolean hasNullOrEmpty() {
-        return HasSFWVersion.isNullOrEmpty(this.WordOrigin) || HasSFWVersion.isNullOrEmpty(this.WordReplace);
+        return StringSetUtility.isNullOrEmpty(this.WordOrigin) || StringSetUtility.isNullOrEmpty(this.WordReplace);
     }
 
 //    public static WordReplace getMockCardStringWithFlavor() {

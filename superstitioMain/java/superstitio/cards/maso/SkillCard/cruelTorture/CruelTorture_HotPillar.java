@@ -1,4 +1,4 @@
-package superstitio.cards.maso.SkillCard;
+package superstitio.cards.maso.SkillCard.cruelTorture;
 
 import com.megacrit.cardcrawl.cards.CardGroup;
 import com.megacrit.cardcrawl.cards.status.Burn;
@@ -14,8 +14,8 @@ import superstitioapi.hangUpCard.CardOrb_AtStartOfTurn;
 import superstitioapi.utils.ActionUtility;
 
 //炮烙
-public class HotPillar extends MasoCard implements GoSomewhereElseAfterUse {
-    public static final String ID = DataManager.MakeTextID(HotPillar.class);
+public class CruelTorture_HotPillar extends MasoCard implements GoSomewhereElseAfterUse {
+    public static final String ID = DataManager.MakeTextID(CruelTorture_HotPillar.class);
 
     public static final CardType CARD_TYPE = CardType.SKILL;
 
@@ -26,7 +26,7 @@ public class HotPillar extends MasoCard implements GoSomewhereElseAfterUse {
     private static final int COST = 1;
     private static final int MAGIC = 3;
     private static final int UPGRADE_MAGIC = 1;
-    public HotPillar() {
+    public CruelTorture_HotPillar() {
         super(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET);
         this.setupMagicNumber(MAGIC, UPGRADE_MAGIC);
         this.tags.add(DataManager.CardTagsType.CruelTorture);
@@ -50,7 +50,7 @@ public class HotPillar extends MasoCard implements GoSomewhereElseAfterUse {
 
     @Override
     public void afterInterruptMoveToCardGroup(CardGroup cardGroup) {
-        HotPillar self = this;
+        CruelTorture_HotPillar self = this;
         new CardOrb_AtStartOfTurn(this, cardGroup, 99, cardOrbAtStartOfTurn -> {
             cardOrbAtStartOfTurn.StartHitCreature(AbstractDungeon.player);
             addTempDexterity(self);
@@ -58,7 +58,7 @@ public class HotPillar extends MasoCard implements GoSomewhereElseAfterUse {
                 .addToBot_HangCard();
     }
 
-    private void addTempDexterity(HotPillar self) {
+    private void addTempDexterity(CruelTorture_HotPillar self) {
         self.addToBot_applyPower(new DexterityPower(AbstractDungeon.player, this.magicNumber));
         self.addToBot_applyPower(new LoseDexterityPower(AbstractDungeon.player, this.magicNumber));
     }
