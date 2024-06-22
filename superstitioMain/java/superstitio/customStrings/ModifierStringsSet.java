@@ -4,11 +4,18 @@ import com.evacipated.cardcrawl.mod.stslib.Keyword;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.localization.LocalizedStrings;
 import superstitio.DataManager;
+import superstitio.customStrings.interFace.HasOriginAndSFWVersion;
+import superstitio.customStrings.interFace.HasTextID;
+import superstitio.customStrings.interFace.StringSetUtility;
+import superstitio.customStrings.interFace.WordReplace;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class ModifierStringsSet implements HasTextID, HasSFWVersion {
+public class ModifierStringsSet implements HasTextID, HasOriginAndSFWVersion<ModifierStringsSet.ModifierStrings> {
+
+    private final ModifierStrings SFW = new ModifierStrings();
+    private final ModifierStrings Origin = new ModifierStrings();
     private String NAME;
     private String NAME_SFW;
     private String BASIC_INFO;
@@ -38,16 +45,34 @@ public class ModifierStringsSet implements HasTextID, HasSFWVersion {
         this.EXTENDED_DESCRIPTION = LocalizedStrings.createMockStringArray(10);
     }
 
+    @Override
+    public void initialOrigin(ModifierStrings origin) {
+        origin.NAME = NAME;
+        origin.BASIC_INFO = BASIC_INFO;
+        origin.DESCRIPTION = DESCRIPTION;
+        origin.EXTENDED_DESCRIPTION = EXTENDED_DESCRIPTION;
+    }
+
+    @Override
+    public void initialSFW(ModifierStrings sfw) {
+        sfw.NAME = NAME_SFW;
+        sfw.BASIC_INFO = BASIC_INFO_SFW;
+        sfw.DESCRIPTION = DESCRIPTION_SFW;
+        sfw.EXTENDED_DESCRIPTION = EXTENDED_DESCRIPTION_SFW;
+    }
+
+    public ModifierStrings getRightVersion() {
+        if (StringSetUtility.shouldReturnSFWVersion(SFW.NAME))
+            return SFW;
+        return Origin;
+    }
+
     public String getNAME() {
-        if (HasSFWVersion.shouldReturnSFWVersion(NAME_SFW))
-            return NAME_SFW;
-        return NAME;
+        return getFromRightVersion(strings -> strings.NAME);
     }
 
     public String getDESCRIPTION() {
-        if (HasSFWVersion.shouldReturnSFWVersion(DESCRIPTION_SFW))
-            return DESCRIPTION_SFW;
-        return DESCRIPTION;
+        return getFromRightVersion(strings -> strings.DESCRIPTION);
     }
 
     public String getBasicInfo() {
@@ -59,15 +84,11 @@ public class ModifierStringsSet implements HasTextID, HasSFWVersion {
     }
 
     private String getBasicInfo_Pure() {
-        if (HasSFWVersion.shouldReturnSFWVersion(BASIC_INFO_SFW))
-            return BASIC_INFO_SFW;
-        return BASIC_INFO;
+        return getFromRightVersion(strings -> strings.BASIC_INFO);
     }
 
     public String[] getEXTENDED_DESCRIPTION() {
-        if (HasSFWVersion.shouldReturnSFWVersion(EXTENDED_DESCRIPTION_SFW))
-            return EXTENDED_DESCRIPTION_SFW;
-        return EXTENDED_DESCRIPTION;
+        return getArrayFromRightVersion(strings -> strings.EXTENDED_DESCRIPTION);
     }
 
     private WordReplace toModifierNameReplaceRule() {
@@ -75,9 +96,25 @@ public class ModifierStringsSet implements HasTextID, HasSFWVersion {
     }
 
     @Override
+    public ModifierStrings getSFWVersion() {
+        return SFW;
+    }
+
+    @Override
+    public ModifierStrings getOriginVersion() {
+        return Origin;
+    }
+
+
+    @Override
+    public Class<ModifierStrings> getSubClass() {
+        return ModifierStrings.class;
+    }
+
+    @Override
     public void setupSFWStringByWordReplace(List<WordReplace> replaceRules) {
-        this.DESCRIPTION_SFW = WordReplace.replaceWord(this.getDESCRIPTION(), replaceRules);
-        this.BASIC_INFO_SFW = WordReplace.replaceWord(this.getBasicInfo_Pure(), replaceRules);
+        this.SFW.DESCRIPTION = WordReplace.replaceWord(this.getDESCRIPTION(), replaceRules);
+        this.SFW.BASIC_INFO = WordReplace.replaceWord(this.getBasicInfo_Pure(), replaceRules);
     }
 
     public Keyword ToKeyWord() {
@@ -96,5 +133,12 @@ public class ModifierStringsSet implements HasTextID, HasSFWVersion {
     @Override
     public void setTextID(String textID) {
         this.textID = textID;
+    }
+
+    public static class ModifierStrings {
+        private String NAME;
+        private String BASIC_INFO;
+        private String DESCRIPTION;
+        private String[] EXTENDED_DESCRIPTION;
     }
 }

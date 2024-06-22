@@ -4,11 +4,14 @@ import com.evacipated.cardcrawl.mod.stslib.patches.FlavorText;
 import com.megacrit.cardcrawl.localization.CardStrings;
 import com.megacrit.cardcrawl.localization.LocalizedStrings;
 import superstitio.SuperstitioConfig;
+import superstitio.customStrings.interFace.HasOriginAndSFWVersion;
+import superstitio.customStrings.interFace.StringSetUtility;
+import superstitio.customStrings.interFace.WordReplace;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class CardStringsWithFlavorSet implements HasSFWVersionWithT<CardStrings> {
+public class CardStringsWithFlavorSet implements HasOriginAndSFWVersion<CardStrings> {
     private final CardStrings Origin = new CardStrings();
     private final CardStrings SFW = new CardStrings();
     private String NAME;
@@ -28,18 +31,8 @@ public class CardStringsWithFlavorSet implements HasSFWVersionWithT<CardStrings>
         return cards.stream().map(CardStringsWithFlavorSet::toCardNameReplaceRule).collect(Collectors.toList());
     }
 
-    @Override
-    public void initialOrigin() {
-        Origin.NAME = NAME;
-        Origin.DESCRIPTION = DESCRIPTION;
-        Origin.UPGRADE_DESCRIPTION = UPGRADE_DESCRIPTION;
-        Origin.EXTENDED_DESCRIPTION = EXTENDED_DESCRIPTION;
-        FlavorText.CardStringsFlavorField.flavor.set(Origin, FLAVOR);
-    }
-
-    @Override
-    public Class<CardStrings> getTClass() {
-        return CardStrings.class;
+    private WordReplace toCardNameReplaceRule() {
+        return new WordReplace(this.NAME, this.NAME_SFW);
     }
 
     @Override
@@ -51,28 +44,48 @@ public class CardStringsWithFlavorSet implements HasSFWVersionWithT<CardStrings>
         this.FLAVOR = "[MISSING_FLAVOR]";
     }
 
+    @Override
+    public void initialOrigin(CardStrings origin) {
+        origin.NAME = NAME;
+        origin.DESCRIPTION = DESCRIPTION;
+        origin.UPGRADE_DESCRIPTION = UPGRADE_DESCRIPTION;
+        origin.EXTENDED_DESCRIPTION = EXTENDED_DESCRIPTION;
+        FlavorText.CardStringsFlavorField.flavor.set(origin, FLAVOR);
+    }
+
+    @Override
+    public void initialSFW(CardStrings sfw) {
+        sfw.NAME = NAME_SFW;
+        sfw.DESCRIPTION = DESCRIPTION_SFW;
+        sfw.UPGRADE_DESCRIPTION = UPGRADE_DESCRIPTION_SFW;
+        sfw.EXTENDED_DESCRIPTION = EXTENDED_DESCRIPTION_SFW;
+    }
+
+    public CardStrings getRightVersion() {
+        if (StringSetUtility.shouldReturnSFWVersion(SFW.NAME))
+            return SFW;
+        return Origin;
+    }
+
+    @Override
+    public Class<CardStrings> getSubClass() {
+        return CardStrings.class;
+    }
+
     public String getNAME() {
-        if (HasSFWVersion.shouldReturnSFWVersion(NAME_SFW))
-            return NAME_SFW;
-        return NAME;
+        return getFromRightVersion(strings -> strings.NAME);
     }
 
     public String getDESCRIPTION() {
-        if (HasSFWVersion.shouldReturnSFWVersion(DESCRIPTION_SFW))
-            return DESCRIPTION_SFW;
-        return DESCRIPTION;
+        return getFromRightVersion(strings -> strings.DESCRIPTION);
     }
 
     public String getUPGRADE_DESCRIPTION() {
-        if (HasSFWVersion.shouldReturnSFWVersion(UPGRADE_DESCRIPTION_SFW))
-            return UPGRADE_DESCRIPTION_SFW;
-        return UPGRADE_DESCRIPTION;
+        return getFromRightVersion(strings -> strings.UPGRADE_DESCRIPTION);
     }
 
     public String[] getEXTENDED_DESCRIPTION() {
-        if (HasSFWVersion.shouldReturnSFWVersion(EXTENDED_DESCRIPTION_SFW))
-            return EXTENDED_DESCRIPTION_SFW;
-        return EXTENDED_DESCRIPTION;
+        return getArrayFromRightVersion(strings -> strings.EXTENDED_DESCRIPTION);
     }
 
     public String getFLAVOR() {
@@ -83,19 +96,20 @@ public class CardStringsWithFlavorSet implements HasSFWVersionWithT<CardStrings>
 
     @Override
     public void setupSFWStringByWordReplace(List<WordReplace> replaceRules) {
-        this.DESCRIPTION_SFW = WordReplace.replaceWord(this.getDESCRIPTION(), replaceRules);
-        if (this.getUPGRADE_DESCRIPTION() != null)
-            this.UPGRADE_DESCRIPTION_SFW = WordReplace.replaceWord(this.getUPGRADE_DESCRIPTION(), replaceRules);
+        this.SFW.DESCRIPTION = WordReplace.replaceWord(this.getDESCRIPTION(), replaceRules);
+        if (this.getUPGRADE_DESCRIPTION() != null) {
+            this.SFW.UPGRADE_DESCRIPTION = WordReplace.replaceWord(this.getUPGRADE_DESCRIPTION(), replaceRules);
+        }
     }
 
-    private WordReplace toCardNameReplaceRule() {
-        return new WordReplace(this.NAME, this.NAME_SFW);
+
+    @Override
+    public CardStrings getSFWVersion() {
+        return this.SFW;
     }
 
     @Override
-    public CardStrings getRightVersion() {
-        if (HasSFWVersion.shouldReturnSFWVersion(SFW.NAME))
-            return SFW;
-        return Origin;
+    public CardStrings getOriginVersion() {
+        return this.Origin;
     }
 }

@@ -1,4 +1,4 @@
-package superstitio.customStrings;
+package superstitio.customStrings.interFace;
 
 public interface HasTextID {
     String getTextID();

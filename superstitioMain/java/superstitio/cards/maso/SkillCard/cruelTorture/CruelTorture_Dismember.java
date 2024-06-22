@@ -1,4 +1,4 @@
-package superstitio.cards.maso.SkillCard;
+package superstitio.cards.maso.SkillCard.cruelTorture;
 
 import com.megacrit.cardcrawl.actions.common.LoseHPAction;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
@@ -13,8 +13,8 @@ import superstitioapi.hangUpCard.Card_TriggerHangCardManually;
 import static superstitioapi.InBattleDataManager.getHangUpCardOrbGroup;
 
 //凌迟
-public class Dismember extends MasoCard implements Card_TriggerHangCardManually {
-    public static final String ID = DataManager.MakeTextID(Dismember.class);
+public class CruelTorture_Dismember extends MasoCard implements Card_TriggerHangCardManually {
+    public static final String ID = DataManager.MakeTextID(CruelTorture_Dismember.class);
 
     public static final CardType CARD_TYPE = CardType.SKILL;
 
@@ -28,7 +28,7 @@ public class Dismember extends MasoCard implements Card_TriggerHangCardManually 
     private static final int UPGRADE_BLOCK = 1;
 
 
-    public Dismember() {
+    public CruelTorture_Dismember() {
         super(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET);
         this.setupMagicNumber(MAGIC);
         this.tags.add(DataManager.CardTagsType.CruelTorture);
