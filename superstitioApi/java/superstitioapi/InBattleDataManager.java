@@ -26,7 +26,6 @@ public class InBattleDataManager {
     }
 
 
-
     public static void ClearOnEndOfBattle() {
         ResetAll();
     }

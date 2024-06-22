@@ -14,6 +14,7 @@ import java.util.stream.Collectors;
 public class MinionGroup extends MonsterGroup {
 
     public Minion hoveredCreature = null;
+
     public MinionGroup(AbstractMonster[] input) {
         super(input);
     }
@@ -31,6 +32,7 @@ public class MinionGroup extends MonsterGroup {
                 .map(monster -> (Minion) monster)
                 .collect(Collectors.toList());
     }
+
     @Override
     public void render(SpriteBatch sb) {
         if (this.hoveredCreature != null && !this.hoveredCreature.isDead && !this.hoveredCreature.escaped && AbstractDungeon.player.hoverEnemyWaitTimer < 0.0F && (!AbstractDungeon.isScreenUp || PeekButton.isPeeking)) {

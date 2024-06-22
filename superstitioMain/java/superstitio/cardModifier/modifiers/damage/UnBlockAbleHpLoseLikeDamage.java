@@ -17,7 +17,8 @@ public class UnBlockAbleHpLoseLikeDamage extends AbstractLupaDamage {
     }
 
     public static DamageInfo damageInfo(Object instigator, int amount) {
-        return BindingHelper.makeInfo(new DamageModContainer(instigator, new UnBlockAbleHpLoseLikeDamage()), null, amount, DataManager.CanOnlyDamageDamageType.NoTriggerLupaAndMasoRelicHpLose);
+        return BindingHelper.makeInfo(new DamageModContainer(instigator, new UnBlockAbleHpLoseLikeDamage()), null, amount,
+                DataManager.CanOnlyDamageDamageType.NoTriggerLupaAndMasoRelicHpLose);
     }
 
     @Override

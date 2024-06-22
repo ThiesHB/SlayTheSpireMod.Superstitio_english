@@ -1,5 +1,6 @@
 package superstitio.customStrings.interFace;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -32,10 +33,11 @@ public class WordReplace {
     }
 
     public static String[] replaceWord(String[] strings, List<superstitio.customStrings.interFace.WordReplace> replaceRule) {
-        if (strings.length != 0)
-            for (int i = 0; i < strings.length; i++)
-                strings[i] = replaceWord(strings[i], replaceRule);
-        return strings;
+        List<String> newStrings = new ArrayList<>();
+        if (strings != null)
+            for (String string : strings)
+                newStrings.add(replaceWord(string, replaceRule));
+        return newStrings.toArray(new String[0]);
     }
 
     public boolean hasNullOrEmpty() {

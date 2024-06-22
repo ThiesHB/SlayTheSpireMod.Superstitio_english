@@ -15,7 +15,8 @@ import superstitioapi.powers.interfaces.OnPostApplyThisPower;
 
 import static superstitioapi.InBattleDataManager.subscribeManageGroups;
 
-public class SexualDamage extends AbstractSuperstitioPower implements HealthBarRenderPower, OnPostApplyThisPower<SexualDamage>, SuperstitioApiSubscriber.AtEndOfPlayerTurnPreCardSubscriber {
+public class SexualDamage extends AbstractSuperstitioPower implements HealthBarRenderPower, OnPostApplyThisPower<SexualDamage>,
+        SuperstitioApiSubscriber.AtEndOfPlayerTurnPreCardSubscriber {
     public static final String POWER_ID = DataManager.MakeTextID(SexualDamage.class);
     private static final Color BarColor = Color.PURPLE.cpy();
     protected final AbstractCreature giver;

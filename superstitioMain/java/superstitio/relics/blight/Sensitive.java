@@ -13,7 +13,7 @@ import superstitioapi.relicToBlight.InfoBlight;
 import static com.megacrit.cardcrawl.dungeons.AbstractDungeon.player;
 
 @AutoAdd.Seen
-public class Sensitive extends SuperstitioRelic implements InfoBlight.BecomeInfoBlight  {
+public class Sensitive extends SuperstitioRelic implements InfoBlight.BecomeInfoBlight {
     public static final String ID = DataManager.MakeTextID(Sensitive.class);
     // 遗物类型
     private static final RelicTier RELIC_TIER = RelicTier.SPECIAL;

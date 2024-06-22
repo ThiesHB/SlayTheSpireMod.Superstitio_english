@@ -27,12 +27,10 @@ public class DelayHpLosePower_ApplyOnAttacked extends DelayHpLosePower {
         if (!preventHpLimit.isPresent()) {
             immediate_applyDamage(this);
             return;
-        }
-        else if (preventHpLimit.get().amount == 0) {
+        } else if (preventHpLimit.get().amount == 0) {
             immediate_applyDamage(this);
             return;
-        }
-        else {
+        } else {
             iPreventHpLimit.ifPresent(IPreventHpLimit::onPreventHpLimit);
         }
         return;

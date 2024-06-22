@@ -14,7 +14,7 @@ public abstract class AutoDoneInstantAction extends AbstractGameAction {
         if (time <= 1)
             AbstractDungeon.actionManager.addToBottom(newAutoDone(func));
         else
-           addToBotAbstract(()-> addToBotAbstract(func, time - 1));
+            addToBotAbstract(() -> addToBotAbstract(func, time - 1));
     }
 
     public static void addToTopAbstract(final ActionUtility.VoidSupplier func) {

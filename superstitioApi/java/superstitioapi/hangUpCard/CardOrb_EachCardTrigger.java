@@ -8,7 +8,8 @@ import org.apache.logging.log4j.util.BiConsumer;
 public class CardOrb_EachCardTrigger extends CardOrb_CardTrigger implements ICardOrb_EachTime {
 //    private int triggerTime;
 
-    public CardOrb_EachCardTrigger(AbstractCard card, CardGroup cardGroupReturnAfterEvoke, int triggerTime, BiConsumer<CardOrb_CardTrigger, AbstractCard> action_thisOrb_triggerCard) {
+    public CardOrb_EachCardTrigger(AbstractCard card, CardGroup cardGroupReturnAfterEvoke, int triggerTime, BiConsumer<CardOrb_CardTrigger,
+            AbstractCard> action_thisOrb_triggerCard) {
         super(card, cardGroupReturnAfterEvoke, triggerTime, action_thisOrb_triggerCard);
     }
 

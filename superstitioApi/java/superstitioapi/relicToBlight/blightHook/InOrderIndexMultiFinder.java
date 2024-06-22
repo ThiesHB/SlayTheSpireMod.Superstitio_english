@@ -21,10 +21,11 @@ import java.util.stream.Collectors;
 public class InOrderIndexMultiFinder extends MatchFinderExprEditor {
     protected final List<Integer> indexes;
     private final List<Integer> locations;
-    private boolean foundLocation;
-    private int foundMatchesIndex;
     private final Matcher finalMatch;
     private final List<Matcher> expectedMatches;
+    private boolean foundLocation;
+    private int foundMatchesIndex;
+
     public InOrderIndexMultiFinder(List<Matcher> expectedMatches, Matcher finalMatch, int[] indexes) {
         this.expectedMatches = expectedMatches;
         this.finalMatch = finalMatch;
@@ -32,6 +33,20 @@ public class InOrderIndexMultiFinder extends MatchFinderExprEditor {
         this.foundLocation = false;
         this.locations = new ArrayList<>();
         this.indexes = Arrays.stream(indexes).boxed().collect(Collectors.toList());
+    }
+
+    public static int[] findInOrder(CtBehavior ctMethodToPatch, Matcher finalMatch, int[] indexes) throws CannotCompileException, PatchingException {
+        return findInOrder(ctMethodToPatch, new ArrayList<>(), finalMatch, indexes);
+    }
+
+    public static int[] findInOrder(CtBehavior ctMethodToPatch, List<Matcher> expectedMatches, Matcher finalMatch, int[] indexes) throws CannotCompileException, PatchingException {
+        MatchFinderExprEditor editor = new InOrderIndexMultiFinder(expectedMatches, finalMatch, indexes);
+        ctMethodToPatch.instrument(editor);
+        if (!editor.didFindLocation()) {
+            throw new PatchingException(ctMethodToPatch, "Location matching given description could not be found for patch");
+        } else {
+            return editor.getFoundLocations();
+        }
     }
 
     public int[] getFoundLocations() {
@@ -43,20 +58,6 @@ public class InOrderIndexMultiFinder extends MatchFinderExprEditor {
         }
 
         return asArray;
-    }
-
-    public static int[] findInOrder(CtBehavior ctMethodToPatch, Matcher finalMatch,int[] indexes) throws CannotCompileException, PatchingException {
-        return findInOrder(ctMethodToPatch, new ArrayList<>(), finalMatch,indexes);
-    }
-
-    public static int[] findInOrder(CtBehavior ctMethodToPatch, List<Matcher> expectedMatches, Matcher finalMatch,int[] indexes) throws CannotCompileException, PatchingException {
-        MatchFinderExprEditor editor = new InOrderIndexMultiFinder(expectedMatches, finalMatch,indexes);
-        ctMethodToPatch.instrument(editor);
-        if (!editor.didFindLocation()) {
-            throw new PatchingException(ctMethodToPatch, "Location matching given description could not be found for patch");
-        } else {
-            return editor.getFoundLocations();
-        }
     }
 
     private void foundFinalMatch(int lineNumber) {

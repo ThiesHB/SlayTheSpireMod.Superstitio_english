@@ -9,6 +9,7 @@ public interface InvisiblePower_InvisibleIconAndAmount {
             return ((InvisiblePower_InvisibleIconAndAmount) power).checkShouldInvisibleIcon();
         return false;
     }
+
     static boolean shouldInvisibleAmount(AbstractPower power) {
         if (power instanceof InvisiblePower_InvisibleIconAndAmount)
             return ((InvisiblePower_InvisibleIconAndAmount) power).checkShouldInvisibleAmount();
@@ -19,6 +20,7 @@ public interface InvisiblePower_InvisibleIconAndAmount {
     default boolean checkShouldInvisibleIcon() {
         return true;
     }
+
     default boolean checkShouldInvisibleAmount() {
         return true;
     }

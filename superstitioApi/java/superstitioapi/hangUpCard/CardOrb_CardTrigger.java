@@ -15,7 +15,8 @@ public abstract class CardOrb_CardTrigger extends CardOrb {
     public Predicate<AbstractCard> cardMatcher = (card) -> true;
     public boolean evokeOnEndOfTurn;
 
-    public CardOrb_CardTrigger(AbstractCard card, CardGroup cardGroupReturnAfterEvoke, int OrbCounter, BiConsumer<CardOrb_CardTrigger, AbstractCard> action_thisCard_targetCard) {
+    public CardOrb_CardTrigger(AbstractCard card, CardGroup cardGroupReturnAfterEvoke, int OrbCounter, BiConsumer<CardOrb_CardTrigger,
+            AbstractCard> action_thisCard_targetCard) {
         super(card, cardGroupReturnAfterEvoke, OrbCounter);
         this.action = action_thisCard_targetCard;
         this.evokeOnEndOfTurn = true;

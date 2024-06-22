@@ -1,8 +1,11 @@
 package superstitio.cards.general;
 
+import basemod.helpers.CardModifierManager;
 import com.evacipated.cardcrawl.mod.stslib.damagemods.DamageModifierManager;
 import superstitio.DataManager;
 import superstitio.SuperstitioConfig;
+import superstitio.cardModifier.modifiers.card.InsideEjaculationTag;
+import superstitio.cardModifier.modifiers.card.OutsideEjaculationTag;
 import superstitio.cardModifier.modifiers.damage.SexDamage;
 import superstitio.cardModifier.modifiers.damage.SexDamage_Fuck;
 import superstitio.cardModifier.modifiers.damage.SexDamage_Job;
@@ -55,10 +58,10 @@ public interface FuckJob_Card {
                     DataManager.SPTT_DATA.BG_ATTACK_512_SEMEN,
                     DataManager.SPTT_DATA.BG_ATTACK_SEMEN);
         if (card.cardID.contains("Fuck")) {
-            card.tags.add(DataManager.CardTagsType.InsideEjaculation);
+            CardModifierManager.addModifier(card,new InsideEjaculationTag());
             DamageModifierManager.addModifier(card, new SexDamage_Fuck());
         } else if (card.cardID.contains("Job")) {
-            card.tags.add(DataManager.CardTagsType.OutsideEjaculation);
+            CardModifierManager.addModifier(card,new OutsideEjaculationTag());
             DamageModifierManager.addModifier(card, new SexDamage_Job());
         } else
             DamageModifierManager.addModifier(card, new SexDamage());

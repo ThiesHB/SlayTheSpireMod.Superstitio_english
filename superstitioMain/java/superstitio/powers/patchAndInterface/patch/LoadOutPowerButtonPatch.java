@@ -22,7 +22,8 @@ public class LoadOutPowerButtonPatch {
                     m.replace("if ( $0.instance instanceof " +
                             AbstractSuperstitioPower.class.getName() +
                             " ) {" +
-                            " $0.powerStrings = (( " + AbstractSuperstitioPower.class.getName() + " ) $0.instance ).powerStrings.getRightVersion() ; " +
+                            " $0.powerStrings = (( " + AbstractSuperstitioPower.class.getName() + " ) $0.instance ).powerStrings.getRightVersion() " +
+                            "; " +
 //                                "superstitio.Logger.temp( $0.instance.description ) ;" +
                             "} else { $proceed($$);}");
                 }

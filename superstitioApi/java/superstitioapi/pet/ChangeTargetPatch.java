@@ -152,7 +152,8 @@
 //                paramtypez = {AbstractCreature.class, AbstractCreature.class, int.class}
 //        )
 //        public static class ChangeBuffTarget {
-//            public static void Postfix(AbstractGameAction action, AbstractCreature target, AbstractCreature source, int amount) throws NoSuchFieldException {
+//            public static void Postfix(AbstractGameAction action, AbstractCreature target, AbstractCreature source, int amount) throws
+//            NoSuchFieldException {
 //                AbstractMonster randomMonsterAsTarget = AbstractDungeon.getMonsters().getRandomMonster(null, true, AbstractDungeon.cardRandomRng);
 //                List<AbstractMonster> livepet1 = getMinionMonsters().stream()
 //                        .filter(monster -> !monster.isDeadOrEscaped())
@@ -251,11 +252,13 @@
 //        @SpirePatch(
 //                clz = ApplyPowerAction.class,
 //                method = SpirePatch.CONSTRUCTOR,
-//                paramtypez = {AbstractCreature.class, AbstractCreature.class, AbstractPower.class, int.class, boolean.class, AbstractGameAction.AttackEffect.class}
+//                paramtypez = {AbstractCreature.class, AbstractCreature.class, AbstractPower.class, int.class, boolean.class, AbstractGameAction
+//                .AttackEffect.class}
 //        )
 //        public static class ChangeApplyBuffTarget {
 //            @SpirePostfixPatch
-//            public static void Postfix(ApplyPowerAction action, AbstractCreature target, AbstractCreature source, AbstractPower power, int n, boolean b, AbstractGameAction.AttackEffect e) {
+//            public static void Postfix(ApplyPowerAction action, AbstractCreature target, AbstractCreature source, AbstractPower power, int n,
+//            boolean b, AbstractGameAction.AttackEffect e) {
 //                if (!(power.owner instanceof AbstractMonster)) return;
 //                if (!hasMinion((AbstractMonster) power.owner)) return;
 //                if (power.owner != action.target) {

@@ -52,7 +52,8 @@
 //        this.isHidden = false;
 //    }
 //
-//    public CreatureManipulationButton(final String labelText, final VoidSupplier onPress, final VoidSupplier onRelease, final VoidSupplier onHold, final boolean requiresConfirmation) {
+//    public CreatureManipulationButton(final String labelText, final VoidSupplier onPress, final VoidSupplier onRelease, final VoidSupplier
+//    onHold, final boolean requiresConfirmation) {
 //        this(labelText, onPress, onRelease, onHold);
 //        this.requiresConfirmation = requiresConfirmation;
 //    }
@@ -62,7 +63,8 @@
 //        if (!this.isHidden) {
 //            sb.setBlendFunction(770, 1);
 //            sb.setColor(this.getRowBgColor());
-//            sb.draw(ImageMaster.INPUT_SETTINGS_ROW, this.hb.x, this.hb.y, CreatureManipulationButton.ROW_WIDTH, CreatureManipulationButton.ROW_RENDER_HEIGHT);
+//            sb.draw(ImageMaster.INPUT_SETTINGS_ROW, this.hb.x, this.hb.y, CreatureManipulationButton.ROW_WIDTH, CreatureManipulationButton
+//            .ROW_RENDER_HEIGHT);
 //            sb.setBlendFunction(770, 771);
 //            sb.setColor(Color.WHITE);
 //            final Color textColor = this.getTextColor();

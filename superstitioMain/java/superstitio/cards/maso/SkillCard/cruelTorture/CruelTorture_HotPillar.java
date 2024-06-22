@@ -1,5 +1,6 @@
 package superstitio.cards.maso.SkillCard.cruelTorture;
 
+import basemod.helpers.CardModifierManager;
 import com.megacrit.cardcrawl.cards.CardGroup;
 import com.megacrit.cardcrawl.cards.status.Burn;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
@@ -8,6 +9,7 @@ import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import com.megacrit.cardcrawl.powers.DexterityPower;
 import com.megacrit.cardcrawl.powers.LoseDexterityPower;
 import superstitio.DataManager;
+import superstitio.cardModifier.modifiers.card.CruelTortureTag;
 import superstitio.cards.maso.MasoCard;
 import superstitioapi.cards.patch.GoSomewhereElseAfterUse;
 import superstitioapi.hangUpCard.CardOrb_AtStartOfTurn;
@@ -26,10 +28,11 @@ public class CruelTorture_HotPillar extends MasoCard implements GoSomewhereElseA
     private static final int COST = 1;
     private static final int MAGIC = 3;
     private static final int UPGRADE_MAGIC = 1;
+
     public CruelTorture_HotPillar() {
         super(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET);
         this.setupMagicNumber(MAGIC, UPGRADE_MAGIC);
-        this.tags.add(DataManager.CardTagsType.CruelTorture);
+        CardModifierManager.addModifier(this,new CruelTortureTag());
         this.cardsToPreview = new Burn();
     }
 

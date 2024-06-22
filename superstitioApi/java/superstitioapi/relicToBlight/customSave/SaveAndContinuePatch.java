@@ -7,16 +7,14 @@ import javassist.CtBehavior;
 
 import java.util.HashMap;
 
-@SpirePatch(clz = SaveAndContinue.class, method = "save", paramtypez = { SaveFile.class })
-public class SaveAndContinuePatch
-{
-    @SpireInsertPatch(locator = Locator.class, localvars = { "params" })
+@SpirePatch(clz = SaveAndContinue.class, method = "save", paramtypez = {SaveFile.class})
+public class SaveAndContinuePatch {
+    @SpireInsertPatch(locator = Locator.class, localvars = {"params"})
     public static void Insert(final SaveFile save, final HashMap<String, Object> params) {
         params.put("superstitioapimod:mod_blight", SuperstitioApiModSaves.modBlightSaves.get(save));
     }
 
-    private static class Locator extends SpireInsertLocator
-    {
+    private static class Locator extends SpireInsertLocator {
         public int[] Locate(final CtBehavior ctMethodToPatch) throws Exception {
             final Matcher finalMatcher = new Matcher.MethodCallMatcher("com.google.gson.GsonBuilder", "create");
             return LineFinder.findInOrder(ctMethodToPatch, finalMatcher);

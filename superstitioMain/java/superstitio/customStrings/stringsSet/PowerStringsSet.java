@@ -1,4 +1,4 @@
-package superstitio.customStrings;
+package superstitio.customStrings.stringsSet;
 
 import com.megacrit.cardcrawl.localization.LocalizedStrings;
 import com.megacrit.cardcrawl.localization.PowerStrings;
@@ -9,11 +9,13 @@ import superstitio.customStrings.interFace.WordReplace;
 import java.util.List;
 
 public class PowerStringsSet implements HasOriginAndSFWVersion<PowerStrings> {
+
     private final PowerStrings Origin = new PowerStrings();
     private final PowerStrings SFW = new PowerStrings();
     private String NAME;
     private String NAME_SFW;
     private String[] DESCRIPTIONS;
+
     private String[] DESCRIPTIONS_SFW;
 
     public PowerStringsSet() {
@@ -39,8 +41,10 @@ public class PowerStringsSet implements HasOriginAndSFWVersion<PowerStrings> {
 
     @Override
     public void setupSFWStringByWordReplace(List<WordReplace> replaceRules) {
-        this.SFW.NAME = WordReplace.replaceWord(this.getNAME(), replaceRules);
-        this.SFW.DESCRIPTIONS = WordReplace.replaceWord(this.getDESCRIPTIONS(), replaceRules);
+        if (StringSetUtility.isNullOrEmpty(this.SFW.NAME))
+            this.SFW.NAME = WordReplace.replaceWord(this.Origin.NAME, replaceRules);
+        if (StringSetUtility.isNullOrEmpty(this.SFW.DESCRIPTIONS))
+            this.SFW.DESCRIPTIONS = WordReplace.replaceWord(this.Origin.DESCRIPTIONS, replaceRules);
     }
 
 //    private void replaceWord_NAME(PowerStrings replaced, List<WordReplace> replaceRules) {

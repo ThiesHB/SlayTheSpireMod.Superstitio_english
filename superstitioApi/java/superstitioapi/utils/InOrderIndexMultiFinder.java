@@ -44,8 +44,7 @@ public class InOrderIndexMultiFinder extends MatchFinderExprEditor {
         ctMethodToPatch.instrument(editor);
         if (!editor.didFindLocation()) {
             throw new PatchingException(ctMethodToPatch, "Location matching given description could not be found for patch");
-        }
-        else {
+        } else {
             return editor.getFoundLocations();
         }
     }
@@ -85,8 +84,7 @@ public class InOrderIndexMultiFinder extends MatchFinderExprEditor {
             if (this.finalMatch.getExpectation() == expectedType && this.finalMatch.match(toMatch)) {
                 this.foundFinalMatch(toMatch.getLineNumber());
             }
-        }
-        else {
+        } else {
             Matcher current = this.currentMatch();
             if (current.getExpectation() == expectedType && current.match(toMatch)) {
                 this.foundMatch();

@@ -2,7 +2,6 @@ package superstitio.delayHpLose;
 
 import com.badlogic.gdx.graphics.Color;
 import com.evacipated.cardcrawl.mod.stslib.blockmods.AbstractBlockModifier;
-import com.megacrit.cardcrawl.cards.AbstractCard;
 import superstitio.DataManager;
 import superstitio.cardModifier.modifiers.AbstractLupaBlock;
 

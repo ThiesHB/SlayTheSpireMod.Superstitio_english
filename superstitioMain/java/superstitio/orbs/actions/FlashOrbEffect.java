@@ -9,9 +9,9 @@ import com.megacrit.cardcrawl.helpers.ImageMaster;
 import com.megacrit.cardcrawl.vfx.AbstractGameEffect;
 
 public class FlashOrbEffect extends AbstractGameEffect {
+    private final TextureAtlas.AtlasRegion img;
     private float x;
     private float y;
-    private final TextureAtlas.AtlasRegion img;
     private float scale;
 
     public FlashOrbEffect(final float x, final float y) {

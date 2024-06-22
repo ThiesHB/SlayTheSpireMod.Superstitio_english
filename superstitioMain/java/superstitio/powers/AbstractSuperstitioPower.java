@@ -10,8 +10,8 @@ import com.megacrit.cardcrawl.core.Settings;
 import com.megacrit.cardcrawl.helpers.*;
 import com.megacrit.cardcrawl.powers.AbstractPower;
 import superstitio.DataManager;
-import superstitio.customStrings.PowerStringsSet;
 import superstitio.customStrings.interFace.StringSetUtility;
+import superstitio.customStrings.stringsSet.PowerStringsSet;
 import superstitioapi.utils.ActionUtility;
 import superstitioapi.utils.updateDescriptionAdvanced;
 
@@ -82,8 +82,7 @@ public abstract class AbstractSuperstitioPower extends AbstractPower implements 
         this.flash();
         if (this.amount == 0) {
             this.addToBot(new RemoveSpecificPowerAction(this.owner, this.owner, power));
-        }
-        else {
+        } else {
             this.addToBot(new ReducePowerAction(this.owner, this.owner, power, 1));
         }
     }

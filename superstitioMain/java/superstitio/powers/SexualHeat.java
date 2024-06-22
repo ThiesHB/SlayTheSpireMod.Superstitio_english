@@ -46,8 +46,8 @@ import static superstitio.InBattleDataManager.OrgasmTimesInTurn;
 import static superstitio.InBattleDataManager.OrgasmTimesTotal;
 import static superstitioapi.actions.AutoDoneInstantAction.addToBotAbstract;
 import static superstitioapi.powers.AllCardCostModifier.*;
-import static superstitioapi.shader.heart.HeartStreamShader.RenderHeartStream.addToBot_addHeartStreamEffect;
 import static superstitioapi.shader.ShaderUtility.canUseShader;
+import static superstitioapi.shader.heart.HeartStreamShader.RenderHeartStream.addToBot_addHeartStreamEffect;
 import static superstitioapi.utils.ActionUtility.VoidSupplier;
 
 @SuperstitioImg.NoNeedImg

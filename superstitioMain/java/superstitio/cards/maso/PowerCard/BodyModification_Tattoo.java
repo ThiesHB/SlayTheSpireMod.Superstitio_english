@@ -1,10 +1,12 @@
 package superstitio.cards.maso.PowerCard;
 
 import basemod.AutoAdd;
+import basemod.helpers.CardModifierManager;
 import com.megacrit.cardcrawl.cards.DamageInfo;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import superstitio.DataManager;
+import superstitio.cardModifier.modifiers.card.BodyModificationTag;
 import superstitio.cards.SuperstitioCard;
 import superstitio.cards.maso.MasoCard;
 import superstitio.powers.EasyBuildAbstractPowerForPowerCard;
@@ -27,7 +29,7 @@ public class BodyModification_Tattoo extends MasoCard {
     public BodyModification_Tattoo() {
         super(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET);
         this.setupMagicNumber(MAGIC, UPGRADE_MAGIC);
-        this.tags.add(DataManager.CardTagsType.BodyModification);
+        CardModifierManager.addModifier(this,new BodyModificationTag());
     }
 
     @Override

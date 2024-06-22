@@ -3,8 +3,8 @@ package superstitio.cardModifier.modifiers;
 import basemod.helpers.TooltipInfo;
 import com.evacipated.cardcrawl.mod.stslib.damagemods.AbstractDamageModifier;
 import superstitio.DataManager;
-import superstitio.customStrings.ModifierStringsSet;
 import superstitio.customStrings.interFace.StringSetUtility;
+import superstitio.customStrings.stringsSet.ModifierStringsSet;
 
 import java.util.ArrayList;
 

@@ -196,7 +196,9 @@ public class RenderStackedBlockInstancesPatch {
 
     @SpirePatch(clz = RenderStackedBlockInstances.RenderStackedIcons.class, method = "pls")
     public static class BlockStackPatchStslib {
-        public static SpireReturn<Void> Prefix(AbstractCreature __instance, SpriteBatch sb, float x, float y, float ___BLOCK_ICON_X, float ___BLOCK_ICON_Y, float ___blockOffset, Color ___blockTextColor, Color ___blockOutlineColor, float ___blockScale) {
+        public static SpireReturn<Void> Prefix(AbstractCreature __instance, SpriteBatch sb, float x, float y, float ___BLOCK_ICON_X,
+                                               float ___BLOCK_ICON_Y, float ___blockOffset, Color ___blockTextColor, Color ___blockOutlineColor,
+                                               float ___blockScale) {
             DrawBlocks(__instance, sb, x, y);
             return SpireReturn.Return();
         }

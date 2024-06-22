@@ -22,8 +22,7 @@ public class InvisiblePower_InvisibleApplyPowerEffectPatch {
                     if (AbstractDungeon.effectList.get(i) instanceof PowerDebuffEffect) {
                         AbstractDungeon.effectList.remove(i);
                     }
-                }
-                else if (___powerToApply.type == AbstractPower.PowerType.BUFF
+                } else if (___powerToApply.type == AbstractPower.PowerType.BUFF
                         && AbstractDungeon.effectList.get(i) instanceof PowerBuffEffect) {
                     AbstractDungeon.effectList.remove(i);
                 }

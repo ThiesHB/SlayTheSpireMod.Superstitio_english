@@ -234,7 +234,7 @@ public class BarRenderOnThing_Ring extends BarRenderOnThing {
             }
 
             originShader = sb.getShader();
-            RingShader.setUp_ringShader_useHalfPic(sb, startDegree, lengthDegree, averageRadius / width,  halfThick / width);
+            RingShader.setUp_ringShader_useHalfPic(sb, startDegree, lengthDegree, averageRadius / width, halfThick / width);
 //            sb.setShader(RingShader.ringShader);
 //            sb.getShader().setUniformf("u_degreeStart", startDegree);
 //            sb.getShader().setUniformf("u_degreeLength", lengthDegree);

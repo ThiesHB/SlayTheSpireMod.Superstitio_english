@@ -1,10 +1,12 @@
 package superstitio.cards.maso.SkillCard.cruelTorture;
 
+import basemod.helpers.CardModifierManager;
 import com.megacrit.cardcrawl.actions.common.LoseHPAction;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import superstitio.DataManager;
+import superstitio.cardModifier.modifiers.card.CruelTortureTag;
 import superstitio.cards.maso.MasoCard;
 import superstitio.delayHpLose.RemoveDelayHpLoseBlock;
 import superstitioapi.hangUpCard.CardOrb;
@@ -31,8 +33,8 @@ public class CruelTorture_Dismember extends MasoCard implements Card_TriggerHang
     public CruelTorture_Dismember() {
         super(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET);
         this.setupMagicNumber(MAGIC);
-        this.tags.add(DataManager.CardTagsType.CruelTorture);
         this.setupBlock(BLOCK, UPGRADE_BLOCK, new RemoveDelayHpLoseBlock());
+        CardModifierManager.addModifier(this,new CruelTortureTag());
     }
 
     @Override

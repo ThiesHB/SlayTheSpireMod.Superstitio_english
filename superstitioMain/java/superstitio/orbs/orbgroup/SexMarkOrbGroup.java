@@ -145,8 +145,7 @@ public class SexMarkOrbGroup extends OrbGroup {
         final int countTotal = this.GetMaxOrbs();
         if (countTotal % 2 == 1) {
             return MapIndexTool(index, countTotal);
-        }
-        else {
+        } else {
             int plusOneResult = MapIndexTool(index, countTotal + 1);
             if (plusOneResult == countTotal) return 0;
             else return plusOneResult;
@@ -158,8 +157,7 @@ public class SexMarkOrbGroup extends OrbGroup {
         if (index % 2 == 1) {
             if (fillSide) return mid + (index + 1) / 2;
             return mid - (index + 1) / 2;
-        }
-        else {
+        } else {
             if (fillSide) return mid - index / 2;
             return mid + index / 2;
         }

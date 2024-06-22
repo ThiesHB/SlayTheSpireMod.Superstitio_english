@@ -21,8 +21,7 @@ public interface Countup {
             if (ShouldRepeat()) {
                 setCounter(Integer.max(Zero, tryGetCounter() - getMaxNum()));
             }
-        }
-        else if (tryGetCounter() == getMaxNum() - 1) {
+        } else if (tryGetCounter() == getMaxNum() - 1) {
             beginLongPulse();
         }
     }

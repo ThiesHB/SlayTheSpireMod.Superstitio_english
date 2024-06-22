@@ -14,6 +14,7 @@ import superstitio.DataManager;
 
 public class DelayDamage extends AbstractSuperstitioPower implements HealthBarRenderPower {
     public static final String POWER_ID = DataManager.MakeTextID(DelayDamage.class);
+    private static final Color BarColor = Color.ORANGE.cpy();
     private final int damageAmount;
     private AbstractCreature giver = AbstractDungeon.player;
     private AbstractDamageModifier damageModifier;
@@ -63,11 +64,8 @@ public class DelayDamage extends AbstractSuperstitioPower implements HealthBarRe
 //        AbstractDungeon.actionManager.currentAction.target
     }
 
-
     @Override
     public Color getColor() {
         return BarColor;
     }
-
-    private static final Color BarColor = Color.ORANGE.cpy();
 }

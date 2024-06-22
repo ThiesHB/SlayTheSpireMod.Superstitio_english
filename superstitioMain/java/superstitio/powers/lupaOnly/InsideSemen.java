@@ -32,15 +32,11 @@ public class InsideSemen extends AbstractSuperstitioPower implements
         InvisiblePower_InvisibleTips, InvisiblePower_InvisibleIconAndAmount, HasBarRenderOnCreature_Power {
     public static final String POWER_ID = DataManager.MakeTextID(InsideSemen.class);
     public static final int MAX_Semen_Origin = 10;
-    @Override
-    public void renderAmount(SpriteBatch sb, float x, float y, Color c) {
-    }
     public static final int SEMEN_VALUE = 3;
     private static final int ToOutSideSemenRate = 1;
     public int maxSemen;
     //TODO 改装成不同怪物获得不同精液名称
     public String semenSource;
-
     public InsideSemen(final AbstractCreature owner, final int amount) {
         super(POWER_ID, owner, amount, owner.isPlayer ? PowerType.BUFF : PowerType.DEBUFF, false);
         maxSemen = MAX_Semen_Origin;
@@ -58,6 +54,10 @@ public class InsideSemen extends AbstractSuperstitioPower implements
         bar.barLength = hitbox.get().height / 2;
         bar.hitbox.height = bar.barLength + BAR_WIDTH - BAR_OFFSET_Y * 2;
         return bar;
+    }
+
+    @Override
+    public void renderAmount(SpriteBatch sb, float x, float y, Color c) {
     }
 
 //    public InsideSemen(final AbstractCreature owner, final int amount) {

@@ -20,7 +20,8 @@
 //        implements InvisiblePower, HasBarRenderOnCreature_Power {
 //    public static final String POWER_ID = DataUtility.MakeTextID(AllCardCostModifier_PerEnergyRenderOnEnergyPanel.class);
 //
-//    public AllCardCostModifier_PerEnergyRenderOnEnergyPanel(AbstractCreature owner, int decreasedCost, int totalEnergy, HasAllCardCostModifyEffect holder) {
+//    public AllCardCostModifier_PerEnergyRenderOnEnergyPanel(AbstractCreature owner, int decreasedCost, int totalEnergy,
+//    HasAllCardCostModifyEffect holder) {
 //        super(owner, decreasedCost, totalEnergy, holder);
 //        this.ID = POWER_ID;
 //    }

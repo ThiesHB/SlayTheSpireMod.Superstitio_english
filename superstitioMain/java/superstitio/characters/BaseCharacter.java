@@ -139,8 +139,7 @@ public abstract class BaseCharacter extends CustomPlayer {
         }
         if (this.atlas != null && !(boolean) ReflectionHacks.getPrivate(this, AbstractCreature.class, "renderCorpse")) {
             this.renderPlayerImage(sb);
-        }
-        else {
+        } else {
             sb.setColor(Color.WHITE);
             drawImg(sb);
         }

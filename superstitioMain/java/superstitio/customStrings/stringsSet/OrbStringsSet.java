@@ -1,4 +1,4 @@
-package superstitio.customStrings;
+package superstitio.customStrings.stringsSet;
 
 import com.megacrit.cardcrawl.localization.LocalizedStrings;
 import com.megacrit.cardcrawl.localization.OrbStrings;
@@ -70,8 +70,11 @@ public class OrbStringsSet implements HasOriginAndSFWVersion<OrbStrings> {
     public void setupSFWStringByWordReplace(List<WordReplace> replaceRules) {
 //        replaceWord_NAME(this.SFW, replaceRules);
 //        replaceWord_DESCRIPTION(this.SFW, replaceRules);
-        this.SFW.NAME = WordReplace.replaceWord(this.getNAME(), replaceRules);
-        this.SFW.DESCRIPTION = WordReplace.replaceWord(this.getDESCRIPTION(), replaceRules);
+
+        if (StringSetUtility.isNullOrEmpty(this.SFW.NAME))
+            this.SFW.NAME = WordReplace.replaceWord(this.Origin.NAME, replaceRules);
+        if (StringSetUtility.isNullOrEmpty(this.SFW.DESCRIPTION))
+            this.SFW.DESCRIPTION = WordReplace.replaceWord(this.Origin.DESCRIPTION, replaceRules);
     }
 
 //    private void replaceWord_NAME(OrbStrings replaced, List<WordReplace> replaceRules) {

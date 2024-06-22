@@ -103,12 +103,14 @@ public class SorM extends SuperstitioRelic implements ClickableRelic, CustomSava
     @Override
     public String getDescriptionStrings() {
         if (MasochismMode && SadismMode)
-            return String.format(this.DESCRIPTIONS[3], MasochismModeDamageNeed, MasochismModeSexualHeatRate, SadismModeDamageNeed, MasochismModeSexualHeatRate);
+            return String.format(this.DESCRIPTIONS[3], MasochismModeDamageNeed, MasochismModeSexualHeatRate, SadismModeDamageNeed,
+                    MasochismModeSexualHeatRate);
         if (SadismMode)
             return String.format(this.DESCRIPTIONS[2], SadismModeDamageNeed, MasochismModeSexualHeatRate);
         if (MasochismMode)
             return String.format(this.DESCRIPTIONS[1], MasochismModeDamageNeed, MasochismModeSexualHeatRate);
-        return String.format(this.DESCRIPTIONS[0], MasochismModeDamageNeed, MasochismModeSexualHeatRate, SadismModeDamageNeed, MasochismModeSexualHeatRate);
+        return String.format(this.DESCRIPTIONS[0], MasochismModeDamageNeed, MasochismModeSexualHeatRate, SadismModeDamageNeed,
+                MasochismModeSexualHeatRate);
 
     }
 

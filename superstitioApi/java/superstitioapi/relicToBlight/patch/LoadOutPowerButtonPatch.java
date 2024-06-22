@@ -52,7 +52,8 @@
 //                public void edit(FieldAccess m) throws CannotCompileException {
 //                    if (!m.getFieldName().equals("relics") || !m.isReader()) return;
 //                    if (count > 0) return;
-//                    m.replace(" { loadout.LoadoutMod.relicsToRemove = " + LoadOutPowerButtonPatch.class.getName() + ".ProcessRelicsToRemove(loadout.LoadoutMod.relicsToRemove)"
+//                    m.replace(" { loadout.LoadoutMod.relicsToRemove = " + LoadOutPowerButtonPatch.class.getName() + ".ProcessRelicsToRemove
+//                    (loadout.LoadoutMod.relicsToRemove)"
 //                            + " ; " +
 //                            " $_ = $proceed($$);}");
 //                    count++;

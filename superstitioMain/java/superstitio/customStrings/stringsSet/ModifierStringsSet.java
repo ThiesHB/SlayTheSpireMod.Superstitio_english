@@ -1,4 +1,4 @@
-package superstitio.customStrings;
+package superstitio.customStrings.stringsSet;
 
 import com.evacipated.cardcrawl.mod.stslib.Keyword;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
@@ -13,6 +13,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class ModifierStringsSet implements HasTextID, HasOriginAndSFWVersion<ModifierStringsSet.ModifierStrings> {
+
 
     private final ModifierStrings SFW = new ModifierStrings();
     private final ModifierStrings Origin = new ModifierStrings();
@@ -36,6 +37,7 @@ public class ModifierStringsSet implements HasTextID, HasOriginAndSFWVersion<Mod
     public static Keyword[] MakeKeyWords() {
         return DataManager.modifiers.values().stream().map(ModifierStringsSet::ToKeyWord).toArray(Keyword[]::new);
     }
+
 
     @Override
     public void initialSelfBlack() {
@@ -113,8 +115,14 @@ public class ModifierStringsSet implements HasTextID, HasOriginAndSFWVersion<Mod
 
     @Override
     public void setupSFWStringByWordReplace(List<WordReplace> replaceRules) {
-        this.SFW.DESCRIPTION = WordReplace.replaceWord(this.getDESCRIPTION(), replaceRules);
-        this.SFW.BASIC_INFO = WordReplace.replaceWord(this.getBasicInfo_Pure(), replaceRules);
+        if (StringSetUtility.isNullOrEmpty(this.SFW.NAME))
+            this.SFW.NAME = WordReplace.replaceWord(this.Origin.NAME, replaceRules);
+        if (StringSetUtility.isNullOrEmpty(this.SFW.DESCRIPTION))
+            this.SFW.DESCRIPTION = WordReplace.replaceWord(this.Origin.DESCRIPTION, replaceRules);
+        if (StringSetUtility.isNullOrEmpty(this.SFW.BASIC_INFO))
+            this.SFW.BASIC_INFO = WordReplace.replaceWord(this.Origin.BASIC_INFO, replaceRules);
+        if (StringSetUtility.isNullOrEmpty(this.SFW.EXTENDED_DESCRIPTION))
+            this.SFW.EXTENDED_DESCRIPTION = WordReplace.replaceWord(this.Origin.EXTENDED_DESCRIPTION, replaceRules);
     }
 
     public Keyword ToKeyWord() {

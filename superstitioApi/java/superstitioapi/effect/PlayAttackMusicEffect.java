@@ -14,20 +14,6 @@ public class PlayAttackMusicEffect extends AbstractGameEffect {
         this.attackEffect = attackEffect;
     }
 
-    @Override
-    public void update() {
-        playSound(attackEffect);
-        this.isDone = true;
-    }
-
-    @Override
-    public void render(SpriteBatch spriteBatch) {
-    }
-
-    @Override
-    public void dispose() {
-    }
-
     private static void playSound(AbstractGameAction.AttackEffect effect) {
         switch (effect) {
             case SHIELD:
@@ -71,6 +57,20 @@ public class PlayAttackMusicEffect extends AbstractGameEffect {
         if (blockSound + 1 > 2) {
             ReflectionHacks.setPrivateStatic(FlashAtkImgEffect.class, "blockSound", 0);
         }
+    }
+
+    @Override
+    public void update() {
+        playSound(attackEffect);
+        this.isDone = true;
+    }
+
+    @Override
+    public void render(SpriteBatch spriteBatch) {
+    }
+
+    @Override
+    public void dispose() {
     }
 
 }

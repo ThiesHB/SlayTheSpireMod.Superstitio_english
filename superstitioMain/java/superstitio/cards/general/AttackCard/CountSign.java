@@ -51,7 +51,8 @@ public class CountSign extends GeneralCard {
 
     @Override
     public List<TooltipInfo> getCustomTooltips() {
-        return Collections.singletonList(new TooltipInfo(this.name, String.format(this.cardStrings.getEXTENDED_DESCRIPTION()[0], InBattleDataManager.OrgasmTimesTotal)));
+        return Collections.singletonList(new TooltipInfo(this.name, String.format(this.cardStrings.getEXTENDED_DESCRIPTION()[0],
+                InBattleDataManager.OrgasmTimesTotal)));
     }
 
     private void updateDamage() {

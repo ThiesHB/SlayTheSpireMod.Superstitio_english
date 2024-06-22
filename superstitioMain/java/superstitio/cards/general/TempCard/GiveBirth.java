@@ -68,8 +68,7 @@ public class GiveBirth extends AbstractTempCard {
             newCard.sealMonster = this.sealMonster;
             newCard.sealPower = this.sealPower;
             return newCard;
-        }
-        else
+        } else
             return super.makeCopy();
     }
 }

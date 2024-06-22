@@ -2,29 +2,25 @@ package superstitio.customStrings;
 
 import basemod.BaseMod;
 import com.evacipated.cardcrawl.mod.stslib.Keyword;
-import com.megacrit.cardcrawl.cards.AbstractCard;
 import superstitio.DataManager;
 import superstitio.customStrings.interFace.StringSetUtility;
 import superstitio.customStrings.interFace.WordReplace;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class SuperstitioKeyWord {
     public static final List<SuperstitioKeyWord> KeywordsFromFile = new ArrayList<>();
     private static final Map<String, SuperstitioKeyWord> KeywordsWithID = new HashMap<>();
-    public String ID = "";
-    public String PROPER_NAME;
-    public String PROPER_NAME_SFW;
-    public String[] NAMES;
-    public String[] NAMES_SFW;
-    public String DESCRIPTION;
-    public String DESCRIPTION_SFW;
+    private String ID = "";
+    private String PROPER_NAME;
+    private String PROPER_NAME_SFW;
+    private String[] NAMES;
+    private String[] NAMES_SFW;
+    private String DESCRIPTION;
+    private String DESCRIPTION_SFW;
 
-    public static List<WordReplace> makeCardNameReplaceRules(List<SuperstitioKeyWord> keyWords) {
+    public static List<WordReplace> makeKeywordNameReplaceRules(List<SuperstitioKeyWord> keyWords) {
         return keyWords.stream().flatMap(keyWord -> keyWord.toReplaceRule().stream()).collect(Collectors.toList());
     }
 
@@ -42,10 +38,22 @@ public class SuperstitioKeyWord {
 //        keyword.NAMES = superstitioKeyWord.NAMES;
 //    }
 
-    public static void addToCard(AbstractCard card, String keywordId) {
+    public static Optional<SuperstitioKeyWord> getKeyword(String keywordId) {
         String keywordFullId = DataManager.MakeTextID(keywordId);
         if (SuperstitioKeyWord.KeywordsWithID.containsKey(keywordFullId))
-            card.keywords.add(SuperstitioKeyWord.KeywordsWithID.get(keywordFullId).getPROPER_NAME());
+            return Optional.of(KeywordsWithID.get(keywordFullId));
+        return Optional.empty();
+    }
+
+    public static List<SuperstitioKeyWord> getAndRegisterKeywordsFormFile() {
+        if (KeywordsFromFile.isEmpty()) {
+            List<SuperstitioKeyWord> keywordsSFW = new ArrayList<>();
+            keywordsSFW.addAll(Arrays.asList(DataManager.makeJsonStringFromFile("keyword", SuperstitioKeyWord[].class)));
+            keywordsSFW.addAll(Arrays.asList(DataManager.makeJsonStringFromFile("keyword_Lupa", SuperstitioKeyWord[].class)));
+            keywordsSFW.addAll(Arrays.asList(DataManager.makeJsonStringFromFile("keyword_Maso", SuperstitioKeyWord[].class)));
+            keywordsSFW.forEach(SuperstitioKeyWord::registerKeywordFormFile);
+        }
+        return KeywordsFromFile;
     }
 
     private List<WordReplace> toReplaceRule() {
@@ -79,20 +87,20 @@ public class SuperstitioKeyWord {
     }
 
     public void makeSFWVersion(List<WordReplace> replaceRules) {
-        this.PROPER_NAME_SFW = WordReplace.replaceWord(this.getPROPER_NAME(), replaceRules);
-        this.DESCRIPTION_SFW = WordReplace.replaceWord(this.getDESCRIPTION(), replaceRules);
-    }
-
-    private String getIDWithMod() {
-        return DataManager.MakeTextID(ID);
+        if (StringSetUtility.isNullOrEmpty(NAMES_SFW))
+            this.NAMES_SFW = WordReplace.replaceWord(this.NAMES, replaceRules);
+        if (StringSetUtility.isNullOrEmpty(PROPER_NAME_SFW))
+            this.PROPER_NAME_SFW = WordReplace.replaceWord(this.PROPER_NAME, replaceRules);
+        if (StringSetUtility.isNullOrEmpty(DESCRIPTION_SFW))
+            this.DESCRIPTION_SFW = WordReplace.replaceWord(this.DESCRIPTION, replaceRules);
     }
 
     public void addToGame() {
         BaseMod.addKeyword(DataManager.getModID().toLowerCase(), this.PROPER_NAME, this.NAMES, this.DESCRIPTION);
         if (hasSFWVersionSelf())
             BaseMod.addKeyword(DataManager.getModID().toLowerCase(), this.getPROPER_NAME(), this.getNAMES(), this.getDESCRIPTION());
-        if (!ID.isEmpty() && !KeywordsWithID.containsKey(getIDWithMod()))
-            KeywordsWithID.put(getIDWithMod(), this);
+        if (!ID.isEmpty() && !KeywordsWithID.containsKey(ID))
+            KeywordsWithID.put(ID, this);
     }
 
     public void registerKeywordFormFile() {
@@ -101,6 +109,6 @@ public class SuperstitioKeyWord {
     }
 
     private boolean hasSFWVersionSelf() {
-        return !StringSetUtility.isNullOrEmpty(PROPER_NAME_SFW) || !StringSetUtility.isNullOrEmpty(NAMES_SFW) || !StringSetUtility.isNullOrEmpty(DESCRIPTION_SFW);
+        return !StringSetUtility.isNullOrEmpty(PROPER_NAME_SFW) && !StringSetUtility.isNullOrEmpty(NAMES_SFW) && !StringSetUtility.isNullOrEmpty(DESCRIPTION_SFW);
     }
 }

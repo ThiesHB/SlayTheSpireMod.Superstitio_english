@@ -2,7 +2,7 @@ package superstitio.cardModifier.modifiers.card;
 
 import com.megacrit.cardcrawl.cards.AbstractCard;
 import superstitio.DataManager;
-import superstitio.customStrings.UIStringsSet;
+import superstitio.customStrings.stringsSet.UIStringsSet;
 
 public class CruelTortureTag extends AbstractCardTagModifier {
     public static final String ID = DataManager.MakeTextID(CruelTortureTag.class);

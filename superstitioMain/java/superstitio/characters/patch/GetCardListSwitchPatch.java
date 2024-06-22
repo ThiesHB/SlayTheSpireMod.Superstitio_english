@@ -20,8 +20,7 @@ public class GetCardListSwitchPatch {
             if (__result.stream().anyMatch(c -> Objects.equals(c.cardID, card.cardID))) continue;
             if (type == DataManager.SPTT_DATA.LupaEnums.LUPA_LIBRARY && CardOwnerPlayerManager.isLupaCard(card)) {
                 __result.add(card.makeCopy());
-            }
-            else if (type == DataManager.SPTT_DATA.MasoEnums.MASO_LIBRARY && CardOwnerPlayerManager.isMasoCard(card)) {
+            } else if (type == DataManager.SPTT_DATA.MasoEnums.MASO_LIBRARY && CardOwnerPlayerManager.isMasoCard(card)) {
                 __result.add(card.makeCopy());
             }
         }

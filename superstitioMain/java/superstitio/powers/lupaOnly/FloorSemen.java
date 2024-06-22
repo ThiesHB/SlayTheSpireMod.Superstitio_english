@@ -26,12 +26,14 @@ public class FloorSemen extends AbstractSuperstitioPower implements
         InvisiblePower_InvisibleTips, InvisiblePower_InvisibleIconAndAmount, HasBarRenderOnCreature_SemenPower {
     public static final String POWER_ID = DataManager.MakeTextID(FloorSemen.class);
     public static final int SEMEN_VALUE = 1;
-    @Override
-    public void renderAmount(SpriteBatch sb, float x, float y, Color c) {
-    }
+
     public FloorSemen(final AbstractCreature owner, int amount) {
         super(POWER_ID, owner, amount, owner.isPlayer ? PowerType.BUFF : PowerType.DEBUFF, false);
         updateDescription();
+    }
+
+    @Override
+    public void renderAmount(SpriteBatch sb, float x, float y, Color c) {
     }
 
     @Override
@@ -56,7 +58,7 @@ public class FloorSemen extends AbstractSuperstitioPower implements
 
     @Override
     public Color setupBarOrginColor() {
-        return ImgUtility.mixColor(semenColor(), Color.BROWN, 0.5f,0.9f);
+        return ImgUtility.mixColor(semenColor(), Color.BROWN, 0.5f, 0.9f);
     }
 
 

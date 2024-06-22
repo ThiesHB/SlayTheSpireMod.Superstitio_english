@@ -5,7 +5,7 @@ import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.orbs.AbstractOrb;
 import com.megacrit.cardcrawl.orbs.EmptyOrbSlot;
 import superstitio.DataManager;
-import superstitio.customStrings.OrbStringsSet;
+import superstitio.customStrings.stringsSet.OrbStringsSet;
 
 import static superstitio.orbs.AbstractLupaOrb.getPowerStringsWithSFW;
 

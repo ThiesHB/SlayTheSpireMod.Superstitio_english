@@ -134,7 +134,8 @@ public class DataUtility {
         }, defaultFileName, PathFinder, fileName, subFolder);
     }
 
-    public static String makeImgPath(Consumer<String> actionIfNoImg, String defaultFileName, BiFunction<String, String[], String> PathFinder, String fileName, String... subFolder) {
+    public static String makeImgPath(Consumer<String> actionIfNoImg, String defaultFileName, BiFunction<String, String[], String> PathFinder,
+                                     String fileName, String... subFolder) {
         String path;
         String idOnlyNames = DataUtility.getIdOnly(fileName);
         path = PathFinder.apply(idOnlyNames, subFolder);
@@ -144,12 +145,10 @@ public class DataUtility {
                 return path;
             else
                 return makeDefaultPath(defaultFileName, PathFinder);
-        }
-        else if (Gdx.files.internal(path).exists()) {
+        } else if (Gdx.files.internal(path).exists()) {
             isPathExist.put(path, true);
             return path;
-        }
-        else {
+        } else {
             isPathExist.put(path, false);
             Logger.warning("Can't find " + path + ". Use default img instead.");
             actionIfNoImg.accept(path);

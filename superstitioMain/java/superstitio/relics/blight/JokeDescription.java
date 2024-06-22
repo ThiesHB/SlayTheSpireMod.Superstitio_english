@@ -7,7 +7,7 @@ import superstitio.relics.SuperstitioRelic;
 import superstitioapi.relicToBlight.InfoBlight;
 
 @AutoAdd.Seen
-public class JokeDescription extends SuperstitioRelic implements InfoBlight.BecomeInfoBlight  {
+public class JokeDescription extends SuperstitioRelic implements InfoBlight.BecomeInfoBlight {
     public static final String ID = DataManager.MakeTextID(JokeDescription.class);
     // 遗物类型
     private static final RelicTier RELIC_TIER = RelicTier.SPECIAL;

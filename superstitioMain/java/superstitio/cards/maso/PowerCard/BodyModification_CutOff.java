@@ -1,6 +1,7 @@
 package superstitio.cards.maso.PowerCard;
 
 import basemod.AutoAdd;
+import basemod.helpers.CardModifierManager;
 import com.megacrit.cardcrawl.actions.watcher.ChooseOneAction;
 import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.cards.DamageInfo;
@@ -8,6 +9,7 @@ import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import superstitio.DataManager;
+import superstitio.cardModifier.modifiers.card.BodyModificationTag;
 import superstitio.cards.SuperstitioCard;
 import superstitio.cards.general.AbstractTempCard;
 import superstitio.cards.maso.MasoCard;
@@ -36,7 +38,8 @@ public class BodyModification_CutOff extends MasoCard {
         super(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET);
         this.setupMagicNumber(MAGIC, UPGRADE_MAGIC);
         this.setupBlock(BLOCK, UPGRADE_BLOCK, new RemoveDelayHpLoseBlock());
-        this.tags.add(DataManager.CardTagsType.BodyModification);
+        CardModifierManager.addModifier(this,new BodyModificationTag());
+//        this.tags.add(DataManager.CardTagsType.BodyModification);
     }
 
     @Override

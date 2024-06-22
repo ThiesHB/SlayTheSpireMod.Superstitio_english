@@ -34,8 +34,8 @@ public abstract class CardOrb extends AbstractOrb {
     public final CardGroup thisCardGroup = new CardGroup(CardGroup.CardGroupType.UNSPECIFIED);
     public final HangOnTarget targetTypeOrigin;
     public final HangEffectType actionTypeOrigin;
-    protected final AbstractCard originCard;
     public final CardGroup cardHolder = new CardGroup(CardGroup.CardGroupType.UNSPECIFIED);
+    protected final AbstractCard originCard;
     public CardGroup cardGroupReturnAfterEvoke = null;
     public HangOnTarget targetType = HangOnTarget.None;
     public HangEffectType actionType = HangEffectType.None;
@@ -48,10 +48,6 @@ public abstract class CardOrb extends AbstractOrb {
     private boolean isRemoved;
     //    public abstract void forceAcceptAction(AbstractCard card);
     private boolean stopShowOriginCard = false;
-
-    @Override
-    public void onStartOfTurn() {
-    }
 
     public CardOrb(AbstractCard card, CardGroup cardGroupReturnAfterEvoke, int OrbCounter) {
         this.ID = ORB_ID;
@@ -90,6 +86,10 @@ public abstract class CardOrb extends AbstractOrb {
         if (hoveredMonster == null)
             return Optional.empty();
         return Optional.of(hoveredMonster);
+    }
+
+    @Override
+    public void onStartOfTurn() {
     }
 
     public void addToBot_HangCard() {

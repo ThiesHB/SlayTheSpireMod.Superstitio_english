@@ -54,7 +54,8 @@ public class DecreaseHealthBarNumberPowerPatch {
             Color hbTextColor = ReflectionHacks.getPrivate(_inst, AbstractCreature.class, "hbTextColor");
 
             if (targetHealthBarWidth == 0.0F) {
-//                FontHelper.renderFontCentered(spriteBatch, FontHelper.healthInfoFont, AbstractCreature.TEXT[0], _inst.hb.cX, y + HEALTH_BAR_OFFSET_Y + HEALTH_TEXT_OFFSET_Y - Settings.scale, hbTextColor);
+//                FontHelper.renderFontCentered(spriteBatch, FontHelper.healthInfoFont, AbstractCreature.TEXT[0], _inst.hb.cX, y +
+//                HEALTH_BAR_OFFSET_Y + HEALTH_TEXT_OFFSET_Y - Settings.scale, hbTextColor);
                 return SpireReturn.Continue();
             }
 
@@ -73,8 +74,7 @@ public class DecreaseHealthBarNumberPowerPatch {
                         spriteBatch, FontHelper.healthInfoFont,
                         String.valueOf(decreaseNumber), _inst.hb.cX,
                         y + HEALTH_BAR_OFFSET_Y + HEALTH_TEXT_OFFSET_Y + 5.0F * Settings.scale, renderColor);
-            }
-            else {
+            } else {
                 int decreaseNumber = GetAllDecreaseHealthBarNumberShouldShown(_inst);
                 if (decreaseNumber <= 0) return SpireReturn.Continue();
                 float HEALTH_BAR_OFFSET_Y = -28.0F * Settings.scale;

@@ -44,14 +44,13 @@ public class KakaaGirlMode extends AbstractTempCard {
         final int roll = MathUtils.random(2);
         if (roll == 0) {
             CardCrawlGame.sound.play("VO_CULTIST_1A");
-        }
-        else if (roll == 1) {
+        } else if (roll == 1) {
             CardCrawlGame.sound.play("VO_CULTIST_1B");
-        }
-        else {
+        } else {
             CardCrawlGame.sound.play("VO_CULTIST_1C");
         }
-        AbstractDungeon.effectList.add(new SpeechBubble(this.hb.cX + AbstractDungeon.player.dialogX, this.hb.cY + AbstractDungeon.player.dialogY, 2.5f, Cultist.DIALOG[2], false));
+        AbstractDungeon.effectList.add(new SpeechBubble(this.hb.cX + AbstractDungeon.player.dialogX, this.hb.cY + AbstractDungeon.player.dialogY,
+                2.5f, Cultist.DIALOG[2], false));
     }
 
     @Override

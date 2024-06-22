@@ -1,4 +1,4 @@
-package superstitio.customStrings;
+package superstitio.customStrings.stringsSet;
 
 import com.evacipated.cardcrawl.mod.stslib.patches.FlavorText;
 import com.megacrit.cardcrawl.localization.CardStrings;
@@ -12,6 +12,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class CardStringsWithFlavorSet implements HasOriginAndSFWVersion<CardStrings> {
+
     private final CardStrings Origin = new CardStrings();
     private final CardStrings SFW = new CardStrings();
     private String NAME;
@@ -30,6 +31,7 @@ public class CardStringsWithFlavorSet implements HasOriginAndSFWVersion<CardStri
     public static List<WordReplace> makeCardNameReplaceRules(List<CardStringsWithFlavorSet> cards) {
         return cards.stream().map(CardStringsWithFlavorSet::toCardNameReplaceRule).collect(Collectors.toList());
     }
+
 
     private WordReplace toCardNameReplaceRule() {
         return new WordReplace(this.NAME, this.NAME_SFW);
@@ -96,10 +98,11 @@ public class CardStringsWithFlavorSet implements HasOriginAndSFWVersion<CardStri
 
     @Override
     public void setupSFWStringByWordReplace(List<WordReplace> replaceRules) {
-        this.SFW.DESCRIPTION = WordReplace.replaceWord(this.getDESCRIPTION(), replaceRules);
-        if (this.getUPGRADE_DESCRIPTION() != null) {
-            this.SFW.UPGRADE_DESCRIPTION = WordReplace.replaceWord(this.getUPGRADE_DESCRIPTION(), replaceRules);
-        }
+        if (StringSetUtility.isNullOrEmpty(this.SFW.DESCRIPTION))
+            this.SFW.DESCRIPTION = WordReplace.replaceWord(this.Origin.DESCRIPTION, replaceRules);
+        if (!StringSetUtility.isNullOrEmpty(this.Origin.UPGRADE_DESCRIPTION))
+            if (StringSetUtility.isNullOrEmpty(this.SFW.UPGRADE_DESCRIPTION))
+                this.SFW.UPGRADE_DESCRIPTION = WordReplace.replaceWord(this.Origin.UPGRADE_DESCRIPTION, replaceRules);
     }
 
 

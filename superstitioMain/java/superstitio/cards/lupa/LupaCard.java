@@ -85,8 +85,7 @@ public abstract class LupaCard extends SuperstitioCard implements IsLupaCard {
         SemenPower semenPower;
         if (smartCheapUse == null || smartCheapUse.isEmpty()) {
             semenPower = semenPowers.get(0);
-        }
-        else
+        } else
             semenPower = smartCheapUse.get(0);
 
 //        if (semenPower.getTotalValue() >= valueNeedRemain) {

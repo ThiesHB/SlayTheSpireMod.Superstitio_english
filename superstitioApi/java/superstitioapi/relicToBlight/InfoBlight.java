@@ -35,6 +35,7 @@ public class InfoBlight extends BlightWithRelic implements
     /**
      * 需要在初始化时，使用这个注册
      * 每添加一个转换为荒疫的遗物，就需要注册一下
+     *
      * @param relic 遗物
      */
     public static void initInfoBlight(AbstractRelic relic) {
@@ -62,9 +63,10 @@ public class InfoBlight extends BlightWithRelic implements
 
     /**
      * 获取所有荒疫包含遗物中，指定类型的遗物，只获取第一个匹配的
+     *
      * @param relicClass 遗物类型
+     * @param <T>        遗物类型
      * @return 第一个匹配项
-     * @param <T> 遗物类型
      */
     public static <T extends AbstractRelic> Optional<T> getOneRelic(Class<T> relicClass) {
         for (AbstractBlight blight : player.blights) {
@@ -81,9 +83,10 @@ public class InfoBlight extends BlightWithRelic implements
 
     /**
      * 获取所有荒疫包含遗物中，指定类型的遗物，获取所有的匹配项
+     *
      * @param relicClass 遗物类型
+     * @param <T>        遗物类型
      * @return 列表
-     * @param <T> 遗物类型
      */
     public static <T extends AbstractRelic> List<T> getAllRelics(Class<T> relicClass) {
         return player.blights.stream().filter(blight -> blight instanceof BlightWithRelic)
@@ -94,9 +97,10 @@ public class InfoBlight extends BlightWithRelic implements
 
     /**
      * 获取所有荒疫中，类型为指定类型的荒疫，感觉没啥用，不如直接一个for循环
+     *
      * @param blightClass 荒疫类型
+     * @param <T>         荒疫类型
      * @return 列表
-     * @param <T> 荒疫类型
      */
     public static <T extends AbstractBlight> List<T> getAllInfoBlights(Class<T> blightClass) {
         return player.blights.stream()
@@ -108,9 +112,10 @@ public class InfoBlight extends BlightWithRelic implements
     /**
      * 获取所有荒疫包含遗物中，指定类型的遗物，获取所有的匹配项，并且还将获取这个荒疫位于荒疫列表的位置
      * （注意，不是这个荒疫是第几个匹配项，而是在总的荒疫中的位置）
+     *
      * @param relicClass 遗物类型
+     * @param <T>        遗物类型
      * @return 列表和索引
-     * @param <T> 遗物类型
      */
     public static <T extends AbstractRelic> Map<Integer, T> getAllRelicsWithBlightIndex(Class<T> relicClass) {
         Map<Integer, T> list = new HashMap<>();
@@ -215,8 +220,10 @@ public class InfoBlight extends BlightWithRelic implements
     public boolean canPlay(AbstractCard card) {
         return this.relic.canPlay(card);
     }
+
     public interface BecomeInfoBlight {
     }
+
     @SpirePatch(clz = AbstractPlayer.class, method = "getRelic", paramtypez = String.class)
     public static class GetRelicPatch {
         @SpirePrefixPatch

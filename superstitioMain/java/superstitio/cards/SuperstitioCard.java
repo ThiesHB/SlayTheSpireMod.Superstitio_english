@@ -28,7 +28,7 @@ import com.megacrit.cardcrawl.relics.AbstractRelic;
 import com.megacrit.cardcrawl.vfx.AbstractGameEffect;
 import com.megacrit.cardcrawl.vfx.combat.FlashAtkImgEffect;
 import superstitio.Logger;
-import superstitio.customStrings.CardStringsWithFlavorSet;
+import superstitio.customStrings.stringsSet.CardStringsWithFlavorSet;
 import superstitio.delayHpLose.DelayHpLosePower;
 import superstitio.delayHpLose.DelayRemoveDelayHpLoseBlock;
 import superstitio.delayHpLose.DelayRemoveDelayHpLosePower;

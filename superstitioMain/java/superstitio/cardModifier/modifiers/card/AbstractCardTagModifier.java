@@ -4,8 +4,8 @@ import basemod.abstracts.AbstractCardModifier;
 import basemod.helpers.CardTags;
 import com.megacrit.cardcrawl.cards.AbstractCard;
 import superstitio.DataManager;
-import superstitio.customStrings.UIStringsSet;
 import superstitio.customStrings.interFace.StringSetUtility;
+import superstitio.customStrings.stringsSet.UIStringsSet;
 
 public abstract class AbstractCardTagModifier extends AbstractCardModifier {
     public static UIStringsSet getUIStringsWithSFW(String uiID) {

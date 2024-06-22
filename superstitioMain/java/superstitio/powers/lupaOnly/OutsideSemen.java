@@ -26,12 +26,14 @@ public class OutsideSemen extends AbstractSuperstitioPower implements
         InvisiblePower_InvisibleTips, InvisiblePower_InvisibleIconAndAmount, HasBarRenderOnCreature_SemenPower {
     public static final String POWER_ID = DataManager.MakeTextID(OutsideSemen.class);
     public static final int SEMEN_VALUE = 2;
-    @Override
-    public void renderAmount(SpriteBatch sb, float x, float y, Color c) {
-    }
+
     public OutsideSemen(final AbstractCreature owner, int amount) {
         super(POWER_ID, owner, amount, owner.isPlayer ? PowerType.BUFF : PowerType.DEBUFF, false);
         updateDescription();
+    }
+
+    @Override
+    public void renderAmount(SpriteBatch sb, float x, float y, Color c) {
     }
 
     @Override

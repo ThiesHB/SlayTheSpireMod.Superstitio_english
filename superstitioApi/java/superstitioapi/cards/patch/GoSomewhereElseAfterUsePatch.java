@@ -21,18 +21,15 @@ public class GoSomewhereElseAfterUsePatch {
                             + AbstractDungeon.class.getName() +
                             ".player.discardPile)) " +
                             "{$_ = $proceed($$);}");
-                }
-                else if (m.getClassName().equals(CardGroup.class.getName()) && m.getMethodName().equals("moveToExhaustPile")) {
+                } else if (m.getClassName().equals(CardGroup.class.getName()) && m.getMethodName().equals("moveToExhaustPile")) {
                     m.replace("if (" + GoSomewhereElseAfterUsePatch.class.getName() + ".Do($1,"
                             + AbstractDungeon.class.getName() + ".player.exhaustPile))" +
                             " {$_ = $proceed($$);}");
-                }
-                else if (m.getClassName().equals(CardGroup.class.getName()) && m.getMethodName().equals("moveToDeck")) {
+                } else if (m.getClassName().equals(CardGroup.class.getName()) && m.getMethodName().equals("moveToDeck")) {
                     m.replace("if (" + GoSomewhereElseAfterUsePatch.class.getName() + ".Do($1,"
                             + AbstractDungeon.class.getName() + ".player.drawPile))" +
                             " {$_ = $proceed($$);}");
-                }
-                else if (m.getClassName().equals(CardGroup.class.getName()) && m.getMethodName().equals("moveToHand")) {
+                } else if (m.getClassName().equals(CardGroup.class.getName()) && m.getMethodName().equals("moveToHand")) {
                     m.replace("if (" + GoSomewhereElseAfterUsePatch.class.getName() + ".Do($1,"
                             + AbstractDungeon.class.getName() + ".player.hand)) " +
                             "{$_ = $proceed($$);}");

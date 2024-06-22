@@ -36,7 +36,9 @@
 //        }
 //    }
 //
-//    @SpirePatches({@SpirePatch(clz = AbstractMonster.class, method = "render", paramtypez = {SpriteBatch.class}), @SpirePatch(clz = AbstractPlayer.class, method = "render", paramtypez = {SpriteBatch.class}), @SpirePatch(clz = CustomMonster.class, method = "render", paramtypez = {SpriteBatch.class})})
+//    @SpirePatches({@SpirePatch(clz = AbstractMonster.class, method = "render", paramtypez = {SpriteBatch.class}), @SpirePatch(clz =
+//    AbstractPlayer.class, method = "render", paramtypez = {SpriteBatch.class}), @SpirePatch(clz = CustomMonster.class, method = "render",
+//    paramtypez = {SpriteBatch.class})})
 //    public static class RenderPatch {
 //        @SpirePostfixPatch
 //        public static void PostFix(final AbstractCreature __instance, final SpriteBatch sb) {
@@ -52,7 +54,8 @@
 //            if (__instance.hb.hovered && InputHelper.justClickedRight && !InputHelper.isMouseDown && !__instance.isDead && !__instance.isEscaping) {
 //                panel.isHidden = !panel.isHidden;
 //            }
-//            if (__instance.isDead || __instance.isEscaping || AbstractDungeon.player.cardInUse != null || AbstractDungeon.player.isDraggingCard || AbstractDungeon.player.inSingleTargetMode) {
+//            if (__instance.isDead || __instance.isEscaping || AbstractDungeon.player.cardInUse != null || AbstractDungeon.player.isDraggingCard
+//            || AbstractDungeon.player.inSingleTargetMode) {
 //                panel.isHidden = true;
 //            }
 //            if (panel.isHidden) {

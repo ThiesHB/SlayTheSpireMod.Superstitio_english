@@ -13,7 +13,8 @@ import superstitioapi.powers.interfaces.OnPostApplyThisPower;
 
 import java.util.ArrayList;
 
-public class DelayRemoveDelayHpLosePower extends AbstractSuperstitioPower implements RenderAsBlockPower, InvisiblePower, OnPostApplyThisPower<DelayRemoveDelayHpLosePower> {
+public class DelayRemoveDelayHpLosePower extends AbstractSuperstitioPower implements RenderAsBlockPower, InvisiblePower,
+        OnPostApplyThisPower<DelayRemoveDelayHpLosePower> {
     public static final String POWER_ID = DataManager.MakeTextID(DelayRemoveDelayHpLosePower.class);
     public BlockInstance blockInstance;
 

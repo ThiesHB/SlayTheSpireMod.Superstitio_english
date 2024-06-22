@@ -7,7 +7,8 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.MathUtils;
 
 public class SpriteBatchExtensionForBladeGunner {
-    public static void drawProgress(SpriteBatch sb, TextureRegion region, float x, float y, float width, float height, float startDegree, float endDegree) {
+    public static void drawProgress(SpriteBatch sb, TextureRegion region, float x, float y, float width, float height, float startDegree,
+                                    float endDegree) {
         if (!sb.isDrawing()) {
             throw new IllegalStateException("SpriteBatch.begin must be called before draw.");
         }
@@ -31,15 +32,15 @@ public class SpriteBatchExtensionForBladeGunner {
             }
             if (rightTop) {
                 drawProgressRightTop(sb, region, x, y, width, height, currentDegree, Math.min(nextDegree, endDegree));
-            }
-            else {
+            } else {
                 drawProgressLeftBottom(sb, region, x, y, width, height, currentDegree, Math.min(nextDegree, endDegree));
             }
             currentDegree = nextDegree;
         } while (nextDegree < endDegree);
     }
 
-    private static void drawProgressRightTop(SpriteBatch sb, TextureRegion region, float x, float y, float width, float height, float startDegree, float endDegree) {
+    private static void drawProgressRightTop(SpriteBatch sb, TextureRegion region, float x, float y, float width, float height, float startDegree,
+                                             float endDegree) {
         startDegree = clipDegree(startDegree + 45) - 45;
         endDegree = clipDegree(endDegree + 45) - 45;
 
@@ -47,8 +48,7 @@ public class SpriteBatchExtensionForBladeGunner {
         Texture texture = region.getTexture();
         if (texture != ReflectionHacks.getPrivate(sb, SpriteBatch.class, "lastTexture")) {
             ReflectionHacks.privateMethod(SpriteBatch.class, "switchTexture", Texture.class).invoke(sb, texture);
-        }
-        else if (ReflectionHacks.getPrivate(sb, SpriteBatch.class, "idx").equals(vertices.length)) {
+        } else if (ReflectionHacks.getPrivate(sb, SpriteBatch.class, "idx").equals(vertices.length)) {
             sb.flush();
         }
 
@@ -71,8 +71,7 @@ public class SpriteBatchExtensionForBladeGunner {
             x1 = cx + (y1 - cy) / MathUtils.cosDeg(90 - endDegree) * MathUtils.sinDeg(90 - endDegree);
             v1 = region.getV2();
             u1 = cu + (v1 - cv) / MathUtils.cosDeg(90 - endDegree) * MathUtils.sinDeg(90 - endDegree);
-        }
-        else {
+        } else {
             x1 = x + width;
             y1 = cy + (x1 - cx) / MathUtils.cosDeg(endDegree) * MathUtils.sinDeg(endDegree);
             u1 = region.getU2();
@@ -84,8 +83,7 @@ public class SpriteBatchExtensionForBladeGunner {
             x3 = cx + (y3 - cy) / MathUtils.cosDeg(90 - startDegree) * MathUtils.sinDeg(90 - startDegree);
             v3 = region.getV2();
             u3 = cu + (v3 - cv) / MathUtils.cosDeg(90 - startDegree) * MathUtils.sinDeg(90 - startDegree);
-        }
-        else {
+        } else {
             x3 = x + width;
             y3 = cy + (x3 - cx) / MathUtils.cosDeg(startDegree) * MathUtils.sinDeg(startDegree);
             u3 = region.getU2();
@@ -102,8 +100,7 @@ public class SpriteBatchExtensionForBladeGunner {
             y2 = y3;
             u2 = u3;
             v2 = v3;
-        }
-        else {
+        } else {
             x2 = x + width;
             y2 = y + height;
             u2 = region.getU2();
@@ -135,7 +132,8 @@ public class SpriteBatchExtensionForBladeGunner {
         ReflectionHacks.setPrivate(sb, SpriteBatch.class, "idx", idx + 20);
     }
 
-    private static void drawProgressLeftBottom(SpriteBatch sb, TextureRegion region, float x, float y, float width, float height, float startDegree, float endDegree) {
+    private static void drawProgressLeftBottom(SpriteBatch sb, TextureRegion region, float x, float y, float width, float height, float startDegree
+            , float endDegree) {
         startDegree = clipDegree(startDegree + 45) - 45;
         endDegree = clipDegree(endDegree);
 
@@ -143,8 +141,7 @@ public class SpriteBatchExtensionForBladeGunner {
         Texture texture = region.getTexture();
         if (texture != ReflectionHacks.getPrivate(sb, SpriteBatch.class, "lastTexture")) {
             ReflectionHacks.privateMethod(SpriteBatch.class, "switchTexture", Texture.class).invoke(sb, texture);
-        }
-        else if (ReflectionHacks.getPrivate(sb, SpriteBatch.class, "idx").equals(vertices.length)) {
+        } else if (ReflectionHacks.getPrivate(sb, SpriteBatch.class, "idx").equals(vertices.length)) {
             sb.flush();
         }
 
@@ -167,8 +164,7 @@ public class SpriteBatchExtensionForBladeGunner {
             x1 = cx + (y1 - cy) / MathUtils.cosDeg(270 - endDegree) * MathUtils.sinDeg(270 - endDegree);
             v1 = region.getV();
             u1 = cu + (v1 - cv) / MathUtils.cosDeg(270 - endDegree) * MathUtils.sinDeg(270 - endDegree);
-        }
-        else {
+        } else {
             x1 = x;
             y1 = cy + (x1 - cx) / MathUtils.cosDeg(endDegree - 180) * MathUtils.sinDeg(endDegree - 180);
             u1 = region.getU();
@@ -180,8 +176,7 @@ public class SpriteBatchExtensionForBladeGunner {
             x3 = cx + (y3 - cy) / MathUtils.cosDeg(270 - startDegree) * MathUtils.sinDeg(270 - startDegree);
             v3 = region.getV();
             u3 = cu + (v3 - cv) / MathUtils.cosDeg(270 - startDegree) * MathUtils.sinDeg(270 - startDegree);
-        }
-        else {
+        } else {
             x3 = x;
             y3 = cy + (x3 - cx) / MathUtils.cosDeg(startDegree - 180) * MathUtils.sinDeg(startDegree - 180);
             u3 = region.getU();
@@ -198,8 +193,7 @@ public class SpriteBatchExtensionForBladeGunner {
             y0 = y3;
             u0 = u3;
             v0 = v3;
-        }
-        else {
+        } else {
             x0 = x;
             y0 = y;
             u0 = region.getU();
@@ -234,8 +228,7 @@ public class SpriteBatchExtensionForBladeGunner {
     private static float clipDegree(float degree) {
         if (degree < 0) {
             degree += 360 * (1 + (int) Math.floor(-degree / 360));
-        }
-        else if (degree >= 360) {
+        } else if (degree >= 360) {
             degree = degree % 360;
         }
         return degree;

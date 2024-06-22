@@ -23,7 +23,6 @@ import superstitioapi.player.PlayerInitPostDungeonInitialize;
 import java.util.ArrayList;
 
 import static com.megacrit.cardcrawl.dungeons.AbstractDungeon.*;
-import static com.megacrit.cardcrawl.dungeons.AbstractDungeon.player;
 import static superstitio.DataManager.SPTT_DATA.MasoEnums.MASO_CARD;
 import static superstitio.DataManager.SPTT_DATA.MasoEnums.MASO_Character;
 import static superstitioapi.relicToBlight.InfoBlight.addAsInfoBlight;

@@ -30,8 +30,7 @@ public class PowerUtility {
         if (isDeBuffVer) {
             AbstractDungeon.effectList.add(new PowerDebuffEffect(hitbox.cX - XOffset,
                     hitbox.cY + hitbox.height / 2.0f + YOffset, message));
-        }
-        else {
+        } else {
             AbstractDungeon.effectList.add(new PowerBuffEffect(hitbox.cX - XOffset,
                     hitbox.cY + hitbox.height / 2.0f + YOffset, message));
         }
@@ -76,11 +75,9 @@ public class PowerUtility {
                 if (pClass.equals(TheBombPower.class)) {
                     instance = new TheBombPower(newOwner, 0, 40);
                 }
-            }
-            else if (power instanceof CopyAblePower) {
+            } else if (power instanceof CopyAblePower) {
                 instance = ((CopyAblePower) power).makeCopy(newOwner);
-            }
-            else {
+            } else {
                 final int paramCount = constructors[0].getParameterCount();
                 final Class<?>[] paramTypes = constructors[0].getParameterTypes();
                 final Object[] paramNewInstance = new Object[paramCount];
@@ -88,11 +85,9 @@ public class PowerUtility {
                     final Class<?> param = paramTypes[i];
                     if (AbstractCreature.class.isAssignableFrom(param)) {
                         paramNewInstance[i] = newOwner;
-                    }
-                    else if (Integer.TYPE.isAssignableFrom(param)) {
+                    } else if (Integer.TYPE.isAssignableFrom(param)) {
                         paramNewInstance[i] = 0;
-                    }
-                    else if (String.class.isAssignableFrom(param)) {
+                    } else if (String.class.isAssignableFrom(param)) {
                         paramNewInstance[i] = "";
                     }
 //                    else if (AbstractCard.class.isAssignableFrom(param)) {

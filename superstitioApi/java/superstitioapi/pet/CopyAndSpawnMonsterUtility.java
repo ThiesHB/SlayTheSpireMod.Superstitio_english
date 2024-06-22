@@ -30,17 +30,14 @@ public class CopyAndSpawnMonsterUtility {
                     final Class param = params[i];
                     if (Integer.TYPE.isAssignableFrom(param)) {
                         paramz[i] = 1;
-                    }
-                    else if (Boolean.TYPE.isAssignableFrom(param)) {
+                    } else if (Boolean.TYPE.isAssignableFrom(param)) {
                         paramz[i] = true;
-                    }
-                    else if (Float.TYPE.isAssignableFrom(param)) {
+                    } else if (Float.TYPE.isAssignableFrom(param)) {
                         paramz[i] = 0.0f;
                     }
                 }
-                return (AbstractMonster)c.newInstance(paramz);
-            }
-            catch (Exception e) {
+                return (AbstractMonster) c.newInstance(paramz);
+            } catch (Exception e) {
                 Logger.warning("Error occurred while trying to instantiate class: " + c.getName());
                 Logger.warning("Reverting to Apology Slime");
                 return new ApologySlime();

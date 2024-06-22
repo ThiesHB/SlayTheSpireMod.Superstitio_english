@@ -30,6 +30,7 @@ public abstract class RenderOnThing {
     protected float healthHideTimer = 1.0f;
     protected List<AmountChunk> sortedChunkList = new ArrayList<>();
     private String rawBarText = "%d/%d";
+
     public RenderOnThing(final Supplier<Hitbox> hitbox, HasBarRenderOnCreature power) {
         this.uuid_self = power.uuidPointTo();
         this.hitboxBondTo = hitbox;
@@ -141,8 +142,7 @@ public abstract class RenderOnThing {
             if (this.healthHideTimer < HEALTH_HIDE_TIMER_MIN) {
                 this.healthHideTimer = HEALTH_HIDE_TIMER_MIN;
             }
-        }
-        else {
+        } else {
             this.healthHideTimer += Gdx.graphics.getDeltaTime() * HIDE_SPEED;
             if (this.healthHideTimer > 1.0F) {
                 this.healthHideTimer = 1.0F;

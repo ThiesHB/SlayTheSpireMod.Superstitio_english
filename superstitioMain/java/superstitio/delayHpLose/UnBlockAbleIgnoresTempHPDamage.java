@@ -17,7 +17,8 @@ public class UnBlockAbleIgnoresTempHPDamage extends AbstractLupaDamage {
     }
 
     public static DamageInfo damageInfo(Object instigator, int amount) {
-        return BindingHelper.makeInfo(new DamageModContainer(instigator, new UnBlockAbleIgnoresTempHPDamage()), null, amount, DataManager.CanOnlyDamageDamageType.UnBlockAbleDamageType);
+        return BindingHelper.makeInfo(new DamageModContainer(instigator, new UnBlockAbleIgnoresTempHPDamage()), null, amount,
+                DataManager.CanOnlyDamageDamageType.UnBlockAbleDamageType);
     }
 
     @Override

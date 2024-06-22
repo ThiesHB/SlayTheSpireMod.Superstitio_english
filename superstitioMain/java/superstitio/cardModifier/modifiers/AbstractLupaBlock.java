@@ -3,12 +3,12 @@ package superstitio.cardModifier.modifiers;
 import basemod.helpers.TooltipInfo;
 import com.evacipated.cardcrawl.mod.stslib.blockmods.AbstractBlockModifier;
 import superstitio.DataManager;
-import superstitio.customStrings.ModifierStringsSet;
 import superstitio.customStrings.interFace.StringSetUtility;
+import superstitio.customStrings.stringsSet.ModifierStringsSet;
 
 import java.util.ArrayList;
 
-public abstract class AbstractLupaBlock extends AbstractBlockModifier{
+public abstract class AbstractLupaBlock extends AbstractBlockModifier {
     public final ModifierStringsSet blockStrings;
     TooltipInfo tooltip = null;
 

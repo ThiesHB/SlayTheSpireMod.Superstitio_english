@@ -37,6 +37,7 @@ public class DevaBody_Masochism extends SuperstitioRelic implements InfoBlight.B
                     return true;
                 }));
     }
+
     @Override
     public void atBattleStart() {
         this.flash();

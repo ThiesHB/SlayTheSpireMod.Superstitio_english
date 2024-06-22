@@ -45,9 +45,6 @@ public abstract class DelayHpLosePower extends AbstractSuperstitioPower implemen
                 .filter(tClass::isInstance)
                 .map(power -> (T) power);
     }
-    @Override
-    public void renderAmount(SpriteBatch sb, float x, float y, Color c) {
-    }
 
     /**
      * 只会对每个子类的移除方法调用一次
@@ -56,7 +53,8 @@ public abstract class DelayHpLosePower extends AbstractSuperstitioPower implemen
      * @param amount      移除数量
      * @param removeOther 是否移除其他的
      */
-    public static <T extends DelayHpLosePower> void addToBot_removePower(Class<T> powerClass, final int amount, AbstractCreature owner, boolean removeOther) {
+    public static <T extends DelayHpLosePower> void addToBot_removePower(Class<T> powerClass, final int amount, AbstractCreature owner,
+                                                                         boolean removeOther) {
         if (amount <= 0) return;
         int lastAmount = 0;
         if (Modifier.isAbstract(powerClass.getModifiers())) {
@@ -96,6 +94,10 @@ public abstract class DelayHpLosePower extends AbstractSuperstitioPower implemen
             if (!removeOther) break;
             if (lastAmount <= 0) break;
         }
+    }
+
+    @Override
+    public void renderAmount(SpriteBatch sb, float x, float y, Color c) {
     }
 
     /**
@@ -241,7 +243,8 @@ public abstract class DelayHpLosePower extends AbstractSuperstitioPower implemen
 //                player.currentHealth = 0;
 //                if (player.currentBlock > 0) {
 //                    player.loseBlock();
-//                    AbstractDungeon.effectList.add(new HbBlockBrokenEffect(player.hb.cX - player.hb.width / 2.0F + BLOCK_ICON_X, player.hb.cY - player.hb.height / 2.0F + BLOCK_ICON_Y));
+//                    AbstractDungeon.effectList.add(new HbBlockBrokenEffect(player.hb.cX - player.hb.width / 2.0F + BLOCK_ICON_X, player.hb.cY -
+//                    player.hb.height / 2.0F + BLOCK_ICON_Y));
 //                }
 //            }
 //        }
@@ -250,7 +253,8 @@ public abstract class DelayHpLosePower extends AbstractSuperstitioPower implemen
 //        }
 //        else if (hadBlock) {
 //            AbstractDungeon.effectList.add(new BlockedWordEffect(player, player.hb.cX, player.hb.cY, uiStrings.TEXT[0]));
-//            AbstractDungeon.effectList.add(new HbBlockBrokenEffect(player.hb.cX - player.hb.width / 2.0F + BLOCK_ICON_X, player.hb.cY - player.hb.height / 2.0F + BLOCK_ICON_Y));
+//            AbstractDungeon.effectList.add(new HbBlockBrokenEffect(player.hb.cX - player.hb.width / 2.0F + BLOCK_ICON_X, player.hb.cY - player.hb
+//            .height / 2.0F + BLOCK_ICON_Y));
 //        }
 //        else {
 //            AbstractDungeon.effectList.add(new StrikeEffect(player, player.hb.cX, player.hb.cY, 0));

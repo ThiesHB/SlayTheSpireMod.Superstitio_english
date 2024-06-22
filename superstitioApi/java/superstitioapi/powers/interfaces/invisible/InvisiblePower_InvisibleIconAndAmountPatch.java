@@ -20,8 +20,7 @@ public class InvisiblePower_InvisibleIconAndAmountPatch {
                         m.replace("if (" + InvisiblePower_InvisibleIconAndAmount.class.getName() + ".shouldInvisibleIcon(p)) " +
                                 "{offset -= " +
                                 "POWER_ICON_PADDING_X;} else {$proceed($$);}");
-                    }
-                    else if (m.getMethodName().equals("renderAmount")) {
+                    } else if (m.getMethodName().equals("renderAmount")) {
                         m.replace("if (" + InvisiblePower_InvisibleIconAndAmount.class.getName() + ".shouldInvisibleAmount(p)) " +
                                 "{offset -= " +
                                 "POWER_ICON_PADDING_X;$proceed($$);} else {$proceed($$);}");

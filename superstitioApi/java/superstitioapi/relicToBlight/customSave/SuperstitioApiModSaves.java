@@ -10,21 +10,17 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 @SpirePatch(clz = SaveFile.class, method = "<class>")
-public class SuperstitioApiModSaves
-{
+public class SuperstitioApiModSaves {
     @SerializedName("superstitioapimod:mod_blight")
     public static SpireField<ArrayListOfJsonElement> modBlightSaves =
-            (SpireField<ArrayListOfJsonElement>)new SpireField(() -> null);
+            (SpireField<ArrayListOfJsonElement>) new SpireField(() -> null);
 
-    public static class ArrayListOfJsonElement extends ArrayList<JsonElement>
-    {
+    public static class ArrayListOfJsonElement extends ArrayList<JsonElement> {
     }
 
-    public static class ArrayListOfString extends ArrayList<String>
-    {
+    public static class ArrayListOfString extends ArrayList<String> {
     }
 
-    public static class HashMapOfJsonElement extends HashMap<String, JsonElement>
-    {
+    public static class HashMapOfJsonElement extends HashMap<String, JsonElement> {
     }
 }

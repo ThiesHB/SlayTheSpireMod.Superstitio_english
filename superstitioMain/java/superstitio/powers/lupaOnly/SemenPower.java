@@ -21,7 +21,8 @@ public interface SemenPower {
     }
 
     default void addToBot_UseValue(int valueUse) {
-        addToBot_reducePower(this.getSelf().ID, MathUtils.ceil((float) valueUse / this.getSemenValue()), AbstractDungeon.player, AbstractDungeon.player);
+        addToBot_reducePower(this.getSelf().ID, MathUtils.ceil((float) valueUse / this.getSemenValue()), AbstractDungeon.player,
+                AbstractDungeon.player);
     }
 
     default int getTotalValue() {

@@ -11,7 +11,8 @@ public class CardOrb_WaitCardTrigger extends CardOrb_CardTrigger implements ICar
 
     protected static final Color ReduceWaitTime = Color.GOLDENROD.cpy();
 
-    public CardOrb_WaitCardTrigger(AbstractCard card, CardGroup cardGroupReturnAfterEvoke, int waitTime, BiConsumer<CardOrb_CardTrigger, AbstractCard> action_thisOrb_triggerCard) {
+    public CardOrb_WaitCardTrigger(AbstractCard card, CardGroup cardGroupReturnAfterEvoke, int waitTime, BiConsumer<CardOrb_CardTrigger,
+            AbstractCard> action_thisOrb_triggerCard) {
         super(card, cardGroupReturnAfterEvoke, waitTime, action_thisOrb_triggerCard);
     }
 
