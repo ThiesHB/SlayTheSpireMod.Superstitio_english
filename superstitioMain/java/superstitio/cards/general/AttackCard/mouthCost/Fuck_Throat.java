@@ -7,8 +7,8 @@ import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import superstitio.DataManager;
 import superstitio.cards.general.FuckJob_Card;
 import superstitio.cards.general.GeneralCard;
-import superstitioapi.InBattleDataManager;
 import superstitioapi.cards.DamageActionMaker;
+import superstitioapi.hangUpCard.HangUpCardGroup;
 
 public class Fuck_Throat extends GeneralCard implements FuckJob_Card {
     public static final String ID = DataManager.MakeTextID(Fuck_Throat.class);
@@ -34,20 +34,20 @@ public class Fuck_Throat extends GeneralCard implements FuckJob_Card {
     @Override
     public void use(AbstractPlayer player, AbstractMonster monster) {
         addToBot_dealDamage(monster, DamageActionMaker.DamageEffect.HeartMultiInOne);
-        superstitioapi.InBattleDataManager.getHangUpCardOrbGroup().ifPresent(group -> {
+        HangUpCardGroup.forHangUpCardGroup(group -> {
             if (group.hasOrb())
                 addToBot(new GainEnergyAction(this.magicNumber));
-        });
+        }).addToBotAsAbstractAction();
 
     }
 
     @Override
     public void triggerOnGlowCheck() {
         this.glowColor = BLUE_BORDER_GLOW_COLOR.cpy();
-        InBattleDataManager.getHangUpCardOrbGroup().ifPresent(group -> {
+        HangUpCardGroup.forHangUpCardGroup(group -> {
             if (group.hasOrb())
                 this.glowColor = Color.PINK.cpy();
-        });
+        }).get();
     }
 
     @Override

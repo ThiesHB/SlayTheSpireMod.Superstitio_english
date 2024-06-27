@@ -73,7 +73,10 @@
     "DESCRIPTION": "",
     "FLAVOR": "",
     "EXTENDED_DESCRIPTION": [
-      "永久妆容/全身皮肤改色/眼球纹身/淫语固化/分舌/乳房贯穿/脸颊贯穿/悬挂穿刺/紧身胸衣穿孔/阴唇常开/尿道穿孔/阴蒂吊坠"
+      "永久妆容,全身皮肤改色,眼球纹身,淫语固化,分舌,乳房贯穿,脸颊贯穿,悬挂穿刺,紧身胸衣穿孔,阴唇常开,尿道穿孔,阴蒂吊坠"
+    ],
+    "EXTENDED_DESCRIPTION_SFW": [
+      "海虎,奥加,天道,地狱,蓝梦,黑暗"
     ]
   },
   "SuperstitioMod:MasoCard:CruelTorture_Dismember": {
@@ -85,7 +88,7 @@
   "SuperstitioMod:MasoCard:CruelTorture_HotPillar": {
     "NAME": "炮烙",
     "NAME_SFW": "超载",
-    "DESCRIPTION": "将%d张 *灼伤 放入你的弃牌堆中 。 superstitiomod:助兴-急切 。 NL superstitiomod:助兴-缠绵 ： NL 接下来99回合开始时 ： NL 获得 !M! 点 临时敏捷 。",
+    "DESCRIPTION": "将%d张 *灼伤 放入你的弃牌堆中 。 superstitiomod:助兴-急切 。 NL superstitiomod:助兴- superstitiomod:缠绵 NL 下 99 回合开始时： NL 获得 !M! 点 临时敏捷 。",
     "FLAVOR": ""
   }
 }

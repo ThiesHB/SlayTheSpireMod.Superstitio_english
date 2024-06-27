@@ -8,17 +8,17 @@ import superstitioapi.actions.AutoDoneInstantAction;
 import java.util.function.Consumer;
 
 
-public class CardOrb_AtEndOfTurn extends CardOrb implements ICardOrb_EachTime {
+public class CardOrb_AtStartOfTurnEachTime extends CardOrb implements ICardOrb_EachTime {
 
-    public final Consumer<CardOrb_AtEndOfTurn> action;
+    public final Consumer<CardOrb_AtStartOfTurnEachTime> action;
 
-    public CardOrb_AtEndOfTurn(AbstractCard card, CardGroup cardGroupReturnAfterEvoke, int OrbCounter, Consumer<CardOrb_AtEndOfTurn> action) {
+    public CardOrb_AtStartOfTurnEachTime(AbstractCard card, CardGroup cardGroupReturnAfterEvoke, int OrbCounter, Consumer<CardOrb_AtStartOfTurnEachTime> action) {
         super(card, cardGroupReturnAfterEvoke, OrbCounter);
         this.action = action;
     }
 
     @Override
-    public void onEndOfTurn() {
+    public void onStartOfTurn() {
         OrbCounter--;
         if (OrbCounter < 0) return;
         actionAccept();
@@ -26,7 +26,7 @@ public class CardOrb_AtEndOfTurn extends CardOrb implements ICardOrb_EachTime {
 
     @Override
     public AbstractOrb makeCopy() {
-        return new CardOrb_AtEndOfTurn(getOriginCard(), cardGroupReturnAfterEvoke, OrbCounter, action);
+        return new CardOrb_AtStartOfTurnEachTime(getOriginCard(), cardGroupReturnAfterEvoke, OrbCounter, action);
     }
 
     protected void actionAccept() {

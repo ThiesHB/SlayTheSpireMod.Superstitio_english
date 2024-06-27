@@ -133,6 +133,14 @@ public class ActionUtility {
 
     public interface VoidSupplier {
         void get();
+
+        default void addToBotAsAbstractAction() {
+            AutoDoneInstantAction.addToBotAbstract(this);
+        }
+
+        default void addToBotAsAbstractAction(int time) {
+            AutoDoneInstantAction.addToBotAbstract(this, time);
+        }
     }
 
     public interface FunctionReturnSelfType {

@@ -2,7 +2,7 @@
   "SuperstitioMod:GangBang": {
     "NAME": "轮奸派对",
     "NAME_SFW": "血战沙场",
-    "DESCRIPTION": "stslib:自动打出 。 NL superstitiomod:助兴-缠绵 ： NL 本回合结束时 ： NL 对 所有敌人 造成 !D! 点 伤害 。 获得 !B! superstitiomod:干涸精痕 。",
+    "DESCRIPTION": "stslib:自动打出 。 NL superstitiomod:助兴- superstitiomod:缠绵 NL 下 一 次回合结束： NL 对 所有敌人 造成 !D! 点 伤害 。 获得 !B! superstitiomod:干涸精痕 。",
     "FLAVOR": "开始狂欢吧！大家一起来！",
     "EXTENDED_DESCRIPTION": [
       "困倦的",

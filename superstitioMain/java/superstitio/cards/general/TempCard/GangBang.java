@@ -12,7 +12,7 @@ import superstitio.cardModifier.modifiers.damage.SexDamage;
 import superstitio.cards.general.AbstractTempCard;
 import superstitioapi.cards.DamageActionMaker;
 import superstitioapi.cards.patch.GoSomewhereElseAfterUse;
-import superstitioapi.hangUpCard.CardOrb_AtEndOfTurn;
+import superstitioapi.hangUpCard.CardOrb_AtEndOfTurnEachTime;
 import superstitioapi.utils.ActionUtility;
 import superstitioapi.utils.CreatureUtility;
 
@@ -73,7 +73,7 @@ public class GangBang extends AbstractTempCard implements GoSomewhereElseAfterUs
     @Override
     public void afterInterruptMoveToCardGroup(CardGroup cardGroup) {
         GangBang self = this;
-        new CardOrb_AtEndOfTurn(this, cardGroup, 1, cardOrbAtEndOfTurn -> {
+        new CardOrb_AtEndOfTurnEachTime(this, cardGroup, 1, cardOrbAtEndOfTurn -> {
             cardOrbAtEndOfTurn.StartHitCreature(CreatureUtility.getRandomMonsterWithoutRngSafe());
             self.addToBot_gainCustomBlock(self.block, new DrySemenBlock());
             self.addToBot_dealDamageToAllEnemies(DamageActionMaker.DamageEffect.HeartMultiInOne);

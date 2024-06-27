@@ -24,8 +24,8 @@ import java.util.stream.Stream;
 public class HangUpCardGroup implements RenderInBattle,
         OnCardUseSubscriber, OnPowersModifiedSubscriber, OnPlayerTurnStartSubscriber,
         SuperstitioApiSubscriber.AtEndOfPlayerTurnPreCardSubscriber {
-    public Hitbox hitbox;
-    public ArrayList<CardOrb> cards = new ArrayList<>();
+    private final Hitbox hitbox;
+    private final ArrayList<CardOrb> cards = new ArrayList<>();
     private int remove_check_counter = 10;
     private CardOrb hoveredCard;
 
@@ -41,35 +41,98 @@ public class HangUpCardGroup implements RenderInBattle,
     }
 
     public static void addToBot_AddCardOrbToOrbGroup(CardOrb orb) {
-        AutoDoneInstantAction.addToBotAbstract(() ->
-                InBattleDataManager.getHangUpCardOrbGroup().ifPresent(hangUpCardGroup ->
-                        hangUpCardGroup.hangUpNewCard(orb)));
+        forHangUpCardGroup(hangUpCardGroup ->
+                hangUpCardGroup.hangUpNewCard(orb)).addToBotAsAbstractAction();
     }
 
-    public <T> void forEachOrbInThisOrbGroup(BiConsumer<AbstractOrb, T> consumer, T arg) {
-        for (AbstractOrb orb : this.cards) {
+    public static ActionUtility.VoidSupplier forHangUpCardGroup(Consumer<HangUpCardGroup> cardGroupConsumer) {
+        return () -> InBattleDataManager.getHangUpCardOrbGroup().ifPresent(cardGroupConsumer);
+    }
+
+    public static <T> ActionUtility.VoidSupplier forEachHangUpCard(BiConsumer<CardOrb, T> consumer, T arg) {
+        return forHangUpCardGroup(hangUpCardGroup -> {
+            for (CardOrb orb : hangUpCardGroup.cards) {
+                consumer.accept(orb, arg);
+            }
+        });
+    }
+
+    public static ActionUtility.VoidSupplier forEachHangUpCard(BiConsumer<HangUpCardGroup, CardOrb> consumer) {
+        return forHangUpCardGroup(hangUpCardGroup -> {
+            for (CardOrb orb : hangUpCardGroup.cards) {
+                consumer.accept(hangUpCardGroup, orb);
+            }
+        });
+    }
+
+    public static ActionUtility.VoidSupplier forEachHangUpCard(Consumer<CardOrb> consumer) {
+        return forHangUpCardGroup(hangUpCardGroup -> {
+            for (CardOrb orb : hangUpCardGroup.cards) {
+                consumer.accept(orb);
+            }
+        });
+    }
+
+
+    public static <TArg, TOrb extends CardOrb> ActionUtility.VoidSupplier forEachHangUpCard(
+            Class<TOrb> OrbClass, BiConsumer<TOrb, TArg> consumer, TArg arg) {
+        return forHangUpCardGroup(hangUpCardGroup -> {
+            for (CardOrb orb : hangUpCardGroup.cards) {
+                if (OrbClass.isInstance(orb)) {
+                    consumer.accept((TOrb) orb, arg);
+                }
+            }
+        });
+    }
+
+    public static <TOrb extends CardOrb> ActionUtility.VoidSupplier forEachHangUpCard(Class<TOrb> OrbClass,
+                                                                                      BiConsumer<HangUpCardGroup, TOrb> consumer) {
+        return forHangUpCardGroup(hangUpCardGroup -> {
+            for (CardOrb orb : hangUpCardGroup.cards) {
+                if (OrbClass.isInstance(orb)) {
+                    TOrb tOrb = (TOrb) orb;
+                    consumer.accept(hangUpCardGroup, tOrb);
+                }
+            }
+        });
+    }
+
+    public static <TOrb extends CardOrb> ActionUtility.VoidSupplier forEachHangUpCard(Class<TOrb> OrbClass,
+                                                                                      Consumer<TOrb> consumer) {
+        return forHangUpCardGroup(hangUpCardGroup -> {
+            for (CardOrb orb : hangUpCardGroup.cards) {
+                if (OrbClass.isInstance(orb)) {
+                    TOrb tOrb = (TOrb) orb;
+                    consumer.accept(tOrb);
+                }
+            }
+        });
+    }
+
+    private <T> void forEachOrbInThisOrbGroup(BiConsumer<CardOrb, T> consumer, T arg) {
+        for (CardOrb orb : this.cards) {
             consumer.accept(orb, arg);
         }
     }
 
-    public void forEachOrbInThisOrbGroup(Consumer<AbstractOrb> consumer) {
-        for (AbstractOrb orb : this.cards) {
+    private void forEachOrbInThisOrbGroup(Consumer<CardOrb> consumer) {
+        for (CardOrb orb : this.cards) {
             consumer.accept(orb);
         }
     }
 
-    public <TArg, TOrb extends AbstractOrb> void forEachOrbInThisOrbGroup(
+    private <TArg, TOrb extends CardOrb> void forEachOrbInThisOrbGroup(
             Class<TOrb> OrbClass, BiConsumer<TOrb, TArg> consumer, TArg arg) {
-        for (AbstractOrb orb : this.cards) {
+        for (CardOrb orb : this.cards) {
             if (OrbClass.isInstance(orb)) {
                 consumer.accept((TOrb) orb, arg);
             }
         }
     }
 
-    public <TOrb extends AbstractOrb> void forEachOrbInThisOrbGroup(Class<TOrb> OrbClass,
-                                                                    Consumer<TOrb> consumer) {
-        for (AbstractOrb orb : this.cards) {
+    private <TOrb extends CardOrb> void forEachOrbInThisOrbGroup(Class<TOrb> OrbClass,
+                                                                Consumer<TOrb> consumer) {
+        for (CardOrb orb : this.cards) {
             if (OrbClass.isInstance(orb)) {
                 TOrb tOrb = (TOrb) orb;
                 consumer.accept(tOrb);

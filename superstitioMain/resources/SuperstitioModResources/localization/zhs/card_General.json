@@ -8,7 +8,7 @@
   "SuperstitioMod:Ahegao": {
     "NAME": "阿嘿颜",
     "NAME_SFW": "强者纹",
-    "DESCRIPTION": "superstitiomod:助兴-缠绵 ： NL 打出 !M! 攻击牌： NL 造成 !D! 点 伤害。",
+    "DESCRIPTION": "superstitiomod:助兴- superstitiomod:缠绵 NL 打出 !M! 攻击牌： NL 造成 !D! 点 伤害。",
     "FLAVOR": "想要保持专业的微笑，但是控制不住。"
   },
   "SuperstitioMod:CountSign": {
@@ -122,7 +122,7 @@
   "SuperstitioMod:ReadyToSex": {
     "NAME": "性交准备",
     "NAME_SFW": "马步",
-    "DESCRIPTION": "选择一张手牌，将其 superstitiomod:助兴-欲求 ： NL 打出 !M! 任何牌： NL 打出复制后进入弃牌堆。",
+    "DESCRIPTION": "选择一张手牌，将其 superstitiomod:助兴- superstitiomod:欲求 NL 打出 !M! 任何牌： NL 打出复制后进入弃牌堆。",
     "FLAVOR": "来吧！一起上！我照单全收！",
     "EXTENDED_DESCRIPTION": [
       "将其助兴。"
@@ -131,13 +131,13 @@
   "SuperstitioMod:PassiveGangBang": {
     "NAME": "躺平任肏",
     "NAME_SFW": "超级无敌我爱你",
-    "DESCRIPTION": "superstitiomod:并行 。 NL 移除 !B! 点 *腐朽 。 NL 强制 *满足 所有 superstitiomod:助兴 卡牌 !M! 次。",
+    "DESCRIPTION": "superstitiomod:并行 。 NL 移除 !B! 点 *腐朽 。 NL *满足 所有 superstitiomod:助兴 卡牌 !M! 次。",
     "FLAVOR": "请便，我今天不想动。"
   },
   "SuperstitioMod:OneMoreHour": {
     "NAME": "再战一回",
     "NAME_SFW": "再战一回",
-    "DESCRIPTION": "superstitiomod:并行 。 NL 获得 !B! 点 *格挡 。 NL 所有 superstitiomod:助兴 卡牌的计数变为 !M! 倍。",
+    "DESCRIPTION": "superstitiomod:并行 。 NL 移除 !B! 点 *腐朽 。 NL 所有 superstitiomod:助兴 卡牌的计数变为 !M! 倍。",
     "FLAVOR": "拜托啦，别走嘛，我会好好服侍您的。"
   },
   "SuperstitioMod:EroSion": {
@@ -190,7 +190,7 @@
   "SuperstitioMod:TempName_HangUpCardForDraw": {
     "NAME": "TempName_HangUpCardForDraw",
     "NAME_SFW": "TempName_HangUpCardForDraw",
-    "DESCRIPTION": "选择最多 !M! 张手牌，抽对应数量的牌，将选中手牌 superstitiomod:助兴-欲求 ： NL 本回合打出 %d 任何牌： NL 回到手牌。",
+    "DESCRIPTION": "选择最多 !M! 张手牌，抽对应数量的牌，将选中手牌 superstitiomod:助兴- superstitiomod:欲求 NL 本回合打出 %d 任何牌： NL 回到手牌。",
     "FLAVOR": "",
     "EXTENDED_DESCRIPTION": [
       "助兴并抽一张牌，最多选择%d张牌。"

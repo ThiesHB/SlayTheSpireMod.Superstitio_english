@@ -1,4 +1,4 @@
-package superstitio.cards.lupa.SkillCard.semen;
+package superstitio.cards.lupa.SkillCard.getSemen;
 
 import basemod.cardmods.ExhaustMod;
 import basemod.helpers.CardModifierManager;

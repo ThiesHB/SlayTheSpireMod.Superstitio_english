@@ -22,7 +22,6 @@ public class DoubleBlockWithVulnerable extends SuperstitioRelic {
     private static final RelicTier RELIC_TIER = RelicTier.STARTER;
     // 点击音效
     private static final LandingSound LANDING_SOUND = LandingSound.FLAT;
-    private static final int SexToyNum = 2;
 
     public DoubleBlockWithVulnerable() {
         super(ID, RELIC_TIER, LANDING_SOUND);
@@ -50,7 +49,7 @@ public class DoubleBlockWithVulnerable extends SuperstitioRelic {
         @Override
         public float modifyBlockLast(float blockAmount) {
             if (owner.powers.stream().anyMatch(power -> power instanceof VulnerablePower))
-                return super.modifyBlockLast(blockAmount * 2);
+                return super.modifyBlockLast(blockAmount * 1.25f);
             return super.modifyBlockLast(blockAmount);
         }
 

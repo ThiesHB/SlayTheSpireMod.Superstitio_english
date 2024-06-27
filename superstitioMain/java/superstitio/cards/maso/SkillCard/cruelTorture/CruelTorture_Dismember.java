@@ -11,8 +11,7 @@ import superstitio.cards.maso.MasoCard;
 import superstitio.delayHpLose.RemoveDelayHpLoseBlock;
 import superstitioapi.hangUpCard.CardOrb;
 import superstitioapi.hangUpCard.Card_TriggerHangCardManually;
-
-import static superstitioapi.InBattleDataManager.getHangUpCardOrbGroup;
+import superstitioapi.hangUpCard.HangUpCardGroup;
 
 //凌迟
 public class CruelTorture_Dismember extends MasoCard implements Card_TriggerHangCardManually {
@@ -34,17 +33,15 @@ public class CruelTorture_Dismember extends MasoCard implements Card_TriggerHang
         super(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET);
         this.setupMagicNumber(MAGIC);
         this.setupBlock(BLOCK, UPGRADE_BLOCK, new RemoveDelayHpLoseBlock());
-        CardModifierManager.addModifier(this,new CruelTortureTag());
+        CardModifierManager.addModifier(this, new CruelTortureTag());
     }
 
     @Override
     public void use(AbstractPlayer player, AbstractMonster monster) {
-        getHangUpCardOrbGroup().ifPresent(cardGroup -> {
-            cardGroup.cards.forEach(cardOrb -> {
-                addToBot(new LoseHPAction(AbstractDungeon.player, AbstractDungeon.player, this.magicNumber));
-                addToBot_gainBlock();
-            });
-        });
+        HangUpCardGroup.forEachHangUpCard(orb -> {
+            addToBot(new LoseHPAction(AbstractDungeon.player, AbstractDungeon.player, this.magicNumber));
+            addToBot_gainBlock();
+        }).addToBotAsAbstractAction();
     }
 
     @Override

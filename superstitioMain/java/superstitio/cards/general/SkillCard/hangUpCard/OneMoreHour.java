@@ -7,9 +7,7 @@ import superstitio.cards.general.GeneralCard;
 import superstitio.delayHpLose.RemoveDelayHpLoseBlock;
 import superstitioapi.hangUpCard.CardOrb;
 import superstitioapi.hangUpCard.Card_TriggerHangCardManually;
-
-import static superstitioapi.InBattleDataManager.getHangUpCardOrbGroup;
-import static superstitioapi.actions.AutoDoneInstantAction.addToBotAbstract;
+import superstitioapi.hangUpCard.HangUpCardGroup;
 
 public class OneMoreHour extends GeneralCard implements Card_TriggerHangCardManually {
     public static final String ID = DataManager.MakeTextID(OneMoreHour.class);
@@ -36,9 +34,9 @@ public class OneMoreHour extends GeneralCard implements Card_TriggerHangCardManu
     public void use(AbstractPlayer player, AbstractMonster monster) {
         addToBot_gainBlock();
         for (int i = 0; i < this.magicNumber; i++) {
-            addToBotAbstract(() -> getHangUpCardOrbGroup()
-                    .ifPresent(cardGroup -> cardGroup.cards
-                            .forEach(orb -> orb.OrbCounter *= this.magicNumber)));
+            HangUpCardGroup.forEachHangUpCard(orb ->
+                            orb.OrbCounter *= this.magicNumber)
+                    .addToBotAsAbstractAction();
         }
     }
 

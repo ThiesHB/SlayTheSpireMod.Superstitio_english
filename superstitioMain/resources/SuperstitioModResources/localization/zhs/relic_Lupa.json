@@ -68,7 +68,7 @@
   "SuperstitioMod:DoubleBlockWithVulnerable": {
     "NAME": "欢愉",
     "DESCRIPTIONS": [
-      "当有 #y易伤 时，翻倍卡牌的 #y格挡 数值。 NL 战斗开始时，将一张 #ysuperstitiomod:共沉沦 加入手牌。"
+      "当有 #y易伤 时，从卡牌中获得的 #y格挡 提高 #b1.25 倍 。 NL 战斗开始时，将一张 #ysuperstitiomod:共沉沦 加入手牌。"
     ],
     "FLAVOR": "还是太少了。"
   },

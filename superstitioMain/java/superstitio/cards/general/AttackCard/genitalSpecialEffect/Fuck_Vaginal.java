@@ -6,11 +6,8 @@ import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import superstitio.DataManager;
 import superstitio.cards.general.FuckJob_Card;
 import superstitio.cards.general.GeneralCard;
-import superstitioapi.actions.AutoDoneInstantAction;
 import superstitioapi.cards.DamageActionMaker;
 import superstitioapi.hangUpCard.*;
-
-import static superstitioapi.InBattleDataManager.getHangUpCardOrbGroup;
 
 public class Fuck_Vaginal extends GeneralCard implements FuckJob_Card, Card_TriggerHangCardManually {
     public static final String ID = DataManager.MakeTextID(Fuck_Vaginal.class);
@@ -41,18 +38,14 @@ public class Fuck_Vaginal extends GeneralCard implements FuckJob_Card, Card_Trig
     public void use(final AbstractPlayer player, final AbstractMonster monster) {
         addToBot_dealDamage(monster, DamageActionMaker.DamageEffect.HeartMultiInOne);
         for (int i = 0; i < this.magicNumber; i++) {
-            AutoDoneInstantAction.addToBotAbstract(() -> getHangUpCardOrbGroup().ifPresent(orbGroup -> {
-                orbGroup.forEachOrbInThisOrbGroup(CardOrb.class, (orb) -> {
-                    if (orb instanceof ICardOrb_EachTime) {
-                        orb.OrbCounter++;
-                        orb.forceAcceptAction(this);
-                    }
-                });
-                orbGroup.forEachOrbInThisOrbGroup(CardOrb.class, (orb) -> {
-                    if (orb instanceof ICardOrb_WaitTime)
-                        orb.forceAcceptAction(this);
-                });
-            }));
+            HangUpCardGroup.forEachHangUpCard(orb -> {
+                if (orb instanceof ICardOrb_EachTime) {
+                    orb.OrbCounter++;
+                    orb.forceAcceptAction(this);
+                }
+                if (orb instanceof ICardOrb_WaitTime)
+                    orb.forceAcceptAction(this);
+            }).addToBotAsAbstractAction();
         }
     }
 

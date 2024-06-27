@@ -6,8 +6,8 @@ import superstitio.DataManager;
 import superstitio.cards.general.GeneralCard;
 import superstitioapi.hangUpCard.CardOrb;
 import superstitioapi.hangUpCard.Card_TriggerHangCardManually;
+import superstitioapi.hangUpCard.HangUpCardGroup;
 
-import static superstitioapi.InBattleDataManager.getHangUpCardOrbGroup;
 import static superstitioapi.actions.AutoDoneInstantAction.addToBotAbstract;
 
 public class CalmDown extends GeneralCard implements Card_TriggerHangCardManually {
@@ -35,14 +35,12 @@ public class CalmDown extends GeneralCard implements Card_TriggerHangCardManuall
 
     @Override
     public void use(AbstractPlayer player, AbstractMonster monster) {
-        getHangUpCardOrbGroup().ifPresent(cardGroup -> {
-            cardGroup.cards.forEach(cardOrb -> {
-                addToBotAbstract(() -> cardGroup.removeCard(cardOrb));
-                addToBot_drawCards();
-            });
-            if (this.magicNumber >= 1)
-                addToBot_drawCards(this.magicNumber);
-        });
+        HangUpCardGroup.forEachHangUpCard((cardGroup, cardOrb) -> {
+            addToBotAbstract(() -> cardGroup.removeCard(cardOrb));
+            addToBot_drawCards();
+        }).addToBotAsAbstractAction();
+        if (this.magicNumber >= 1)
+            addToBot_drawCards(this.magicNumber);
     }
 
     @Override

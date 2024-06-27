@@ -1,5 +1,6 @@
 package superstitio.cards.maso.SkillCard.cruelTorture;
 
+import basemod.AutoAdd;
 import basemod.helpers.CardModifierManager;
 import com.megacrit.cardcrawl.cards.CardGroup;
 import com.megacrit.cardcrawl.cards.status.Burn;
@@ -15,9 +16,10 @@ import superstitioapi.cards.patch.GoSomewhereElseAfterUse;
 import superstitioapi.hangUpCard.CardOrb_AtStartOfTurnEachTime;
 import superstitioapi.utils.ActionUtility;
 
-//炮烙
-public class CruelTorture_HotPillar extends MasoCard implements GoSomewhereElseAfterUse {
-    public static final String ID = DataManager.MakeTextID(CruelTorture_HotPillar.class);
+//尖桩贯穿
+@AutoAdd.Ignore
+public class CruelTorture_Impale extends MasoCard implements GoSomewhereElseAfterUse {
+    public static final String ID = DataManager.MakeTextID(CruelTorture_Impale.class);
 
     public static final CardType CARD_TYPE = CardType.SKILL;
 
@@ -29,10 +31,10 @@ public class CruelTorture_HotPillar extends MasoCard implements GoSomewhereElseA
     private static final int MAGIC = 3;
     private static final int UPGRADE_MAGIC = 1;
 
-    public CruelTorture_HotPillar() {
+    public CruelTorture_Impale() {
         super(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET);
         this.setupMagicNumber(MAGIC, UPGRADE_MAGIC);
-        CardModifierManager.addModifier(this,new CruelTortureTag());
+        CardModifierManager.addModifier(this, new CruelTortureTag());
         this.cardsToPreview = new Burn();
     }
 
@@ -53,7 +55,7 @@ public class CruelTorture_HotPillar extends MasoCard implements GoSomewhereElseA
 
     @Override
     public void afterInterruptMoveToCardGroup(CardGroup cardGroup) {
-        CruelTorture_HotPillar self = this;
+        CruelTorture_Impale self = this;
         new CardOrb_AtStartOfTurnEachTime(this, cardGroup, 99, cardOrbAtStartOfTurn -> {
             cardOrbAtStartOfTurn.StartHitCreature(AbstractDungeon.player);
             addTempDexterity(self);
@@ -61,7 +63,7 @@ public class CruelTorture_HotPillar extends MasoCard implements GoSomewhereElseA
                 .addToBot_HangCard();
     }
 
-    private void addTempDexterity(CruelTorture_HotPillar self) {
+    private void addTempDexterity(CruelTorture_Impale self) {
         self.addToBot_applyPower(new DexterityPower(AbstractDungeon.player, this.magicNumber));
         self.addToBot_applyPower(new LoseDexterityPower(AbstractDungeon.player, this.magicNumber));
     }

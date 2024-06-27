@@ -7,11 +7,8 @@ import superstitio.DataManager;
 import superstitio.cards.general.GeneralCard;
 import superstitio.delayHpLose.RemoveDelayHpLoseBlock;
 import superstitioapi.hangUpCard.CardOrb;
-import superstitioapi.hangUpCard.CardOrb_CardTrigger;
 import superstitioapi.hangUpCard.Card_TriggerHangCardManually;
-
-import static superstitioapi.InBattleDataManager.getHangUpCardOrbGroup;
-import static superstitioapi.actions.AutoDoneInstantAction.addToBotAbstract;
+import superstitioapi.hangUpCard.HangUpCardGroup;
 
 public class PassiveGangBang extends GeneralCard implements Card_TriggerHangCardManually {
     public static final String ID = DataManager.MakeTextID(PassiveGangBang.class);
@@ -25,7 +22,7 @@ public class PassiveGangBang extends GeneralCard implements Card_TriggerHangCard
     private static final int COST = 2;
     private static final int BLOCK = 14;
     private static final int UPGRADE_BLOCK = 4;
-    private static final int MAGIC = 3;
+    private static final int MAGIC = 2;
     private static final int UPGRADE_MAGIC = 1;
 
     public PassiveGangBang() {
@@ -39,10 +36,9 @@ public class PassiveGangBang extends GeneralCard implements Card_TriggerHangCard
         addToBot_gainBlock();
         AbstractCard self = this;
         for (int i = 0; i < this.magicNumber; i++) {
-            addToBotAbstract(() -> getHangUpCardOrbGroup()
-                    .ifPresent(cardGroup -> cardGroup.cards.stream()
-                            .filter(orb -> orb instanceof CardOrb_CardTrigger)
-                            .forEach(orb -> orb.forceAcceptAction(self))));
+            HangUpCardGroup.forEachHangUpCard(orb -> {
+                orb.forceAcceptAction(self);
+            }).addToBotAsAbstractAction();
         }
     }
 

@@ -98,10 +98,12 @@ public class CardStringsWithFlavorSet implements HasOriginAndSFWVersion<CardStri
 
     @Override
     public void setupSFWStringByWordReplace(List<WordReplace> replaceRules) {
+        if (StringSetUtility.isNullOrEmpty(this.SFW.NAME))
+            this.SFW.NAME = WordReplace.replaceWord(this.Origin.NAME, replaceRules);
         if (StringSetUtility.isNullOrEmpty(this.SFW.DESCRIPTION))
             this.SFW.DESCRIPTION = WordReplace.replaceWord(this.Origin.DESCRIPTION, replaceRules);
-        if (!StringSetUtility.isNullOrEmpty(this.Origin.UPGRADE_DESCRIPTION))
-            if (StringSetUtility.isNullOrEmpty(this.SFW.UPGRADE_DESCRIPTION))
+        if (StringSetUtility.isNullOrEmpty(this.SFW.UPGRADE_DESCRIPTION))
+            if (!StringSetUtility.isNullOrEmpty(this.Origin.UPGRADE_DESCRIPTION))
                 this.SFW.UPGRADE_DESCRIPTION = WordReplace.replaceWord(this.Origin.UPGRADE_DESCRIPTION, replaceRules);
     }
 

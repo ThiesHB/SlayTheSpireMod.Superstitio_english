@@ -20,6 +20,8 @@ public class SuperstitioKeyWord {
     private String DESCRIPTION;
     private String DESCRIPTION_SFW;
 
+//    private static final Map<String,String[]> multiKeyWords
+
     public static List<WordReplace> makeKeywordNameReplaceRules(List<SuperstitioKeyWord> keyWords) {
         return keyWords.stream().flatMap(keyWord -> keyWord.toReplaceRule().stream()).collect(Collectors.toList());
     }
@@ -49,6 +51,7 @@ public class SuperstitioKeyWord {
         if (KeywordsFromFile.isEmpty()) {
             List<SuperstitioKeyWord> keywordsSFW = new ArrayList<>();
             keywordsSFW.addAll(Arrays.asList(DataManager.makeJsonStringFromFile("keyword", SuperstitioKeyWord[].class)));
+            keywordsSFW.addAll(Arrays.asList(DataManager.makeJsonStringFromFile("keyword_hangUpCard", SuperstitioKeyWord[].class)));
             keywordsSFW.addAll(Arrays.asList(DataManager.makeJsonStringFromFile("keyword_Lupa", SuperstitioKeyWord[].class)));
             keywordsSFW.addAll(Arrays.asList(DataManager.makeJsonStringFromFile("keyword_Maso", SuperstitioKeyWord[].class)));
             keywordsSFW.forEach(SuperstitioKeyWord::registerKeywordFormFile);

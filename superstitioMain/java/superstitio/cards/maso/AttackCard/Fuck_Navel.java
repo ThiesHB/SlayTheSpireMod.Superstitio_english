@@ -3,6 +3,7 @@ package superstitio.cards.maso.AttackCard;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
+import com.megacrit.cardcrawl.powers.VulnerablePower;
 import superstitio.DataManager;
 import superstitio.cardModifier.modifiers.damage.SexDamage_Fuck;
 import superstitio.cards.general.FuckJob_Card;
@@ -46,7 +47,7 @@ public class Fuck_Navel extends MasoCard implements FuckJob_Card, OnOrgasm_onOrg
         addToBot_dealDamageToAllEnemies(DamageActionMaker.DamageEffect.HeartMultiInOne,
                 creature -> new HeartMultiAtOneShader.HeartMultiAtOneEffect(creature.hb), new SexDamage_Fuck());
         addToBot_dealDamage(AbstractDungeon.player, DamageActionMaker.DamageEffect.HeartMultiInOne);
-
+        addToBot_applyPower(new VulnerablePower(AbstractDungeon.player, 1, false));
     }
 
     @Override

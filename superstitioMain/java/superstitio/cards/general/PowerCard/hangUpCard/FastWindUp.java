@@ -9,10 +9,7 @@ import superstitio.cards.general.GeneralCard;
 import superstitio.powers.AbstractSuperstitioPower;
 import superstitio.powers.SexualHeat;
 import superstitio.powers.patchAndInterface.interfaces.orgasm.OnOrgasm_onOrgasm;
-import superstitioapi.hangUpCard.CardOrb_CardTrigger;
-
-import static superstitioapi.InBattleDataManager.getHangUpCardOrbGroup;
-import static superstitioapi.actions.AutoDoneInstantAction.addToBotAbstract;
+import superstitioapi.hangUpCard.HangUpCardGroup;
 
 
 public class FastWindUp extends GeneralCard {
@@ -54,11 +51,9 @@ public class FastWindUp extends GeneralCard {
         public void onOrgasm(SexualHeat SexualHeatPower) {
             for (int i = 0; i < this.amount; i++) {
                 this.flash();
-                addToBotAbstract(() -> getHangUpCardOrbGroup()
-                        .ifPresent(cardGroup -> cardGroup.cards.stream()
-                                .filter(orb -> orb instanceof CardOrb_CardTrigger)
-                                .forEach(orb -> ((CardOrb_CardTrigger) orb)
-                                        .forceAcceptAction(new FastWindUp()))));
+                HangUpCardGroup.forEachHangUpCard(orb ->
+                                orb.forceAcceptAction(new FastWindUp()))
+                        .addToBotAsAbstractAction();
             }
         }
 
