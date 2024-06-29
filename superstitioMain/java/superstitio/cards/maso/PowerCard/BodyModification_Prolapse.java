@@ -1,7 +1,8 @@
 package superstitio.cards.maso.PowerCard;
 
 import basemod.helpers.CardModifierManager;
-import com.megacrit.cardcrawl.actions.common.DiscardAction;
+import com.megacrit.cardcrawl.actions.GameActionManager;
+import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.cards.DamageInfo;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.core.AbstractCreature;
@@ -67,7 +68,7 @@ public class BodyModification_Prolapse extends MasoCard {
         public Map<String, Integer> prolapseNames;
 
         public BodyModification_ProlapsePower(int amount, String name) {
-            super(amount,false);
+            super(amount, false);
             this.prolapseNames = new HashMap<>();
             this.prolapseNames.put(name, amount);
             updateDescription();
@@ -77,7 +78,11 @@ public class BodyModification_Prolapse extends MasoCard {
         public int onAttacked(DamageInfo info, int damageAmount) {
             if (info.type != DamageInfo.DamageType.NORMAL) return damageAmount;
             if (AbstractDungeon.player.hand.isEmpty()) return damageAmount;
-            addToBot(new DiscardAction(this.owner, info.owner, 1, true, false));
+            AbstractCard c = AbstractDungeon.player.hand.getRandomCard(AbstractDungeon.cardRandomRng);
+            AbstractDungeon.player.hand.moveToDiscardPile(c);
+            c.triggerOnManualDiscard();
+            GameActionManager.incrementDiscard(false);
+//            addToBot(new DiscardAction(this.owner, info.owner, 1, true, false));
             return (int) ((double) damageAmount / Math.pow(2, this.amount));
         }
 

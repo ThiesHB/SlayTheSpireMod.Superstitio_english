@@ -1,5 +1,7 @@
 package superstitio.cards.maso.AttackCard;
 
+import basemod.cardmods.RetainMod;
+import basemod.helpers.CardModifierManager;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
@@ -39,7 +41,8 @@ public class Fuck_Navel extends MasoCard implements FuckJob_Card, OnOrgasm_onOrg
         this.setupMagicNumber(MAGIC, UPGRADE_MAGIC);
 //        this.retain = true;
         this.isMultiDamage = true;
-        this.selfRetain = true;
+        CardModifierManager.addModifier(this, new RetainMod());
+//        this.selfRetain = true;
     }
 
     @Override
