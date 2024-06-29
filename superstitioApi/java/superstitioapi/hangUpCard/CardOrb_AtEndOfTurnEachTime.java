@@ -12,7 +12,8 @@ public class CardOrb_AtEndOfTurnEachTime extends CardOrb implements ICardOrb_Eac
 
     public final Consumer<CardOrb_AtEndOfTurnEachTime> action;
 
-    public CardOrb_AtEndOfTurnEachTime(AbstractCard card, CardGroup cardGroupReturnAfterEvoke, int OrbCounter, Consumer<CardOrb_AtEndOfTurnEachTime> action) {
+    public CardOrb_AtEndOfTurnEachTime(AbstractCard card, CardGroup cardGroupReturnAfterEvoke, int OrbCounter,
+                                       Consumer<CardOrb_AtEndOfTurnEachTime> action) {
         super(card, cardGroupReturnAfterEvoke, OrbCounter);
         this.action = action;
     }

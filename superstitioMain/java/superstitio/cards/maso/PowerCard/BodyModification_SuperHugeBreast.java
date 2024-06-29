@@ -27,7 +27,7 @@ public class BodyModification_SuperHugeBreast extends MasoCard {
     public BodyModification_SuperHugeBreast() {
         super(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET);
         this.setupMagicNumber(MAGIC, UPGRADE_MAGIC);
-        CardModifierManager.addModifier(this,new BodyModificationTag());
+        CardModifierManager.addModifier(this, new BodyModificationTag());
     }
 
     @Override

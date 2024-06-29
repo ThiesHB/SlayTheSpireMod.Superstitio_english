@@ -12,7 +12,11 @@ public abstract class EasyBuildAbstractPowerForPowerCard extends AbstractSuperst
     protected final SuperstitioCard powerCard;
 
     public EasyBuildAbstractPowerForPowerCard(int amount) {
-        super();
+        this(amount,true);
+    }
+
+    public EasyBuildAbstractPowerForPowerCard(int amount, boolean shouldUpdateDesc) {
+        super(true);
         this.powerCard = makePowerCard();
         SetupPower(powerCard.cardID,
                 getPowerStringsWithSFW(powerCard.cardID),
@@ -21,7 +25,8 @@ public abstract class EasyBuildAbstractPowerForPowerCard extends AbstractSuperst
                 PowerType.BUFF,
                 false);
         this.name = powerCard.name;
-        updateDescription();
+        if (shouldUpdateDesc)
+            updateDescription();
     }
 
     public EasyBuildAbstractPowerForPowerCard upgradeCardInThis(boolean shouldUpgrade) {
@@ -37,19 +42,24 @@ public abstract class EasyBuildAbstractPowerForPowerCard extends AbstractSuperst
     public String getDescriptionStrings() {
         if (powerStrings.getDESCRIPTIONS() != null && powerStrings.getDESCRIPTIONS().length != 0 && !Objects.equals(powerStrings.getDESCRIPTIONS()[0], LocalizedStrings.createMockStringArray(1)[0]))
             return powerStrings.getDESCRIPTIONS()[0];
-        String desc;
-        if (powerCard.cardStrings.getDESCRIPTION().contains("%s"))
-            desc = powerCard.cardStrings.getDESCRIPTION();
-        else
-            desc = powerCard.rawDescription;
+        String desc = getDesc();
         desc = desc.replace(DataManager.getModID().toLowerCase() + ":", "#y");
         desc = desc.replace("*", " ");
         desc = desc.replace("!M", "#b%d");
         desc = desc.replace("!D", "#b%d");
         desc = desc.replace("!B", "#b%d");
         desc = desc.replace("%d!", "%d");
-        desc = desc.replace("%s", "");
+//        desc = desc.replace("%s", "");
 
+        return desc;
+    }
+
+    protected String getDesc() {
+        String desc;
+        if (powerCard.cardStrings.getDESCRIPTION().contains("%s"))
+            desc = powerCard.cardStrings.getDESCRIPTION();
+        else
+            desc = powerCard.rawDescription;
         return desc;
     }
 }

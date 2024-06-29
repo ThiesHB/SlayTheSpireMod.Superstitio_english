@@ -26,8 +26,8 @@
   "SuperstitioMod:MasoCard:NailExtraction": {
     "NAME": "拔指甲",
     "NAME_SFW": "以牙还牙",
-    "DESCRIPTION": "失去 %d 点生命， NL 抽 %d 张牌， NL 往抽牌堆中塞入 %d 张 *拔指甲 。 NL 一回合只能打出 %d 张。 （已使用 !M! 张）",
-    "UPGRADE_DESCRIPTION": "对自身造成 %d 点伤害， NL 抽 %d 张牌， NL 往抽牌堆中塞入 %d 张 *拔指甲 。 NL 一回合只能打出 %d 张。 （已使用 !M! 张）",
+    "DESCRIPTION": "失去 %d 点生命， NL 抽 %d 张牌， NL 往抽牌堆中添加 %d 张 *拔指甲 。 NL 本回合只能打出 %d 张。 NL （已使用 !M! 张）",
+    "UPGRADE_DESCRIPTION": "对自身造成 %d 点伤害， NL 抽 %d 张牌， NL 往抽牌堆中添加 %d 张 *拔指甲 。 NL 本回合只能打出 %d 张。 NL （已使用 !M! 张）",
     "FLAVOR": "拔下来马上又会马上长回去，想往里面插根针都来不及。"
   },
   "SuperstitioMod:MasoCard:OrgasmWithLostBody": {
@@ -48,11 +48,10 @@
   "SuperstitioMod:MasoCard:BodyModification_CutOff": {
     "NAME": "身体欠损",
     "NAME_SFW": "义体升级",
-    "DESCRIPTION": "%s NL 攻击力提升 百分之 !M! 。 %s",
+    "DESCRIPTION": "若还有可选择的部位：移除 !B! *腐朽 ， NL 攻击力提升 百分之 !M! 。 NL 选择一个部位，其对应的 *性交牌 无法打出。",
     "FLAVOR": "用刀砍，还是用手拽下来呢？这是个问题。",
     "EXTENDED_DESCRIPTION": [
-      "若还有可选择的部位：移除 !B! *腐朽 ，",
-      " NL 选择一个部位，其对应的 *性交牌 无法打出。"
+      "攻击力提升 百分之 %d 。"
     ]
   },
   "SuperstitioMod:BodyModification_CutOff_Chose": {
@@ -77,6 +76,22 @@
     ],
     "EXTENDED_DESCRIPTION_SFW": [
       "海虎,奥加,天道,地狱,蓝梦,黑暗"
+    ]
+  },
+  "SuperstitioMod:MasoCard:BodyModification_Prolapse": {
+    "NAME": "脱垂",
+    "NAME_SFW": "反应装甲",
+    "DESCRIPTION": "受到攻击伤害时，丢弃一张手牌，此次伤害减为 %d 分之一。",
+    "FLAVOR": "",
+    "EXTENDED_DESCRIPTION": [
+      "受到攻击伤害时，丢弃一张手牌，此次伤害减为 #b%d 分之一。 NL 当前脱垂程度 ： %s",
+      " NL %s ： #b%d ；",
+      "子宫,尿道,肛门,阴道"
+    ],
+    "EXTENDED_DESCRIPTION_SFW": [
+      "受到攻击伤害时，丢弃一张手牌，此次伤害减为 #b%d 分之一。 NL 当前反应装甲 ： %s",
+      " NL %s ： #b%d ；",
+      "普通反应装甲,正常反应装甲,平凡反应装甲"
     ]
   },
   "SuperstitioMod:MasoCard:CruelTorture_Dismember": {

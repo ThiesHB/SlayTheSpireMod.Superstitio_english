@@ -58,10 +58,10 @@ public interface FuckJob_Card {
                     DataManager.SPTT_DATA.BG_ATTACK_512_SEMEN,
                     DataManager.SPTT_DATA.BG_ATTACK_SEMEN);
         if (card.cardID.contains("Fuck")) {
-            CardModifierManager.addModifier(card,new InsideEjaculationTag());
+            CardModifierManager.addModifier(card, new InsideEjaculationTag());
             DamageModifierManager.addModifier(card, new SexDamage_Fuck());
         } else if (card.cardID.contains("Job")) {
-            CardModifierManager.addModifier(card,new OutsideEjaculationTag());
+            CardModifierManager.addModifier(card, new OutsideEjaculationTag());
             DamageModifierManager.addModifier(card, new SexDamage_Job());
         } else
             DamageModifierManager.addModifier(card, new SexDamage());

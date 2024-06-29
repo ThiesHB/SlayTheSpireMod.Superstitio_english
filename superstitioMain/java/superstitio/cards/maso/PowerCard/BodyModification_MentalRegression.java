@@ -29,7 +29,7 @@ public class BodyModification_MentalRegression extends MasoCard {
     public BodyModification_MentalRegression() {
         super(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET);
         this.setupMagicNumber(MAGIC, UPGRADE_MAGIC);
-        CardModifierManager.addModifier(this,new BodyModificationTag());
+        CardModifierManager.addModifier(this, new BodyModificationTag());
     }
 
     @Override

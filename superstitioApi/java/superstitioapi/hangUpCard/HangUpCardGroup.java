@@ -130,8 +130,8 @@ public class HangUpCardGroup implements RenderInBattle,
         }
     }
 
-    private <TOrb extends CardOrb> void forEachOrbInThisOrbGroup(Class<TOrb> OrbClass,
-                                                                Consumer<TOrb> consumer) {
+    private <TOrb extends CardOrb> void forEachOrbInThisOrbGroup(
+            Class<TOrb> OrbClass, Consumer<TOrb> consumer) {
         for (CardOrb orb : this.cards) {
             if (OrbClass.isInstance(orb)) {
                 TOrb tOrb = (TOrb) orb;
@@ -258,7 +258,7 @@ public class HangUpCardGroup implements RenderInBattle,
         this.remove_check_counter--;
         if (this.remove_check_counter >= 0) return;
         this.remove_check_counter = 10;
-        this.forEachOrbInThisOrbGroup(CardOrb.class, orb -> {
+        this.forEachOrbInThisOrbGroup(orb -> {
             orb.checkShouldRemove();
             if (orb.shouldRemove || ActionUtility.isNotInBattle())
                 AutoDoneInstantAction.addToBotAbstract(() -> removeCard(orb));

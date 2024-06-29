@@ -38,14 +38,14 @@ public class BodyModification_CutOff extends MasoCard {
         super(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET);
         this.setupMagicNumber(MAGIC, UPGRADE_MAGIC);
         this.setupBlock(BLOCK, UPGRADE_BLOCK, new RemoveDelayHpLoseBlock());
-        CardModifierManager.addModifier(this,new BodyModificationTag());
+        CardModifierManager.addModifier(this, new BodyModificationTag());
 //        this.tags.add(DataManager.CardTagsType.BodyModification);
     }
 
-    @Override
-    public void updateDescriptionArgs() {
-        setDescriptionArgs(this.cardStrings.getEXTENDED_DESCRIPTION()[0], this.cardStrings.getEXTENDED_DESCRIPTION()[1]);
-    }
+//    @Override
+//    public void updateDescriptionArgs() {
+//        setDescriptionArgs(this.cardStrings.getEXTENDED_DESCRIPTION()[0], this.cardStrings.getEXTENDED_DESCRIPTION()[1]);
+//    }
 
     @Override
     public void use(AbstractPlayer player, AbstractMonster monster) {
@@ -87,6 +87,11 @@ public class BodyModification_CutOff extends MasoCard {
         @Override
         public float atDamageFinalGive(float damage, DamageInfo.DamageType type, AbstractCard card) {
             return super.atDamageFinalGive(damage, type, card);
+        }
+
+        @Override
+        protected String getDesc() {
+            return powerCard.getEXTENDED_DESCRIPTION()[0];
         }
 
         @Override

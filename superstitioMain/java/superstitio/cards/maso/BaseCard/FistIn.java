@@ -25,8 +25,8 @@ public class FistIn extends MasoCard {
     public static final CardTarget CARD_TARGET = SELF_OR_ENEMY;
 
     private static final int COST = 0;
-    private static final int MAGIC = 5;
-    private static final int UPGRADE_MAGIC = -2;
+    private static final int MAGIC = 4;
+    private static final int UPGRADE_MAGIC = -1;
 
     public FistIn() {
         super(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET, "base");

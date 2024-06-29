@@ -37,6 +37,7 @@ public class InsideSemen extends AbstractSuperstitioPower implements
     public int maxSemen;
     //TODO 改装成不同怪物获得不同精液名称
     public String semenSource;
+
     public InsideSemen(final AbstractCreature owner, final int amount) {
         super(POWER_ID, owner, amount, owner.isPlayer ? PowerType.BUFF : PowerType.DEBUFF, false);
         maxSemen = MAX_Semen_Origin;

@@ -105,6 +105,8 @@ public class CardStringsWithFlavorSet implements HasOriginAndSFWVersion<CardStri
         if (StringSetUtility.isNullOrEmpty(this.SFW.UPGRADE_DESCRIPTION))
             if (!StringSetUtility.isNullOrEmpty(this.Origin.UPGRADE_DESCRIPTION))
                 this.SFW.UPGRADE_DESCRIPTION = WordReplace.replaceWord(this.Origin.UPGRADE_DESCRIPTION, replaceRules);
+        if (StringSetUtility.isNullOrEmpty(this.SFW.EXTENDED_DESCRIPTION))
+            this.SFW.EXTENDED_DESCRIPTION = WordReplace.replaceWord(this.Origin.EXTENDED_DESCRIPTION, replaceRules);
     }
 
 

@@ -32,7 +32,7 @@ public class CruelTorture_HotPillar extends MasoCard implements GoSomewhereElseA
     public CruelTorture_HotPillar() {
         super(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET);
         this.setupMagicNumber(MAGIC, UPGRADE_MAGIC);
-        CardModifierManager.addModifier(this,new CruelTortureTag());
+        CardModifierManager.addModifier(this, new CruelTortureTag());
         this.cardsToPreview = new Burn();
     }
 
