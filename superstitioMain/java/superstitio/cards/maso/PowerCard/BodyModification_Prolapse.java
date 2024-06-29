@@ -75,6 +75,7 @@ public class BodyModification_Prolapse extends MasoCard {
 
         @Override
         public int onAttacked(DamageInfo info, int damageAmount) {
+            if (info.type != DamageInfo.DamageType.NORMAL) return damageAmount;
             if (AbstractDungeon.player.hand.isEmpty()) return damageAmount;
             addToBot(new DiscardAction(this.owner, info.owner, 1, true, false));
             return (int) ((double) damageAmount / Math.pow(2, this.amount));
