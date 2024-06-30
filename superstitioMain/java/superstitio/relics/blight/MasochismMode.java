@@ -30,7 +30,7 @@ public class MasochismMode extends SuperstitioRelic implements InfoBlight.Become
     }
 
     private static void AddSexualHeat(int amount) {
-        SexualHeat.addAction_addSexualHeat(AbstractDungeon.player, amount, AutoDoneInstantAction::addToTopAbstract);
+        SexualHeat.useConsumer_addSexualHeat(AbstractDungeon.player, amount, AutoDoneInstantAction::addToTopAbstract);
     }
 
     @Override

@@ -16,11 +16,18 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
+import java.util.function.Consumer;
 
 public class PowerUtility {
 
     public static final float BubbleMessageHigher_HEIGHT = 50.0f * Settings.scale;
     private static final Class<? extends AbstractPower>[] specialCopyPower = new Class[]{TheBombPower.class};
+
+    public static void foreachPower(Consumer<AbstractPower> consumer) {
+        AbstractDungeon.player.powers.forEach(consumer);
+        AbstractDungeon.getMonsters().monsters.forEach(monster -> monster.powers.forEach(consumer));
+//        InBattleDataManager.getPetManager().ifPresent(petManager -> petManager.monsterGroup.monsters.forEach(monster -> monster.powers.forEach(consumer)));
+    }
 
     public static void BubbleMessage(AbstractPower power, boolean isDeBuffVer, String message) {
         BubbleMessage(power.owner.hb, isDeBuffVer, message, power.owner.animX, 0);

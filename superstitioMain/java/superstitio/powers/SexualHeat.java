@@ -84,11 +84,11 @@ public class SexualHeat extends AbstractSuperstitioPower implements
     }
 
     public static void addToBot_addSexualHeat(AbstractCreature target, int heatAmount) {
-        addAction_addSexualHeat(target, heatAmount, AutoDoneInstantAction::addToBotAbstract);
+        useConsumer_addSexualHeat(target, heatAmount, AutoDoneInstantAction::addToBotAbstract);
     }
 
-    public static void addAction_addSexualHeat(AbstractCreature target, int heatAmount,
-                                               Consumer<VoidSupplier> action) {
+    public static void useConsumer_addSexualHeat(AbstractCreature target, int heatAmount,
+                                                 Consumer<VoidSupplier> action) {
         if (heatAmount < 0) {
             Logger.warning("add error number " + SexualHeat.class.getSimpleName() + ". Amount: " + heatAmount);
             return;
@@ -306,8 +306,11 @@ public class SexualHeat extends AbstractSuperstitioPower implements
     @Override
     public void atEndOfTurn(boolean isPlayer) {
         if (!isPlayer) return;
+//        this.addToTop(new RemoveSpecificPowerAction(this.owner, this.owner, this));
+//        SexualHeat.addToBot_addSexualHeat(this.owner,0);
         this.reduceSexualHeat(this.heatAmount);
         ForceEndOrgasm();
+//        addToBot(new WaitAction(2f));
 //            this.addToBot_removeSpecificPower(this);
 //            this.addToBot(new ReducePowerAction(this.owner, this.owner, POWER_ID, this.amount));
     }

@@ -35,7 +35,7 @@ public class EscapeConjuring extends GeneralCard {
     @Override
     public void use(AbstractPlayer player, AbstractMonster monster) {
         int discardCard = (int) AbstractDungeon.player.hand.group.stream()
-                .filter(card -> card.costForTurn != 0).count();
+                .filter(card -> card.costForTurn != 0 && !card.freeToPlay()).count();
         int statusCardNum = (int) AbstractDungeon.player.hand.group.stream()
                 .filter(card -> card.type == CardType.STATUS || card.type == CardType.CURSE).count();
         int deBuffNum = (int) AbstractDungeon.player.powers.stream()

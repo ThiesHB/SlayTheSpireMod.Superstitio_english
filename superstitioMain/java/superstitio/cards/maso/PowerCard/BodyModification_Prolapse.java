@@ -78,9 +78,9 @@ public class BodyModification_Prolapse extends MasoCard {
         public int onAttacked(DamageInfo info, int damageAmount) {
             if (info.type != DamageInfo.DamageType.NORMAL) return damageAmount;
             if (AbstractDungeon.player.hand.isEmpty()) return damageAmount;
-            AbstractCard c = AbstractDungeon.player.hand.getRandomCard(AbstractDungeon.cardRandomRng);
-            AbstractDungeon.player.hand.moveToDiscardPile(c);
-            c.triggerOnManualDiscard();
+            AbstractCard card = AbstractDungeon.player.hand.getRandomCard(AbstractDungeon.cardRandomRng);
+            AbstractDungeon.player.hand.moveToDiscardPile(card);
+            card.triggerOnManualDiscard();
             GameActionManager.incrementDiscard(false);
 //            addToBot(new DiscardAction(this.owner, info.owner, 1, true, false));
             return (int) ((double) damageAmount / Math.pow(2, this.amount));
@@ -93,7 +93,7 @@ public class BodyModification_Prolapse extends MasoCard {
 
         @Override
         protected String getDesc() {
-            return powerCard.getEXTENDED_DESCRIPTION()[0];
+            return super.getDesc() + powerCard.getEXTENDED_DESCRIPTION()[0];
         }
 
         @Override

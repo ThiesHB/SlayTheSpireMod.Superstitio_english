@@ -16,10 +16,12 @@ import com.megacrit.cardcrawl.rooms.AbstractRoom;
 import superstitioapi.actions.AutoDoneInstantAction;
 import superstitioapi.player.PlayerInitPostDungeonInitialize;
 import superstitioapi.powers.interfaces.OnPostApplyThisPower;
+import superstitioapi.utils.ToolBox;
 
 import java.util.Objects;
 
 import static superstitioapi.InBattleDataManager.ApplyAll;
+import static superstitioapi.utils.PowerUtility.foreachPower;
 
 
 @SpireInitializer
@@ -138,8 +140,26 @@ public class SuperstitioApiSubscriber implements
         class AtEndOfTurnSubscriberPatch {
             @SpirePrefixPatch
             public static void Prefix(GameActionManager __instance) {
-//                if (__instance instanceof AbstractPlayer)
                 ApplyAll(AtEndOfPlayerTurnPreCardSubscriber::receiveAtEndOfPlayerTurnPreCard, AtEndOfPlayerTurnPreCardSubscriber.class);
+            }
+        }
+    }
+
+    public interface AtManualDiscardSubscriber extends ISubscriber {
+        void receiveAtManualDiscard();
+
+        interface AtManualDiscardPower {
+            void atManualDiscard();
+        }
+
+        @SpirePatch2(clz = GameActionManager.class, method = "incrementDiscard", paramtypez = {boolean.class})
+        class MotherFuckerWhyTheyDoNotMakeThisDiscardSubscriberPatch {
+            @SpirePrefixPatch
+            public static void Prefix(boolean endOfTurn) {
+                if (endOfTurn) return;
+                ApplyAll(AtManualDiscardSubscriber::receiveAtManualDiscard, AtManualDiscardSubscriber.class);
+                foreachPower(power ->
+                        ToolBox.doIfIsInstance(power, AtManualDiscardPower::atManualDiscard, AtManualDiscardPower.class));
             }
         }
     }

@@ -69,12 +69,16 @@
   "SuperstitioMod:MasoCard:BodyModification_Tattoo": {
     "NAME": "纹身穿刺",
     "NAME_SFW": "战纹绘制",
-    "DESCRIPTION": "",
+    "DESCRIPTION": "每当有一张牌被 消耗 或从你的手牌中被 丢弃 时，获得 !M! superstitiomod:快感 。",
     "FLAVOR": "",
     "EXTENDED_DESCRIPTION": [
+      " NL 当前改造 ： %s",
+      " NL %s ： #b%d ；",
       "永久妆容,全身皮肤改色,眼球纹身,淫语固化,分舌,乳房贯穿,脸颊贯穿,悬挂穿刺,紧身胸衣穿孔,阴唇常开,尿道穿孔,阴蒂吊坠"
     ],
     "EXTENDED_DESCRIPTION_SFW": [
+      " NL 当前战纹 ： %s",
+      " NL %s ： #b%d ；",
       "海虎,奥加,天道,地狱,蓝梦,黑暗"
     ]
   },
@@ -84,12 +88,12 @@
     "DESCRIPTION": "受到攻击伤害时，丢弃一张手牌，此次伤害减为 %d 分之一。",
     "FLAVOR": "",
     "EXTENDED_DESCRIPTION": [
-      "受到攻击伤害时，丢弃一张手牌，此次伤害减为 #b%d 分之一。 NL 当前脱垂程度 ： %s",
+      " NL 当前脱垂程度 ： %s",
       " NL %s ： #b%d ；",
       "子宫,尿道,肛门,阴道"
     ],
     "EXTENDED_DESCRIPTION_SFW": [
-      "受到攻击伤害时，丢弃一张手牌，此次伤害减为 #b%d 分之一。 NL 当前反应装甲 ： %s",
+      " NL 当前反应装甲 ： %s",
       " NL %s ： #b%d ；",
       "普通反应装甲,正常反应装甲,平凡反应装甲"
     ]

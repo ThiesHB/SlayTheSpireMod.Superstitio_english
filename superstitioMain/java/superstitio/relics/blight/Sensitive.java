@@ -41,7 +41,7 @@ public class Sensitive extends SuperstitioRelic implements InfoBlight.BecomeInfo
         if (card.costForTurn == -1)
             amount += card.energyOnUse;
         if (amount == 0) return;
-        SexualHeat.addAction_addSexualHeat(player, amount * SexualHeatRate, AutoDoneInstantAction::addToTopAbstract);
+        SexualHeat.useConsumer_addSexualHeat(player, amount * SexualHeatRate, AutoDoneInstantAction::addToTopAbstract);
     }
 
     @Override
