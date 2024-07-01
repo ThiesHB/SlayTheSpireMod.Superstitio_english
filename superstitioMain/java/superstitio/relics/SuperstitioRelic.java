@@ -4,8 +4,7 @@ import basemod.abstracts.CustomRelic;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.helpers.ImageMaster;
 import superstitio.DataManager;
-import superstitio.characters.Lupa;
-import superstitio.characters.Maso;
+import superstitio.characters.BaseCharacter;
 import superstitioapi.utils.updateDescriptionAdvanced;
 
 public abstract class SuperstitioRelic extends CustomRelic implements updateDescriptionAdvanced {
@@ -31,7 +30,7 @@ public abstract class SuperstitioRelic extends CustomRelic implements updateDesc
 
     @Override
     public boolean canSpawn() {
-        return AbstractDungeon.player instanceof Maso || AbstractDungeon.player instanceof Lupa;
+        return AbstractDungeon.player instanceof BaseCharacter;
     }
 
     @Override

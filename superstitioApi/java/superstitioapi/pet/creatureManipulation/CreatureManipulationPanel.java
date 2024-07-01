@@ -12,7 +12,7 @@
 //import com.megacrit.cardcrawl.localization.UIStrings;
 //import com.megacrit.cardcrawl.vfx.combat.WeightyImpactEffect;
 //import superstitioapi.DataUtility;
-//import superstitioapi.utils.RenderInBattle;
+//import superstitioapi.inBattleManager.RenderInBattle;
 //
 //import java.util.ArrayList;
 //

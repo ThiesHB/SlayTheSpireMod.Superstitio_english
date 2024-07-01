@@ -23,7 +23,7 @@ public class Samsara extends GeneralCard {
 
     private static final int COST = 3;
 
-    private static final int MAGIC = 6;
+    private static final int MAGIC = 8;
     private static final int UPGRADE_MAGIC = -2;
 
     public Samsara() {

@@ -1,4 +1,4 @@
-package superstitioapi.utils;
+package superstitioapi.renderManager.inBattleManager;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -13,6 +13,7 @@ import com.megacrit.cardcrawl.rooms.AbstractRoom;
 import com.megacrit.cardcrawl.stances.AbstractStance;
 import com.megacrit.cardcrawl.stances.NeutralStance;
 import superstitioapi.Logger;
+import superstitioapi.utils.ActionUtility;
 
 import java.util.ArrayList;
 import java.util.Arrays;

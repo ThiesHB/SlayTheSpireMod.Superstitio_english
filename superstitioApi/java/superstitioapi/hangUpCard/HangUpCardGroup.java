@@ -10,11 +10,11 @@ import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.helpers.Hitbox;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import com.megacrit.cardcrawl.orbs.AbstractOrb;
-import superstitioapi.InBattleDataManager;
+import superstitioapi.renderManager.inBattleManager.InBattleDataManager;
 import superstitioapi.SuperstitioApiSubscriber;
 import superstitioapi.actions.AutoDoneInstantAction;
 import superstitioapi.utils.ActionUtility;
-import superstitioapi.utils.RenderInBattle;
+import superstitioapi.renderManager.inBattleManager.RenderInBattle;
 
 import java.util.ArrayList;
 import java.util.function.BiConsumer;

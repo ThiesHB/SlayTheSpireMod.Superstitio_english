@@ -36,6 +36,7 @@ import superstitio.delayHpLose.RemoveDelayHpLoseBlock;
 import superstitioapi.DataUtility;
 import superstitioapi.actions.DamageAllEnemiesAction;
 import superstitioapi.cards.DamageActionMaker;
+import superstitioapi.renderManager.inBattleManager.InBattleDataManager;
 import superstitioapi.utils.ActionUtility;
 import superstitioapi.utils.updateDescriptionAdvanced;
 
@@ -362,15 +363,15 @@ public abstract class SuperstitioCard extends CustomCard implements updateDescri
     }
 
     protected void setCostToCostMap_ForTurn(int amount) {
-        if (superstitioapi.InBattleDataManager.costMap.containsKey(this.uuid)) {
-            superstitioapi.InBattleDataManager.costMap.put(this.uuid, amount);
+        if (InBattleDataManager.costMap.containsKey(this.uuid)) {
+            InBattleDataManager.costMap.put(this.uuid, amount);
         }
         this.setCostForTurn(amount);
     }
 
     protected void setCostToCostMap_ForBattle(int amount) {
-        if (superstitioapi.InBattleDataManager.costMap.containsKey(this.uuid)) {
-            superstitioapi.InBattleDataManager.costMap.put(this.uuid, amount);
+        if (InBattleDataManager.costMap.containsKey(this.uuid)) {
+            InBattleDataManager.costMap.put(this.uuid, amount);
         }
         this.updateCost(amount);
     }

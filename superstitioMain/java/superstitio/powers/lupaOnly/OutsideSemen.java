@@ -18,7 +18,7 @@ import java.util.function.BiFunction;
 import java.util.function.Supplier;
 
 import static superstitio.powers.lupaOnly.HasBarRenderOnCreature_SemenPower.semenColor;
-import static superstitioapi.InBattleDataManager.getBarRenderManager;
+import static superstitioapi.renderManager.inBattleManager.InBattleDataManager.getBarRenderManager;
 
 @SuperstitioImg.NoNeedImg
 public class OutsideSemen extends AbstractSuperstitioPower implements

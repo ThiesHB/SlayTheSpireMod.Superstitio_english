@@ -18,8 +18,10 @@ import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.events.city.Vampires;
 import com.megacrit.cardcrawl.helpers.CardLibrary;
 import com.megacrit.cardcrawl.helpers.FontHelper;
+import com.megacrit.cardcrawl.helpers.PowerTip;
 import com.megacrit.cardcrawl.helpers.ScreenShake;
 import com.megacrit.cardcrawl.localization.CharacterStrings;
+import com.megacrit.cardcrawl.localization.UIStrings;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import com.megacrit.cardcrawl.orbs.AbstractOrb;
 import com.megacrit.cardcrawl.rooms.RestRoom;
@@ -43,6 +45,8 @@ public abstract class BaseCharacter extends CustomPlayer {
     public static final String LUPA_CHARACTER_SHOULDER_2 = DataManager.makeImgFilesPath_Character("shoulder2");
     // 人物死亡图像
     public static final String LUPA_CORPSE_IMAGE = DataManager.makeImgFilesPath_Character("corpse");
+    public static final UIStrings GuroText = CardCrawlGame.languagePack.getUIString(DataManager.MakeTextID("GuroText"));
+    public static final PowerTip GuroTip = new PowerTip(GuroText.TEXT[0], GuroText.TEXT[1]);
     private static final String EnergyBall_Path = "EnergyBall_Lupa/";
     private static final String EnergyBall_VFX_Path = DataManager.makeImgFilesPath_UI(EnergyBall_Path + "vfx");
     // 战斗界面左下角能量图标的每个图层
@@ -65,7 +69,6 @@ public abstract class BaseCharacter extends CustomPlayer {
     private float offsetX;
     private float offsetY;
     private float simpleAnim = 0.0f;
-
 
     public BaseCharacter(String ID, String name, PlayerClass playerClass) {
         super(name, playerClass, EnergyBall_TEXTURES, EnergyBall_VFX_Path, LAYER_SPEED, null, null);
@@ -110,6 +113,8 @@ public abstract class BaseCharacter extends CustomPlayer {
             if (UnlockTracker.isCardLocked(string) && !Settings.treatEverythingAsUnlocked())
                 return;
             if (card.rarity == AbstractCard.CardRarity.BASIC)
+                return;
+            if (originCardPool.contains(card))
                 return;
             if (cardFilter(card)) {
                 originCardPool.add(card);
@@ -226,6 +231,7 @@ public abstract class BaseCharacter extends CustomPlayer {
     // 人物选择界面点击你的人物按钮时触发的方法，这里为屏幕轻微震动
     @Override
     public void doCharSelectScreenSelectEffect() {
+        CardCrawlGame.sound.playA("SELECT_WATCHER", MathUtils.random(-0.15F, 0.15F));
         CardCrawlGame.screenShake.shake(ScreenShake.ShakeIntensity.MED, ScreenShake.ShakeDur.SHORT, false);
     }
 
@@ -251,7 +257,6 @@ public abstract class BaseCharacter extends CustomPlayer {
     public String getLocalizedCharacterName() {
         return characterStrings.NAMES[0];
     }
-
 
     // 第三章面对心脏说的话（例如战士是“你握紧了你的长刀……”之类的）
     @Override
@@ -283,6 +288,26 @@ public abstract class BaseCharacter extends CustomPlayer {
         return new AbstractGameAction.AttackEffect[]{AbstractGameAction.AttackEffect.SLASH_HEAVY, AbstractGameAction.AttackEffect.FIRE,
                 AbstractGameAction.AttackEffect.SLASH_DIAGONAL, AbstractGameAction.AttackEffect.SLASH_HEAVY, AbstractGameAction.AttackEffect.FIRE,
                 AbstractGameAction.AttackEffect.SLASH_DIAGONAL};
+    }
+
+    public static class CharacterSelectInfo {
+        public int currentHp;
+        public int maxHp;
+        public int gold;
+
+        public CharacterSelectInfo(int currentHp, int maxHp, int gold) {
+            this.currentHp = currentHp;
+            this.maxHp = maxHp;
+            this.gold = gold;
+        }
+
+        public String makeHpString() {
+            return currentHp + "/" + maxHp;
+        }
+
+//        public void refreshCharacterSelectScreen(CharacterOption characterOption) {
+//
+//        }
     }
 
 }

@@ -1,5 +1,6 @@
 package superstitio.cards.general.TempCard;
 
+import basemod.AutoAdd;
 import com.evacipated.cardcrawl.mod.stslib.fields.cards.AbstractCard.AutoplayField;
 import com.megacrit.cardcrawl.actions.common.MakeTempCardInHandAction;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
@@ -8,6 +9,7 @@ import superstitio.DataManager;
 import superstitio.cards.general.AbstractTempCard;
 import superstitio.delayHpLose.RemoveDelayHpLoseBlock;
 
+@AutoAdd.Ignore
 public class SelfReference extends AbstractTempCard {
     public static final String ID = DataManager.MakeTextID(SelfReference.class);
 

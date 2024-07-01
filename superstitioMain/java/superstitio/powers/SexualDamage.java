@@ -8,12 +8,12 @@ import com.megacrit.cardcrawl.cards.DamageInfo;
 import com.megacrit.cardcrawl.core.AbstractCreature;
 import superstitio.DataManager;
 import superstitio.delayHpLose.UnBlockAbleIgnoresTempHPDamage;
-import superstitioapi.InBattleDataManager;
+import superstitioapi.renderManager.inBattleManager.InBattleDataManager;
 import superstitioapi.SuperstitioApiSubscriber;
 import superstitioapi.cards.DamageActionMaker;
 import superstitioapi.powers.interfaces.OnPostApplyThisPower;
 
-import static superstitioapi.InBattleDataManager.subscribeManageGroups;
+import static superstitioapi.renderManager.inBattleManager.InBattleDataManager.subscribeManageGroups;
 
 public class SexualDamage extends AbstractSuperstitioPower implements HealthBarRenderPower, OnPostApplyThisPower<SexualDamage>,
         SuperstitioApiSubscriber.AtEndOfPlayerTurnPreCardSubscriber {

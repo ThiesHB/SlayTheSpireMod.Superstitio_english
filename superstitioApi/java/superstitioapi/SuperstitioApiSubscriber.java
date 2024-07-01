@@ -16,11 +16,12 @@ import com.megacrit.cardcrawl.rooms.AbstractRoom;
 import superstitioapi.actions.AutoDoneInstantAction;
 import superstitioapi.player.PlayerInitPostDungeonInitialize;
 import superstitioapi.powers.interfaces.OnPostApplyThisPower;
+import superstitioapi.renderManager.inBattleManager.InBattleDataManager;
 import superstitioapi.utils.ToolBox;
 
 import java.util.Objects;
 
-import static superstitioapi.InBattleDataManager.ApplyAll;
+import static superstitioapi.renderManager.inBattleManager.InBattleDataManager.ApplyAll;
 import static superstitioapi.utils.PowerUtility.foreachPower;
 
 
@@ -159,7 +160,7 @@ public class SuperstitioApiSubscriber implements
                 if (endOfTurn) return;
                 ApplyAll(AtManualDiscardSubscriber::receiveAtManualDiscard, AtManualDiscardSubscriber.class);
                 foreachPower(power ->
-                        ToolBox.doIfIsInstance(power, AtManualDiscardPower::atManualDiscard, AtManualDiscardPower.class));
+                        ToolBox.doIfIsInstance(power, AtManualDiscardPower.class, AtManualDiscardPower::atManualDiscard));
             }
         }
     }

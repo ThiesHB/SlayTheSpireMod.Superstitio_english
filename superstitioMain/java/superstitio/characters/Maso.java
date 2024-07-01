@@ -1,11 +1,13 @@
 package superstitio.characters;
 
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.MathUtils;
 import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.dungeons.Exordium;
 import com.megacrit.cardcrawl.screens.CharSelectInfo;
+import com.megacrit.cardcrawl.screens.charSelect.CharacterOption;
 import superstitio.DataManager;
 import superstitio.Logger;
 import superstitio.SuperstitioConfig;
@@ -19,6 +21,8 @@ import superstitio.relics.blight.DevaBody_Masochism;
 import superstitio.relics.blight.JokeDescription;
 import superstitio.relics.blight.MasochismMode;
 import superstitioapi.player.PlayerInitPostDungeonInitialize;
+import superstitioapi.renderManager.characterSelectScreenRender.RenderInCharacterSelect;
+import superstitioapi.utils.TipsUtility;
 
 import java.util.ArrayList;
 
@@ -28,11 +32,20 @@ import static superstitio.DataManager.SPTT_DATA.MasoEnums.MASO_Character;
 import static superstitioapi.relicToBlight.InfoBlight.addAsInfoBlight;
 
 // 继承CustomPlayer类
-public class Maso extends BaseCharacter implements PlayerInitPostDungeonInitialize {
-    public static final String ID = DataManager.MakeTextID("Maso");
+public class Maso extends BaseCharacter implements PlayerInitPostDungeonInitialize, RenderInCharacterSelect {
+    public static final String ID  = DataManager.MakeTextID(Maso.class.getSimpleName());
+    public static final CharacterSelectInfo characterInfo = new CharacterSelectInfo(60, 70, 99);
 
     public Maso(String name) {
         super(ID, name, MASO_Character);
+    }
+
+    public static void setUpMaso() {
+        if (floorNum > 1 || !(CardCrawlGame.dungeon instanceof Exordium)) return;
+        player.currentHealth = player.getLoadout().currentHp;
+        if (ascensionLevel >= 6) {
+            player.currentHealth = MathUtils.round((float) player.currentHealth * 0.9F);
+        }
     }
 
     @Override
@@ -52,10 +65,10 @@ public class Maso extends BaseCharacter implements PlayerInitPostDungeonInitiali
     public CharSelectInfo getLoadout() {
         return new CharSelectInfo(characterStrings.NAMES[0], // 人物名字
                 characterStrings.TEXT[0], // 人物介绍
-                60, // 当前血量
-                70, // 最大血量
+                characterInfo.currentHp, // 当前血量
+                characterInfo.maxHp, // 最大血量
                 0, // 初始充能球栏位
-                99, // 初始携带金币
+                110, // 初始携带金币
                 5, // 每回合抽牌数量
                 this, // 别动
                 this.getStartingRelics(), // 初始遗物
@@ -98,16 +111,27 @@ public class Maso extends BaseCharacter implements PlayerInitPostDungeonInitiali
 
     @Override
     public void initPostDungeonInitialize() {
-        if (!SuperstitioConfig.isEnableGuroCharacter()) {
-            SuperstitioConfig.setEnableGuroCharacter(true);
-        }
+//        if (!SuperstitioConfig.isEnableGuroCharacter()) {
+//            SuperstitioConfig.setEnableGuroCharacter(true);
+//        }
+        setUpMaso();
         addAsInfoBlight(new JokeDescription());
-        addAsInfoBlight(new MasochismMode());
         addAsInfoBlight(new DevaBody_Masochism());
-        if (floorNum > 1 || !(CardCrawlGame.dungeon instanceof Exordium)) return;
-        player.currentHealth = player.getLoadout().currentHp;
-        if (ascensionLevel >= 6) {
-            player.currentHealth = MathUtils.round((float) player.currentHealth * 0.9F);
+        addAsInfoBlight(new MasochismMode());
+    }
+
+    @Override
+    public void renderInCharacterSelectScreen(CharacterOption characterOption, SpriteBatch sb) {
+
+    }
+
+    @Override
+    public void updateInCharacterSelectScreen(CharacterOption characterOption) {
+        if (!SuperstitioConfig.isEnableGuroCharacter()) {
+            CardCrawlGame.mainMenuScreen.charSelectScreen.confirmButton.isDisabled = true;
+            if (CardCrawlGame.mainMenuScreen.charSelectScreen.confirmButton.isHovered){
+                TipsUtility.renderTipsWithMouse(GuroTip);
+            }
         }
     }
 }

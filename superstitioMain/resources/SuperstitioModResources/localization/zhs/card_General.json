@@ -160,13 +160,13 @@
   "SuperstitioMod:EscapeConjuring": {
     "NAME": "逃脱魔术",
     "NAME_SFW": "金蝉脱壳",
-    "DESCRIPTION": "获得手牌中 状态 和 诅咒 数量的 [E] 。 NL 获得 当前负面状态 !M! 倍的 superstitiomod:快感 。 NL 丢弃所有费用不为0的手牌， NL 每丢弃一张 状态 或 诅咒 牌，抽一张牌。",
+    "DESCRIPTION": "获得手牌中 状态 和 诅咒 数量的 [E] 。 NL 获得 当前负面状态 !M! 倍的 superstitiomod:快感 。 NL 丢弃 所有费用不为0的手牌， NL 每 丢弃 一张 状态 或 诅咒 牌，抽一张牌。",
     "FLAVOR": "也许不挣脱也是一个好选择？"
   },
   "SuperstitioMod:MeasureDick": {
     "NAME": "肚量",
     "NAME_SFW": "投掷武器",
-    "DESCRIPTION": "从手牌中选择最多 !M! 张牌丢弃， NL 若丢弃卡牌的当前耗能小于初始耗能，获得相当于这一差值的 [E] 。",
+    "DESCRIPTION": "从手牌中选择最多 !M! 张牌 丢弃 ， NL 若丢弃卡牌的当前耗能小于初始耗能，获得相当于这一差值的 [E] 。",
     "FLAVOR": "看看谁插的最深？",
     "EXTENDED_DESCRIPTION": [
       "丢弃，最多选择%d张牌。"

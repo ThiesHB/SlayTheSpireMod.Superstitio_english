@@ -21,7 +21,7 @@ import superstitio.orbs.actions.EvokeFirstOnMonsterAction;
 import superstitio.orbs.actions.FlashOrbEffect;
 import superstitioapi.SuperstitioApiSubscriber;
 import superstitioapi.utils.ActionUtility;
-import superstitioapi.utils.RenderInBattle;
+import superstitioapi.renderManager.inBattleManager.RenderInBattle;
 
 import java.util.ArrayList;
 import java.util.Collections;

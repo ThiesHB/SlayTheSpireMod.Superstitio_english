@@ -8,7 +8,7 @@ import com.megacrit.cardcrawl.helpers.Hitbox;
 import com.megacrit.cardcrawl.helpers.MathHelper;
 import com.megacrit.cardcrawl.vfx.AbstractGameEffect;
 import superstitioapi.shader.ShaderUtility;
-import superstitioapi.utils.RenderInBattle;
+import superstitioapi.renderManager.inBattleManager.RenderInBattle;
 
 import java.util.ArrayList;
 import java.util.Optional;

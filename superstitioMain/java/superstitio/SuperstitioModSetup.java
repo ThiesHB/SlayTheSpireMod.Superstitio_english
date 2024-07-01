@@ -14,6 +14,7 @@ import com.megacrit.cardcrawl.unlock.UnlockTracker;
 import superstitio.cards.SuperstitioCard;
 import superstitio.characters.Lupa;
 import superstitio.characters.Maso;
+import superstitio.characters.Tzeentch;
 import superstitio.customStrings.StringsSetManager;
 import superstitio.customStrings.interFace.WordReplace;
 import superstitio.relics.SuperstitioRelic;
@@ -29,6 +30,7 @@ import static superstitio.DataManager.SPTT_DATA.LupaEnums.LUPA_Character;
 import static superstitio.DataManager.SPTT_DATA.MasoEnums.MASO_CARD;
 import static superstitio.DataManager.SPTT_DATA.MasoEnums.MASO_Character;
 import static superstitio.DataManager.SPTT_DATA.TempCardEnums.TempCard_CARD;
+import static superstitio.DataManager.SPTT_DATA.TzeentchEnums.TZEENTCH_Character;
 import static superstitio.customStrings.StringsSetManager.makeWordReplaceRule;
 
 @SpireInitializer
@@ -110,7 +112,8 @@ public class SuperstitioModSetup implements
                 data.spttData.LUPA_CHARACTER_BUTTON, data.spttData.MASO_CHARACTER_PORTRAIT, MASO_Character);
         BaseMod.addCharacter(new Lupa(CardCrawlGame.playerName),
                 data.spttData.LUPA_CHARACTER_BUTTON, data.spttData.LUPA_CHARACTER_PORTRAIT, LUPA_Character);
-
+        BaseMod.addCharacter(new Tzeentch(CardCrawlGame.playerName),
+                data.spttData.LUPA_CHARACTER_BUTTON, data.spttData.LUPA_CHARACTER_PORTRAIT, TZEENTCH_Character);
     }
 
     @Override
@@ -149,10 +152,12 @@ public class SuperstitioModSetup implements
     public void receiveEditStrings() {
         Logger.run("Beginning to edit strings for mod with ID: " + DataManager.getModID());
         StringsSetManager.loadAllStrings();
-        //        BaseMod.loadCustomStringsFile(EventStrings.class, makeLocPath(Settings.language,"event"));
+        BaseMod.loadCustomStringsFile(EventStrings.class, DataManager.makeLocalizationPath(Settings.language, "event_general"));
 //        BaseMod.loadCustomStringsFile(PotionStrings.class, makeLocPath(Settings.language,"potion"));
         BaseMod.loadCustomStringsFile(CharacterStrings.class,
                 DataManager.makeLocalizationPath(Settings.language, SuperstitioConfig.isEnableSFW() ? "character_LupaSFW" : "character_Lupa"));
+        BaseMod.loadCustomStringsFile(CharacterStrings.class,
+                DataManager.makeLocalizationPath(Settings.language, "character_General"));
         BaseMod.loadCustomStringsFile(RelicStrings.class, DataManager.makeLocalizationPath(Settings.language, "relic_Lupa"));
         BaseMod.loadCustomStringsFile(UIStrings.class, DataManager.makeLocalizationPath(Settings.language, "UIStrings"));
         BaseMod.loadCustomStringsFile(MonsterStrings.class, DataManager.makeLocalizationPath(Settings.language, "monsters"));

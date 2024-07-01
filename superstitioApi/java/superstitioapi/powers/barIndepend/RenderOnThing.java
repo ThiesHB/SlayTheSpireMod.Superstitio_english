@@ -4,12 +4,16 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.megacrit.cardcrawl.core.Settings;
-import com.megacrit.cardcrawl.helpers.*;
-import com.megacrit.cardcrawl.helpers.input.InputHelper;
+import com.megacrit.cardcrawl.helpers.FontHelper;
+import com.megacrit.cardcrawl.helpers.Hitbox;
+import com.megacrit.cardcrawl.helpers.MathHelper;
+import com.megacrit.cardcrawl.helpers.PowerTip;
 
 import java.util.*;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
+
+import static superstitioapi.utils.TipsUtility.renderTipsWithMouse;
 
 public abstract class RenderOnThing {
     public static final float HIDE_SPEED = 4.0F;
@@ -93,13 +97,7 @@ public abstract class RenderOnThing {
     }
 
     public void renderTip(ArrayList<PowerTip> tips) {
-        if (!((float) InputHelper.mX < 1400.0F * Settings.scale)) {
-            TipHelper.queuePowerTips((float) InputHelper.mX - 350.0F * Settings.scale,
-                    (float) InputHelper.mY - 50.0F * Settings.scale, tips);
-            return;
-        }
-        TipHelper.queuePowerTips((float) InputHelper.mX + 50.0F * Settings.scale,
-                (float) InputHelper.mY + 50.0F * Settings.scale, tips);
+        renderTipsWithMouse(tips);
     }
 
     protected abstract float getYDrawStart();

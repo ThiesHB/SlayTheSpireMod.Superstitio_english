@@ -85,7 +85,7 @@
   "SuperstitioMod:MasoCard:BodyModification_Prolapse": {
     "NAME": "脱垂",
     "NAME_SFW": "反应装甲",
-    "DESCRIPTION": "受到攻击伤害时，丢弃一张手牌，此次伤害减为 %d 分之一。",
+    "DESCRIPTION": "受到攻击伤害时， 丢弃 一张手牌，此次伤害减为 %d 分之一。",
     "FLAVOR": "",
     "EXTENDED_DESCRIPTION": [
       " NL 当前脱垂程度 ： %s",

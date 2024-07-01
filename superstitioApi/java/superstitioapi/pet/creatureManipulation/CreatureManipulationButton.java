@@ -9,7 +9,7 @@
 //import com.megacrit.cardcrawl.helpers.input.InputHelper;
 //import com.megacrit.cardcrawl.ui.buttons.CardSelectConfirmButton;
 //import superstitioapi.utils.ActionUtility.VoidSupplier;
-//import superstitioapi.utils.RenderInBattle;
+//import superstitioapi.inBattleManager.RenderInBattle;
 //
 //public class CreatureManipulationButton implements RenderInBattle
 //{

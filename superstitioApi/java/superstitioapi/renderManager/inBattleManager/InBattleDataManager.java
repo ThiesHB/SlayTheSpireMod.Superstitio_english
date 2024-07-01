@@ -1,4 +1,4 @@
-package superstitioapi;
+package superstitioapi.renderManager.inBattleManager;
 
 import basemod.interfaces.ISubscriber;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
@@ -6,7 +6,6 @@ import superstitioapi.actions.AutoDoneInstantAction;
 import superstitioapi.hangUpCard.HangUpCardGroup;
 import superstitioapi.pet.PetManager;
 import superstitioapi.powers.barIndepend.BarRenderManager;
-import superstitioapi.utils.RenderInBattle;
 
 import java.util.*;
 import java.util.function.Consumer;

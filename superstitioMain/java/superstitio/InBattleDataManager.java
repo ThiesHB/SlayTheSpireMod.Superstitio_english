@@ -36,7 +36,7 @@ public class InBattleDataManager {
     }
 
     public static Optional<SexMarkOrbGroup> getSexMarkOrbGroup() {
-        return superstitioapi.InBattleDataManager.subscribeManageGroups.stream()
+        return superstitioapi.renderManager.inBattleManager.InBattleDataManager.subscribeManageGroups.stream()
                 .filter(orbGroup -> orbGroup instanceof SexMarkOrbGroup)
                 .map(orbGroup -> (SexMarkOrbGroup) orbGroup).findAny();
     }

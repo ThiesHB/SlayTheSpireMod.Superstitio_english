@@ -6,7 +6,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.megacrit.cardcrawl.core.AbstractCreature;
 import com.megacrit.cardcrawl.powers.AbstractPower;
 import superstitioapi.utils.CreatureUtility;
-import superstitioapi.utils.RenderInBattle;
+import superstitioapi.renderManager.inBattleManager.RenderInBattle;
 
 import java.util.ArrayList;
 import java.util.List;

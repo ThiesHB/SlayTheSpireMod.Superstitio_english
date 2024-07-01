@@ -392,6 +392,11 @@ public class DataManager {
             public static CardLibrary.LibraryType LUPA_LIBRARY;
         }
 
+        public static class TzeentchEnums {
+            @SpireEnum
+            public static AbstractPlayer.PlayerClass TZEENTCH_Character;
+        }
+
         public static class MasoEnums {
             @SpireEnum
             public static AbstractPlayer.PlayerClass MASO_Character;

@@ -9,7 +9,7 @@ import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.helpers.Hitbox;
 import com.megacrit.cardcrawl.vfx.AbstractGameEffect;
 import superstitioapi.shader.ShaderUtility;
-import superstitioapi.utils.RenderInBattle;
+import superstitioapi.renderManager.inBattleManager.RenderInBattle;
 
 import java.util.function.Supplier;
 
