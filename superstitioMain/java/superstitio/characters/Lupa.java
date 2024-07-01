@@ -24,11 +24,24 @@ import static superstitioapi.relicToBlight.InfoBlight.addAsInfoBlight;
 
 // 继承CustomPlayer类
 public class Lupa extends BaseCharacter implements PlayerInitPostDungeonInitialize {
-    public static final String ID  = DataManager.MakeTextID(Lupa.class.getSimpleName());
+    public static final String ID = DataManager.MakeTextID(Lupa.class.getSimpleName());
     public static final CharacterSelectInfo characterInfo = new CharacterSelectInfo(65, 65, 99);
 
     public Lupa(String name) {
         super(ID, name, LUPA_Character);
+    }
+
+    protected static ArrayList<String> LupaStartDeck() {
+        ArrayList<String> startingDeck = new ArrayList<>();
+        for (int x = 0; x < 5; x++) {
+            startingDeck.add(Kiss.ID);
+        }
+        for (int x = 0; x < 4; x++) {
+            startingDeck.add(Invite_Lupa.ID);
+        }
+        startingDeck.add(Masturbate.ID);
+        startingDeck.add(DrySemen.ID);
+        return startingDeck;
     }
 
     @Override
@@ -61,17 +74,8 @@ public class Lupa extends BaseCharacter implements PlayerInitPostDungeonInitiali
 
     @Override
     public ArrayList<String> getStartingDeck() {
-        ArrayList<String> startingDeck = new ArrayList<>();
         Logger.run("Begin loading starter Deck Strings");
-        for (int x = 0; x < 5; x++) {
-            startingDeck.add(Kiss.ID);
-        }
-        for (int x = 0; x < 4; x++) {
-            startingDeck.add(Invite_Lupa.ID);
-        }
-        startingDeck.add(Masturbate.ID);
-        startingDeck.add(DrySemen.ID);
-        return startingDeck;
+        return LupaStartDeck();
     }
 
     // 你的卡牌颜色（这个枚举在最下方创建）

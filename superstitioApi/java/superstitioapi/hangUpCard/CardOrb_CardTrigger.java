@@ -19,7 +19,7 @@ public abstract class CardOrb_CardTrigger extends CardOrb {
             AbstractCard> action_thisCard_targetCard) {
         super(card, cardGroupReturnAfterEvoke, OrbCounter);
         this.action = action_thisCard_targetCard;
-        this.evokeOnEndOfTurn = true;
+        this.evokeOnEndOfTurn = false;
     }
 
     @Override
@@ -93,11 +93,17 @@ public abstract class CardOrb_CardTrigger extends CardOrb {
     public void onEndOfTurn() {
         if (!evokeOnEndOfTurn) return;
 //        InBattleDataManager.getHangUpCardOrbGroup().ifPresent(group -> group.evokeOrb(this));
-        shouldRemove = true;
+        setShouldRemove();
     }
 
-    public CardOrb_CardTrigger setNotEvokeOnEndOfTurn() {
-        this.evokeOnEndOfTurn = false;
+    public CardOrb_CardTrigger setEvokeOnEndOfTurn() {
+        this.evokeOnEndOfTurn = true;
+        return this;
+    }
+
+    public CardOrb_CardTrigger setDiscardOnEndOfTurn() {
+        this.evokeOnEndOfTurn = true;
+        this.setTriggerDiscardIfMoveToDiscard();
         return this;
     }
 }

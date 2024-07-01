@@ -73,24 +73,24 @@ public class SuperstitioConfig {
 //            setUpPanel();
         }));
         settingYPos -= 4 * lineSpacing;
-            settingsPanel.addUIElement(new ModLabeledToggleButton(SettingText[1], settingXPos, settingYPos, Settings.CREAM_COLOR,
-                    FontHelper.charDescFont, enableGuroCharacter, settingsPanel, label -> {
-            }, button -> {
-                enableGuroCharacter = button.enabled;
-                setEnableGuroCharacter(enableGuroCharacter);
-            }) {
-                @Override
-                public void render(SpriteBatch sb) {
-                    if (isEnableSFW())return;
-                    super.render(sb);
-                }
+        settingsPanel.addUIElement(new ModLabeledToggleButton(SettingText[1], settingXPos, settingYPos, Settings.CREAM_COLOR,
+                FontHelper.charDescFont, enableGuroCharacter, settingsPanel, label -> {
+        }, button -> {
+            enableGuroCharacter = button.enabled;
+            setEnableGuroCharacter(enableGuroCharacter);
+        }) {
+            @Override
+            public void render(SpriteBatch sb) {
+                if (isEnableSFW()) return;
+                super.render(sb);
+            }
 
-                @Override
-                public void update() {
-                    if (isEnableSFW())return;
-                    super.update();
-                }
-            });
+            @Override
+            public void update() {
+                if (isEnableSFW()) return;
+                super.update();
+            }
+        });
 
         settingYPos -= 1 * lineSpacing;
 

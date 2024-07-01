@@ -59,6 +59,7 @@ public class TempName_HangUpCardForDraw extends GeneralCard {
             new CardOrb_WaitCardTrigger(card, AbstractDungeon.player.discardPile, WAIT_TIME, (orb, usedcard) -> {
                 AutoDoneInstantAction.addToBotAbstract(() -> orb.cardHolder.moveToHand(card));
             })
+                    .setDiscardOnEndOfTurn()
                     .setShowCard(showUpCard)
                     .addToBot_HangCard();
         });

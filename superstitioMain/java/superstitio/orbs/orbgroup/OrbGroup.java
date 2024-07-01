@@ -20,8 +20,8 @@ import superstitio.orbs.actions.ChannelOnOrbGroupAction;
 import superstitio.orbs.actions.EvokeFirstOnMonsterAction;
 import superstitio.orbs.actions.FlashOrbEffect;
 import superstitioapi.SuperstitioApiSubscriber;
-import superstitioapi.utils.ActionUtility;
 import superstitioapi.renderManager.inBattleManager.RenderInBattle;
+import superstitioapi.utils.ActionUtility;
 
 import java.util.ArrayList;
 import java.util.Collections;

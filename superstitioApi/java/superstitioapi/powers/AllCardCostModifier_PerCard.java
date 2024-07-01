@@ -5,9 +5,9 @@ import com.megacrit.cardcrawl.core.AbstractCreature;
 import com.megacrit.cardcrawl.localization.PowerStrings;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import superstitioapi.DataUtility;
-import superstitioapi.renderManager.inBattleManager.InBattleDataManager;
 import superstitioapi.actions.AutoDoneInstantAction;
 import superstitioapi.powers.interfaces.HasAllCardCostModifyEffect;
+import superstitioapi.renderManager.inBattleManager.InBattleDataManager;
 
 
 public class AllCardCostModifier_PerCard extends AllCardCostModifier {

@@ -13,8 +13,8 @@ import com.megacrit.cardcrawl.helpers.TipTracker;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import com.megacrit.cardcrawl.monsters.MonsterGroup;
 import com.megacrit.cardcrawl.powers.AbstractPower;
-import superstitioapi.renderManager.inBattleManager.InBattleDataManager;
 import superstitioapi.SuperstitioApiSubscriber;
+import superstitioapi.renderManager.inBattleManager.InBattleDataManager;
 import superstitioapi.renderManager.inBattleManager.RenderInBattle;
 
 import static superstitioapi.actions.AutoDoneInstantAction.addToBotAbstract;

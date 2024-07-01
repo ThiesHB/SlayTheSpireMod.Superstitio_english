@@ -52,7 +52,6 @@ public class Job_Blow extends GeneralCard implements FuckJob_Card, GoSomewhereEl
             SexualHeat.addToBot_addSexualHeat(AbstractDungeon.player, HEAT_GIVE);
         })
                 .setCardPredicate(card -> card instanceof FuckJob_Card)
-                .setNotEvokeOnEndOfTurn()
                 .setTargetType(CardTarget.SELF)
                 .addToBot_HangCard();
     }

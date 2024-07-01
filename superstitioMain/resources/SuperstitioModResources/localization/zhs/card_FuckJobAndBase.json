@@ -32,7 +32,7 @@
   "SuperstitioMod:Job_Foot": {
     "NAME": "足交",
     "NAME_SFW": "回旋踢",
-    "DESCRIPTION": "造成 2 次 !D! 点 伤害 。 NL superstitiomod:助兴- superstitiomod:缠绵 NL 本回合打出 !M! 性交牌： NL 抽一张牌。",
+    "DESCRIPTION": "造成 2 次 !D! 点 伤害 。 NL superstitiomod:助兴- superstitiomod:缠绵 NL 打出 !M! 性交牌： NL 抽一张牌。 NL superstitiomod:自动释放 。",
     "FLAVOR": "最好是射鞋里，个人来说还是比较喜欢黏糊糊地走路。",
     "EXTENDED_DESCRIPTION": [
       "鞋"
@@ -53,7 +53,7 @@
   "SuperstitioMod:Job_Hair": {
     "NAME": "发交",
     "NAME_SFW": "辫子神功",
-    "DESCRIPTION": "造成 !D! 点 伤害 。 NL superstitiomod:助兴- superstitiomod:欲求 NL 本回合打出 !M! 任何牌： NL 把 带有 NL 消耗 的 复制加入手牌，其在被打出之前，耗能变为0 。 NL 虚无 。",
+    "DESCRIPTION": "造成 !D! 点 伤害 。 NL superstitiomod:助兴- superstitiomod:欲求 NL 打出 !M! 任何牌： NL 把 带有 NL 消耗 的 复制加入手牌，其在被打出之前，耗能变为0 。 NL superstitiomod:自动释放 。 NL 虚无 。",
     "FLAVOR": "扯着有点疼，不会把我变成光头吧？",
     "EXTENDED_DESCRIPTION": [
       "头发"
@@ -62,7 +62,7 @@
   "SuperstitioMod:Job_Hand": {
     "NAME": "手交",
     "NAME_SFW": "升龙拳",
-    "DESCRIPTION": "造成 2 次 !D! 点 伤害 。 NL superstitiomod:助兴- superstitiomod:缠绵 NL 打出 !M! 攻击牌： NL 获得 %d 力量 。",
+    "DESCRIPTION": "造成 2 次 !D! 点 伤害 。 NL superstitiomod:助兴- superstitiomod:缠绵 NL 打出 !M! 攻击牌： NL 获得 %d 力量 。 superstitiomod:自动释放 。",
     "FLAVOR": "用手就能做好的事情却要用其他的部位。该说是你们需求太高了，还是我的两只手应付不过来了？",
     "EXTENDED_DESCRIPTION": [
       "手"
@@ -137,7 +137,7 @@
   "SuperstitioMod:Masturbate": {
     "NAME": "自慰",
     "NAME_SFW": "准备战斗",
-    "DESCRIPTION": "获得 !M! 点 superstitiomod:快感 。 NL superstitiomod:助兴- superstitiomod:欲求 NL 本回合打出 2 任何牌： NL 抽 1 张牌。",
+    "DESCRIPTION": "获得 !M! 点 superstitiomod:快感 。 NL superstitiomod:助兴- superstitiomod:欲求 NL 打出 2 任何牌： NL 抽 1 张牌。 NL superstitiomod:自动释放 。",
     "FLAVOR": "何以解忧？聊以自慰。",
     "EXTENDED_DESCRIPTION": [
       "抽牌"

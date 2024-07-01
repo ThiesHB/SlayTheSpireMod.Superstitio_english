@@ -25,15 +25,51 @@
   {
     "PROPER_NAME": "欲求",
     "NAMES": [
-      "欲求"
+      "欲求",
+      "欲求-"
     ],
     "DESCRIPTION": "#y满足 条件后，减少计数。 NL 计数归零时 #y触发效果 并返回牌堆。"
   },
   {
     "PROPER_NAME": "缠绵",
     "NAMES": [
-      "缠绵"
+      "缠绵",
+      "缠绵-"
     ],
     "DESCRIPTION": "#y满足 条件时，减少计数并 #y触发效果 。 NL 计数归零后返回牌堆。"
+  },
+  {
+    "ID": "Connive",
+    "PROPER_NAME": "放任",
+    "NAMES": [
+      "放任",
+      "放任-"
+    ],
+    "DESCRIPTION": "#y满足 条件后，减少计数。 NL 计数归零时返回牌堆。 NL 仅当被 #y释放 时， #y触发效果 。"
+  },
+  {
+    "ID": "Release",
+    "PROPER_NAME": "释放",
+    "NAMES": [
+      "释放",
+      "释放自身"
+    ],
+    "DESCRIPTION": "将卡牌直接从 #y助兴序列 中 移除 。 NL 若卡牌去往 弃牌堆 ，则视作 #y丢弃 。"
+  },
+  {
+    "ID": "AutoRelease",
+    "PROPER_NAME": "自动释放",
+    "NAMES": [
+      "自动释放"
+    ],
+    "DESCRIPTION": "回合结束时， #y释放 自身 —— 将卡牌直接从 #y助兴序列 中 移除 。 NL 若卡牌去往 弃牌堆 ，则视作 #y丢弃 。"
+  },
+  {
+    "ID": "ForceRelease",
+    "PROPER_NAME": "强制释放",
+    "NAMES": [
+      "强制释放"
+    ],
+    "DESCRIPTION": "回合结束时， #y释放 自身 —— 将卡牌直接从 #y助兴序列 中 #y丢弃 。"
   }
 ]

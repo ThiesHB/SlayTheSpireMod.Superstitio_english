@@ -12,7 +12,7 @@ public abstract class EasyBuildAbstractPowerForPowerCard extends AbstractSuperst
     protected final SuperstitioCard powerCard;
 
     public EasyBuildAbstractPowerForPowerCard(int amount) {
-        this(amount,true);
+        this(amount, true);
     }
 
     public EasyBuildAbstractPowerForPowerCard(int amount, boolean shouldUpdateDesc) {

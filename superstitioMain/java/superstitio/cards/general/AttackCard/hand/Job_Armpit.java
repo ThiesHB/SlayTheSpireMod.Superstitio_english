@@ -58,7 +58,6 @@ public class Job_Armpit extends GeneralCard implements FuckJob_Card, GoSomewhere
                     .setExampleCard(this).addToBot();
         })
                 .setCardPredicate(card -> card.type == CardType.ATTACK)
-                .setNotEvokeOnEndOfTurn()
                 .addToBot_HangCard();
         AbstractCard copyCard = this.makeCopy();
         if (upgraded)
@@ -71,7 +70,6 @@ public class Job_Armpit extends GeneralCard implements FuckJob_Card, GoSomewhere
                     .setExampleCard(this).addToBot();
         })
                 .setCardPredicate(card -> card.type == CardType.ATTACK)
-                .setNotEvokeOnEndOfTurn()
                 .addToBot_HangCard();
     }
 }

@@ -8,8 +8,8 @@ import com.badlogic.gdx.math.Interpolation;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.helpers.Hitbox;
 import com.megacrit.cardcrawl.vfx.AbstractGameEffect;
-import superstitioapi.shader.ShaderUtility;
 import superstitioapi.renderManager.inBattleManager.RenderInBattle;
+import superstitioapi.shader.ShaderUtility;
 
 import java.util.function.Supplier;
 

@@ -30,7 +30,7 @@
   },
   "SuperstitioMod:CalmDown": {
     "NAME": "冷静",
-    "DESCRIPTION": "抽当前 superstitiomod:助兴 数量的 牌。 NL 使所有处于 *助兴 的卡牌回到 *助兴 前应当去往的牌堆。",
+    "DESCRIPTION": "抽当前 superstitiomod:助兴 数量的 牌。 NL superstitiomod:释放 所有处于 *助兴队列 的卡牌。",
     "UPGRADE_DESCRIPTION": "抽当前 superstitiomod:助兴 数量 +1 的 牌。 NL 使所有处于 *助兴 的卡牌回到 *助兴 前应当去往的牌堆。",
     "FLAVOR": "冥想……冷静，冷静，冥想……果然还是好想自慰。 NL o(TヘTo)"
   },
@@ -122,7 +122,7 @@
   "SuperstitioMod:ReadyToSex": {
     "NAME": "性交准备",
     "NAME_SFW": "马步",
-    "DESCRIPTION": "选择一张手牌，将其 superstitiomod:助兴- superstitiomod:欲求 NL 打出 !M! 任何牌： NL 打出复制后进入弃牌堆。",
+    "DESCRIPTION": "选择一张手牌，将其 superstitiomod:助兴- superstitiomod:欲求 NL 打出 !M! 任何牌： NL 打出复制后被 *丢弃 。",
     "FLAVOR": "来吧！一起上！我照单全收！",
     "EXTENDED_DESCRIPTION": [
       "将其助兴。"
@@ -160,13 +160,13 @@
   "SuperstitioMod:EscapeConjuring": {
     "NAME": "逃脱魔术",
     "NAME_SFW": "金蝉脱壳",
-    "DESCRIPTION": "获得手牌中 状态 和 诅咒 数量的 [E] 。 NL 获得 当前负面状态 !M! 倍的 superstitiomod:快感 。 NL 丢弃 所有费用不为0的手牌， NL 每 丢弃 一张 状态 或 诅咒 牌，抽一张牌。",
+    "DESCRIPTION": "获得手牌中 状态 和 诅咒 数量的 [E] 。 NL 获得 当前负面状态 !M! 倍的 superstitiomod:快感 。 NL *丢弃 所有费用不为0的手牌， NL 每 *丢弃 一张 状态 或 诅咒 牌，抽一张牌。",
     "FLAVOR": "也许不挣脱也是一个好选择？"
   },
   "SuperstitioMod:MeasureDick": {
     "NAME": "肚量",
     "NAME_SFW": "投掷武器",
-    "DESCRIPTION": "从手牌中选择最多 !M! 张牌 丢弃 ， NL 若丢弃卡牌的当前耗能小于初始耗能，获得相当于这一差值的 [E] 。",
+    "DESCRIPTION": "从手牌中选择最多 !M! 张牌 *丢弃 ， NL 若 *丢弃 卡牌的当前耗能小于初始耗能，获得相当于这一差值的 [E] 。",
     "FLAVOR": "看看谁插的最深？",
     "EXTENDED_DESCRIPTION": [
       "丢弃，最多选择%d张牌。"
@@ -190,7 +190,7 @@
   "SuperstitioMod:TempName_HangUpCardForDraw": {
     "NAME": "TempName_HangUpCardForDraw",
     "NAME_SFW": "TempName_HangUpCardForDraw",
-    "DESCRIPTION": "选择最多 !M! 张手牌，抽对应数量的牌，将选中手牌 superstitiomod:助兴- superstitiomod:欲求 NL 本回合打出 %d 任何牌： NL 回到手牌。",
+    "DESCRIPTION": "选择最多 !M! 张手牌，抽对应数量的牌，将选中手牌 superstitiomod:助兴- superstitiomod:欲求 NL 打出 %d 任何牌： NL 回到手牌。 NL superstitiomod:自动释放 。",
     "FLAVOR": "",
     "EXTENDED_DESCRIPTION": [
       "助兴并抽一张牌，最多选择%d张牌。"

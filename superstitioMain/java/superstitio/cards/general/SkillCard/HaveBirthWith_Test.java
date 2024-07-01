@@ -7,8 +7,8 @@ import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import superstitio.DataManager;
 import superstitio.cards.general.GeneralCard;
 import superstitio.monster.ChibiKindMonster;
-import superstitioapi.renderManager.inBattleManager.InBattleDataManager;
 import superstitioapi.pet.PetManager;
+import superstitioapi.renderManager.inBattleManager.InBattleDataManager;
 import superstitioapi.shader.heart.HeartMultiAtOneShader;
 
 import static superstitio.cards.CardOwnerPlayerManager.IsNotLupaCard;

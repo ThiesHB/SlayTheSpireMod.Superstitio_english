@@ -9,10 +9,10 @@ import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.core.AbstractCreature;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.powers.AbstractPower;
-import superstitioapi.renderManager.inBattleManager.InBattleDataManager;
 import superstitioapi.Logger;
 import superstitioapi.powers.interfaces.HasAllCardCostModifyEffect;
 import superstitioapi.powers.interfaces.OnPostApplyThisPower;
+import superstitioapi.renderManager.inBattleManager.InBattleDataManager;
 import superstitioapi.utils.ActionUtility;
 import superstitioapi.utils.CardUtility;
 

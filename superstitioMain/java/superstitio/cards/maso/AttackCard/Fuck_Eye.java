@@ -69,7 +69,6 @@ public class Fuck_Eye extends MasoCard implements FuckJob_Card, GoSomewhereElseA
             addToBot_gainCustomBlock(new RemoveDelayHpLoseBlock());
             ActionUtility.addToBot_makeTempCardInBattle(new Fuck_Ear(), ActionUtility.BattleCardPlace.Hand, this.upgraded);
         })
-                .setNotEvokeOnEndOfTurn()
                 .setTargetType(CardTarget.SELF)
                 .setDesc(this.rawDescription)
                 .addToBot_HangCard();

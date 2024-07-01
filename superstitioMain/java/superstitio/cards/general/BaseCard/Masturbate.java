@@ -66,6 +66,7 @@ public class Masturbate extends GeneralCard implements GoSomewhereElseAfterUse {
             addToBot_drawCards(DRAWCard);
             PowerUtility.BubbleMessage(orb.getOriginCard().hb, false, this.cardStrings.getEXTENDED_DESCRIPTION()[0]);
         })
+                .setDiscardOnEndOfTurn()
                 .addToBot_HangCard();
     }
 

@@ -22,6 +22,7 @@
 //
 //    @Override
 //    protected void buttonEffect(int buttonPressed) {
-//        //It is best to look at examples of what to do here in the basegame event classes, but essentially when you click on a dialog option the index of the pressed button is passed here as buttonPressed.
+//        //It is best to look at examples of what to do here in the basegame event classes, but essentially when you click on a dialog option the
+//        index of the pressed button is passed here as buttonPressed.
 //    }
 //}

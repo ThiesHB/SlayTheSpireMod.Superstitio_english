@@ -52,7 +52,6 @@ public class FindCardAndHang extends SuperstitioCard {
             AbstractDungeon.player.drawPile.removeCard(card);
             new CardOrb_WaitCardTrigger(card, AbstractDungeon.player.hand, magicNumber, (orb, usedcard) -> {
             })
-                    .setNotEvokeOnEndOfTurn()
                     .setShowCard(showUpCard)
                     .addToBot_HangCard();
         });

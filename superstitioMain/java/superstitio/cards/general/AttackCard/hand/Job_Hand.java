@@ -51,8 +51,8 @@ public class Job_Hand extends GeneralCard implements FuckJob_Card, GoSomewhereEl
             orb.StartHitCreature(AbstractDungeon.player);
             addToBot_applyPower(new StrengthPower(AbstractDungeon.player, STRENGTH_GET));
         })
+                .setDiscardOnEndOfTurn()
                 .setCardPredicate(card -> card.type == CardType.ATTACK)
-                .setNotEvokeOnEndOfTurn()
                 .setTargetType(CardTarget.SELF)
                 .addToBot_HangCard();
     }

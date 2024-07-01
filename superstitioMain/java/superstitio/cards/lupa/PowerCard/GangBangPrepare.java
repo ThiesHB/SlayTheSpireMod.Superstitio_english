@@ -54,7 +54,8 @@ public class GangBangPrepare extends LupaCard {
             return;
         }
 
-        superstitioapi.renderManager.inBattleManager.InBattleDataManager.Subscribe(new SexMarkOrbGroup(AbstractDungeon.player.hb, (double) this.magicNumber / 100));
+        superstitioapi.renderManager.inBattleManager.InBattleDataManager.Subscribe(new SexMarkOrbGroup(AbstractDungeon.player.hb,
+                (double) this.magicNumber / 100));
     }
 
     @Override

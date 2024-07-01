@@ -33,7 +33,7 @@ import static superstitioapi.relicToBlight.InfoBlight.addAsInfoBlight;
 
 // 继承CustomPlayer类
 public class Maso extends BaseCharacter implements PlayerInitPostDungeonInitialize, RenderInCharacterSelect {
-    public static final String ID  = DataManager.MakeTextID(Maso.class.getSimpleName());
+    public static final String ID = DataManager.MakeTextID(Maso.class.getSimpleName());
     public static final CharacterSelectInfo characterInfo = new CharacterSelectInfo(60, 70, 99);
 
     public Maso(String name) {
@@ -46,6 +46,19 @@ public class Maso extends BaseCharacter implements PlayerInitPostDungeonInitiali
         if (ascensionLevel >= 6) {
             player.currentHealth = MathUtils.round((float) player.currentHealth * 0.9F);
         }
+    }
+
+    protected static ArrayList<String> MasoStartDeck() {
+        ArrayList<String> startingDeck = new ArrayList<>();
+        for (int x = 0; x < 5; x++) {
+            startingDeck.add(Kiss.ID);
+        }
+        for (int x = 0; x < 4; x++) {
+            startingDeck.add(Invite_Maso.ID);
+        }
+        startingDeck.add(Masturbate.ID);
+        startingDeck.add(FistIn.ID);
+        return startingDeck;
     }
 
     @Override
@@ -79,17 +92,8 @@ public class Maso extends BaseCharacter implements PlayerInitPostDungeonInitiali
 
     @Override
     public ArrayList<String> getStartingDeck() {
-        ArrayList<String> startingDeck = new ArrayList<>();
         Logger.run("Begin loading starter Deck Strings");
-        for (int x = 0; x < 5; x++) {
-            startingDeck.add(Kiss.ID);
-        }
-        for (int x = 0; x < 4; x++) {
-            startingDeck.add(Invite_Maso.ID);
-        }
-        startingDeck.add(Masturbate.ID);
-        startingDeck.add(FistIn.ID);
-        return startingDeck;
+        return MasoStartDeck();
     }
 
     @Override
@@ -129,7 +133,7 @@ public class Maso extends BaseCharacter implements PlayerInitPostDungeonInitiali
     public void updateInCharacterSelectScreen(CharacterOption characterOption) {
         if (!SuperstitioConfig.isEnableGuroCharacter()) {
             CardCrawlGame.mainMenuScreen.charSelectScreen.confirmButton.isDisabled = true;
-            if (CardCrawlGame.mainMenuScreen.charSelectScreen.confirmButton.isHovered){
+            if (CardCrawlGame.mainMenuScreen.charSelectScreen.confirmButton.isHovered) {
                 TipsUtility.renderTipsWithMouse(GuroTip);
             }
         }

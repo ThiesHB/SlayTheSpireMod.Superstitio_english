@@ -10,11 +10,11 @@ import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.helpers.Hitbox;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import com.megacrit.cardcrawl.orbs.AbstractOrb;
-import superstitioapi.renderManager.inBattleManager.InBattleDataManager;
 import superstitioapi.SuperstitioApiSubscriber;
 import superstitioapi.actions.AutoDoneInstantAction;
-import superstitioapi.utils.ActionUtility;
+import superstitioapi.renderManager.inBattleManager.InBattleDataManager;
 import superstitioapi.renderManager.inBattleManager.RenderInBattle;
+import superstitioapi.utils.ActionUtility;
 
 import java.util.ArrayList;
 import java.util.function.BiConsumer;
@@ -235,7 +235,7 @@ public class HangUpCardGroup implements RenderInBattle,
             }
         }
 
-        if (hoveredCard != null && hoveredCard.shouldRemove)
+        if (hoveredCard != null && hoveredCard.ifShouldRemove())
             hoveredCard = null;
 
         this.forEachOrbInThisOrbGroup(orb -> {
@@ -260,7 +260,7 @@ public class HangUpCardGroup implements RenderInBattle,
         this.remove_check_counter = 10;
         this.forEachOrbInThisOrbGroup(orb -> {
             orb.checkShouldRemove();
-            if (orb.shouldRemove || ActionUtility.isNotInBattle())
+            if (orb.ifShouldRemove() || ActionUtility.isNotInBattle())
                 AutoDoneInstantAction.addToBotAbstract(() -> removeCard(orb));
         });
     }

@@ -69,7 +69,7 @@
   "SuperstitioMod:MasoCard:BodyModification_Tattoo": {
     "NAME": "纹身穿刺",
     "NAME_SFW": "战纹绘制",
-    "DESCRIPTION": "每当有一张牌被 消耗 或从你的手牌中被 丢弃 时，获得 !M! superstitiomod:快感 。",
+    "DESCRIPTION": "每当有一张牌被 消耗 或被 *丢弃 时，获得 !M! superstitiomod:快感 。",
     "FLAVOR": "",
     "EXTENDED_DESCRIPTION": [
       " NL 当前改造 ： %s",
@@ -85,7 +85,7 @@
   "SuperstitioMod:MasoCard:BodyModification_Prolapse": {
     "NAME": "脱垂",
     "NAME_SFW": "反应装甲",
-    "DESCRIPTION": "受到攻击伤害时， 丢弃 一张手牌，此次伤害减为 %d 分之一。",
+    "DESCRIPTION": "受到攻击伤害时， *丢弃 一张随机手牌，此次伤害减为 %d 分之一。 NL 若没有手牌，则尝试 superstitiomod:释放 一张 *助兴序列 中的随机牌。",
     "FLAVOR": "",
     "EXTENDED_DESCRIPTION": [
       " NL 当前脱垂程度 ： %s",

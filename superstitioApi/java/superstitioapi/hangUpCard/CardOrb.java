@@ -4,6 +4,7 @@ import basemod.ReflectionHacks;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
+import com.megacrit.cardcrawl.actions.GameActionManager;
 import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.cards.CardGroup;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
@@ -18,6 +19,7 @@ import superstitioapi.utils.CardUtility;
 import superstitioapi.utils.CreatureUtility;
 
 import java.util.Optional;
+import java.util.function.Consumer;
 
 import static superstitioapi.utils.ActionUtility.FunctionReturnSelfType;
 import static superstitioapi.utils.ActionUtility.VoidSupplier;
@@ -40,11 +42,12 @@ public abstract class CardOrb extends AbstractOrb {
     public HangOnTarget targetType = HangOnTarget.None;
     public HangEffectType actionType = HangEffectType.None;
     public FunctionReturnSelfType movingType;
-    public boolean shouldRemove;
     public AbstractCreature lastTarget;
     public int OrbCounter;
     protected AbstractCard card;
     protected boolean isNewMovingModeSetup;
+    private Consumer<CardOrb> afterEvokeConsumer;
+    private boolean shouldRemove;
     private boolean isRemoved;
     //    public abstract void forceAcceptAction(AbstractCard card);
     private boolean stopShowOriginCard = false;
@@ -83,9 +86,18 @@ public abstract class CardOrb extends AbstractOrb {
 
     public static Optional<AbstractMonster> getHoveredMonster() {
         AbstractMonster hoveredMonster = ReflectionHacks.getPrivate(AbstractDungeon.player, AbstractPlayer.class, "hoveredMonster");
-        if (hoveredMonster == null)
-            return Optional.empty();
+        if (hoveredMonster == null) return Optional.empty();
         return Optional.of(hoveredMonster);
+    }
+
+    public CardOrb setTriggerDiscardIfMoveToDiscard() {
+        this.setAfterEvokeConsumer(orb -> {
+            if (orb.OrbCounter <= 0) return;
+            if (orb.cardGroupReturnAfterEvoke != AbstractDungeon.player.discardPile) return;
+            orb.getOriginCard().triggerOnManualDiscard();
+            GameActionManager.incrementDiscard(false);
+        });
+        return this;
     }
 
     @Override
@@ -181,9 +193,10 @@ public abstract class CardOrb extends AbstractOrb {
                     cardHolder.moveToDiscardPile(originCard);
                     break;
             }
-        } else
-            AbstractDungeon.effectList.add(new ExhaustCardEffect(card));
+        } else AbstractDungeon.effectList.add(new ExhaustCardEffect(card));
         onRemoveCard();
+        if (afterEvokeConsumer != null)
+            afterEvokeConsumer.accept(this);
     }
 
     @Override
@@ -427,6 +440,19 @@ public abstract class CardOrb extends AbstractOrb {
             return ((Card_TriggerHangCardManually) hoveredCard).forceFilterCardOrbToHoveredMode(this);
         }
         return false;
+    }
+
+    public void setShouldRemove() {
+        this.shouldRemove = true;
+    }
+
+    public boolean ifShouldRemove() {
+        return this.shouldRemove;
+    }
+
+    public CardOrb setAfterEvokeConsumer(Consumer<CardOrb> afterEvokeConsumer) {
+        this.afterEvokeConsumer = afterEvokeConsumer;
+        return this;
     }
 
     public enum HangEffectType {

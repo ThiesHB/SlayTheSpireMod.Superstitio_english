@@ -58,6 +58,7 @@ public class Job_Foot extends GeneralCard implements FuckJob_Card, GoSomewhereEl
                                     DataManager.MakeTextID(Masturbate.class))
                             .getEXTENDED_DESCRIPTION()[0]);
         })
+                .setDiscardOnEndOfTurn()
                 .setCardPredicate(card -> card instanceof FuckJob_Card)
                 .setTargetType(CardTarget.SELF)
                 .addToBot_HangCard();

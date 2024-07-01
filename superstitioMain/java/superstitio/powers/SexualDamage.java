@@ -8,10 +8,10 @@ import com.megacrit.cardcrawl.cards.DamageInfo;
 import com.megacrit.cardcrawl.core.AbstractCreature;
 import superstitio.DataManager;
 import superstitio.delayHpLose.UnBlockAbleIgnoresTempHPDamage;
-import superstitioapi.renderManager.inBattleManager.InBattleDataManager;
 import superstitioapi.SuperstitioApiSubscriber;
 import superstitioapi.cards.DamageActionMaker;
 import superstitioapi.powers.interfaces.OnPostApplyThisPower;
+import superstitioapi.renderManager.inBattleManager.InBattleDataManager;
 
 import static superstitioapi.renderManager.inBattleManager.InBattleDataManager.subscribeManageGroups;
 

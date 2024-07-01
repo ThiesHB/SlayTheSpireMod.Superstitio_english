@@ -7,8 +7,8 @@ import com.badlogic.gdx.math.Vector2;
 import com.megacrit.cardcrawl.helpers.Hitbox;
 import com.megacrit.cardcrawl.helpers.MathHelper;
 import com.megacrit.cardcrawl.vfx.AbstractGameEffect;
-import superstitioapi.shader.ShaderUtility;
 import superstitioapi.renderManager.inBattleManager.RenderInBattle;
+import superstitioapi.shader.ShaderUtility;
 
 import java.util.ArrayList;
 import java.util.Optional;

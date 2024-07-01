@@ -14,9 +14,12 @@ import superstitio.cardModifier.modifiers.card.BodyModificationTag;
 import superstitio.cards.SuperstitioCard;
 import superstitio.cards.maso.MasoCard;
 import superstitio.powers.EasyBuildAbstractPowerForPowerCard;
+import superstitioapi.hangUpCard.CardOrb;
+import superstitioapi.hangUpCard.HangUpCardGroup;
 import superstitioapi.utils.ListUtility;
 import superstitioapi.utils.PowerUtility;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.stream.IntStream;
@@ -77,13 +80,27 @@ public class BodyModification_Prolapse extends MasoCard {
         @Override
         public int onAttacked(DamageInfo info, int damageAmount) {
             if (info.type != DamageInfo.DamageType.NORMAL) return damageAmount;
-            if (AbstractDungeon.player.hand.isEmpty()) return damageAmount;
-            AbstractCard card = AbstractDungeon.player.hand.getRandomCard(AbstractDungeon.cardRandomRng);
-            AbstractDungeon.player.hand.moveToDiscardPile(card);
-            card.triggerOnManualDiscard();
-            GameActionManager.incrementDiscard(false);
-//            addToBot(new DiscardAction(this.owner, info.owner, 1, true, false));
-            return (int) ((double) damageAmount / Math.pow(2, this.amount));
+            if (!AbstractDungeon.player.hand.isEmpty()) {
+                AbstractCard card = AbstractDungeon.player.hand.getRandomCard(AbstractDungeon.cardRandomRng);
+                AbstractDungeon.player.hand.moveToDiscardPile(card);
+                card.triggerOnManualDiscard();
+                GameActionManager.incrementDiscard(false);
+                return (int) ((double) damageAmount / Math.pow(2, this.amount));
+            } else {
+                ArrayList<CardOrb> cards = new ArrayList<>();
+                HangUpCardGroup.forEachHangUpCard(cardOrb -> {
+                    if (!cardOrb.ifShouldRemove())
+                        cards.add(cardOrb);
+                }).get();
+                if (cards.isEmpty()) return damageAmount;
+                CardOrb cardOrb = ListUtility.getRandomFromList(cards, AbstractDungeon.cardRandomRng);
+                cardOrb.setAfterEvokeConsumer(orb -> {
+                    orb.getOriginCard().triggerOnManualDiscard();
+                    GameActionManager.incrementDiscard(false);
+                });
+                cardOrb.setShouldRemove();
+                return (int) ((double) damageAmount / Math.pow(2, this.amount));
+            }
         }
 
         @Override

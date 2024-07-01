@@ -18,10 +18,6 @@ import superstitio.DataManager;
 import superstitio.Logger;
 import superstitio.SuperstitioConfig;
 import superstitio.cards.CardOwnerPlayerManager;
-import superstitio.cards.general.BaseCard.Kiss;
-import superstitio.cards.general.BaseCard.Masturbate;
-import superstitio.cards.lupa.BaseCard.DrySemen;
-import superstitio.cards.lupa.BaseCard.Invite_Lupa;
 import superstitio.relics.a_starter.DoubleBlockWithVulnerable;
 import superstitio.relics.a_starter.StartWithSexToy;
 import superstitio.relics.blight.*;
@@ -151,17 +147,12 @@ public class Tzeentch extends BaseCharacter implements PlayerInitPostDungeonInit
 
     @Override
     public ArrayList<String> getStartingDeck() {
-        ArrayList<String> startingDeck = new ArrayList<>();
         Logger.run("Begin loading starter Deck Strings");
-        for (int x = 0; x < 5; x++) {
-            startingDeck.add(Kiss.ID);
-        }
-        for (int x = 0; x < 4; x++) {
-            startingDeck.add(Invite_Lupa.ID);
-        }
-        startingDeck.add(Masturbate.ID);
-        startingDeck.add(DrySemen.ID);
-        return startingDeck;
+        if (Lupa.class.isAssignableFrom(getOwnerFromRelic(DEVABODY_RELIC_Selection_UI.getSelectRelic())))
+            return Lupa.LupaStartDeck();
+        if (Maso.class.isAssignableFrom(getOwnerFromRelic(DEVABODY_RELIC_Selection_UI.getSelectRelic())))
+            return Maso.MasoStartDeck();
+        return Lupa.LupaStartDeck();
     }
 
     // 你的卡牌颜色（这个枚举在最下方创建）
@@ -215,7 +206,7 @@ public class Tzeentch extends BaseCharacter implements PlayerInitPostDungeonInit
     public void updateInCharacterSelectScreen(CharacterOption characterOption) {
         if (!SuperstitioConfig.isEnableGuroCharacter()) {
             CardCrawlGame.mainMenuScreen.charSelectScreen.confirmButton.isDisabled = true;
-            if (CardCrawlGame.mainMenuScreen.charSelectScreen.confirmButton.isHovered){
+            if (CardCrawlGame.mainMenuScreen.charSelectScreen.confirmButton.isHovered) {
                 TipsUtility.renderTipsWithMouse(GuroTip);
             }
         }

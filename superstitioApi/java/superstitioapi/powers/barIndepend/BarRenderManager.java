@@ -5,8 +5,8 @@ import basemod.interfaces.PostPowerApplySubscriber;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.megacrit.cardcrawl.core.AbstractCreature;
 import com.megacrit.cardcrawl.powers.AbstractPower;
-import superstitioapi.utils.CreatureUtility;
 import superstitioapi.renderManager.inBattleManager.RenderInBattle;
+import superstitioapi.utils.CreatureUtility;
 
 import java.util.ArrayList;
 import java.util.List;

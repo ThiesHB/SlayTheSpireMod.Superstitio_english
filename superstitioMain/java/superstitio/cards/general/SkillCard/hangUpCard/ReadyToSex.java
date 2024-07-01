@@ -50,8 +50,8 @@ public class ReadyToSex extends GeneralCard {
             new CardOrb_WaitCardTrigger(card, AbstractDungeon.player.discardPile, magicNumber, (orb, usedcard) -> {
                 addToBot(new NewQueueCardAction(copyCard, true, false, true));
             })
-                    .setNotEvokeOnEndOfTurn()
                     .setShowCard(showUpCard)
+                    .setTriggerDiscardIfMoveToDiscard()
                     .addToBot_HangCard();
         });
     }

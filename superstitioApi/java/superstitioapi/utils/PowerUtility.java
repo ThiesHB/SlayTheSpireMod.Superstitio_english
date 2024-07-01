@@ -26,7 +26,8 @@ public class PowerUtility {
     public static void foreachPower(Consumer<AbstractPower> consumer) {
         AbstractDungeon.player.powers.forEach(consumer);
         AbstractDungeon.getMonsters().monsters.forEach(monster -> monster.powers.forEach(consumer));
-//        InBattleDataManager.getPetManager().ifPresent(petManager -> petManager.monsterGroup.monsters.forEach(monster -> monster.powers.forEach(consumer)));
+//        InBattleDataManager.getPetManager().ifPresent(petManager -> petManager.monsterGroup.monsters.forEach(monster -> monster.powers.forEach
+//        (consumer)));
     }
 
     public static void BubbleMessage(AbstractPower power, boolean isDeBuffVer, String message) {
