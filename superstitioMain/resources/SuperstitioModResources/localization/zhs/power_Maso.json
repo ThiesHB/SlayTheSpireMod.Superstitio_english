@@ -8,7 +8,7 @@
   "SuperstitioMod:DoubleRemoveHpLostWhenHasVulnerablePower": {
     "NAME": "翻倍格挡",
     "DESCRIPTIONS": [
-      "当有 #y易伤 时，翻倍来自卡牌的 #r腐朽 移除量。"
+      "当有 #y易伤 时，翻倍来自卡牌的 #r腐朽 移除量 和 #y格挡 获得量。"
     ]
   },
   "SuperstitioMod:LostBodyPart_Arm": {

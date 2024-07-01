@@ -1,6 +1,9 @@
 package superstitio.cards.general.SkillCard.gainEnergy;
 
 import com.evacipated.cardcrawl.mod.stslib.powers.interfaces.BetterOnApplyPowerPower;
+import com.evacipated.cardcrawl.modthespire.lib.SpirePatch;
+import com.evacipated.cardcrawl.modthespire.lib.SpirePrefixPatch;
+import com.evacipated.cardcrawl.modthespire.lib.SpireReturn;
 import com.megacrit.cardcrawl.actions.common.ApplyPowerAction;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.core.AbstractCreature;
@@ -15,6 +18,8 @@ import superstitio.powers.AbstractSuperstitioPower;
 import superstitio.powers.DelaySexualHeat;
 import superstitio.powers.SexualHeat;
 
+import java.util.Optional;
+
 public class TimeStop extends GeneralCard {
     public static final String ID = DataManager.MakeTextID(TimeStop.class);
 
@@ -25,17 +30,18 @@ public class TimeStop extends GeneralCard {
     public static final CardTarget CARD_TARGET = CardTarget.SELF;
 
     private static final int COST = 3;
-
+    private static final int MAGIC = 1;
     private static final int COST_UPGRADED_NEW = 2;
 
 
     public TimeStop() {
         super(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET);
+        setupMagicNumber(MAGIC);
     }
 
     @Override
     public void use(AbstractPlayer player, AbstractMonster monster) {
-        addToTop(new ApplyPowerAction(AbstractDungeon.player, AbstractDungeon.player, new TimeStopPower(player, 1)));
+        addToBot_applyPower(new TimeStopPower(AbstractDungeon.player, this.magicNumber));
         addToBot_applyPower(new NoDrawPower(player));
     }
 
@@ -60,11 +66,12 @@ public class TimeStop extends GeneralCard {
         }
 
 
-        @Override
-        public void atEndOfRound() {
-            //if (!isPlayer) return;
-            addToBot_AutoRemoveOne(this);
-        }
+//        @Override
+//        public void atEndOfRound() {
+//            super.atEndOfRound();
+//            //if (!isPlayer) return;
+//            addToBot_AutoRemoveOne(this);
+//        }
 
         @Override
         public boolean betterOnApplyPower(AbstractPower power, AbstractCreature creature, AbstractCreature creature1) {
@@ -74,6 +81,23 @@ public class TimeStop extends GeneralCard {
                 return false;
             }
             return true;
+        }
+
+        @SpirePatch(clz = AbstractCreature.class, method = "applyEndOfTurnTriggers")
+        public static class TimeStopPatch {
+            @SpirePrefixPatch
+            public static SpireReturn<Void> Prefix(AbstractCreature __instance) {
+                Optional<TimeStopPower> timeStopPower =
+                        __instance.powers.stream().filter(power -> power instanceof TimeStopPower).map(power -> (TimeStopPower) power).findAny();
+                if (timeStopPower.isPresent()) {
+                    timeStopPower.get().addToBot_AutoRemoveOne(timeStopPower.get());
+                    AbstractPower noDraw = __instance.getPower(NoDrawPower.POWER_ID);
+                    if (noDraw != null)
+                        timeStopPower.get().addToBot_AutoRemoveOne(noDraw);
+                    return SpireReturn.Return();
+                }
+                return SpireReturn.Continue();
+            }
         }
     }
 }

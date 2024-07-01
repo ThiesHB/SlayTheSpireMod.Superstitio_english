@@ -60,7 +60,7 @@
   "SuperstitioMod:UnBirth": {
     "NAME": "胎内回归",
     "NAME_SFW": "力量汲取",
-    "DESCRIPTION": "获得 !B! superstitiomod:妊娠 。 NL 移除目标所有的 负面效果 和 人工制品 。 NL superstitiomod:流产 时，自身获得两倍封印的效果。",
+    "DESCRIPTION": "获得 !B! superstitiomod:妊娠 。 NL superstitiomod:封印 目标所有的 负面效果 和 人工制品 。 NL superstitiomod:流产 时，自身获得两倍 superstitiomod:封印 的效果。",
     "FLAVOR": "我会包容你的一切：你的欲望、你的梦想、你的爱…… NL 请把你的一切交给我。"
   },
   "SuperstitioMod:ChokeChoker": {
@@ -77,7 +77,7 @@
   "SuperstitioMod:TimeStop": {
     "NAME": "时间静滞",
     "NAME_SFW": "",
-    "DESCRIPTION": "本回合 superstitiomod:快感 不改变，且不再抽卡。 NL 下回合开始时，释放期间产生的 superstitiomod:快感 的 2 倍。",
+    "DESCRIPTION": "持续 !M! 回合。 NL superstitiomod:快感 不改变，且不再抽卡。 NL 在你的回合结束时，你的负面效果和强化效果均不触发。 NL 每回合开始时，释放期间产生的 superstitiomod:快感 的 2 倍。",
     "FLAVOR": "请你为所欲为吧。"
   },
   "SuperstitioMod:Endure": {
@@ -175,7 +175,7 @@
   "SuperstitioMod:HideInPussy": {
     "NAME": "藏器于屄",
     "NAME_SFW": "秘密武器",
-    "DESCRIPTION": "回合结束时，保留最多 !M! 张牌，并让其下次打出时不消耗能量。",
+    "DESCRIPTION": "在你的回合结束时，保留最多 !M! 张牌，并让其下次打出时不消耗能量。",
     "FLAVOR": "只要够烂，裤裆里面什么都可以藏。",
     "EXTENDED_DESCRIPTION": [
       "保留并免费一次，最多选择%d张牌。"

@@ -87,6 +87,15 @@ public abstract class AbstractSuperstitioPower extends AbstractPower implements 
         }
     }
 
+    protected void addToTop_AutoRemoveOne(AbstractPower power) {
+        this.flash();
+        if (this.amount == 0) {
+            this.addToTop(new RemoveSpecificPowerAction(this.owner, this.owner, power));
+        } else {
+            this.addToTop(new ReducePowerAction(this.owner, this.owner, power, 1));
+        }
+    }
+
     private String makeImgPath(final String id, IconSize size) {
         return DataManager.makeImgPath(DEFAULT + returnSizeNum(size),
                 DataManager::makeImgFilesPath_Power, id + returnSizeNum(size));

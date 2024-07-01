@@ -22,8 +22,8 @@
   "SuperstitioMod:RefractoryPeriod": {
     "NAME": "不应期",
     "DESCRIPTIONS": [
-      "高潮所需的快感提高了 #b%d 点。若下回合结束前没有 #y高潮 ，则移除。",
-      "高潮所需的快感提高了 #b%d 点。若本回合没有 #y高潮 ，则移除。"
+      "高潮所需的快感提高了 #b%d 点。若下回合结束前没有 #y高潮 ，则 失去 。",
+      "高潮所需的快感提高了 #b%d 点。若本回合没有 #y高潮 ，则 失去 。"
     ]
   },
   "SuperstitioMod:SexualHeatLoseModifier": {
@@ -55,7 +55,7 @@
   "SuperstitioMod:TimeStopPower": {
     "NAME": "时间静滞",
     "DESCRIPTIONS": [
-      "持续 #b%d 回合。当前回合快感不改变。 NL 回合开始时，释放吸收的快感并且翻 #b%d 倍。"
+      "持续 #b%d 回合。本回合快感不改变。 NL 自身的回合结束时，自身的负面效果和强化效果均不触发。 NL 回合开始时，释放吸收的快感并且翻 #b%d 倍。"
     ]
   },
   "SuperstitioMod:DelaySexualHeat": {

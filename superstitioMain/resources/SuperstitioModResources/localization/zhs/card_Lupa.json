@@ -20,7 +20,7 @@
   "SuperstitioMod:LupaCard:Philter": {
     "NAME": "春药",
     "NAME_SFW": "硬气功",
-    "DESCRIPTION": "移除 所有 的 格挡 ， NL 获得 1/ !M! 的 多层护甲 。",
+    "DESCRIPTION": "失去 所有 的 格挡 ， NL 获得 1/ !M! 的 多层护甲 。",
     "FLAVOR": "从阴蒂注射效果最好。过量注射可能会导致宫缩。"
   },
   "SuperstitioMod:LupaCard:ChooseCoitalPosture": {
@@ -55,7 +55,7 @@
   "SuperstitioMod:LupaCard:SemenBath": {
     "NAME": "精液浴",
     "NAME_SFW": "浴血奋战",
-    "DESCRIPTION": "移除所有的 *精液 ， NL 每移除1点价值的 *精液 ，移除 !B! 的 *腐朽 。",
+    "DESCRIPTION": "失去 所有的 *精液 ， NL 每 失去 1点价值的 *精液 ，移除 !B! 的 *腐朽 。",
     "FLAVOR": "泡澡很舒服，收集这么大一缸子可就难了。"
   },
   "SuperstitioMod:LupaCard:SemenLubricate": {
