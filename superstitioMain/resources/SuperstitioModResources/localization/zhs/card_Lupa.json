@@ -92,7 +92,10 @@
     "NAME": "鞭打",
     "NAME_SFW": "鞭打",
     "DESCRIPTION": "对 所有敌人 造成 !D! 点 伤害 。 NL 每对一个敌人造成 !M! 点 攻击伤害 ，获得 %d 点 superstitiomod:快感 。",
-    "FLAVOR": ""
+    "FLAVOR": "",
+    "ADD_KEYWORDS_ID": [
+      "SuperstitioMod:Orgasm"
+    ]
   },
   "SuperstitioMod:LupaCard:NakedToSchool": {
     "NAME": "全裸上学日",

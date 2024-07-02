@@ -74,6 +74,15 @@
     "NAME": "激情",
     "DESCRIPTIONS": [
       "受到攻击伤害而失去生命时，不 #r接纳腐朽 ，生效 #b%d 回合。"
+    ],
+    "MAKE_KEYWORDS": [
+      {
+        "PROPER_NAME": "激情",
+        "NAMES": [
+          "激情"
+        ],
+        "DESCRIPTION": "受到攻击伤害而失去生命时，不 #r接纳腐朽 。"
+      }
     ]
   }
 }

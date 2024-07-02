@@ -18,6 +18,9 @@
     "FLAVOR": "听说有一些天人会把自己的牙齿都拔掉，就为了给别人口交时方便。有点可怕。",
     "EXTENDED_DESCRIPTION": [
       "脸"
+    ],
+    "ADD_KEYWORDS_ID": [
+      "SuperstitioMod:Orgasm"
     ]
   },
   "SuperstitioMod:Job_Breast": {
@@ -141,6 +144,9 @@
     "FLAVOR": "何以解忧？聊以自慰。",
     "EXTENDED_DESCRIPTION": [
       "抽牌"
+    ],
+    "ADD_KEYWORDS_ID": [
+      "SuperstitioMod:Orgasm"
     ]
   }
 }

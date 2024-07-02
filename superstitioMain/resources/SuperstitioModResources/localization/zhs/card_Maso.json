@@ -80,6 +80,9 @@
       " NL 当前战纹 ： %s",
       " NL %s ： #b%d ；",
       "海虎,奥加,天道,地狱,蓝梦,黑暗"
+    ],
+    "ADD_KEYWORDS_ID": [
+      "SuperstitioMod:Orgasm"
     ]
   },
   "SuperstitioMod:MasoCard:BodyModification_Prolapse": {

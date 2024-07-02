@@ -75,13 +75,6 @@
     "DESCRIPTION": " 本回合增加或减少 潮吹 消耗的 #y快感 数量 。"
   },
   {
-    "PROPER_NAME": "情趣玩具",
-    "NAMES": [
-      "情趣玩具"
-    ],
-    "DESCRIPTION": "回合开始时， #y情趣玩具 会提供 #y快感 。"
-  },
-  {
     "PROPER_NAME": "施虐者",
     "NAMES": [
       "施虐者"
@@ -94,13 +87,6 @@
       "受虐者"
     ],
     "DESCRIPTION": "对自己使用时触发的额外效果。"
-  },
-  {
-    "PROPER_NAME": "濒死",
-    "NAMES": [
-      "濒死"
-    ],
-    "DESCRIPTION": "免疫 生命流失 和 荆棘 伤害。"
   },
   {
     "PROPER_NAME": "乐声不起",
@@ -143,35 +129,6 @@
       "时空递归"
     ],
     "DESCRIPTION": "#b你摧毁了时空结构，你这个小坏蛋！ NL #y自动打出 。 NL 无法逃脱 。 NL 将这张牌放入你的抽牌堆。"
-  },
-  {
-    "PROPER_NAME": "爱欲",
-    "NAMES": [
-      "爱欲"
-    ],
-    "DESCRIPTION": "回合开始时，受到伤害。"
-  },
-  {
-    "PROPER_NAME": "窒息",
-    "NAMES": [
-      "窒息",
-      "窒息项圈"
-    ],
-    "DESCRIPTION": "进入 #y高潮 时 ，受到伤害。 NL 每回合都获得 #y快感修正 。"
-  },
-  {
-    "PROPER_NAME": "乳汁",
-    "NAMES": [
-      "乳汁"
-    ],
-    "DESCRIPTION": "在下一次攻击后，给予目标和自身 #y临时生命。"
-  },
-  {
-    "PROPER_NAME": "史莱姆韧性",
-    "NAMES": [
-      "史莱姆韧性"
-    ],
-    "DESCRIPTION": "下次受到的 #y攻击 伤害 减半。"
   },
   {
     "PROPER_NAME": "流产",

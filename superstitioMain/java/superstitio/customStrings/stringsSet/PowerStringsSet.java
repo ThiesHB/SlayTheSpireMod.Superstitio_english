@@ -2,19 +2,21 @@ package superstitio.customStrings.stringsSet;
 
 import com.megacrit.cardcrawl.localization.LocalizedStrings;
 import com.megacrit.cardcrawl.localization.PowerStrings;
+import superstitio.customStrings.SuperstitioKeyWord;
 import superstitio.customStrings.interFace.HasOriginAndSFWVersion;
 import superstitio.customStrings.interFace.StringSetUtility;
 import superstitio.customStrings.interFace.WordReplace;
 
 import java.util.List;
 
-public class PowerStringsSet implements HasOriginAndSFWVersion<PowerStrings> {
+public class PowerStringsSet implements HasOriginAndSFWVersion<PowerStrings>, SuperstitioKeyWord.WillMakeSuperstitioKeyWords {
 
     private final PowerStrings Origin = new PowerStrings();
     private final PowerStrings SFW = new PowerStrings();
     private String NAME;
     private String NAME_SFW;
     private String[] DESCRIPTIONS;
+    private SuperstitioKeyWord[] MAKE_KEYWORDS;
 
     private String[] DESCRIPTIONS_SFW;
 
@@ -89,5 +91,12 @@ public class PowerStringsSet implements HasOriginAndSFWVersion<PowerStrings> {
     @Override
     public PowerStrings getOriginVersion() {
         return Origin;
+    }
+
+    @Override
+    public SuperstitioKeyWord[] getWillMakeKEYWORDS() {
+        if (MAKE_KEYWORDS != null && MAKE_KEYWORDS.length > 0)
+            return MAKE_KEYWORDS;
+        return new SuperstitioKeyWord[]{};
     }
 }

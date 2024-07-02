@@ -83,7 +83,10 @@
   "SuperstitioMod:Endure": {
     "NAME": "忍耐",
     "DESCRIPTION": "下回合获得 !M! superstitiomod:快感 。 NL 抽 2 张牌。",
-    "FLAVOR": "吃得巨中巨，方为忍上忍。"
+    "FLAVOR": "吃得巨中巨，方为忍上忍。",
+    "ADD_KEYWORDS_ID": [
+      "SuperstitioMod:Orgasm"
+    ]
   },
   "SuperstitioMod:BecomeTrash": {
     "NAME": "废弃",
@@ -117,7 +120,10 @@
     "NAME": "强制高潮",
     "NAME_SFW": "难掩怒火",
     "DESCRIPTION": "造成 !M! 点 superstitiomod:快感 。 NL 下回合开始时， NL 消耗 1 张牌 。 NL 重复 X 次。 NL 消耗 。",
-    "FLAVOR": "数到3就高潮！ NL 一、二、三！三！三！三三三三三三三三……"
+    "FLAVOR": "数到3就高潮！ NL 一、二、三！三！三！三三三三三三三三……",
+    "ADD_KEYWORDS_ID": [
+      "SuperstitioMod:Orgasm"
+    ]
   },
   "SuperstitioMod:ReadyToSex": {
     "NAME": "性交准备",
@@ -161,7 +167,10 @@
     "NAME": "逃脱魔术",
     "NAME_SFW": "金蝉脱壳",
     "DESCRIPTION": "获得手牌中 状态 和 诅咒 数量的 [E] 。 NL 获得 当前负面状态 !M! 倍的 superstitiomod:快感 。 NL *丢弃 所有费用不为0的手牌， NL 每 *丢弃 一张 状态 或 诅咒 牌，抽一张牌。",
-    "FLAVOR": "也许不挣脱也是一个好选择？"
+    "FLAVOR": "也许不挣脱也是一个好选择？",
+    "ADD_KEYWORDS_ID": [
+      "SuperstitioMod:Orgasm"
+    ]
   },
   "SuperstitioMod:MeasureDick": {
     "NAME": "肚量",

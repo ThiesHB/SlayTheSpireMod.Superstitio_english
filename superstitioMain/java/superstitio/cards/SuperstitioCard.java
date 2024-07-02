@@ -1,6 +1,7 @@
 package superstitio.cards;
 
 import basemod.abstracts.CustomCard;
+import basemod.helpers.TooltipInfo;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.MathUtils;
@@ -28,7 +29,8 @@ import com.megacrit.cardcrawl.relics.AbstractRelic;
 import com.megacrit.cardcrawl.vfx.AbstractGameEffect;
 import com.megacrit.cardcrawl.vfx.combat.FlashAtkImgEffect;
 import superstitio.Logger;
-import superstitio.customStrings.stringsSet.CardStringsWithFlavorSet;
+import superstitio.customStrings.SuperstitioKeyWord;
+import superstitio.customStrings.stringsSet.CardStringsWillMakeFlavorSet;
 import superstitio.delayHpLose.DelayHpLosePower;
 import superstitio.delayHpLose.DelayRemoveDelayHpLoseBlock;
 import superstitio.delayHpLose.DelayRemoveDelayHpLosePower;
@@ -42,6 +44,7 @@ import superstitioapi.utils.updateDescriptionAdvanced;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Objects;
 import java.util.function.Function;
 import java.util.stream.Collectors;
@@ -59,7 +62,7 @@ import static superstitio.delayHpLose.DelayHpLosePatch.GainBlockTypeFields.ifRed
 public abstract class SuperstitioCard extends CustomCard implements updateDescriptionAdvanced {
     private final static float DESC_LINE_WIDTH = 418.0f * Settings.scale;
     //调用父类的构造方法，传参为super(卡牌ID，卡牌名称，图片地址，能量花费，卡牌描述，卡牌类型，卡牌颜色，卡牌稀有度，卡牌目标)
-    public final CardStringsWithFlavorSet cardStrings;
+    public final CardStringsWillMakeFlavorSet cardStrings;
     private int damageAutoUpgrade = 0;
     private int blockAutoUpgrade = 0;
     private int magicAutoUpgrade = 0;
@@ -78,11 +81,11 @@ public abstract class SuperstitioCard extends CustomCard implements updateDescri
         initializeDescription();
     }
 
-    public static CardStringsWithFlavorSet getCardStringsWithSFWAndFlavor(String cardId) {
-        CardStringsWithFlavorSet cardStringsSet = getCustomStringsWithSFW(cardId, cards, CardStringsWithFlavorSet.class);
+    public static CardStringsWillMakeFlavorSet getCardStringsWithSFWAndFlavor(String cardId) {
+        CardStringsWillMakeFlavorSet cardStringsSet = getCustomStringsWithSFW(cardId, cards, CardStringsWillMakeFlavorSet.class);
         if (cardStringsSet != null && !Objects.equals(cardStringsSet.getNAME(), CardStrings.getMockCardString().NAME))
             return cardStringsSet;
-        return getCustomStringsWithSFW(getModID() + ":" + DataUtility.getIdOnly(cardId), cards, CardStringsWithFlavorSet.class);
+        return getCustomStringsWithSFW(getModID() + ":" + DataUtility.getIdOnly(cardId), cards, CardStringsWillMakeFlavorSet.class);
     }
 
     protected static String CardTypeToString(final CardType t) {
@@ -453,6 +456,21 @@ public abstract class SuperstitioCard extends CustomCard implements updateDescri
         }
         selfOrEnemyTargeting.clearHovered();
         return target;
+    }
+
+    @Override
+    public List<TooltipInfo> getCustomTooltips() {
+        List<TooltipInfo> list = new ArrayList<>();
+        for (SuperstitioKeyWord superstitioKeyWord : cardStrings.getNeedAddKeywords()) {
+            TooltipInfo tooltipInfo = new TooltipInfo(superstitioKeyWord.getPROPER_NAME(), superstitioKeyWord.getDESCRIPTION());
+            list.add(tooltipInfo);
+        }
+        return list;
+    }
+
+    @Override
+    public List<TooltipInfo> getCustomTooltipsTop() {
+        return new ArrayList<>();
     }
 
     protected final void calculateSingleDamage(AbstractPlayer player, AbstractCreature creature) {

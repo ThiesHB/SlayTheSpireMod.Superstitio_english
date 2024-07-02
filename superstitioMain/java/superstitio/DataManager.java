@@ -43,18 +43,28 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.util.*;
 import java.util.function.BiFunction;
+import java.util.function.Consumer;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import static superstitioapi.DataUtility.makeDefaultPath;
 
 public class DataManager {
-    public static Map<String, CardStringsWithFlavorSet> cards = new HashMap<>();
+    public static Map<String, CardStringsWillMakeFlavorSet> cards = new HashMap<>();
     public static Map<String, PowerStringsSet> powers = new HashMap<>();
     public static Map<String, ModifierStringsSet> modifiers = new HashMap<>();
     public static Map<String, OrbStringsSet> orbs = new HashMap<>();
     public static Map<String, UIStringsSet> uiStrings = new HashMap<>();
     public SPTT_DATA spttData = new SPTT_DATA();
+
+    //    public static Object[] allData = Arrays.stream(new Map[]{cards, powers, modifiers, orbs, uiStrings}).toArray();
+    public static void forEachData(Consumer<Map<String, ? extends HasDifferentVersionStringSet<?>>> consumer) {
+        consumer.accept(cards);
+        consumer.accept(powers);
+        consumer.accept(modifiers);
+        consumer.accept(orbs);
+        consumer.accept(uiStrings);
+    }
 
     static String makeLocalizationPath(Settings.GameLanguage language, String filename) {
         String ret = "localization/";

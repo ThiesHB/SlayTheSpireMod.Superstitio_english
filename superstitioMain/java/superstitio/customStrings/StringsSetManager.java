@@ -10,7 +10,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static superstitio.customStrings.stringsSet.CardStringsWithFlavorSet.makeCardNameReplaceRules;
+import static superstitio.customStrings.stringsSet.CardStringsWillMakeFlavorSet.makeCardNameReplaceRules;
 import static superstitio.customStrings.stringsSet.ModifierStringsSet.MakeKeyWords;
 import static superstitio.customStrings.stringsSet.ModifierStringsSet.makeModifierNameReplaceRules;
 
@@ -33,7 +33,7 @@ public class StringsSetManager {
 
     public static void loadCardStringsSet() {
         for (String cardFile : cardFiles)
-            DataManager.loadCustomStringsFile(cardFile, DataManager.cards, CardStringsWithFlavorSet.class);
+            DataManager.loadCustomStringsFile(cardFile, DataManager.cards, CardStringsWillMakeFlavorSet.class);
     }
 
     public static void loadAllStrings() {

@@ -38,12 +38,31 @@
     "DESCRIPTIONS": [
       "回合开始时， 每有 #b%d 个 #y情趣玩具 会提供 #b1 点 #y快感。 NL 当前携带的 #y情趣玩具 ： %s",
       " NL %s ： #b%d ；"
+    ],
+    "MAKE_KEYWORDS": [
+      {
+        "PROPER_NAME": "情趣玩具",
+        "NAMES": [
+          "情趣玩具"
+        ],
+        "DESCRIPTION": "回合开始时， #y情趣玩具 会提供 #y快感 。"
+      }
     ]
   },
   "SuperstitioMod:ChokeChokerPower": {
     "NAME": "窒息",
     "DESCRIPTIONS": [
       "回合开始时，获得 #b%d #y快感修正 。 NL 进入 #y高潮 时 ，受到 #b%d 点伤害。"
+    ],
+    "MAKE_KEYWORDS": [
+      {
+        "PROPER_NAME": "窒息",
+        "NAMES": [
+          "窒息",
+          "窒息项圈"
+        ],
+        "DESCRIPTION": "进入 #y高潮 时 ，受到伤害。 NL 每回合都获得 #y快感修正 。"
+      }
     ]
   },
   "SuperstitioMod:SamsaraPower": {
@@ -80,12 +99,30 @@
     "NAME": "濒死",
     "DESCRIPTIONS": [
       "免疫 生命流失 和 荆棘 伤害。"
+    ],
+    "MAKE_KEYWORDS": [
+      {
+        "PROPER_NAME": "濒死",
+        "NAMES": [
+          "濒死"
+        ],
+        "DESCRIPTION": "免疫 生命流失 和 荆棘 伤害。"
+      }
     ]
   },
   "SuperstitioMod:SexualDamage": {
     "NAME": "爱欲",
     "DESCRIPTIONS": [
       "回合开始时，受到 #b%d 点伤害。"
+    ],
+    "MAKE_KEYWORDS": [
+      {
+        "PROPER_NAME": "爱欲",
+        "NAMES": [
+          "爱欲"
+        ],
+        "DESCRIPTION": "回合开始时，受到伤害。"
+      }
     ]
   },
   "SuperstitioMod:FastWindUpPower": {
@@ -104,12 +141,30 @@
     "NAME": "乳汁",
     "DESCRIPTIONS": [
       "在下一次攻击后，给予目标和自身 %d 点 #y临时生命 。"
+    ],
+    "MAKE_KEYWORDS": [
+      {
+        "PROPER_NAME": "乳汁",
+        "NAMES": [
+          "乳汁"
+        ],
+        "DESCRIPTION": "在下一次攻击后，给予目标和自身 #y临时生命。"
+      }
     ]
   },
   "SuperstitioMod:PlayerFlightPower": {
     "NAME": "史莱姆韧性",
     "DESCRIPTIONS": [
       "将下 %d 次 所受到的 #y攻击 伤害 减半 。"
+    ],
+    "MAKE_KEYWORDS": [
+      {
+        "PROPER_NAME": "史莱姆韧性",
+        "NAMES": [
+          "史莱姆韧性"
+        ],
+        "DESCRIPTION": "下次受到的 #y攻击 伤害 减半。"
+      }
     ]
   }
 }

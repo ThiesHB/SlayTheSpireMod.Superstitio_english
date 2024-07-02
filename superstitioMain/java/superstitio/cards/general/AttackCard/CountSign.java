@@ -12,7 +12,6 @@ import superstitio.powers.SexualHeat;
 import superstitioapi.cards.DamageActionMaker;
 import superstitioapi.utils.ActionUtility;
 
-import java.util.Collections;
 import java.util.List;
 
 public class CountSign extends GeneralCard {
@@ -50,9 +49,11 @@ public class CountSign extends GeneralCard {
     }
 
     @Override
-    public List<TooltipInfo> getCustomTooltips() {
-        return Collections.singletonList(new TooltipInfo(this.name, String.format(this.cardStrings.getEXTENDED_DESCRIPTION()[0],
+    public List<TooltipInfo> getCustomTooltipsTop() {
+        List<TooltipInfo> customTooltipsTop = super.getCustomTooltipsTop();
+        customTooltipsTop.add(new TooltipInfo(this.name, String.format(this.cardStrings.getEXTENDED_DESCRIPTION()[0],
                 InBattleDataManager.OrgasmTimesTotal)));
+        return customTooltipsTop;
     }
 
     private void updateDamage() {

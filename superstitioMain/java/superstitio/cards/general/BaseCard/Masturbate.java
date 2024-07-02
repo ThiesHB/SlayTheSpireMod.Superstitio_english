@@ -1,21 +1,15 @@
 package superstitio.cards.general.BaseCard;
 
-import basemod.helpers.TooltipInfo;
 import com.megacrit.cardcrawl.cards.CardGroup;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import superstitio.DataManager;
 import superstitio.cards.general.GeneralCard;
-import superstitio.customStrings.SuperstitioKeyWord;
 import superstitio.powers.SexualHeat;
 import superstitioapi.cards.patch.GoSomewhereElseAfterUse;
 import superstitioapi.hangUpCard.CardOrb_WaitCardTrigger;
 import superstitioapi.utils.PowerUtility;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
 
 public class Masturbate extends GeneralCard implements GoSomewhereElseAfterUse {
     public static final String ID = DataManager.MakeTextID(Masturbate.class);
@@ -42,15 +36,6 @@ public class Masturbate extends GeneralCard implements GoSomewhereElseAfterUse {
     @Override
     public void initializeDescription() {
         super.initializeDescription();
-    }
-
-    @Override
-    public List<TooltipInfo> getCustomTooltips() {
-        Optional<SuperstitioKeyWord> orgasm = SuperstitioKeyWord.getKeyword("Orgasm");
-        List<TooltipInfo> tooltipInfos = new ArrayList<>();
-        orgasm.ifPresent(superstitioKeyWord ->
-                tooltipInfos.add(new TooltipInfo(superstitioKeyWord.getPROPER_NAME(), superstitioKeyWord.getDESCRIPTION())));
-        return tooltipInfos;
     }
 
     @Override

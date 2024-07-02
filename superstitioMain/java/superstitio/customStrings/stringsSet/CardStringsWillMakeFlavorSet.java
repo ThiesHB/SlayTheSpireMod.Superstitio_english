@@ -4,6 +4,7 @@ import com.evacipated.cardcrawl.mod.stslib.patches.FlavorText;
 import com.megacrit.cardcrawl.localization.CardStrings;
 import com.megacrit.cardcrawl.localization.LocalizedStrings;
 import superstitio.SuperstitioConfig;
+import superstitio.customStrings.SuperstitioKeyWord;
 import superstitio.customStrings.interFace.HasOriginAndSFWVersion;
 import superstitio.customStrings.interFace.StringSetUtility;
 import superstitio.customStrings.interFace.WordReplace;
@@ -11,7 +12,7 @@ import superstitio.customStrings.interFace.WordReplace;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class CardStringsWithFlavorSet implements HasOriginAndSFWVersion<CardStrings> {
+public class CardStringsWillMakeFlavorSet implements HasOriginAndSFWVersion<CardStrings>, SuperstitioKeyWord.WillMakeSuperstitioKeyWords , SuperstitioKeyWord.SetupWithKeyWords {
 
     private final CardStrings Origin = new CardStrings();
     private final CardStrings SFW = new CardStrings();
@@ -24,12 +25,14 @@ public class CardStringsWithFlavorSet implements HasOriginAndSFWVersion<CardStri
     private String[] EXTENDED_DESCRIPTION;
     private String[] EXTENDED_DESCRIPTION_SFW;
     private String FLAVOR;
+    private SuperstitioKeyWord[] MAKE_KEYWORDS;
+    private String[] ADD_KEYWORDS_ID;
 
-    public CardStringsWithFlavorSet() {
+    public CardStringsWillMakeFlavorSet() {
     }
 
-    public static List<WordReplace> makeCardNameReplaceRules(List<CardStringsWithFlavorSet> cards) {
-        return cards.stream().map(CardStringsWithFlavorSet::toCardNameReplaceRule).collect(Collectors.toList());
+    public static List<WordReplace> makeCardNameReplaceRules(List<CardStringsWillMakeFlavorSet> cards) {
+        return cards.stream().map(CardStringsWillMakeFlavorSet::toCardNameReplaceRule).collect(Collectors.toList());
     }
 
 
@@ -118,5 +121,19 @@ public class CardStringsWithFlavorSet implements HasOriginAndSFWVersion<CardStri
     @Override
     public CardStrings getOriginVersion() {
         return this.Origin;
+    }
+
+    @Override
+    public SuperstitioKeyWord[] getWillMakeKEYWORDS() {
+        if (MAKE_KEYWORDS != null && MAKE_KEYWORDS.length > 0)
+            return MAKE_KEYWORDS;
+        return new SuperstitioKeyWord[]{};
+    }
+
+    @Override
+    public String[] getWillAddKEYWORDS_ID() {
+        if (ADD_KEYWORDS_ID != null && ADD_KEYWORDS_ID.length > 0)
+            return ADD_KEYWORDS_ID;
+        return new String[]{};
     }
 }

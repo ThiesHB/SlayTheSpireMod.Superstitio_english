@@ -40,10 +40,9 @@ public class SuperstitioKeyWord {
 //        keyword.NAMES = superstitioKeyWord.NAMES;
 //    }
 
-    public static Optional<SuperstitioKeyWord> getKeyword(String keywordId) {
-        String keywordFullId = DataManager.MakeTextID(keywordId);
-        if (SuperstitioKeyWord.KeywordsWithID.containsKey(keywordFullId))
-            return Optional.of(KeywordsWithID.get(keywordFullId));
+    public static Optional<SuperstitioKeyWord> getAddedKeyword(String keywordId) {
+        if (SuperstitioKeyWord.KeywordsWithID.containsKey(keywordId))
+            return Optional.of(KeywordsWithID.get(keywordId));
         return Optional.empty();
     }
 
@@ -54,6 +53,13 @@ public class SuperstitioKeyWord {
             keywordsSFW.addAll(Arrays.asList(DataManager.makeJsonStringFromFile("keyword_hangUpCard", SuperstitioKeyWord[].class)));
             keywordsSFW.addAll(Arrays.asList(DataManager.makeJsonStringFromFile("keyword_Lupa", SuperstitioKeyWord[].class)));
             keywordsSFW.addAll(Arrays.asList(DataManager.makeJsonStringFromFile("keyword_Maso", SuperstitioKeyWord[].class)));
+
+            DataManager.forEachData(data -> data.forEach((string, stringSet) -> {
+                if (stringSet instanceof WillMakeSuperstitioKeyWords) {
+                    keywordsSFW.addAll(Arrays.asList(((WillMakeSuperstitioKeyWords) stringSet).getWillMakeKEYWORDS()));
+                }
+            }));
+
             keywordsSFW.forEach(SuperstitioKeyWord::registerKeywordFormFile);
         }
         return KeywordsFromFile;
@@ -113,5 +119,34 @@ public class SuperstitioKeyWord {
 
     private boolean hasSFWVersionSelf() {
         return !StringSetUtility.isNullOrEmpty(PROPER_NAME_SFW) && !StringSetUtility.isNullOrEmpty(NAMES_SFW) && !StringSetUtility.isNullOrEmpty(DESCRIPTION_SFW);
+    }
+
+    public interface WillMakeSuperstitioKeyWords {
+        SuperstitioKeyWord[] getWillMakeKEYWORDS();
+
+//        default void forKeywords(Consumer<SuperstitioKeyWord> keyWordConsumer) {
+//            for (SuperstitioKeyWord keyword : makeKEYWORDS()) {
+//                keyWordConsumer.accept(keyword);
+//            }
+//        }
+    }
+
+    public interface SetupWithKeyWords {
+        default List<SuperstitioKeyWord> getNeedAddKeywords() {
+            List<SuperstitioKeyWord> superstitioKeyWords = new ArrayList<>();
+            for (String keywordId : getWillAddKEYWORDS_ID()) {
+              Optional<SuperstitioKeyWord> keyWord = getAddedKeyword(keywordId);
+              keyWord.ifPresent(superstitioKeyWords::add);
+            }
+            return superstitioKeyWords;
+        }
+
+        String[] getWillAddKEYWORDS_ID();
+
+//        default void forKeywords(Consumer<SuperstitioKeyWord> keyWordConsumer) {
+//            for (SuperstitioKeyWord keyword : addKEYWORDS()) {
+//                keyWordConsumer.accept(keyword);
+//            }
+//        }
     }
 }
