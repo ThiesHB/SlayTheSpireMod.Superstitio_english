@@ -77,7 +77,7 @@
   "SuperstitioMod:TimeStop": {
     "NAME": "时间静滞",
     "NAME_SFW": "",
-    "DESCRIPTION": "持续 !M! 回合。 NL superstitiomod:快感 不改变，且不再抽卡。 NL 在你的回合结束时，你的负面效果和强化效果均不触发。 NL 每回合开始时，释放期间产生的 superstitiomod:快感 的 2 倍。",
+    "DESCRIPTION": "持续 !M! 回合。 NL superstitiomod:快感 不改变，且不再抽卡。 NL 在 superstitiomod:回合结束 或 superstitiomod:你的回合结束 时，你的 superstitiomod:负面效果和强化效果 均不触发。 NL 每回合开始时，释放期间产生的 superstitiomod:快感 的 2 倍。",
     "FLAVOR": "请你为所欲为吧。"
   },
   "SuperstitioMod:Endure": {

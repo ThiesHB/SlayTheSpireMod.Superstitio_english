@@ -55,7 +55,7 @@
   "SuperstitioMod:TimeStopPower": {
     "NAME": "时间静滞",
     "DESCRIPTIONS": [
-      "持续 #b%d 回合。本回合快感不改变。 NL 自身的回合结束时，自身的负面效果和强化效果均不触发。 NL 回合开始时，释放吸收的快感并且翻 #b%d 倍。"
+      "持续 #b%d 回合。本回合快感不改变。 NL #y回合结束 或 #y自身的回合结束 时，自身的 #y负面效果和强化效果 均不触发。 NL 回合开始时，释放吸收的快感并且翻 #b%d 倍。"
     ]
   },
   "SuperstitioMod:DelaySexualHeat": {

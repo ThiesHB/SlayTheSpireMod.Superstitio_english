@@ -61,6 +61,7 @@ public class Philter extends LupaCard {
             CardCrawlGame.sound.play("POWER_PLATED", 0.05F);
         }
 
+        @Override
         public void wasHPLost(DamageInfo info, int damageAmount) {
             if (info.owner != null && info.owner != this.owner && info.type != DamageInfo.DamageType.HP_LOSS && info.type != DamageInfo.DamageType.THORNS && damageAmount > 0) {
                 this.flash();
@@ -68,6 +69,7 @@ public class Philter extends LupaCard {
             }
         }
 
+        @Override
         public void atEndOfTurnPreEndTurnCards(boolean isPlayer) {
             this.flash();
             this.addToBot(new GainBlockAction(this.owner, this.owner, this.amount));

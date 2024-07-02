@@ -39,11 +39,11 @@ import static superstitioapi.relicToBlight.InfoBlight.addAsInfoBlight;
 public class Tzeentch extends BaseCharacter implements PlayerInitPostDungeonInitialize, RenderInCharacterSelect {
     public static final String ID = DataManager.MakeTextID(Tzeentch.class.getSimpleName());
     public static final CharacterStrings TezeentchCharacterStrings = CardCrawlGame.languagePack.getCharacterString(ID);
-    public static final float Relic_Selection_Y = 500 * Settings.scale;
+    public static final float Relic_Selection_Y = 500 * Settings.yScale;
     public static final RelicSelectionUI STARTER_RELIC_Selection_UI;
     public static final RelicSelectionUI DEVABODY_RELIC_Selection_UI;
     public static final RelicSelectionUI SEXUAL_HEAT_RELIC_Selection_UI;
-    public static final float Relic_Selection_X = 240 * Settings.scale;
+    public static final float Relic_Selection_X = 240 * Settings.xScale;
     public static CharacterSelectInfo characterInfo = new CharacterSelectInfo(
             65, // 当前血量
             65, // 最大血量

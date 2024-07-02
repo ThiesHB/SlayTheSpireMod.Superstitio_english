@@ -1,6 +1,7 @@
 package superstitio.cards.general.SkillCard.gainEnergy;
 
 import com.evacipated.cardcrawl.mod.stslib.powers.interfaces.BetterOnApplyPowerPower;
+import com.evacipated.cardcrawl.modthespire.lib.SpireInstrumentPatch;
 import com.evacipated.cardcrawl.modthespire.lib.SpirePatch;
 import com.evacipated.cardcrawl.modthespire.lib.SpirePrefixPatch;
 import com.evacipated.cardcrawl.modthespire.lib.SpireReturn;
@@ -9,8 +10,12 @@ import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.core.AbstractCreature;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
+import com.megacrit.cardcrawl.monsters.MonsterGroup;
 import com.megacrit.cardcrawl.powers.AbstractPower;
 import com.megacrit.cardcrawl.powers.NoDrawPower;
+import javassist.CannotCompileException;
+import javassist.expr.ExprEditor;
+import javassist.expr.MethodCall;
 import superstitio.DataManager;
 import superstitio.SuperstitioImg;
 import superstitio.cards.general.GeneralCard;
@@ -66,12 +71,12 @@ public class TimeStop extends GeneralCard {
         }
 
 
-//        @Override
-//        public void atEndOfRound() {
-//            super.atEndOfRound();
-//            //if (!isPlayer) return;
-//            addToBot_AutoRemoveOne(this);
-//        }
+        @Override
+        public void atEndOfRound() {
+            super.atEndOfRound();
+            //if (!isPlayer) return;
+            addToBot_AutoRemoveOne(this);
+        }
 
         @Override
         public boolean betterOnApplyPower(AbstractPower power, AbstractCreature creature, AbstractCreature creature1) {
@@ -84,19 +89,42 @@ public class TimeStop extends GeneralCard {
         }
 
         @SpirePatch(clz = AbstractCreature.class, method = "applyEndOfTurnTriggers")
-        public static class TimeStopPatch {
+        public static class TimeStopEndTurnPatch {
             @SpirePrefixPatch
             public static SpireReturn<Void> Prefix(AbstractCreature __instance) {
                 Optional<TimeStopPower> timeStopPower =
                         __instance.powers.stream().filter(power -> power instanceof TimeStopPower).map(power -> (TimeStopPower) power).findAny();
                 if (timeStopPower.isPresent()) {
-                    timeStopPower.get().addToBot_AutoRemoveOne(timeStopPower.get());
                     AbstractPower noDraw = __instance.getPower(NoDrawPower.POWER_ID);
                     if (noDraw != null)
                         timeStopPower.get().addToBot_AutoRemoveOne(noDraw);
                     return SpireReturn.Return();
                 }
                 return SpireReturn.Continue();
+            }
+        }
+
+        @SpirePatch(clz = MonsterGroup.class, method = "applyEndOfTurnPowers")
+        public static class TimeStopEndRoundPatch {
+            @SpireInstrumentPatch
+            public static ExprEditor Instrument() {
+                return new ExprEditor() {
+                    public void edit(MethodCall m) throws CannotCompileException {
+                        if (m.getClassName().equals(AbstractPower.class.getName()) && m.getMethodName().equals("atEndOfRound")) {
+                            m.replace(String.format("if (!%s.shouldEscapeEndOfRound($0)){$_ = $proceed($$);}",
+                                    TimeStopEndRoundPatch.class.getName()));
+                        }
+
+                    }
+                };
+            }
+
+            public static boolean shouldEscapeEndOfRound(AbstractPower power) {
+                if (power instanceof TimeStopPower) return false;
+//                if (power instanceof NoDrawPower) return false;
+                Optional<AbstractPower> timeStopPower =
+                        power.owner.powers.stream().filter(power1 -> power1 instanceof TimeStopPower).findAny();
+                return timeStopPower.isPresent();
             }
         }
     }
