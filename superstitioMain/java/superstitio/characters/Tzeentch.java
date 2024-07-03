@@ -2,8 +2,10 @@ package superstitio.characters;
 
 import basemod.BaseMod;
 import basemod.ReflectionHacks;
-import basemod.abstracts.CustomSavable;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.evacipated.cardcrawl.modthespire.lib.SpireConfig;
+import com.google.gson.Gson;
+import com.google.gson.JsonElement;
 import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
@@ -25,10 +27,8 @@ import superstitioapi.player.PlayerInitPostDungeonInitialize;
 import superstitioapi.renderManager.characterSelectScreenRender.RelicSelectionUI;
 import superstitioapi.renderManager.characterSelectScreenRender.RenderInCharacterSelect;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Objects;
+import java.io.IOException;
+import java.util.*;
 import java.util.stream.Collectors;
 
 import static superstitio.DataManager.SPTT_DATA.LupaEnums.LUPA_Character;
@@ -37,8 +37,7 @@ import static superstitio.DataManager.SPTT_DATA.TzeentchEnums.TZEENTCH_Character
 import static superstitioapi.relicToBlight.InfoBlight.addAsInfoBlight;
 
 //
-public class Tzeentch extends BaseCharacter implements PlayerInitPostDungeonInitialize, RenderInCharacterSelect,
-        CustomSavable<Tzeentch.TzeentchSave> {
+public class Tzeentch extends BaseCharacter implements PlayerInitPostDungeonInitialize, RenderInCharacterSelect {
     public static final String ID = DataManager.MakeTextID(Tzeentch.class.getSimpleName());
     public static final CharacterStrings TezeentchCharacterStrings = CardCrawlGame.languagePack.getCharacterString(ID);
     public static final float Relic_Selection_Y = (float) Settings.HEIGHT / 2 - 100 * Settings.yScale;
@@ -93,6 +92,8 @@ public class Tzeentch extends BaseCharacter implements PlayerInitPostDungeonInit
                 Relic_Selection_Y,
                 Arrays.stream(new AbstractRelic[]{new Sensitive(), new MasochismMode()}).collect(Collectors.toList()),
                 new PowerTip(TezeentchCharacterStrings.TEXT[6], TezeentchCharacterStrings.TEXT[7]));
+
+        TzeentchSave.loadConfig();
     }
 
     public Tzeentch(String name) {
@@ -109,31 +110,6 @@ public class Tzeentch extends BaseCharacter implements PlayerInitPostDungeonInit
         return Lupa.class;
     }
 
-    @Override
-    public TzeentchSave onSave() {
-        HashMap<String, Boolean> cardPoolData = new HashMap<>();
-        CardPoolManager.instance.cardPools.forEach(cardPool -> cardPoolData.put(cardPool.getId(), cardPool.getIsSelect()));
-
-        return new TzeentchSave(
-                STARTER_RELIC_Selection_UI.getSelectRelic().relicId,
-                DEVABODY_RELIC_Selection_UI.getSelectRelic().relicId,
-                SEXUAL_HEAT_RELIC_Selection_UI.getSelectRelic().relicId,
-                cardPoolData
-        );
-    }
-
-    @Override
-    public void onLoad(TzeentchSave tzeentchSave) {
-        STARTER_RELIC_Selection_UI.setSelectRelic(tzeentchSave.starterRelicId);
-        DEVABODY_RELIC_Selection_UI.setSelectRelic(tzeentchSave.devaBodyRelicId);
-        SEXUAL_HEAT_RELIC_Selection_UI.setSelectRelic(tzeentchSave.sexualHeatRelicId);
-        tzeentchSave.cardPoolId_IsSelect.forEach((cardPoolId, isSelect) -> {
-            CardPoolManager.instance.cardPools.forEach(cardPool->{
-                if (Objects.equals(cardPool.getId(), cardPoolId))
-                    cardPool.setIsSelect(isSelect);
-            });
-        });
-    }
 
     @Override
     // 初始遗物
@@ -213,6 +189,7 @@ public class Tzeentch extends BaseCharacter implements PlayerInitPostDungeonInit
 
     @Override
     public void initPostDungeonInitialize() {
+        TzeentchSave.saveConfig();
         STARTER_RELIC_Selection_UI.getSelectRelic().makeCopy().instantObtain();
         addAsInfoBlight(new JokeDescription());
         addAsInfoBlight(DEVABODY_RELIC_Selection_UI.getSelectRelic());
@@ -241,8 +218,6 @@ public class Tzeentch extends BaseCharacter implements PlayerInitPostDungeonInit
     public void updateInCharacterSelectScreen(CharacterOption characterOption) {
         unableByGuroSetting();
         CardPoolManager.instance.update();
-
-
         STARTER_RELIC_Selection_UI.update();
         DEVABODY_RELIC_Selection_UI.update();
         SEXUAL_HEAT_RELIC_Selection_UI.update();
@@ -257,10 +232,15 @@ public class Tzeentch extends BaseCharacter implements PlayerInitPostDungeonInit
                 CardCrawlGame.mainMenuScreen.charSelectScreen.bgCharImg = ImageMaster.loadImage(BaseMod.playerPortraitMap.get(LUPA_Character));
             if (Maso.class.isAssignableFrom(getOwnerFromRelic(DEVABODY_RELIC_Selection_UI.getSelectRelic())))
                 CardCrawlGame.mainMenuScreen.charSelectScreen.bgCharImg = ImageMaster.loadImage(BaseMod.playerPortraitMap.get(MASO_Character));
+            TzeentchSave.saveConfig();
         }
     }
 
     public static class TzeentchSave implements java.io.Serializable {
+        private static final String TzeentchSave_STRING = "TzeentchSave";
+        public static SpireConfig config = null;
+        public static Properties theDefaultSettings = new Properties();
+        public static Gson saveFileGson = new Gson();
         public String starterRelicId;
         public String devaBodyRelicId;
         public String sexualHeatRelicId;
@@ -271,6 +251,70 @@ public class Tzeentch extends BaseCharacter implements PlayerInitPostDungeonInit
             this.devaBodyRelicId = devaBodyRelicId;
             this.sexualHeatRelicId = sexualHeatRelicId;
             this.cardPoolId_IsSelect = cardPoolId_IsSelect;
+        }
+
+        public static void loadConfig() {
+            theDefaultSettings.setProperty(TzeentchSave_STRING, "");
+            try {
+                config = new SpireConfig(DataManager.getModID() + TzeentchSave.class.getSimpleName(),
+                        DataManager.getModID() + TzeentchSave.class.getSimpleName() + "Config",
+                        theDefaultSettings);
+                config.load();
+                String tzeentchString = config.getString(TzeentchSave_STRING);
+                TzeentchSave tzeentchSave = saveFileGson.fromJson(tzeentchString, TzeentchSave.class);
+                onLoad(tzeentchSave);
+            } catch (Exception e) {
+                Logger.error(e);
+            }
+        }
+
+        public static void saveConfig() {
+            String tzeentchString = saveFileGson.toJsonTree(onSave(), TzeentchSave.class).toString();
+            config.setString(TzeentchSave_STRING,tzeentchString);
+            try {
+                config.save();
+            } catch (IOException e) {
+                Logger.error(e);
+            }
+        }
+
+        private static JsonElement onSaveRaw() {
+            return saveFileGson.toJsonTree(onSave());
+        }
+
+        private static void onLoadRaw(JsonElement value) {
+            if (value != null) {
+                TzeentchSave parsed = saveFileGson.fromJson(value, TzeentchSave.class);
+                onLoad(parsed);
+            } else {
+                onLoad(null);
+            }
+
+        }
+
+        private static TzeentchSave onSave() {
+            HashMap<String, Boolean> cardPoolData = new HashMap<>();
+            CardPoolManager.instance.cardPools.forEach(cardPool -> cardPoolData.put(cardPool.getId(), cardPool.getIsSelect()));
+
+            return new TzeentchSave(
+                    STARTER_RELIC_Selection_UI.getSelectRelic().relicId,
+                    DEVABODY_RELIC_Selection_UI.getSelectRelic().relicId,
+                    SEXUAL_HEAT_RELIC_Selection_UI.getSelectRelic().relicId,
+                    cardPoolData
+            );
+        }
+
+        private static void onLoad(TzeentchSave tzeentchSave) {
+            if (tzeentchSave == null) return;
+            STARTER_RELIC_Selection_UI.setSelectRelic(tzeentchSave.starterRelicId);
+            DEVABODY_RELIC_Selection_UI.setSelectRelic(tzeentchSave.devaBodyRelicId);
+            SEXUAL_HEAT_RELIC_Selection_UI.setSelectRelic(tzeentchSave.sexualHeatRelicId);
+            tzeentchSave.cardPoolId_IsSelect.forEach((cardPoolId, isSelect) -> {
+                CardPoolManager.instance.cardPools.forEach(cardPool -> {
+                    if (Objects.equals(cardPool.getId(), cardPoolId))
+                        cardPool.setIsSelect(isSelect);
+                });
+            });
         }
     }
 

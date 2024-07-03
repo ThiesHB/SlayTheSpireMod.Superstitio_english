@@ -21,19 +21,19 @@ public class SuperstitioConfig {
     private static final String ENABLE_ONLY_SHOW_CARD_NOT_GENERAL = "enableOnlyShowCardNotGeneral";
     private static final ModPanel settingsPanel = new ModPanel();
     public static SpireConfig config = null;
-    public static Properties theDefaultDefaultSettings = new Properties();
+    public static Properties theDefaultSettings = new Properties();
     private static boolean enableSFW = true;
     private static boolean enableGuroCharacter = false;
     private static boolean enablePerformanceMode = false;
     private static boolean enableOnlyShowCardNotGeneral = false;
 
     public static void loadConfig() {
-        theDefaultDefaultSettings.setProperty(ENABLE_SFW_STRING, "TRUE");
-        theDefaultDefaultSettings.setProperty(ENABLE_GURO_CHARACTER_STRING, "FALSE");
-        theDefaultDefaultSettings.setProperty(ENABLE_PERFORMANCE_MODE, "FALSE");
-        theDefaultDefaultSettings.setProperty(ENABLE_ONLY_SHOW_CARD_NOT_GENERAL, "FALSE");
+        theDefaultSettings.setProperty(ENABLE_SFW_STRING, "TRUE");
+        theDefaultSettings.setProperty(ENABLE_GURO_CHARACTER_STRING, "FALSE");
+        theDefaultSettings.setProperty(ENABLE_PERFORMANCE_MODE, "FALSE");
+        theDefaultSettings.setProperty(ENABLE_ONLY_SHOW_CARD_NOT_GENERAL, "FALSE");
         try {
-            config = new SpireConfig(DataManager.getModID(), DataManager.getModID() + "Config", theDefaultDefaultSettings);
+            config = new SpireConfig(DataManager.getModID(), DataManager.getModID() + "Config", theDefaultSettings);
             config.load();
             enableSFW = config.getBool(ENABLE_SFW_STRING);
             enableGuroCharacter = config.getBool(ENABLE_GURO_CHARACTER_STRING);
