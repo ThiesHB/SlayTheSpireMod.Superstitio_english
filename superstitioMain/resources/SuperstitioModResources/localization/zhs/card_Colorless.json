@@ -5,5 +5,17 @@
     "EXTENDED_DESCRIPTION": [
       "将其助兴。"
     ]
+  },
+  "SuperstitioMod:GeneralPool": {
+    "NAME": "通用卡池",
+    "DESCRIPTION": "启用通用卡池内容。"
+  },
+  "SuperstitioMod:LupaPool": {
+    "NAME": "寻欢卡池",
+    "DESCRIPTION": "启用寻欢天人卡池内容。"
+  },
+  "SuperstitioMod:MasoPool": {
+    "NAME": "施虐卡池",
+    "DESCRIPTION": "启用施虐天人卡池内容。"
   }
 }

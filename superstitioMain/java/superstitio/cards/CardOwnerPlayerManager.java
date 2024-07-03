@@ -18,8 +18,12 @@ public class CardOwnerPlayerManager {
         return IsLupaCard.class.isAssignableFrom(cardType) && !(IsNotLupaCard.class.isAssignableFrom(cardType));
     }
 
-    public static boolean isGeneralCard(Class<?> cardType) {
-        return isMasoCard(cardType) && isLupaCard(cardType);
+    public static boolean isOnlyLupaCard(AbstractCard card) {
+        return isLupaCard(card) && !isMasoCard(card);
+    }
+
+    public static boolean isOnlyMasoCard(AbstractCard card) {
+        return isMasoCard(card) && !isLupaCard(card);
     }
 
     public static boolean isMasoCard(AbstractCard card) {
@@ -28,6 +32,14 @@ public class CardOwnerPlayerManager {
 
     public static boolean isMasoCard(Class<?> cardType) {
         return IsMasoCard.class.isAssignableFrom(cardType) && !(IsNotMasoCard.class.isAssignableFrom(cardType));
+    }
+
+    public static boolean isGeneralCard(AbstractCard cardType) {
+        return isMasoCard(cardType) && isLupaCard(cardType);
+    }
+
+    public static boolean isGeneralCard(Class<?> cardType) {
+        return isMasoCard(cardType) && isLupaCard(cardType);
     }
 
     public static String getCardClass(AbstractCard card) {

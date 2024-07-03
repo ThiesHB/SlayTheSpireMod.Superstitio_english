@@ -16,6 +16,7 @@ import superstitioapi.renderManager.WithLROptionsArrow;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 import java.util.function.Consumer;
 
 import static superstitioapi.utils.TipsUtility.renderTipsWithMouse;
@@ -80,6 +81,18 @@ public class RelicSelectionUI implements WithLROptionsArrow {
     public AbstractRelic getSelectRelic() {
         if (selectIndex >= 0 && selectIndex < relics.size()) return relics.get(selectIndex);
         return new Circlet();
+    }
+
+    public void setSelectRelic(String selcetRelicId) {
+        List<AbstractRelic> abstractRelics = this.relics;
+        for (int i = 0; i < abstractRelics.size(); i++) {
+            AbstractRelic relic = abstractRelics.get(i);
+            if (Objects.equals(selcetRelicId, relic.relicId)) {
+                this.selectIndex = i;
+                break;
+            }
+        }
+
     }
 
     @Override

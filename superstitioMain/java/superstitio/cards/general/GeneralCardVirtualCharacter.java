@@ -62,7 +62,7 @@ public class GeneralCardVirtualCharacter extends BaseCharacter {
     }
 
     @Override
-    protected boolean cardFilter(AbstractCard card) {
+    protected boolean isCardCanAdd(AbstractCard card) {
         return false;
     }
 

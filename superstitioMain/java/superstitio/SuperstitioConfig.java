@@ -26,7 +26,6 @@ public class SuperstitioConfig {
     private static boolean enableGuroCharacter = false;
     private static boolean enablePerformanceMode = false;
     private static boolean enableOnlyShowCardNotGeneral = false;
-    ;
 
     public static void loadConfig() {
         theDefaultDefaultSettings.setProperty(ENABLE_SFW_STRING, "TRUE");

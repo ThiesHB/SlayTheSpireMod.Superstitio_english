@@ -2,6 +2,7 @@ package superstitio.characters;
 
 import basemod.BaseMod;
 import basemod.ReflectionHacks;
+import basemod.abstracts.CustomSavable;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
@@ -16,18 +17,18 @@ import com.megacrit.cardcrawl.screens.CharSelectInfo;
 import com.megacrit.cardcrawl.screens.charSelect.CharacterOption;
 import superstitio.DataManager;
 import superstitio.Logger;
-import superstitio.SuperstitioConfig;
-import superstitio.cards.CardOwnerPlayerManager;
+import superstitio.characters.cardpool.CardPoolManager;
 import superstitio.relics.a_starter.DoubleBlockWithVulnerable;
 import superstitio.relics.a_starter.StartWithSexToy;
 import superstitio.relics.blight.*;
 import superstitioapi.player.PlayerInitPostDungeonInitialize;
 import superstitioapi.renderManager.characterSelectScreenRender.RelicSelectionUI;
 import superstitioapi.renderManager.characterSelectScreenRender.RenderInCharacterSelect;
-import superstitioapi.utils.TipsUtility;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 import static superstitio.DataManager.SPTT_DATA.LupaEnums.LUPA_Character;
@@ -36,10 +37,11 @@ import static superstitio.DataManager.SPTT_DATA.TzeentchEnums.TZEENTCH_Character
 import static superstitioapi.relicToBlight.InfoBlight.addAsInfoBlight;
 
 //
-public class Tzeentch extends BaseCharacter implements PlayerInitPostDungeonInitialize, RenderInCharacterSelect {
+public class Tzeentch extends BaseCharacter implements PlayerInitPostDungeonInitialize, RenderInCharacterSelect,
+        CustomSavable<Tzeentch.TzeentchSave> {
     public static final String ID = DataManager.MakeTextID(Tzeentch.class.getSimpleName());
     public static final CharacterStrings TezeentchCharacterStrings = CardCrawlGame.languagePack.getCharacterString(ID);
-    public static final float Relic_Selection_Y = 500 * Settings.yScale;
+    public static final float Relic_Selection_Y = (float) Settings.HEIGHT / 2 - 100 * Settings.yScale;
     public static final RelicSelectionUI STARTER_RELIC_Selection_UI;
     public static final RelicSelectionUI DEVABODY_RELIC_Selection_UI;
     public static final RelicSelectionUI SEXUAL_HEAT_RELIC_Selection_UI;
@@ -108,6 +110,32 @@ public class Tzeentch extends BaseCharacter implements PlayerInitPostDungeonInit
     }
 
     @Override
+    public TzeentchSave onSave() {
+        HashMap<String, Boolean> cardPoolData = new HashMap<>();
+        CardPoolManager.instance.cardPools.forEach(cardPool -> cardPoolData.put(cardPool.getId(), cardPool.getIsSelect()));
+
+        return new TzeentchSave(
+                STARTER_RELIC_Selection_UI.getSelectRelic().relicId,
+                DEVABODY_RELIC_Selection_UI.getSelectRelic().relicId,
+                SEXUAL_HEAT_RELIC_Selection_UI.getSelectRelic().relicId,
+                cardPoolData
+        );
+    }
+
+    @Override
+    public void onLoad(TzeentchSave tzeentchSave) {
+        STARTER_RELIC_Selection_UI.setSelectRelic(tzeentchSave.starterRelicId);
+        DEVABODY_RELIC_Selection_UI.setSelectRelic(tzeentchSave.devaBodyRelicId);
+        SEXUAL_HEAT_RELIC_Selection_UI.setSelectRelic(tzeentchSave.sexualHeatRelicId);
+        tzeentchSave.cardPoolId_IsSelect.forEach((cardPoolId, isSelect) -> {
+            CardPoolManager.instance.cardPools.forEach(cardPool->{
+                if (Objects.equals(cardPool.getId(), cardPoolId))
+                    cardPool.setIsSelect(isSelect);
+            });
+        });
+    }
+
+    @Override
     // 初始遗物
     public ArrayList<String> getStartingRelics() {
         ArrayList<String> retVal = new ArrayList<>();
@@ -162,13 +190,20 @@ public class Tzeentch extends BaseCharacter implements PlayerInitPostDungeonInit
     }
 
     @Override
+    public ArrayList<AbstractCard> getCardPool(ArrayList<AbstractCard> tmpPool) {
+        ArrayList<AbstractCard> originCardPool = tmpPool;
+        addCardByCardFilter(originCardPool);
+        return originCardPool;
+    }
+
+    @Override
     public AbstractPlayer newInstance() {
         return new Tzeentch(this.name);
     }
 
     @Override
-    protected boolean cardFilter(AbstractCard card) {
-        return CardOwnerPlayerManager.isLupaCard(card) || CardOwnerPlayerManager.isMasoCard(card);
+    protected boolean isCardCanAdd(AbstractCard card) {
+        return CardPoolManager.instance.getAddedCard().test(card) && !CardPoolManager.instance.getBanedCard().test(card);
     }
 
     @Override
@@ -187,15 +222,6 @@ public class Tzeentch extends BaseCharacter implements PlayerInitPostDungeonInit
         }
     }
 
-//    public static RelicSelect relicSelect;
-
-    @Override
-    public void renderInCharacterSelectScreen(CharacterOption characterOption, SpriteBatch sb) {
-        STARTER_RELIC_Selection_UI.render(sb);
-        DEVABODY_RELIC_Selection_UI.render(sb);
-        SEXUAL_HEAT_RELIC_Selection_UI.render(sb);
-    }
-
     @Override
     public void doCharSelectScreenSelectEffect() {
         super.doCharSelectScreenSelectEffect();
@@ -203,13 +229,18 @@ public class Tzeentch extends BaseCharacter implements PlayerInitPostDungeonInit
     }
 
     @Override
+    public void renderInCharacterSelectScreen(CharacterOption characterOption, SpriteBatch sb) {
+        STARTER_RELIC_Selection_UI.render(sb);
+        DEVABODY_RELIC_Selection_UI.render(sb);
+        SEXUAL_HEAT_RELIC_Selection_UI.render(sb);
+        CardPoolManager.instance.render(sb);
+    }
+//    public static RelicSelect relicSelect;
+
+    @Override
     public void updateInCharacterSelectScreen(CharacterOption characterOption) {
-        if (!SuperstitioConfig.isEnableGuroCharacter()) {
-            CardCrawlGame.mainMenuScreen.charSelectScreen.confirmButton.isDisabled = true;
-            if (CardCrawlGame.mainMenuScreen.charSelectScreen.confirmButton.isHovered) {
-                TipsUtility.renderTipsWithMouse(GuroTip);
-            }
-        }
+        unableByGuroSetting();
+        CardPoolManager.instance.update();
 
 
         STARTER_RELIC_Selection_UI.update();
@@ -228,4 +259,19 @@ public class Tzeentch extends BaseCharacter implements PlayerInitPostDungeonInit
                 CardCrawlGame.mainMenuScreen.charSelectScreen.bgCharImg = ImageMaster.loadImage(BaseMod.playerPortraitMap.get(MASO_Character));
         }
     }
+
+    public static class TzeentchSave implements java.io.Serializable {
+        public String starterRelicId;
+        public String devaBodyRelicId;
+        public String sexualHeatRelicId;
+        public HashMap<String, Boolean> cardPoolId_IsSelect;
+
+        public TzeentchSave(String starterRelicId, String devaBodyRelicId, String sexualHeatRelicId, HashMap<String, Boolean> cardPoolId_IsSelect) {
+            this.starterRelicId = starterRelicId;
+            this.devaBodyRelicId = devaBodyRelicId;
+            this.sexualHeatRelicId = sexualHeatRelicId;
+            this.cardPoolId_IsSelect = cardPoolId_IsSelect;
+        }
+    }
+
 }

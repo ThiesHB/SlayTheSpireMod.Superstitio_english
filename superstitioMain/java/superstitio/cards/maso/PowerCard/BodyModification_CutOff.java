@@ -12,12 +12,18 @@ import superstitio.DataManager;
 import superstitio.cardModifier.modifiers.card.BodyModificationTag;
 import superstitio.cards.SuperstitioCard;
 import superstitio.cards.general.AbstractTempCard;
+import superstitio.cards.general.FuckJob_Card;
 import superstitio.cards.maso.MasoCard;
 import superstitio.delayHpLose.RemoveDelayHpLoseBlock;
 import superstitio.powers.EasyBuildAbstractPowerForPowerCard;
 import superstitio.powers.masoOnly.*;
+import superstitioapi.utils.CardUtility;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Objects;
+import java.util.stream.Collectors;
 
 public class BodyModification_CutOff extends MasoCard {
     public static final String ID = DataManager.MakeTextID(BodyModification_CutOff.class);
@@ -106,7 +112,7 @@ public class BodyModification_CutOff extends MasoCard {
     }
 
     @AutoAdd.Ignore
-    public static class BodyModification_CutOff_Chose extends AbstractTempCard {
+    public static class BodyModification_CutOff_Chose extends AbstractTempCard implements HasMultiCardsToPreview {
         public static final String ID = DataManager.MakeTextID(BodyModification_CutOff_Chose.class);
 
         public static final CardType CARD_TYPE = CardType.POWER;
@@ -117,6 +123,8 @@ public class BodyModification_CutOff extends MasoCard {
 
         private static final int COST = -2;
         private final LostBodyPart lostBodyPart;
+        private final List<AbstractCard> multiCardsToPreview = new ArrayList<>();
+        private float cardsToPreviewTimer = 0.0f;
 
         public BodyModification_CutOff_Chose() {
             this(null);
@@ -128,7 +136,20 @@ public class BodyModification_CutOff extends MasoCard {
             if (lostBodyPart == null) return;
             this.name = lostBodyPart.name;
             this.rawDescription = lostBodyPart.description;
+            CardUtility.AllCardInBattle().forEach(card -> {
+                if (!(card instanceof FuckJob_Card)) return;
+                if (!Arrays.stream(lostBodyPart.banedBodyPart()).collect(Collectors.toList()).contains(FuckJob_Card.getBodyPartType((FuckJob_Card) card)))
+                    return;
+                if (this.multiCardsToPreview.stream().anyMatch(cardInList -> Objects.equals(cardInList.cardID, card.cardID))) return;
+                this.multiCardsToPreview.add(card.makeCopy());
+            });
             initializeDescription();
+        }
+
+        @Override
+        public void update() {
+            super.update();
+            HasMultiCardsToPreview.super.update();
         }
 
         @Override
@@ -144,6 +165,26 @@ public class BodyModification_CutOff extends MasoCard {
 
         @Override
         public void upgradeAuto() {
+        }
+
+        @Override
+        public List<AbstractCard> getMultiCardsToPreview() {
+            return this.multiCardsToPreview;
+        }
+
+        @Override
+        public float getCardsToPreviewTimer() {
+            return this.cardsToPreviewTimer;
+        }
+
+        @Override
+        public void setCardsToPreviewTimer(float cardsToPreviewTimer) {
+            this.cardsToPreviewTimer = cardsToPreviewTimer;
+        }
+
+        @Override
+        public void setCardsToPreview(AbstractCard cardsToPreview) {
+            this.cardsToPreview = cardsToPreview;
         }
     }
 }

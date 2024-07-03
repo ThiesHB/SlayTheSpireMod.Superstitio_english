@@ -27,8 +27,10 @@ import com.megacrit.cardcrawl.orbs.AbstractOrb;
 import com.megacrit.cardcrawl.rooms.RestRoom;
 import com.megacrit.cardcrawl.unlock.UnlockTracker;
 import superstitio.DataManager;
+import superstitio.Logger;
 import superstitio.SuperstitioConfig;
 import superstitio.cards.general.BaseCard.Kiss;
+import superstitioapi.utils.TipsUtility;
 
 import java.util.ArrayList;
 
@@ -101,6 +103,19 @@ public abstract class BaseCharacter extends CustomPlayer {
         // e.setTimeScale(1.2F);
     }
 
+    protected static void unableByGuroSetting() {
+        if (!SuperstitioConfig.isEnableGuroCharacter()) {
+            try {
+                CardCrawlGame.mainMenuScreen.charSelectScreen.confirmButton.isDisabled = true;
+                if (CardCrawlGame.mainMenuScreen.charSelectScreen.confirmButton.isHovered) {
+                    TipsUtility.renderTipsWithMouse(GuroTip);
+                }
+            } catch (Exception e) {
+                Logger.warning("no confirmButton found");
+            }
+        }
+    }
+
     @Override
     public void useCard(AbstractCard c, AbstractMonster monster, int energyOnUse) {
         super.useCard(c, monster, energyOnUse);
@@ -109,6 +124,11 @@ public abstract class BaseCharacter extends CustomPlayer {
     @Override
     public ArrayList<AbstractCard> getCardPool(ArrayList<AbstractCard> tmpPool) {
         ArrayList<AbstractCard> originCardPool = super.getCardPool(tmpPool);
+        addCardByCardFilter(originCardPool);
+        return originCardPool;
+    }
+
+    protected void addCardByCardFilter(ArrayList<AbstractCard> originCardPool) {
         CardLibrary.cards.forEach(((string, card) -> {
             if (UnlockTracker.isCardLocked(string) && !Settings.treatEverythingAsUnlocked())
                 return;
@@ -116,14 +136,13 @@ public abstract class BaseCharacter extends CustomPlayer {
                 return;
             if (originCardPool.contains(card))
                 return;
-            if (cardFilter(card)) {
+            if (isCardCanAdd(card)) {
                 originCardPool.add(card);
             }
         }));
-        return originCardPool;
     }
 
-    protected abstract boolean cardFilter(AbstractCard card);
+    protected abstract boolean isCardCanAdd(AbstractCard card);
 
     @Override
     public void update() {

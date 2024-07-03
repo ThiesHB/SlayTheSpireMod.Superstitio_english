@@ -62,7 +62,7 @@ public class TempCardVirtualCharacter extends BaseCharacter {
     }
 
     @Override
-    protected boolean cardFilter(AbstractCard card) {
+    protected boolean isCardCanAdd(AbstractCard card) {
         return false;
     }
 

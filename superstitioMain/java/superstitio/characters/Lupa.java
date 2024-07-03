@@ -90,7 +90,7 @@ public class Lupa extends BaseCharacter implements PlayerInitPostDungeonInitiali
     }
 
     @Override
-    protected boolean cardFilter(AbstractCard card) {
+    protected boolean isCardCanAdd(AbstractCard card) {
         return CardOwnerPlayerManager.isLupaCard(card);
     }
 

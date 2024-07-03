@@ -10,7 +10,6 @@ import com.megacrit.cardcrawl.screens.CharSelectInfo;
 import com.megacrit.cardcrawl.screens.charSelect.CharacterOption;
 import superstitio.DataManager;
 import superstitio.Logger;
-import superstitio.SuperstitioConfig;
 import superstitio.cards.CardOwnerPlayerManager;
 import superstitio.cards.general.BaseCard.Kiss;
 import superstitio.cards.general.BaseCard.Masturbate;
@@ -22,7 +21,6 @@ import superstitio.relics.blight.JokeDescription;
 import superstitio.relics.blight.MasochismMode;
 import superstitioapi.player.PlayerInitPostDungeonInitialize;
 import superstitioapi.renderManager.characterSelectScreenRender.RenderInCharacterSelect;
-import superstitioapi.utils.TipsUtility;
 
 import java.util.ArrayList;
 
@@ -97,7 +95,7 @@ public class Maso extends BaseCharacter implements PlayerInitPostDungeonInitiali
     }
 
     @Override
-    protected boolean cardFilter(AbstractCard card) {
+    protected boolean isCardCanAdd(AbstractCard card) {
         return CardOwnerPlayerManager.isMasoCard(card);
     }
 
@@ -131,11 +129,6 @@ public class Maso extends BaseCharacter implements PlayerInitPostDungeonInitiali
 
     @Override
     public void updateInCharacterSelectScreen(CharacterOption characterOption) {
-        if (!SuperstitioConfig.isEnableGuroCharacter()) {
-            CardCrawlGame.mainMenuScreen.charSelectScreen.confirmButton.isDisabled = true;
-            if (CardCrawlGame.mainMenuScreen.charSelectScreen.confirmButton.isHovered) {
-                TipsUtility.renderTipsWithMouse(GuroTip);
-            }
-        }
+        unableByGuroSetting();
     }
 }

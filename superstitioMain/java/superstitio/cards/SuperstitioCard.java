@@ -478,4 +478,28 @@ public abstract class SuperstitioCard extends CustomCard implements updateDescri
         tmpDamage = getTmpDamage(player, tmpDamage, creature);
         this.damage = MathUtils.floor(tmpDamage);
     }
+
+    public interface HasMultiCardsToPreview {
+
+        float SHOW_TIME = 1.0f;
+
+        List<AbstractCard> getMultiCardsToPreview();
+
+        float getCardsToPreviewTimer();
+
+        void setCardsToPreviewTimer(float cardsToPreviewTimer);
+
+        void setCardsToPreview(AbstractCard cardsToPreview);
+
+        default void update() {
+            float timer = getCardsToPreviewTimer();
+            if (timer < 0) {
+                timer = getMultiCardsToPreview().size() * SHOW_TIME;
+            }
+            int index = MathUtils.floor(timer / SHOW_TIME);
+            AbstractCard newCardsToPreview = getMultiCardsToPreview().get(MathUtils.clamp(index, 0, getMultiCardsToPreview().size() - 1));
+            setCardsToPreview(newCardsToPreview);
+            setCardsToPreviewTimer(getCardsToPreviewTimer() - Gdx.graphics.getDeltaTime());
+        }
+    }
 }
