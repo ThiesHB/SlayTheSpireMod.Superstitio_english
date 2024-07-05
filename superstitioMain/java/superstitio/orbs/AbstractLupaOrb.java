@@ -6,12 +6,12 @@ import com.megacrit.cardcrawl.orbs.AbstractOrb;
 import superstitio.DataManager;
 import superstitio.customStrings.interFace.StringSetUtility;
 import superstitio.customStrings.stringsSet.OrbStringsSet;
-import superstitioapi.utils.updateDescriptionAdvanced;
+import superstitioapi.utils.UpdateDescriptionAdvanced;
 
 import java.util.HashMap;
 import java.util.Map;
 
-public abstract class AbstractLupaOrb extends AbstractOrb implements updateDescriptionAdvanced {
+public abstract class AbstractLupaOrb extends AbstractOrb implements UpdateDescriptionAdvanced {
     private static final Map<String, Texture> orbTextures = new HashMap<>();
     protected final OrbStringsSet orbStringsSet;
     private Object[] descriptionArgs;
@@ -51,8 +51,21 @@ public abstract class AbstractLupaOrb extends AbstractOrb implements updateDescr
         return DataManager.makeImgPath("default", DataManager::makeImgFilesPath_Orb, id);
     }
 
+    @Override
+    public Object[] getDescriptionArgs() {
+        return descriptionArgs;
+    }
+
     //    @Override
 //    public abstract void updateDescription();
+
+    @Override
+    public final void setDescriptionArgs(Object... args) {
+        if (args[0] instanceof Object[])
+            descriptionArgs = (Object[]) args[0];
+        else
+            descriptionArgs = args;
+    }
 
     @Override
     public abstract void applyFocus();
@@ -73,14 +86,6 @@ public abstract class AbstractLupaOrb extends AbstractOrb implements updateDescr
         String string = getDescriptionStrings();
         string = String.format(string, descriptionArgs);
         this.description = string;
-    }
-
-    @Override
-    public final void setDescriptionArgs(Object... args) {
-        if (args[0] instanceof Object[])
-            descriptionArgs = (Object[]) args[0];
-        else
-            descriptionArgs = args;
     }
 
     @Override

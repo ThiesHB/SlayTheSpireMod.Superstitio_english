@@ -40,7 +40,7 @@ import superstitioapi.actions.DamageAllEnemiesAction;
 import superstitioapi.cards.DamageActionMaker;
 import superstitioapi.renderManager.inBattleManager.InBattleDataManager;
 import superstitioapi.utils.ActionUtility;
-import superstitioapi.utils.updateDescriptionAdvanced;
+import superstitioapi.utils.UpdateDescriptionAdvanced;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -59,7 +59,7 @@ import static superstitio.customStrings.interFace.StringSetUtility.getCustomStri
 import static superstitio.delayHpLose.DelayHpLosePatch.GainBlockTypeFields.ifDelayReduceDelayHpLose;
 import static superstitio.delayHpLose.DelayHpLosePatch.GainBlockTypeFields.ifReduceDelayHpLose;
 
-public abstract class SuperstitioCard extends CustomCard implements updateDescriptionAdvanced {
+public abstract class SuperstitioCard extends CustomCard implements UpdateDescriptionAdvanced {
     private final static float DESC_LINE_WIDTH = 418.0f * Settings.scale;
     //调用父类的构造方法，传参为super(卡牌ID，卡牌名称，图片地址，能量花费，卡牌描述，卡牌类型，卡牌颜色，卡牌稀有度，卡牌目标)
     public final CardStringsWillMakeFlavorSet cardStrings;
@@ -67,6 +67,10 @@ public abstract class SuperstitioCard extends CustomCard implements updateDescri
     private int blockAutoUpgrade = 0;
     private int magicAutoUpgrade = 0;
     private Object[] descriptionArgs;
+    @Override
+    public Object[] getDescriptionArgs() {
+        return descriptionArgs;
+    }
 
     public SuperstitioCard(String id, CardType cardType, int cost, CardRarity cardRarity, CardTarget cardTarget, CardColor cardColor,
                            String imgSubFolder) {
@@ -172,7 +176,8 @@ public abstract class SuperstitioCard extends CustomCard implements updateDescri
 
     public String makeFormatDESCRIPTION() {
         this.updateDescriptionArgs();
-        if (descriptionArgs == null) return getDescriptionStrings();
+        if (descriptionArgs == null)
+            return getDescriptionStrings();
         return String.format(getDescriptionStrings(), descriptionArgs);
     }
 

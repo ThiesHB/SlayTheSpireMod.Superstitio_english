@@ -19,6 +19,9 @@ import superstitio.cards.general.SkillCard.gainEnergy.TimeStop;
 import superstitio.cards.lupa.LupaCard;
 import superstitio.cards.lupa.SkillCard.block.Philter;
 import superstitio.cards.maso.MasoCard;
+import superstitio.characters.cardpool.poolCover.GeneralPool;
+import superstitio.characters.cardpool.poolCover.LupaPool;
+import superstitio.characters.cardpool.poolCover.MasoPool;
 import superstitio.customStrings.interFace.HasDifferentVersionStringSet;
 import superstitio.customStrings.interFace.HasTextID;
 import superstitio.customStrings.interFace.WordReplace;
@@ -200,6 +203,7 @@ public class DataManager {
         needDrawFileName.addAll(Arrays.asList(subFolder));
         if (fileName.contains("32")) return;
         if (fileName.contains("84") && noNeedDrawPower84(fileName)) return;
+        if (noNeedImgName(fileName)) return;
 
         if (defaultPath.contains("outline")) return;
         if (defaultPath.contains("large")) return;
@@ -232,6 +236,16 @@ public class DataManager {
         new File(totalFolderPath).mkdirs();
         if (!defaultFileCopyTo.exists())
             Files.copy(defaultFileHandle.read(), defaultFileCopyTo.toPath());
+    }
+
+    private static boolean noNeedImgName(String fileName) {
+        if (Objects.equals(fileName, LupaPool.class.getSimpleName()))
+            return true;
+        if (Objects.equals(fileName, MasoPool.class.getSimpleName()))
+            return true;
+        if (Objects.equals(fileName, GeneralPool.class.getSimpleName()))
+            return true;
+        return false;
     }
 
     private static boolean noNeedDrawPower84(String fileName) {
