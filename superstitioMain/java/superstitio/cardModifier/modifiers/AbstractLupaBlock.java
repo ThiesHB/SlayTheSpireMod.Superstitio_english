@@ -5,12 +5,14 @@ import com.evacipated.cardcrawl.mod.stslib.blockmods.AbstractBlockModifier;
 import superstitio.DataManager;
 import superstitio.customStrings.interFace.StringSetUtility;
 import superstitio.customStrings.stringsSet.ModifierStringsSet;
+import superstitioapi.utils.UpdateDescriptionAdvanced;
 
 import java.util.ArrayList;
 
-public abstract class AbstractLupaBlock extends AbstractBlockModifier {
+public abstract class AbstractLupaBlock extends AbstractBlockModifier implements UpdateDescriptionAdvanced {
     public final ModifierStringsSet blockStrings;
     TooltipInfo tooltip = null;
+    private Object[] descriptionArgs;
 
     public AbstractLupaBlock(String id) {
         this.blockStrings = getBlockStringsWithSFW(id);
@@ -37,7 +39,7 @@ public abstract class AbstractLupaBlock extends AbstractBlockModifier {
     @Override
     public final ArrayList<TooltipInfo> getCustomTooltips() {
         if (tooltip == null) {
-            tooltip = new TooltipInfo(blockStrings.getBasicInfo(), blockStrings.getDESCRIPTION());
+            tooltip = new TooltipInfo(blockStrings.getBasicInfo(), getDescription());
         }
         ArrayList<TooltipInfo> tooltipInfos = new ArrayList<>();
         tooltipInfos.add(tooltip);
@@ -49,8 +51,29 @@ public abstract class AbstractLupaBlock extends AbstractBlockModifier {
      */
     @Override
     public String getDescription() {
-        return blockStrings.getDESCRIPTION();
+        return getFormattedDescription();
     }
+
+    @Override
+    public Object[] getDescriptionArgs() {
+        return descriptionArgs;
+    }
+
+    @Override
+    public final void setDescriptionArgs(Object... args) {
+        if (args[0] instanceof Object[]) descriptionArgs = (Object[]) args[0];
+        else descriptionArgs = args;
+    }
+
+    @Override
+    public void updateDescriptionArgs() {
+    }
+
+    @Override
+    public String getDescriptionStrings() {
+        return this.blockStrings.getDESCRIPTION();
+    }
+
 
     /**
      * 显示在卡牌的类型旁边的那玩意

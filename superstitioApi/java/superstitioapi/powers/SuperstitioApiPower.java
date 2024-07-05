@@ -12,9 +12,9 @@ import com.megacrit.cardcrawl.localization.PowerStrings;
 import com.megacrit.cardcrawl.powers.AbstractPower;
 import superstitioapi.DataUtility;
 import superstitioapi.utils.ActionUtility;
-import superstitioapi.utils.updateDescriptionAdvanced;
+import superstitioapi.utils.UpdateDescriptionAdvanced;
 
-public abstract class SuperstitioApiPower extends AbstractPower implements updateDescriptionAdvanced {
+public abstract class SuperstitioApiPower extends AbstractPower implements UpdateDescriptionAdvanced {
     public static final String DEFAULT = "default";
     private Object[] descriptionArgs;
 
@@ -37,6 +37,11 @@ public abstract class SuperstitioApiPower extends AbstractPower implements updat
 
     public static PowerStrings getPowerStrings(String powerID) {
         return CardCrawlGame.languagePack.getPowerStrings(powerID);
+    }
+
+    @Override
+    public Object[] getDescriptionArgs() {
+        return descriptionArgs;
     }
 
     protected void SetupPower(String id, PowerStrings powerStrings, final AbstractCreature owner, int amount, PowerType powerType,

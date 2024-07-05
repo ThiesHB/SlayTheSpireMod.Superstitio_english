@@ -88,7 +88,7 @@
   "SuperstitioMod:MasoCard:BodyModification_Prolapse": {
     "NAME": "脱垂",
     "NAME_SFW": "反应装甲",
-    "DESCRIPTION": "受到攻击伤害时， *丢弃 一张随机手牌，此次伤害减为 %d 分之一。 NL 若没有手牌，则尝试 superstitiomod:释放 一张 *助兴序列 中的随机牌。",
+    "DESCRIPTION": "受到攻击伤害时， *丢弃 一张随机手牌，此次伤害减为 %d 分之一。 NL 若没有手牌，则尝试 *丢弃 一张 superstitiomod:助兴序列 中的随机牌。",
     "FLAVOR": "",
     "EXTENDED_DESCRIPTION": [
       " NL 当前脱垂程度 ： %s",
@@ -116,7 +116,13 @@
   "SuperstitioMod:MasoCard:LoveDirty": {
     "NAME": "恋污",
     "NAME_SFW": "飞盾",
-    "DESCRIPTION": "如果这张牌从你的手牌中被 *丢弃 或 消耗 ，获得 !M! *格挡 。",
+    "DESCRIPTION": "如果这张牌从你的手牌中被 *丢弃 或 消耗 ，获得 !B! *格挡 。",
+    "FLAVOR": ""
+  },
+  "SuperstitioMod:MasoCard:HeavyCuffs": {
+    "NAME": "沉重镣铐",
+    "NAME_SFW": "沉重镣铐",
+    "DESCRIPTION": "获得 !B! *格挡 。 NL 若从本卡获得的格挡失去，则抽 !M! 张牌。",
     "FLAVOR": ""
   }
 }

@@ -13,13 +13,16 @@ import superstitio.DataManager;
 import superstitio.customStrings.interFace.StringSetUtility;
 import superstitio.customStrings.stringsSet.PowerStringsSet;
 import superstitioapi.utils.ActionUtility;
-import superstitioapi.utils.updateDescriptionAdvanced;
+import superstitioapi.utils.UpdateDescriptionAdvanced;
 
-public abstract class AbstractSuperstitioPower extends AbstractPower implements updateDescriptionAdvanced {
+public abstract class AbstractSuperstitioPower extends AbstractPower implements UpdateDescriptionAdvanced {
     public static final String DEFAULT = "default";
     public PowerStringsSet powerStrings;
     private Object[] descriptionArgs;
-
+    @Override
+    public Object[] getDescriptionArgs() {
+        return descriptionArgs;
+    }
     public AbstractSuperstitioPower(String id, PowerStringsSet powerStrings, final AbstractCreature owner, int amount, PowerType powerType,
                                     boolean needUpdateDescription) {
         SetupPower(id, powerStrings, owner, amount, powerType, needUpdateDescription);

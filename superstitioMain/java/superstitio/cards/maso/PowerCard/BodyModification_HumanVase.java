@@ -11,6 +11,7 @@ import superstitio.cards.SuperstitioCard;
 import superstitio.cards.maso.MasoCard;
 import superstitio.powers.EasyBuildAbstractPowerForPowerCard;
 import superstitio.powers.Milk;
+
 //瓶女
 @AutoAdd.Ignore
 public class BodyModification_HumanVase extends MasoCard {

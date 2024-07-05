@@ -5,15 +5,18 @@ import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.helpers.ImageMaster;
 import superstitio.DataManager;
 import superstitio.characters.BaseCharacter;
-import superstitioapi.utils.updateDescriptionAdvanced;
+import superstitioapi.utils.UpdateDescriptionAdvanced;
 
-public abstract class SuperstitioRelic extends CustomRelic implements updateDescriptionAdvanced {
+public abstract class SuperstitioRelic extends CustomRelic implements UpdateDescriptionAdvanced {
     public static final String DEFAULT_RELIC = "default_relic";
     private Object[] descriptionArgs;
 
     public SuperstitioRelic(String id, RelicTier relicTier, LandingSound landingSound) {
         super(id, ImageMaster.loadImage(makeImgPath(id)), ImageMaster.loadImage(makeImgPathOutLine(id)), relicTier, landingSound);
         this.largeImg = ImageMaster.loadImage(makeImgPathLarge(id));
+    }@Override
+    public Object[] getDescriptionArgs() {
+        return descriptionArgs;
     }
 
     private static String makeImgPath(final String id) {

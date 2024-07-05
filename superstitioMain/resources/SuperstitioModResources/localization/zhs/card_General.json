@@ -31,7 +31,7 @@
   "SuperstitioMod:CalmDown": {
     "NAME": "冷静",
     "DESCRIPTION": "抽当前 superstitiomod:助兴 数量的 牌。 NL superstitiomod:释放 所有处于 *助兴队列 的卡牌。",
-    "UPGRADE_DESCRIPTION": "抽当前 superstitiomod:助兴 数量 +1 的 牌。 NL 使所有处于 *助兴 的卡牌回到 *助兴 前应当去往的牌堆。",
+    "UPGRADE_DESCRIPTION": "抽当前 superstitiomod:助兴 数量 +1 的 牌。 NL superstitiomod:释放 所有处于 *助兴队列 的卡牌。",
     "FLAVOR": "冥想……冷静，冷静，冥想……果然还是好想自慰。 NL o(TヘTo)"
   },
   "SuperstitioMod:Ku_Koro": {
@@ -66,7 +66,7 @@
   "SuperstitioMod:ChokeChoker": {
     "NAME": "窒息项圈",
     "NAME_SFW": "怒火中烧",
-    "DESCRIPTION": "进入 superstitiomod:高潮 时 ，受到 !M! 点伤害。 NL 本回合和之后每回合获得 !M! superstitiomod:快感修正 。",
+    "DESCRIPTION": "获得 !M! 层 superstitiomod:窒息 。",
     "FLAVOR": "为了更高的快感。"
   },
   "SuperstitioMod:Samsara": {

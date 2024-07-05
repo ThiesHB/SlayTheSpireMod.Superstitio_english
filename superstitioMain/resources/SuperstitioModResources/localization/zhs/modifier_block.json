@@ -58,5 +58,11 @@
       "召唤对象：",
       "分身。"
     ]
+  },
+  "SuperstitioMod:WhenLostDrawCardBlock": {
+    "NAME": "沉重镣铐",
+    "NAME_SFW": "沉重镣铐",
+    "BASIC_INFO": "镣铐",
+    "DESCRIPTION": "持续到下回合开始前，阻挡伤害。 NL 失去后，抽 #b%d 张牌。"
   }
 }

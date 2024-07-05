@@ -39,7 +39,7 @@
   "SuperstitioMod:FishGirlMode": {
     "NAME": "鱼人变形",
     "NAME_SFW": "火元素变形",
-    "DESCRIPTION": "回合开始时，获得 !M! superstitiomod:窒息 。",
+    "DESCRIPTION": "回合开始时，获得 !M! 层 superstitiomod:窒息 。",
     "FLAVOR": "陆，陆地，要喘不过气来了~❤"
   },
   "SuperstitioMod:KakaaGirlMode": {
@@ -57,7 +57,7 @@
   "SuperstitioMod:FeelPhantomBody": {
     "NAME": "感受幻肢",
     "NAME_SFW": "义体",
-    "DESCRIPTION": "抽一张牌，使随机敌人流失 !M! 点生命值。 NL 若回合结束时在手牌中， 消耗 并把原本的卡牌加入弃牌堆。",
+    "DESCRIPTION": "抽一张牌，使随机敌人流失 !M! 点生命。 NL 若回合结束时在手牌中， 消耗 并把原本的卡牌加入弃牌堆。",
     "FLAVOR": "全部……全部去掉……让我变成人棍，让我无法逃脱，让我……"
   },
   "SuperstitioMod:VulnerableTogether": {

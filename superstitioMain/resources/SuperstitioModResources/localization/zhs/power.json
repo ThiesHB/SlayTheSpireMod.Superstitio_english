@@ -13,10 +13,10 @@
     ]
   },
   "SuperstitioMod:InTurnSexualHeatNeededModifier": {
-    "NAME": "快感修正",
+    "NAME": "回合内快感修正",
     "DESCRIPTIONS": [
-      "本回合高潮所需的快感降低了 #b%d 点。",
-      "本回合高潮所需的快感提高了 #b%d 点。"
+      "本回合高潮所需的快感 #r降低 了 #b%d 点。",
+      "本回合高潮所需的快感 #g提高 了 #b%d 点。"
     ]
   },
   "SuperstitioMod:RefractoryPeriod": {
@@ -52,7 +52,7 @@
   "SuperstitioMod:ChokeChokerPower": {
     "NAME": "窒息",
     "DESCRIPTIONS": [
-      "回合开始时，获得 #b%d #y快感修正 。 NL 进入 #y高潮 时 ，受到 #b%d 点伤害。"
+      "提供 #b%d #g快感修正 。 NL 进入 #y高潮 时 ，流失 #b%d 点生命。"
     ],
     "MAKE_KEYWORDS": [
       {
@@ -61,7 +61,7 @@
           "窒息",
           "窒息项圈"
         ],
-        "DESCRIPTION": "进入 #y高潮 时 ，受到伤害。 NL 每回合都获得 #y快感修正 。"
+        "DESCRIPTION": "提供 #g快感修正 ，其可以 #g减少 高潮所需的快感。 NL 进入 #y高潮 时 ，流失 层数一半的 生命 。"
       }
     ]
   },

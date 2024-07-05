@@ -94,10 +94,8 @@ public class BodyModification_Prolapse extends MasoCard {
                 }).get();
                 if (cards.isEmpty()) return damageAmount;
                 CardOrb cardOrb = ListUtility.getRandomFromList(cards, AbstractDungeon.cardRandomRng);
-                cardOrb.setAfterEvokeConsumer(orb -> {
-                    orb.getOriginCard().triggerOnManualDiscard();
-                    GameActionManager.incrementDiscard(false);
-                });
+                cardOrb.cardGroupReturnAfterEvoke = AbstractDungeon.player.discardPile;
+                cardOrb.setTriggerDiscardIfMoveToDiscard();
                 cardOrb.setShouldRemove();
                 return (int) ((double) damageAmount / Math.pow(2, this.amount));
             }

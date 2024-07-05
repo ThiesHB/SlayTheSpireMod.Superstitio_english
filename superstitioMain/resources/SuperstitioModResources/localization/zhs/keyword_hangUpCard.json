@@ -65,10 +65,18 @@
     "DESCRIPTION": "回合结束时， #y释放 自身 —— 将卡牌直接从 #y助兴序列 中 移除 。 NL 若卡牌去往 弃牌堆 ，则视作 #y丢弃 。"
   },
   {
-    "ID": "SuperstitioMod:ForceRelease",
-    "PROPER_NAME": "强制释放",
+    "ID": "SuperstitioMod:ReleaseToDiscard",
+    "PROPER_NAME": "取下",
     "NAMES": [
-      "强制释放"
+      "自动取下"
+    ],
+    "DESCRIPTION": "将卡牌直接从 #y助兴序列 中 #y丢弃 。"
+  },
+  {
+    "ID": "SuperstitioMod:AutoReleaseToDiscard",
+    "PROPER_NAME": "自动取下",
+    "NAMES": [
+      "自动取下"
     ],
     "DESCRIPTION": "回合结束时， #y释放 自身 —— 将卡牌直接从 #y助兴序列 中 #y丢弃 。"
   }

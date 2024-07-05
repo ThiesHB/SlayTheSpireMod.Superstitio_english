@@ -56,7 +56,7 @@
   "SuperstitioMod:Job_Hair": {
     "NAME": "发交",
     "NAME_SFW": "辫子神功",
-    "DESCRIPTION": "造成 !D! 点 伤害 。 NL superstitiomod:助兴- superstitiomod:欲求 NL 打出 !M! 任何牌： NL 把 带有 NL 消耗 的 复制加入手牌，其在被打出之前，耗能变为0 。 NL superstitiomod:自动释放 。 NL 虚无 。",
+    "DESCRIPTION": "造成 !D! 点 伤害 。 NL superstitiomod:助兴- superstitiomod:欲求 NL 打出 !M! 任何牌： NL 把 带有 NL 消耗 的 复制加入手牌，其在被打出之前，耗能变为0 。 NL superstitiomod:自动释放 。",
     "FLAVOR": "扯着有点疼，不会把我变成光头吧？",
     "EXTENDED_DESCRIPTION": [
       "头发"

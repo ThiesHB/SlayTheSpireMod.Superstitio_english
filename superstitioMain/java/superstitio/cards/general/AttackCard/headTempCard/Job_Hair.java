@@ -1,5 +1,6 @@
 package superstitio.cards.general.AttackCard.headTempCard;
 
+import basemod.cardmods.EtherealMod;
 import basemod.cardmods.ExhaustMod;
 import basemod.helpers.CardModifierManager;
 import com.megacrit.cardcrawl.cards.CardGroup;
@@ -38,7 +39,7 @@ public class Job_Hair extends GeneralCard implements FuckJob_Card, GoSomewhereEl
         super(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET);
         FuckJob_Card.initFuckJobCard(this);
         this.setupDamage(damage, upgradeDamage);
-        this.isEthereal = true;
+        CardModifierManager.addModifier(this,new EtherealMod());
         this.setupMagicNumber(MAGIC);
     }
 
