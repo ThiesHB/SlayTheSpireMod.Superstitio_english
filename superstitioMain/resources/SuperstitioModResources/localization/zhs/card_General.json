@@ -196,9 +196,9 @@
     "DESCRIPTION": "获得 !B! superstitiomod:妊娠 。 NL 顺产： 生成和目标对应的 superstitiomod:宝宝 。",
     "FLAVOR": ""
   },
-  "SuperstitioMod:TempName_HangUpCardForDraw": {
-    "NAME": "TempName_HangUpCardForDraw",
-    "NAME_SFW": "TempName_HangUpCardForDraw",
+  "SuperstitioMod:RideDildoBike": {
+    "NAME": "骑行奸",
+    "NAME_SFW": "好马好鞍",
     "DESCRIPTION": "选择最多 !M! 张手牌，抽对应数量的牌，将选中手牌 superstitiomod:助兴- superstitiomod:欲求 NL 打出 %d 任何牌： NL 回到手牌。 NL superstitiomod:自动释放 。",
     "FLAVOR": "",
     "EXTENDED_DESCRIPTION": [

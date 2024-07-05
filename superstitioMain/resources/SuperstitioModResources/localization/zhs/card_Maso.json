@@ -112,5 +112,11 @@
     "NAME_SFW": "超载",
     "DESCRIPTION": "将%d张 *灼伤 放入你的弃牌堆中 。 superstitiomod:助兴-急切 。 NL superstitiomod:助兴- superstitiomod:缠绵 NL 下 99 回合开始时： NL 获得 !M! 点 临时敏捷 。",
     "FLAVOR": ""
+  },
+  "SuperstitioMod:MasoCard:LoveDirty": {
+    "NAME": "恋污",
+    "NAME_SFW": "飞盾",
+    "DESCRIPTION": "如果这张牌从你的手牌中被 *丢弃 或 消耗 ，获得 !M! *格挡 。",
+    "FLAVOR": ""
   }
 }

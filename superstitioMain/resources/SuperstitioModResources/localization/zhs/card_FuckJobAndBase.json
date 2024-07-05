@@ -24,7 +24,7 @@
     ]
   },
   "SuperstitioMod:Job_Breast": {
-    "NAME": "胸交",
+    "NAME": "乳交",
     "NAME_SFW": "木兰飞弹",
     "DESCRIPTION": "造成 !D! 点 伤害 。 NL 获得 !M! 层 superstitiomod:乳汁 。",
     "FLAVOR": "养胸千日，用胸一时。胸越大，胸就能挺的越高。",
@@ -42,7 +42,7 @@
     ]
   },
   "SuperstitioMod:Job_Groin": {
-    "NAME": "股交",
+    "NAME": "素股",
     "NAME_SFW": "震波震震",
     "DESCRIPTION": "造成 !D! 点 伤害 ， NL 根据手牌平均耗能， NL 减少 !M! 伤害每 [E] 。 NL （平均耗能不取整）",
     "FLAVOR": "看上去就像是被十个人侵犯到溢出来了，实际上只是射在外面啦。",
@@ -84,43 +84,43 @@
     ]
   },
   "SuperstitioMod:Fuck_Anal": {
-    "NAME": "肛奸",
+    "NAME": "肛交",
     "NAME_SFW": "鹞形拳",
     "DESCRIPTION": "造成 !D! 点 伤害 ， NL 使目标敌人 superstitiomod:爱欲 增加 10分之 !M! 。",
     "FLAVOR": "常在旱路走，怎么会湿脚。"
   },
   "SuperstitioMod:Fuck_Ear": {
-    "NAME": "耳奸",
+    "NAME": "耳交",
     "NAME_SFW": "龙形拳",
-    "DESCRIPTION": "造成 2 次 !D! 点 伤害 。 NL 把 *眼奸 加入手牌。 NL 获得 1 脆弱 。 NL 消耗 。",
+    "DESCRIPTION": "造成 2 次 !D! 点 伤害 。 NL 把 *眼交 加入手牌。 NL 获得 1 脆弱 。 NL 消耗 。",
     "FLAVOR": "是脑交！要是脑子有触觉就好了，哧溜。"
   },
   "SuperstitioMod:Fuck_Eye": {
-    "NAME": "眼奸",
+    "NAME": "眼交",
     "NAME_SFW": "蛇形拳",
-    "DESCRIPTION": "对自身和目标敌人造成 2 次 !D! 点 伤害 ， 获得 1 虚弱 。 NL superstitiomod:助兴- superstitiomod:欲求 NL 打出 !M! 任何牌： NL 移除 !B! 点 *腐朽 ， 把 *耳奸 加入手牌 。 NL 消耗 。",
+    "DESCRIPTION": "对自身和目标敌人造成 2 次 !D! 点 伤害 ， 获得 1 虚弱 。 NL superstitiomod:助兴- superstitiomod:欲求 NL 打出 !M! 任何牌： NL 移除 !B! 点 *腐朽 ， 把 *耳交 加入手牌 。 NL 消耗 。",
     "FLAVOR": "也许是脑交。总的来说还是取决于肉棒的主人敢不敢用力吧。"
   },
   "SuperstitioMod:Fuck_Navel": {
-    "NAME": "脐奸",
+    "NAME": "肚脐",
     "NAME_SFW": "熊形拳",
     "DESCRIPTION": "对 *敌我双方 造成 !D! 点 伤害 。 NL 自身获得 易伤 。 NL 在手牌中时，每 superstitiomod:高潮 一次，提高 !M! 点伤害。",
     "FLAVOR": "洞必试，试必捅。射进腹腔里会宫外孕吗？"
   },
   "SuperstitioMod:Fuck_Nipple": {
-    "NAME": "乳奸",
+    "NAME": "乳孔",
     "NAME_SFW": "猴形拳",
     "DESCRIPTION": "重复两次： NL 对随机敌人 造成 !D! 点 伤害 ，给予 !M! superstitiomod:乳汁 。",
     "FLAVOR": "大奶子特权。"
   },
   "SuperstitioMod:Fuck_Throat": {
-    "NAME": "喉奸",
+    "NAME": "深喉",
     "NAME_SFW": "虎形拳",
     "DESCRIPTION": "造成 !D! 点 伤害 。 NL 如果有 superstitiomod:助兴 的卡牌， NL 获得 !M! 的 [E] 。",
     "FLAVOR": "经过练习就不会反胃了，真好。"
   },
   "SuperstitioMod:Fuck_Vaginal": {
-    "NAME": "阴奸",
+    "NAME": "阴道",
     "NAME_SFW": "燕形拳",
     "DESCRIPTION": "造成 !D! 点 伤害 ， NL 无消耗触发所有 superstitiomod:助兴- superstitiomod:缠绵 效果 !M! 次。",
     "FLAVOR": "朴实无华。如果没有其他东西助兴的话就会困得想睡觉。"

@@ -10,8 +10,8 @@ import superstitioapi.actions.AutoDoneInstantAction;
 import superstitioapi.actions.ChoseCardFromHandCardSelectScreen;
 import superstitioapi.hangUpCard.CardOrb_WaitCardTrigger;
 
-public class TempName_HangUpCardForDraw extends GeneralCard {
-    public static final String ID = DataManager.MakeTextID(TempName_HangUpCardForDraw.class);
+public class RideDildoBike extends GeneralCard {
+    public static final String ID = DataManager.MakeTextID(RideDildoBike.class);
 
     public static final CardType CARD_TYPE = CardType.SKILL;
 
@@ -24,7 +24,7 @@ public class TempName_HangUpCardForDraw extends GeneralCard {
     private static final int UPGRADE_MAGIC = 1;
     private static final int WAIT_TIME = 5;
 
-    public TempName_HangUpCardForDraw() {
+    public RideDildoBike() {
         super(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET);
         //抽卡数量
         this.setupMagicNumber(MAGIC, UPGRADE_MAGIC);
