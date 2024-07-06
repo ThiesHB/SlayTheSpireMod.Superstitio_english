@@ -86,6 +86,56 @@ public abstract class BaseCardPool implements IUIElement {
         this.target_y = y;
     }
 
+    public Predicate<AbstractCard> getAddedCard() {
+        if (addedCard == null || !isSelect)
+            return card -> false;
+        return addedCard;
+    }
+
+    public Predicate<AbstractCard> getBanedCard() {
+        if (banedCard == null || !isSelect)
+            return card -> false;
+        return banedCard;
+    }
+
+    protected void clickThisPool() {
+        this.isSelect = !this.isSelect;
+    }
+
+    private void updateGlow() {
+        if (this.isGlowing) {
+            this.glowTimer -= Gdx.graphics.getDeltaTime();
+            if (this.glowTimer < 0.0F) {
+                this.glowList.add(new SafeCardGlowBorder(this.poolCover, this.poolCover.glowColor));
+                this.glowTimer = 0.3F;
+            }
+        }
+
+        Iterator<SafeCardGlowBorder> i = this.glowList.iterator();
+        while (i.hasNext()) {
+            SafeCardGlowBorder e = i.next();
+            e.update();
+            if (e.isDone) {
+                i.remove();
+            }
+        }
+
+    }
+
+    private void renderGlow(SpriteBatch sb) {
+        if (!Settings.hideCards) {
+            ReflectionHacks.privateMethod(AbstractCard.class, "renderMainBorder", SpriteBatch.class).invoke(this.poolCover, sb);
+//            this.poolCover.renderMainBorder(sb);
+
+            for (SafeCardGlowBorder safeCardGlowBorder : this.glowList) {
+                ((AbstractGameEffect) safeCardGlowBorder).render(sb);
+            }
+
+            sb.setBlendFunction(770, 771);
+        }
+
+    }
+
     @Override
     public void render(final SpriteBatch sb) {
         if (this.poolCover.hb.hovered) {
@@ -135,44 +185,6 @@ public abstract class BaseCardPool implements IUIElement {
         FontHelper.cardTitleFont.getData().setScale(1.0f);
     }
 
-    private void updateGlow() {
-        if (this.isGlowing) {
-            this.glowTimer -= Gdx.graphics.getDeltaTime();
-            if (this.glowTimer < 0.0F) {
-                this.glowList.add(new SafeCardGlowBorder(this.poolCover, this.poolCover.glowColor));
-                this.glowTimer = 0.3F;
-            }
-        }
-
-        Iterator<SafeCardGlowBorder> i = this.glowList.iterator();
-        while (i.hasNext()) {
-            SafeCardGlowBorder e = i.next();
-            e.update();
-            if (e.isDone) {
-                i.remove();
-            }
-        }
-
-    }
-
-    private void renderGlow(SpriteBatch sb) {
-        if (!Settings.hideCards) {
-            ReflectionHacks.privateMethod(AbstractCard.class, "renderMainBorder", SpriteBatch.class).invoke(this.poolCover, sb);
-//            this.poolCover.renderMainBorder(sb);
-
-            for (SafeCardGlowBorder safeCardGlowBorder : this.glowList) {
-                ((AbstractGameEffect) safeCardGlowBorder).render(sb);
-            }
-
-            sb.setBlendFunction(770, 771);
-        }
-
-    }
-
-    protected void clickThisPool() {
-        this.isSelect = !this.isSelect;
-    }
-
     @Override
     public int renderLayer() {
         return 0;
@@ -181,18 +193,6 @@ public abstract class BaseCardPool implements IUIElement {
     @Override
     public int updateOrder() {
         return 0;
-    }
-
-    public Predicate<AbstractCard> getAddedCard() {
-        if (addedCard == null || !isSelect)
-            return card -> false;
-        return addedCard;
-    }
-
-    public Predicate<AbstractCard> getBanedCard() {
-        if (banedCard == null || !isSelect)
-            return card -> false;
-        return banedCard;
     }
 
     public interface IsCardPoolCover {

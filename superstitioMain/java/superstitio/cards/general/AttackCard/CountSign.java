@@ -37,23 +37,11 @@ public class CountSign extends GeneralCard {
         this.setupMagicNumber(MAGIC, UPGRADE_MAGIC);
     }
 
-    @Override
-    public void upgradeAuto() {
-    }
-
     private int getOriginDamage() {
         if (this.upgraded)
             return DAMAGE + UPGRADE_DAMAGE;
         else
             return DAMAGE;
-    }
-
-    @Override
-    public List<TooltipInfo> getCustomTooltipsTop() {
-        List<TooltipInfo> customTooltipsTop = super.getCustomTooltipsTop();
-        customTooltipsTop.add(new TooltipInfo(this.name, String.format(this.cardStrings.getEXTENDED_DESCRIPTION()[0],
-                InBattleDataManager.OrgasmTimesTotal)));
-        return customTooltipsTop;
     }
 
     private void updateDamage() {
@@ -65,6 +53,18 @@ public class CountSign extends GeneralCard {
 //        if (damageUp >= 1)
 //            this.isDamageModified = true;
         this.baseDamage = this.getOriginDamage() + damageUp;
+    }
+
+    @Override
+    public void upgradeAuto() {
+    }
+
+    @Override
+    public List<TooltipInfo> getCustomTooltipsTop() {
+        List<TooltipInfo> customTooltipsTop = super.getCustomTooltipsTop();
+        customTooltipsTop.add(new TooltipInfo(this.name, String.format(this.cardStrings.getEXTENDED_DESCRIPTION()[0],
+                InBattleDataManager.OrgasmTimesTotal)));
+        return customTooltipsTop;
     }
 
     @Override

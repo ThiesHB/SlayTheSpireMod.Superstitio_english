@@ -94,11 +94,6 @@ public class Maso extends BaseCharacter implements PlayerInitPostDungeonInitiali
         return MasoStartDeck();
     }
 
-    @Override
-    protected boolean isCardCanAdd(AbstractCard card) {
-        return CardOwnerPlayerManager.isMasoCard(card);
-    }
-
     // 你的卡牌颜色（这个枚举在最下方创建）
     @Override
     public AbstractCard.CardColor getCardColor() {
@@ -130,5 +125,10 @@ public class Maso extends BaseCharacter implements PlayerInitPostDungeonInitiali
     @Override
     public void updateInCharacterSelectScreen(CharacterOption characterOption) {
         unableByGuroSetting();
+    }
+
+    @Override
+    protected boolean isCardCanAdd(AbstractCard card) {
+        return CardOwnerPlayerManager.isMasoCard(card);
     }
 }

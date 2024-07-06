@@ -80,23 +80,6 @@ public class ActionUtility {
         addToTop(gameAction);
     }
 
-    private static AbstractGameAction getMakeTempCardAction(AbstractCard card, BattleCardPlace battleCardPlace, int amount) {
-        final AbstractGameAction gameAction;
-        switch (battleCardPlace) {
-            case Hand:
-                gameAction = new MakeTempCardInHandAction(card, amount);
-                break;
-            case DrawPile:
-                gameAction = new MakeTempCardInDrawPileAction(card, amount, true, true);
-                break;
-            case Discard:
-            default:
-                gameAction = new MakeTempCardInDiscardAction(card, amount);
-                break;
-        }
-        return gameAction;
-    }
-
     public static void addToBot_makeTempCardInBattle(AbstractCard card, BattleCardPlace battleCardPlace) {
         addToBot_makeTempCardInBattle(card, battleCardPlace, 1);
     }
@@ -104,7 +87,6 @@ public class ActionUtility {
     public static void addToBot_makeTempCardInBattle(AbstractCard card, BattleCardPlace battleCardPlace, boolean upgrade) {
         addToBot_makeTempCardInBattle(card, battleCardPlace, 1, upgrade);
     }
-
 
     public static void addEffect(final AbstractGameEffect effect) {
         AbstractDungeon.effectList.add(effect);
@@ -127,10 +109,28 @@ public class ActionUtility {
         return AbstractDungeon.getCurrRoom().monsters.monsters.stream().allMatch(AbstractCreature::isDeadOrEscaped);
     }
 
+    private static AbstractGameAction getMakeTempCardAction(AbstractCard card, BattleCardPlace battleCardPlace, int amount) {
+        final AbstractGameAction gameAction;
+        switch (battleCardPlace) {
+            case Hand:
+                gameAction = new MakeTempCardInHandAction(card, amount);
+                break;
+            case DrawPile:
+                gameAction = new MakeTempCardInDrawPileAction(card, amount, true, true);
+                break;
+            case Discard:
+            default:
+                gameAction = new MakeTempCardInDiscardAction(card, amount);
+                break;
+        }
+        return gameAction;
+    }
+
     public enum BattleCardPlace {
         Hand, DrawPile, Discard
     }
 
+    @FunctionalInterface
     public interface VoidSupplier {
         void get();
 
@@ -143,6 +143,12 @@ public class ActionUtility {
         }
     }
 
+    @FunctionalInterface
+    public interface TriFunction<T1, T2, T3, R> {
+        R apply(T1 t1, T2 t2, T3 t3);
+    }
+
+    @FunctionalInterface
     public interface FunctionReturnSelfType {
         FunctionReturnSelfType get();
     }

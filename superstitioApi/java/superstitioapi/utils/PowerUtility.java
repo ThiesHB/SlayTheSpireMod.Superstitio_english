@@ -4,10 +4,12 @@ import com.megacrit.cardcrawl.core.AbstractCreature;
 import com.megacrit.cardcrawl.core.Settings;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.helpers.Hitbox;
+import com.megacrit.cardcrawl.orbs.AbstractOrb;
 import com.megacrit.cardcrawl.powers.AbstractPower;
 import com.megacrit.cardcrawl.powers.TheBombPower;
 import com.megacrit.cardcrawl.vfx.combat.PowerBuffEffect;
 import com.megacrit.cardcrawl.vfx.combat.PowerDebuffEffect;
+import com.megacrit.cardcrawl.vfx.combat.PowerExpireTextEffect;
 import superstitioapi.Logger;
 import superstitioapi.powers.interfaces.CopyAblePower;
 
@@ -28,6 +30,17 @@ public class PowerUtility {
         AbstractDungeon.getMonsters().monsters.forEach(monster -> monster.powers.forEach(consumer));
 //        InBattleDataManager.getPetManager().ifPresent(petManager -> petManager.monsterGroup.monsters.forEach(monster -> monster.powers.forEach
 //        (consumer)));
+    }
+
+    public static void RemovePower(AbstractCreature target, AbstractPower needRemovePower) {
+        AbstractDungeon.effectList.add(new PowerExpireTextEffect(target.hb.cX - target.animX, target.hb.cY + target.hb.height / 2.0F,
+                needRemovePower.name, needRemovePower.region128));
+        needRemovePower.onRemove();
+        target.powers.remove(needRemovePower);
+        AbstractDungeon.onModifyPower();
+        for (AbstractOrb orb : AbstractDungeon.player.orbs) {
+            orb.updateDescription();
+        }
     }
 
     public static void BubbleMessage(AbstractPower power, boolean isDeBuffVer, String message) {

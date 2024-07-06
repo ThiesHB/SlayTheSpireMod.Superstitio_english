@@ -67,10 +67,6 @@ public abstract class SuperstitioCard extends CustomCard implements UpdateDescri
     private int blockAutoUpgrade = 0;
     private int magicAutoUpgrade = 0;
     private Object[] descriptionArgs;
-    @Override
-    public Object[] getDescriptionArgs() {
-        return descriptionArgs;
-    }
 
     public SuperstitioCard(String id, CardType cardType, int cost, CardRarity cardRarity, CardTarget cardTarget, CardColor cardColor,
                            String imgSubFolder) {
@@ -90,33 +86,6 @@ public abstract class SuperstitioCard extends CustomCard implements UpdateDescri
         if (cardStringsSet != null && !Objects.equals(cardStringsSet.getNAME(), CardStrings.getMockCardString().NAME))
             return cardStringsSet;
         return getCustomStringsWithSFW(getModID() + ":" + DataUtility.getIdOnly(cardId), cards, CardStringsWillMakeFlavorSet.class);
-    }
-
-    protected static String CardTypeToString(final CardType t) {
-        String type;
-        switch (t) {
-            case ATTACK: {
-                type = "attack";
-                break;
-            }
-            case POWER: {
-                type = "power";
-                break;
-            }
-            case CURSE: {
-                type = "curse";
-                break;
-            }
-            case SKILL: {
-                type = "skill";
-                break;
-            }
-            default: {
-                type = "special";
-                break;
-            }
-        }
-        return type;
     }
 
     public static void setupBlock(SuperstitioCard card, int amount, int amountOfAutoUpgrade, AbstractBlockModifier... blockModifiers) {
@@ -174,6 +143,33 @@ public abstract class SuperstitioCard extends CustomCard implements UpdateDescri
         }
     }
 
+    protected static String CardTypeToString(final CardType t) {
+        String type;
+        switch (t) {
+            case ATTACK: {
+                type = "attack";
+                break;
+            }
+            case POWER: {
+                type = "power";
+                break;
+            }
+            case CURSE: {
+                type = "curse";
+                break;
+            }
+            case SKILL: {
+                type = "skill";
+                break;
+            }
+            default: {
+                type = "special";
+                break;
+            }
+        }
+        return type;
+    }
+
     public String makeFormatDESCRIPTION() {
         this.updateDescriptionArgs();
         if (descriptionArgs == null)
@@ -181,31 +177,9 @@ public abstract class SuperstitioCard extends CustomCard implements UpdateDescri
         return String.format(getDescriptionStrings(), descriptionArgs);
     }
 
-    @Override
-    public void setDescriptionArgs(Object... args) {
-        if (args[0] instanceof Object[])
-            descriptionArgs = (Object[]) args[0];
-        else
-            descriptionArgs = args;
-    }
-
     public void updateRawDescription() {
         if (cardStrings != null)
             this.rawDescription = makeFormatDESCRIPTION();
-    }
-
-    /**
-     * 使用后别忘了updateRawDescription
-     */
-    @Override
-    public void updateDescriptionArgs() {
-    }
-
-    @Override
-    public String getDescriptionStrings() {
-        if (this.upgraded && cardStrings.getUPGRADE_DESCRIPTION() != null && !cardStrings.getUPGRADE_DESCRIPTION().isEmpty())
-            return cardStrings.getUPGRADE_DESCRIPTION();
-        return cardStrings.getDESCRIPTION();
     }
 
     public void upgradeCardsToPreview() {
@@ -217,27 +191,153 @@ public abstract class SuperstitioCard extends CustomCard implements UpdateDescri
         }
     }
 
-    @Override
-    public final void upgrade() {
-        if (!this.upgraded) {
-            this.upgradeName();
-            if (this.blockAutoUpgrade != 0)
-                this.upgradeBlock(this.blockAutoUpgrade);
-            if (this.damageAutoUpgrade != 0)
-                this.upgradeDamage(this.damageAutoUpgrade);
-            if (this.magicAutoUpgrade != 0)
-                this.upgradeMagicNumber(this.magicAutoUpgrade);
-            updateRawDescription();
-            this.upgradeAuto();
-            this.initializeDescription();
-        }
-    }
-
     public String[] getEXTENDED_DESCRIPTION() {
         return cardStrings.getEXTENDED_DESCRIPTION();
     }
 
     public abstract void upgradeAuto();
+
+    public void addToBot_gainCustomBlock(final int amount, AbstractBlockModifier blockModifier) {
+        this.addToBot(new GainCustomBlockAction(new BlockModContainer(this, blockModifier), AbstractDungeon.player, amount));
+    }
+
+    public AbstractCreature calculateCardDamageForSelfOrEnemyTargeting() {
+        if (!(targetingMap.get(this.target) instanceof SelfOrEnemyTargeting)) {
+            applyPowers();
+            return null;
+        }
+        SelfOrEnemyTargeting selfOrEnemyTargeting = (SelfOrEnemyTargeting) targetingMap.get(this.target);
+        updateSelfOrEnemyTargetingTargetHovered(AbstractDungeon.player, selfOrEnemyTargeting);
+        AbstractCreature target = selfOrEnemyTargeting.getHovered();
+        if (target == null) {
+            applyPowers();
+            return null;
+        }
+
+        if (target instanceof AbstractMonster) {
+            super.calculateCardDamage((AbstractMonster) target);
+            return target;
+        }
+        this.applyPowersToBlock();
+        final AbstractPlayer player = AbstractDungeon.player;
+        this.isDamageModified = false;
+        if (!this.isMultiDamage) {
+            calculateSingleDamage(player, target);
+        } else {
+            calculateMultipleDamage(player);
+        }
+        selfOrEnemyTargeting.clearHovered();
+        return target;
+    }
+
+    protected void setCostToCostMap_ForTurn(int amount) {
+        if (InBattleDataManager.costMap.containsKey(this.uuid)) {
+            InBattleDataManager.costMap.put(this.uuid, amount);
+        }
+        this.setCostForTurn(amount);
+    }
+
+    protected void setCostToCostMap_ForBattle(int amount) {
+        if (InBattleDataManager.costMap.containsKey(this.uuid)) {
+            InBattleDataManager.costMap.put(this.uuid, amount);
+        }
+        this.updateCost(amount);
+    }
+
+    public final void addToBot_dealDamage(final AbstractCreature target) {
+        DamageActionMaker.maker(this.damage, target).addToBot();
+    }
+
+    public final void addToBot_dealDamage(final AbstractCreature target, final AttackEffect effect) {
+        DamageActionMaker.maker(this.damage, target).setEffect(effect).addToBot();
+    }
+
+    public final void addToBot_dealDamage(final AbstractCreature target, final int damageAmount, final AttackEffect effect) {
+        DamageActionMaker.maker(damageAmount, target).setEffect(effect).addToBot();
+    }
+
+    public final void addToBot_dealDamage(final AbstractCreature target, final int damageAmount, final DamageType damageType,
+                                          final AttackEffect effect) {
+        DamageActionMaker.maker(damageAmount, target).setDamageType(damageType).setEffect(effect).addToBot();
+    }
+
+    public final void addToBot_dealDamage(final AbstractCreature target, final int damageAmount, final DamageType damageType,
+                                          AbstractDamageModifier damageModifier, final AttackEffect effect) {
+        DamageActionMaker.maker(damageAmount, target).setDamageModifier(this, damageModifier).setDamageType(damageType).setEffect(effect).addToBot();
+    }
+
+    public final void addToBot_dealDamageToAllEnemies(final AttackEffect effect) {
+        if (!this.isMultiDamage) {
+            Logger.warning("错误，未设置isMultiDamage，可能会出错，所以群体攻击自动禁用，错误卡片：" + this.name);
+            return;
+        }
+        DamageAllEnemiesAction.builder(AbstractDungeon.player, this.multiDamage)
+                .setAttackEffectType(effect)
+                .addToBot();
+//        this.addToBot(new SPTTDamageAllEnemiesAction(AbstractDungeon.player, this.multiDamage, DamageType.NORMAL, effect));
+//        this.addToBot(new DamageAllEnemiesAction(AbstractDungeon.player, this.multiDamage, DamageType.NORMAL, effect));
+    }
+
+    public final void addToBot_dealDamageToAllEnemies(final AttackEffect effect, AbstractDamageModifier... damageModifiers) {
+        if (!this.isMultiDamage) {
+            Logger.warning("错误，未设置isMultiDamage，可能会出错，所以群体攻击自动禁用，错误卡片：" + this.name);
+            return;
+        }
+        DamageAllEnemiesAction.builder(AbstractDungeon.player, this.multiDamage)
+                .setAttackEffectType(effect)
+                .setDamageModifier(this, damageModifiers)
+                .addToBot();
+//        this.addToBot(new SPTTDamageAllEnemiesAction(AbstractDungeon.player, this.multiDamage, DamageType.NORMAL, effect, this, damageModifiers));
+    }
+
+    public final void addToBot_dealDamageToAllEnemies(final AttackEffect effect,
+                                                      Function<AbstractCreature, AbstractGameEffect> newAttackEffectMaker,
+                                                      AbstractDamageModifier... damageModifiers) {
+        if (!this.isMultiDamage) {
+            Logger.warning("错误，未设置isMultiDamage，可能会出错，所以群体攻击自动禁用，错误卡片：" + this.name);
+            return;
+        }
+        DamageAllEnemiesAction.builder(AbstractDungeon.player, this.multiDamage)
+                .setAttackEffectType(effect)
+                .setDamageModifier(this, damageModifiers)
+                .setNewAttackEffectMaker(newAttackEffectMaker)
+                .addToBot();
+//        new SPTTDamageAllEnemiesAction(AbstractDungeon.player, this.multiDamage, DamageType.NORMAL, effect, this, damageModifiers)
+//                .setNewAttackEffectMaker(newAttackEffectMaker)
+//                .addToBot();
+    }
+
+    public final void addToBot_gainBlock() {
+        this.addToBot_gainBlock(this.block);
+    }
+
+    public final void addToBot_gainBlock(final int amount) {
+        addToBot_gainBlock(this, amount);
+    }
+
+    public final void addToBot_gainCustomBlock(AbstractBlockModifier blockModifier) {
+        this.addToBot_gainCustomBlock(this.block, blockModifier);
+    }
+
+    public final void addToBot_drawCards(final int amount) {
+        this.addToBot(new DrawCardAction(amount));
+    }
+
+    public final void addToBot_drawCards() {
+        this.addToBot(new DrawCardAction(1));
+    }
+
+    public final void addToBot_applyPower(final AbstractPower power) {
+        ActionUtility.addToBot_applyPower(power);
+    }
+
+    public final void addToBot_reducePower(final String powerID, int amount) {
+        ActionUtility.addToBot_reducePower(powerID, amount, AbstractDungeon.player, AbstractDungeon.player);
+    }
+
+    public final void addToBot_removeSpecificPower(final AbstractPower power) {
+        ActionUtility.addToBot_removeSpecificPower(power, AbstractDungeon.player);
+    }
 
     protected final void setupDamage(final int amount, AbstractDamageModifier... damageModifiers) {
         this.setupDamage(amount, 0, damageModifiers);
@@ -271,121 +371,9 @@ public abstract class SuperstitioCard extends CustomCard implements UpdateDescri
         this.magicAutoUpgrade = amountOfAutoUpgrade;
     }
 
-    @Override
-    public void hover() {
-        float temp = this.drawScale;
-        super.hover();
-        this.drawScale = temp;
-    }
-
-    public final void addToBot_dealDamage(final AbstractCreature target) {
-        DamageActionMaker.maker(this.damage, target).addToBot();
-    }
-
-    public final void addToBot_dealDamage(final AbstractCreature target, final AttackEffect effect) {
-        DamageActionMaker.maker(this.damage, target).setEffect(effect).addToBot();
-    }
-
-    public final void addToBot_dealDamage(final AbstractCreature target, final int damageAmount, final AttackEffect effect) {
-        DamageActionMaker.maker(damageAmount, target).setEffect(effect).addToBot();
-    }
-
-    public final void addToBot_dealDamage(final AbstractCreature target, final int damageAmount, final DamageType damageType,
-                                          final AttackEffect effect) {
-        DamageActionMaker.maker(damageAmount, target).setDamageType(damageType).setEffect(effect).addToBot();
-    }
-
-    public final void addToBot_dealDamage(final AbstractCreature target, final int damageAmount, final DamageType damageType,
-                                          AbstractDamageModifier damageModifier, final AttackEffect effect) {
-        DamageActionMaker.maker(damageAmount, target).setDamageModifier(this, damageModifier).setDamageType(damageType).setEffect(effect).addToBot();
-    }
-
-    public final void addToBot_dealDamageToAllEnemies(final AttackEffect effect) {
-        if (!this.isMultiDamage) {
-            Logger.warning("错误，未设置isMultiDamage，可能会出错，所以群体攻击自动禁用，错误卡片：" + this.name);
-            return;
-        }
-        this.addToBot(new DamageAllEnemiesAction(AbstractDungeon.player, this.multiDamage, DamageType.NORMAL, effect));
-//        this.addToBot(new DamageAllEnemiesAction(AbstractDungeon.player, this.multiDamage, DamageType.NORMAL, effect));
-    }
-
-    public final void addToBot_dealDamageToAllEnemies(final AttackEffect effect, AbstractDamageModifier... damageModifiers) {
-        if (!this.isMultiDamage) {
-            Logger.warning("错误，未设置isMultiDamage，可能会出错，所以群体攻击自动禁用，错误卡片：" + this.name);
-            return;
-        }
-        this.addToBot(new DamageAllEnemiesAction(AbstractDungeon.player, this.multiDamage, DamageType.NORMAL, effect, this, damageModifiers));
-    }
-
-    public final void addToBot_dealDamageToAllEnemies(final AttackEffect effect,
-                                                      Function<AbstractCreature, AbstractGameEffect> newAttackEffectMaker,
-                                                      AbstractDamageModifier... damageModifiers) {
-        if (!this.isMultiDamage) {
-            Logger.warning("错误，未设置isMultiDamage，可能会出错，所以群体攻击自动禁用，错误卡片：" + this.name);
-            return;
-        }
-        this.addToBot(new DamageAllEnemiesAction(AbstractDungeon.player, this.multiDamage, DamageType.NORMAL, effect,
-                DamageAllEnemiesAction.makeNewInfoWithModifier(this, AbstractDungeon.player, DamageType.NORMAL, damageModifiers))
-                .setNewAttackEffectMaker(newAttackEffectMaker)
-        );
-    }
-
-    public final void addToBot_gainBlock() {
-        this.addToBot_gainBlock(this.block);
-    }
-
-    public final void addToBot_gainBlock(final int amount) {
-        addToBot_gainBlock(this, amount);
-    }
-
-    public final void addToBot_gainCustomBlock(AbstractBlockModifier blockModifier) {
-        this.addToBot_gainCustomBlock(this.block, blockModifier);
-    }
-
-    public void addToBot_gainCustomBlock(final int amount, AbstractBlockModifier blockModifier) {
-        this.addToBot(new GainCustomBlockAction(new BlockModContainer(this, blockModifier), AbstractDungeon.player, amount));
-    }
-
-    public final void addToBot_drawCards(final int amount) {
-        this.addToBot(new DrawCardAction(amount));
-    }
-
-    public final void addToBot_drawCards() {
-        this.addToBot(new DrawCardAction(1));
-    }
-
 //    protected final void addToBot_reducePower(final AbstractPower power) {
 //        ActionUtility.addToBot_reducePower(power, AbstractDungeon.player);
 //    }
-
-    public final void addToBot_applyPower(final AbstractPower power) {
-        ActionUtility.addToBot_applyPower(power);
-    }
-
-    public final void addToBot_reducePower(final String powerID, int amount) {
-        ActionUtility.addToBot_reducePower(powerID, amount, AbstractDungeon.player, AbstractDungeon.player);
-    }
-
-    public final void addToBot_removeSpecificPower(final AbstractPower power) {
-        ActionUtility.addToBot_removeSpecificPower(power, AbstractDungeon.player);
-    }
-
-    protected void setCostToCostMap_ForTurn(int amount) {
-        if (InBattleDataManager.costMap.containsKey(this.uuid)) {
-            InBattleDataManager.costMap.put(this.uuid, amount);
-        }
-        this.setCostForTurn(amount);
-    }
-
-    protected void setCostToCostMap_ForBattle(int amount) {
-        if (InBattleDataManager.costMap.containsKey(this.uuid)) {
-            InBattleDataManager.costMap.put(this.uuid, amount);
-        }
-        this.updateCost(amount);
-    }
-
-    @Override
-    public abstract void use(AbstractPlayer player, AbstractMonster monster);
 
     protected final void calculateMultipleDamage(AbstractPlayer player) {
         final ArrayList<AbstractMonster> monsters = AbstractDungeon.getCurrRoom().monsters.monsters;
@@ -434,33 +422,63 @@ public abstract class SuperstitioCard extends CustomCard implements UpdateDescri
         return tempDamage;
     }
 
-    public AbstractCreature calculateCardDamageForSelfOrEnemyTargeting() {
-        if (!(targetingMap.get(this.target) instanceof SelfOrEnemyTargeting)) {
-            applyPowers();
-            return null;
-        }
-        SelfOrEnemyTargeting selfOrEnemyTargeting = (SelfOrEnemyTargeting) targetingMap.get(this.target);
-        updateSelfOrEnemyTargetingTargetHovered(AbstractDungeon.player, selfOrEnemyTargeting);
-        AbstractCreature target = selfOrEnemyTargeting.getHovered();
-        if (target == null) {
-            applyPowers();
-            return null;
-        }
+    protected final void calculateSingleDamage(AbstractPlayer player, AbstractCreature creature) {
+        float tmpDamage = (float) this.baseDamage;
+        tmpDamage = getTmpDamage(player, tmpDamage, creature);
+        this.damage = MathUtils.floor(tmpDamage);
+    }
 
-        if (target instanceof AbstractMonster) {
-            super.calculateCardDamage((AbstractMonster) target);
-            return target;
+    /**
+     * 使用后别忘了updateRawDescription
+     */
+    @Override
+    public void updateDescriptionArgs() {
+    }
+
+    @Override
+    public String getDescriptionStrings() {
+        if (this.upgraded && cardStrings.getUPGRADE_DESCRIPTION() != null && !cardStrings.getUPGRADE_DESCRIPTION().isEmpty())
+            return cardStrings.getUPGRADE_DESCRIPTION();
+        return cardStrings.getDESCRIPTION();
+    }
+
+    @Override
+    public Object[] getDescriptionArgs() {
+        return descriptionArgs;
+    }
+
+    @Override
+    public void setDescriptionArgs(Object... args) {
+        if (args[0] instanceof Object[])
+            descriptionArgs = (Object[]) args[0];
+        else
+            descriptionArgs = args;
+    }
+
+    @Override
+    public final void upgrade() {
+        if (!this.upgraded) {
+            this.upgradeName();
+            if (this.blockAutoUpgrade != 0)
+                this.upgradeBlock(this.blockAutoUpgrade);
+            if (this.damageAutoUpgrade != 0)
+                this.upgradeDamage(this.damageAutoUpgrade);
+            if (this.magicAutoUpgrade != 0)
+                this.upgradeMagicNumber(this.magicAutoUpgrade);
+            updateRawDescription();
+            this.upgradeAuto();
+            this.initializeDescription();
         }
-        this.applyPowersToBlock();
-        final AbstractPlayer player = AbstractDungeon.player;
-        this.isDamageModified = false;
-        if (!this.isMultiDamage) {
-            calculateSingleDamage(player, target);
-        } else {
-            calculateMultipleDamage(player);
-        }
-        selfOrEnemyTargeting.clearHovered();
-        return target;
+    }
+
+    @Override
+    public abstract void use(AbstractPlayer player, AbstractMonster monster);
+
+    @Override
+    public void hover() {
+        float temp = this.drawScale;
+        super.hover();
+        this.drawScale = temp;
     }
 
     @Override
@@ -478,12 +496,6 @@ public abstract class SuperstitioCard extends CustomCard implements UpdateDescri
         return new ArrayList<>();
     }
 
-    protected final void calculateSingleDamage(AbstractPlayer player, AbstractCreature creature) {
-        float tmpDamage = (float) this.baseDamage;
-        tmpDamage = getTmpDamage(player, tmpDamage, creature);
-        this.damage = MathUtils.floor(tmpDamage);
-    }
-
     public interface HasMultiCardsToPreview {
 
         float SHOW_TIME = 1.0f;
@@ -497,7 +509,7 @@ public abstract class SuperstitioCard extends CustomCard implements UpdateDescri
         void setCardsToPreview(AbstractCard cardsToPreview);
 
         default void update() {
-            if(getMultiCardsToPreview().isEmpty())return;
+            if (getMultiCardsToPreview().isEmpty()) return;
             float timer = getCardsToPreviewTimer();
             if (timer < 0) {
                 setCardsToPreviewTimer(getMultiCardsToPreview().size() * SHOW_TIME);

@@ -46,11 +46,11 @@ public class MinionMonster extends Minion {
         return monster.hb.hovered || monster.intentHb.hovered || monster.healthHb.hovered;
     }
 
-    @Override
-    protected Texture setupImg() {
-//        Texture img = ;
-//        setPrivate(petCore, AbstractMonster.class, "img", null);
-        return getPrivate(getPetCoreMonster(), AbstractMonster.class, "img");
+    public AbstractMonster getPetCoreMonster() {
+        if (petCore instanceof AbstractMonster)
+            return (AbstractMonster) petCore;
+        else
+            return DefaultMonster;
     }
 
     @Override
@@ -80,11 +80,6 @@ public class MinionMonster extends Minion {
         Texture intentImg = ReflectionHacks.privateMethod(AbstractMonster.class, "getIntentImg").invoke(getPetCoreMonster());
         ReflectionHacks.setPrivate(getPetCoreMonster(), AbstractMonster.class, "intentImg", intentImg);
         ReflectionHacks.privateMethod(AbstractMonster.class, "updateIntentTip").invoke(getPetCoreMonster());
-    }
-
-    @Override
-    protected void updatePetCore() {
-        this.getPetCoreMonster().update();
     }
 
     @Override
@@ -169,18 +164,23 @@ public class MinionMonster extends Minion {
     }
 
     @Override
+    protected Texture setupImg() {
+//        Texture img = ;
+//        setPrivate(petCore, AbstractMonster.class, "img", null);
+        return getPrivate(getPetCoreMonster(), AbstractMonster.class, "img");
+    }
+
+    @Override
+    protected void updatePetCore() {
+        this.getPetCoreMonster().update();
+    }
+
+    @Override
     protected void getMove(int i) {
         privateMethod(AbstractMonster.class, "getMove", int.class).invoke(this.getPetCoreMonster(), i);
         EnemyMoveInfo moveInfo = getPrivate(getPetCoreMonster(), AbstractMonster.class, "move");
         this.setMove(getPetCoreMonster().moveName, moveInfo.nextMove, moveInfo.intent, moveInfo.baseDamage, moveInfo.multiplier,
                 moveInfo.isMultiDamage);
-    }
-
-    public AbstractMonster getPetCoreMonster() {
-        if (petCore instanceof AbstractMonster)
-            return (AbstractMonster) petCore;
-        else
-            return DefaultMonster;
     }
 
 }

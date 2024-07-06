@@ -53,68 +53,9 @@ public class BarRenderOnThing extends RenderOnThing {
         return v;
     }
 
-    public void render(SpriteBatch sb) {
-        renderBar(sb);
-        renderBarTextWithColorAlphaChange(sb, getXDrawStart(), getYDrawStart());
-        if (Settings.isDebug || Settings.isInfo) {
-            renderDebug(sb);
-        }
-    }
-
-    protected void renderDebug(SpriteBatch sb) {
-        this.hitbox.render(sb);
-        for (AmountChunk amountChunk : this.amountChunkWithUuid.values()) {
-            if (amountChunk instanceof BarAmountChunk)
-                ((BarAmountChunk) amountChunk).hitbox.render(sb);
-        }
-    }
-
-    public void update() {
-        updateHitBoxPlace(this.hitbox);
-        this.hitbox.update();
-        List<AmountChunk> chunkList = this.sortedChunkList;
-        for (int i = chunkList.size() - 1; i >= 0; i--) {
-            AmountChunk amountChunk = chunkList.get(i);
-            amountChunk.update();
-            if (amountChunk instanceof BarAmountChunk) {
-                ((BarAmountChunk) amountChunk).teleport(getXDrawStart(), getYDrawStart());
-                ((BarAmountChunk) amountChunk).updateHitBox();
-            }
-        }
-        update_showTips(this.hitbox);
-        updateHbHoverFade();
-    }
-
-    protected final void update_showTips(Hitbox hitbox) {
-        if (hitbox.hovered && !isChunkHovered) {
-            renderTip(AllTips());
-        }
-        this.fontScale = MathHelper.scaleLerpSnap(this.fontScale, 0.7F);
-    }
-
     protected void renderBar(SpriteBatch sb) {
         this.renderAmountBarBackGround(sb, getXDrawStart(), getYDrawStart());
         this.sortedChunkList.forEach(amountChunk -> amountChunk.render(sb));
-    }
-
-    protected float getYDrawStart() {
-        return this.hitbox.cY - BAR_DIAMETER / 2.0f;
-    }
-
-    protected float getXDrawStart() {
-        return this.hitbox.cX - this.barLength / 2.0f;
-    }
-
-    @Override
-    public void tryApplyMessage(BarRenderUpdateMessage message) {
-        super.tryApplyMessage(message);
-        calculateAllPosition();
-    }
-
-    @Override
-    public void removeChunk(HasBarRenderOnCreature hasBarRenderOnCreature) {
-        super.removeChunk(hasBarRenderOnCreature);
-        calculateAllPosition();
     }
 
     /**
@@ -169,74 +110,11 @@ public class BarRenderOnThing extends RenderOnThing {
         }
     }
 
-    /**
-     * @param x getXDrawStart
-     * @param y getYDrawStart
-     */
-    protected final void renderBarTextWithColorAlphaChange(final SpriteBatch sb, final float x, final float y) {
-        final float tmp = this.barTextColor.a;
-        this.barTextColor.a *= this.healthHideTimer;
-        renderBarText(sb, x, y);
-        this.barTextColor.a = tmp;
-    }
-
-    /**
-     * @param x getXDrawStart
-     * @param y getYDrawStart
-     */
-    protected void renderBarText(SpriteBatch sb, final float x, final float y) {
-        FontHelper.renderFontCentered(sb, FontHelper.healthInfoFont, makeBarText(), this.hitbox.cX, y + TEXT_OFFSET_Y,
-                this.barTextColor);
-    }
-
-
-    protected void updateHbHoverFade() {
-        if (this.hitbox.hovered) {
-            this.healthHideTimer -= Gdx.graphics.getDeltaTime() * HIDE_SPEED;
-            if (this.healthHideTimer < HEALTH_HIDE_TIMER_MIN) {
-                this.healthHideTimer = HEALTH_HIDE_TIMER_MIN;
-            }
-        } else {
-            this.healthHideTimer += Gdx.graphics.getDeltaTime() * HIDE_SPEED;
-            if (this.healthHideTimer > 1.0F) {
-                this.healthHideTimer = 1.0F;
-            }
-        }
-    }
-
-    private void calculateAllPosition() {
-        reMakeSortedChunkList();
-        for (int i = 0; i < sortedChunkList.size(); i++) {
-            AmountChunk chunk = sortedChunkList.get(i);
-            if (!(chunk instanceof BarAmountChunk)) continue;
-            BarAmountChunk barAmountChunk = (BarAmountChunk) chunk;
-            barAmountChunkMoveByIndex(barAmountChunk, getTotalAmount_InFrontOf(i));
-
-            if (i == 0)
-                barAmountChunk.orderType = BarAmountChunk.OrderType.Min;
-            else if (i == sortedChunkList.size() - 1)
-                barAmountChunk.orderType = BarAmountChunk.OrderType.Max;
-            else
-                barAmountChunk.orderType = BarAmountChunk.OrderType.Middle;
-            if (sortedChunkList.size() == 1)
-                barAmountChunk.orderType = BarAmountChunk.OrderType.OnlyOne;
-        }
-    }
-
     protected void barAmountChunkMoveByIndex(BarAmountChunk barAmountChunk, int totalAmountInFront) {
         barAmountChunk.teleport(getXDrawStart(), getYDrawStart());
         barAmountChunk.targetNewLength(
                 chunkLength(totalAmountInFront),
                 chunkLength(barAmountChunk.nowAmount));
-    }
-
-    protected AmountChunk makeNewAmountChunk(BarRenderUpdateMessage message) {
-        return new BarAmountChunk(
-                getXDrawStart(),
-                getYDrawStart(),
-                chunkLength(getTotalAmount()),
-                chunkLength(message.newAmount),
-                getNextOrder(), this);
     }
 
     protected void chunkHitBoxReSize(BarAmountChunk amountChunk) {
@@ -261,6 +139,127 @@ public class BarRenderOnThing extends RenderOnThing {
 
         amountChunk.hitbox.height = BAR_DIAMETER;
         amountChunk.hitbox.moveY(this.hitbox.cY);
+    }
+
+    private void calculateAllPosition() {
+        reMakeSortedChunkList();
+        for (int i = 0; i < sortedChunkList.size(); i++) {
+            AmountChunk chunk = sortedChunkList.get(i);
+            if (!(chunk instanceof BarAmountChunk)) continue;
+            BarAmountChunk barAmountChunk = (BarAmountChunk) chunk;
+            barAmountChunkMoveByIndex(barAmountChunk, getTotalAmount_InFrontOf(i));
+
+            if (i == 0)
+                barAmountChunk.orderType = BarAmountChunk.OrderType.Min;
+            else if (i == sortedChunkList.size() - 1)
+                barAmountChunk.orderType = BarAmountChunk.OrderType.Max;
+            else
+                barAmountChunk.orderType = BarAmountChunk.OrderType.Middle;
+            if (sortedChunkList.size() == 1)
+                barAmountChunk.orderType = BarAmountChunk.OrderType.OnlyOne;
+        }
+    }
+
+    public void render(SpriteBatch sb) {
+        renderBar(sb);
+        renderBarTextWithColorAlphaChange(sb, getXDrawStart(), getYDrawStart());
+        if (Settings.isDebug || Settings.isInfo) {
+            renderDebug(sb);
+        }
+    }
+
+    public void update() {
+        updateHitBoxPlace(this.hitbox);
+        this.hitbox.update();
+        List<AmountChunk> chunkList = this.sortedChunkList;
+        for (int i = chunkList.size() - 1; i >= 0; i--) {
+            AmountChunk amountChunk = chunkList.get(i);
+            amountChunk.update();
+            if (amountChunk instanceof BarAmountChunk) {
+                ((BarAmountChunk) amountChunk).teleport(getXDrawStart(), getYDrawStart());
+                ((BarAmountChunk) amountChunk).updateHitBox();
+            }
+        }
+        update_showTips(this.hitbox);
+        updateHbHoverFade();
+    }
+
+    @Override
+    public void tryApplyMessage(BarRenderUpdateMessage message) {
+        super.tryApplyMessage(message);
+        calculateAllPosition();
+    }
+
+    @Override
+    public void removeChunk(HasBarRenderOnCreature hasBarRenderOnCreature) {
+        super.removeChunk(hasBarRenderOnCreature);
+        calculateAllPosition();
+    }
+
+    protected void renderDebug(SpriteBatch sb) {
+        this.hitbox.render(sb);
+        for (AmountChunk amountChunk : this.amountChunkWithUuid.values()) {
+            if (amountChunk instanceof BarAmountChunk)
+                ((BarAmountChunk) amountChunk).hitbox.render(sb);
+        }
+    }
+
+    protected final void update_showTips(Hitbox hitbox) {
+        if (hitbox.hovered && !isChunkHovered) {
+            renderTip(AllTips());
+        }
+        this.fontScale = MathHelper.scaleLerpSnap(this.fontScale, 0.7F);
+    }
+
+    protected float getYDrawStart() {
+        return this.hitbox.cY - BAR_DIAMETER / 2.0f;
+    }
+
+    protected float getXDrawStart() {
+        return this.hitbox.cX - this.barLength / 2.0f;
+    }
+
+    /**
+     * @param x getXDrawStart
+     * @param y getYDrawStart
+     */
+    protected final void renderBarTextWithColorAlphaChange(final SpriteBatch sb, final float x, final float y) {
+        final float tmp = this.barTextColor.a;
+        this.barTextColor.a *= this.healthHideTimer;
+        renderBarText(sb, x, y);
+        this.barTextColor.a = tmp;
+    }
+
+    /**
+     * @param x getXDrawStart
+     * @param y getYDrawStart
+     */
+    protected void renderBarText(SpriteBatch sb, final float x, final float y) {
+        FontHelper.renderFontCentered(sb, FontHelper.healthInfoFont, makeBarText(), this.hitbox.cX, y + TEXT_OFFSET_Y,
+                this.barTextColor);
+    }
+
+    protected void updateHbHoverFade() {
+        if (this.hitbox.hovered) {
+            this.healthHideTimer -= Gdx.graphics.getDeltaTime() * HIDE_SPEED;
+            if (this.healthHideTimer < HEALTH_HIDE_TIMER_MIN) {
+                this.healthHideTimer = HEALTH_HIDE_TIMER_MIN;
+            }
+        } else {
+            this.healthHideTimer += Gdx.graphics.getDeltaTime() * HIDE_SPEED;
+            if (this.healthHideTimer > 1.0F) {
+                this.healthHideTimer = 1.0F;
+            }
+        }
+    }
+
+    protected AmountChunk makeNewAmountChunk(BarRenderUpdateMessage message) {
+        return new BarAmountChunk(
+                getXDrawStart(),
+                getYDrawStart(),
+                chunkLength(getTotalAmount()),
+                chunkLength(message.newAmount),
+                getNextOrder(), this);
     }
 
     protected static class BarAmountChunk extends RenderOnThing.AmountChunk {
@@ -300,28 +299,6 @@ public class BarRenderOnThing extends RenderOnThing {
 //            this.hitbox.move(drawX, drawY);
 //        }
 
-        private void updateHbHoverFade() {
-            if (this.hitbox.hovered) {
-                this.healthHideTimer -= Gdx.graphics.getDeltaTime() * HIDE_SPEED;
-                if (this.healthHideTimer < HEALTH_HIDE_TIMER_MIN_CHUNK) {
-                    this.healthHideTimer = HEALTH_HIDE_TIMER_MIN_CHUNK;
-                }
-            } else {
-                this.healthHideTimer += Gdx.graphics.getDeltaTime() * HIDE_SPEED;
-                if (this.healthHideTimer > 1.0F) {
-                    this.healthHideTimer = 1.0F;
-                }
-            }
-        }
-
-        public void render(final SpriteBatch sb) {
-            renderAmountBar(sb);
-        }
-
-        public void update() {
-            updateHbDamageAnimation();
-        }
-
         public void updateHitBox() {
             bar.chunkHitBoxReSize(this);
             this.hitbox.update();
@@ -329,16 +306,6 @@ public class BarRenderOnThing extends RenderOnThing {
             updateHbHoverFade();
             if (this.hitbox.hovered)
                 bar.renderTip(new ArrayList<>(Collections.singletonList(tip)));
-        }
-
-        private void renderAmountBar(final SpriteBatch sb) {
-            if (this.nowAmount == 0) return;
-
-            final float tmp = this.chunkColor.a;
-            this.chunkColor.a *= this.healthHideTimer;
-            sb.setColor(this.chunkColor);
-            bar.drawBarChunk(sb, this);
-            this.chunkColor.a = tmp;
         }
 
         public BarAmountChunk teleport(float drawX, float drawY) {
@@ -359,6 +326,30 @@ public class BarRenderOnThing extends RenderOnThing {
             this.lengthTarget = lengthTarget;
         }
 
+        private void updateHbHoverFade() {
+            if (this.hitbox.hovered) {
+                this.healthHideTimer -= Gdx.graphics.getDeltaTime() * HIDE_SPEED;
+                if (this.healthHideTimer < HEALTH_HIDE_TIMER_MIN_CHUNK) {
+                    this.healthHideTimer = HEALTH_HIDE_TIMER_MIN_CHUNK;
+                }
+            } else {
+                this.healthHideTimer += Gdx.graphics.getDeltaTime() * HIDE_SPEED;
+                if (this.healthHideTimer > 1.0F) {
+                    this.healthHideTimer = 1.0F;
+                }
+            }
+        }
+
+        private void renderAmountBar(final SpriteBatch sb) {
+            if (this.nowAmount == 0) return;
+
+            final float tmp = this.chunkColor.a;
+            this.chunkColor.a *= this.healthHideTimer;
+            sb.setColor(this.chunkColor);
+            bar.drawBarChunk(sb, this);
+            this.chunkColor.a = tmp;
+        }
+
         private void updateHbDamageAnimation() {
             if (this.animTimer > 0.0F) this.animTimer -= Gdx.graphics.getDeltaTime();
 //            if (this.animTimer > 0.0F) return;
@@ -367,6 +358,14 @@ public class BarRenderOnThing extends RenderOnThing {
             if (this.lengthTarget != this.length) this.length = MathHelper.uiLerpSnap(this.length, this.lengthTarget);
             if (this.drawXTarget != this.drawX) this.drawX = MathHelper.uiLerpSnap(this.drawX, this.drawXTarget);
             if (this.drawYTarget != this.drawY) this.drawY = MathHelper.uiLerpSnap(this.drawY, this.drawYTarget);
+        }
+
+        public void render(final SpriteBatch sb) {
+            renderAmountBar(sb);
+        }
+
+        public void update() {
+            updateHbDamageAnimation();
         }
 
         public BarAmountChunk setTip(BarRenderUpdateMessage.ToolTip tip) {

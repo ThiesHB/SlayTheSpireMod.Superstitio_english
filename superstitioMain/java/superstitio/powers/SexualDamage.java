@@ -9,9 +9,10 @@ import com.megacrit.cardcrawl.core.AbstractCreature;
 import superstitio.DataManager;
 import superstitio.delayHpLose.UnBlockAbleIgnoresTempHPDamage;
 import superstitioapi.SuperstitioApiSubscriber;
-import superstitioapi.cards.DamageActionMaker;
+import superstitioapi.actions.DamageEnemiesAction;
 import superstitioapi.powers.interfaces.OnPostApplyThisPower;
 import superstitioapi.renderManager.inBattleManager.InBattleDataManager;
+import superstitioapi.utils.PowerUtility;
 
 import static superstitioapi.renderManager.inBattleManager.InBattleDataManager.subscribeManageGroups;
 
@@ -54,11 +55,12 @@ public class SexualDamage extends AbstractSuperstitioPower implements HealthBarR
     public void receiveAtEndOfPlayerTurnPreCard() {
 //        this.owner.damage(BindingHelper.makeInfo(new DamageModContainer(this, new UnBlockAbleDamage()), giver, amount, DamageType.HP_LOSS));
         this.flash();
-        DamageActionMaker.maker(this.giver, this.amount, this.owner)
+        DamageEnemiesAction.builder(this.amount, this.owner)
+                .setSource(this.giver)
                 .setDamageModifier(this, new UnBlockAbleIgnoresTempHPDamage())
                 .setDamageType(DamageInfo.DamageType.HP_LOSS)
-//                .setDamageType(   DataManager.CanOnlyDamageDamageType.UnBlockAbleDamageType)
-                .setEffect(AbstractGameAction.AttackEffect.POISON)
+                .setAttackEffectType(AbstractGameAction.AttackEffect.POISON)
+                .setAfterDamageConsumer(action -> PowerUtility.RemovePower(this.owner, this))
                 .addToTop();
         addToBot_removeSpecificPower(this);
     }

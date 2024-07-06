@@ -9,6 +9,7 @@ import java.util.function.Predicate;
 
 public class LupaPool extends AbstractCover {
     public static final String ID = DataManager.MakeTextID(LupaPool.class);
+
     public LupaPool() {
         super(ID, new DrinkSemenBeer());
     }

@@ -52,6 +52,27 @@ public class SuperstitioConfig {
         BaseMod.registerModBadge(badgeTexture, SuperstitioModSetup.MOD_NAME + " Mod", "Creeper_of_Fire", "A NSFW mod", settingsPanel);
     }
 
+    public static boolean isEnableSFW() {
+        return enableSFW;
+    }
+
+    public static boolean isEnableGuroCharacter() {
+        return enableSFW || enableGuroCharacter;
+    }
+
+    public static void setEnableGuroCharacter(boolean value) {
+        enableGuroCharacter = value;
+        setConfigBool(ENABLE_GURO_CHARACTER_STRING, value);
+    }
+
+    public static boolean isEnablePerformanceMode() {
+        return enablePerformanceMode;
+    }
+
+    public static boolean isEnableOnlyShowCardNotGeneral() {
+        return enableOnlyShowCardNotGeneral;
+    }
+
     private static void setUpPanel() {
         float settingXPos = 350.0f;
         float settingYPos = 750.0f;
@@ -117,26 +138,5 @@ public class SuperstitioConfig {
         } catch (Exception e) {
             Logger.error(e);
         }
-    }
-
-    public static boolean isEnableSFW() {
-        return enableSFW;
-    }
-
-    public static boolean isEnableGuroCharacter() {
-        return enableSFW || enableGuroCharacter;
-    }
-
-    public static void setEnableGuroCharacter(boolean value) {
-        enableGuroCharacter = value;
-        setConfigBool(ENABLE_GURO_CHARACTER_STRING, value);
-    }
-
-    public static boolean isEnablePerformanceMode() {
-        return enablePerformanceMode;
-    }
-
-    public static boolean isEnableOnlyShowCardNotGeneral() {
-        return enableOnlyShowCardNotGeneral;
     }
 }

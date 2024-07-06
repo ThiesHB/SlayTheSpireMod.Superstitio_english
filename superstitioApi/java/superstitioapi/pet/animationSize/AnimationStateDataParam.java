@@ -22,14 +22,6 @@ public class AnimationStateDataParam {
         this.duration = duration;
     }
 
-    private static void addData(String skeletonDataName, String fromName, String toName, float duration) {
-        AnimationStateDataParam dataParam = new AnimationStateDataParam(fromName, toName, duration);
-        if (SkeletonName_DataParamListMap.containsKey(skeletonDataName))
-            SkeletonName_DataParamListMap.get(skeletonDataName).add(dataParam);
-        else
-            SkeletonName_DataParamListMap.put(skeletonDataName, new ArrayList<>(Collections.singletonList(dataParam)));
-    }
-
     public static void tryReload(AbstractCreature creature) {
         Skeleton skeleton = ReflectionHacks.getPrivate(creature, AbstractCreature.class, "skeleton");
         String key = skeleton.getData().getHash();
@@ -41,6 +33,14 @@ public class AnimationStateDataParam {
             if (to == null) return;
             creature.state.getData().setMix(from, to, dataParam.duration);
         });
+    }
+
+    private static void addData(String skeletonDataName, String fromName, String toName, float duration) {
+        AnimationStateDataParam dataParam = new AnimationStateDataParam(fromName, toName, duration);
+        if (SkeletonName_DataParamListMap.containsKey(skeletonDataName))
+            SkeletonName_DataParamListMap.get(skeletonDataName).add(dataParam);
+        else
+            SkeletonName_DataParamListMap.put(skeletonDataName, new ArrayList<>(Collections.singletonList(dataParam)));
     }
 
     @SpirePatch2(

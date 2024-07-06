@@ -82,6 +82,14 @@ public class HeartMultiAtOneShader {
             this.color = Color.WHITE.cpy();
         }
 
+        public void addToEffectsQueue() {
+            AbstractDungeon.effectsQueue.add(this);
+        }
+
+        public void addToEffectList() {
+            AbstractDungeon.effectList.add(this);
+        }
+
         @Override
         public void render(SpriteBatch spriteBatch) {
             ShaderUtility.originShader = spriteBatch.getShader();
@@ -105,14 +113,6 @@ public class HeartMultiAtOneShader {
             if (this.anim_time > START_VANISH_TIME) {
                 this.color.a = Interpolation.pow2In.apply(1.0f, 0.0f, (this.anim_time - START_VANISH_TIME) / (END_TIME - START_VANISH_TIME));
             }
-        }
-
-        public void addToEffectsQueue() {
-            AbstractDungeon.effectsQueue.add(this);
-        }
-
-        public void addToEffectList() {
-            AbstractDungeon.effectList.add(this);
         }
 
         @Override

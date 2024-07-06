@@ -22,6 +22,12 @@ public class DelayRemoveDelayHpLosePower extends AbstractSuperstitioPower implem
         super(POWER_ID, owner, amount);
     }
 
+    private BlockInstance makeBlockInstance() {
+        ArrayList<AbstractBlockModifier> block = new ArrayList<>();
+        block.add(new DelayRemoveDelayHpLoseBlock());
+        return new BlockInstance(owner, amount, block);
+    }
+
     @Override
     public void atStartOfTurnPostDraw() {
         DelayHpLosePower.addToBot_removePower(DelayHpLosePower.class, amount, AbstractDungeon.player, true);
@@ -32,7 +38,6 @@ public class DelayRemoveDelayHpLosePower extends AbstractSuperstitioPower implem
     public void updateDescriptionArgs() {
         setDescriptionArgs(this.amount);
     }
-
 
     @Override
     public BlockInstance getBlockInstance() {
@@ -46,11 +51,5 @@ public class DelayRemoveDelayHpLosePower extends AbstractSuperstitioPower implem
     public void InitializePostApplyThisPower(DelayRemoveDelayHpLosePower addedPower) {
         this.blockInstance = makeBlockInstance();
         RenderStackedBlockInstancesPatch.BlockStackElementField.forceDrawBlock.set(owner, true);
-    }
-
-    private BlockInstance makeBlockInstance() {
-        ArrayList<AbstractBlockModifier> block = new ArrayList<>();
-        block.add(new DelayRemoveDelayHpLoseBlock());
-        return new BlockInstance(owner, amount, block);
     }
 }

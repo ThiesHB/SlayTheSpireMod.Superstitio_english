@@ -13,6 +13,8 @@ public abstract class AbstractToolPower_RemoveAtStartOfTurn extends AbstractSupe
         super(POWER_ID, owner, -1);
     }
 
+    protected abstract void atStartOfTurnAction();
+
     @Override
     public void updateDescriptionArgs() {
     }
@@ -22,6 +24,4 @@ public abstract class AbstractToolPower_RemoveAtStartOfTurn extends AbstractSupe
         AutoDoneInstantAction.addToBotAbstract(this::atStartOfTurnAction);
         this.addToBot_removeSpecificPower(this);
     }
-
-    protected abstract void atStartOfTurnAction();
 }

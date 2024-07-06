@@ -14,6 +14,16 @@ public abstract class PregnantBlock extends AbstractLupaBlock {
 //
 //    }
 
+    ///受到外力则为流产
+    public int removeUnNaturally(DamageInfo info, int remainingDamage) {
+        return remainingDamage;
+    }
+
+    ///正常顺产的效果
+    public int removeNaturally(int remainingDamage) {
+        return remainingDamage;
+    }
+
     @Override
     public boolean shouldStack() {
         return false;
@@ -24,7 +34,6 @@ public abstract class PregnantBlock extends AbstractLupaBlock {
         return 0;
     }
 
-
     @Override
     public final int onRemove(boolean lostByStartOfTurn, DamageInfo info, int remainingDamage) {
         int remain = remainingDamage;
@@ -33,16 +42,6 @@ public abstract class PregnantBlock extends AbstractLupaBlock {
         else
             remain = removeNaturally(remain);
         return remain;
-    }
-
-    ///受到外力则为流产
-    public int removeUnNaturally(DamageInfo info, int remainingDamage) {
-        return remainingDamage;
-    }
-
-    ///正常顺产的效果
-    public int removeNaturally(int remainingDamage) {
-        return remainingDamage;
     }
 
     @Override

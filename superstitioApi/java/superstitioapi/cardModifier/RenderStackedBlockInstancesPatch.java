@@ -111,11 +111,6 @@ public class RenderStackedBlockInstancesPatch {
             this.move(x, y, 0.0F);
         }
 
-        private void move(float x, float y, float d) {
-            this.setX(x - d * Settings.scale);
-            this.setY(y - d * Settings.scale);
-        }
-
         public void setHitboxHeight(float height) {
             this.hitbox.resize(baseWidth, baseHeight + height);
         }
@@ -149,6 +144,11 @@ public class RenderStackedBlockInstancesPatch {
                 FontHelper.renderFontCentered(sb, FontHelper.blockInfoFont, Integer.toString(GetBlockStack(owner)),
                         x - (-32.0F), y - (BLOCK_ICON_Y - 32.0F) - 16.0F * Settings.scale, TextColor, blockScale);
 
+        }
+
+        private void move(float x, float y, float d) {
+            this.setX(x - d * Settings.scale);
+            this.setY(y - d * Settings.scale);
         }
 
         private int getBlockAmount() {

@@ -29,17 +29,14 @@ public class InBattleDataManager {
         ResetAll();
     }
 
-    private static void ResetAll() {
-        RenderInBattle.clearAll();
-        costMap = new HashMap<>();
-        subscribeManageGroups.clear();
-    }
-
     public static <T extends ISubscriber> void ApplyAll(Consumer<T> subscriberConsumer, Class<T> tClass) {
         subscribeManageGroups.stream()
                 .filter(tClass::isInstance)
                 .map(object -> (T) object)
                 .forEach(subscriberConsumer);
+    }
+
+    public static void InitializeAtStartOfTurn() {
     }
 
 //    public static <T extends ISubscriber> void ApplyAllForPower(Consumer<T> subscriberConsumer, Class<T> tClass) {
@@ -48,10 +45,6 @@ public class InBattleDataManager {
 //                .map(object -> (T) object)
 //                .forEach(subscriberConsumer);
 //    }
-
-
-    public static void InitializeAtStartOfTurn() {
-    }
 
     @SafeVarargs
     public static <T extends ISubscriber> void Subscribe(T... objectToAdd) {
@@ -79,5 +72,11 @@ public class InBattleDataManager {
         return InBattleDataManager.subscribeManageGroups.stream()
                 .filter(petGroup -> petGroup instanceof PetManager)
                 .map(petGroup -> (PetManager) petGroup).findAny();
+    }
+
+    private static void ResetAll() {
+        RenderInBattle.clearAll();
+        costMap = new HashMap<>();
+        subscribeManageGroups.clear();
     }
 }

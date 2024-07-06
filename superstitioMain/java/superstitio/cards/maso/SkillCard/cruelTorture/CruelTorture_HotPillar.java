@@ -36,6 +36,11 @@ public class CruelTorture_HotPillar extends MasoCard implements GoSomewhereElseA
         this.cardsToPreview = new Burn();
     }
 
+    private void addTempDexterity(CruelTorture_HotPillar self) {
+        self.addToBot_applyPower(new DexterityPower(AbstractDungeon.player, this.magicNumber));
+        self.addToBot_applyPower(new LoseDexterityPower(AbstractDungeon.player, this.magicNumber));
+    }
+
     @Override
     public void updateDescriptionArgs() {
         setDescriptionArgs(BURN_CARD_NUM);
@@ -59,10 +64,5 @@ public class CruelTorture_HotPillar extends MasoCard implements GoSomewhereElseA
             addTempDexterity(self);
         })
                 .addToBot_HangCard();
-    }
-
-    private void addTempDexterity(CruelTorture_HotPillar self) {
-        self.addToBot_applyPower(new DexterityPower(AbstractDungeon.player, this.magicNumber));
-        self.addToBot_applyPower(new LoseDexterityPower(AbstractDungeon.player, this.magicNumber));
     }
 }

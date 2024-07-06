@@ -14,7 +14,6 @@ import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import com.megacrit.cardcrawl.orbs.AbstractOrb;
 import com.megacrit.cardcrawl.vfx.cardManip.ExhaustCardEffect;
 import superstitioapi.DataUtility;
-import superstitioapi.cards.DamageActionMaker;
 import superstitioapi.utils.CardUtility;
 import superstitioapi.utils.CreatureUtility;
 
@@ -81,7 +80,7 @@ public abstract class CardOrb extends AbstractOrb {
     }
 
     public static AbstractMonster getHoveredMonsterSafe() {
-        return DamageActionMaker.getMonsterOrFirstMonster(ReflectionHacks.getPrivate(AbstractDungeon.player, AbstractPlayer.class, "hoveredMonster"));
+        return CreatureUtility.getMonsterOrFirstMonster(ReflectionHacks.getPrivate(AbstractDungeon.player, AbstractPlayer.class, "hoveredMonster"));
     }
 
     public static Optional<AbstractMonster> getHoveredMonster() {
@@ -100,72 +99,9 @@ public abstract class CardOrb extends AbstractOrb {
         return this;
     }
 
-    @Override
-    public void onStartOfTurn() {
-    }
-
     public void addToBot_HangCard() {
         HangUpCardGroup.addToBot_AddCardOrbToOrbGroup(this);
     }
-
-    protected void setHoverTypeFromCard(AbstractCard.CardTarget cardTarget) {
-        switch (cardTarget) {
-            case ENEMY:
-            case ALL_ENEMY:
-                targetType = HangOnTarget.Enemy;
-                actionType = HangEffectType.Bad;
-                break;
-            case SELF:
-                targetType = HangOnTarget.Self;
-                actionType = HangEffectType.Good;
-                break;
-            case NONE:
-            case ALL:
-            case SELF_AND_ENEMY:
-            default:
-                targetType = HangOnTarget.None;
-                actionType = HangEffectType.Special;
-                break;
-        }
-    }
-
-    private void setUpShownCard(AbstractCard card) {
-        this.card = card;
-        this.card.drawScale = card.drawScale;
-        this.card.transparency = 1.0f;
-        this.card.current_x = card.current_x;
-        this.card.current_y = card.current_y;
-
-        this.card.targetDrawScale = DRAW_SCALE_SMALL;
-        this.card.isCostModified = false;
-
-        this.card.costForTurn = -2;
-    }
-
-    protected VoidSupplier checkAndSetTheHoverType() {
-        switch (targetType) {
-            case Enemy:
-                return this::State_WhenHoverCard_OnMonster;
-            case Self:
-                return this::State_WhenHoverCard_OnSelf;
-            case None:
-            default:
-                return this::State_WhenHoverCard_OnNothing;
-        }
-    }
-//
-//    public static void renderCardPreview(){
-//        float tmpScale = this.drawScale * 0.8F;
-//        if (this.current_x > (float) Settings.WIDTH * 0.75F) {
-//            this.cardsToPreview.current_x = this.current_x + (IMG_WIDTH / 2.0F + IMG_WIDTH / 2.0F * 0.8F + 16.0F) * this.drawScale;
-//        } else {
-//            this.cardsToPreview.current_x = this.current_x - (IMG_WIDTH / 2.0F + IMG_WIDTH / 2.0F * 0.8F + 16.0F) * this.drawScale;
-//        }
-//
-//        this.cardsToPreview.current_y = this.current_y + (IMG_HEIGHT / 2.0F - IMG_HEIGHT / 2.0F * 0.8F) * this.drawScale;
-//        this.cardsToPreview.drawScale = tmpScale;
-//        this.cardsToPreview.render(sb);
-//    }
 
     /**
      * 这个函数是被addToBot调用的
@@ -199,12 +135,6 @@ public abstract class CardOrb extends AbstractOrb {
             afterEvokeConsumer.accept(this);
     }
 
-    @Override
-    public void onEvoke() {
-    }
-
-    protected abstract void onRemoveCard();
-
     public CardOrb setDesc(String description) {
         this.description = description;
         this.card.rawDescription = description;
@@ -217,58 +147,94 @@ public abstract class CardOrb extends AbstractOrb {
         this.shouldRemove = this.OrbCounter <= 0 && checkShouldStopMoving();
     }
 
-    @Override
-    public void render(SpriteBatch spriteBatch) {
-        if (!stopShowOriginCard) {
-            if (originCard.drawScale != originCard.targetDrawScale) {
-                originCard.render(spriteBatch);
-                return;
-            } else {
-                stopShowOriginCard = true;
-            }
-        }
-
-        float offset = YOffsetBoBing();
-        card.current_y += offset;
-        card.render(spriteBatch);
-        if (card.hb.hovered) {
-            card.renderCardTip(spriteBatch);
-        }
-        card.current_y -= offset;
-    }
-
     public void tryMoveTo(Vector2 vector2) {
         this.card.target_x = vector2.x;
         this.card.target_y = vector2.y;
     }
+//
+//    public static void renderCardPreview(){
+//        float tmpScale = this.drawScale * 0.8F;
+//        if (this.current_x > (float) Settings.WIDTH * 0.75F) {
+//            this.cardsToPreview.current_x = this.current_x + (IMG_WIDTH / 2.0F + IMG_WIDTH / 2.0F * 0.8F + 16.0F) * this.drawScale;
+//        } else {
+//            this.cardsToPreview.current_x = this.current_x - (IMG_WIDTH / 2.0F + IMG_WIDTH / 2.0F * 0.8F + 16.0F) * this.drawScale;
+//        }
+//
+//        this.cardsToPreview.current_y = this.current_y + (IMG_HEIGHT / 2.0F - IMG_HEIGHT / 2.0F * 0.8F) * this.drawScale;
+//        this.cardsToPreview.drawScale = tmpScale;
+//        this.cardsToPreview.render(sb);
+//    }
 
     public CardOrb setShowCard(AbstractCard showCard) {
         setUpShownCard(showCard);
         return this;
     }
 
-    @Override
-    public void update() {
-        if (!stopShowOriginCard) {
-            if (originCard.drawScale != originCard.targetDrawScale) {
-                originCard.target_x = this.cX;
-                originCard.target_y = this.cY + YOffsetWhenHovered();
-                originCard.targetDrawScale = DRAW_SCALE_SMALL;
-                originCard.current_y += YOffsetBoBing();
-                originCard.update();
-            } else {
-                stopShowOriginCard = true;
-            }
-        }
-
-        this.hb.update();
-        this.card.update();
-        this.card.updateHoverLogic();
-        this.movingType = this.movingType.get();
-        this.card.glowColor = actionType.color;
-        setEvokeAmount(OrbCounter - 1);
-        setPassiveAmount(OrbCounter);
+    public CardOrb setTargetType(AbstractCard.CardTarget cardTarget) {
+        setHoverTypeFromCard(cardTarget);
+        return this;
     }
+
+    public AbstractCard getOriginCard() {
+        return originCard;
+    }
+
+    public void StartHitCreature(AbstractCreature target) {
+        this.movingType = this::State_Moving;
+        AbstractCreature creature = CreatureUtility.getTargetOrFirstMonster(target);
+        this.tryMoveTo(new Vector2(this.cX - (this.cX - creature.hb.cX) / 1.2f, this.cY - (this.cY - creature.hb.cY) / 1.2f));
+        this.card.superFlash(CardUtility.getColorFormCard(card));
+    }
+
+    public abstract void forceAcceptAction(AbstractCard card);
+
+    public void setShouldRemove() {
+        this.shouldRemove = true;
+    }
+
+    public boolean ifShouldRemove() {
+        return this.shouldRemove;
+    }
+
+    public CardOrb setAfterEvokeConsumer(Consumer<CardOrb> afterEvokeConsumer) {
+        this.afterEvokeConsumer = afterEvokeConsumer;
+        return this;
+    }
+
+    protected void setHoverTypeFromCard(AbstractCard.CardTarget cardTarget) {
+        switch (cardTarget) {
+            case ENEMY:
+            case ALL_ENEMY:
+                targetType = HangOnTarget.Enemy;
+                actionType = HangEffectType.Bad;
+                break;
+            case SELF:
+                targetType = HangOnTarget.Self;
+                actionType = HangEffectType.Good;
+                break;
+            case NONE:
+            case ALL:
+            case SELF_AND_ENEMY:
+            default:
+                targetType = HangOnTarget.None;
+                actionType = HangEffectType.Special;
+                break;
+        }
+    }
+
+    protected VoidSupplier checkAndSetTheHoverType() {
+        switch (targetType) {
+            case Enemy:
+                return this::State_WhenHoverCard_OnMonster;
+            case Self:
+                return this::State_WhenHoverCard_OnSelf;
+            case None:
+            default:
+                return this::State_WhenHoverCard_OnNothing;
+        }
+    }
+
+    protected abstract void onRemoveCard();
 
     protected boolean checkShouldStopMoving() {
         return Math.abs(this.card.current_y - this.card.target_y) < 0.01f && Math.abs(this.card.current_x - this.card.target_x) < 0.01f;
@@ -298,17 +264,6 @@ public abstract class CardOrb extends AbstractOrb {
         basePassiveAmount = amount;
     }
 
-    @Override
-    public void updateDescription() {
-        if (this.card == null) return;
-        this.card.applyPowers();
-        this.card.calculateDamageDisplay(CardOrb.getHoveredMonsterSafe());
-        this.card.initializeDescription();
-        this.originCard.applyPowers();
-        this.originCard.calculateDamageDisplay(CardOrb.getHoveredMonsterSafe());
-        this.originCard.initializeDescription();
-    }
-
     protected float YOffsetBoBing() {
         return ANIMATION_Y_SCALE * this.bobEffect.y * this.card.drawScale * DRAW_SCALE_BIG / DRAW_SCALE_SMALL;
     }
@@ -319,15 +274,6 @@ public abstract class CardOrb extends AbstractOrb {
 
     protected float YOffsetWhenHovered() {
         return -this.card.hb.height * (this.card.drawScale) / DRAW_SCALE_BIG / 2;
-    }
-
-    @Override
-    public void playChannelSFX() {
-
-    }
-
-    @Override
-    public void applyFocus() {
     }
 
     protected void showEvokeNum() {
@@ -342,15 +288,6 @@ public abstract class CardOrb extends AbstractOrb {
         card.stopGlowing();
         card.costForTurn = passiveAmount;
         card.isCostModified = false;
-    }
-
-    public CardOrb setTargetType(AbstractCard.CardTarget cardTarget) {
-        setHoverTypeFromCard(cardTarget);
-        return this;
-    }
-
-    public AbstractCard getOriginCard() {
-        return originCard;
     }
 
     protected FunctionReturnSelfType State_Moving() {
@@ -392,13 +329,6 @@ public abstract class CardOrb extends AbstractOrb {
         this.tryMoveTo(new Vector2(this.cX, this.cY + YOffsetWhenHovered() + YOffsetWhenHovered()));
     }
 
-    public void StartHitCreature(AbstractCreature target) {
-        this.movingType = this::State_Moving;
-        AbstractCreature creature = DamageActionMaker.getTargetOrFirstMonster(target);
-        this.tryMoveTo(new Vector2(this.cX - (this.cX - creature.hb.cX) / 1.2f, this.cY - (this.cY - creature.hb.cY) / 1.2f));
-        this.card.superFlash(CardUtility.getColorFormCard(card));
-    }
-
     protected FunctionReturnSelfType State_Idle() {
         this.targetType = targetTypeOrigin;
         this.actionType = actionTypeOrigin;
@@ -432,8 +362,6 @@ public abstract class CardOrb extends AbstractOrb {
         return TestIfCardIsRight_hover(hoveredCard);
     }
 
-    public abstract void forceAcceptAction(AbstractCard card);
-
     protected boolean TestIfCardIsRight_hover(AbstractCard hoveredCard) {
         if (hoveredCard == null) return false;
         if (hoveredCard instanceof Card_TriggerHangCardManually) {
@@ -442,17 +370,88 @@ public abstract class CardOrb extends AbstractOrb {
         return false;
     }
 
-    public void setShouldRemove() {
-        this.shouldRemove = true;
+    private void setUpShownCard(AbstractCard card) {
+        this.card = card;
+        this.card.drawScale = card.drawScale;
+        this.card.transparency = 1.0f;
+        this.card.current_x = card.current_x;
+        this.card.current_y = card.current_y;
+
+        this.card.targetDrawScale = DRAW_SCALE_SMALL;
+        this.card.isCostModified = false;
+
+        this.card.costForTurn = -2;
     }
 
-    public boolean ifShouldRemove() {
-        return this.shouldRemove;
+    @Override
+    public void onStartOfTurn() {
     }
 
-    public CardOrb setAfterEvokeConsumer(Consumer<CardOrb> afterEvokeConsumer) {
-        this.afterEvokeConsumer = afterEvokeConsumer;
-        return this;
+    @Override
+    public void onEvoke() {
+    }
+
+    @Override
+    public void render(SpriteBatch spriteBatch) {
+        if (!stopShowOriginCard) {
+            if (originCard.drawScale != originCard.targetDrawScale) {
+                originCard.render(spriteBatch);
+                return;
+            } else {
+                stopShowOriginCard = true;
+            }
+        }
+
+        float offset = YOffsetBoBing();
+        card.current_y += offset;
+        card.render(spriteBatch);
+        if (card.hb.hovered) {
+            card.renderCardTip(spriteBatch);
+        }
+        card.current_y -= offset;
+    }
+
+    @Override
+    public void update() {
+        if (!stopShowOriginCard) {
+            if (originCard.drawScale != originCard.targetDrawScale) {
+                originCard.target_x = this.cX;
+                originCard.target_y = this.cY + YOffsetWhenHovered();
+                originCard.targetDrawScale = DRAW_SCALE_SMALL;
+                originCard.current_y += YOffsetBoBing();
+                originCard.update();
+            } else {
+                stopShowOriginCard = true;
+            }
+        }
+
+        this.hb.update();
+        this.card.update();
+        this.card.updateHoverLogic();
+        this.movingType = this.movingType.get();
+        this.card.glowColor = actionType.color;
+        setEvokeAmount(OrbCounter - 1);
+        setPassiveAmount(OrbCounter);
+    }
+
+    @Override
+    public void updateDescription() {
+        if (this.card == null) return;
+        this.card.applyPowers();
+        this.card.calculateDamageDisplay(CardOrb.getHoveredMonsterSafe());
+        this.card.initializeDescription();
+        this.originCard.applyPowers();
+        this.originCard.calculateDamageDisplay(CardOrb.getHoveredMonsterSafe());
+        this.originCard.initializeDescription();
+    }
+
+    @Override
+    public void playChannelSFX() {
+
+    }
+
+    @Override
+    public void applyFocus() {
     }
 
     public enum HangEffectType {

@@ -49,17 +49,6 @@ public class InOrderIndexMultiFinder extends MatchFinderExprEditor {
         }
     }
 
-    public int[] getFoundLocations() {
-        int[] asArray = new int[this.locations.size()];
-
-        for (int i = 0; i < asArray.length; ++i) {
-            if (indexes.contains(i))
-                asArray[i] = this.locations.get(i);
-        }
-
-        return asArray;
-    }
-
     private void foundFinalMatch(int lineNumber) {
         this.foundLocation = true;
         this.locations.add(lineNumber);
@@ -77,6 +66,21 @@ public class InOrderIndexMultiFinder extends MatchFinderExprEditor {
         return this.expectedMatches.get(this.foundMatchesIndex);
     }
 
+    public int[] getFoundLocations() {
+        int[] asArray = new int[this.locations.size()];
+
+        for (int i = 0; i < asArray.length; ++i) {
+            if (indexes.contains(i))
+                asArray[i] = this.locations.get(i);
+        }
+
+        return asArray;
+    }
+
+    public boolean didFindLocation() {
+        return this.foundLocation;
+    }
+
     protected void doMatch(Expectation expectedType, Expr toMatch) {
         if (this.finalMatch()) {
             if (this.finalMatch.getExpectation() == expectedType && this.finalMatch.match(toMatch)) {
@@ -89,9 +93,5 @@ public class InOrderIndexMultiFinder extends MatchFinderExprEditor {
             }
         }
 
-    }
-
-    public boolean didFindLocation() {
-        return this.foundLocation;
     }
 }

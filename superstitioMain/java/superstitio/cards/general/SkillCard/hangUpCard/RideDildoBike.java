@@ -30,6 +30,22 @@ public class RideDildoBike extends GeneralCard {
         this.setupMagicNumber(MAGIC, UPGRADE_MAGIC);
     }
 
+    private void HangUpSpecificCard(AbstractCard card) {
+        AbstractCard copyCard = card.makeStatEquivalentCopy();
+//        copyCard.exhaust = true;
+        AbstractCard showUpCard = this.makeStatEquivalentCopy();
+        showUpCard.cardsToPreview = copyCard;
+        AutoDoneInstantAction.addToBotAbstract(() -> {
+            AbstractDungeon.player.hand.removeCard(card);
+            new CardOrb_WaitCardTrigger(card, AbstractDungeon.player.discardPile, WAIT_TIME, (orb, usedcard) -> {
+                AutoDoneInstantAction.addToBotAbstract(() -> orb.cardHolder.moveToHand(card));
+            })
+                    .setDiscardOnEndOfTurn()
+                    .setShowCard(showUpCard)
+                    .addToBot_HangCard();
+        });
+    }
+
     @Override
     public void use(AbstractPlayer player, AbstractMonster monster) {
         addToBot(new ChoseCardFromHandCardSelectScreen(
@@ -47,22 +63,6 @@ public class RideDildoBike extends GeneralCard {
     @Override
     public void updateDescriptionArgs() {
         setDescriptionArgs(WAIT_TIME);
-    }
-
-    private void HangUpSpecificCard(AbstractCard card) {
-        AbstractCard copyCard = card.makeStatEquivalentCopy();
-//        copyCard.exhaust = true;
-        AbstractCard showUpCard = this.makeStatEquivalentCopy();
-        showUpCard.cardsToPreview = copyCard;
-        AutoDoneInstantAction.addToBotAbstract(() -> {
-            AbstractDungeon.player.hand.removeCard(card);
-            new CardOrb_WaitCardTrigger(card, AbstractDungeon.player.discardPile, WAIT_TIME, (orb, usedcard) -> {
-                AutoDoneInstantAction.addToBotAbstract(() -> orb.cardHolder.moveToHand(card));
-            })
-                    .setDiscardOnEndOfTurn()
-                    .setShowCard(showUpCard)
-                    .addToBot_HangCard();
-        });
     }
 
     @Override

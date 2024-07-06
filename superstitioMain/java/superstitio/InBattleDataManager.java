@@ -27,23 +27,22 @@ public class InBattleDataManager {
         ResetAll();
     }
 
-    private static void ResetAll() {
-        CreatureUtility.forPlayerAndEachMonsters(SexualHeat.Orgasm::endOrgasm);
-
-        OrgasmTimesInTurn = 0;
-        OrgasmTimesTotal = 0;
-        NailExtractionPlayedInTurn = 0;
-    }
-
     public static Optional<SexMarkOrbGroup> getSexMarkOrbGroup() {
         return superstitioapi.renderManager.inBattleManager.InBattleDataManager.subscribeManageGroups.stream()
                 .filter(orbGroup -> orbGroup instanceof SexMarkOrbGroup)
                 .map(orbGroup -> (SexMarkOrbGroup) orbGroup).findAny();
     }
 
-
     public static void InitializeAtStartOfTurn() {
         OrgasmTimesInTurn = 0;
+        NailExtractionPlayedInTurn = 0;
+    }
+
+    private static void ResetAll() {
+        CreatureUtility.forPlayerAndEachMonsters(SexualHeat.Orgasm::endOrgasm);
+
+        OrgasmTimesInTurn = 0;
+        OrgasmTimesTotal = 0;
         NailExtractionPlayedInTurn = 0;
     }
 }

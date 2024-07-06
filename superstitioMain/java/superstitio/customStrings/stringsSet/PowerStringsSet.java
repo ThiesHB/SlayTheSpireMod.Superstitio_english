@@ -23,6 +23,14 @@ public class PowerStringsSet implements HasOriginAndSFWVersion<PowerStrings>, Su
     public PowerStringsSet() {
     }
 
+    public String getNAME() {
+        return getFromRightVersion(strings -> strings.NAME);
+    }
+
+    public String[] getDESCRIPTIONS() {
+        return getArrayFromRightVersion(strings -> strings.DESCRIPTIONS);
+    }
+
     @Override
     public void initialSelfBlack() {
         this.NAME = "[MISSING_NAME]";
@@ -33,20 +41,6 @@ public class PowerStringsSet implements HasOriginAndSFWVersion<PowerStrings>, Su
     public void initialOrigin(PowerStrings origin) {
         origin.NAME = NAME;
         origin.DESCRIPTIONS = DESCRIPTIONS;
-    }
-
-    @Override
-    public void initialSFW(PowerStrings sfw) {
-        sfw.NAME = NAME_SFW;
-        sfw.DESCRIPTIONS = DESCRIPTIONS_SFW;
-    }
-
-    @Override
-    public void setupSFWStringByWordReplace(List<WordReplace> replaceRules) {
-        if (StringSetUtility.isNullOrEmpty(this.SFW.NAME))
-            this.SFW.NAME = WordReplace.replaceWord(this.Origin.NAME, replaceRules);
-        if (StringSetUtility.isNullOrEmpty(this.SFW.DESCRIPTIONS))
-            this.SFW.DESCRIPTIONS = WordReplace.replaceWord(this.Origin.DESCRIPTIONS, replaceRules);
     }
 
 //    private void replaceWord_NAME(PowerStrings replaced, List<WordReplace> replaceRules) {
@@ -64,6 +58,20 @@ public class PowerStringsSet implements HasOriginAndSFWVersion<PowerStrings>, Su
 //    }
 
     @Override
+    public void initialSFW(PowerStrings sfw) {
+        sfw.NAME = NAME_SFW;
+        sfw.DESCRIPTIONS = DESCRIPTIONS_SFW;
+    }
+
+    @Override
+    public void setupSFWStringByWordReplace(List<WordReplace> replaceRules) {
+        if (StringSetUtility.isNullOrEmpty(this.SFW.NAME))
+            this.SFW.NAME = WordReplace.replaceWord(this.Origin.NAME, replaceRules);
+        if (StringSetUtility.isNullOrEmpty(this.SFW.DESCRIPTIONS))
+            this.SFW.DESCRIPTIONS = WordReplace.replaceWord(this.Origin.DESCRIPTIONS, replaceRules);
+    }
+
+    @Override
     public PowerStrings getRightVersion() {
         if (StringSetUtility.shouldReturnSFWVersion(SFW.NAME))
             return SFW;
@@ -73,14 +81,6 @@ public class PowerStringsSet implements HasOriginAndSFWVersion<PowerStrings>, Su
     @Override
     public Class<PowerStrings> getSubClass() {
         return PowerStrings.class;
-    }
-
-    public String getNAME() {
-        return getFromRightVersion(strings -> strings.NAME);
-    }
-
-    public String[] getDESCRIPTIONS() {
-        return getArrayFromRightVersion(strings -> strings.DESCRIPTIONS);
     }
 
     @Override

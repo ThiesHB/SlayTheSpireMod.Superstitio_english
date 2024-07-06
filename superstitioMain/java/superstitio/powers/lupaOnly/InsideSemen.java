@@ -57,8 +57,10 @@ public class InsideSemen extends AbstractSuperstitioPower implements
         return bar;
     }
 
-    @Override
-    public void renderAmount(SpriteBatch sb, float x, float y, Color c) {
+    public void CheckOverflow() {
+        if (amount <= maxBarAmount()) return;
+        this.Overflow(amount - maxBarAmount());
+        amount = maxBarAmount();
     }
 
 //    public InsideSemen(final AbstractCreature owner, final int amount) {
@@ -66,6 +68,28 @@ public class InsideSemen extends AbstractSuperstitioPower implements
 //        maxSemen = MAX_Semen_Origin;
 //        updateDescription();
 //    }
+
+    /**
+     * 扩张到最接近的整十数
+     */
+    public void expand(int tryExpandValue) {
+        int newMaxSemen = tryExpandValue - (tryExpandValue % MAX_Semen_Origin);
+        if (newMaxSemen >= this.maxSemen)
+            PowerUtility.BubbleMessageHigher(this, false, powerStrings.getDESCRIPTIONS()[2]);
+        this.maxSemen = newMaxSemen;
+        updateDescription();
+    }
+
+    private void Overflow(int flowAmount) {
+        AbstractPower power = this;
+        AutoDoneInstantAction.addToBotAbstract(() ->
+                PowerUtility.BubbleMessageHigher(power, true, powerStrings.getDESCRIPTIONS()[1]));
+        this.addToBot_applyPower(new OutsideSemen(this.owner, flowAmount / ToOutSideSemenRate));
+    }
+
+    @Override
+    public void renderAmount(SpriteBatch sb, float x, float y, Color c) {
+    }
 
     @Override
     public int getSemenValue() {
@@ -89,19 +113,6 @@ public class InsideSemen extends AbstractSuperstitioPower implements
         CheckOverflow();
     }
 
-    public void CheckOverflow() {
-        if (amount <= maxBarAmount()) return;
-        this.Overflow(amount - maxBarAmount());
-        amount = maxBarAmount();
-    }
-
-    private void Overflow(int flowAmount) {
-        AbstractPower power = this;
-        AutoDoneInstantAction.addToBotAbstract(() ->
-                PowerUtility.BubbleMessageHigher(power, true, powerStrings.getDESCRIPTIONS()[1]));
-        this.addToBot_applyPower(new OutsideSemen(this.owner, flowAmount / ToOutSideSemenRate));
-    }
-
     @Override
     public AbstractPower getSelf() {
         return this;
@@ -120,17 +131,6 @@ public class InsideSemen extends AbstractSuperstitioPower implements
     @Override
     public int maxBarAmount() {
         return maxSemen;
-    }
-
-    /**
-     * 扩张到最接近的整十数
-     */
-    public void expand(int tryExpandValue) {
-        int newMaxSemen = tryExpandValue - (tryExpandValue % MAX_Semen_Origin);
-        if (newMaxSemen >= this.maxSemen)
-            PowerUtility.BubbleMessageHigher(this, false, powerStrings.getDESCRIPTIONS()[2]);
-        this.maxSemen = newMaxSemen;
-        updateDescription();
     }
 
     @Override

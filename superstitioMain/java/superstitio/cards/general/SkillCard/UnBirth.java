@@ -44,20 +44,6 @@ public class UnBirth extends GeneralCard {
         //this.exhaust = true;
     }
 
-    @Override
-    public void use(AbstractPlayer player, AbstractMonster monster) {
-        AbstractCreature target = getSelfOrEnemyTarget(this, monster);
-        if (target instanceof AbstractPlayer)
-            ForPlayer(AbstractDungeon.player);
-        else if (BlockModifierManager.blockInstances(target).stream()
-                .anyMatch(blockInstance -> blockInstance.getBlockTypes().stream()
-                        .filter(blockModifier -> blockModifier instanceof PregnantBlock_sealPower)
-                        .anyMatch(blockModifier -> ((PregnantBlock_sealPower) blockModifier).sealCreature == monster)))
-            ForMonsterBrokenSpaceStructure((AbstractMonster) target);
-        else
-            ForMonster((AbstractMonster) target);
-    }
-
     private void ForPlayer(AbstractPlayer player) {
         ArrayList<AbstractPower> sealPower = new ArrayList<>();
         player.powers.forEach(power -> {
@@ -104,6 +90,20 @@ public class UnBirth extends GeneralCard {
         });
         addToBot_gainCustomBlock(new PregnantBlock_sealPower(sealPower, monster));
         addToBot_makeTempCardInBattle(new GiveBirth(), ActionUtility.BattleCardPlace.Discard, upgraded);
+    }
+
+    @Override
+    public void use(AbstractPlayer player, AbstractMonster monster) {
+        AbstractCreature target = getSelfOrEnemyTarget(this, monster);
+        if (target instanceof AbstractPlayer)
+            ForPlayer(AbstractDungeon.player);
+        else if (BlockModifierManager.blockInstances(target).stream()
+                .anyMatch(blockInstance -> blockInstance.getBlockTypes().stream()
+                        .filter(blockModifier -> blockModifier instanceof PregnantBlock_sealPower)
+                        .anyMatch(blockModifier -> ((PregnantBlock_sealPower) blockModifier).sealCreature == monster)))
+            ForMonsterBrokenSpaceStructure((AbstractMonster) target);
+        else
+            ForMonster((AbstractMonster) target);
     }
 
     @Override

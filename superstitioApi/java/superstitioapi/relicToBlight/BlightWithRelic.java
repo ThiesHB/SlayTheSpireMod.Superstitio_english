@@ -62,6 +62,16 @@ public abstract class BlightWithRelic extends AbstractBlight {
 //        return "blight_" + relic.relicId;
 //    }
 
+    private void initRelic() {
+        this.relic.isDone = this.isDone;
+        this.relic.isObtained = this.isObtained;
+        this.relic.currentX = this.currentX;
+        this.relic.currentY = this.currentY;
+        this.relic.targetX = this.targetX;
+        this.relic.targetY = this.targetY;
+        this.relic.hb.move(this.currentX, this.currentY);
+    }
+
     @Override
     public void update() {
         if (!isInit) {
@@ -90,16 +100,6 @@ public abstract class BlightWithRelic extends AbstractBlight {
     @Override
     public void renderInTopPanel(SpriteBatch sb) {
         this.relic.renderInTopPanel(sb);
-    }
-
-    private void initRelic() {
-        this.relic.isDone = this.isDone;
-        this.relic.isObtained = this.isObtained;
-        this.relic.currentX = this.currentX;
-        this.relic.currentY = this.currentY;
-        this.relic.targetX = this.targetX;
-        this.relic.targetY = this.targetY;
-        this.relic.hb.move(this.currentX, this.currentY);
     }
 
     @Override

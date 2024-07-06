@@ -143,18 +143,18 @@ public class CardUtility {
         }
     }
 
-    private static boolean hasEnoughEnergyOrTurnEnd(AbstractCard card) {
-        if (AbstractDungeon.actionManager.turnHasEnded) {
-            return false;
-        }
-        return EnergyPanel.totalCount >= card.costForTurn || card.freeToPlay() || card.isInAutoplay;
-    }
-
     public static boolean canUseWithoutEnvironment(AbstractCard card) {
         if (card.canUse(AbstractDungeon.player, null)) return true;
         //不是因为能量不够或者对象不对而无法打出
 //            if (!(card.cardPlayable(null) && hasEnoughEnergyOrTurnEnd(card))) return;
         //似乎检测对象是否正确会导致攻击牌出问题，所以只加了这个检测，但是可能会引发其他错误
         return !(hasEnoughEnergyOrTurnEnd(card));
+    }
+
+    private static boolean hasEnoughEnergyOrTurnEnd(AbstractCard card) {
+        if (AbstractDungeon.actionManager.turnHasEnded) {
+            return false;
+        }
+        return EnergyPanel.totalCount >= card.costForTurn || card.freeToPlay() || card.isInAutoplay;
     }
 }

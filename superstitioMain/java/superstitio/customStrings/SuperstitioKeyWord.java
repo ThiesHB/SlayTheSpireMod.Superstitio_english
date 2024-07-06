@@ -65,18 +65,6 @@ public class SuperstitioKeyWord {
         return KeywordsFromFile;
     }
 
-    private List<WordReplace> toReplaceRule() {
-        List<WordReplace> wordReplaceList = new ArrayList<>();
-        if (!StringSetUtility.isNullOrEmpty(PROPER_NAME_SFW))
-            wordReplaceList.add(new WordReplace(this.PROPER_NAME, this.PROPER_NAME_SFW));
-        if (!StringSetUtility.isNullOrEmpty(NAMES_SFW) && NAMES.length == NAMES_SFW.length) {
-            for (int i = 0; i < NAMES.length; i++) {
-                wordReplaceList.add(new WordReplace(this.NAMES[i], this.NAMES_SFW[i]));
-            }
-        }
-        return wordReplaceList;
-    }
-
     public String getPROPER_NAME() {
         if (StringSetUtility.shouldReturnSFWVersion(PROPER_NAME_SFW))
             return PROPER_NAME_SFW;
@@ -117,6 +105,18 @@ public class SuperstitioKeyWord {
             KeywordsFromFile.add(this);
     }
 
+    private List<WordReplace> toReplaceRule() {
+        List<WordReplace> wordReplaceList = new ArrayList<>();
+        if (!StringSetUtility.isNullOrEmpty(PROPER_NAME_SFW))
+            wordReplaceList.add(new WordReplace(this.PROPER_NAME, this.PROPER_NAME_SFW));
+        if (!StringSetUtility.isNullOrEmpty(NAMES_SFW) && NAMES.length == NAMES_SFW.length) {
+            for (int i = 0; i < NAMES.length; i++) {
+                wordReplaceList.add(new WordReplace(this.NAMES[i], this.NAMES_SFW[i]));
+            }
+        }
+        return wordReplaceList;
+    }
+
     private boolean hasSFWVersionSelf() {
         return !StringSetUtility.isNullOrEmpty(PROPER_NAME_SFW) && !StringSetUtility.isNullOrEmpty(NAMES_SFW) && !StringSetUtility.isNullOrEmpty(DESCRIPTION_SFW);
     }
@@ -135,8 +135,8 @@ public class SuperstitioKeyWord {
         default List<SuperstitioKeyWord> getNeedAddKeywords() {
             List<SuperstitioKeyWord> superstitioKeyWords = new ArrayList<>();
             for (String keywordId : getWillAddKEYWORDS_ID()) {
-              Optional<SuperstitioKeyWord> keyWord = getAddedKeyword(keywordId);
-              keyWord.ifPresent(superstitioKeyWords::add);
+                Optional<SuperstitioKeyWord> keyWord = getAddedKeyword(keywordId);
+                keyWord.ifPresent(superstitioKeyWords::add);
             }
             return superstitioKeyWords;
         }

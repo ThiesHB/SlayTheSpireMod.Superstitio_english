@@ -44,11 +44,6 @@ public class HideInPussy extends GeneralCard {
         }
 
         @Override
-        protected SuperstitioCard makePowerCard() {
-            return new HideInPussy();
-        }
-
-        @Override
         public void atEndOfTurn(boolean isPlayer) {
             if (!isPlayer || AbstractDungeon.player.hand.isEmpty()) return;
             new ChoseCardFromHandCardSelectScreen(card -> {
@@ -65,6 +60,11 @@ public class HideInPussy extends GeneralCard {
         @Override
         public void updateDescriptionArgs() {
             setDescriptionArgs(amount);
+        }
+
+        @Override
+        protected SuperstitioCard makePowerCard() {
+            return new HideInPussy();
         }
     }
 }

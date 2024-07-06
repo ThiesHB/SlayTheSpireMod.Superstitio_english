@@ -110,6 +110,15 @@ public class Tzeentch extends BaseCharacter implements PlayerInitPostDungeonInit
         return Lupa.class;
     }
 
+    private void refreshInit() {
+        // 初始化你的人物，如果你的人物只有一张图，那么第一个参数填写你人物图片的路径。
+        this.initializeClass(
+                LUPA_CHARACTER, // 人物图片
+                LUPA_CHARACTER_SHOULDER_2, LUPA_CHARACTER_SHOULDER_1, LUPA_CORPSE_IMAGE, // 人物死亡图像
+                getLoadout(), 0.0F, 0.0F, 250.0F, 375.0F, // 人物碰撞箱大小，越大的人物模型这个越大
+                new EnergyManager(3) // 初始每回合的能量
+        );
+    }
 
     @Override
     // 初始遗物
@@ -121,16 +130,6 @@ public class Tzeentch extends BaseCharacter implements PlayerInitPostDungeonInit
 //        retVal.add(Sensitive.ID);
 //        retVal.add(SorM.ID);
         return retVal;
-    }
-
-    private void refreshInit() {
-        // 初始化你的人物，如果你的人物只有一张图，那么第一个参数填写你人物图片的路径。
-        this.initializeClass(
-                LUPA_CHARACTER, // 人物图片
-                LUPA_CHARACTER_SHOULDER_2, LUPA_CHARACTER_SHOULDER_1, LUPA_CORPSE_IMAGE, // 人物死亡图像
-                getLoadout(), 0.0F, 0.0F, 250.0F, 375.0F, // 人物碰撞箱大小，越大的人物模型这个越大
-                new EnergyManager(3) // 初始每回合的能量
-        );
     }
 
     @Override
@@ -178,11 +177,6 @@ public class Tzeentch extends BaseCharacter implements PlayerInitPostDungeonInit
     }
 
     @Override
-    protected boolean isCardCanAdd(AbstractCard card) {
-        return CardPoolManager.instance.getAddedCard().test(card) && !CardPoolManager.instance.getBanedCard().test(card);
-    }
-
-    @Override
     public int getAscensionMaxHPLoss() {
         return 5;
     }
@@ -212,7 +206,6 @@ public class Tzeentch extends BaseCharacter implements PlayerInitPostDungeonInit
         SEXUAL_HEAT_RELIC_Selection_UI.render(sb);
         CardPoolManager.instance.render(sb);
     }
-//    public static RelicSelect relicSelect;
 
     @Override
     public void updateInCharacterSelectScreen(CharacterOption characterOption) {
@@ -234,6 +227,12 @@ public class Tzeentch extends BaseCharacter implements PlayerInitPostDungeonInit
                 CardCrawlGame.mainMenuScreen.charSelectScreen.bgCharImg = ImageMaster.loadImage(BaseMod.playerPortraitMap.get(MASO_Character));
             TzeentchSave.saveConfig();
         }
+    }
+//    public static RelicSelect relicSelect;
+
+    @Override
+    protected boolean isCardCanAdd(AbstractCard card) {
+        return CardPoolManager.instance.getAddedCard().test(card) && !CardPoolManager.instance.getBanedCard().test(card);
     }
 
     public static class TzeentchSave implements java.io.Serializable {
@@ -270,7 +269,7 @@ public class Tzeentch extends BaseCharacter implements PlayerInitPostDungeonInit
 
         public static void saveConfig() {
             String tzeentchString = saveFileGson.toJsonTree(onSave(), TzeentchSave.class).toString();
-            config.setString(TzeentchSave_STRING,tzeentchString);
+            config.setString(TzeentchSave_STRING, tzeentchString);
             try {
                 config.save();
             } catch (IOException e) {

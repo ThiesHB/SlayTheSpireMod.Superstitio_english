@@ -18,6 +18,12 @@ public abstract class LostBodyPart extends AbstractSuperstitioPower {
         banedBodyPart = Arrays.stream(banedBodyPart()).collect(Collectors.toList());
     }
 
+    public abstract FuckJob_Card.BodyPart[] banedBodyPart();
+
+    private boolean canUseBody(FuckJob_Card card) {
+        return !banedBodyPart.contains(FuckJob_Card.getBodyPartType(card));
+    }
+
     @Override
     public void updateDescriptionArgs() {
     }
@@ -27,10 +33,4 @@ public abstract class LostBodyPart extends AbstractSuperstitioPower {
         if (!(card instanceof FuckJob_Card)) return true;
         return canUseBody((FuckJob_Card) card);
     }
-
-    private boolean canUseBody(FuckJob_Card card) {
-        return !banedBodyPart.contains(FuckJob_Card.getBodyPartType(card));
-    }
-
-    public abstract FuckJob_Card.BodyPart[] banedBodyPart();
 }

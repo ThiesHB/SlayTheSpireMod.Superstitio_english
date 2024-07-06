@@ -48,13 +48,6 @@ public class OrgasmWithLostBody extends MasoCard {
             super(-1);
         }
 
-        @Override
-        public void onCardDraw(AbstractCard card) {
-            super.onCardDraw(card);
-            if (ActionUtility.isNotInBattle()) return;
-            tryBecomeFeelPhantomBodyCard(card);
-        }
-
         private void tryBecomeFeelPhantomBodyCard(AbstractCard card) {
             if (CardUtility.canUseWithoutEnvironment(card)) return;
             AutoDoneInstantAction.addToBotAbstract(() -> {
@@ -62,6 +55,13 @@ public class OrgasmWithLostBody extends MasoCard {
                 AbstractDungeon.effectList.add(new PurgeCardEffect(card));
             });
             addToBot_makeTempCardInBattle(new FeelPhantomBody(card), ActionUtility.BattleCardPlace.Hand, this.powerCard.upgraded);
+        }
+
+        @Override
+        public void onCardDraw(AbstractCard card) {
+            super.onCardDraw(card);
+            if (ActionUtility.isNotInBattle()) return;
+            tryBecomeFeelPhantomBodyCard(card);
         }
 
         @Override

@@ -47,11 +47,6 @@ public class JuicyPussy extends GeneralCard {
         }
 
         @Override
-        protected SuperstitioCard makePowerCard() {
-            return new JuicyPussy();
-        }
-
-        @Override
         public void updateDescriptionArgs() {
             setDescriptionArgs(amount);
         }
@@ -60,6 +55,11 @@ public class JuicyPussy extends GeneralCard {
         public void onSquirt(SexualHeat SexualHeatPower, AbstractCard card) {
             this.flash();
             DelayHpLosePower.addToBot_removePower(amount, AbstractDungeon.player, true);
+        }
+
+        @Override
+        protected SuperstitioCard makePowerCard() {
+            return new JuicyPussy();
         }
     }
 }

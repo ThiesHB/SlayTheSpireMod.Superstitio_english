@@ -39,9 +39,10 @@ public class ChokeChokerPower extends AbstractSuperstitioPower implements
     @Override
     public void onOrgasm(SexualHeat SexualHeatPower) {
         this.flash();
-        DamageActionMaker.maker(this.owner, this.amount / ChokeRate, this.owner)
+        DamageActionMaker.maker(this.amount / ChokeRate, this.owner)
+                .setSource(this.owner)
                 .setEffect(AbstractGameAction.AttackEffect.NONE)
-                .setSuperFast(true)
+                .setSkipWait(true)
                 .setDamageModifier(this, new UnBlockAbleHpLoseLikeDamage())
                 .setDamageType(DataManager.CanOnlyDamageDamageType.NoTriggerLupaAndMasoRelicHpLose)
                 .addToTop();

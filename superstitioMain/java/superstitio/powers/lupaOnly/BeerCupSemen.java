@@ -35,6 +35,24 @@ public class BeerCupSemen extends AbstractSuperstitioPower implements
         updateDescription();
     }
 
+    public void CheckFull() {
+        if (semenAmount >= maxBarAmount()) {
+            this.Full();
+        }
+    }
+
+    private void Full() {
+        this.flash();
+        AbstractPower power = this;
+        AutoDoneInstantAction.addToBotAbstract(() ->
+                PowerUtility.BubbleMessageHigher(power, false, powerStrings.getDESCRIPTIONS()[2]));
+        this.semenAmount = 0;
+        addToBot(new HealAction(this.owner, this.owner, maxBarAmount()));
+        AutoDoneInstantAction.addToBotAbstract(() ->
+                PowerUtility.BubbleMessageHigher(power, false, powerStrings.getDESCRIPTIONS()[3]));
+        addToBot_removeSpecificPower(this);
+    }
+
     @Override
     public void renderAmount(SpriteBatch sb, float x, float y, Color c) {
     }
@@ -62,13 +80,6 @@ public class BeerCupSemen extends AbstractSuperstitioPower implements
         setDescriptionArgs(maxBarAmount());
     }
 
-
-    public void CheckFull() {
-        if (semenAmount >= maxBarAmount()) {
-            this.Full();
-        }
-    }
-
     @Override
     public void onVictory() {
         final AbstractPlayer p = AbstractDungeon.player;
@@ -76,19 +87,6 @@ public class BeerCupSemen extends AbstractSuperstitioPower implements
             p.heal(this.semenAmount);
         }
     }
-
-    private void Full() {
-        this.flash();
-        AbstractPower power = this;
-        AutoDoneInstantAction.addToBotAbstract(() ->
-                PowerUtility.BubbleMessageHigher(power, false, powerStrings.getDESCRIPTIONS()[2]));
-        this.semenAmount = 0;
-        addToBot(new HealAction(this.owner, this.owner, maxBarAmount()));
-        AutoDoneInstantAction.addToBotAbstract(() ->
-                PowerUtility.BubbleMessageHigher(power, false, powerStrings.getDESCRIPTIONS()[3]));
-        addToBot_removeSpecificPower(this);
-    }
-
 
     @Override
     public AbstractPower getSelf() {

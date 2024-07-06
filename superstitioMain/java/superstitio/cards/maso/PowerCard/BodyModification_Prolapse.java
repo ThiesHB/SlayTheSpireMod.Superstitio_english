@@ -102,16 +102,6 @@ public class BodyModification_Prolapse extends MasoCard {
         }
 
         @Override
-        protected SuperstitioCard makePowerCard() {
-            return new BodyModification_Prolapse();
-        }
-
-        @Override
-        protected String getDesc() {
-            return super.getDesc() + powerCard.getEXTENDED_DESCRIPTION()[0];
-        }
-
-        @Override
         public void updateDescriptionArgs() {
             final String[] strings = {""};
             this.prolapseNames.forEach((name, num) -> strings[0] += String.format(powerCard.getEXTENDED_DESCRIPTION()[1], name, num));
@@ -125,6 +115,16 @@ public class BodyModification_Prolapse extends MasoCard {
             }
             this.prolapseNames = PowerUtility.mergeAndSumMaps(this.prolapseNames, ((BodyModification_ProlapsePower) power).prolapseNames);
             updateDescription();
+        }
+
+        @Override
+        protected SuperstitioCard makePowerCard() {
+            return new BodyModification_Prolapse();
+        }
+
+        @Override
+        protected String getDesc() {
+            return super.getDesc() + powerCard.getEXTENDED_DESCRIPTION()[0];
         }
     }
 }

@@ -65,7 +65,74 @@ public abstract class Minion extends CustomMonster {
         return creature.hb.hovered || creature.healthHb.hovered;
     }
 
+    public boolean isHovered() {
+        return isCreatureHovered(this) || isCreatureHovered(this.petCore);
+    }
+
+    public void updateHitBox() {
+        getPetCore().hb.update();
+        getPetCore().healthHb.update();
+    }
+
     protected abstract Texture setupImg();
+
+    protected abstract void updatePetCore();
+
+    protected void Drag_Press() {
+        this.oldMX = InputHelper.mX;
+        this.oldMY = InputHelper.mY;
+    }
+
+    protected void Drag_Release() {
+        this.refreshHitboxLocation();
+        ReflectionHacks.privateMethod(AbstractCreature.class, "refreshHitboxLocation").invoke(getPetCore());
+        this.oldMX = 0.0f;
+        this.oldMY = 0.0f;
+    }
+
+    protected void Drag_Hold() {
+        if (this.oldMX != 0.0f && this.oldMY != 0.0f) {
+            final float xDiff = InputHelper.mX - this.oldMX;
+            final float yDiff = InputHelper.mY - this.oldMY;
+            this.drawX += xDiff;
+            this.getPetCore().drawX += xDiff;
+            this.drawY += yDiff;
+            this.getPetCore().drawY += yDiff;
+        }
+        this.oldMX = InputHelper.mX;
+        this.oldMY = InputHelper.mY;
+    }
+
+    private void refreshHitBox() {
+        this.getPetCore().hb_x = this.hb_x;
+        this.getPetCore().hb_y = this.hb_y;
+        this.getPetCore().hb = new Hitbox(this.hb_w, this.hb_h);
+        this.getPetCore().hb_w = this.getPetCore().hb.width;
+        this.getPetCore().hb_h = this.getPetCore().hb.height;
+        this.getPetCore().hb.move(getPetCore().drawX, getPetCore().drawY);
+        this.petCoreHitbox = this.getPetCore().hb;
+    }
+
+    private void drawImg(SpriteBatch sb) {
+        simpleAnim += Gdx.graphics.getDeltaTime();
+        if (simpleAnim >= 1.0f)
+            simpleAnim = 0;
+        float scaleX = 1.0f;
+        float v = 0.005f * MathUtils.sinDeg(MathUtils.sinDeg(simpleAnim * 360) * 15);
+        float scaleY = 1.0f + v;
+        float rotation = 0;
+        sb.draw(this.img, this.drawX - (float) this.img.getWidth() / drawScale * Settings.scale / 2.0F + this.animX,
+                this.drawY + this.hb.height * v,
+                0, 0,
+                (float) this.img.getWidth() / drawScale * Settings.scale,
+                (float) this.img.getHeight() / drawScale * Settings.scale,
+                scaleX, scaleY, rotation,
+                0, 0, this.img.getWidth(), this.img.getHeight(), this.flipHorizontal, this.flipVertical);
+    }
+
+    public final AbstractCreature getPetCore() {
+        return petCore;
+    }
 
     @Override
     public abstract void createIntent();
@@ -77,16 +144,6 @@ public abstract class Minion extends CustomMonster {
         refreshHitBox();
         this.getPetCore().healthHb = new Hitbox(this.hb_w, 72.0F * Settings.scale);
         privateMethod(AbstractCreature.class, "refreshHitboxLocation").invoke(this.getPetCore());
-    }
-
-    private void refreshHitBox() {
-        this.getPetCore().hb_x = this.hb_x;
-        this.getPetCore().hb_y = this.hb_y;
-        this.getPetCore().hb = new Hitbox(this.hb_w, this.hb_h);
-        this.getPetCore().hb_w = this.getPetCore().hb.width;
-        this.getPetCore().hb_h = this.getPetCore().hb.height;
-        this.getPetCore().hb.move(getPetCore().drawX, getPetCore().drawY);
-        this.petCoreHitbox = this.getPetCore().hb;
     }
 
     @Override
@@ -123,27 +180,8 @@ public abstract class Minion extends CustomMonster {
 //        }
     }
 
-    private void drawImg(SpriteBatch sb) {
-        simpleAnim += Gdx.graphics.getDeltaTime();
-        if (simpleAnim >= 1.0f)
-            simpleAnim = 0;
-        float scaleX = 1.0f;
-        float v = 0.005f * MathUtils.sinDeg(MathUtils.sinDeg(simpleAnim * 360) * 15);
-        float scaleY = 1.0f + v;
-        float rotation = 0;
-        sb.draw(this.img, this.drawX - (float) this.img.getWidth() / drawScale * Settings.scale / 2.0F + this.animX,
-                this.drawY + this.hb.height * v,
-                0, 0,
-                (float) this.img.getWidth() / drawScale * Settings.scale,
-                (float) this.img.getHeight() / drawScale * Settings.scale,
-                scaleX, scaleY, rotation,
-                0, 0, this.img.getWidth(), this.img.getHeight(), this.flipHorizontal, this.flipVertical);
-    }
-
     @Override
     public abstract void applyPowers();
-
-    protected abstract void updatePetCore();
 
     @Override
     public void update() {
@@ -163,45 +201,11 @@ public abstract class Minion extends CustomMonster {
         }
     }
 
-    public boolean isHovered() {
-        return isCreatureHovered(this) || isCreatureHovered(this.petCore);
-    }
-
-    protected void Drag_Press() {
-        this.oldMX = InputHelper.mX;
-        this.oldMY = InputHelper.mY;
-    }
-
-    protected void Drag_Release() {
-        this.refreshHitboxLocation();
-        ReflectionHacks.privateMethod(AbstractCreature.class, "refreshHitboxLocation").invoke(getPetCore());
-        this.oldMX = 0.0f;
-        this.oldMY = 0.0f;
-    }
-
-    protected void Drag_Hold() {
-        if (this.oldMX != 0.0f && this.oldMY != 0.0f) {
-            final float xDiff = InputHelper.mX - this.oldMX;
-            final float yDiff = InputHelper.mY - this.oldMY;
-            this.drawX += xDiff;
-            this.getPetCore().drawX += xDiff;
-            this.drawY += yDiff;
-            this.getPetCore().drawY += yDiff;
-        }
-        this.oldMX = InputHelper.mX;
-        this.oldMY = InputHelper.mY;
-    }
-
     @Override
     public abstract void renderTip(SpriteBatch sb);
 
     @Override
     public abstract void takeTurn();
-
-    public void updateHitBox() {
-        getPetCore().hb.update();
-        getPetCore().healthHb.update();
-    }
 
     @Override
     public void rollMove() {
@@ -219,9 +223,5 @@ public abstract class Minion extends CustomMonster {
 
     @Override
     protected abstract void getMove(int i);
-
-    public final AbstractCreature getPetCore() {
-        return petCore;
-    }
 
 }

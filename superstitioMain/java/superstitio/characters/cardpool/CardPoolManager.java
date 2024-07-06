@@ -28,16 +28,6 @@ public class CardPoolManager implements IUIElement {
         }
     }
 
-    @Override
-    public void render(SpriteBatch spriteBatch) {
-        cardPools.forEach(cardPool -> cardPool.render(spriteBatch));
-    }
-
-    @Override
-    public void update() {
-        cardPools.forEach(BaseCardPool::update);
-    }
-
     public Predicate<AbstractCard> getAddedCard() {
         Predicate<AbstractCard> cardPredicate = card -> false;
         for (BaseCardPool cardPool : cardPools) {
@@ -52,6 +42,16 @@ public class CardPoolManager implements IUIElement {
             cardPredicate = cardPredicate.or(cardPool.getBanedCard());
         }
         return cardPredicate;
+    }
+
+    @Override
+    public void render(SpriteBatch spriteBatch) {
+        cardPools.forEach(cardPool -> cardPool.render(spriteBatch));
+    }
+
+    @Override
+    public void update() {
+        cardPools.forEach(BaseCardPool::update);
     }
 
     @Override

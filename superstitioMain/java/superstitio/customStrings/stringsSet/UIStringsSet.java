@@ -22,6 +22,14 @@ public class UIStringsSet implements HasOriginAndSFWVersion<UIStrings> {
     public UIStringsSet() {
     }
 
+    public String[] getTEXT() {
+        return getArrayFromRightVersion(strings -> strings.TEXT);
+    }
+
+    public String[] getEXTRA_TEXT() {
+        return getArrayFromRightVersion(strings -> strings.EXTRA_TEXT);
+    }
+
     @Override
     public void initialSelfBlack() {
         this.TEXT = LocalizedStrings.createMockStringArray(1);
@@ -46,14 +54,6 @@ public class UIStringsSet implements HasOriginAndSFWVersion<UIStrings> {
     @Override
     public Class<UIStrings> getSubClass() {
         return UIStrings.class;
-    }
-
-    public String[] getTEXT() {
-        return getArrayFromRightVersion(strings -> strings.TEXT);
-    }
-
-    public String[] getEXTRA_TEXT() {
-        return getArrayFromRightVersion(strings -> strings.EXTRA_TEXT);
     }
 
 //    public Map<String, String> getUPGRADE_DESCRIPTION() {

@@ -19,6 +19,13 @@ public class AllCardCostModifier_PerEnergy extends AllCardCostModifier {
         amount = totalEnergy;
     }
 
+    public int totalCostDecreased(AbstractCard card) {
+        if (!InBattleDataManager.costMap.containsKey(card.uuid) || getOriginCost(card) <= card.costForTurn || card.freeToPlay()) {
+            return 0;
+        }
+        return getOriginCost(card) - card.costForTurn;
+    }
+
     @Override
     public void updateDescriptionArgs() {
         setDescriptionArgs(decreasedCost, amount, (!isActive() ? powerStrings.DESCRIPTIONS[1] : ""));
@@ -46,13 +53,6 @@ public class AllCardCostModifier_PerEnergy extends AllCardCostModifier {
                     this.tryUseEffect();
             }
         });
-    }
-
-    public int totalCostDecreased(AbstractCard card) {
-        if (!InBattleDataManager.costMap.containsKey(card.uuid) || getOriginCost(card) <= card.costForTurn || card.freeToPlay()) {
-            return 0;
-        }
-        return getOriginCost(card) - card.costForTurn;
     }
 
 }

@@ -20,10 +20,19 @@ public abstract class SexMarkOrb extends AbstractLupaOrb {
         return this;
     }
 
+    public abstract int attack();
+
+    public abstract int block();
+
     @Override
     public void updateDescriptionArgs() {
         setDescriptionArgs(SexMarkOrbGroup.SexMarkSetupOrbMax, this.evokeAmount);
     }
+
+    //    @Override
+//    public void updateDescription() {
+//        this.description = String.format(orbStringsSet.getDESCRIPTION()[0]);
+//    }
 
     @Override
     public void onEvoke() {
@@ -33,16 +42,7 @@ public abstract class SexMarkOrb extends AbstractLupaOrb {
     public void applyFocus() {
     }
 
-    //    @Override
-//    public void updateDescription() {
-//        this.description = String.format(orbStringsSet.getDESCRIPTION()[0]);
-//    }
-
     @Override
     public void onEndOfTurn() {
     }
-
-    public abstract int attack();
-
-    public abstract int block();
 }

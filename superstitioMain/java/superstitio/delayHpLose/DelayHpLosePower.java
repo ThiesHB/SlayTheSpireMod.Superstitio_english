@@ -96,16 +96,52 @@ public abstract class DelayHpLosePower extends AbstractSuperstitioPower implemen
         }
     }
 
-    @Override
-    public void renderAmount(SpriteBatch sb, float x, float y, Color c) {
-    }
-
     /**
      * @param amount      需要移除的值
      * @param removeOther 是否移除其他的
      * @return 剩余的amount
      */
     protected abstract int addToBot_removeDelayHpLoss(int amount, boolean removeOther);
+
+    protected void playRemoveEffect() {
+        AbstractDungeon.effectList.add(
+                new PowerBuffEffect(this.owner.hb.cX - this.owner.animX, this.owner.hb.cY + this.owner.hb.height / 2.0F,
+                        pureName() + CardCrawlGame.languagePack.getUIString("ApplyPowerAction").TEXT[0]));
+    }
+
+    protected String pureName() {
+        return this.name.replace("#r", "");
+    }
+
+    protected void addToBot_applyDamage() {
+        this.isRemovedForApplyDamage = true;
+        AbstractPower self = this;
+        AutoDoneInstantAction.addToBotAbstract(() -> {
+            immediate_applyDamage(self);
+        });
+//        getDelayHpLoseDamageActionMaker().addToBot();
+//        AutoDoneInstantAction.addToBotAbstract(() -> this.amount = 0);
+        addToBot_removeSpecificPower(this);
+    }
+
+    protected void immediate_applyDamage(AbstractPower self) {
+        if (self.amount <= 0) return;
+        PowerUtility.BubbleMessage(self, true, pureName());
+        CardCrawlGame.sound.play("POWER_TIME_WARP", 0.05f);
+        AbstractDungeon.player.damage(UnBlockAbleIgnoresTempHPDamage.damageInfo(this, self.amount));
+        self.amount = 0;
+    }
+
+    private DamageActionMaker getDelayHpLoseDamageActionMaker() {
+        return DamageActionMaker.maker(this.amount, this.owner)
+                .setDamageModifier(this, new UnBlockAbleIgnoresTempHPDamage())
+                .setEffect(AbstractGameAction.AttackEffect.LIGHTNING)
+                .setDamageType(DataManager.CanOnlyDamageDamageType.UnBlockAbleDamageType);
+    }
+
+    @Override
+    public void renderAmount(SpriteBatch sb, float x, float y, Color c) {
+    }
 
     @Override
     public void reducePower(int reduceAmount) {
@@ -121,37 +157,6 @@ public abstract class DelayHpLosePower extends AbstractSuperstitioPower implemen
             playRemoveEffect();
     }
 
-    protected void playRemoveEffect() {
-        AbstractDungeon.effectList.add(
-                new PowerBuffEffect(this.owner.hb.cX - this.owner.animX, this.owner.hb.cY + this.owner.hb.height / 2.0F,
-                        pureName() + CardCrawlGame.languagePack.getUIString("ApplyPowerAction").TEXT[0]));
-    }
-
-    protected String pureName() {
-        return this.name.replace("#r", "");
-    }
-
-    @Override
-    public void updateDescriptionArgs() {
-        setDescriptionArgs(this.amount);
-    }
-
-    @Override
-    public int getHealthBarAmount() {
-        return this.amount;
-    }
-
-    protected void addToBot_applyDamage() {
-        this.isRemovedForApplyDamage = true;
-        AbstractPower self = this;
-        AutoDoneInstantAction.addToBotAbstract(() -> {
-            immediate_applyDamage(self);
-        });
-//        getDelayHpLoseDamageActionMaker().addToBot();
-//        AutoDoneInstantAction.addToBotAbstract(() -> this.amount = 0);
-        addToBot_removeSpecificPower(this);
-    }
-
 //    protected void addToTop_applyDamage() {
 //        this.isRemovedForApplyDamage = true;
 //        AbstractPower self = this;
@@ -161,19 +166,14 @@ public abstract class DelayHpLosePower extends AbstractSuperstitioPower implemen
 //        addToBot_removeSpecificPower(this);
 //    }
 
-    protected void immediate_applyDamage(AbstractPower self) {
-        if (self.amount <= 0) return;
-        PowerUtility.BubbleMessage(self, true, pureName());
-        CardCrawlGame.sound.play("POWER_TIME_WARP", 0.05f);
-        AbstractDungeon.player.damage(UnBlockAbleIgnoresTempHPDamage.damageInfo(this, self.amount));
-        self.amount = 0;
+    @Override
+    public void updateDescriptionArgs() {
+        setDescriptionArgs(this.amount);
     }
 
-    private DamageActionMaker getDelayHpLoseDamageActionMaker() {
-        return DamageActionMaker.maker(this.amount, this.owner)
-                .setDamageModifier(this, new UnBlockAbleIgnoresTempHPDamage())
-                .setEffect(AbstractGameAction.AttackEffect.LIGHTNING)
-                .setDamageType(DataManager.CanOnlyDamageDamageType.UnBlockAbleDamageType);
+    @Override
+    public int getHealthBarAmount() {
+        return this.amount;
     }
 
 //    public void triggerNothingDamage(AbstractPlayer player, DamageInfo info) {

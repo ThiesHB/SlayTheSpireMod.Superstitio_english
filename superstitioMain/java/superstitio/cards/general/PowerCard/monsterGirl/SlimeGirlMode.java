@@ -48,11 +48,6 @@ public class SlimeGirlMode extends AbstractTempCard {
         }
 
         @Override
-        protected SuperstitioCard makePowerCard() {
-            return new SlimeGirlMode();
-        }
-
-        @Override
         public void atStartOfTurn() {
             addToBot_applyPower(new PlayerFlightPower(AbstractDungeon.player, this.amount));
         }
@@ -61,6 +56,11 @@ public class SlimeGirlMode extends AbstractTempCard {
         public void updateDescriptionArgs() {
             setDescriptionArgs(amount);
         }
+
+        @Override
+        protected SuperstitioCard makePowerCard() {
+            return new SlimeGirlMode();
+        }
     }
 
     public static class PlayerFlightPower extends AbstractSuperstitioPower {
@@ -68,6 +68,12 @@ public class SlimeGirlMode extends AbstractTempCard {
 
         public PlayerFlightPower(AbstractPlayer owner, int amount) {
             super(POWER_ID, owner, amount);
+        }
+
+        private float calculateDamageTakenAmount(float damage, DamageInfo.DamageType type) {
+            if (type == DamageInfo.DamageType.NORMAL)
+                return damage / 2.0F;
+            return damage;
         }
 
         @Override
@@ -89,12 +95,6 @@ public class SlimeGirlMode extends AbstractTempCard {
             }
 
             return damageAmount;
-        }
-
-        private float calculateDamageTakenAmount(float damage, DamageInfo.DamageType type) {
-            if (type == DamageInfo.DamageType.NORMAL)
-                return damage / 2.0F;
-            return damage;
         }
 
         @Override

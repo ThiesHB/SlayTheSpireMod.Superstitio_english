@@ -12,7 +12,8 @@ import superstitio.customStrings.interFace.WordReplace;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class CardStringsWillMakeFlavorSet implements HasOriginAndSFWVersion<CardStrings>, SuperstitioKeyWord.WillMakeSuperstitioKeyWords , SuperstitioKeyWord.SetupWithKeyWords {
+public class CardStringsWillMakeFlavorSet implements HasOriginAndSFWVersion<CardStrings>, SuperstitioKeyWord.WillMakeSuperstitioKeyWords,
+        SuperstitioKeyWord.SetupWithKeyWords {
 
     private final CardStrings Origin = new CardStrings();
     private final CardStrings SFW = new CardStrings();
@@ -35,6 +36,27 @@ public class CardStringsWillMakeFlavorSet implements HasOriginAndSFWVersion<Card
         return cards.stream().map(CardStringsWillMakeFlavorSet::toCardNameReplaceRule).collect(Collectors.toList());
     }
 
+    public String getNAME() {
+        return getFromRightVersion(strings -> strings.NAME);
+    }
+
+    public String getDESCRIPTION() {
+        return getFromRightVersion(strings -> strings.DESCRIPTION);
+    }
+
+    public String getUPGRADE_DESCRIPTION() {
+        return getFromRightVersion(strings -> strings.UPGRADE_DESCRIPTION);
+    }
+
+    public String[] getEXTENDED_DESCRIPTION() {
+        return getArrayFromRightVersion(strings -> strings.EXTENDED_DESCRIPTION);
+    }
+
+    public String getFLAVOR() {
+        if (SuperstitioConfig.isEnableSFW())
+            return "";
+        return FLAVOR;
+    }
 
     private WordReplace toCardNameReplaceRule() {
         return new WordReplace(this.NAME, this.NAME_SFW);
@@ -75,28 +97,6 @@ public class CardStringsWillMakeFlavorSet implements HasOriginAndSFWVersion<Card
     @Override
     public Class<CardStrings> getSubClass() {
         return CardStrings.class;
-    }
-
-    public String getNAME() {
-        return getFromRightVersion(strings -> strings.NAME);
-    }
-
-    public String getDESCRIPTION() {
-        return getFromRightVersion(strings -> strings.DESCRIPTION);
-    }
-
-    public String getUPGRADE_DESCRIPTION() {
-        return getFromRightVersion(strings -> strings.UPGRADE_DESCRIPTION);
-    }
-
-    public String[] getEXTENDED_DESCRIPTION() {
-        return getArrayFromRightVersion(strings -> strings.EXTENDED_DESCRIPTION);
-    }
-
-    public String getFLAVOR() {
-        if (SuperstitioConfig.isEnableSFW())
-            return "";
-        return FLAVOR;
     }
 
     @Override

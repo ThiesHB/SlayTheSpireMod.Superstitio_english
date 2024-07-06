@@ -5,8 +5,8 @@ import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import superstitio.DataManager;
 import superstitio.cards.SuperstitioCard;
 import superstitio.cards.general.AbstractTempCard;
-import superstitio.powers.sexualHeatNeedModifier.ChokeChokerPower;
 import superstitio.powers.EasyBuildAbstractPowerForPowerCard;
+import superstitio.powers.sexualHeatNeedModifier.ChokeChokerPower;
 
 public class FishGirlMode extends AbstractTempCard {
     public static final String ID = DataManager.MakeTextID(FishGirlMode.class);
@@ -45,11 +45,6 @@ public class FishGirlMode extends AbstractTempCard {
         }
 
         @Override
-        protected SuperstitioCard makePowerCard() {
-            return new FishGirlMode();
-        }
-
-        @Override
         public void atStartOfTurn() {
             addToBot_applyPower(new ChokeChokerPower(owner, amount));
         }
@@ -57,6 +52,11 @@ public class FishGirlMode extends AbstractTempCard {
         @Override
         public void updateDescriptionArgs() {
             setDescriptionArgs(amount);
+        }
+
+        @Override
+        protected SuperstitioCard makePowerCard() {
+            return new FishGirlMode();
         }
     }
 }

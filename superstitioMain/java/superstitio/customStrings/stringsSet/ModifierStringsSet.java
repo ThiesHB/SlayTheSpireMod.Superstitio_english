@@ -38,6 +38,41 @@ public class ModifierStringsSet implements HasTextID, HasOriginAndSFWVersion<Mod
         return DataManager.modifiers.values().stream().map(ModifierStringsSet::ToKeyWord).toArray(Keyword[]::new);
     }
 
+    public String getNAME() {
+        return getFromRightVersion(strings -> strings.NAME);
+    }
+
+    public String getDESCRIPTION() {
+        return getFromRightVersion(strings -> strings.DESCRIPTION);
+    }
+
+    public String getBasicInfo() {
+        if (this.textID.endsWith("Block"))
+            return CardCrawlGame.languagePack.getUIString(DataManager.MakeTextID("BlockModifier")).TEXT[0] + getBasicInfo_Pure();
+        if (this.textID.endsWith("Damage"))
+            return CardCrawlGame.languagePack.getUIString(DataManager.MakeTextID("DamageModifier")).TEXT[0] + getBasicInfo_Pure();
+        return getBasicInfo_Pure();
+    }
+
+    public String[] getEXTENDED_DESCRIPTION() {
+        return getArrayFromRightVersion(strings -> strings.EXTENDED_DESCRIPTION);
+    }
+
+    public Keyword ToKeyWord() {
+        Keyword keyword = new Keyword();
+        keyword.PROPER_NAME = this.getBasicInfo();
+        keyword.NAMES = new String[]{this.getNAME(), this.getBasicInfo_Pure()};
+        keyword.DESCRIPTION = this.getDESCRIPTION();
+        return keyword;
+    }
+
+    private String getBasicInfo_Pure() {
+        return getFromRightVersion(strings -> strings.BASIC_INFO);
+    }
+
+    private WordReplace toModifierNameReplaceRule() {
+        return new WordReplace(this.NAME, this.NAME_SFW);
+    }
 
     @Override
     public void initialSelfBlack() {
@@ -69,34 +104,6 @@ public class ModifierStringsSet implements HasTextID, HasOriginAndSFWVersion<Mod
         return Origin;
     }
 
-    public String getNAME() {
-        return getFromRightVersion(strings -> strings.NAME);
-    }
-
-    public String getDESCRIPTION() {
-        return getFromRightVersion(strings -> strings.DESCRIPTION);
-    }
-
-    public String getBasicInfo() {
-        if (this.textID.endsWith("Block"))
-            return CardCrawlGame.languagePack.getUIString(DataManager.MakeTextID("BlockModifier")).TEXT[0] + getBasicInfo_Pure();
-        if (this.textID.endsWith("Damage"))
-            return CardCrawlGame.languagePack.getUIString(DataManager.MakeTextID("DamageModifier")).TEXT[0] + getBasicInfo_Pure();
-        return getBasicInfo_Pure();
-    }
-
-    private String getBasicInfo_Pure() {
-        return getFromRightVersion(strings -> strings.BASIC_INFO);
-    }
-
-    public String[] getEXTENDED_DESCRIPTION() {
-        return getArrayFromRightVersion(strings -> strings.EXTENDED_DESCRIPTION);
-    }
-
-    private WordReplace toModifierNameReplaceRule() {
-        return new WordReplace(this.NAME, this.NAME_SFW);
-    }
-
     @Override
     public ModifierStrings getSFWVersion() {
         return SFW;
@@ -106,7 +113,6 @@ public class ModifierStringsSet implements HasTextID, HasOriginAndSFWVersion<Mod
     public ModifierStrings getOriginVersion() {
         return Origin;
     }
-
 
     @Override
     public Class<ModifierStrings> getSubClass() {
@@ -123,14 +129,6 @@ public class ModifierStringsSet implements HasTextID, HasOriginAndSFWVersion<Mod
             this.SFW.BASIC_INFO = WordReplace.replaceWord(this.Origin.BASIC_INFO, replaceRules);
         if (StringSetUtility.isNullOrEmpty(this.SFW.EXTENDED_DESCRIPTION))
             this.SFW.EXTENDED_DESCRIPTION = WordReplace.replaceWord(this.Origin.EXTENDED_DESCRIPTION, replaceRules);
-    }
-
-    public Keyword ToKeyWord() {
-        Keyword keyword = new Keyword();
-        keyword.PROPER_NAME = this.getBasicInfo();
-        keyword.NAMES = new String[]{this.getNAME(), this.getBasicInfo_Pure()};
-        keyword.DESCRIPTION = this.getDESCRIPTION();
-        return keyword;
     }
 
     @Override

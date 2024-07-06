@@ -59,19 +59,11 @@ public abstract class RenderOnThing {
         return amountChunkWithUuid.containsKey(uuid_chunk);
     }
 
-    protected int getMaxBarAmount() {
-        return amountChunkWithUuid.values().stream().mapToInt(chunk -> chunk.maxAmount).max().orElse(10);
-    }
-
     public void render(SpriteBatch sb) {
         renderBarTextWithColorAlphaChange(sb, getXDrawStart(), getYDrawStart());
         if (Settings.isDebug || Settings.isInfo) {
             renderDebug(sb);
         }
-    }
-
-    protected void renderDebug(SpriteBatch sb) {
-        this.hitbox.render(sb);
     }
 
     public void update() {
@@ -84,9 +76,35 @@ public abstract class RenderOnThing {
         updateHbHoverFade();
     }
 
-    protected final ArrayList<PowerTip> AllTips() {
-        return this.amountChunkWithUuid.values().stream().filter(amountChunk -> amountChunk.tip != null)
-                .map(amountChunk -> amountChunk.tip).collect(Collectors.toCollection(ArrayList::new));
+    public void renderTip(ArrayList<PowerTip> tips) {
+        renderTipsWithMouse(tips);
+    }
+
+    /**
+     * 在初始化后，如果想要修改，请使用这个函数
+     *
+     * @param message 消息
+     */
+    public void tryApplyMessage(BarRenderUpdateMessage message) {
+        if (!Objects.equals(this.uuid_self, message.uuidOfBar)) return;
+        if (!amountChunkWithUuid.containsKey(message.uuidOfPower)) {
+            addNewAmountChunk(message);
+            return;
+        }
+
+        AmountChunk messageTargetChunk = amountChunkWithUuid.get(message.uuidOfPower);
+        this.rawBarText = message.rawTextOnBar;
+        messageTargetChunk.applyNoPositionMessage(message);
+        if (message.detail != null)
+            message.detail.accept(this);
+    }
+
+    protected int getMaxBarAmount() {
+        return amountChunkWithUuid.values().stream().mapToInt(chunk -> chunk.maxAmount).max().orElse(10);
+    }
+
+    protected void renderDebug(SpriteBatch sb) {
+        this.hitbox.render(sb);
     }
 
     protected void update_showTips(Hitbox hitbox) {
@@ -94,10 +112,6 @@ public abstract class RenderOnThing {
             renderTip(AllTips());
         }
         this.fontScale = MathHelper.scaleLerpSnap(this.fontScale, 0.7F);
-    }
-
-    public void renderTip(ArrayList<PowerTip> tips) {
-        renderTipsWithMouse(tips);
     }
 
     protected abstract float getYDrawStart();
@@ -124,16 +138,6 @@ public abstract class RenderOnThing {
                 this.barTextColor);
     }
 
-    protected final String makeBarText() {
-        boolean hasTwoDs = rawBarText.contains("%d") && rawBarText.indexOf("%d") != rawBarText.lastIndexOf("%d");
-        boolean hasD = rawBarText.contains("%d");
-        if (hasTwoDs)
-            return String.format(rawBarText, this.getTotalAmount(), this.getMaxBarAmount());
-        if (hasD)
-            return String.format(rawBarText, this.getTotalAmount());
-        return rawBarText;
-    }
-
     protected void updateHbHoverFade() {
         if (this.hitbox.hovered) {
             this.healthHideTimer -= Gdx.graphics.getDeltaTime() * HIDE_SPEED;
@@ -148,28 +152,36 @@ public abstract class RenderOnThing {
         }
     }
 
-    /**
-     * 在初始化后，如果想要修改，请使用这个函数
-     *
-     * @param message 消息
-     */
-    public void tryApplyMessage(BarRenderUpdateMessage message) {
-        if (!Objects.equals(this.uuid_self, message.uuidOfBar)) return;
-        if (!amountChunkWithUuid.containsKey(message.uuidOfPower)) {
-            addNewAmountChunk(message);
-            return;
-        }
+    protected void reMakeSortedChunkList() {
+        List<AmountChunk> orderedList = new ArrayList<>();
+        amountChunkWithUuid.values().stream().sorted(AmountChunk::compareTo).forEachOrdered(orderedList::add);
+        this.sortedChunkList = orderedList;
+    }
 
-        AmountChunk messageTargetChunk = amountChunkWithUuid.get(message.uuidOfPower);
-        this.rawBarText = message.rawTextOnBar;
-        messageTargetChunk.applyNoPositionMessage(message);
-        if (message.detail != null)
-            message.detail.accept(this);
+    protected abstract AmountChunk makeNewAmountChunk(BarRenderUpdateMessage message);
+
+    protected int getNextOrder() {
+        return amountChunkWithUuid.values().stream().mapToInt(value -> value.order).max().orElse(-1) + 1;
     }
 
     private void addNewAmountChunk(BarRenderUpdateMessage message) {
         this.amountChunkWithUuid.put(message.uuidOfPower,
                 makeNewAmountChunk(message).applyNoPositionMessage(message));
+    }
+
+    protected final ArrayList<PowerTip> AllTips() {
+        return this.amountChunkWithUuid.values().stream().filter(amountChunk -> amountChunk.tip != null)
+                .map(amountChunk -> amountChunk.tip).collect(Collectors.toCollection(ArrayList::new));
+    }
+
+    protected final String makeBarText() {
+        boolean hasTwoDs = rawBarText.contains("%d") && rawBarText.indexOf("%d") != rawBarText.lastIndexOf("%d");
+        boolean hasD = rawBarText.contains("%d");
+        if (hasTwoDs)
+            return String.format(rawBarText, this.getTotalAmount(), this.getMaxBarAmount());
+        if (hasD)
+            return String.format(rawBarText, this.getTotalAmount());
+        return rawBarText;
     }
 
     protected final int getTotalAmount_InFrontOf(int sumToIndex_InFrontOf) {
@@ -187,20 +199,8 @@ public abstract class RenderOnThing {
         return sortedChunkList.subList(0, index);
     }
 
-    protected void reMakeSortedChunkList() {
-        List<AmountChunk> orderedList = new ArrayList<>();
-        amountChunkWithUuid.values().stream().sorted(AmountChunk::compareTo).forEachOrdered(orderedList::add);
-        this.sortedChunkList = orderedList;
-    }
-
     protected final int getTotalAmount() {
         return amountChunkWithUuid.values().stream().mapToInt(value -> value.nowAmount).sum();
-    }
-
-    protected abstract AmountChunk makeNewAmountChunk(BarRenderUpdateMessage message);
-
-    protected int getNextOrder() {
-        return amountChunkWithUuid.values().stream().mapToInt(value -> value.order).max().orElse(-1) + 1;
     }
 
     protected abstract static class AmountChunk implements Comparable<AmountChunk> {
@@ -243,14 +243,13 @@ public abstract class RenderOnThing {
 //                this.tip = new PowerTip(message.toolTip.name, message.toolTip.description);
 //            return this;
 
+        public int getOrder() {
+            return this.order;
+        }
 
         @Override
         public int compareTo(AmountChunk other) {
             return Integer.compare(this.order, other.order);
-        }
-
-        public int getOrder() {
-            return this.order;
         }
     }
 

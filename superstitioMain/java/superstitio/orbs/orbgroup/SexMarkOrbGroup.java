@@ -54,9 +54,40 @@ public class SexMarkOrbGroup extends OrbGroup {
         this.scoreRate = scoreRate;
     }
 
-    @Override
-    protected Vector2 makeSlotPlace(int slotIndex) {
-        return makeSlotPlaceHeart(this.hitbox.width, slotIndex);
+    public void evokeOrb(SexMarkOrb exampleSexMarkOrb) {
+        for (int i = 0; i < orbs.size(); i++) {
+            AbstractOrb orb = orbs.get(i);
+            if (!(orb instanceof SexMarkOrb)) continue;
+            SexMarkOrb markOrb = (SexMarkOrb) orb;
+            if (!Objects.equals(markOrb.sexMarkName, exampleSexMarkOrb.sexMarkName)) continue;
+            evokeOrbAndNotFill(i);
+        }
+    }
+
+    private int ScoreTheGangBang() {
+        return orbs.stream().filter(orb -> orb instanceof SexMarkOrb).map(orb -> ((SexMarkOrb) orb).sexMarkName).collect(Collectors.toSet()).size();
+    }
+
+    private int MapIndex(final int index) {
+        final int countTotal = this.GetMaxOrbs();
+        if (countTotal % 2 == 1) {
+            return MapIndexTool(index, countTotal);
+        } else {
+            int plusOneResult = MapIndexTool(index, countTotal + 1);
+            if (plusOneResult == countTotal) return 0;
+            else return plusOneResult;
+        }
+    }
+
+    private int MapIndexTool(final int index, final int countTotal) {
+        int mid = (countTotal - 1) / 2;
+        if (index % 2 == 1) {
+            if (fillSide) return mid + (index + 1) / 2;
+            return mid - (index + 1) / 2;
+        } else {
+            if (fillSide) return mid - index / 2;
+            return mid + index / 2;
+        }
     }
 
     protected final Vector2 makeSlotPlaceHeart(final float scale, final int slotIndex) {
@@ -89,14 +120,22 @@ public class SexMarkOrbGroup extends OrbGroup {
         return vector2;
     }
 
-    public void evokeOrb(SexMarkOrb exampleSexMarkOrb) {
-        for (int i = 0; i < orbs.size(); i++) {
-            AbstractOrb orb = orbs.get(i);
-            if (!(orb instanceof SexMarkOrb)) continue;
-            SexMarkOrb markOrb = (SexMarkOrb) orb;
-            if (!Objects.equals(markOrb.sexMarkName, exampleSexMarkOrb.sexMarkName)) continue;
-            evokeOrbAndNotFill(i);
+    @Override
+    public int findFirstEmptyOrb() {
+        int index = -1;
+        for (int i = 0; i < orbs.size(); ++i) {
+            AbstractOrb o = orbs.get(MapIndex(i));
+            if (isEmptySlot(o)) {
+                index = MapIndex(i);
+                break;
+            }
         }
+        return index;
+    }
+
+    @Override
+    protected Vector2 makeSlotPlace(int slotIndex) {
+        return makeSlotPlaceHeart(this.hitbox.width, slotIndex);
     }
 
     @Override
@@ -122,45 +161,6 @@ public class SexMarkOrbGroup extends OrbGroup {
                 this.evokeOrbAndNotFill(i);
             }
         });
-    }
-
-    private int ScoreTheGangBang() {
-        return orbs.stream().filter(orb -> orb instanceof SexMarkOrb).map(orb -> ((SexMarkOrb) orb).sexMarkName).collect(Collectors.toSet()).size();
-    }
-
-    @Override
-    public int findFirstEmptyOrb() {
-        int index = -1;
-        for (int i = 0; i < orbs.size(); ++i) {
-            AbstractOrb o = orbs.get(MapIndex(i));
-            if (isEmptySlot(o)) {
-                index = MapIndex(i);
-                break;
-            }
-        }
-        return index;
-    }
-
-    private int MapIndex(final int index) {
-        final int countTotal = this.GetMaxOrbs();
-        if (countTotal % 2 == 1) {
-            return MapIndexTool(index, countTotal);
-        } else {
-            int plusOneResult = MapIndexTool(index, countTotal + 1);
-            if (plusOneResult == countTotal) return 0;
-            else return plusOneResult;
-        }
-    }
-
-    private int MapIndexTool(final int index, final int countTotal) {
-        int mid = (countTotal - 1) / 2;
-        if (index % 2 == 1) {
-            if (fillSide) return mid + (index + 1) / 2;
-            return mid - (index + 1) / 2;
-        } else {
-            if (fillSide) return mid - index / 2;
-            return mid + index / 2;
-        }
     }
 
     @Override

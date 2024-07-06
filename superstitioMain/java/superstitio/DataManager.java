@@ -14,7 +14,6 @@ import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.core.Settings;
 import com.megacrit.cardcrawl.helpers.CardLibrary;
 import superstitio.cards.CardOwnerPlayerManager;
-import superstitio.powers.sexualHeatNeedModifier.ChokeChokerPower;
 import superstitio.cards.general.SkillCard.gainEnergy.TimeStop;
 import superstitio.cards.lupa.LupaCard;
 import superstitio.cards.lupa.SkillCard.block.Philter;
@@ -35,6 +34,7 @@ import superstitio.powers.lupaOnly.BeerCupSemen;
 import superstitio.powers.lupaOnly.FloorSemen;
 import superstitio.powers.lupaOnly.InsideSemen;
 import superstitio.powers.lupaOnly.OutsideSemen;
+import superstitio.powers.sexualHeatNeedModifier.ChokeChokerPower;
 import superstitioapi.DataUtility;
 
 import java.io.File;
@@ -69,36 +69,8 @@ public class DataManager {
         consumer.accept(uiStrings);
     }
 
-    static String makeLocalizationPath(Settings.GameLanguage language, String filename) {
-        String ret = "localization/";
-        switch (language) {
-            case ZHS:
-                ret = ret + "zhs/";
-                break;
-            default:
-                ret = ret + "zhs/";
-                break;
-        }
-
-        return getResourcesFilesPath() + ret + filename + ".json";
-    }
-
     public static String getModID() {
         return SuperstitioModSetup.MOD_NAME + "Mod";
-    }
-
-    private static String getResourcesFilesPath() {
-        return getModID() + "Resources/";
-    }
-
-    private static String getImgFolderPath(String path) {
-        String allLevelPath = getResourcesFilesPath() + "img" + path;
-        String sfwLevelPath = getResourcesFilesPath() + "imgSFW" + path;
-
-        if (!SuperstitioConfig.isEnableSFW()) {
-            return allLevelPath;
-        } else
-            return sfwLevelPath;
     }
 
     public static String makeImgFilesPath(String fileName, String... folderPaths) {
@@ -194,6 +166,89 @@ public class DataManager {
         }, defaultFileName, PathFinder, fileName, subFolder);
     }
 
+    public static <T> T makeJsonStringFromFile(String fileName, Class<T> objectClass) {
+        Gson gson = new Gson();
+        String json = Gdx.files.internal(DataManager.makeLocalizationPath(Settings.language, fileName))
+                .readString(String.valueOf(StandardCharsets.UTF_8));
+        return gson.fromJson(json, objectClass);
+    }
+
+    public static void replaceStringsInObj(Object obj, WordReplace wordReplace) {
+        for (Field field : obj.getClass().getDeclaredFields()) {
+            field.setAccessible(true);
+            try {
+                if (field.get(obj) instanceof String) {
+                    String value = (String) field.get(obj);
+                    if (value == null || !value.contains(wordReplace.WordOrigin))
+                        continue;
+                    value = value.replace(wordReplace.WordOrigin, wordReplace.WordReplace);
+                    field.set(obj, value);
+
+                } else if (field.get(obj) instanceof String[]) {
+                    String[] values = (String[]) field.get(obj);
+                    if (values == null || values.length == 0)
+                        continue;
+                    String[] list = new String[values.length];
+                    for (int i = 0, valuesLength = values.length; i < valuesLength; i++) {
+                        String string = values[i];
+                        if (string != null && string.contains(wordReplace.WordOrigin)) {
+                            string = string.replace(wordReplace.WordOrigin, wordReplace.WordReplace);
+                        }
+                        String apply = string;
+                        list[i] = apply;
+                    }
+
+                    field.set(obj, list);
+                }
+            } catch (IllegalAccessException e) {
+                Logger.error(e);
+            }
+        }
+    }
+
+    public static <T extends HasDifferentVersionStringSet<?>> void loadCustomStringsFile(String fileName, Map<String, T> target, Class<T> tSetClass) {
+        superstitioapi.Logger.debug("loadJsonStrings: " + tSetClass.getTypeName());
+        String jsonString = Gdx.files.internal(makeLocalizationPath(Settings.language, fileName))
+                .readString(String.valueOf(StandardCharsets.UTF_8));
+        ParameterizedType typeToken =
+                GetTypeOfMapByAComplexFunctionBecauseTheMotherfuckerGenericProgrammingWayTheFuckingJavaUse(tSetClass).orElse(null);
+        Gson gson = new Gson();
+        Map<String, T> map = gson.fromJson(jsonString, typeToken);
+        map.forEach((id, strings) -> {
+            strings.initial();
+            if (strings instanceof HasTextID)
+                ((HasTextID) strings).setTextID(id);
+        });
+        target.putAll(map);
+    }
+
+    static String makeLocalizationPath(Settings.GameLanguage language, String filename) {
+        String ret = "localization/";
+        switch (language) {
+            case ZHS:
+                ret = ret + "zhs/";
+                break;
+            default:
+                ret = ret + "zhs/";
+                break;
+        }
+
+        return getResourcesFilesPath() + ret + filename + ".json";
+    }
+
+    private static String getResourcesFilesPath() {
+        return getModID() + "Resources/";
+    }
+
+    private static String getImgFolderPath(String path) {
+        String allLevelPath = getResourcesFilesPath() + "img" + path;
+        String sfwLevelPath = getResourcesFilesPath() + "imgSFW" + path;
+
+        if (!SuperstitioConfig.isEnableSFW()) {
+            return allLevelPath;
+        } else
+            return sfwLevelPath;
+    }
 
     //生成所有的需要绘制的图片，方便检查
     private static void makeNeedDrawPicture(String defaultFileName, BiFunction<String, String[], String> PathFinder, String fileName,
@@ -248,6 +303,28 @@ public class DataManager {
         return false;
     }
 
+//    public static <T> Optional<String> getTypeMapFromLocalizedStrings(Class<T> tClass) {
+//        Logger.run("initializeTypeMaps");
+//        for (Field f : LocalizedStrings.class.getDeclaredFields()) {
+//            Type type = f.getGenericType();
+//            if (type instanceof ParameterizedType) {
+//                ParameterizedType pType = (ParameterizedType) type;
+//                Type[] typeArgs = pType.getActualTypeArguments();
+//                if (typeArgs.length == 2 && typeArgs[0] == String.class && typeArgs[1] == tClass)
+//                    return Optional.of(f.getName());
+//            }
+//        }
+//        return Optional.empty();
+//    }
+//
+//    public static void setJsonStrings(Class<?> tClass, Map<String, Object> GivenMap) {
+//        String mapName = getTypeMapFromLocalizedStrings(tClass).orElse("");
+//        if (mapName.isEmpty()) return;
+//        Map<String, Object> localizationStrings = ReflectionHacks.getPrivateStatic(LocalizedStrings.class, mapName);
+//        localizationStrings.putAll(GivenMap);
+//        ReflectionHacks.setPrivateStaticFinal(LocalizedStrings.class, mapName, localizationStrings);
+//    }
+
     private static boolean noNeedDrawPower84(String fileName) {
         String checkName = fileName.replace("84", "");
         if (checkName.equals(DataUtility.getIdOnly(Philter.SexPlateArmorPower.POWER_ID)))
@@ -275,84 +352,6 @@ public class DataManager {
         if (checkName.equals(DataUtility.getIdOnly(BeerCupSemen.POWER_ID)))
             return true;
         return false;
-    }
-
-    public static <T> T makeJsonStringFromFile(String fileName, Class<T> objectClass) {
-        Gson gson = new Gson();
-        String json = Gdx.files.internal(DataManager.makeLocalizationPath(Settings.language, fileName))
-                .readString(String.valueOf(StandardCharsets.UTF_8));
-        return gson.fromJson(json, objectClass);
-    }
-
-    public static void replaceStringsInObj(Object obj, WordReplace wordReplace) {
-        for (Field field : obj.getClass().getDeclaredFields()) {
-            field.setAccessible(true);
-            try {
-                if (field.get(obj) instanceof String) {
-                    String value = (String) field.get(obj);
-                    if (value == null || !value.contains(wordReplace.WordOrigin))
-                        continue;
-                    value = value.replace(wordReplace.WordOrigin, wordReplace.WordReplace);
-                    field.set(obj, value);
-
-                } else if (field.get(obj) instanceof String[]) {
-                    String[] values = (String[]) field.get(obj);
-                    if (values == null || values.length == 0)
-                        continue;
-                    String[] list = new String[values.length];
-                    for (int i = 0, valuesLength = values.length; i < valuesLength; i++) {
-                        String string = values[i];
-                        if (string != null && string.contains(wordReplace.WordOrigin)) {
-                            string = string.replace(wordReplace.WordOrigin, wordReplace.WordReplace);
-                        }
-                        String apply = string;
-                        list[i] = apply;
-                    }
-
-                    field.set(obj, list);
-                }
-            } catch (IllegalAccessException e) {
-                Logger.error(e);
-            }
-        }
-    }
-
-//    public static <T> Optional<String> getTypeMapFromLocalizedStrings(Class<T> tClass) {
-//        Logger.run("initializeTypeMaps");
-//        for (Field f : LocalizedStrings.class.getDeclaredFields()) {
-//            Type type = f.getGenericType();
-//            if (type instanceof ParameterizedType) {
-//                ParameterizedType pType = (ParameterizedType) type;
-//                Type[] typeArgs = pType.getActualTypeArguments();
-//                if (typeArgs.length == 2 && typeArgs[0] == String.class && typeArgs[1] == tClass)
-//                    return Optional.of(f.getName());
-//            }
-//        }
-//        return Optional.empty();
-//    }
-//
-//    public static void setJsonStrings(Class<?> tClass, Map<String, Object> GivenMap) {
-//        String mapName = getTypeMapFromLocalizedStrings(tClass).orElse("");
-//        if (mapName.isEmpty()) return;
-//        Map<String, Object> localizationStrings = ReflectionHacks.getPrivateStatic(LocalizedStrings.class, mapName);
-//        localizationStrings.putAll(GivenMap);
-//        ReflectionHacks.setPrivateStaticFinal(LocalizedStrings.class, mapName, localizationStrings);
-//    }
-
-    public static <T extends HasDifferentVersionStringSet<?>> void loadCustomStringsFile(String fileName, Map<String, T> target, Class<T> tSetClass) {
-        superstitioapi.Logger.debug("loadJsonStrings: " + tSetClass.getTypeName());
-        String jsonString = Gdx.files.internal(makeLocalizationPath(Settings.language, fileName))
-                .readString(String.valueOf(StandardCharsets.UTF_8));
-        ParameterizedType typeToken =
-                GetTypeOfMapByAComplexFunctionBecauseTheMotherfuckerGenericProgrammingWayTheFuckingJavaUse(tSetClass).orElse(null);
-        Gson gson = new Gson();
-        Map<String, T> map = gson.fromJson(jsonString, typeToken);
-        map.forEach((id, strings) -> {
-            strings.initial();
-            if (strings instanceof HasTextID)
-                ((HasTextID) strings).setTextID(id);
-        });
-        target.putAll(map);
     }
 
     private static <T> Optional<ParameterizedType> GetTypeOfMapByAComplexFunctionBecauseTheMotherfuckerGenericProgrammingWayTheFuckingJavaUse(

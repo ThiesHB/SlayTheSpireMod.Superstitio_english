@@ -30,6 +30,10 @@ public class LoveDirty extends MasoCard {
         CardModifierManager.addModifier(this, new ExhaustMod());
     }
 
+    private void Trigger() {
+        addToBot_gainBlock();
+    }
+
     @Override
     public void use(AbstractPlayer player, AbstractMonster monster) {
     }
@@ -42,10 +46,6 @@ public class LoveDirty extends MasoCard {
     @Override
     public void triggerOnExhaust() {
         Trigger();
-    }
-
-    private void Trigger() {
-        addToBot_gainBlock();
     }
 
     @Override

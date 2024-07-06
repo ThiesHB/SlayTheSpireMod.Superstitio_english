@@ -31,15 +31,6 @@ public class ReadyToSex extends GeneralCard {
         this.setupMagicNumber(MAGIC, UPGRADE_MAGIC);
     }
 
-    @Override
-    public void use(AbstractPlayer player, AbstractMonster monster) {
-        addToBot(new ChoseCardFromHandCardSelectScreen(
-                this::HangUpSpecificCard)
-                .setWindowText(String.format(getEXTENDED_DESCRIPTION()[0], CHOSE_CARD))
-                .setChoiceAmount(CHOSE_CARD)
-        );
-    }
-
     private void HangUpSpecificCard(AbstractCard card) {
         AbstractCard copyCard = card.makeStatEquivalentCopy();
         copyCard.exhaust = true;
@@ -54,6 +45,15 @@ public class ReadyToSex extends GeneralCard {
                     .setTriggerDiscardIfMoveToDiscard()
                     .addToBot_HangCard();
         });
+    }
+
+    @Override
+    public void use(AbstractPlayer player, AbstractMonster monster) {
+        addToBot(new ChoseCardFromHandCardSelectScreen(
+                this::HangUpSpecificCard)
+                .setWindowText(String.format(getEXTENDED_DESCRIPTION()[0], CHOSE_CARD))
+                .setChoiceAmount(CHOSE_CARD)
+        );
     }
 
     @Override

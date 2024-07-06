@@ -35,10 +35,6 @@ public class BarRenderManager implements RenderInBattle, OnPowersModifiedSubscri
         return getAllPowers().stream().filter(power -> power instanceof HasBarRenderOnCreature).map(power -> (HasBarRenderOnCreature) power);
     }
 
-    private ArrayList<AbstractPower> getAllPowers() {
-        return CreatureUtility.getListMemberFromPlayerAndEachMonsters(creature -> creature.powers);
-    }
-
     public Optional<RenderOnThing> findMatch_powerPointToBar(HasBarRenderOnCreature power) {
         return bars.stream().filter(bar -> Objects.equals(bar.uuid_self, power.uuidPointTo())).findAny();
     }
@@ -65,6 +61,9 @@ public class BarRenderManager implements RenderInBattle, OnPowersModifiedSubscri
         findPowers().forEach(power -> bars.forEach(barRenderOnCreature -> barRenderOnCreature.tryApplyMessage(power.makeMessage())));
     }
 
+    private ArrayList<AbstractPower> getAllPowers() {
+        return CreatureUtility.getListMemberFromPlayerAndEachMonsters(creature -> creature.powers);
+    }
 
     @Override
     public void render(SpriteBatch sb) {

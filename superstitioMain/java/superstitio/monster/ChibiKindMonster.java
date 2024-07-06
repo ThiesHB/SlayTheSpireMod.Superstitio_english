@@ -66,29 +66,25 @@ public class ChibiKindMonster extends CustomMonster {
         this.refreshIntentHbLocation();
     }
 
-    @Override
-    public void takeTurn() {
-        this.flashIntent();
-        switch (this.intent) {
-            case ATTACK:
-//                addToBotAbstract(() -> {
-//                if (!playStrike())
-//                    playDefend();
-//                });
-                playStrike();
+    @SpireOverride
+    protected void updateIntentTip() {
+        PowerTip intentTip = ReflectionHacks.getPrivate(this, AbstractMonster.class, "intentTip");
+        switch (this.nextMove) {
+            case 1:
+                intentTip.header = DIALOG[0];
+                intentTip.body = DIALOG[1];
+                intentTip.img = ImageMaster.INTENT_ATK_TIP_1;
                 break;
-            case DEFEND:
-                playDefend();
-//                addToBotAbstract(() -> {
-//                if (!playDefend())
-//                    playStrike();
-//                });
+            case 2:
+                intentTip.header = DIALOG[2];
+                intentTip.body = DIALOG[3];
+                intentTip.img = ImageMaster.INTENT_DEFEND;
                 break;
+            default:
+                intentTip.header = "NOT SET";
+                intentTip.body = "NOT SET";
+                intentTip.img = ImageMaster.INTENT_UNKNOWN;
         }
-        addToBot(new RollMoveAction(this));
-//        addToBotAbstract(() ->
-        addToBotAbstract(willPlayCards::clear, 2);
-//        );
     }
 
     private boolean playStrike() {
@@ -116,29 +112,33 @@ public class ChibiKindMonster extends CustomMonster {
     }
 
     @Override
-    public void update() {
-        super.update();
+    public void takeTurn() {
+        this.flashIntent();
+        switch (this.intent) {
+            case ATTACK:
+//                addToBotAbstract(() -> {
+//                if (!playStrike())
+//                    playDefend();
+//                });
+                playStrike();
+                break;
+            case DEFEND:
+                playDefend();
+//                addToBotAbstract(() -> {
+//                if (!playDefend())
+//                    playStrike();
+//                });
+                break;
+        }
+        addToBot(new RollMoveAction(this));
+//        addToBotAbstract(() ->
+        addToBotAbstract(willPlayCards::clear, 2);
+//        );
     }
 
-    @SpireOverride
-    protected void updateIntentTip() {
-        PowerTip intentTip = ReflectionHacks.getPrivate(this, AbstractMonster.class, "intentTip");
-        switch (this.nextMove) {
-            case 1:
-                intentTip.header = DIALOG[0];
-                intentTip.body = DIALOG[1];
-                intentTip.img = ImageMaster.INTENT_ATK_TIP_1;
-                break;
-            case 2:
-                intentTip.header = DIALOG[2];
-                intentTip.body = DIALOG[3];
-                intentTip.img = ImageMaster.INTENT_DEFEND;
-                break;
-            default:
-                intentTip.header = "NOT SET";
-                intentTip.body = "NOT SET";
-                intentTip.img = ImageMaster.INTENT_UNKNOWN;
-        }
+    @Override
+    public void update() {
+        super.update();
     }
 
     @Override

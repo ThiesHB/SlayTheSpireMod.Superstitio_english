@@ -19,6 +19,10 @@ public class AllCardCostModifier_PerCard extends AllCardCostModifier {
         amount = useTimes;
     }
 
+    public boolean isCostDecreased(AbstractCard card) {
+        return InBattleDataManager.costMap.containsKey(card.uuid) && getOriginCost(card) < card.costForTurn && !card.freeToPlay();
+    }
+
     @Override
     public void updateDescriptionArgs() {
         setDescriptionArgs(decreasedCost, amount, (!isActive() ? powerStrings.DESCRIPTIONS[1] : ""));
@@ -28,7 +32,6 @@ public class AllCardCostModifier_PerCard extends AllCardCostModifier {
     public String getDescriptionStrings() {
         return powerStrings.DESCRIPTIONS[0];
     }
-
 
     @Override
     public void onPlayCard(AbstractCard card, AbstractMonster m) {
@@ -41,9 +44,5 @@ public class AllCardCostModifier_PerCard extends AllCardCostModifier {
             if (amount == 0)
                 removeSelf();
         });
-    }
-
-    public boolean isCostDecreased(AbstractCard card) {
-        return InBattleDataManager.costMap.containsKey(card.uuid) && getOriginCost(card) < card.costForTurn && !card.freeToPlay();
     }
 }

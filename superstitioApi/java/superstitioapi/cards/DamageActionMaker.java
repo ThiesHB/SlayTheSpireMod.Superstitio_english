@@ -1,163 +1,120 @@
 package superstitioapi.cards;
 
 import com.evacipated.cardcrawl.mod.stslib.damagemods.AbstractDamageModifier;
-import com.evacipated.cardcrawl.mod.stslib.damagemods.BindingHelper;
-import com.evacipated.cardcrawl.mod.stslib.damagemods.DamageModContainer;
 import com.evacipated.cardcrawl.mod.stslib.damagemods.DamageModifierManager;
 import com.evacipated.cardcrawl.modthespire.lib.SpireEnum;
-import com.megacrit.cardcrawl.actions.common.DamageAction;
 import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.cards.DamageInfo;
 import com.megacrit.cardcrawl.core.AbstractCreature;
-import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
-import com.megacrit.cardcrawl.monsters.exordium.ApologySlime;
-import superstitioapi.Logger;
-import superstitioapi.actions.AutoDoneInstantAction;
+import superstitioapi.actions.AbstractContinuallyAction;
+import superstitioapi.actions.DamageAllEnemiesAction;
+import superstitioapi.actions.DamageEnemiesAction;
 import superstitioapi.shader.heart.HeartMultiAtOneShader;
-import superstitioapi.utils.CreatureUtility;
 
 import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
 import java.util.stream.Collectors;
 
 import static com.megacrit.cardcrawl.actions.AbstractGameAction.AttackEffect;
 
 public class DamageActionMaker {
-    private final AbstractCreature[] _targets;
-    private final AbstractCreature source;
-    private final int damageAmount;
-    private int[] damages;
-    private boolean aoeDamage;
-    private DamageInfo.DamageType damageType = DamageInfo.DamageType.NORMAL;
+    private final DamageEnemiesAction.Builder builder;
     private AttackEffect effect = DamageActionMaker.DamageEffect.HeartMultiInOne;
-    private boolean superFast = false;
-    private Object instigator;
-    private List<AbstractDamageModifier> damageModifiers = null;
 
-    public DamageActionMaker(int damageAmount, final AbstractCreature... targets) {
-        this(AbstractDungeon.player, damageAmount, targets);
+    /**
+     * 产生一个AOE伤害
+     */
+    protected DamageActionMaker(final int[] multiDamage) {
+        this.builder = DamageAllEnemiesAction.builder(multiDamage);
     }
 
-    public DamageActionMaker(final AbstractCreature source, int damageAmount, final AbstractCreature... targets) {
-        this._targets = targets;
-        this.damageAmount = damageAmount;
-        this.source = source;
+    protected DamageActionMaker(final int[] multiDamage, final AbstractMonster... targets) {
+        this.builder = DamageEnemiesAction.builder(multiDamage, Arrays.stream(targets).collect(Collectors.toList()));
     }
 
-    public static DamageActionMaker maker(final AbstractCreature source, int damageAmount, final AbstractCreature... targets) {
-        return new DamageActionMaker(source, damageAmount, targets);
+    protected DamageActionMaker(final int damageAmount, final AbstractCreature target) {
+        this.builder = DamageEnemiesAction.builder(damageAmount, target);
     }
 
-    public static DamageActionMaker maker(int damageAmount, final AbstractCreature targets) {
-        return new DamageActionMaker(damageAmount, targets);
+    //    public static NewDamageActionMaker maker(final AbstractCreature source, int damageAmount, final AbstractCreature target) {
+//        return new NewDamageActionMaker(damageAmount, target).setSource(source);
+//    }
+    public static DamageActionMaker maker(final int damageAmount, final AbstractCreature target) {
+        return new DamageActionMaker(damageAmount, target);
     }
 
-    public static DamageActionMaker maker(int damageAmount, final AbstractCreature[] targets) {
-        return new DamageActionMaker(damageAmount, targets);
+    //    public static NewDamageActionMaker maker(final int[] multiDamage, final AbstractMonster... targets) {
+//        return new NewDamageActionMaker(multiDamage, targets);
+//    }
+    public static DamageActionMaker makeDamages(final AbstractCard exampleCard, final AbstractMonster... targets) {
+        return new DamageActionMaker(exampleCard.multiDamage, targets);
     }
 
-    public static DamageActionMaker makeAnAoeAction(int damageAmount) {
-        return new DamageActionMaker(damageAmount, CreatureUtility.getAllAliveMonsters());
+//    public static NewDamageActionMaker maker(int damageAmount, final AbstractCreature[] targets) {
+//        return new NewDamageActionMaker(damageAmount, targets);
+//    }
+
+    public static DamageActionMaker makeAoeDamage(final AbstractCard exampleCard) {
+        return new DamageActionMaker(exampleCard.multiDamage);
     }
 
-    public static DamageActionMaker makeAnAoeAction(final AbstractCreature source, int damageAmount) {
-        return new DamageActionMaker(source, damageAmount, CreatureUtility.getAllAliveMonsters());
+//    public static NewDamageActionMaker makeAnAoeAction(final AbstractCreature source, int[] multiDamage) {
+//        return new NewDamageActionMaker(source, multiDamage);
+//    }
+
+    public AbstractContinuallyAction createAction() {
+        if (effect == DamageActionMaker.DamageEffect.HeartMultiInOne)
+            this.builder.setNewAttackEffectMaker(creature -> new HeartMultiAtOneShader.HeartMultiAtOneEffect(creature.hb));
+        return this.builder.create();
     }
 
-    public static AbstractCreature getTargetOrFirstMonster(AbstractCreature target) {
-        if (CreatureUtility.isAlive(target)) {
-            return target;
-        }
-        AbstractMonster first = CreatureUtility.getAllAliveMonsters()[0];
-        if (first != null)
-            return first;
-        return new ApologySlime();
+    public final void addToBot() {
+        this.createAction().addToBot();
     }
 
-    public static AbstractMonster getMonsterOrFirstMonster(AbstractCreature target) {
-        if (target instanceof AbstractMonster && CreatureUtility.isAlive(target)) {
-            return (AbstractMonster) target;
-        }
-        AbstractMonster first = CreatureUtility.getAllAliveMonsters()[0];
-        if (first != null)
-            return first;
-        Logger.warning("NoAliveMonsters");
-        return new ApologySlime();
+    public final void addToTop() {
+        this.createAction().addToTop();
     }
 
-    private List<AbstractCreature> getTargets() {
-        List<AbstractCreature> alive = Arrays.stream(_targets).filter(CreatureUtility::isAlive).collect(Collectors.toList());
-        if (alive.isEmpty())
-            return Collections.singletonList(CreatureUtility.getAllAliveMonsters()[0]);
-        return alive;
-    }
-
-    public void addToBot() {
-        for (AbstractCreature target : getTargets()) {
-            AbstractDungeon.actionManager.addToBottom(this.get(target));
-            if (this.effect == DamageEffect.HeartMultiInOne)
-                AutoDoneInstantAction.addToBotAbstract(() -> new HeartMultiAtOneShader.HeartMultiAtOneEffect(target.hb).addToEffectsQueue());
-        }
-    }
-
-    public void addToTop() {
-        for (AbstractCreature target : getTargets()) {
-            AbstractDungeon.actionManager.addToTop(this.get(target));
-            if (this.effect == DamageEffect.HeartMultiInOne)
-                AutoDoneInstantAction.addToTopAbstract(() -> new HeartMultiAtOneShader.HeartMultiAtOneEffect(target.hb).addToEffectsQueue());
-        }
-    }
-
-    public DamageActionMaker setDamageType(DamageInfo.DamageType damageType) {
-        this.damageType = damageType;
+    public final DamageActionMaker setSource(AbstractCreature source) {
+        this.builder.setSource(source);
         return this;
     }
 
-    public DamageActionMaker setEffect(AttackEffect effect) {
+    public final DamageActionMaker setDamageType(DamageInfo.DamageType damageType) {
+        this.builder.setDamageType(damageType);
+        return this;
+    }
+
+    public final DamageActionMaker setEffect(AttackEffect effect) {
         this.effect = effect;
+        this.builder.setAttackEffectType(effect);
         return this;
     }
 
-    public DamageActionMaker setExampleCard(AbstractCard card) {
-        this.instigator = card;
-        this.damageModifiers = DamageModifierManager.modifiers(card);
+    public final DamageActionMaker setExampleCard(AbstractCard card) {
+        return this.setDamageModifier(card, DamageModifierManager.modifiers(card).toArray(new AbstractDamageModifier[]{}));
+    }
+
+    public final DamageActionMaker setSkipWait(boolean skipWait) {
+        this.builder.setSkipWait(skipWait);
         return this;
     }
 
-    public DamageActionMaker setSuperFast(boolean superFast) {
-        this.superFast = superFast;
+    public final DamageActionMaker setDamageModifier(Object instigator, AbstractDamageModifier... damageModifier) {
+        if (damageModifier.length > 0)
+            this.builder.setDamageModifier(instigator, damageModifier);
         return this;
     }
 
-    public DamageActionMaker setDamageModifier(Object instigator, AbstractDamageModifier... damageModifier) {
-        this.instigator = instigator;
-        this.damageModifiers = Arrays.asList(damageModifier);
-        return this;
-    }
+//    private AbstractGameAction get(AbstractCreature target) {
+//        return builder.create();
+//    }
 
-    private DamageAction get(AbstractCreature target) {
-        AttackEffect attackEffect;
-        if (effect == DamageEffect.HeartMultiInOne)
-            attackEffect = AttackEffect.NONE;
-        else
-            attackEffect = effect;
-        if (damageModifiers != null)
-            return new DamageAction(target,
-                    BindingHelper.makeInfo(new DamageModContainer(instigator, damageModifiers), source, damageAmount, damageType),
-                    attackEffect, superFast);
-        return new DamageAction(target,
-                new DamageInfo(source, damageAmount, damageType),
-                attackEffect, superFast);
-    }
-
-//    private DamageAction get() {
+//    private DamageInfo makeDamageInfo() {
 //        if (damageModifiers != null)
-//            return new DamageAction(getTargets().get(0),
-//                    BindingHelper.makeInfo(new DamageModContainer(instigator, damageModifiers), source, damageAmount, damageType),
-//                    effect, superFast);
-//        return new DamageAction(getTargets().get(0), new DamageInfo(source, damageAmount, damageType), effect, superFast);
+//            return BindingHelper.makeInfo(new DamageModContainer(instigator, damageModifiers), source, damageAmount, damageType);
+//        else return new DamageInfo(source, damageAmount, damageType);
 //    }
 
     public static class DamageEffect {

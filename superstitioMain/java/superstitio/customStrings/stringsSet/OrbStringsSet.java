@@ -19,6 +19,14 @@ public class OrbStringsSet implements HasOriginAndSFWVersion<OrbStrings> {
     public OrbStringsSet() {
     }
 
+    public String getNAME() {
+        return getFromRightVersion(strings -> strings.NAME);
+    }
+
+    public String[] getDESCRIPTION() {
+        return getArrayFromRightVersion(strings -> strings.DESCRIPTION);
+    }
+
     @Override
     public void initialSelfBlack() {
         this.NAME = "[MISSING_NAME]";
@@ -46,14 +54,6 @@ public class OrbStringsSet implements HasOriginAndSFWVersion<OrbStrings> {
     @Override
     public Class<OrbStrings> getSubClass() {
         return OrbStrings.class;
-    }
-
-    public String getNAME() {
-        return getFromRightVersion(strings -> strings.NAME);
-    }
-
-    public String[] getDESCRIPTION() {
-        return getArrayFromRightVersion(strings -> strings.DESCRIPTION);
     }
 
     @Override

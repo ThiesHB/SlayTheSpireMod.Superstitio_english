@@ -18,6 +18,10 @@ public class CardOrb_AtStartOfTurnEachTime extends CardOrb implements ICardOrb_E
         this.action = action;
     }
 
+    protected void actionAccept() {
+        AutoDoneInstantAction.addToBotAbstract(() -> action.accept(this));
+    }
+
     @Override
     public void onStartOfTurn() {
         OrbCounter--;
@@ -30,18 +34,14 @@ public class CardOrb_AtStartOfTurnEachTime extends CardOrb implements ICardOrb_E
         return new CardOrb_AtStartOfTurnEachTime(getOriginCard(), cardGroupReturnAfterEvoke, OrbCounter, action);
     }
 
-    protected void actionAccept() {
-        AutoDoneInstantAction.addToBotAbstract(() -> action.accept(this));
-    }
-
-    @Override
-    protected void onRemoveCard() {
-    }
-
     @Override
     public void forceAcceptAction(AbstractCard card) {
         OrbCounter--;
         if (OrbCounter < 0) return;
         actionAccept();
+    }
+
+    @Override
+    protected void onRemoveCard() {
     }
 }

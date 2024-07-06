@@ -30,13 +30,13 @@ public abstract class AutoDoneInstantAction extends AbstractGameAction {
         };
     }
 
+    public abstract void autoDoneUpdate();
+
     @Override
     public final void update() {
         this.isDone = true;
         if (ActionUtility.isNotInBattle()) return;
         autoDoneUpdate();
     }
-
-    public abstract void autoDoneUpdate();
 
 }

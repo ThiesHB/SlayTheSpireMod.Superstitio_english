@@ -19,10 +19,7 @@ public abstract class AbstractSuperstitioPower extends AbstractPower implements 
     public static final String DEFAULT = "default";
     public PowerStringsSet powerStrings;
     private Object[] descriptionArgs;
-    @Override
-    public Object[] getDescriptionArgs() {
-        return descriptionArgs;
-    }
+
     public AbstractSuperstitioPower(String id, PowerStringsSet powerStrings, final AbstractCreature owner, int amount, PowerType powerType,
                                     boolean needUpdateDescription) {
         SetupPower(id, powerStrings, owner, amount, powerType, needUpdateDescription);
@@ -45,6 +42,18 @@ public abstract class AbstractSuperstitioPower extends AbstractPower implements 
 
     public static PowerStringsSet getPowerStringsWithSFW(String powerID) {
         return StringSetUtility.getCustomStringsWithSFW(powerID, DataManager.powers, PowerStringsSet.class);
+    }
+
+    public void addToBot_applyPower(final AbstractPower power) {
+        ActionUtility.addToBot_applyPower(power, this.owner);
+    }
+
+    public void addToBot_reducePowerToOwner(final String powerID, int amount) {
+        ActionUtility.addToBot_reducePower(powerID, amount, this.owner, this.owner);
+    }
+
+    public void addToBot_removeSpecificPower(AbstractPower power) {
+        ActionUtility.addToBot_removeSpecificPower(power, power.owner);
     }
 
     protected void SetupPower(String id, PowerStringsSet powerStrings, final AbstractCreature owner, int amount, PowerType powerType,
@@ -108,20 +117,21 @@ public abstract class AbstractSuperstitioPower extends AbstractPower implements 
         return size == IconSize.Big ? "84" : "32";
     }
 
-    public void addToBot_applyPower(final AbstractPower power) {
-        ActionUtility.addToBot_applyPower(power, this.owner);
-    }
-
-    public void addToBot_reducePowerToOwner(final String powerID, int amount) {
-        ActionUtility.addToBot_reducePower(powerID, amount, this.owner, this.owner);
-    }
-
 //    public void addToBot_reducePowerToOwner(final AbstractPower power) {
 //        ActionUtility.addToBot_reducePower(power, power.owner);
 //    }
 
-    public void addToBot_removeSpecificPower(AbstractPower power) {
-        ActionUtility.addToBot_removeSpecificPower(power, power.owner);
+    @Override
+    public Object[] getDescriptionArgs() {
+        return descriptionArgs;
+    }
+
+    @Override
+    public final void setDescriptionArgs(Object... args) {
+        if (args[0] instanceof Object[])
+            descriptionArgs = (Object[]) args[0];
+        else
+            descriptionArgs = args;
     }
 
     /**
@@ -133,14 +143,6 @@ public abstract class AbstractSuperstitioPower extends AbstractPower implements 
         String string = getDescriptionStrings();
         string = String.format(string, descriptionArgs);
         this.description = string;
-    }
-
-    @Override
-    public final void setDescriptionArgs(Object... args) {
-        if (args[0] instanceof Object[])
-            descriptionArgs = (Object[]) args[0];
-        else
-            descriptionArgs = args;
     }
 
     @Override

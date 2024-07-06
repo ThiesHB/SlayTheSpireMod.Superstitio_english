@@ -50,14 +50,6 @@ public class DataUtility {
         return SuperstitioApiSetup.MOD_NAME + "Mod";
     }
 
-    private static String getResourcesFilesPath() {
-        return getModID() + "Resources/";
-    }
-
-    private static String getImgFolderPath(String path) {
-        return getResourcesFilesPath() + "img" + path;
-    }
-
     public static String makeImgFilesPath(String fileName, String... folderPaths) {
         return getImgFolderPath(makeFolderTotalString(folderPaths)) + "/" + fileName + ".png";
     }
@@ -106,21 +98,6 @@ public class DataUtility {
         return makeImgFilesPath(fileName, "events", makeFolderTotalString(subFolder));
     }
 
-    private static <T> Optional<ParameterizedType> GetTypeOfMapByAComplexFunctionBecauseTheMotherfuckerGenericProgrammingWayTheFuckingJavaUse(
-            Class<T> tClass) {
-        Field[] var0 = DataUtility.class.getDeclaredFields();
-
-        for (Field f : var0) {
-            Type type = f.getGenericType();
-            if (!(type instanceof ParameterizedType)) continue;
-            ParameterizedType pType = (ParameterizedType) type;
-            Type[] typeArgs = pType.getActualTypeArguments();
-            if (typeArgs.length == 2 && typeArgs[0].equals(String.class) && typeArgs[1].equals(tClass))
-                return Optional.of($Gson$Types.newParameterizedTypeWithOwner(null, Map.class, String.class, typeArgs[1]));
-        }
-        return Optional.empty();
-    }
-
     public static String MakeTextID(String idText) {
         return getModID() + ":" + idText;
     }
@@ -162,7 +139,6 @@ public class DataUtility {
         return PathFinder.apply(defaultFileName, new String[]{""});
     }
 
-
     /**
      * 只输出后面的id，不携带模组信息
      *
@@ -185,13 +161,6 @@ public class DataUtility {
         }
         // 如果没有匹配到冒号，则返回原字符串
         return complexIds;
-    }
-
-    static <T> T makeJsonStringFromFile(String fileName, Class<T> objectClass) {
-        Gson gson = new Gson();
-        String json = Gdx.files.internal(DataUtility.makeLocalizationPath(Settings.language, fileName))
-                .readString(String.valueOf(StandardCharsets.UTF_8));
-        return gson.fromJson(json, objectClass);
     }
 
     public static <T> Optional<String> getTypeMapFromLocalizedStrings(Class<T> tClass) {
@@ -222,6 +191,36 @@ public class DataUtility {
                 .collect(Collectors.toList())
                 .contains(a.getUuid()));
         return listReturn;
+    }
+
+    static <T> T makeJsonStringFromFile(String fileName, Class<T> objectClass) {
+        Gson gson = new Gson();
+        String json = Gdx.files.internal(DataUtility.makeLocalizationPath(Settings.language, fileName))
+                .readString(String.valueOf(StandardCharsets.UTF_8));
+        return gson.fromJson(json, objectClass);
+    }
+
+    private static String getResourcesFilesPath() {
+        return getModID() + "Resources/";
+    }
+
+    private static String getImgFolderPath(String path) {
+        return getResourcesFilesPath() + "img" + path;
+    }
+
+    private static <T> Optional<ParameterizedType> GetTypeOfMapByAComplexFunctionBecauseTheMotherfuckerGenericProgrammingWayTheFuckingJavaUse(
+            Class<T> tClass) {
+        Field[] var0 = DataUtility.class.getDeclaredFields();
+
+        for (Field f : var0) {
+            Type type = f.getGenericType();
+            if (!(type instanceof ParameterizedType)) continue;
+            ParameterizedType pType = (ParameterizedType) type;
+            Type[] typeArgs = pType.getActualTypeArguments();
+            if (typeArgs.length == 2 && typeArgs[0].equals(String.class) && typeArgs[1].equals(tClass))
+                return Optional.of($Gson$Types.newParameterizedTypeWithOwner(null, Map.class, String.class, typeArgs[1]));
+        }
+        return Optional.empty();
     }
 
     public interface hasUuid {

@@ -109,36 +109,8 @@ public abstract class AllCardCostModifier extends SuperstitioApiPower implements
         });
     }
 
-    @Override
-    public void renderAmount(SpriteBatch sb, float x, float y, Color c) {
-        super.renderAmount(sb, x, y, c);
-        renderAmount2(sb, x, y, c, decreasedCost);
-    }
-
     public boolean ifIsTheMinOrder() {
         return getAll().noneMatch(power -> power.amount != 0 && power.order > this.order);
-    }
-
-    private void activateEffect() {
-        Logger.debug("add CostModifier");
-        this.setActive();
-        tryUseEffect();
-        updateDescription();
-    }
-
-    @Override
-    public void onApplyPower(AbstractPower power, AbstractCreature target, AbstractCreature source) {
-        super.onApplyPower(power, target, source);
-    }
-
-    @Override
-    public void update(int slot) {
-        super.update(slot);
-        checkTimer -= Gdx.graphics.getDeltaTime();
-        if (checkTimer <= 0.0f) {
-            tryUseEffect();
-            checkTimer = CHECK_TIME;
-        }
     }
 
     /**
@@ -159,6 +131,30 @@ public abstract class AllCardCostModifier extends SuperstitioApiPower implements
         this.amount = 0;
         this.active = false;
         addToBot_TryActivateLowestOrder();
+    }
+
+    public int getOriginCost(AbstractCard card) {
+        if (card == null)
+            return 0;
+        if (InBattleDataManager.costMap.get(card.uuid) == null)
+            return card.cost;
+        return InBattleDataManager.costMap.get(card.uuid);
+    }
+
+    public boolean isActive() {
+        return active;
+    }
+
+    protected void CostToOriginAllCards() {
+        CardUtility.AllCardInBattle().forEach(this::CostToOriginOneCard);
+        InBattleDataManager.costMap.clear();
+    }
+
+    private void activateEffect() {
+        Logger.debug("add CostModifier");
+        this.setActive();
+        tryUseEffect();
+        updateDescription();
     }
 
     /**
@@ -183,11 +179,6 @@ public abstract class AllCardCostModifier extends SuperstitioApiPower implements
         CardUtility.flashIfInHand(card);
     }
 
-    protected void CostToOriginAllCards() {
-        CardUtility.AllCardInBattle().forEach(this::CostToOriginOneCard);
-        InBattleDataManager.costMap.clear();
-    }
-
     private void CostToOriginOneCard(AbstractCard card) {
         if (card == null)
             return;
@@ -200,12 +191,29 @@ public abstract class AllCardCostModifier extends SuperstitioApiPower implements
         card.isCostModifiedForTurn = false;
     }
 
-    public int getOriginCost(AbstractCard card) {
-        if (card == null)
-            return 0;
-        if (InBattleDataManager.costMap.get(card.uuid) == null)
-            return card.cost;
-        return InBattleDataManager.costMap.get(card.uuid);
+    private void setActive() {
+        this.active = true;
+    }
+
+    @Override
+    public void renderAmount(SpriteBatch sb, float x, float y, Color c) {
+        super.renderAmount(sb, x, y, c);
+        renderAmount2(sb, x, y, c, decreasedCost);
+    }
+
+    @Override
+    public void onApplyPower(AbstractPower power, AbstractCreature target, AbstractCreature source) {
+        super.onApplyPower(power, target, source);
+    }
+
+    @Override
+    public void update(int slot) {
+        super.update(slot);
+        checkTimer -= Gdx.graphics.getDeltaTime();
+        if (checkTimer <= 0.0f) {
+            tryUseEffect();
+            checkTimer = CHECK_TIME;
+        }
     }
 
     @Override
@@ -221,13 +229,5 @@ public abstract class AllCardCostModifier extends SuperstitioApiPower implements
 //        if (TempDecreaseCost.getAllTempDecreaseCost().findAny().isPresent()
 //                || TempDecreaseCost.getAllTempDecreaseCost().noneMatch(TempDecreaseCost::isActive))
         AllCardCostModifier.addToBot_TryActivateLowestOrder();
-    }
-
-    public boolean isActive() {
-        return active;
-    }
-
-    private void setActive() {
-        this.active = true;
     }
 }

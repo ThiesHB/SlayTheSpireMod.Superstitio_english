@@ -111,94 +111,6 @@ public abstract class OrbGroup implements
         return CustomEmptyOrb.makeCopy();
     }
 
-    //设置球的位置的函数
-    protected Vector2 makeSlotPlace(final int slotIndex) {
-        Vector2 orbPlace;
-        orbPlace = makeSlotPlaceAsRound(this.hitbox.width / 2.0f, slotIndex);
-        if (GetMaxOrbs() == 1) {
-            orbPlace = makeSlotPlaceAsSingle(this.hitbox.width / 2.0f);
-        }
-        return orbPlace;
-    }
-
-    private Vector2 makeSlotPlaceAsSingle(final float height) {
-        return new Vector2(0, height + this.hitbox.height / 2.0f);
-    }
-
-    protected final Vector2 makeSlotPlaceAsSpiral(final float startRadius, int slotIndex) {
-        final float eachAddRadius = 3.0f;
-        final float distanceToOrbGroupCenter = startRadius + slotIndex * eachAddRadius * Settings.scale;//螺线
-        final float fullAngle = 100.0f + GetMaxOrbs() * 12.0f;
-        return makeSlotPlacePolar(slotIndex, distanceToOrbGroupCenter, fullAngle);
-    }
-
-    protected final Vector2 makeSlotPlaceAsRound(final float radius, int slotIndex) {
-        final float distanceToOrbGroupCenter = radius + GetMaxOrbs() * 10.0f * Settings.scale;//圆
-        final float fullAngle = 60.0f + GetMaxOrbs() * 12.0f;
-        return makeSlotPlacePolar(slotIndex, distanceToOrbGroupCenter, fullAngle);
-    }
-
-    protected final Vector2 makeSlotPlaceLine(final float totalLength, int slotIndex) {
-        final float offsetX = OffsetPercentageBySlotIndex_TwoEnd(slotIndex) * totalLength;
-        Vector2 vector2 = new Vector2();
-        vector2.x = offsetX;
-        vector2.y = this.hitbox.height / 2.0f;
-        return vector2;
-    }
-
-
-    protected final Vector2 makeSlotPlacePolar(int slotIndex, float distanceToOrbGroupCenter, float fullAngle) {
-        float slotAngle = fullAngle;
-        final float offsetAngle = slotAngle / 2.0f;
-        slotAngle *= slotIndex / (GetMaxOrbs() - 1.0f);
-        slotAngle += 90.0f - offsetAngle;
-        Vector2 vector2 = new Vector2();
-        vector2.x = distanceToOrbGroupCenter * MathUtils.cosDeg(slotAngle);
-        vector2.y = distanceToOrbGroupCenter * MathUtils.sinDeg(slotAngle) + this.hitbox.height / 2.0f;
-        return vector2;
-    }
-
-    protected final float OffsetPercentageBySlotIndex_TwoEnd(float slotIndex) {
-        final float maxOrbs = GetMaxOrbs();
-        return ((slotIndex + 1) / (maxOrbs + 1) - 0.5f);
-    }
-
-    protected final float OffsetPercentageBySlotIndex_Cycle(float slotIndex) {
-        final float maxOrbs = GetMaxOrbs();
-        return (slotIndex) / (maxOrbs);
-    }
-
-    //设置球的位置的函数，自动移动球的位置
-    public final void letOrbToSlotPlace(final AbstractOrb orb, final int slotIndex) {
-        final Vector2 orbPlace = makeSlotPlace(slotIndex);
-        orb.tX = orbPlace.x + this.hitbox.cX;
-        orb.tY = orbPlace.y + this.hitbox.cY;
-        orb.hb.move(orb.tX, orb.tY);
-    }
-
-//    public final void letOrbToSlotPlace(final int slotIndex) {
-//        letOrbToSlotPlace(orbs.get(slotIndex), slotIndex);
-//    }
-
-    public final void letEachOrbToSlotPlaces() {
-        int bound = orbs.size();
-        for (int i = 0; i < bound; i++) {
-            letOrbToSlotPlace(orbs.get(i), i);
-        }
-    }
-
-    public final boolean hasNoEmptySlot() {
-        return !hasEmptySlot();
-    }
-
-    public final boolean hasEmptySlot() {
-        return this.orbs.stream().anyMatch(this::isEmptySlot);
-    }
-
-    public final boolean hasOrb() {
-        return this.orbs.stream().anyMatch(orb -> !isEmptySlot(orb));
-    }
-
     public boolean isEmptySlot(AbstractOrb orb) {
         return Objects.equals(orb.ID, CustomEmptyOrb.ID);
     }
@@ -215,7 +127,6 @@ public abstract class OrbGroup implements
         return index;
     }
 
-
     /**
      * 塞入球
      */
@@ -229,24 +140,6 @@ public abstract class OrbGroup implements
         }
         addNewOrb(orb);
     }
-
-    protected void addNewOrb(AbstractOrb orb) {
-        int index = findFirstEmptyOrb();
-        final AbstractOrb target = orbs.get(index);
-        orb.cX = target.cX;
-        orb.cY = target.cY;
-        orbs.set(index, orb);
-        letOrbToSlotPlace(orb, index);
-        orb.updateDescription();
-        orb.playChannelSFX();
-        AbstractDungeon.actionManager.orbsChanneledThisCombat.add(orb);
-        AbstractDungeon.actionManager.orbsChanneledThisTurn.add(orb);
-        OrbEventSubscriber.ON_ORB_CHANNEL_SUBSCRIBERS.forEach(sub -> sub.onOrbChannel(orb, AbstractDungeon.player));
-        orb.applyFocus();
-        this.onOrbChannel(orb);
-    }
-
-    protected abstract void onOrbChannel(final AbstractOrb channeledOrb);
 
     /**
      * 激发球
@@ -272,7 +165,6 @@ public abstract class OrbGroup implements
         this.onOrbEvoke(orbEvoked);
     }
 
-
     /**
      * 激发球，不填补空缺
      */
@@ -286,10 +178,73 @@ public abstract class OrbGroup implements
         this.onOrbEvoke(orbEvoked);
     }
 
+    //设置球的位置的函数
+    protected Vector2 makeSlotPlace(final int slotIndex) {
+        Vector2 orbPlace;
+        orbPlace = makeSlotPlaceAsRound(this.hitbox.width / 2.0f, slotIndex);
+        if (GetMaxOrbs() == 1) {
+            orbPlace = makeSlotPlaceAsSingle(this.hitbox.width / 2.0f);
+        }
+        return orbPlace;
+    }
+
+    protected void addNewOrb(AbstractOrb orb) {
+        int index = findFirstEmptyOrb();
+        final AbstractOrb target = orbs.get(index);
+        orb.cX = target.cX;
+        orb.cY = target.cY;
+        orbs.set(index, orb);
+        letOrbToSlotPlace(orb, index);
+        orb.updateDescription();
+        orb.playChannelSFX();
+        AbstractDungeon.actionManager.orbsChanneledThisCombat.add(orb);
+        AbstractDungeon.actionManager.orbsChanneledThisTurn.add(orb);
+        OrbEventSubscriber.ON_ORB_CHANNEL_SUBSCRIBERS.forEach(sub -> sub.onOrbChannel(orb, AbstractDungeon.player));
+        orb.applyFocus();
+        this.onOrbChannel(orb);
+    }
+
+    protected abstract void onOrbChannel(final AbstractOrb channeledOrb);
+
+//    public final void letOrbToSlotPlace(final int slotIndex) {
+//        letOrbToSlotPlace(orbs.get(slotIndex), slotIndex);
+//    }
+
     protected abstract void onOrbEvoke(final AbstractOrb evokedOrb);
+
+    private Vector2 makeSlotPlaceAsSingle(final float height) {
+        return new Vector2(0, height + this.hitbox.height / 2.0f);
+    }
 
     private boolean hasNoOrb() {
         return orbs.isEmpty() || orbs.stream().allMatch(this::isEmptySlot);
+    }
+
+    //设置球的位置的函数，自动移动球的位置
+    public final void letOrbToSlotPlace(final AbstractOrb orb, final int slotIndex) {
+        final Vector2 orbPlace = makeSlotPlace(slotIndex);
+        orb.tX = orbPlace.x + this.hitbox.cX;
+        orb.tY = orbPlace.y + this.hitbox.cY;
+        orb.hb.move(orb.tX, orb.tY);
+    }
+
+    public final void letEachOrbToSlotPlaces() {
+        int bound = orbs.size();
+        for (int i = 0; i < bound; i++) {
+            letOrbToSlotPlace(orbs.get(i), i);
+        }
+    }
+
+    public final boolean hasNoEmptySlot() {
+        return !hasEmptySlot();
+    }
+
+    public final boolean hasEmptySlot() {
+        return this.orbs.stream().anyMatch(this::isEmptySlot);
+    }
+
+    public final boolean hasOrb() {
+        return this.orbs.stream().anyMatch(orb -> !isEmptySlot(orb));
     }
 
     public final void increaseMaxOrbs(final int amount) {
@@ -325,6 +280,48 @@ public abstract class OrbGroup implements
 
     public final int GetMaxOrbs() {
         return this._maxOrbs;
+    }
+
+    protected final Vector2 makeSlotPlaceAsSpiral(final float startRadius, int slotIndex) {
+        final float eachAddRadius = 3.0f;
+        final float distanceToOrbGroupCenter = startRadius + slotIndex * eachAddRadius * Settings.scale;//螺线
+        final float fullAngle = 100.0f + GetMaxOrbs() * 12.0f;
+        return makeSlotPlacePolar(slotIndex, distanceToOrbGroupCenter, fullAngle);
+    }
+
+    protected final Vector2 makeSlotPlaceAsRound(final float radius, int slotIndex) {
+        final float distanceToOrbGroupCenter = radius + GetMaxOrbs() * 10.0f * Settings.scale;//圆
+        final float fullAngle = 60.0f + GetMaxOrbs() * 12.0f;
+        return makeSlotPlacePolar(slotIndex, distanceToOrbGroupCenter, fullAngle);
+    }
+
+    protected final Vector2 makeSlotPlaceLine(final float totalLength, int slotIndex) {
+        final float offsetX = OffsetPercentageBySlotIndex_TwoEnd(slotIndex) * totalLength;
+        Vector2 vector2 = new Vector2();
+        vector2.x = offsetX;
+        vector2.y = this.hitbox.height / 2.0f;
+        return vector2;
+    }
+
+    protected final Vector2 makeSlotPlacePolar(int slotIndex, float distanceToOrbGroupCenter, float fullAngle) {
+        float slotAngle = fullAngle;
+        final float offsetAngle = slotAngle / 2.0f;
+        slotAngle *= slotIndex / (GetMaxOrbs() - 1.0f);
+        slotAngle += 90.0f - offsetAngle;
+        Vector2 vector2 = new Vector2();
+        vector2.x = distanceToOrbGroupCenter * MathUtils.cosDeg(slotAngle);
+        vector2.y = distanceToOrbGroupCenter * MathUtils.sinDeg(slotAngle) + this.hitbox.height / 2.0f;
+        return vector2;
+    }
+
+    protected final float OffsetPercentageBySlotIndex_TwoEnd(float slotIndex) {
+        final float maxOrbs = GetMaxOrbs();
+        return ((slotIndex + 1) / (maxOrbs + 1) - 0.5f);
+    }
+
+    protected final float OffsetPercentageBySlotIndex_Cycle(float slotIndex) {
+        final float maxOrbs = GetMaxOrbs();
+        return (slotIndex) / (maxOrbs);
     }
 
     @Override

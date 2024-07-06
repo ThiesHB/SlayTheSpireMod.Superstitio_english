@@ -80,14 +80,6 @@ public class PetManager implements RenderInBattle, SuperstitioApiSubscriber.AtEn
         monsterGroup.add(monster);
     }
 
-    @Override
-    public void receiveAtEndOfPlayerTurnPreCard() {
-        addToBotAbstract(monsterGroup::applyPreTurnLogic);
-        monsterGroup.monsters.forEach(this::monsterTurn);
-        addToBotAbstract(monsterGroup::applyEndOfTurnPowers);
-        addToBotAbstract(monsterGroup::showIntent, 2);
-    }
-
     private void monsterTurn(AbstractMonster monster) {
         if (!monster.isDeadOrEscaped() || monster.halfDead) {
             if (monster.intent != AbstractMonster.Intent.NONE) {
@@ -106,6 +98,14 @@ public class PetManager implements RenderInBattle, SuperstitioApiSubscriber.AtEn
             monster.takeTurn();
             monster.applyTurnPowers();
         }
+    }
+
+    @Override
+    public void receiveAtEndOfPlayerTurnPreCard() {
+        addToBotAbstract(monsterGroup::applyPreTurnLogic);
+        monsterGroup.monsters.forEach(this::monsterTurn);
+        addToBotAbstract(monsterGroup::applyEndOfTurnPowers);
+        addToBotAbstract(monsterGroup::showIntent, 2);
     }
 
     @Override

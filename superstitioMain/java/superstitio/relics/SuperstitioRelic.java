@@ -14,9 +14,6 @@ public abstract class SuperstitioRelic extends CustomRelic implements UpdateDesc
     public SuperstitioRelic(String id, RelicTier relicTier, LandingSound landingSound) {
         super(id, ImageMaster.loadImage(makeImgPath(id)), ImageMaster.loadImage(makeImgPathOutLine(id)), relicTier, landingSound);
         this.largeImg = ImageMaster.loadImage(makeImgPathLarge(id));
-    }@Override
-    public Object[] getDescriptionArgs() {
-        return descriptionArgs;
     }
 
     private static String makeImgPath(final String id) {
@@ -31,6 +28,23 @@ public abstract class SuperstitioRelic extends CustomRelic implements UpdateDesc
         return DataManager.makeImgPath(DEFAULT_RELIC, DataManager::makeImgFilesPath_RelicLarge, id);
     }
 
+    public int getCounter() {
+        return counter;
+    }
+
+    @Override
+    public Object[] getDescriptionArgs() {
+        return descriptionArgs;
+    }
+
+    @Override
+    public final void setDescriptionArgs(Object... args) {
+        if (args[0] instanceof Object[])
+            descriptionArgs = (Object[]) args[0];
+        else
+            descriptionArgs = args;
+    }
+
     @Override
     public boolean canSpawn() {
         return AbstractDungeon.player instanceof BaseCharacter;
@@ -42,18 +56,6 @@ public abstract class SuperstitioRelic extends CustomRelic implements UpdateDesc
         String string = getDescriptionStrings();
         string = String.format(string, descriptionArgs);
         return string;
-    }
-
-    public int getCounter() {
-        return counter;
-    }
-
-    @Override
-    public final void setDescriptionArgs(Object... args) {
-        if (args[0] instanceof Object[])
-            descriptionArgs = (Object[]) args[0];
-        else
-            descriptionArgs = args;
     }
 
     @Override

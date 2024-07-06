@@ -38,6 +38,11 @@ public class CruelTorture_Impale extends MasoCard implements GoSomewhereElseAfte
         this.cardsToPreview = new Burn();
     }
 
+    private void addTempDexterity(CruelTorture_Impale self) {
+        self.addToBot_applyPower(new DexterityPower(AbstractDungeon.player, this.magicNumber));
+        self.addToBot_applyPower(new LoseDexterityPower(AbstractDungeon.player, this.magicNumber));
+    }
+
     @Override
     public void updateDescriptionArgs() {
         setDescriptionArgs(BURN_CARD_NUM);
@@ -61,10 +66,5 @@ public class CruelTorture_Impale extends MasoCard implements GoSomewhereElseAfte
             addTempDexterity(self);
         })
                 .addToBot_HangCard();
-    }
-
-    private void addTempDexterity(CruelTorture_Impale self) {
-        self.addToBot_applyPower(new DexterityPower(AbstractDungeon.player, this.magicNumber));
-        self.addToBot_applyPower(new LoseDexterityPower(AbstractDungeon.player, this.magicNumber));
     }
 }

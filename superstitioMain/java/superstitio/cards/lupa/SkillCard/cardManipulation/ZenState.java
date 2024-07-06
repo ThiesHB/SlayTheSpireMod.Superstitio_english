@@ -35,6 +35,13 @@ public class ZenState extends LupaCard {
         this.setupBlock(BLOCK, UPGRADE_BLOCK, new RemoveDelayHpLoseBlock());
     }
 
+    public void addToBot_letSpecificCardExhaust(AbstractCard card) {
+        AutoDoneInstantAction.addToBotAbstract(() -> {
+            card.superFlash();
+            CardModifierManager.addModifier(card, new ExhaustMod());
+        });
+    }
+
     @Override
     public void use(AbstractPlayer player, AbstractMonster monster) {
         addToBot_gainBlock();
@@ -48,13 +55,6 @@ public class ZenState extends LupaCard {
                 .setChoiceAmount(this.magicNumber)
                 .setRetainFilter(card -> !card.exhaust, card -> !CardModifierManager.hasModifier(card, ExhaustMod.ID))
         );
-    }
-
-    public void addToBot_letSpecificCardExhaust(AbstractCard card) {
-        AutoDoneInstantAction.addToBotAbstract(() -> {
-            card.superFlash();
-            CardModifierManager.addModifier(card, new ExhaustMod());
-        });
     }
 
     @Override

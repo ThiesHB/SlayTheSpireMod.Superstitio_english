@@ -25,18 +25,8 @@ public abstract class DelayHpLosePower_ApplyAtEndOfRound extends DelayHpLosePowe
         this.updateUniqueID();
     }
 
-    @Override
-    protected int addToBot_removeDelayHpLoss(final int amount, boolean removeOther) {
-        if (!removeOther) return addToBot_removeEachTurnPower(amount, TURN_READY);
-        int lastAmount = amount;
-        int maxTurn = owner.powers.stream()
-                .filter(power -> power instanceof DelayHpLosePower_ApplyAtEndOfRound)
-                .mapToInt(power -> ((DelayHpLosePower_ApplyAtEndOfRound) power).Turn).max().orElse(0);
-        for (int i = TURN_READY; i < maxTurn + 1; i++) {
-            lastAmount = addToBot_removeEachTurnPower(lastAmount, i);
-            if (lastAmount <= 0) break;
-        }
-        return lastAmount;
+    public void updateUniqueID() {
+        this.ID = this.OriginId + this.Turn;
     }
 
     private int addToBot_removeEachTurnPower(int amount, int turnShouldRemove) {
@@ -49,10 +39,6 @@ public abstract class DelayHpLosePower_ApplyAtEndOfRound extends DelayHpLosePowe
         return Math.max(amount - targetPower.amount, 0);
     }
 
-    public void updateUniqueID() {
-        this.ID = this.OriginId + this.Turn;
-    }
-
     @Override
     public boolean checkShouldInvisibleTips() {
         return this.Turn > 0;
@@ -63,6 +49,12 @@ public abstract class DelayHpLosePower_ApplyAtEndOfRound extends DelayHpLosePowe
         setDescriptionArgs(this.amount, findAll(this.owner, DelayHpLosePower_ApplyAtEndOfRound.class).mapToInt(power -> power.amount).sum());
     }
 
+    @Override
+    public void InitializePostApplyThisPower(DelayHpLosePower_ApplyAtEndOfRound addedPower) {
+        AutoDoneInstantAction.addToBotAbstract(() ->
+                findAll(this.owner, DelayHpLosePower.class).forEach(DelayHpLosePower::updateDescription));
+    }
+
     //    @Override
 //    public void atStartOfTurn() {
 //        if (Turn <= 0) {
@@ -71,12 +63,6 @@ public abstract class DelayHpLosePower_ApplyAtEndOfRound extends DelayHpLosePowe
 //        Turn--;
 //        atEnemyTurn = false;
 //    }
-
-    @Override
-    public void InitializePostApplyThisPower(DelayHpLosePower_ApplyAtEndOfRound addedPower) {
-        AutoDoneInstantAction.addToBotAbstract(() ->
-                findAll(this.owner, DelayHpLosePower.class).forEach(DelayHpLosePower::updateDescription));
-    }
 
     @Override
     public void atEndOfRound() {
@@ -95,7 +81,6 @@ public abstract class DelayHpLosePower_ApplyAtEndOfRound extends DelayHpLosePowe
         return this.Turn <= 0;
     }
 
-
     @Override
     public void updateDescription() {
         this.updateUniqueID();
@@ -112,5 +97,19 @@ public abstract class DelayHpLosePower_ApplyAtEndOfRound extends DelayHpLosePowe
         if (Turn <= 0)
             return atEnemyTurn ? ReadyToRemoveColor : ForAWhileColor;
         return OriginColor;
+    }
+
+    @Override
+    protected int addToBot_removeDelayHpLoss(final int amount, boolean removeOther) {
+        if (!removeOther) return addToBot_removeEachTurnPower(amount, TURN_READY);
+        int lastAmount = amount;
+        int maxTurn = owner.powers.stream()
+                .filter(power -> power instanceof DelayHpLosePower_ApplyAtEndOfRound)
+                .mapToInt(power -> ((DelayHpLosePower_ApplyAtEndOfRound) power).Turn).max().orElse(0);
+        for (int i = TURN_READY; i < maxTurn + 1; i++) {
+            lastAmount = addToBot_removeEachTurnPower(lastAmount, i);
+            if (lastAmount <= 0) break;
+        }
+        return lastAmount;
     }
 }

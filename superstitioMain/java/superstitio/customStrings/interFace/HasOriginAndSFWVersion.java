@@ -11,12 +11,6 @@ public interface HasOriginAndSFWVersion<T> extends HasSFWVersion<T> {
 //        return getOriginVersion();
 //    }
 
-    @Override
-    default void initial() {
-        initialOrigin(getOriginVersion());
-        initialSFW(getSFWVersion());
-    }
-
     default String getFromRightVersion(Function<T, String> supplier) {
         if (StringSetUtility.isNullOrEmpty(supplier.apply(getRightVersion())))
             return supplier.apply(getOriginVersion());
@@ -36,5 +30,11 @@ public interface HasOriginAndSFWVersion<T> extends HasSFWVersion<T> {
             return supplier.apply(getOriginVersion());
         else
             return supplier.apply(getRightVersion());
+    }
+
+    @Override
+    default void initial() {
+        initialOrigin(getOriginVersion());
+        initialSFW(getSFWVersion());
     }
 }

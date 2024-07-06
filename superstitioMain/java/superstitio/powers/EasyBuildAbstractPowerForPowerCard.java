@@ -38,6 +38,15 @@ public abstract class EasyBuildAbstractPowerForPowerCard extends AbstractSuperst
     //    @NotNull
     protected abstract SuperstitioCard makePowerCard();
 
+    protected String getDesc() {
+        String desc;
+        if (powerCard.cardStrings.getDESCRIPTION().contains("%s"))
+            desc = powerCard.cardStrings.getDESCRIPTION();
+        else
+            desc = powerCard.rawDescription;
+        return desc;
+    }
+
     @Override
     public String getDescriptionStrings() {
         if (powerStrings.getDESCRIPTIONS() != null && powerStrings.getDESCRIPTIONS().length != 0 && !Objects.equals(powerStrings.getDESCRIPTIONS()[0], LocalizedStrings.createMockStringArray(1)[0]))
@@ -51,15 +60,6 @@ public abstract class EasyBuildAbstractPowerForPowerCard extends AbstractSuperst
         desc = desc.replace("%d!", "%d");
 //        desc = desc.replace("%s", "");
 
-        return desc;
-    }
-
-    protected String getDesc() {
-        String desc;
-        if (powerCard.cardStrings.getDESCRIPTION().contains("%s"))
-            desc = powerCard.cardStrings.getDESCRIPTION();
-        else
-            desc = powerCard.rawDescription;
         return desc;
     }
 }

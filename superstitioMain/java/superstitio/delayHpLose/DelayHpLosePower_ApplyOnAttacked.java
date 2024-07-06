@@ -43,15 +43,15 @@ public class DelayHpLosePower_ApplyOnAttacked extends DelayHpLosePower {
     }
 
     @Override
+    public boolean showDecreaseAmount() {
+        return true;
+    }
+
+    @Override
     protected int addToBot_removeDelayHpLoss(int amount, boolean removeOther) {
         int lastAmount = amount - this.amount;
         addToBot_reducePowerToOwner(this.ID, amount);
         return lastAmount;
-    }
-
-    @Override
-    public boolean showDecreaseAmount() {
-        return true;
     }
 
     public interface IPreventHpLimit {

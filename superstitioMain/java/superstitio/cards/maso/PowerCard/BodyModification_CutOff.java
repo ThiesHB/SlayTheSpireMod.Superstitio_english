@@ -96,13 +96,13 @@ public class BodyModification_CutOff extends MasoCard {
         }
 
         @Override
-        protected String getDesc() {
-            return powerCard.getEXTENDED_DESCRIPTION()[0];
+        public void updateDescriptionArgs() {
+            setDescriptionArgs(amount);
         }
 
         @Override
-        public void updateDescriptionArgs() {
-            setDescriptionArgs(amount);
+        protected String getDesc() {
+            return powerCard.getEXTENDED_DESCRIPTION()[0];
         }
 
         @Override

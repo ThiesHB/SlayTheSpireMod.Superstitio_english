@@ -39,7 +39,7 @@ public class Job_Hair extends GeneralCard implements FuckJob_Card, GoSomewhereEl
         super(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET);
         FuckJob_Card.initFuckJobCard(this);
         this.setupDamage(damage, upgradeDamage);
-        CardModifierManager.addModifier(this,new EtherealMod());
+        CardModifierManager.addModifier(this, new EtherealMod());
         this.setupMagicNumber(MAGIC);
     }
 

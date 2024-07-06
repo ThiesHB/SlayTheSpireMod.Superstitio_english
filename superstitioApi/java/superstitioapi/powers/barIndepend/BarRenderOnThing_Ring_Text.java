@@ -38,6 +38,15 @@ public class BarRenderOnThing_Ring_Text extends BarRenderOnThing_Ring {
     }
 
     @Override
+    public void render(SpriteBatch sb) {
+        renderBar(sb);
+        renderBarTextWithColorAlphaChange(sb, getXDrawStart(), getYDrawStart());
+        if (Settings.isDebug || Settings.isInfo) {
+            renderDebug(sb);
+        }
+    }
+
+    @Override
     protected void updateHbHoverFade() {
         if (this.barTextHitBox.hovered) {
             this.healthHideTimer -= Gdx.graphics.getDeltaTime() * HIDE_SPEED;
@@ -56,15 +65,6 @@ public class BarRenderOnThing_Ring_Text extends BarRenderOnThing_Ring {
     protected void renderDebug(SpriteBatch sb) {
         super.renderDebug(sb);
         barTextHitBox.render(sb);
-    }
-
-    @Override
-    public void render(SpriteBatch sb) {
-        renderBar(sb);
-        renderBarTextWithColorAlphaChange(sb, getXDrawStart(), getYDrawStart());
-        if (Settings.isDebug || Settings.isInfo) {
-            renderDebug(sb);
-        }
     }
 
     @Override

@@ -36,6 +36,15 @@ public class HaveBirthWith extends GeneralCard {
         //this.exhaust = true;
     }
 
+    private void ForPlayer(AbstractPlayer player) {
+        addToBot_gainCustomBlock(new PregnantBlock_newMonster(
+                new ChibiKindMonster(), new ChibiKindMonster.MinionChibi(new ChibiKindMonster())));
+    }
+
+    private void ForMonster(AbstractMonster monster) {
+        addToBot_gainCustomBlock(new PregnantBlock_newMonster(monster));
+    }
+
     @Override
     public void use(AbstractPlayer player, AbstractMonster monster) {
         AbstractCreature target = getSelfOrEnemyTarget(this, monster);
@@ -44,15 +53,6 @@ public class HaveBirthWith extends GeneralCard {
         else
             ForMonster((AbstractMonster) target);
         addToBot_makeTempCardInBattle(new GiveBirth(), ActionUtility.BattleCardPlace.Discard, upgraded);
-    }
-
-    private void ForPlayer(AbstractPlayer player) {
-        addToBot_gainCustomBlock(new PregnantBlock_newMonster(
-                new ChibiKindMonster(), new ChibiKindMonster.MinionChibi(new ChibiKindMonster())));
-    }
-
-    private void ForMonster(AbstractMonster monster) {
-        addToBot_gainCustomBlock(new PregnantBlock_newMonster(monster));
     }
 
     @Override

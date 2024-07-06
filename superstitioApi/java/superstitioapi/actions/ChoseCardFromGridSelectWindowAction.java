@@ -30,12 +30,6 @@ public class ChoseCardFromGridSelectWindowAction extends AbstractContinuallyActi
         return this;
     }
 
-    @SafeVarargs
-    public final ChoseCardFromGridSelectWindowAction setRetainFilter(Predicate<AbstractCard>... filters) {
-        Arrays.stream(filters).forEach(abstractCardPredicate -> this.retainFilter = this.retainFilter.and(abstractCardPredicate));
-        return this;
-    }
-
     public ChoseCardFromGridSelectWindowAction setWindowText(String windowText) {
         this.windowText = windowText;
         return this;
@@ -44,6 +38,25 @@ public class ChoseCardFromGridSelectWindowAction extends AbstractContinuallyActi
     public ChoseCardFromGridSelectWindowAction setChoseAmount(int choseAmount) {
         this.amount = choseAmount;
         return this;
+    }
+
+    @SafeVarargs
+    public final ChoseCardFromGridSelectWindowAction setRetainFilter(Predicate<AbstractCard>... filters) {
+        Arrays.stream(filters).forEach(abstractCardPredicate -> this.retainFilter = this.retainFilter.and(abstractCardPredicate));
+        return this;
+    }
+
+    @Override
+    protected void StartAction() {
+        if (cardGroup.isEmpty() || this.amount <= 0) {
+            this.isDone = true;
+            return;
+        }
+        final CardGroup temp = new CardGroup(CardGroup.CardGroupType.UNSPECIFIED);
+        cardGroup.group.stream().filter(this.retainFilter).forEach(temp::addToTop);
+        temp.sortAlphabetically(true);
+        temp.sortByRarityPlusStatusCardType(false);
+        AbstractDungeon.gridSelectScreen.open(temp, amount, anyNumber, windowText);
     }
 
     @Override
@@ -57,15 +70,6 @@ public class ChoseCardFromGridSelectWindowAction extends AbstractContinuallyActi
     }
 
     @Override
-    protected void ActionSetUp() {
-        if (cardGroup.isEmpty()) {
-            this.isDone = true;
-            return;
-        }
-        final CardGroup temp = new CardGroup(CardGroup.CardGroupType.UNSPECIFIED);
-        cardGroup.group.stream().filter(this.retainFilter).forEach(temp::addToTop);
-        temp.sortAlphabetically(true);
-        temp.sortByRarityPlusStatusCardType(false);
-        AbstractDungeon.gridSelectScreen.open(temp, amount, anyNumber, windowText);
+    protected void EndAction() {
     }
 }

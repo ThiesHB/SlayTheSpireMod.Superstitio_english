@@ -29,17 +29,6 @@ public class KakaaGirlMode extends AbstractTempCard {
         this.setupMagicNumber(MAGIC);
     }
 
-    @Override
-    public void use(final AbstractPlayer p, final AbstractMonster m) {
-        this.onChoseThisOption();
-    }
-
-    @Override
-    public void onChoseThisOption() {
-        addToBot_applyPower(new RitualPower(AbstractDungeon.player, this.magicNumber, true));
-        AutoDoneInstantAction.addToBotAbstract(this::KakaaSound);
-    }
-
     private void KakaaSound() {
         final int roll = MathUtils.random(2);
         if (roll == 0) {
@@ -51,6 +40,17 @@ public class KakaaGirlMode extends AbstractTempCard {
         }
         AbstractDungeon.effectList.add(new SpeechBubble(this.hb.cX + AbstractDungeon.player.dialogX, this.hb.cY + AbstractDungeon.player.dialogY,
                 2.5f, Cultist.DIALOG[2], false));
+    }
+
+    @Override
+    public void use(final AbstractPlayer p, final AbstractMonster m) {
+        this.onChoseThisOption();
+    }
+
+    @Override
+    public void onChoseThisOption() {
+        addToBot_applyPower(new RitualPower(AbstractDungeon.player, this.magicNumber, true));
+        AutoDoneInstantAction.addToBotAbstract(this::KakaaSound);
     }
 
     @Override

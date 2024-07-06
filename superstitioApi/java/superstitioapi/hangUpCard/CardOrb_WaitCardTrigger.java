@@ -16,6 +16,11 @@ public class CardOrb_WaitCardTrigger extends CardOrb_CardTrigger implements ICar
         super(card, cardGroupReturnAfterEvoke, waitTime, action_thisOrb_triggerCard);
     }
 
+    private void State_WhenHoverCard_JustGlow() {
+        this.card.targetDrawScale = DRAW_SCALE_SMALL_BIGGER;
+        this.card.glowColor = ReduceWaitTime;
+    }
+
     @Override
     public AbstractOrb makeCopy() {
         return new CardOrb_WaitCardTrigger(getOriginCard(), cardGroupReturnAfterEvoke, OrbCounter, action);
@@ -26,11 +31,6 @@ public class CardOrb_WaitCardTrigger extends CardOrb_CardTrigger implements ICar
         if (this.OrbCounter > 1)
             return this::State_WhenHoverCard_JustGlow;
         return super.checkAndSetTheHoverType();
-    }
-
-    private void State_WhenHoverCard_JustGlow() {
-        this.card.targetDrawScale = DRAW_SCALE_SMALL_BIGGER;
-        this.card.glowColor = ReduceWaitTime;
     }
 
     @Override

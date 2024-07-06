@@ -57,6 +57,23 @@ public class BarRenderOnThing_Ring extends BarRenderOnThing {
 //        shader = RingShader.ringShader_useHalfPic;
     }
 
+    private void setUpShader(SpriteBatch sb, float startLength, float length) {
+        RingShader.setUp_ringShader_useHalfPic(sb, barAverageRadius_renormalization, barHalfThick_renormalization, startLength, length);
+    }
+
+    @Override
+    public void update() {
+        super.update();
+    }
+
+    @Override
+    public void render(SpriteBatch sb) {
+        renderBar(sb);
+        renderBarText(sb, getXDrawStart(), getYDrawStart());
+        if (Settings.isDebug || Settings.isInfo) {
+            renderDebug(sb);
+        }
+    }
 
     @Override
     protected float getYDrawStart() {
@@ -116,24 +133,6 @@ public class BarRenderOnThing_Ring extends BarRenderOnThing {
                 initDegree + startLength + length,
                 barEndDegree);
         sb.draw(ImageMaster.HB_SHADOW_R, x, y, barSize, barSize);
-    }
-
-    private void setUpShader(SpriteBatch sb, float startLength, float length) {
-        RingShader.setUp_ringShader_useHalfPic(sb, barAverageRadius_renormalization, barHalfThick_renormalization, startLength, length);
-    }
-
-    @Override
-    public void update() {
-        super.update();
-    }
-
-    @Override
-    public void render(SpriteBatch sb) {
-        renderBar(sb);
-        renderBarText(sb, getXDrawStart(), getYDrawStart());
-        if (Settings.isDebug || Settings.isInfo) {
-            renderDebug(sb);
-        }
     }
 
     @Override
@@ -206,6 +205,21 @@ public class BarRenderOnThing_Ring extends BarRenderOnThing {
                     ring.barEndDegree * 2 + ring.barLength);
         }
 
+        private boolean isHovered(float x, float y) {
+            float mx = InputHelper.mX - this.cX;
+            float my = InputHelper.mY - this.cY;
+            float theta = (float) (MathUtils.radiansToDegrees * Math.atan2(my, -mx));
+            float radius = (float) Math.sqrt(mx * mx + my * my);
+            theta += 180.0f;
+            theta = Math.floorMod((long) theta, (long) 360.0);
+            theta -= 180.0f;
+
+            return ((startDegree < theta && theta < startDegree + lengthDegree)
+                    || (startDegree < theta - 360 && theta - 360 < startDegree + lengthDegree)
+                    || (startDegree < theta + 360 && theta + 360 < startDegree + lengthDegree))
+                    && averageRadius - halfThick < radius && radius < averageRadius + halfThick;
+        }
+
         @Override
         public void update(float x, float y) {
             if (AbstractDungeon.isFadingOut) return;
@@ -242,21 +256,6 @@ public class BarRenderOnThing_Ring extends BarRenderOnThing {
 //            sb.getShader().setUniformf("u_halfThick", halfThick / width);
             sb.draw(ImageMaster.DEBUG_HITBOX_IMG, this.x, this.y, this.width, this.height);
             sb.setShader(originShader);
-        }
-
-        private boolean isHovered(float x, float y) {
-            float mx = InputHelper.mX - this.cX;
-            float my = InputHelper.mY - this.cY;
-            float theta = (float) (MathUtils.radiansToDegrees * Math.atan2(my, -mx));
-            float radius = (float) Math.sqrt(mx * mx + my * my);
-            theta += 180.0f;
-            theta = Math.floorMod((long) theta, (long) 360.0);
-            theta -= 180.0f;
-
-            return ((startDegree < theta && theta < startDegree + lengthDegree)
-                    || (startDegree < theta - 360 && theta - 360 < startDegree + lengthDegree)
-                    || (startDegree < theta + 360 && theta + 360 < startDegree + lengthDegree))
-                    && averageRadius - halfThick < radius && radius < averageRadius + halfThick;
         }
     }
 }

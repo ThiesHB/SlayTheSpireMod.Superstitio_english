@@ -142,14 +142,14 @@ public class SexualHeat extends AbstractSuperstitioPower implements
                 () -> sexualHeat.owner.hb);
     }
 
-    @Override
-    public Hitbox getBarRenderHitBox() {
-        if (!(owner instanceof AbstractPlayer)) return owner.hb;
-        Hitbox tipHitbox = ReflectionHacks.getPrivate(AbstractDungeon.overlayMenu.energyPanel, EnergyPanel.class, "tipHitbox");
-        if (tipHitbox != null) return tipHitbox;
-        Logger.warning("no EnergyPanel found when " + this + "get hitbox.");
-        return owner.hb;
-        //        return EnergyPanel.tipHitbox;
+    public boolean isInOrgasm() {
+        return Orgasm.isInOrgasm(owner);
+    }
+
+    public void CheckOrgasm() {
+        OnOrgasm.AllOnOrgasm(owner).forEach(power -> power.onCheckOrgasm(this));
+        if (getOrgasmTimesInTurn() >= (this.heatAmount / getHeatRequired())) return;
+        this.StartOrgasm();
     }
 
     protected void addSexualHeat(int heatAmount) {
@@ -168,71 +168,6 @@ public class SexualHeat extends AbstractSuperstitioPower implements
         CheckEndOrgasm();
         updateDescription();
         AbstractDungeon.onModifyPower();
-    }
-
-    @Override
-    public int getAmountForDraw() {
-        return this.heatAmount;
-    }
-
-    @Override
-    public String IDAsHolder() {
-        return POWER_ID;
-    }
-
-    @Override
-    public void InitializePostApplyThisPower(SexualHeat addedPower) {
-        CheckOrgasm();
-        updateDescription();
-    }
-
-    public boolean isInOrgasm() {
-        return Orgasm.isInOrgasm(owner);
-    }
-
-    @Override
-    public void onRemove() {
-        ForceEndOrgasm();
-    }
-
-    @Override
-    public BarRenderUpdateMessage makeMessage() {
-        return HasBarRenderOnCreature_Power.super.makeMessage()
-                .setDetail(bar -> {
-                    if (bar instanceof BarRenderOnThing)
-                        ((BarRenderOnThing) bar).barShadowColor = this.isInOrgasm() ?
-                                this.barOrgasmShadowColor : this.barShadowColorOrigin;
-                });
-    }
-
-//    @Override
-//    public void stackPower(final int stackAmount) {
-//        if (this.amount < 0) this.amount = 0;
-//        super.stackPower(stackAmount);
-//        CheckOrgasm();
-//    }
-//
-//    @Override
-//    public void reducePower(int reduceAmount) {
-//        if (this.amount < 0) this.amount = 0;
-//        super.reducePower(reduceAmount);
-//        CheckEndOrgasm();
-//    }
-
-    @Override
-    public BiFunction<Supplier<Hitbox>, HasBarRenderOnCreature, ? extends RenderOnThing> makeNewBarRenderOnCreature() {
-        return (hitbox, power) -> {
-            if (canUseShader && this.owner instanceof AbstractPlayer)
-                return new BarRenderOnThing_Ring_Text(hitbox, power);
-            else
-                return new BarRenderOnThing(hitbox, power);
-        };
-    }
-
-    public void CheckOrgasm() {
-        OnOrgasm.AllOnOrgasm(owner).forEach(power -> power.onCheckOrgasm(this));
-        if (getOrgasmTimesInTurn() >= (this.heatAmount / getHeatRequired())) return;
-        this.StartOrgasm();
     }
 
     private void StartOrgasm() {
@@ -294,6 +229,90 @@ public class SexualHeat extends AbstractSuperstitioPower implements
         Orgasm.endOrgasm(owner);
     }
 
+//    @Override
+//    public void stackPower(final int stackAmount) {
+//        if (this.amount < 0) this.amount = 0;
+//        super.stackPower(stackAmount);
+//        CheckOrgasm();
+//    }
+//
+//    @Override
+//    public void reducePower(int reduceAmount) {
+//        if (this.amount < 0) this.amount = 0;
+//        super.reducePower(reduceAmount);
+//        CheckEndOrgasm();
+//    }
+
+    private int getHeatRequired() {
+        return Math.max(HEAT_REQUIREDOrigin -
+                this.owner.powers.stream().filter(power -> power instanceof SexualHeatNeedModifier)
+                        .mapToInt(power -> ((SexualHeatNeedModifier) power).reduceSexualHeatNeeded()).sum(), MIN_HEAT_REQUIRE);
+    }
+
+    private void bubbleMessage(boolean isDeBuffVer, int messageIndex) {
+        bubbleMessage(isDeBuffVer, powerStrings.getDESCRIPTIONS()[messageIndex]);
+    }
+
+    private void bubbleMessage(boolean isDeBuffVer, String message) {
+        PowerUtility.BubbleMessage(this.getBarRenderHitBox(), isDeBuffVer, message, -this.owner.hb.width / 2,
+                PowerUtility.BubbleMessageHigher_HEIGHT + Height());
+    }
+
+    @Override
+    public Hitbox getBarRenderHitBox() {
+        if (!(owner instanceof AbstractPlayer)) return owner.hb;
+        Hitbox tipHitbox = ReflectionHacks.getPrivate(AbstractDungeon.overlayMenu.energyPanel, EnergyPanel.class, "tipHitbox");
+        if (tipHitbox != null) return tipHitbox;
+        Logger.warning("no EnergyPanel found when " + this + "get hitbox.");
+        return owner.hb;
+        //        return EnergyPanel.tipHitbox;
+    }
+
+    @Override
+    public int getAmountForDraw() {
+        return this.heatAmount;
+    }
+
+    @Override
+    public String IDAsHolder() {
+        return POWER_ID;
+    }
+
+    @Override
+    public void InitializePostApplyThisPower(SexualHeat addedPower) {
+        CheckOrgasm();
+        updateDescription();
+    }
+
+    @Override
+    public void onRemove() {
+        ForceEndOrgasm();
+    }
+
+    @Override
+    public BarRenderUpdateMessage makeMessage() {
+        return HasBarRenderOnCreature_Power.super.makeMessage()
+                .setDetail(bar -> {
+                    if (bar instanceof BarRenderOnThing)
+                        ((BarRenderOnThing) bar).barShadowColor = this.isInOrgasm() ?
+                                this.barOrgasmShadowColor : this.barShadowColorOrigin;
+                });
+    }
+
+    @Override
+    public BiFunction<Supplier<Hitbox>, HasBarRenderOnCreature, ? extends RenderOnThing> makeNewBarRenderOnCreature() {
+        return (hitbox, power) -> {
+            if (canUseShader && this.owner instanceof AbstractPlayer)
+                return new BarRenderOnThing_Ring_Text(hitbox, power);
+            else
+                return new BarRenderOnThing(hitbox, power);
+        };
+    }
+
+//    public void setHeatRequired(int heatRequired) {
+//        this.heatRequired = heatRequired > 0 ? heatRequired : MIN_HEAT_REQUIRE;
+//    }
+
     @Override
     public void onPlayCard(AbstractCard card, AbstractMonster m) {
         if (!this.isInOrgasm() || !this.owner.isPlayer) return;
@@ -315,14 +334,9 @@ public class SexualHeat extends AbstractSuperstitioPower implements
 //            this.addToBot(new ReducePowerAction(this.owner, this.owner, POWER_ID, this.amount));
     }
 
-    private int getHeatRequired() {
-        return Math.max(HEAT_REQUIREDOrigin -
-                this.owner.powers.stream().filter(power -> power instanceof SexualHeatNeedModifier)
-                        .mapToInt(power -> ((SexualHeatNeedModifier) power).reduceSexualHeatNeeded()).sum(), MIN_HEAT_REQUIRE);
-    }
-
-//    public void setHeatRequired(int heatRequired) {
-//        this.heatRequired = heatRequired > 0 ? heatRequired : MIN_HEAT_REQUIRE;
+//    @Override
+//    public String uuidPointTo() {
+//        return OutsideSemen.POWER_ID;
 //    }
 
     @Override
@@ -334,11 +348,6 @@ public class SexualHeat extends AbstractSuperstitioPower implements
     public AbstractPower getSelf() {
         return this;
     }
-
-//    @Override
-//    public String uuidPointTo() {
-//        return OutsideSemen.POWER_ID;
-//    }
 
     @Override
     public float Height() {
@@ -353,15 +362,6 @@ public class SexualHeat extends AbstractSuperstitioPower implements
     @Override
     public int maxBarAmount() {
         return getHeatRequired();
-    }
-
-    private void bubbleMessage(boolean isDeBuffVer, int messageIndex) {
-        bubbleMessage(isDeBuffVer, powerStrings.getDESCRIPTIONS()[messageIndex]);
-    }
-
-    private void bubbleMessage(boolean isDeBuffVer, String message) {
-        PowerUtility.BubbleMessage(this.getBarRenderHitBox(), isDeBuffVer, message, -this.owner.hb.width / 2,
-                PowerUtility.BubbleMessageHigher_HEIGHT + Height());
     }
 
     @Override

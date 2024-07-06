@@ -9,6 +9,7 @@ import superstitio.cards.general.GeneralCard;
 import superstitioapi.cards.DamageActionMaker;
 import superstitioapi.cards.patch.GoSomewhereElseAfterUse;
 import superstitioapi.hangUpCard.CardOrb_EachCardTrigger;
+import superstitioapi.utils.CreatureUtility;
 
 public class Ahegao extends GeneralCard implements GoSomewhereElseAfterUse {
     public static final String ID = DataManager.MakeTextID(Ahegao.class);
@@ -42,7 +43,7 @@ public class Ahegao extends GeneralCard implements GoSomewhereElseAfterUse {
     @Override
     public void afterInterruptMoveToCardGroup(CardGroup cardGroup) {
         new CardOrb_EachCardTrigger(this, cardGroup, this.magicNumber, (orb, card) -> {
-            AbstractMonster creature = DamageActionMaker.getMonsterOrFirstMonster(orb.lastTarget);
+            AbstractMonster creature = CreatureUtility.getMonsterOrFirstMonster(orb.lastTarget);
             orb.StartHitCreature(creature);
             DamageActionMaker.maker(orb.getOriginCard().damage, creature).setExampleCard(this)
                     .setEffect(DamageActionMaker.DamageEffect.HeartMultiInOne)

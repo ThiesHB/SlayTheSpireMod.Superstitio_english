@@ -116,16 +116,15 @@ public abstract class BaseCharacter extends CustomPlayer {
         }
     }
 
-    @Override
-    public void useCard(AbstractCard c, AbstractMonster monster, int energyOnUse) {
-        super.useCard(c, monster, energyOnUse);
+    public void setMoveOffset(float x, float y) {
+        this.offsetX = x;
+        this.offsetY = y;
     }
 
-    @Override
-    public ArrayList<AbstractCard> getCardPool(ArrayList<AbstractCard> tmpPool) {
-        ArrayList<AbstractCard> originCardPool = super.getCardPool(tmpPool);
-        addCardByCardFilter(originCardPool);
-        return originCardPool;
+    public ArrayList<AbstractCard.CardColor> getOtherAddedCardColors() {
+        ArrayList<AbstractCard.CardColor> cardColors = new ArrayList<>();
+        cardColors.add(GENERAL_CARD);
+        return cardColors;
     }
 
     protected void addCardByCardFilter(ArrayList<AbstractCard> originCardPool) {
@@ -143,6 +142,31 @@ public abstract class BaseCharacter extends CustomPlayer {
     }
 
     protected abstract boolean isCardCanAdd(AbstractCard card);
+
+    private void drawImg(SpriteBatch sb) {
+        float scaleX = 1.0f;
+        float v = 0.005f * MathUtils.sinDeg(MathUtils.sinDeg(simpleAnim * 360) * 15);
+        float scaleY = 1.0f + v;
+        float rotation = 0;
+        sb.draw(this.img, this.drawX - (float) this.img.getWidth() * Settings.scale / 2.0F + this.animX,
+                this.drawY + this.hb.height * v,
+                0, 0,
+                (float) this.img.getWidth() * Settings.scale, (float) this.img.getHeight() * Settings.scale,
+                scaleX, scaleY, rotation,
+                0, 0, this.img.getWidth(), this.img.getHeight(), this.flipHorizontal, this.flipVertical);
+    }
+
+    @Override
+    public void useCard(AbstractCard c, AbstractMonster monster, int energyOnUse) {
+        super.useCard(c, monster, energyOnUse);
+    }
+
+    @Override
+    public ArrayList<AbstractCard> getCardPool(ArrayList<AbstractCard> tmpPool) {
+        ArrayList<AbstractCard> originCardPool = super.getCardPool(tmpPool);
+        addCardByCardFilter(originCardPool);
+        return originCardPool;
+    }
 
     @Override
     public void update() {
@@ -179,34 +203,9 @@ public abstract class BaseCharacter extends CustomPlayer {
         }
     }
 
-    private void drawImg(SpriteBatch sb) {
-        float scaleX = 1.0f;
-        float v = 0.005f * MathUtils.sinDeg(MathUtils.sinDeg(simpleAnim * 360) * 15);
-        float scaleY = 1.0f + v;
-        float rotation = 0;
-        sb.draw(this.img, this.drawX - (float) this.img.getWidth() * Settings.scale / 2.0F + this.animX,
-                this.drawY + this.hb.height * v,
-                0, 0,
-                (float) this.img.getWidth() * Settings.scale, (float) this.img.getHeight() * Settings.scale,
-                scaleX, scaleY, rotation,
-                0, 0, this.img.getWidth(), this.img.getHeight(), this.flipHorizontal, this.flipVertical);
-    }
-
-    public void setMoveOffset(float x, float y) {
-        this.offsetX = x;
-        this.offsetY = y;
-    }
-
     @Override
     public void movePosition(float x, float y) {
         super.movePosition(x + offsetX, y + offsetY);
-    }
-
-    @Override
-    protected void refreshHitboxLocation() {
-        super.refreshHitboxLocation();
-        this.hb.move(this.hb.cX - this.offsetX, this.hb.cY - this.offsetY);
-        this.healthHb.move(this.hb.cX, this.hb.cY - this.hb_h / 2.0F - this.healthHb.height / 2.0F);
     }
 
     // 人物名字（出现在游戏左上角）
@@ -215,12 +214,6 @@ public abstract class BaseCharacter extends CustomPlayer {
         if (characterStrings == null)
             return "[MISSING_Title]";
         return characterStrings.NAMES[1];
-    }
-
-    public ArrayList<AbstractCard.CardColor> getOtherAddedCardColors() {
-        ArrayList<AbstractCard.CardColor> cardColors = new ArrayList<>();
-        cardColors.add(GENERAL_CARD);
-        return cardColors;
     }
 
     // 翻牌事件出现的你的职业牌（一般设为打击）
@@ -307,6 +300,13 @@ public abstract class BaseCharacter extends CustomPlayer {
         return new AbstractGameAction.AttackEffect[]{AbstractGameAction.AttackEffect.SLASH_HEAVY, AbstractGameAction.AttackEffect.FIRE,
                 AbstractGameAction.AttackEffect.SLASH_DIAGONAL, AbstractGameAction.AttackEffect.SLASH_HEAVY, AbstractGameAction.AttackEffect.FIRE,
                 AbstractGameAction.AttackEffect.SLASH_DIAGONAL};
+    }
+
+    @Override
+    protected void refreshHitboxLocation() {
+        super.refreshHitboxLocation();
+        this.hb.move(this.hb.cX - this.offsetX, this.hb.cY - this.offsetY);
+        this.healthHb.move(this.hb.cX, this.hb.cY - this.hb_h / 2.0F - this.healthHb.height / 2.0F);
     }
 
     public static class CharacterSelectInfo {

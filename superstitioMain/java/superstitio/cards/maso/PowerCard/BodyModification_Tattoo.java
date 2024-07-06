@@ -76,12 +76,6 @@ public class BodyModification_Tattoo extends MasoCard {
             SexualHeat.useConsumer_addSexualHeat(this.owner, this.amount, AutoDoneInstantAction::addToTopAbstract);
         }
 
-
-        @Override
-        protected String getDesc() {
-            return super.getDesc() + powerCard.getEXTENDED_DESCRIPTION()[0];
-        }
-
         @Override
         public void updateDescriptionArgs() {
             final String[] strings = {""};
@@ -90,18 +84,22 @@ public class BodyModification_Tattoo extends MasoCard {
         }
 
         @Override
-        protected SuperstitioCard makePowerCard() {
-            return new BodyModification_Tattoo();
-        }
-
-
-        @Override
         public void onApplyPower(AbstractPower power, AbstractCreature target, AbstractCreature source) {
             if (!(power instanceof BodyModification_TattooPower)) {
                 return;
             }
             this.tattooNames = PowerUtility.mergeAndSumMaps(this.tattooNames, ((BodyModification_TattooPower) power).tattooNames);
             updateDescription();
+        }
+
+        @Override
+        protected String getDesc() {
+            return super.getDesc() + powerCard.getEXTENDED_DESCRIPTION()[0];
+        }
+
+        @Override
+        protected SuperstitioCard makePowerCard() {
+            return new BodyModification_Tattoo();
         }
     }
 }

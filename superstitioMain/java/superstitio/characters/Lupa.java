@@ -90,11 +90,6 @@ public class Lupa extends BaseCharacter implements PlayerInitPostDungeonInitiali
     }
 
     @Override
-    protected boolean isCardCanAdd(AbstractCard card) {
-        return CardOwnerPlayerManager.isLupaCard(card);
-    }
-
-    @Override
     public int getAscensionMaxHPLoss() {
         return 5;
     }
@@ -104,5 +99,10 @@ public class Lupa extends BaseCharacter implements PlayerInitPostDungeonInitiali
         addAsInfoBlight(new JokeDescription());
         addAsInfoBlight(new DevaBody_Lupa());
         addAsInfoBlight(new Sensitive());
+    }
+
+    @Override
+    protected boolean isCardCanAdd(AbstractCard card) {
+        return CardOwnerPlayerManager.isLupaCard(card);
     }
 }

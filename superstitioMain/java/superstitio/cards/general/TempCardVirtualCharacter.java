@@ -61,11 +61,6 @@ public class TempCardVirtualCharacter extends BaseCharacter {
         return DataManager.SPTT_DATA.TempCardEnums.TempCard_CARD;
     }
 
-    @Override
-    protected boolean isCardCanAdd(AbstractCard card) {
-        return false;
-    }
-
     // 碎心图片
     @Override
     public ArrayList<CutscenePanel> getCutscenePanels() {
@@ -76,5 +71,10 @@ public class TempCardVirtualCharacter extends BaseCharacter {
     @Override
     public AbstractPlayer newInstance() {
         return new TempCardVirtualCharacter(this.name);
+    }
+
+    @Override
+    protected boolean isCardCanAdd(AbstractCard card) {
+        return false;
     }
 }

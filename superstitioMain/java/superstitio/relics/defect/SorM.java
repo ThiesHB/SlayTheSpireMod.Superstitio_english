@@ -61,6 +61,10 @@ public class SorM extends SuperstitioRelic implements ClickableRelic, CustomSava
         if (!MasochismMode && !SadismMode) Default();
     }
 
+    private void AddSexualHeat(int amount) {
+        SexualHeat.addToBot_addSexualHeat(AbstractDungeon.player, amount);
+    }
+
     @Override
     public void atBattleStart() {
         updateDesAndImg();
@@ -90,10 +94,6 @@ public class SorM extends SuperstitioRelic implements ClickableRelic, CustomSava
         AddSexualHeat(SadismModeSexualHeatRate);
 //        AddSexualHeat(damageAmount / SadismModeRate * SexualHeatRate);
         this.flash();
-    }
-
-    private void AddSexualHeat(int amount) {
-        SexualHeat.addToBot_addSexualHeat(AbstractDungeon.player, amount);
     }
 
     @Override

@@ -109,6 +109,21 @@ public class HangUpCardGroup implements RenderInBattle,
         });
     }
 
+    public boolean hasOrb() {
+        return !cards.isEmpty();
+    }
+
+    public void removeCard(CardOrb cardOrb) {
+        cards.remove(cardOrb);
+        cardOrb.onRemove();
+        letEachOrbToSlotPlaces();
+    }
+
+    protected void hangUpNewCard(CardOrb orb) {
+        cards.add(orb);
+        letEachOrbToSlotPlaces();
+    }
+
     private <T> void forEachOrbInThisOrbGroup(BiConsumer<CardOrb, T> consumer, T arg) {
         for (CardOrb orb : this.cards) {
             consumer.accept(orb, arg);
@@ -140,22 +155,19 @@ public class HangUpCardGroup implements RenderInBattle,
         }
     }
 
-    protected final Vector2 makeSlotPlaceLine(final float totalLength, int slotIndex) {
-        final float offsetX = OffsetPercentageBySlotIndex_TwoEnd(slotIndex) * totalLength;
-        Vector2 vector2 = new Vector2();
-        vector2.x = offsetX;
-        vector2.y = this.hitbox.height / 2.0f;
-        return vector2;
+    private Stream<CardOrb> getCardOrbStream() {
+        return this.cards.stream();
     }
 
-    protected final float OffsetPercentageBySlotIndex_TwoEnd(float slotIndex) {
-        final float maxOrbs = getCardsAmount();
-        return ((slotIndex + 1) / (maxOrbs + 1) - 0.5f);
-    }
-
-    protected final float OffsetPercentageBySlotIndex_Cycle(float slotIndex) {
-        final float maxOrbs = getCardsAmount();
-        return (slotIndex) / (maxOrbs);
+    private void removeUselessCard() {
+        this.remove_check_counter--;
+        if (this.remove_check_counter >= 0) return;
+        this.remove_check_counter = 10;
+        this.forEachOrbInThisOrbGroup(orb -> {
+            orb.checkShouldRemove();
+            if (orb.ifShouldRemove() || ActionUtility.isNotInBattle())
+                AutoDoneInstantAction.addToBotAbstract(() -> removeCard(orb));
+        });
     }
 
     //设置球的位置的函数，自动移动球的位置
@@ -180,23 +192,26 @@ public class HangUpCardGroup implements RenderInBattle,
         }
     }
 
-    protected void hangUpNewCard(CardOrb orb) {
-        cards.add(orb);
-        letEachOrbToSlotPlaces();
-    }
-
-    public boolean hasOrb() {
-        return !cards.isEmpty();
-    }
-
-    public void removeCard(CardOrb cardOrb) {
-        cards.remove(cardOrb);
-        cardOrb.onRemove();
-        letEachOrbToSlotPlaces();
-    }
-
     public final int getCardsAmount() {
         return this.cards.size();
+    }
+
+    protected final Vector2 makeSlotPlaceLine(final float totalLength, int slotIndex) {
+        final float offsetX = OffsetPercentageBySlotIndex_TwoEnd(slotIndex) * totalLength;
+        Vector2 vector2 = new Vector2();
+        vector2.x = offsetX;
+        vector2.y = this.hitbox.height / 2.0f;
+        return vector2;
+    }
+
+    protected final float OffsetPercentageBySlotIndex_TwoEnd(float slotIndex) {
+        final float maxOrbs = getCardsAmount();
+        return ((slotIndex + 1) / (maxOrbs + 1) - 0.5f);
+    }
+
+    protected final float OffsetPercentageBySlotIndex_Cycle(float slotIndex) {
+        final float maxOrbs = getCardsAmount();
+        return (slotIndex) / (maxOrbs);
     }
 
     @Override
@@ -209,7 +224,6 @@ public class HangUpCardGroup implements RenderInBattle,
         this.forEachOrbInThisOrbGroup(AbstractOrb::updateDescription);
     }
 
-
     @Override
     public void render(SpriteBatch sb) {
         if (ActionUtility.isNotInBattle()) return;
@@ -220,9 +234,13 @@ public class HangUpCardGroup implements RenderInBattle,
             hoveredCard.render(sb);
     }
 
-    private Stream<CardOrb> getCardOrbStream() {
-        return this.cards.stream();
-    }
+//    private void checkIfPlayerHoverHandCard() {
+//        AbstractCard hoveredCard = AbstractDungeon.player.hoveredCard;
+//        if (!((boolean) ReflectionHacks.getPrivate(AbstractDungeon.player, AbstractPlayer.class, "isHoveringCard")))
+//            return;
+//        if (hoveredCard == null) return;
+//        forEachOrbInThisOrbGroup(CardOrb_CardTrigger.class, CardOrb_CardTrigger::onPlayerHoveringHandCard,hoveredCard);
+//    }
 
     @Override
     public void update() {
@@ -244,25 +262,6 @@ public class HangUpCardGroup implements RenderInBattle,
         });
 //        checkIfPlayerHoverHandCard();
         removeUselessCard();
-    }
-
-//    private void checkIfPlayerHoverHandCard() {
-//        AbstractCard hoveredCard = AbstractDungeon.player.hoveredCard;
-//        if (!((boolean) ReflectionHacks.getPrivate(AbstractDungeon.player, AbstractPlayer.class, "isHoveringCard")))
-//            return;
-//        if (hoveredCard == null) return;
-//        forEachOrbInThisOrbGroup(CardOrb_CardTrigger.class, CardOrb_CardTrigger::onPlayerHoveringHandCard,hoveredCard);
-//    }
-
-    private void removeUselessCard() {
-        this.remove_check_counter--;
-        if (this.remove_check_counter >= 0) return;
-        this.remove_check_counter = 10;
-        this.forEachOrbInThisOrbGroup(orb -> {
-            orb.checkShouldRemove();
-            if (orb.ifShouldRemove() || ActionUtility.isNotInBattle())
-                AutoDoneInstantAction.addToBotAbstract(() -> removeCard(orb));
-        });
     }
 
     @Override

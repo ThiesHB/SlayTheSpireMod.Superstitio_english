@@ -39,9 +39,16 @@ public abstract class SuperstitioApiPower extends AbstractPower implements Updat
         return CardCrawlGame.languagePack.getPowerStrings(powerID);
     }
 
-    @Override
-    public Object[] getDescriptionArgs() {
-        return descriptionArgs;
+    public void addToBot_applyPower(final AbstractPower power) {
+        ActionUtility.addToBot_applyPower(power, this.owner);
+    }
+
+    public void addToBot_reducePowerToOwner(final String powerID, int amount) {
+        ActionUtility.addToBot_reducePower(powerID, amount, this.owner, this.owner);
+    }
+
+    public void addToBot_removeSpecificPower(AbstractPower power) {
+        ActionUtility.addToBot_removeSpecificPower(power, power.owner);
     }
 
     protected void SetupPower(String id, PowerStrings powerStrings, final AbstractCreature owner, int amount, PowerType powerType,
@@ -70,25 +77,25 @@ public abstract class SuperstitioApiPower extends AbstractPower implements Updat
                 DataUtility::makeImgFilesPath_Power, id + returnSizeNum(size));
     }
 
-
     private String returnSizeNum(IconSize size) {
         return size == IconSize.Big ? "84" : "32";
-    }
-
-    public void addToBot_applyPower(final AbstractPower power) {
-        ActionUtility.addToBot_applyPower(power, this.owner);
-    }
-
-    public void addToBot_reducePowerToOwner(final String powerID, int amount) {
-        ActionUtility.addToBot_reducePower(powerID, amount, this.owner, this.owner);
     }
 
 //    public void addToBot_reducePowerToOwner(final AbstractPower power) {
 //        ActionUtility.addToBot_reducePower(power, power.owner);
 //    }
 
-    public void addToBot_removeSpecificPower(AbstractPower power) {
-        ActionUtility.addToBot_removeSpecificPower(power, power.owner);
+    @Override
+    public Object[] getDescriptionArgs() {
+        return descriptionArgs;
+    }
+
+    @Override
+    public final void setDescriptionArgs(Object... args) {
+        if (args[0] instanceof Object[])
+            descriptionArgs = (Object[]) args[0];
+        else
+            descriptionArgs = args;
     }
 
     /**
@@ -104,14 +111,6 @@ public abstract class SuperstitioApiPower extends AbstractPower implements Updat
 
     @Override
     public abstract String getDescriptionStrings();
-
-    @Override
-    public final void setDescriptionArgs(Object... args) {
-        if (args[0] instanceof Object[])
-            descriptionArgs = (Object[]) args[0];
-        else
-            descriptionArgs = args;
-    }
 
     @Override
     public abstract void updateDescriptionArgs();

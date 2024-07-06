@@ -51,13 +51,23 @@ public abstract class AbstractLupaOrb extends AbstractOrb implements UpdateDescr
         return DataManager.makeImgPath("default", DataManager::makeImgFilesPath_Orb, id);
     }
 
-    @Override
-    public Object[] getDescriptionArgs() {
-        return descriptionArgs;
+    public void setEvokeAmount(int amount) {
+        evokeAmount = amount;
+        baseEvokeAmount = amount;
     }
 
     //    @Override
 //    public abstract void updateDescription();
+
+    public void setPassiveAmount(int amount) {
+        passiveAmount = amount;
+        basePassiveAmount = amount;
+    }
+
+    @Override
+    public Object[] getDescriptionArgs() {
+        return descriptionArgs;
+    }
 
     @Override
     public final void setDescriptionArgs(Object... args) {
@@ -69,16 +79,6 @@ public abstract class AbstractLupaOrb extends AbstractOrb implements UpdateDescr
 
     @Override
     public abstract void applyFocus();
-
-    public void setEvokeAmount(int amount) {
-        evokeAmount = amount;
-        baseEvokeAmount = amount;
-    }
-
-    public void setPassiveAmount(int amount) {
-        passiveAmount = amount;
-        basePassiveAmount = amount;
-    }
 
     @Override
     public void updateDescription() {

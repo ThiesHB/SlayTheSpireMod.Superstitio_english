@@ -41,13 +41,6 @@ public class SemenLubricate extends LupaCard {
         this.setupMagicNumber(MAGIC);
     }
 
-    @Override
-    public void use(AbstractPlayer player, AbstractMonster monster) {
-        addToBot_dealDamage(monster);
-        inPlayingCard = true;
-        addToBotAbstract(this::continuePlayCard);
-    }
-
     public void continuePlayCard() {
         if (!inPlayingCard) return;
         if (!hasEnoughSemen(this.magicNumber)) {
@@ -72,6 +65,13 @@ public class SemenLubricate extends LupaCard {
         AutoDoneInstantAction.addToBotAbstract(() -> AbstractDungeon.player.drawPile.group.remove(attackCard.get()));
         addToBot_applyPower(new ContinuePlayCardPower(this));
         addToBot(new NewQueueCardAction(attackCard.get(), true, false, true));
+    }
+
+    @Override
+    public void use(AbstractPlayer player, AbstractMonster monster) {
+        addToBot_dealDamage(monster);
+        inPlayingCard = true;
+        addToBotAbstract(this::continuePlayCard);
     }
 
     @Override

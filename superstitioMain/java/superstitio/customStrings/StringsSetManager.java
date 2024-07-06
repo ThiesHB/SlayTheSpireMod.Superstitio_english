@@ -46,24 +46,6 @@ public class StringsSetManager {
         makeSFWVersion();
     }
 
-    private static void loadUIStringsSet() {
-        DataManager.loadCustomStringsFile("UIStringsWithSFW", DataManager.uiStrings, UIStringsSet.class);
-    }
-
-    private static void loadOrbStringsSet() {
-        DataManager.loadCustomStringsFile("orb", DataManager.orbs, OrbStringsSet.class);
-    }
-
-    private static void makeSFWWordForStringsSet() {
-        List<WordReplace> wordReplaces = makeWordReplaceRule();
-
-        DataManager.cards.forEach((string, card) -> card.setupSFWStringByWordReplace(wordReplaces));
-        DataManager.powers.forEach(((string, power) -> power.setupSFWStringByWordReplace(wordReplaces)));
-        DataManager.modifiers.forEach(((string, modifier) -> modifier.setupSFWStringByWordReplace(wordReplaces)));
-        DataManager.orbs.forEach(((string, orb) -> orb.setupSFWStringByWordReplace(wordReplaces)));
-
-    }
-
     public static List<WordReplace> makeWordReplaceRule() {
         if (wordReplaceRules != null && !wordReplaceRules.isEmpty()) return wordReplaceRules;
         List<WordReplace> sfwReplaces =
@@ -88,6 +70,24 @@ public class StringsSetManager {
         keywords.forEach(keyWord -> keyWord.makeSFWVersion(makeWordReplaceRule()));
         keywords.forEach(SuperstitioKeyWord::addToGame);
         return;
+    }
+
+    private static void loadUIStringsSet() {
+        DataManager.loadCustomStringsFile("UIStringsWithSFW", DataManager.uiStrings, UIStringsSet.class);
+    }
+
+    private static void loadOrbStringsSet() {
+        DataManager.loadCustomStringsFile("orb", DataManager.orbs, OrbStringsSet.class);
+    }
+
+    private static void makeSFWWordForStringsSet() {
+        List<WordReplace> wordReplaces = makeWordReplaceRule();
+
+        DataManager.cards.forEach((string, card) -> card.setupSFWStringByWordReplace(wordReplaces));
+        DataManager.powers.forEach(((string, power) -> power.setupSFWStringByWordReplace(wordReplaces)));
+        DataManager.modifiers.forEach(((string, modifier) -> modifier.setupSFWStringByWordReplace(wordReplaces)));
+        DataManager.orbs.forEach(((string, orb) -> orb.setupSFWStringByWordReplace(wordReplaces)));
+
     }
 
     private static List<SuperstitioKeyWord> getAllKeywords() {

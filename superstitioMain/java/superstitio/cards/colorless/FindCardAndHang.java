@@ -33,16 +33,6 @@ public class FindCardAndHang extends SuperstitioCard {
         CardModifierManager.addModifier(this, new ExhaustMod());
     }
 
-    @Override
-    public void use(AbstractPlayer player, AbstractMonster monster) {
-        addToBot(new ChoseCardFromGridSelectWindowAction(AbstractDungeon.player.drawPile,
-                this::HangUpSpecificCard)
-                .setWindowText(String.format(getEXTENDED_DESCRIPTION()[0], CHOSE_CARD))
-                .setChoseAmount(CHOSE_CARD)
-                .setAnyNumber(true)
-        );
-    }
-
     private void HangUpSpecificCard(AbstractCard card) {
         AbstractCard copyCard = card.makeStatEquivalentCopy();
         copyCard.exhaust = true;
@@ -55,6 +45,16 @@ public class FindCardAndHang extends SuperstitioCard {
                     .setShowCard(showUpCard)
                     .addToBot_HangCard();
         });
+    }
+
+    @Override
+    public void use(AbstractPlayer player, AbstractMonster monster) {
+        addToBot(new ChoseCardFromGridSelectWindowAction(AbstractDungeon.player.drawPile,
+                this::HangUpSpecificCard)
+                .setWindowText(String.format(getEXTENDED_DESCRIPTION()[0], CHOSE_CARD))
+                .setChoseAmount(CHOSE_CARD)
+                .setAnyNumber(true)
+        );
     }
 
     @Override

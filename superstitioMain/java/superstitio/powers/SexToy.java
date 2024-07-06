@@ -23,6 +23,11 @@ public class SexToy extends AbstractSuperstitioPower {
         this.updateDescription();
     }
 
+    public void Trigger() {
+        this.flash();
+        SexualHeat.addToBot_addSexualHeat(this.owner, this.amount / SEXUAL_HEAT_RATE);
+    }
+
     @Override
     public void updateDescriptionArgs() {
         final String[] SexToysString = {""};
@@ -34,11 +39,6 @@ public class SexToy extends AbstractSuperstitioPower {
     public void atStartOfTurn() {
         AutoDoneInstantAction.addToBotAbstract(this::Trigger);
 //        Trigger();
-    }
-
-    public void Trigger() {
-        this.flash();
-        SexualHeat.addToBot_addSexualHeat(this.owner, this.amount / SEXUAL_HEAT_RATE);
     }
 
     @Override

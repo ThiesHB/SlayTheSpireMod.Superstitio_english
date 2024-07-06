@@ -33,45 +33,6 @@ public class ChoseCardFromHandCardSelectScreen extends AbstractContinuallyAction
         this.amount = 1;
     }
 
-    @Override
-    protected void RunAction() {
-        if (AbstractDungeon.handCardSelectScreen.wereCardsRetrieved) return;
-        this.temp_remove_from_hand.group.forEach(card -> this.player.hand.addToTop(card));
-        AbstractDungeon.handCardSelectScreen.selectedCards.group.forEach(card -> {
-            this.player.hand.addToTop(card);
-            doAction(card);
-        });
-        AbstractDungeon.handCardSelectScreen.wereCardsRetrieved = true;
-        AbstractDungeon.handCardSelectScreen.selectedCards.group.clear();
-        this.temp_remove_from_hand.clear();
-        this.player.hand.refreshHandLayout();
-    }
-
-    @Override
-    protected void ActionSetUp() {
-        if (AbstractDungeon.getMonsters().areMonstersBasicallyDead() || this.amount <= 0) {
-            this.isDone = true;
-            return;
-        }
-        this.player.hand.group.stream().filter(card -> !retainFilter.test(card)).forEach(this.temp_remove_from_hand.group::add);
-        this.player.hand.group.removeAll(this.temp_remove_from_hand.group);
-//        this.player.hand.group.clear();
-
-        if (this.player.hand.size() <= this.amount && !anyNumber && !canPickZero) {
-            CardGroup hand = this.player.hand;
-            this.amount = hand.size();
-            hand.group.forEach(this::doAction);
-            this.temp_remove_from_hand.group.forEach(card -> this.player.hand.addToTop(card));
-            this.isDone = true;
-        } else if (!this.player.hand.isEmpty())//if (this.player.hand.size() > this.amount)
-            AbstractDungeon.handCardSelectScreen.open(windowText, this.amount, anyNumber, canPickZero);
-        AbstractDungeon.player.hand.applyPowers();
-    }
-
-    private void doAction(AbstractCard c) {
-        this.actionApply.accept(c);
-    }
-
     public ChoseCardFromHandCardSelectScreen setChoiceAmount(int choiceAmount) {
         this.amount = choiceAmount;
         return this;
@@ -97,9 +58,52 @@ public class ChoseCardFromHandCardSelectScreen extends AbstractContinuallyAction
         return this;
     }
 
+    private void doAction(AbstractCard c) {
+        this.actionApply.accept(c);
+    }
+
     @SafeVarargs
     public final ChoseCardFromHandCardSelectScreen setRetainFilter(Predicate<AbstractCard>... filters) {
         Arrays.stream(filters).forEach(abstractCardPredicate -> this.retainFilter = this.retainFilter.and(abstractCardPredicate));
         return this;
+    }
+
+    @Override
+    protected void StartAction() {
+        if (this.amount <= 0) {
+            this.isDone = true;
+            return;
+        }
+        this.player.hand.group.stream().filter(card -> !retainFilter.test(card)).forEach(this.temp_remove_from_hand.group::add);
+        this.player.hand.group.removeAll(this.temp_remove_from_hand.group);
+//        this.player.hand.group.clear();
+
+        if (this.player.hand.size() <= this.amount && !anyNumber && !canPickZero) {
+            CardGroup hand = this.player.hand;
+            this.amount = hand.size();
+            hand.group.forEach(this::doAction);
+            this.temp_remove_from_hand.group.forEach(card -> this.player.hand.addToTop(card));
+            this.isDone = true;
+        } else if (!this.player.hand.isEmpty())//if (this.player.hand.size() > this.amount)
+            AbstractDungeon.handCardSelectScreen.open(windowText, this.amount, anyNumber, canPickZero);
+        AbstractDungeon.player.hand.applyPowers();
+    }
+
+    @Override
+    protected void RunAction() {
+        if (AbstractDungeon.handCardSelectScreen.wereCardsRetrieved) return;
+        this.temp_remove_from_hand.group.forEach(card -> this.player.hand.addToTop(card));
+        AbstractDungeon.handCardSelectScreen.selectedCards.group.forEach(card -> {
+            this.player.hand.addToTop(card);
+            doAction(card);
+        });
+        AbstractDungeon.handCardSelectScreen.wereCardsRetrieved = true;
+        AbstractDungeon.handCardSelectScreen.selectedCards.group.clear();
+        this.temp_remove_from_hand.clear();
+        this.player.hand.refreshHandLayout();
+    }
+
+    @Override
+    protected void EndAction() {
     }
 }

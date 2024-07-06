@@ -22,40 +22,18 @@ public abstract class CardOrb_CardTrigger extends CardOrb {
         this.evokeOnEndOfTurn = false;
     }
 
-    @Override
-    protected void onRemoveCard() {
+    public CardOrb_CardTrigger setEvokeOnEndOfTurn() {
+        this.evokeOnEndOfTurn = true;
+        return this;
     }
 
-    @Override
-    public void update() {
-        super.update();
-        setEvokeAmount(OrbCounter - 1);
-        setPassiveAmount(OrbCounter);
-    }
-
-    @Override
-    public void render(SpriteBatch spriteBatch) {
-        super.render(spriteBatch);
-    }
-
-    public final void onCardUsed(AbstractCard card) {
-        if (card == null) return;
-        if (!TestIfCardIsRight_use(card)) return;
-        if (OrbCounter <= 0) return;
-        this.card.calculateCardDamage(null);
-        OrbCounter--;
-        if (onProperCardUsed_checkIfShouldApplyAction(card))
-            actionAccept(card);
+    public CardOrb_CardTrigger setDiscardOnEndOfTurn() {
+        this.evokeOnEndOfTurn = true;
+        this.setTriggerDiscardIfMoveToDiscard();
+        return this;
     }
 
     protected abstract boolean onProperCardUsed_checkIfShouldApplyAction(AbstractCard card);
-
-    @Override
-    public void forceAcceptAction(AbstractCard card) {
-        OrbCounter--;
-        if (onProperCardUsed_checkIfShouldApplyAction(card))
-            actionAccept(card);
-    }
 
     protected void actionAccept(AbstractCard card) {
         if (OrbCounter < 0) return;
@@ -71,14 +49,14 @@ public abstract class CardOrb_CardTrigger extends CardOrb {
         return this.cardMatcher.test(hoveredCard);
     }
 
-    @Override
-    protected boolean TestIfCardIsRight_hover(AbstractCard hoveredCard) {
-        if (hoveredCard == null) return false;
-        if (cardMatcher == null) return false;
-        if (hoveredCard instanceof Card_TriggerHangCardManually) {
-            return ((Card_TriggerHangCardManually) hoveredCard).forceFilterCardOrbToHoveredMode(this);
-        }
-        return this.cardMatcher.test(hoveredCard);
+    public final void onCardUsed(AbstractCard card) {
+        if (card == null) return;
+        if (!TestIfCardIsRight_use(card)) return;
+        if (OrbCounter <= 0) return;
+        this.card.calculateCardDamage(null);
+        OrbCounter--;
+        if (onProperCardUsed_checkIfShouldApplyAction(card))
+            actionAccept(card);
     }
 
     @SafeVarargs
@@ -90,20 +68,42 @@ public abstract class CardOrb_CardTrigger extends CardOrb {
     }
 
     @Override
+    public void update() {
+        super.update();
+        setEvokeAmount(OrbCounter - 1);
+        setPassiveAmount(OrbCounter);
+    }
+
+    @Override
+    public void render(SpriteBatch spriteBatch) {
+        super.render(spriteBatch);
+    }
+
+    @Override
+    public void forceAcceptAction(AbstractCard card) {
+        OrbCounter--;
+        if (onProperCardUsed_checkIfShouldApplyAction(card))
+            actionAccept(card);
+    }
+
+    @Override
     public void onEndOfTurn() {
         if (!evokeOnEndOfTurn) return;
 //        InBattleDataManager.getHangUpCardOrbGroup().ifPresent(group -> group.evokeOrb(this));
         setShouldRemove();
     }
 
-    public CardOrb_CardTrigger setEvokeOnEndOfTurn() {
-        this.evokeOnEndOfTurn = true;
-        return this;
+    @Override
+    protected void onRemoveCard() {
     }
 
-    public CardOrb_CardTrigger setDiscardOnEndOfTurn() {
-        this.evokeOnEndOfTurn = true;
-        this.setTriggerDiscardIfMoveToDiscard();
-        return this;
+    @Override
+    protected boolean TestIfCardIsRight_hover(AbstractCard hoveredCard) {
+        if (hoveredCard == null) return false;
+        if (cardMatcher == null) return false;
+        if (hoveredCard instanceof Card_TriggerHangCardManually) {
+            return ((Card_TriggerHangCardManually) hoveredCard).forceFilterCardOrbToHoveredMode(this);
+        }
+        return this.cardMatcher.test(hoveredCard);
     }
 }
