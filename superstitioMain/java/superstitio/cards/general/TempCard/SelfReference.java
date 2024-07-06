@@ -2,12 +2,14 @@ package superstitio.cards.general.TempCard;
 
 import basemod.AutoAdd;
 import com.evacipated.cardcrawl.mod.stslib.fields.cards.AbstractCard.AutoplayField;
-import com.megacrit.cardcrawl.actions.common.MakeTempCardInHandAction;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import superstitio.DataManager;
 import superstitio.cards.general.AbstractTempCard;
 import superstitio.delayHpLose.RemoveDelayHpLoseBlock;
+import superstitioapi.utils.ActionUtility;
+
+import static superstitioapi.utils.ActionUtility.addToBot_makeTempCardInBattle;
 
 @AutoAdd.Ignore
 public class SelfReference extends AbstractTempCard {
@@ -39,7 +41,7 @@ public class SelfReference extends AbstractTempCard {
 
     @Override
     public void triggerOnExhaust() {
-        this.addToBot(new MakeTempCardInHandAction(this.makeCopy()));
+        addToBot_makeTempCardInBattle(new SelfReference(), ActionUtility.BattleCardPlace.Hand, upgraded);
     }
 
     @Override

@@ -55,7 +55,7 @@ public class ActionUtility {
 
     public static void addToBot_makeTempCardInBattle(AbstractCard card, BattleCardPlace battleCardPlace, int amount,
                                                      boolean upgrade) {
-        if (upgrade)
+        if (upgrade && !card.upgraded)
             card.upgrade();
         final AbstractGameAction gameAction;
         gameAction = getMakeTempCardAction(card, battleCardPlace, amount);

@@ -58,7 +58,6 @@ public class UnBirth extends GeneralCard {
         addToBot_gainCustomBlock(new PregnantBlock_sealPower(sealPower, player));
         this.exhaust = true;
         addToBot_makeTempCardInBattle(new SelfReference(), ActionUtility.BattleCardPlace.Hand, upgraded);
-
     }
 
     private void ForMonsterBrokenSpaceStructure(AbstractMonster monster) {

@@ -1,5 +1,6 @@
 package superstitio.cards.maso.BaseCard;
 
+import com.megacrit.cardcrawl.actions.common.ExhaustSpecificCardAction;
 import com.megacrit.cardcrawl.actions.common.LoseHPAction;
 import com.megacrit.cardcrawl.actions.utility.NewQueueCardAction;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
@@ -8,11 +9,14 @@ import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import com.megacrit.cardcrawl.ui.panels.EnergyPanel;
 import superstitio.DataManager;
+import superstitio.cards.general.TempCard.SelfReference;
 import superstitio.cards.maso.MasoCard;
 import superstitioapi.actions.AutoDoneInstantAction;
 import superstitioapi.actions.ChoseCardFromHandCardSelectScreen;
+import superstitioapi.utils.ActionUtility;
 
 import static com.evacipated.cardcrawl.mod.stslib.cards.targeting.SelfOrEnemyTargeting.SELF_OR_ENEMY;
+import static superstitioapi.utils.ActionUtility.addToBot_makeTempCardInBattle;
 import static superstitioapi.utils.CardUtility.getSelfOrEnemyTarget;
 
 public class FistIn extends MasoCard {
@@ -36,25 +40,33 @@ public class FistIn extends MasoCard {
     @Override
     public void use(AbstractPlayer player, AbstractMonster monster) {
         AbstractCreature target = getSelfOrEnemyTarget(this, monster);
-        new ChoseCardFromHandCardSelectScreen(card -> AutoDoneInstantAction.addToBotAbstract(() -> {
-            int costSave;
-            if (card.costForTurn >= 0)
-                costSave = card.costForTurn;
-            else if (card.costForTurn == -1)
-                costSave = EnergyPanel.getCurrentEnergy();
-            else
-                costSave = 0;
-            card.dontTriggerOnUseCard = true;
-            addToBot(new LoseHPAction(AbstractDungeon.player, AbstractDungeon.player, costSave * magicNumber));
+        new ChoseCardFromHandCardSelectScreen(card -> {
+            if (card instanceof FistIn) {
+                addToBot_makeTempCardInBattle(new SelfReference(), ActionUtility.BattleCardPlace.Hand, card.upgraded);
+                addToBot(new ExhaustSpecificCardAction(card, AbstractDungeon.player.hand));
+                return;
+            }
 
-            if (card.target == CardTarget.ENEMY && target instanceof AbstractMonster)
-                addToBot(new NewQueueCardAction(card, target, false, true));
-            else if (card.target == SELF_OR_ENEMY) {
-                addToBot(new NewQueueCardAction(card, target instanceof AbstractMonster ? target : null, false, true));
-            } else
-                addToBot(new NewQueueCardAction(card, true, false, true));
+            AutoDoneInstantAction.addToBotAbstract(() -> {
+                int costSave;
+                if (card.costForTurn >= 0)
+                    costSave = card.costForTurn;
+                else if (card.costForTurn == -1)
+                    costSave = EnergyPanel.getCurrentEnergy();
+                else
+                    costSave = 0;
+                card.dontTriggerOnUseCard = true;
+                addToBot(new LoseHPAction(AbstractDungeon.player, AbstractDungeon.player, costSave * magicNumber));
 
-        }))
+                if (card.target == CardTarget.ENEMY && target instanceof AbstractMonster)
+                    addToBot(new NewQueueCardAction(card, target, false, true));
+                else if (card.target == SELF_OR_ENEMY) {
+                    addToBot(new NewQueueCardAction(card, target instanceof AbstractMonster ? target : null, false, true));
+                } else
+                    addToBot(new NewQueueCardAction(card, true, false, true));
+
+            });
+        })
                 .setRetainFilter()
                 .setWindowText(cardStrings.getEXTENDED_DESCRIPTION()[0])
                 .addToBot();

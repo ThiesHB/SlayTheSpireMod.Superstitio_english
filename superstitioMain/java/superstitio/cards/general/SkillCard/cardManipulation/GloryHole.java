@@ -36,14 +36,25 @@ public class GloryHole extends GeneralCard {
     }
 
     private static AbstractGameAction makeChoseCardCopy(AbstractCard card) {
-        if (Objects.equals(card.cardID, GloryHole.ID))
-            return new MakeTempCardInHandAction(new SelfReference());
+        if (Objects.equals(card.cardID, GloryHole.ID)) {
+            SelfReference selfReference = new SelfReference();
+            if (card.upgraded)
+                selfReference.upgrade();
+            return new MakeTempCardInHandAction(selfReference);
+        }
         return new MakeTempCardInHandAction(card.makeStatEquivalentCopy());
     }
 
+//    private static AbstractCard getCard(AbstractCard card) {
+//        if (card instanceof GloryHole)
+//            return new SelfReference();
+//        return card.makeStatEquivalentCopy();
+//    }
+
     @Override
     public void use(AbstractPlayer player, AbstractMonster monster) {
-        this.addToBot(new ChoseCardFromGridSelectWindowAction(AbstractDungeon.player.masterDeck, card -> addToBot(makeChoseCardCopy(card)))
+        this.addToBot(new ChoseCardFromGridSelectWindowAction(AbstractDungeon.player.masterDeck, card ->
+                        addToBot(makeChoseCardCopy(card)))
                         .setWindowText(String.format(getEXTENDED_DESCRIPTION()[0]))
                         .setAnyNumber(true)
 //                .setRetainFilter(card -> !Objects.equals(card.cardID, GloryHole.ID))
