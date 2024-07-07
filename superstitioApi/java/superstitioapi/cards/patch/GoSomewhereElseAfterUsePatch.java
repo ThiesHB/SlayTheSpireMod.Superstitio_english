@@ -49,37 +49,4 @@ public class GoSomewhereElseAfterUsePatch {
                 AbstractDungeon.player.limbo.removeCard(card));
         return false;
     }
-
-//    public static void addToSequence(final AbstractCard c) {
-//        if (!FunctionHelper.doStuff) {
-//            FunctionHelper.doStuff = true;
-//        }
-//        if (c instanceof FullRelease && FunctionHelper.held.group.stream().anyMatch(q -> q.cardID.equals(FullRelease.ID))) {
-//            AbstractDungeon.actionManager.addToTop((AbstractGameAction)new MakeTempCardInDiscardAction(c.makeSameInstanceOf(), 1));
-//            AbstractDungeon.actionManager.addToTop((AbstractGameAction)new TalkAction(true, AutomatonTextHelper.uiStrings.TEXT[6], 2.0f, 1.5f));
-//        }
-//        for (final AbstractPower p : AbstractDungeon.player.powers) {
-//            if (p instanceof OnAddToFuncPower) {
-//                ((OnAddToFuncPower)p).receiveAddToFunc(c);
-//            }
-//        }
-//
-//        final int r = FunctionHelper.held.size();
-//        FunctionHelper.held.addToTop(c);
-//        if (c instanceof AbstractBronzeCard) {
-//            ((AbstractBronzeCard)c).position = r;
-//        }
-//        if (c instanceof AbstractBronzeCard) {
-//            ((AbstractBronzeCard)c).onInput();
-//        }
-//        if (FunctionHelper.held.size() == max()) {
-//            output();
-//        }
-//        FunctionHelper.secretStorage = makeFunction(false);
-//        for (final AbstractPower q2 : AbstractDungeon.player.powers) {
-//            if (q2 instanceof PostAddToFuncPower) {
-//                ((PostAddToFuncPower)q2).receivePostAddToFunc(c);
-//            }
-//        }
-//    }
 }

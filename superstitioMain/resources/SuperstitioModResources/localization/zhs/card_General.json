@@ -1,21 +1,24 @@
 ﻿{
   "SuperstitioMod:JuicyPussy": {
     "NAME": "多汁小穴",
-    "NAME_SFW": "怒火护体",
+    "NAME_SFW": "一怒之下",
     "DESCRIPTION": "superstitiomod:高潮 时，移除 !M! *腐朽 。",
-    "FLAVOR": "这就是为什么我不穿内裤。"
+    "FLAVOR": "这就是为什么我不穿内裤。",
+    "FLAVOR_SFW": "怒了一下。"
   },
   "SuperstitioMod:Ahegao": {
     "NAME": "阿嘿颜",
-    "NAME_SFW": "强者纹",
+    "NAME_SFW": "连砍带顺劈",
     "DESCRIPTION": "superstitiomod:助兴- superstitiomod:缠绵 NL 打出 !M! 攻击牌： NL 造成 !D! 点 伤害。",
-    "FLAVOR": "想要保持专业的微笑，但是控制不住。"
+    "FLAVOR": "想要保持专业的微笑，但是控制不住。",
+    "FLAVOR_SFW": "把普通攻击变成全体二连击。"
   },
   "SuperstitioMod:CountSign": {
     "NAME": "正字记号",
     "NAME_SFW": "盛怒",
     "DESCRIPTION": "造成 !D! 点 伤害 。 NL superstitiomod:高潮中 ，额外造成本场战斗中 superstitiomod:高潮 总次数的 !M! 倍伤害 。",
     "FLAVOR": "这是荣耀的记号！",
+    "FLAVOR_SFW": "我被囚禁了一万年，又被逐出了自己的故乡……",
     "EXTENDED_DESCRIPTION": [
       "高潮总次数： %d"
     ],
@@ -25,8 +28,10 @@
   },
   "SuperstitioMod:FastWindUp": {
     "NAME": "快速收尾",
+    "NAME_SFW": "漆黑噤默之页",
     "DESCRIPTION": "当你 superstitiomod:高潮 时， *满足 所有 superstitiomod:助兴 的卡牌 !M! 次。",
-    "FLAVOR": "一起来，快点，我要收工了。"
+    "FLAVOR": "一起来，快点，我要收工了。",
+    "FLAVOR_SFW": "一码，归一码。"
   },
   "SuperstitioMod:CalmDown": {
     "NAME": "冷静",
@@ -49,13 +54,15 @@
     "NAME": "以乳蒙眼",
     "NAME_SFW": "以血蒙眼",
     "DESCRIPTION": "造成 !D! 点 伤害 。 NL 目标敌人跳过一个动作。 NL 给予 !M! superstitiomod:乳汁 。",
-    "FLAVOR": "这招如何？"
+    "FLAVOR": "这招如何？",
+    "FLAVOR_SFW": "这招如何？"
   },
   "SuperstitioMod:SelfBind": {
     "NAME": "自缚",
     "NAME_SFW": "结下束缚",
     "DESCRIPTION": "获得 !M! 点 力量 。 NL 失去 1 点 敏捷 。",
-    "FLAVOR": "加强魅惑，降低行动❤"
+    "FLAVOR": "加强魅惑，降低行动❤",
+    "FLAVOR_SFW": "为什么要瞬发空间斩？"
   },
   "SuperstitioMod:UnBirth": {
     "NAME": "胎内回归",
@@ -76,9 +83,10 @@
   },
   "SuperstitioMod:TimeStop": {
     "NAME": "时间静滞",
-    "NAME_SFW": "",
+    "NAME_SFW": "世界",
     "DESCRIPTION": "持续 !M! 回合。 NL superstitiomod:快感 不改变，且不再抽卡。 NL 在 superstitiomod:回合结束 或 superstitiomod:你的回合结束 时，你的 superstitiomod:负面效果和强化效果 均不触发。 NL 每回合开始时，释放期间产生的 superstitiomod:快感 的 2 倍。",
-    "FLAVOR": "请你为所欲为吧。"
+    "FLAVOR": "请你为所欲为吧。",
+    "FLAVOR_SFW": "时间静止住了，接着只见沙地上的鲜血。"
   },
   "SuperstitioMod:Endure": {
     "NAME": "忍耐",
@@ -101,6 +109,7 @@
     "NAME_SFW": "荣耀勋章",
     "DESCRIPTION": "从卡组中任选1张牌，将其复制加入手牌。 NL 消耗 。",
     "FLAVOR": "欢迎大家使用，提供7x24小时服务哦。",
+    "FLAVOR_SFW": "那个冬天真冷啊。暖气停了，房间里结了冰，我只好抱着电视机取暖。",
     "EXTENDED_DESCRIPTION": [
       "选择1张牌并将其复制加入手牌。"
     ]
@@ -114,7 +123,8 @@
     "NAME": "情趣快递",
     "NAME_SFW": "制作旗帜",
     "DESCRIPTION": "添加 !M! 张 *情趣玩具 到手牌中。 NL 消耗 。",
-    "FLAVOR": "很惊喜吧？"
+    "FLAVOR": "很惊喜吧？",
+    "FLAVOR_SFW": "得造坚固点，据说有个红帽子的喜欢爬。"
   },
   "SuperstitioMod:ForceOrgasm": {
     "NAME": "强制高潮",
@@ -127,9 +137,10 @@
   },
   "SuperstitioMod:ReadyToSex": {
     "NAME": "性交准备",
-    "NAME_SFW": "马步",
+    "NAME_SFW": "重新练起",
     "DESCRIPTION": "选择一张手牌，将其 superstitiomod:助兴- superstitiomod:欲求 NL 打出 !M! 任何牌： NL 打出复制后被 *丢弃 。",
     "FLAVOR": "来吧！一起上！我照单全收！",
+    "FLAVOR_SFW": "从扎马步开始，重新练起吧！",
     "EXTENDED_DESCRIPTION": [
       "将其助兴。"
     ]
@@ -138,13 +149,15 @@
     "NAME": "躺平任肏",
     "NAME_SFW": "超级无敌我爱你",
     "DESCRIPTION": "superstitiomod:并行 。 NL 移除 !B! 点 *腐朽 。 NL *满足 所有 superstitiomod:助兴 卡牌 !M! 次。",
-    "FLAVOR": "请便，我今天不想动。"
+    "FLAVOR": "请便，我今天不想动。",
+    "FLAVOR_SFW": "强化冲击第十二级境界！"
   },
   "SuperstitioMod:OneMoreHour": {
     "NAME": "再战一回",
-    "NAME_SFW": "再战一回",
+    "NAME_SFW": "前尘忆梦",
     "DESCRIPTION": "superstitiomod:并行 。 NL 移除 !B! 点 *腐朽 。 NL 所有 superstitiomod:助兴 卡牌的计数变为 !M! 倍。",
-    "FLAVOR": "拜托啦，别走嘛，我会好好服侍您的。"
+    "FLAVOR": "拜托啦，别走嘛，我会好好服侍您的。",
+    "FLAVOR_SFW": "却道天凉好个秋。"
   },
   "SuperstitioMod:EroSion": {
     "NAME": "腐蚀",
@@ -153,30 +166,34 @@
   },
   "SuperstitioMod:ForcePutSexToy": {
     "NAME": "强制塞入",
-    "NAME_SFW": "竖旗无数",
+    "NAME_SFW": "插旗无数",
     "DESCRIPTION": "佩戴 !M! superstitiomod:情趣玩具 ， NL 失去 !M! 生命 ， NL 触发所有 superstitiomod:情趣玩具 的效果 。",
-    "FLAVOR": "满满当当？还能再塞！"
+    "FLAVOR": "满满当当？还能再塞！",
+    "FLAVOR_SFW": "我已经看到结局了。"
   },
   "SuperstitioMod:MonsterGirlMode": {
     "NAME": "兽娘变形",
-    "NAME_SFW": "适者生存",
+    "NAME_SFW": "掌控进化",
     "DESCRIPTION": "从多个可选的变形中，选择一个。",
-    "FLAVOR": "今天变成什么样子呢？"
+    "FLAVOR": "今天变成什么样子呢？",
+    "FLAVOR_SFW": "自然进化一直以来只能用一个简单且粗暴的词来形容：失败。 NL 如今，我们将亲自定义成功。"
   },
   "SuperstitioMod:EscapeConjuring": {
     "NAME": "逃脱魔术",
     "NAME_SFW": "金蝉脱壳",
     "DESCRIPTION": "获得手牌中 状态 和 诅咒 数量的 [E] 。 NL 获得 当前负面状态 !M! 倍的 superstitiomod:快感 。 NL *丢弃 所有费用不为0的手牌， NL 每 *丢弃 一张 状态 或 诅咒 牌，抽一张牌。",
     "FLAVOR": "也许不挣脱也是一个好选择？",
+    "FLAVOR_SFW": "这个故事，要从一只金蝉说起……",
     "ADD_KEYWORDS_ID": [
       "SuperstitioMod:Orgasm"
     ]
   },
   "SuperstitioMod:MeasureDick": {
     "NAME": "肚量",
-    "NAME_SFW": "投掷武器",
+    "NAME_SFW": "投技",
     "DESCRIPTION": "从手牌中选择最多 !M! 张牌 *丢弃 ， NL 若 *丢弃 卡牌的当前耗能小于初始耗能，获得相当于这一差值的 [E] 。",
     "FLAVOR": "看看谁插的最深？",
+    "FLAVOR_SFW": "牛战士从来不会摘下他的面具。",
     "EXTENDED_DESCRIPTION": [
       "丢弃，最多选择%d张牌。"
     ]
@@ -186,21 +203,24 @@
     "NAME_SFW": "秘密武器",
     "DESCRIPTION": "在你的回合结束时， 保留 最多 !M! 张牌，并让其下次打出时不消耗能量。",
     "FLAVOR": "只要够烂，裤裆里面什么都可以藏。",
+    "FLAVOR_SFW": "大榴莲更是给你无数惊喜。",
     "EXTENDED_DESCRIPTION": [
       "保留并免费一次，最多选择%d张牌。"
     ]
   },
   "SuperstitioMod:HaveBirthWith": {
     "NAME": "孕育",
-    "NAME_SFW": "呼唤",
+    "NAME_SFW": "呼神护卫",
     "DESCRIPTION": "获得 !B! superstitiomod:妊娠 。 NL 顺产： 生成和目标对应的 superstitiomod:宝宝 。",
-    "FLAVOR": ""
+    "FLAVOR": "",
+    "FLAVOR_SFW": "是鸟？是飞机？是我的守护神哒！"
   },
   "SuperstitioMod:RideDildoBike": {
     "NAME": "骑行奸",
-    "NAME_SFW": "好马好鞍",
+    "NAME_SFW": "好马配好鞍",
     "DESCRIPTION": "选择最多 !M! 张手牌，抽对应数量的牌，将选中手牌 superstitiomod:助兴- superstitiomod:欲求 NL 打出 %d 任何牌： NL 回到手牌。 NL superstitiomod:自动释放 。",
     "FLAVOR": "",
+    "FLAVOR_SFW": "而非吕布骑狗。",
     "EXTENDED_DESCRIPTION": [
       "助兴并抽一张牌，最多选择%d张牌。"
     ]

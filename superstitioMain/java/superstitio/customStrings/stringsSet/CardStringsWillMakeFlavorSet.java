@@ -10,6 +10,7 @@ import superstitio.customStrings.interFace.StringSetUtility;
 import superstitio.customStrings.interFace.WordReplace;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 public class CardStringsWillMakeFlavorSet implements HasOriginAndSFWVersion<CardStrings>, SuperstitioKeyWord.WillMakeSuperstitioKeyWords,
@@ -26,6 +27,7 @@ public class CardStringsWillMakeFlavorSet implements HasOriginAndSFWVersion<Card
     private String[] EXTENDED_DESCRIPTION;
     private String[] EXTENDED_DESCRIPTION_SFW;
     private String FLAVOR;
+    private String FLAVOR_SFW;
     private SuperstitioKeyWord[] MAKE_KEYWORDS;
     private String[] ADD_KEYWORDS_ID;
 
@@ -52,10 +54,10 @@ public class CardStringsWillMakeFlavorSet implements HasOriginAndSFWVersion<Card
         return getArrayFromRightVersion(strings -> strings.EXTENDED_DESCRIPTION);
     }
 
-    public String getFLAVOR() {
+    public Optional<String> getFLAVOR() {
         if (SuperstitioConfig.isEnableSFW())
-            return "";
-        return FLAVOR;
+            return Optional.ofNullable(FLAVOR_SFW);
+        return Optional.ofNullable(FLAVOR);
     }
 
     private WordReplace toCardNameReplaceRule() {
@@ -86,6 +88,7 @@ public class CardStringsWillMakeFlavorSet implements HasOriginAndSFWVersion<Card
         sfw.DESCRIPTION = DESCRIPTION_SFW;
         sfw.UPGRADE_DESCRIPTION = UPGRADE_DESCRIPTION_SFW;
         sfw.EXTENDED_DESCRIPTION = EXTENDED_DESCRIPTION_SFW;
+        FlavorText.CardStringsFlavorField.flavor.set(sfw, FLAVOR_SFW);
     }
 
     public CardStrings getRightVersion() {

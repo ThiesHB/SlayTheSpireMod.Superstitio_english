@@ -42,10 +42,7 @@ import superstitioapi.renderManager.inBattleManager.InBattleDataManager;
 import superstitioapi.utils.ActionUtility;
 import superstitioapi.utils.UpdateDescriptionAdvanced;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
@@ -74,7 +71,8 @@ public abstract class SuperstitioCard extends CustomCard implements UpdateDescri
                 getCardStringsWithSFWAndFlavor(id).getDESCRIPTION(), cardType, cardColor, cardRarity, cardTarget);
         Logger.debug("loadCard" + id);
         this.cardStrings = getCardStringsWithSFWAndFlavor(id);
-        FlavorText.AbstractCardFlavorFields.flavor.set(this, this.cardStrings.getFLAVOR());
+        Optional<String> flavor = this.cardStrings.getFLAVOR();
+        flavor.ifPresent(string -> FlavorText.AbstractCardFlavorFields.flavor.set(this, string));
         FlavorText.AbstractCardFlavorFields.textColor.set(this, Color.PINK.cpy());
         FlavorText.AbstractCardFlavorFields.flavorBoxType.set(this, FlavorText.boxType.TRADITIONAL);
         updateRawDescription();
