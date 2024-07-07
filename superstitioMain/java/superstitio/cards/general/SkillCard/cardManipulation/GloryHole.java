@@ -53,12 +53,13 @@ public class GloryHole extends GeneralCard {
 
     @Override
     public void use(AbstractPlayer player, AbstractMonster monster) {
-        this.addToBot(new ChoseCardFromGridSelectWindowAction(AbstractDungeon.player.masterDeck, card ->
-                        addToBot(makeChoseCardCopy(card)))
-                        .setWindowText(String.format(getEXTENDED_DESCRIPTION()[0]))
-                        .setAnyNumber(true)
+        new ChoseCardFromGridSelectWindowAction(AbstractDungeon.player.masterDeck, card ->
+                addToBot(makeChoseCardCopy(card)))
+                .setWindowText(String.format(getEXTENDED_DESCRIPTION()[0]))
+                .setAnyNumber(true)
+                .addToBot();
 //                .setRetainFilter(card -> !Objects.equals(card.cardID, GloryHole.ID))
-        );
+
     }
 
     @Override

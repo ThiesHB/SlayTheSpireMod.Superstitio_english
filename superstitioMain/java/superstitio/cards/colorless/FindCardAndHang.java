@@ -49,12 +49,12 @@ public class FindCardAndHang extends SuperstitioCard {
 
     @Override
     public void use(AbstractPlayer player, AbstractMonster monster) {
-        addToBot(new ChoseCardFromGridSelectWindowAction(AbstractDungeon.player.drawPile,
+        new ChoseCardFromGridSelectWindowAction(AbstractDungeon.player.drawPile,
                 this::HangUpSpecificCard)
                 .setWindowText(String.format(getEXTENDED_DESCRIPTION()[0], CHOSE_CARD))
                 .setChoseAmount(CHOSE_CARD)
                 .setAnyNumber(true)
-        );
+                .addToBot();
     }
 
     @Override

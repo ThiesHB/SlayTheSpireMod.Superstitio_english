@@ -54,7 +54,7 @@
   "SuperstitioMod:CumOnShoes": {
     "NAME": "精液高跟鞋",
     "DESCRIPTIONS": [
-      "本场战斗中，每 使用 %d #y性交牌 ，获得 1 敏捷。"
+      "本场战斗中，每 使用 %d #y性交牌 ，获得 1 层 敏捷。"
     ],
     "FLAVOR": "黏糊糊的好舒服呀。"
   },

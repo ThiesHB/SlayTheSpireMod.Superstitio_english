@@ -35,7 +35,7 @@
   "SuperstitioMod:Job_Foot": {
     "NAME": "足交",
     "NAME_SFW": "回旋踢",
-    "DESCRIPTION": "造成 2 次 !D! 点 伤害 。 NL superstitiomod:助兴- superstitiomod:缠绵 NL 打出 !M! 性交牌： NL 抽一张牌。 NL superstitiomod:自动释放 。",
+    "DESCRIPTION": "造成 !D! 点 伤害 两次。 NL superstitiomod:助兴- superstitiomod:缠绵 NL 打出 !M! 性交牌： NL 抽一张牌。 NL superstitiomod:自动释放 。",
     "FLAVOR": "最好是射鞋里，个人来说还是比较喜欢黏糊糊地走路。",
     "EXTENDED_DESCRIPTION": [
       "鞋"
@@ -65,7 +65,7 @@
   "SuperstitioMod:Job_Hand": {
     "NAME": "手交",
     "NAME_SFW": "升龙拳",
-    "DESCRIPTION": "造成 2 次 !D! 点 伤害 。 NL superstitiomod:助兴- superstitiomod:缠绵 NL 打出 !M! 攻击牌： NL 获得 %d 力量 。 superstitiomod:自动释放 。",
+    "DESCRIPTION": "造成 !D! 点 伤害 两次。 NL superstitiomod:助兴- superstitiomod:缠绵 NL 打出 !M! 攻击牌： NL 获得 %d 力量 。 superstitiomod:自动释放 。",
     "FLAVOR": "用手就能做好的事情却要用其他的部位。该说是你们需求太高了，还是我的两只手应付不过来了？",
     "EXTENDED_DESCRIPTION": [
       "手"
@@ -74,7 +74,7 @@
   "SuperstitioMod:Job_LegPit": {
     "NAME": "腿交",
     "NAME_SFW": "膝击",
-    "DESCRIPTION": "造成 2 次 !D! 点 伤害 。 NL superstitiomod:高潮中 ，每造成未被格挡的伤害，抽 1 张牌。",
+    "DESCRIPTION": "造成 !D! 点 伤害 两次。 NL superstitiomod:高潮中 ，每造成未被格挡的伤害，抽 1 张牌。",
     "FLAVOR": "轮奸的时候，如果没有位置就只有这样凑合了，不过好像也有人真的很喜欢？会有吗？",
     "EXTENDED_DESCRIPTION": [
       "腿弯"
@@ -92,13 +92,13 @@
   "SuperstitioMod:Fuck_Ear": {
     "NAME": "耳交",
     "NAME_SFW": "龙形拳",
-    "DESCRIPTION": "造成 2 次 !D! 点 伤害 。 NL 把 *眼交 加入手牌。 NL 获得 1 脆弱 。 NL 消耗 。",
+    "DESCRIPTION": "造成 !D! 点 伤害 两次。 NL 把 *眼交 加入手牌。 NL 获得 1 层 脆弱 。 NL 消耗 。",
     "FLAVOR": "是脑交！要是脑子有触觉就好了，哧溜。"
   },
   "SuperstitioMod:Fuck_Eye": {
     "NAME": "眼交",
     "NAME_SFW": "蛇形拳",
-    "DESCRIPTION": "对自身和目标敌人造成 2 次 !D! 点 伤害 ， 获得 1 虚弱 。 NL superstitiomod:助兴- superstitiomod:欲求 NL 打出 !M! 任何牌： NL 移除 !B! 点 *腐朽 ， 把 *耳交 加入手牌 。 NL 消耗 。",
+    "DESCRIPTION": "对自身和目标敌人造成 !D! 点 伤害 两次， 获得 1 层 虚弱 。 NL superstitiomod:助兴- superstitiomod:欲求 NL 打出 !M! 任何牌： NL 移除 !B! 点 *腐朽 ， 把 *耳交 加入手牌 。 NL 消耗 。",
     "FLAVOR": "也许是脑交。总的来说还是取决于肉棒的主人敢不敢用力吧。"
   },
   "SuperstitioMod:Fuck_Navel": {

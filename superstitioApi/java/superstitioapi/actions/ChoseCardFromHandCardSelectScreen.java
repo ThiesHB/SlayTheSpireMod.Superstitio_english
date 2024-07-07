@@ -33,33 +33,33 @@ public class ChoseCardFromHandCardSelectScreen extends AbstractContinuallyAction
         this.amount = 1;
     }
 
-    public ChoseCardFromHandCardSelectScreen setChoiceAmount(int choiceAmount) {
+    private void doAction(AbstractCard c) {
+        this.actionApply.accept(c);
+    }
+
+    public final ChoseCardFromHandCardSelectScreen setChoiceAmount(int choiceAmount) {
         this.amount = choiceAmount;
         return this;
     }
 
-    public ChoseCardFromHandCardSelectScreen setSource(AbstractCreature source) {
+    public final ChoseCardFromHandCardSelectScreen setSource(AbstractCreature source) {
         this.source = source;
         return this;
     }
 
-    public ChoseCardFromHandCardSelectScreen setWindowText(String windowText) {
+    public final ChoseCardFromHandCardSelectScreen setWindowText(String windowText) {
         this.windowText = windowText;
         return this;
     }
 
-    public ChoseCardFromHandCardSelectScreen setAnyNumber(boolean anyNumber) {
+    public final ChoseCardFromHandCardSelectScreen setAnyNumber(boolean anyNumber) {
         this.anyNumber = anyNumber;
         return this;
     }
 
-    public ChoseCardFromHandCardSelectScreen setCanPickZero(boolean canPickZero) {
+    public final ChoseCardFromHandCardSelectScreen setCanPickZero(boolean canPickZero) {
         this.canPickZero = canPickZero;
         return this;
-    }
-
-    private void doAction(AbstractCard c) {
-        this.actionApply.accept(c);
     }
 
     @SafeVarargs

@@ -29,16 +29,16 @@ public class MeasureDick extends GeneralCard {
 
     @Override
     public void use(AbstractPlayer player, AbstractMonster monster) {
-        addToBot(new ChoseCardFromHandCardSelectScreen(targetCard -> AutoDoneInstantAction.addToBotAbstract(() -> {
-                    addToTop(new GainEnergyAction(Math.max(targetCard.makeCopy().costForTurn - targetCard.costForTurn, 0)));
-                    addToTop(new DiscardSpecificCardAction(targetCard));
-                }))
-                        .setAnyNumber(true)
-                        .setCanPickZero(true)
+        new ChoseCardFromHandCardSelectScreen(targetCard -> AutoDoneInstantAction.addToBotAbstract(() -> {
+            addToTop(new GainEnergyAction(Math.max(targetCard.makeCopy().costForTurn - targetCard.costForTurn, 0)));
+            addToTop(new DiscardSpecificCardAction(targetCard));
+        }))
+                .setAnyNumber(true)
+                .setCanPickZero(true)
 //                        .setRetainFilter(card -> card.isCostModifiedForTurn || card.isCostModified)
-                        .setChoiceAmount(this.magicNumber)
-                        .setWindowText(String.format(this.cardStrings.getEXTENDED_DESCRIPTION()[0], this.magicNumber))
-        );
+                .setChoiceAmount(this.magicNumber)
+                .setWindowText(String.format(this.cardStrings.getEXTENDED_DESCRIPTION()[0], this.magicNumber))
+                .addToBot();
     }
 
     @Override

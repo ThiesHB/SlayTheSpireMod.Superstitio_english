@@ -7,7 +7,7 @@ import superstitioapi.utils.ActionUtility;
 public abstract class AutoDoneInstantAction extends AbstractGameAction {
 
     public static void addToBotAbstract(final ActionUtility.VoidSupplier func) {
-        AbstractDungeon.actionManager.addToBottom(newAutoDone(func));
+        newAutoDone(func).addToBot();
     }
 
     public static void addToBotAbstract(final ActionUtility.VoidSupplier func, int time) {
@@ -18,10 +18,10 @@ public abstract class AutoDoneInstantAction extends AbstractGameAction {
     }
 
     public static void addToTopAbstract(final ActionUtility.VoidSupplier func) {
-        AbstractDungeon.actionManager.addToTop(newAutoDone(func));
+        newAutoDone(func).addToTop();
     }
 
-    public static AbstractGameAction newAutoDone(final ActionUtility.VoidSupplier func) {
+    public static AutoDoneInstantAction newAutoDone(final ActionUtility.VoidSupplier func) {
         return new AutoDoneInstantAction() {
             @Override
             public void autoDoneUpdate() {
@@ -31,6 +31,14 @@ public abstract class AutoDoneInstantAction extends AbstractGameAction {
     }
 
     public abstract void autoDoneUpdate();
+
+    public final void addToBot() {
+        AbstractDungeon.actionManager.addToBottom(this);
+    }
+
+    public final void addToTop() {
+        AbstractDungeon.actionManager.addToTop(this);
+    }
 
     @Override
     public final void update() {

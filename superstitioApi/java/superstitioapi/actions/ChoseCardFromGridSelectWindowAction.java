@@ -25,17 +25,17 @@ public class ChoseCardFromGridSelectWindowAction extends AbstractContinuallyActi
         this.amount = 1;
     }
 
-    public ChoseCardFromGridSelectWindowAction setAnyNumber(boolean anyNumber) {
+    public final ChoseCardFromGridSelectWindowAction setAnyNumber(boolean anyNumber) {
         this.anyNumber = anyNumber;
         return this;
     }
 
-    public ChoseCardFromGridSelectWindowAction setWindowText(String windowText) {
+    public final ChoseCardFromGridSelectWindowAction setWindowText(String windowText) {
         this.windowText = windowText;
         return this;
     }
 
-    public ChoseCardFromGridSelectWindowAction setChoseAmount(int choseAmount) {
+    public final ChoseCardFromGridSelectWindowAction setChoseAmount(int choseAmount) {
         this.amount = choseAmount;
         return this;
     }

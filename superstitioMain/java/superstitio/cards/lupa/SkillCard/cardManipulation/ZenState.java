@@ -45,7 +45,7 @@ public class ZenState extends LupaCard {
     @Override
     public void use(AbstractPlayer player, AbstractMonster monster) {
         addToBot_gainBlock();
-        addToBot(new ChoseCardFromHandCardSelectScreen(
+        new ChoseCardFromHandCardSelectScreen(
                 card -> {
                     addToBot_letSpecificCardExhaust(card);
                     if (!CardUtility.canUseWithoutEnvironment(card))
@@ -54,7 +54,7 @@ public class ZenState extends LupaCard {
                 .setWindowText(String.format(getEXTENDED_DESCRIPTION()[0], this.magicNumber))
                 .setChoiceAmount(this.magicNumber)
                 .setRetainFilter(card -> !card.exhaust, card -> !CardModifierManager.hasModifier(card, ExhaustMod.ID))
-        );
+                .addToBot();
     }
 
     @Override

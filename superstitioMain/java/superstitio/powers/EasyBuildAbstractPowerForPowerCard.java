@@ -35,7 +35,6 @@ public abstract class EasyBuildAbstractPowerForPowerCard extends AbstractSuperst
         return this;
     }
 
-    //    @NotNull
     protected abstract SuperstitioCard makePowerCard();
 
     protected String getDesc() {

@@ -116,6 +116,21 @@ public abstract class BaseCharacter extends CustomPlayer {
         }
     }
 
+    protected static void updateIsUnableByGuroSetting(boolean moreCheck) {
+        if (moreCheck) {
+            if (!SuperstitioConfig.isEnableGuroCharacter()) {
+                try {
+                    CardCrawlGame.mainMenuScreen.charSelectScreen.confirmButton.isDisabled = true;
+                    if (CardCrawlGame.mainMenuScreen.charSelectScreen.confirmButton.isHovered) {
+                        TipsUtility.renderTipsWithMouse(GuroTip);
+                    }
+                } catch (Exception e) {
+                    Logger.warning("no confirmButton found");
+                }
+            }
+        } else CardCrawlGame.mainMenuScreen.charSelectScreen.confirmButton.isDisabled = false;
+    }
+
     public void setMoveOffset(float x, float y) {
         this.offsetX = x;
         this.offsetY = y;

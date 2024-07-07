@@ -20,6 +20,7 @@ import com.megacrit.cardcrawl.screens.charSelect.CharacterOption;
 import superstitio.DataManager;
 import superstitio.Logger;
 import superstitio.characters.cardpool.CardPoolManager;
+import superstitio.characters.cardpool.MasoCardPool;
 import superstitio.relics.a_starter.DoubleBlockWithVulnerable;
 import superstitio.relics.a_starter.StartWithSexToy;
 import superstitio.relics.blight.*;
@@ -166,9 +167,8 @@ public class Tzeentch extends BaseCharacter implements PlayerInitPostDungeonInit
 
     @Override
     public ArrayList<AbstractCard> getCardPool(ArrayList<AbstractCard> tmpPool) {
-        ArrayList<AbstractCard> originCardPool = tmpPool;
-        addCardByCardFilter(originCardPool);
-        return originCardPool;
+        addCardByCardFilter(tmpPool);
+        return tmpPool;
     }
 
     @Override
@@ -209,7 +209,7 @@ public class Tzeentch extends BaseCharacter implements PlayerInitPostDungeonInit
 
     @Override
     public void updateInCharacterSelectScreen(CharacterOption characterOption) {
-        unableByGuroSetting();
+        updateIsUnableByGuroSetting(CardPoolManager.instance.cardPools.stream().anyMatch(baseCardPool -> baseCardPool instanceof MasoCardPool && baseCardPool.getIsSelect()));
         CardPoolManager.instance.update();
         STARTER_RELIC_Selection_UI.update();
         DEVABODY_RELIC_Selection_UI.update();

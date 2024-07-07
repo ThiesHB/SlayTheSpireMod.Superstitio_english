@@ -23,16 +23,6 @@ public class PregnantBlock_sealPower extends PregnantBlock {
         this.sealCreature = sealCreature;
     }
 
-//    @Override
-//    public void onAttacked(DamageInfo info, int damageAmount) {
-//        if (sealCreature == null || sealCreature.isDeadOrEscaped()) return;
-//        if (info.type != DamageInfo.DamageType.NORMAL) return;
-//        DamageActionMaker.maker(Math.min(damageAmount / THORNS_RATE, getCurrentAmount() / THORNS_RATE), sealCreature)
-//                .setDamageType(DamageInfo.DamageType.THORNS)
-//                .addToBot();
-//        super.onAttacked(info, damageAmount);
-//    }
-
     @Override
     public void onThisBlockDamaged(DamageInfo info, int lostAmount) {
         super.onThisBlockDamaged(info, lostAmount);
@@ -50,8 +40,6 @@ public class PregnantBlock_sealPower extends PregnantBlock {
             return super.getDescription();
         if (sealCreature instanceof AbstractPlayer)
             return super.getDescription() + this.blockStrings.getEXTENDED_DESCRIPTION()[0] + this.blockStrings.getEXTENDED_DESCRIPTION()[1];
-//        if (sealCreature instanceof ChibiKindMonster.MinionChibi)
-//            return super.getDescription() + this.blockStrings.getEXTENDED_DESCRIPTION()[0] + this.blockStrings.getEXTENDED_DESCRIPTION()[1];
         return super.getDescription() + this.blockStrings.getEXTENDED_DESCRIPTION()[0] + sealCreature.name;
     }
 

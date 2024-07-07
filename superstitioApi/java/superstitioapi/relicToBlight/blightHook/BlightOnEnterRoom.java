@@ -11,6 +11,7 @@ import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.rooms.AbstractRoom;
 import com.megacrit.cardcrawl.saveAndContinue.SaveFile;
 import javassist.CtBehavior;
+import superstitioapi.utils.InOrderIndexMultiFinder;
 
 import static com.megacrit.cardcrawl.dungeons.AbstractDungeon.getCurrRoom;
 

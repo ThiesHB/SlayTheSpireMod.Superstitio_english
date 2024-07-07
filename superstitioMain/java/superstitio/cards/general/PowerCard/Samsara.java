@@ -29,6 +29,7 @@ public class Samsara extends GeneralCard {
     public Samsara() {
         super(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET);
         this.setupMagicNumber(MAGIC, UPGRADE_MAGIC);
+        this.cardsToPreview = new Wound();
     }
 
     @Override

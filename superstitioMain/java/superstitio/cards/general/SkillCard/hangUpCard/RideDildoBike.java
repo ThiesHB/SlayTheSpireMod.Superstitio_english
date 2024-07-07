@@ -48,8 +48,7 @@ public class RideDildoBike extends GeneralCard {
 
     @Override
     public void use(AbstractPlayer player, AbstractMonster monster) {
-        addToBot(new ChoseCardFromHandCardSelectScreen(
-                card -> {
+        new ChoseCardFromHandCardSelectScreen(card -> {
                     HangUpSpecificCard(card);
                     addToBot_drawCards();
                 })
@@ -57,7 +56,7 @@ public class RideDildoBike extends GeneralCard {
                 .setChoiceAmount(this.magicNumber)
                 .setAnyNumber(true)
                 .setCanPickZero(true)
-        );
+                .addToBot();
     }
 
     @Override

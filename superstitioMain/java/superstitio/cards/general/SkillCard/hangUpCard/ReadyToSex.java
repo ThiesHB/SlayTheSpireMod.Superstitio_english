@@ -49,11 +49,11 @@ public class ReadyToSex extends GeneralCard {
 
     @Override
     public void use(AbstractPlayer player, AbstractMonster monster) {
-        addToBot(new ChoseCardFromHandCardSelectScreen(
+        new ChoseCardFromHandCardSelectScreen(
                 this::HangUpSpecificCard)
                 .setWindowText(String.format(getEXTENDED_DESCRIPTION()[0], CHOSE_CARD))
                 .setChoiceAmount(CHOSE_CARD)
-        );
+                .addToBot();
     }
 
     @Override

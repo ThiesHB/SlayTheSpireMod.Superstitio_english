@@ -48,14 +48,11 @@ public class PassiveGangBang extends GeneralCard implements Card_TriggerHangCard
 
     @Override
     public boolean forceFilterCardOrbToHoveredMode(CardOrb orb) {
-//        return orb instanceof CardOrb_CardTrigger;
         return true;
     }
 
     @Override
     public int forceChangeOrbCounterShown(CardOrb orb) {
-//        if (orb instanceof CardOrb_CardTrigger)
         return Math.max(orb.OrbCounter - this.magicNumber, 0);
-//        return orb.OrbCounter;
     }
 }

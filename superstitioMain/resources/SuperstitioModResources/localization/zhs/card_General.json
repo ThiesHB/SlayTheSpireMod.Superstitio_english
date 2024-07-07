@@ -2,7 +2,7 @@
   "SuperstitioMod:JuicyPussy": {
     "NAME": "多汁小穴",
     "NAME_SFW": "怒火护体",
-    "DESCRIPTION": "高潮时，移除 !M! *腐朽 。",
+    "DESCRIPTION": "superstitiomod:高潮 时，移除 !M! *腐朽 。",
     "FLAVOR": "这就是为什么我不穿内裤。"
   },
   "SuperstitioMod:Ahegao": {
@@ -184,7 +184,7 @@
   "SuperstitioMod:HideInPussy": {
     "NAME": "藏器于屄",
     "NAME_SFW": "秘密武器",
-    "DESCRIPTION": "在你的回合结束时，保留最多 !M! 张牌，并让其下次打出时不消耗能量。",
+    "DESCRIPTION": "在你的回合结束时， 保留 最多 !M! 张牌，并让其下次打出时不消耗能量。",
     "FLAVOR": "只要够烂，裤裆里面什么都可以藏。",
     "EXTENDED_DESCRIPTION": [
       "保留并免费一次，最多选择%d张牌。"

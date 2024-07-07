@@ -274,8 +274,6 @@ public abstract class SuperstitioCard extends CustomCard implements UpdateDescri
         DamageAllEnemiesAction.builder(AbstractDungeon.player, this.multiDamage)
                 .setAttackEffectType(effect)
                 .addToBot();
-//        this.addToBot(new SPTTDamageAllEnemiesAction(AbstractDungeon.player, this.multiDamage, DamageType.NORMAL, effect));
-//        this.addToBot(new DamageAllEnemiesAction(AbstractDungeon.player, this.multiDamage, DamageType.NORMAL, effect));
     }
 
     public final void addToBot_dealDamageToAllEnemies(final AttackEffect effect, AbstractDamageModifier... damageModifiers) {
@@ -287,7 +285,6 @@ public abstract class SuperstitioCard extends CustomCard implements UpdateDescri
                 .setAttackEffectType(effect)
                 .setDamageModifier(this, damageModifiers)
                 .addToBot();
-//        this.addToBot(new SPTTDamageAllEnemiesAction(AbstractDungeon.player, this.multiDamage, DamageType.NORMAL, effect, this, damageModifiers));
     }
 
     public final void addToBot_dealDamageToAllEnemies(final AttackEffect effect,
@@ -302,9 +299,6 @@ public abstract class SuperstitioCard extends CustomCard implements UpdateDescri
                 .setDamageModifier(this, damageModifiers)
                 .setNewAttackEffectMaker(newAttackEffectMaker)
                 .addToBot();
-//        new SPTTDamageAllEnemiesAction(AbstractDungeon.player, this.multiDamage, DamageType.NORMAL, effect, this, damageModifiers)
-//                .setNewAttackEffectMaker(newAttackEffectMaker)
-//                .addToBot();
     }
 
     public final void addToBot_gainBlock() {
