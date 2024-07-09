@@ -26,7 +26,6 @@ import com.megacrit.cardcrawl.localization.CardStrings;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import com.megacrit.cardcrawl.powers.AbstractPower;
 import com.megacrit.cardcrawl.relics.AbstractRelic;
-import com.megacrit.cardcrawl.vfx.AbstractGameEffect;
 import com.megacrit.cardcrawl.vfx.combat.FlashAtkImgEffect;
 import superstitio.Logger;
 import superstitio.customStrings.SuperstitioKeyWord;
@@ -36,14 +35,12 @@ import superstitio.delayHpLose.DelayRemoveDelayHpLoseBlock;
 import superstitio.delayHpLose.DelayRemoveDelayHpLosePower;
 import superstitio.delayHpLose.RemoveDelayHpLoseBlock;
 import superstitioapi.DataUtility;
-import superstitioapi.actions.DamageAllEnemiesAction;
 import superstitioapi.cards.DamageActionMaker;
 import superstitioapi.renderManager.inBattleManager.InBattleDataManager;
 import superstitioapi.utils.ActionUtility;
 import superstitioapi.utils.UpdateDescriptionAdvanced;
 
 import java.util.*;
-import java.util.function.Function;
 import java.util.stream.Collectors;
 
 import static com.evacipated.cardcrawl.mod.stslib.patches.CustomTargeting.targetingMap;
@@ -269,8 +266,8 @@ public abstract class SuperstitioCard extends CustomCard implements UpdateDescri
             Logger.warning("错误，未设置isMultiDamage，可能会出错，所以群体攻击自动禁用，错误卡片：" + this.name);
             return;
         }
-        DamageAllEnemiesAction.builder(AbstractDungeon.player, this.multiDamage)
-                .setAttackEffectType(effect)
+        DamageActionMaker.makeAoeDamage(this)
+                .setEffect(effect)
                 .addToBot();
     }
 
@@ -279,25 +276,24 @@ public abstract class SuperstitioCard extends CustomCard implements UpdateDescri
             Logger.warning("错误，未设置isMultiDamage，可能会出错，所以群体攻击自动禁用，错误卡片：" + this.name);
             return;
         }
-        DamageAllEnemiesAction.builder(AbstractDungeon.player, this.multiDamage)
-                .setAttackEffectType(effect)
+        DamageActionMaker.makeAoeDamage(this)
+                .setEffect(effect)
                 .setDamageModifier(this, damageModifiers)
                 .addToBot();
     }
 
-    public final void addToBot_dealDamageToAllEnemies(final AttackEffect effect,
-                                                      Function<AbstractCreature, AbstractGameEffect> newAttackEffectMaker,
-                                                      AbstractDamageModifier... damageModifiers) {
-        if (!this.isMultiDamage) {
-            Logger.warning("错误，未设置isMultiDamage，可能会出错，所以群体攻击自动禁用，错误卡片：" + this.name);
-            return;
-        }
-        DamageAllEnemiesAction.builder(AbstractDungeon.player, this.multiDamage)
-                .setAttackEffectType(effect)
-                .setDamageModifier(this, damageModifiers)
-                .setNewAttackEffectMaker(newAttackEffectMaker)
-                .addToBot();
-    }
+//    public final void addToBot_dealDamageToAllEnemies(final AttackEffect effect,
+//                                                      Function<AbstractCreature, AbstractGameEffect> newAttackEffectMaker,
+//                                                      AbstractDamageModifier... damageModifiers) {
+//        if (!this.isMultiDamage) {
+//            Logger.warning("错误，未设置isMultiDamage，可能会出错，所以群体攻击自动禁用，错误卡片：" + this.name);
+//            return;
+//        }
+//        DamageActionMaker.makeAoeDamage(this)
+//                .setEffect(effect)
+//                .setDamageModifier(this, damageModifiers)
+//                .addToBot();
+//    }
 
     public final void addToBot_gainBlock() {
         this.addToBot_gainBlock(this.block);

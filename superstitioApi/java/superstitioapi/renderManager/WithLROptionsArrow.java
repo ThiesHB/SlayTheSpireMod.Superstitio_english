@@ -89,8 +89,8 @@ public interface WithLROptionsArrow {
      * 点击时调用pageDown()
      */
     class LeftArrowButton implements IUIElement {
-        public final float w;
-        public final float h;
+        public final float width;
+        public final float height;
         private final Texture arrow;
         private final Hitbox hitbox;
         private final WithLROptionsArrow owner;
@@ -102,14 +102,14 @@ public interface WithLROptionsArrow {
             this.owner = owner;
             this.x = x;
             this.y = y;
-            this.w = Settings.scale * this.arrow.getWidth();
-            this.h = Settings.scale * this.arrow.getHeight();
-            this.hitbox = new Hitbox(x, y, this.w, this.h);
+            this.width = Settings.scale * this.arrow.getWidth();
+            this.height = Settings.scale * this.arrow.getHeight();
+            this.hitbox = new Hitbox(x, y, this.width, this.height);
         }
 
         public void move(final float newX, final float newY) {
-            this.x = newX - this.w / 2.0f;
-            this.y = newY - this.h / 2.0f;
+            this.x = newX - this.width / 2.0f;
+            this.y = newY - this.height / 2.0f;
             this.hitbox.move(newX, newY);
         }
 
@@ -120,9 +120,7 @@ public interface WithLROptionsArrow {
             } else {
                 sb.setColor(Color.LIGHT_GRAY);
             }
-            final float width = this.arrow.getWidth();
-            final float height = this.arrow.getHeight();
-            sb.draw(this.arrow, this.x, this.y, width, height);
+            sb.draw(this.arrow, this.x, this.y, this.width, this.height);
             this.hitbox.render(sb);
         }
 
@@ -150,8 +148,8 @@ public interface WithLROptionsArrow {
      * 点击时调用pageUp()
      */
     class RightArrowButton implements IUIElement {
-        public final float w;
-        public final float h;
+        public final float width;
+        public final float height;
         private final Texture arrow;
         private final Hitbox hitbox;
         private final WithLROptionsArrow owner;
@@ -163,14 +161,14 @@ public interface WithLROptionsArrow {
             this.owner = owner;
             this.x = x;
             this.y = y;
-            this.w = Settings.scale * this.arrow.getWidth();
-            this.h = Settings.scale * this.arrow.getHeight();
-            this.hitbox = new Hitbox(x, y, this.w, this.h);
+            this.width = Settings.scale * this.arrow.getWidth();
+            this.height = Settings.scale * this.arrow.getHeight();
+            this.hitbox = new Hitbox(x, y, this.width, this.height);
         }
 
         public void move(final float newX, final float newY) {
-            this.x = newX - this.w / 2.0f;
-            this.y = newY - this.h / 2.0f;
+            this.x = newX - this.width / 2.0f;
+            this.y = newY - this.height / 2.0f;
             this.hitbox.move(newX, newY);
         }
 
@@ -181,8 +179,6 @@ public interface WithLROptionsArrow {
             } else {
                 sb.setColor(Color.LIGHT_GRAY);
             }
-            final float width = this.arrow.getWidth();
-            final float height = this.arrow.getHeight();
             sb.draw(this.arrow, this.x, this.y, width, height);
             this.hitbox.render(sb);
         }

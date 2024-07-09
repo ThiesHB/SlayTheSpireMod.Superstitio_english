@@ -1,0 +1,126 @@
+﻿{
+  "SuperstitioMod:LupaCard:CoitalVocal": {
+    "NAME": "Coital Vocal",
+    "NAME_SFW": "战吼",
+    "DESCRIPTION": "获得 在场敌人数量+1次的 !B! 点 *格挡 。",
+    "FLAVOR": "兴之所至。",
+    "FLAVOR_SFW": "抽牌。将手牌中的一张牌放到你的抽牌堆顶部。消耗。"
+  },
+  "SuperstitioMod:LupaCard:ExposeSelf": {
+    "NAME": "Expose Self",
+    "NAME_SFW": "战局剖析",
+    "DESCRIPTION": "移除 !B! 点 *腐朽 。 NL 到 下回合 开始前 ， NL 受到攻击伤害 时， NL 获得其数值一半的 superstitiomod:体表精液 。",
+    "FLAVOR": "要做爱，不作战。",
+    "FLAVOR_SFW": "战局对我们的战士太不利了，我得重新集结部队。"
+  },
+  "SuperstitioMod:LupaCard:DrinkSemenBeer": {
+    "NAME": "Drink Semen Beer",
+    "NAME_SFW": "饮血",
+    "DESCRIPTION": " 获得其他 *精液 时， 转化为 *杯中精液 。 当收集满 !M! 或 战斗结束 时，回复 其 数量的 生命 。",
+    "FLAVOR": "收集到杯子里，然后喝。",
+    "FLAVOR_SFW": "朝避猛虎，夕避长蛇。"
+  },
+  "SuperstitioMod:LupaCard:Philter": {
+    "NAME": "Philter",
+    "NAME_SFW": "硬气功",
+    "DESCRIPTION": "失去 所有 的 格挡 ， NL 获得 1/ !M! 的 多层护甲 。",
+    "FLAVOR": "从阴蒂注射效果最好。过量注射可能会导致宫缩。",
+    "FLAVOR_SFW": "那么，你不需要护盾也可以完成仪式。"
+  },
+  "SuperstitioMod:LupaCard:ChooseCoitalPosture": {
+    "NAME": "Choose Coital Posture",
+    "NAME_SFW": "武艺精通",
+    "DESCRIPTION": "把1张带有 消耗 的随机 *性交牌 加入手牌。 NL 这张牌在本回合耗能变为0。",
+    "FLAVOR": "让我想想看……"
+  },
+  "SuperstitioMod:LupaCard:GangBangPrepare": {
+    "NAME": "Gang Bang Prepare",
+    "NAME_SFW": "武学真髓",
+    "DESCRIPTION": "当你打出 *性交牌 时，获得对应的印记，集齐5个后，自动打出一张 *轮奸派对 。 使得除了印记本身的数值外，每多一种印记， *轮奸派对 就提高 百分之 !M! 的数值。",
+    "FLAVOR": "要一起上吗？我全部都能接住！",
+    "FLAVOR_SFW": "英勇之士、尚武之师、引领群体的神……降临吧，武神罗波那！"
+  },
+  "SuperstitioMod:LupaCard:CultaeForm": {
+    "NAME": "Cultae Form",
+    "DESCRIPTION": "",
+    "FLAVOR": ""
+  },
+  "SuperstitioMod:LupaCard:DrySemen": {
+    "NAME": "Dry Semen",
+    "NAME_SFW": "血液护盾",
+    "DESCRIPTION": "superstitiomod:精欲 !M! ： NL 获得 !B! 点 *格挡 。",
+    "FLAVOR": ""
+  },
+  "SuperstitioMod:LupaCard:PutEveryCumInBody": {
+    "NAME": "Put Every Cum In Body",
+    "NAME_SFW": "鲜血环绕",
+    "DESCRIPTION": "失去所有 superstitiomod:地板精液 和 superstitiomod:体表精液 ，获得等量 superstitiomod:快感 和等量 superstitiomod:体内精液 。 NL 将 superstitiomod:体内精液 的上限提升到其当前层数最近的整十数（向下取整）。",
+    "FLAVOR": "满满当当，好舒服~"
+  },
+  "SuperstitioMod:LupaCard:SemenBath": {
+    "NAME": "Semen Bath",
+    "NAME_SFW": "浴血奋战",
+    "DESCRIPTION": "失去 所有的 *精液 ， NL 每 失去 1点价值的 *精液 ，移除 !B! 的 *腐朽 。",
+    "FLAVOR": "泡澡很舒服，收集这么大一缸子可就难了。",
+    "FLAVOR_SFW": "WAAAGH!"
+  },
+  "SuperstitioMod:LupaCard:SemenLubricate": {
+    "NAME": "Semen Lubricate",
+    "NAME_SFW": "连续技",
+    "DESCRIPTION": "造成 !D! 点 伤害 。 NL superstitiomod:连绵： NL superstitiomod:精欲 !M! ： NL 从抽牌堆中打出一张非 *精液润滑 的 攻击牌 。",
+    "FLAVOR": "物尽其用。"
+  },
+  "SuperstitioMod:LupaCard:SemenTattoo": {
+    "NAME": "Semen Tattoo",
+    "NAME_SFW": "血液护体",
+    "DESCRIPTION": "当你获得 *精液 时， NL 获得 其价值的 !M! 点 *格挡 。",
+    "FLAVOR": "拥有催情的神奇效果。"
+  },
+  "SuperstitioMod:LupaCard:SemenMagic": {
+    "NAME": "Semen Magic",
+    "NAME_SFW": "御血术",
+    "DESCRIPTION": "superstitiomod:精欲 !M! ： NL 造成 !D! 点 伤害 。",
+    "FLAVOR": "其实我也是魔法少女哦，精液系魔法少女。"
+  },
+  "SuperstitioMod:LupaCard:PrivatePhoto": {
+    "NAME": "Private Photo",
+    "NAME_SFW": "回望过去",
+    "DESCRIPTION": "获得 !B! 点 *格挡 。 NL 本回合 获得 !M! 次 superstitiomod:激情 。",
+    "FLAVOR": "哎呀，我“不小心”连带身份地址也发网上了，而且门锁也“不小心”坏掉了，这可怎么办是好~❤",
+    "FLAVOR_SFW": ""
+  },
+  "SuperstitioMod:LupaCard:NudeLive": {
+    "NAME": "Nude Live",
+    "NAME_SFW": "回望岁月",
+    "DESCRIPTION": "获得 !B! 点 *格挡 。 NL 获得 !M! 回合 superstitiomod:激情 。",
+    "FLAVOR": "",
+    "FLAVOR_SFW": ""
+  },
+  "SuperstitioMod:LupaCard:Whipping": {
+    "NAME": "Whipping",
+    "NAME_SFW": "鞭打",
+    "DESCRIPTION": "对 所有敌人 造成 !D! 点 伤害 。 NL 每对一个敌人造成 !M! 点 攻击伤害 ，获得 %d 点 superstitiomod:快感 。",
+    "FLAVOR": "",
+    "FLAVOR_SFW": "",
+    "ADD_KEYWORDS_ID": [
+      "SuperstitioMod:Orgasm"
+    ]
+  },
+  "SuperstitioMod:LupaCard:NakedToSchool": {
+    "NAME": "Naked To School",
+    "NAME_SFW": "奋笔疾书",
+    "DESCRIPTION": "从弃牌堆中选择最多 !M! 张牌，将它们升级并放入抽牌堆。",
+    "FLAVOR": "",
+    "EXTENDED_DESCRIPTION": [
+      "升级并放入抽牌堆，最多选择%d张牌。"
+    ]
+  },
+  "SuperstitioMod:LupaCard:ZenState": {
+    "NAME": "Zen State",
+    "DESCRIPTION": "移除 !B! 点 *腐朽 。 NL 从手牌中选择 !M! 张不具有 消耗 的牌赋予 消耗 ， 若其为 superstitiomod:无法打出 的牌，直接将其 消耗 。",
+    "FLAVOR": "保持不动……深呼吸……要维持这个姿势被干。",
+    "EXTENDED_DESCRIPTION": [
+      "赋予消耗，最多选择%d张牌 。"
+    ]
+  }
+}

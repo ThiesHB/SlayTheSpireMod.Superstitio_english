@@ -152,7 +152,7 @@ public class SuperstitioModSetup implements
     public void receiveEditStrings() {
         Logger.run("Beginning to edit strings for mod with ID: " + DataManager.getModID());
         StringsSetManager.loadAllStrings();
-        BaseMod.loadCustomStringsFile(EventStrings.class, DataManager.makeLocalizationPath(Settings.language, "event_general"));
+//        BaseMod.loadCustomStringsFile(EventStrings.class, DataManager.makeLocalizationPath(Settings.language, "event_general"));
 //        BaseMod.loadCustomStringsFile(PotionStrings.class, makeLocPath(Settings.language,"potion"));
         BaseMod.loadCustomStringsFile(CharacterStrings.class,
                 DataManager.makeLocalizationPath(Settings.language, SuperstitioConfig.isEnableSFW() ? "character_LupaSFW" : "character_Lupa"));

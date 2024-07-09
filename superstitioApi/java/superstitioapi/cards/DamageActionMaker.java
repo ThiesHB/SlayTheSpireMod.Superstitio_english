@@ -3,6 +3,7 @@ package superstitioapi.cards;
 import com.evacipated.cardcrawl.mod.stslib.damagemods.AbstractDamageModifier;
 import com.evacipated.cardcrawl.mod.stslib.damagemods.DamageModifierManager;
 import com.evacipated.cardcrawl.modthespire.lib.SpireEnum;
+import com.megacrit.cardcrawl.actions.common.DamageAction;
 import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.cards.DamageInfo;
 import com.megacrit.cardcrawl.core.AbstractCreature;
@@ -17,6 +18,10 @@ import java.util.stream.Collectors;
 
 import static com.megacrit.cardcrawl.actions.AbstractGameAction.AttackEffect;
 
+/**
+ * 这个类其实已经是过度包装了，它本来是原始{@link DamageAction}的builder，但我已经重写了一套新的代码（并且附带了builder）
+ * <p>现在它唯一的用处就是实现{@link DamageEffect#HeartMultiInOne} 一类的特效，算是个可有可无的玩意</p>
+ */
 public class DamageActionMaker {
     private final DamageEnemiesAction.Builder builder;
     private AttackEffect effect = DamageActionMaker.DamageEffect.HeartMultiInOne;
@@ -36,31 +41,18 @@ public class DamageActionMaker {
         this.builder = DamageEnemiesAction.builder(damageAmount, target);
     }
 
-    //    public static NewDamageActionMaker maker(final AbstractCreature source, int damageAmount, final AbstractCreature target) {
-//        return new NewDamageActionMaker(damageAmount, target).setSource(source);
-//    }
     public static DamageActionMaker maker(final int damageAmount, final AbstractCreature target) {
         return new DamageActionMaker(damageAmount, target);
     }
 
-    //    public static NewDamageActionMaker maker(final int[] multiDamage, final AbstractMonster... targets) {
-//        return new NewDamageActionMaker(multiDamage, targets);
-//    }
     public static DamageActionMaker makeDamages(final AbstractCard exampleCard, final AbstractMonster... targets) {
         return new DamageActionMaker(exampleCard.multiDamage, targets);
     }
 
-//    public static NewDamageActionMaker maker(int damageAmount, final AbstractCreature[] targets) {
-//        return new NewDamageActionMaker(damageAmount, targets);
-//    }
-
     public static DamageActionMaker makeAoeDamage(final AbstractCard exampleCard) {
-        return new DamageActionMaker(exampleCard.multiDamage);
+        return new DamageActionMaker(exampleCard.multiDamage)
+                .setDamageModifier(exampleCard, DamageModifierManager.modifiers(exampleCard).toArray(new AbstractDamageModifier[]{}));
     }
-
-//    public static NewDamageActionMaker makeAnAoeAction(final AbstractCreature source, int[] multiDamage) {
-//        return new NewDamageActionMaker(source, multiDamage);
-//    }
 
     public AbstractContinuallyAction createAction() {
         if (effect == DamageActionMaker.DamageEffect.HeartMultiInOne)
@@ -106,16 +98,6 @@ public class DamageActionMaker {
             this.builder.setDamageModifier(instigator, damageModifier);
         return this;
     }
-
-//    private AbstractGameAction get(AbstractCreature target) {
-//        return builder.create();
-//    }
-
-//    private DamageInfo makeDamageInfo() {
-//        if (damageModifiers != null)
-//            return BindingHelper.makeInfo(new DamageModContainer(instigator, damageModifiers), source, damageAmount, damageType);
-//        else return new DamageInfo(source, damageAmount, damageType);
-//    }
 
     public static class DamageEffect {
         @SpireEnum

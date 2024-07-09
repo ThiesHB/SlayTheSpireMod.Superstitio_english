@@ -84,7 +84,7 @@ public abstract class CardOrb extends AbstractOrb {
     }
 
     public static Optional<AbstractMonster> getHoveredMonster() {
-        AbstractMonster hoveredMonster = ReflectionHacks.getPrivate(AbstractDungeon.player, AbstractPlayer.class, "hoveredMonster");
+        AbstractMonster hoveredMonster =  ReflectionHacks.getPrivate(AbstractDungeon.player, AbstractPlayer.class, "hoveredMonster");
         if (hoveredMonster == null) return Optional.empty();
         return Optional.of(hoveredMonster);
     }

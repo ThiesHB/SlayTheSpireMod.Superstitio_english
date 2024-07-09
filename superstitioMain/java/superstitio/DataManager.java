@@ -228,8 +228,11 @@ public class DataManager {
             case ZHS:
                 ret = ret + "zhs/";
                 break;
+            case ENG:
+                ret = ret + "eng/";
+                break;
             default:
-                ret = ret + "zhs/";
+                ret = ret + "eng/";
                 break;
         }
 
@@ -403,15 +406,15 @@ public class DataManager {
             new SPTT_DATA();
         }
 
-        // 为原版人物枚举、卡牌颜色枚举扩展的枚举，需要写，接下来要用
+        // 为原版人物枚举、卡牌颜色枚举扩展的枚举
         public static class LupaEnums {
             @SpireEnum
             public static AbstractPlayer.PlayerClass LUPA_Character;
 
-            @SpireEnum(name = "LUPA_PINK")
+            @SpireEnum(name = "SPTT_LUPA_PINK")
             public static AbstractCard.CardColor LUPA_CARD;
 
-            @SpireEnum(name = "LUPA_PINK")
+            @SpireEnum(name = "SPTT_LUPA_PINK")
             public static CardLibrary.LibraryType LUPA_LIBRARY;
         }
 
@@ -424,13 +427,12 @@ public class DataManager {
             @SpireEnum
             public static AbstractPlayer.PlayerClass MASO_Character;
 
-            @SpireEnum(name = "MASO_PINK")
+            @SpireEnum(name = "SPTT_MASO_PINK")
             public static AbstractCard.CardColor MASO_CARD;
 
-            @SpireEnum(name = "MASO_PINK")
+            @SpireEnum(name = "SPTT_MASO_PINK")
             public static CardLibrary.LibraryType MASO_LIBRARY;
         }
-
 
         public static class GeneralEnums {
             @SpireEnum
@@ -443,7 +445,6 @@ public class DataManager {
             public static CardLibrary.LibraryType GENERAL_LIBRARY;
         }
 
-        // 为原版人物枚举、卡牌颜色枚举扩展的枚举，需要写，接下来要用
         public static class TempCardEnums {
             @SpireEnum
             public static AbstractPlayer.PlayerClass TempCard_Virtual_Character;

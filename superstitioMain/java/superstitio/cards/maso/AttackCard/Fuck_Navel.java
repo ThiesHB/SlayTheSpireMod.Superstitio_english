@@ -7,13 +7,11 @@ import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import com.megacrit.cardcrawl.powers.VulnerablePower;
 import superstitio.DataManager;
-import superstitio.cardModifier.modifiers.damage.SexDamage_Fuck;
 import superstitio.cards.general.FuckJob_Card;
 import superstitio.cards.maso.MasoCard;
 import superstitio.powers.SexualHeat;
 import superstitio.powers.patchAndInterface.interfaces.orgasm.OnOrgasm_onOrgasm;
 import superstitioapi.cards.DamageActionMaker;
-import superstitioapi.shader.heart.HeartMultiAtOneShader;
 
 import static superstitio.cards.CardOwnerPlayerManager.IsNotLupaCard;
 
@@ -39,16 +37,13 @@ public class Fuck_Navel extends MasoCard implements FuckJob_Card, OnOrgasm_onOrg
         FuckJob_Card.initFuckJobCard(this);
         this.setupDamage(DAMAGE, UPGRADE_DAMAGE);
         this.setupMagicNumber(MAGIC, UPGRADE_MAGIC);
-//        this.retain = true;
         this.isMultiDamage = true;
         CardModifierManager.addModifier(this, new RetainMod());
-//        this.selfRetain = true;
     }
 
     @Override
     public void use(AbstractPlayer player, AbstractMonster monster) {
-        addToBot_dealDamageToAllEnemies(DamageActionMaker.DamageEffect.HeartMultiInOne,
-                creature -> new HeartMultiAtOneShader.HeartMultiAtOneEffect(creature.hb), new SexDamage_Fuck());
+        addToBot_dealDamageToAllEnemies(DamageActionMaker.DamageEffect.HeartMultiInOne);
         addToBot_dealDamage(AbstractDungeon.player, DamageActionMaker.DamageEffect.HeartMultiInOne);
         addToBot_applyPower(new VulnerablePower(AbstractDungeon.player, 1, false));
     }

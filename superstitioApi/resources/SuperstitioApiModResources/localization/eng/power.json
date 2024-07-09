@@ -1,0 +1,23 @@
+﻿{
+  "SuperstitioApiMod:AllCardCostModifier": {
+    "NAME": "Save Energy",
+    "DESCRIPTIONS": [
+      "The cost of all cards has been reduced by #b%d . %s",
+      " NL Effect not activated."
+    ]
+  },
+  "SuperstitioApiMod:AllCardCostModifier_PerEnergy": {
+    "NAME": "Save Energy",
+    "DESCRIPTIONS": [
+      "The cost of all cards has been reduced by #b%d . Lose this effect after reducing #b%d energy. %s",
+      " NL Effect not activated."
+    ]
+  },
+  "SuperstitioApiMod:AllCardCostModifier_PerCard": {
+    "NAME": "Save Energy",
+    "DESCRIPTIONS": [
+      "The cost of all cards has been reduced by #b%d . Lose this effect after using #b%d cards. %s",
+      " NL Effect not activated."
+    ]
+  }
+}

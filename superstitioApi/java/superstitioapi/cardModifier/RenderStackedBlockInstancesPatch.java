@@ -30,25 +30,45 @@ import java.util.stream.Collectors;
 
 import static superstitioapi.cardModifier.RenderStackedBlockInstancesPatch.BlockStackForceShowPatch.GetBlockStack;
 
+/**
+ * 此类用于修改游戏中的渲染逻辑，以更准确地显示堆叠的格挡效果。
+ * 它修改了如何显示生物的格挡数量，确保所有格挡修饰符都被考虑在内。
+ */
 public class RenderStackedBlockInstancesPatch {
+    // 常量定义，用于确定格挡图标的位置和大小
     protected static final float BLOCK_ICON_X = ReflectionHacks.getPrivateStatic(AbstractCreature.class, "BLOCK_ICON_X");
     protected static final float BLOCK_ICON_Y = ReflectionHacks.getPrivateStatic(AbstractCreature.class, "BLOCK_ICON_Y");
     private static final Texture blankTex = new Texture("images/blank.png");
     private static final float dx = 50.0F * Settings.scale;
     private static final float dy = 54.0F * Settings.scale;
 
+    /**
+     * 生成一个列表，其中包含给定生物的所有格挡修饰符对应的绘制元素。
+     * 这些元素稍后将用于渲染格挡图标。
+     *
+     * @param creature 给定的生物
+     * @return 包含BlockStackDividedElement的列表，每个元素代表一个格挡实例
+     */
     private static List<BlockStackDividedElement> makeAllBlockModifierIntoDrawElement(AbstractCreature creature) {
+        // 获取所有格挡实例并创建对应的绘制元素
         List<BlockInstance> instances = getAllBlockInstances(creature);
         List<BlockStackDividedElement> list = new ArrayList<>();
         for (BlockInstance blockInstance : instances) {
             BlockStackDividedElement blockElement = new BlockStackDividedElement(creature, blockInstance);
             list.add(blockElement);
         }
-        Collections.reverse(list);
+        Collections.reverse(list);// 反转列表以确保正确的渲染顺序
         return list;
     }
 
+    /**
+     * 获取给定生物的所有格挡实例，包括那些由可以渲染为格挡效果的力量产生的实例。
+     *
+     * @param creature 目标生物
+     * @return 包含所有格挡效果的BlockInstance列表
+     */
     private static ArrayList<BlockInstance> getAllBlockInstances(AbstractCreature creature) {
+        // 合并生物的格挡实例和可以渲染为格挡效果的Power
         ArrayList<BlockInstance> blockInstances = BlockModifierManager.blockInstances(creature);
         ArrayList<BlockInstance> newBlockInstances = new ArrayList<>();
         newBlockInstances.addAll(blockInstances);
@@ -58,13 +78,22 @@ public class RenderStackedBlockInstancesPatch {
         return newBlockInstances;
     }
 
+    /**
+     * 渲染给定生物的格挡图标，考虑到所有的格挡实例和修饰符。
+     *
+     * @param creature 目标生物
+     * @param sb       用于渲染的SpriteBatch对象
+     * @param x        开始渲染的x坐标
+     * @param y        开始渲染的y坐标
+     */
     private static void DrawBlocks(AbstractCreature creature, SpriteBatch sb, float x, float y) {
+        // 获取渲染格挡所需的设置和颜色
         float blockOffset = ReflectionHacks.getPrivate(creature, AbstractCreature.class, "blockOffset");
         float blockScale = ReflectionHacks.getPrivate(creature, AbstractCreature.class, "blockScale");
         Color blockOutlineColor = ReflectionHacks.getPrivate(creature, AbstractCreature.class, "blockOutlineColor");
         Color blockTextColor = ReflectionHacks.getPrivate(creature, AbstractCreature.class, "blockTextColor");
 
-//        List<BlockInstance> allBlockLastTime = BlockStackElementField.blockLastTime.get(creature);
+        // 检查是否需要重新生成绘制元素
         List<BlockInstance> allBlocks = getAllBlockInstances(creature);
         List<BlockStackDividedElement> elements = BlockStackElementField.element.get(creature);
         if (allBlocks.stream().allMatch(BlockInstance::defaultBlock))
@@ -78,7 +107,7 @@ public class RenderStackedBlockInstancesPatch {
         if (elements.isEmpty())
             return;
 
-//        Collections.reverse(elements);
+        // 遍历并渲染每个格挡元素
         int offsetY = 0;
         for (BlockStackDividedElement element : elements) {
             element.move(x + BLOCK_ICON_X - 32.0F, y + BLOCK_ICON_Y - 32.0F + blockOffset + offsetY);
@@ -87,6 +116,7 @@ public class RenderStackedBlockInstancesPatch {
             offsetY = (int) ((float) offsetY + dy);
         }
 
+        // 更新生物的格挡元素字段
         BlockStackElementField.element.set(creature, elements);
     }
 

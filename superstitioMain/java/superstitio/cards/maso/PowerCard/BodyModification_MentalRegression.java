@@ -34,16 +34,16 @@ public class BodyModification_MentalRegression extends MasoCard {
 
     @Override
     public void use(AbstractPlayer player, AbstractMonster monster) {
-        addToBot_applyPower(new BodyModification_TattooPower(this.magicNumber));
+        addToBot_applyPower(new BodyModification_MentalRegressionPower(this.magicNumber));
     }
 
     @Override
     public void upgradeAuto() {
     }
 
-    public static class BodyModification_TattooPower extends EasyBuildAbstractPowerForPowerCard {
+    public static class BodyModification_MentalRegressionPower extends EasyBuildAbstractPowerForPowerCard {
 
-        public BodyModification_TattooPower(int amount) {
+        public BodyModification_MentalRegressionPower(int amount) {
             super(amount);
         }
 

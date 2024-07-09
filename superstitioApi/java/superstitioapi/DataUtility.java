@@ -34,8 +34,11 @@ public class DataUtility {
             case ZHS:
                 ret = ret + "zhs/";
                 break;
+            case ENG:
+                ret = ret + "eng/";
+                break;
             default:
-                ret = ret + "zhs/";
+                ret = ret + "eng/";
                 break;
         }
 

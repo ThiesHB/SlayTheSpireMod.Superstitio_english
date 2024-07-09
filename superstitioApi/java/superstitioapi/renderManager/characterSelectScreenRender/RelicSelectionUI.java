@@ -58,12 +58,12 @@ public class RelicSelectionUI implements WithLROptionsArrow {
         relicHitbox.move(this.cX, this.cY + RELIC_Y_OFFSET);
 
         this.leftArrowButton = new LeftArrowButton(cX, cY, this);
-        leftArrowButton.move(cX - this.textWidth / 2 - this.leftArrowButton.w / 2, cY);
+        leftArrowButton.move(cX - this.textWidth / 2 - this.leftArrowButton.width / 2, cY);
 
         this.rightArrowButton = new RightArrowButton(cX + textWidth, cY, this);
-        rightArrowButton.move(cX + textWidth / 2 + this.rightArrowButton.w / 2, cY);
+        rightArrowButton.move(cX + textWidth / 2 + this.rightArrowButton.width / 2, cY);
 
-        this.textHitbox = new Hitbox(textWidth, Math.max(this.rightArrowButton.h, this.leftArrowButton.h));
+        this.textHitbox = new Hitbox(textWidth, Math.max(this.rightArrowButton.height, this.leftArrowButton.height));
         textHitbox.move(this.cX, this.cY);
 
         this.selectIndex = 0;
@@ -75,7 +75,7 @@ public class RelicSelectionUI implements WithLROptionsArrow {
     }
 
     public float getTotalWidth() {
-        return textWidth + leftArrowButton.w + rightArrowButton.w;
+        return textWidth + leftArrowButton.width + rightArrowButton.width;
     }
 
     public AbstractRelic getSelectRelic() {
@@ -118,9 +118,9 @@ public class RelicSelectionUI implements WithLROptionsArrow {
 
         FontHelper.renderFontCentered(sb, titleFont, optionTitle, this.cX, this.cY, TEXT_COLOR);
         sb.setColor(new Color(0.0F, 0.0F, 0.0F, 0.25F));
-        sb.draw(relic.outlineImg, this.cX - RelicSize, this.cY + RELIC_Y_OFFSET - RelicSize, RelicImgSize, RelicImgSize);
+        sb.draw(relic.outlineImg, this.cX - RelicSize, this.cY + RELIC_Y_OFFSET - RelicSize, RelicImgSize * Settings.xScale, RelicImgSize * Settings.yScale);
         sb.setColor(Color.WHITE);
-        sb.draw(relic.img, this.cX - RelicSize, this.cY + RELIC_Y_OFFSET - RelicSize, RelicImgSize, RelicImgSize);
+        sb.draw(relic.img, this.cX - RelicSize, this.cY + RELIC_Y_OFFSET - RelicSize, RelicImgSize * Settings.xScale, RelicImgSize * Settings.yScale);
 
         WithLROptionsArrow.super.renderArrow(sb);
         relicHitbox.render(sb);

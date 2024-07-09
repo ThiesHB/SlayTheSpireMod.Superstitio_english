@@ -22,21 +22,21 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.stream.IntStream;
 
-public class BodyModification_Tattoo extends MasoCard {
-    public static final String ID = DataManager.MakeTextID(BodyModification_Tattoo.class);
+public class BodyModification_TattooAndPiercing extends MasoCard {
+    public static final String ID = DataManager.MakeTextID(BodyModification_TattooAndPiercing.class);
 
     public static final CardType CARD_TYPE = CardType.POWER;
 
     public static final CardRarity CARD_RARITY = CardRarity.UNCOMMON;
 
     public static final CardTarget CARD_TARGET = CardTarget.SELF;
-    public static final String[] TattooNames = getCardStringsWithSFWAndFlavor(BodyModification_Tattoo.ID).getEXTENDED_DESCRIPTION()[2].split(",");
+    public static final String[] TattooNames = getCardStringsWithSFWAndFlavor(BodyModification_TattooAndPiercing.ID).getEXTENDED_DESCRIPTION()[2].split(",");
 
     private static final int COST = 2;
     private static final int MAGIC = 2;
     private static final int UPGRADE_MAGIC = 1;
 
-    public BodyModification_Tattoo() {
+    public BodyModification_TattooAndPiercing() {
         super(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET);
         this.setupMagicNumber(MAGIC, UPGRADE_MAGIC);
         CardModifierManager.addModifier(this, new BodyModificationTag());
@@ -48,18 +48,18 @@ public class BodyModification_Tattoo extends MasoCard {
 
     @Override
     public void use(AbstractPlayer player, AbstractMonster monster) {
-        IntStream.range(0, this.magicNumber).forEach(i -> addToBot_applyPower(new BodyModification_TattooPower(1, getRandomName())));
+        IntStream.range(0, this.magicNumber).forEach(i -> addToBot_applyPower(new BodyModification_TattooAndPiercingPower(1, getRandomName())));
     }
 
     @Override
     public void upgradeAuto() {
     }
 
-    public static class BodyModification_TattooPower extends EasyBuildAbstractPowerForPowerCard implements SuperstitioApiSubscriber.AtManualDiscardSubscriber.AtManualDiscardPower {
+    public static class BodyModification_TattooAndPiercingPower extends EasyBuildAbstractPowerForPowerCard implements SuperstitioApiSubscriber.AtManualDiscardSubscriber.AtManualDiscardPower {
 
         public Map<String, Integer> tattooNames;
 
-        public BodyModification_TattooPower(int amount, String name) {
+        public BodyModification_TattooAndPiercingPower(int amount, String name) {
             super(amount, false);
             this.tattooNames = new HashMap<>();
             this.tattooNames.put(name, amount);
@@ -85,10 +85,10 @@ public class BodyModification_Tattoo extends MasoCard {
 
         @Override
         public void onApplyPower(AbstractPower power, AbstractCreature target, AbstractCreature source) {
-            if (!(power instanceof BodyModification_TattooPower)) {
+            if (!(power instanceof BodyModification_TattooAndPiercingPower)) {
                 return;
             }
-            this.tattooNames = PowerUtility.mergeAndSumMaps(this.tattooNames, ((BodyModification_TattooPower) power).tattooNames);
+            this.tattooNames = PowerUtility.mergeAndSumMaps(this.tattooNames, ((BodyModification_TattooAndPiercingPower) power).tattooNames);
             updateDescription();
         }
 
@@ -99,7 +99,7 @@ public class BodyModification_Tattoo extends MasoCard {
 
         @Override
         protected SuperstitioCard makePowerCard() {
-            return new BodyModification_Tattoo();
+            return new BodyModification_TattooAndPiercing();
         }
     }
 }

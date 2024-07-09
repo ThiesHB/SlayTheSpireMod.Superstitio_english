@@ -1,0 +1,78 @@
+﻿{
+  "SuperstitioMod:GangBang": {
+    "NAME": "Gang Bang",
+    "NAME_SFW": "血战沙场",
+    "DESCRIPTION": "stslib:自动打出 。 NL superstitiomod:助兴- superstitiomod:缠绵 NL 下 一 次回合结束： NL 对 所有敌人 造成 !D! 点 伤害 。 获得 !B! superstitiomod:干涸精痕 。",
+    "FLAVOR": "开始狂欢吧！大家一起来！",
+    "EXTENDED_DESCRIPTION": [
+      "困倦的",
+      "平淡的",
+      "愉快的",
+      "满足的",
+      "完美的"
+    ]
+  },
+  "SuperstitioMod:GiveBirth": {
+    "NAME": "Give Birth",
+    "NAME_SFW": "仪式启动",
+    "DESCRIPTION": "失去 所有的 superstitiomod:妊娠 。获得 !B! 临时生命 。 NL 通过这张牌 失去 的 superstitiomod:妊娠 不会触发 superstitiomod:流产 ，而是触发 superstitiomod:顺产 。 NL 消耗 。",
+    "FLAVOR": "重获新生吧。"
+  },
+  "SuperstitioMod:SexToy": {
+    "NAME": "Sex Toy",
+    "NAME_SFW": "神圣旗帜",
+    "DESCRIPTION": "给目标装备 !M! 个 随机 superstitiomod:情趣玩具 。",
+    "FLAVOR": "越多越好！",
+    "FLAVOR_SFW": "出来漂的人都想打个好字旗。",
+    "EXTENDED_DESCRIPTION": [
+      "震动棒,肛塞,跳蛋"
+    ],
+    "EXTENDED_DESCRIPTION_SFW": [
+      "龙凤旗,花花旗,日月旗"
+    ]
+  },
+  "SuperstitioMod:SelfReference": {
+    "NAME": "Self Reference",
+    "NAME_SFW": "Self Reference",
+    "DESCRIPTION": "superstitiomod:时空递归 。 NL 移除 !B! *腐朽 。",
+    "FLAVOR": "罢了，事已至此，先指慰一下吧。",
+    "FLAVOR_SFW": "是的，你达成了本模组的可选结局之一。"
+  },
+  "SuperstitioMod:FishGirlMode": {
+    "NAME": "Fish Girl Mode",
+    "NAME_SFW": "火元素变形",
+    "DESCRIPTION": "回合开始时，获得 !M! 层 superstitiomod:窒息 。",
+    "FLAVOR": "陆，陆地，要喘不过气来了~❤"
+  },
+  "SuperstitioMod:KakaaGirlMode": {
+    "NAME": "Kakaa Girl Mode",
+    "NAME_SFW": "咔咔变形",
+    "DESCRIPTION": "回合开始时，获得 !M! 力量 。",
+    "FLAVOR": "Kakaa~~",
+    "FLAVOR_SFW": "Kakaa~~"
+  },
+  "SuperstitioMod:SlimeGirlMode": {
+    "NAME": "Slime Girl Mode",
+    "NAME_SFW": "史莱姆变形",
+    "DESCRIPTION": "回合开始时，获得 !M! superstitiomod:史莱姆韧性 。",
+    "FLAVOR": "史莱姆分裂~★"
+  },
+  "SuperstitioMod:FeelPhantomBody": {
+    "NAME": "Feel Phantom Body",
+    "NAME_SFW": "义体",
+    "DESCRIPTION": "抽一张牌，使随机敌人流失 !M! 点生命。 NL 若回合结束时在手牌中， 消耗 并把原本的卡牌加入弃牌堆。",
+    "FLAVOR": "全部……全部去掉……让我变成人棍，让我无法逃脱，让我……"
+  },
+  "SuperstitioMod:VulnerableTogether": {
+    "NAME": "Drown Together",
+    "NAME_SFW": "复仇怒火",
+    "DESCRIPTION": "Give *everybody !M! vulnerable .",
+    "FLAVOR": ""
+  },
+  "SuperstitioMod:HaveBirthWith_Test": {
+    "NAME": "HaveBirthWith_Test",
+    "NAME_SFW": "HaveBirthWith_Test",
+    "DESCRIPTION": "还在测试阶段的卡，用于体验召唤系统。",
+    "FLAVOR": ""
+  }
+}

@@ -70,8 +70,8 @@ public interface WithUDOptionsArrow {
      */
     class UpArrowButton implements IUIElement {
         private final Texture arrow;
-        private final float w;
-        private final float h;
+        private final float width;
+        private final float height;
         private final Hitbox hitbox;
         private final WithUDOptionsArrow owner;
         private float x;
@@ -82,14 +82,14 @@ public interface WithUDOptionsArrow {
             this.owner = owner;
             this.x = x;
             this.y = y;
-            this.w = Settings.scale * this.arrow.getWidth() / 2.0f;
-            this.h = Settings.scale * this.arrow.getHeight() / 2.0f;
-            this.hitbox = new Hitbox(x, y, this.w, this.h);
+            this.width = Settings.scale * this.arrow.getWidth() / 2.0f;
+            this.height = Settings.scale * this.arrow.getHeight() / 2.0f;
+            this.hitbox = new Hitbox(x, y, this.width, this.height);
         }
 
         public void move(final float newX, final float newY) {
-            this.x = newX - this.w / 2.0f;
-            this.y = newY - this.h / 2.0f;
+            this.x = newX - this.width / 2.0f;
+            this.y = newY - this.height / 2.0f;
             this.hitbox.move(newX, newY);
         }
 
@@ -134,26 +134,26 @@ public interface WithUDOptionsArrow {
      */
     class DownArrowButton implements IUIElement {
         private final Texture arrow;
-        private final float w;
-        private final float h;
+        private final float width;
+        private final float height;
         private final Hitbox hitbox;
         private final WithUDOptionsArrow owner;
         private float x;
         private float y;
 
         public DownArrowButton(final float x, final float y, WithUDOptionsArrow owner) {
-            this.arrow = ImageMaster.CF_LEFT_ARROW;
+            this.arrow = ImageMaster.CF_RIGHT_ARROW;
             this.owner = owner;
             this.x = x;
             this.y = y;
-            this.w = Settings.scale * this.arrow.getWidth() / 2.0f;
-            this.h = Settings.scale * this.arrow.getHeight() / 2.0f;
-            this.hitbox = new Hitbox(x, y, this.w, this.h);
+            this.width = Settings.scale * this.arrow.getWidth() / 2.0f;
+            this.height = Settings.scale * this.arrow.getHeight() / 2.0f;
+            this.hitbox = new Hitbox(x, y, this.width, this.height);
         }
 
         public void move(final float newX, final float newY) {
-            this.x = newX - this.w / 2.0f;
-            this.y = newY - this.h / 2.0f;
+            this.x = newX - this.width / 2.0f;
+            this.y = newY - this.height / 2.0f;
             this.hitbox.move(newX, newY);
         }
 
@@ -166,13 +166,9 @@ public interface WithUDOptionsArrow {
             }
             final float halfW = this.arrow.getWidth() / 2.0f;
             final float halfH = this.arrow.getHeight() / 2.0f;
-            sb.draw(this.arrow,
-                    this.x - 10.0f * Settings.xScale - halfW + halfW * 0.5f * Settings.scale,
-                    this.y + 10.0f * Settings.yScale - halfH + halfH * 0.5f * Settings.scale,
-                    halfW, halfH,
-                    (float) this.arrow.getWidth(), (float) this.arrow.getHeight(),
-                    0.75f * Settings.scale, 0.75f * Settings.scale,
-                    90.0f, 0, 0, this.arrow.getWidth(),
+            sb.draw(this.arrow, this.x + 10.0f * Settings.xScale - halfW + halfW * 0.5f * Settings.scale,
+                    this.y + 10.0f * Settings.yScale - halfH + halfH * 0.5f * Settings.scale, halfW, halfH, (float) this.arrow.getWidth(),
+                    (float) this.arrow.getHeight(), 0.75f * Settings.scale, 0.75f * Settings.scale, -90.0f, 0, 0, this.arrow.getWidth(),
                     this.arrow.getHeight(), false, false);
             this.hitbox.render(sb);
         }

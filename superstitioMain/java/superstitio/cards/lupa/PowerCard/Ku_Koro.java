@@ -7,8 +7,10 @@ import com.megacrit.cardcrawl.core.AbstractCreature;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import superstitio.DataManager;
+import superstitio.cards.SuperstitioCard;
 import superstitio.cards.lupa.LupaCard;
 import superstitio.powers.AbstractSuperstitioPower;
+import superstitio.powers.EasyBuildAbstractPowerForPowerCard;
 import superstitioapi.utils.ActionUtility;
 import superstitioapi.utils.CardUtility;
 
@@ -32,7 +34,7 @@ public class Ku_Koro extends LupaCard {
 
     @Override
     public void use(AbstractPlayer player, AbstractMonster monster) {
-        addToBot_applyPower(new Ku_KoroPower(player));
+        addToBot_applyPower(new Ku_KoroPower());
     }
 
     @Override
@@ -40,14 +42,15 @@ public class Ku_Koro extends LupaCard {
         upgradeBaseCost(COST_UPGRADED_NEW);
     }
 
-    /**
-     * 每次受到攻击伤害时，获得1随机状态牌。所有消耗牌会回到抽牌堆
-     */
-    public static class Ku_KoroPower extends AbstractSuperstitioPower {
-        public static final String POWER_ID = DataManager.MakeTextID(Ku_KoroPower.class);
+    public static class Ku_KoroPower extends EasyBuildAbstractPowerForPowerCard {
 
-        public Ku_KoroPower(final AbstractCreature owner) {
-            super(POWER_ID, owner, -1);
+        public Ku_KoroPower() {
+            super(-1);
+        }
+
+        @Override
+        protected SuperstitioCard makePowerCard() {
+            return new Ku_Koro();
         }
 
         @Override
@@ -66,7 +69,6 @@ public class Ku_Koro extends LupaCard {
 
         @Override
         public void updateDescriptionArgs() {
-
         }
     }
 }

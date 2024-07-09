@@ -45,13 +45,7 @@ public class BodyModification_CutOff extends MasoCard {
         this.setupMagicNumber(MAGIC, UPGRADE_MAGIC);
         this.setupBlock(BLOCK, UPGRADE_BLOCK, new RemoveDelayHpLoseBlock());
         CardModifierManager.addModifier(this, new BodyModificationTag());
-//        this.tags.add(DataManager.CardTagsType.BodyModification);
     }
-
-//    @Override
-//    public void updateDescriptionArgs() {
-//        setDescriptionArgs(this.cardStrings.getEXTENDED_DESCRIPTION()[0], this.cardStrings.getEXTENDED_DESCRIPTION()[1]);
-//    }
 
     @Override
     public void use(AbstractPlayer player, AbstractMonster monster) {
