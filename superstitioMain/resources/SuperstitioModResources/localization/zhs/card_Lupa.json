@@ -29,7 +29,7 @@
   },
   "SuperstitioMod:LupaCard:ChooseCoitalPosture": {
     "NAME": "选择体位",
-    "NAME_SFW": "武艺精通",
+    "NAME_SFW": "武学精通",
     "DESCRIPTION": "把1张带有 消耗 的随机 *性交牌 加入手牌。 NL 这张牌在本回合耗能变为0。",
     "FLAVOR": "让我想想看……"
   },
@@ -43,12 +43,6 @@
   "SuperstitioMod:LupaCard:CultaeForm": {
     "NAME": "异神形态",
     "DESCRIPTION": "",
-    "FLAVOR": ""
-  },
-  "SuperstitioMod:LupaCard:DrySemen": {
-    "NAME": "精液护盾",
-    "NAME_SFW": "血液护盾",
-    "DESCRIPTION": "superstitiomod:精欲 !M! ： NL 获得 !B! 点 *格挡 。",
     "FLAVOR": ""
   },
   "SuperstitioMod:LupaCard:PutEveryCumInBody": {

@@ -21,7 +21,7 @@ import superstitio.DataManager;
 import superstitio.Logger;
 import superstitio.characters.cardpool.CardPoolManager;
 import superstitio.characters.cardpool.MasoCardPool;
-import superstitio.relics.a_starter.DoubleBlockWithVulnerable;
+import superstitio.relics.a_starter.VulnerableTogetherRelic;
 import superstitio.relics.a_starter.StartWithSexToy;
 import superstitio.relics.blight.*;
 import superstitioapi.player.PlayerInitPostDungeonInitialize;
@@ -57,7 +57,7 @@ public class Tzeentch extends BaseCharacter implements PlayerInitPostDungeonInit
         STARTER_RELIC_Selection_UI = new RelicSelectionUI(
                 Relic_Selection_X,
                 Relic_Selection_Y,
-                Arrays.stream(new AbstractRelic[]{new StartWithSexToy(), new DoubleBlockWithVulnerable()}).collect(Collectors.toList()),
+                Arrays.stream(new AbstractRelic[]{new StartWithSexToy(), new VulnerableTogetherRelic()}).collect(Collectors.toList()),
                 new PowerTip(TezeentchCharacterStrings.TEXT[2], TezeentchCharacterStrings.TEXT[3]))
                 .setRefreshAfterSelect(relic -> {
                     if (Lupa.class.isAssignableFrom(getOwnerFromRelic(relic))) {
@@ -105,7 +105,7 @@ public class Tzeentch extends BaseCharacter implements PlayerInitPostDungeonInit
         if (relic instanceof DevaBody_Lupa || relic instanceof Sensitive || relic instanceof StartWithSexToy) {
             return Lupa.class;
         }
-        if (relic instanceof DevaBody_Masochism || relic instanceof MasochismMode || relic instanceof DoubleBlockWithVulnerable) {
+        if (relic instanceof DevaBody_Masochism || relic instanceof MasochismMode || relic instanceof VulnerableTogetherRelic) {
             return Maso.class;
         }
         return Lupa.class;

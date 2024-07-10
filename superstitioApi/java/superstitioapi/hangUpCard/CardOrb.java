@@ -80,7 +80,7 @@ public abstract class CardOrb extends AbstractOrb {
     }
 
     public static AbstractMonster getHoveredMonsterSafe() {
-        return CreatureUtility.getMonsterOrFirstMonster(ReflectionHacks.getPrivate(AbstractDungeon.player, AbstractPlayer.class, "hoveredMonster"));
+        return CreatureUtility.getMonsterOrRandomMonster(ReflectionHacks.getPrivate(AbstractDungeon.player, AbstractPlayer.class, "hoveredMonster"));
     }
 
     public static Optional<AbstractMonster> getHoveredMonster() {
@@ -181,7 +181,7 @@ public abstract class CardOrb extends AbstractOrb {
 
     public void StartHitCreature(AbstractCreature target) {
         this.movingType = this::State_Moving;
-        AbstractCreature creature = CreatureUtility.getTargetOrFirstMonster(target);
+        AbstractCreature creature = CreatureUtility.getTargetOrRandomMonster(target);
         this.tryMoveTo(new Vector2(this.cX - (this.cX - creature.hb.cX) / 1.2f, this.cY - (this.cY - creature.hb.cY) / 1.2f));
         this.card.superFlash(CardUtility.getColorFormCard(card));
     }

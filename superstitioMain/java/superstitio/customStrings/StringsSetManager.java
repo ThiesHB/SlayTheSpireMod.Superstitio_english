@@ -1,7 +1,7 @@
 package superstitio.customStrings;
 
 import superstitio.DataManager;
-import superstitio.SuperstitioConfig;
+import superstitio.SuperstitioModSetup;
 import superstitio.customStrings.interFace.WordReplace;
 import superstitio.customStrings.stringsSet.*;
 
@@ -47,6 +47,9 @@ public class StringsSetManager {
     }
 
     public static List<WordReplace> makeWordReplaceRule() {
+        if (SuperstitioModSetup.SEAL_MANUAL_SFW) {
+            return new ArrayList<>();
+        }
         if (wordReplaceRules != null && !wordReplaceRules.isEmpty()) return wordReplaceRules;
         List<WordReplace> sfwReplaces =
                 Arrays.stream(DataManager.makeJsonStringFromFile("SFW_replace", WordReplace[].class)).collect(Collectors.toList());
@@ -60,9 +63,9 @@ public class StringsSetManager {
     }
 
     public static void makeSFWVersion() {
-        if (SuperstitioConfig.isEnableSFW()) {
-            makeSFWWordForStringsSet();
-        }
+//        if (SuperstitioConfig.isEnableSFW()) {
+        makeSFWWordForStringsSet();
+//        }
     }
 
     public static void makeKeyWords() {
@@ -70,6 +73,13 @@ public class StringsSetManager {
         keywords.forEach(keyWord -> keyWord.makeSFWVersion(makeWordReplaceRule()));
         keywords.forEach(SuperstitioKeyWord::addToGame);
         return;
+    }
+
+    public static List<SuperstitioKeyWord> getAllKeywords() {
+        List<SuperstitioKeyWord> keywordsSFW = new ArrayList<>();
+        keywordsSFW.addAll(SuperstitioKeyWord.getAndRegisterKeywordsFormFile());
+        keywordsSFW.addAll(Arrays.stream(MakeKeyWords()).map(SuperstitioKeyWord::STSLibKeyWordToThisType).collect(Collectors.toList()));
+        return keywordsSFW;
     }
 
     private static void loadUIStringsSet() {
@@ -88,12 +98,5 @@ public class StringsSetManager {
         DataManager.modifiers.forEach(((string, modifier) -> modifier.setupSFWStringByWordReplace(wordReplaces)));
         DataManager.orbs.forEach(((string, orb) -> orb.setupSFWStringByWordReplace(wordReplaces)));
 
-    }
-
-    private static List<SuperstitioKeyWord> getAllKeywords() {
-        List<SuperstitioKeyWord> keywordsSFW = new ArrayList<>();
-        keywordsSFW.addAll(SuperstitioKeyWord.getAndRegisterKeywordsFormFile());
-        keywordsSFW.addAll(Arrays.stream(MakeKeyWords()).map(SuperstitioKeyWord::STSLibKeyWordToThisType).collect(Collectors.toList()));
-        return keywordsSFW;
     }
 }

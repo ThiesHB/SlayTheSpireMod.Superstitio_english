@@ -13,5 +13,7 @@ public interface HasDifferentVersionStringSet<T> {
     void initialOrigin(T origin);
 
     Class<T> getSubClass();
+
+    HasDifferentVersionStringSet<T> makeCopy();
 }
 

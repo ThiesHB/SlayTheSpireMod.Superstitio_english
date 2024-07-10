@@ -14,12 +14,12 @@
     "NAME": "寻欢卡池",
     "DESCRIPTION": "启用寻欢天人卡池内容。",
     "NAME_SFW": "好斗卡池",
-    "DESCRIPTION_SFW": "启用好斗卡池卡池内容。"
+    "DESCRIPTION_SFW": "启用好斗天人卡池内容。"
   },
   "SuperstitioMod:MasoPool": {
     "NAME": "嗜虐卡池",
     "DESCRIPTION": "启用嗜虐天人卡池内容。",
-    "NAME_SFW": "复仇天人",
+    "NAME_SFW": "复仇卡池",
     "DESCRIPTION_SFW": "启用复仇天人卡池内容。"
   }
 }

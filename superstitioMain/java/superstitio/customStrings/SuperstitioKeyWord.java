@@ -12,13 +12,25 @@ import java.util.stream.Collectors;
 public class SuperstitioKeyWord {
     public static final List<SuperstitioKeyWord> KeywordsFromFile = new ArrayList<>();
     private static final Map<String, SuperstitioKeyWord> KeywordsWithID = new HashMap<>();
-    private String ID = "";
-    private String PROPER_NAME;
-    private String PROPER_NAME_SFW;
-    private String[] NAMES;
-    private String[] NAMES_SFW;
-    private String DESCRIPTION;
-    private String DESCRIPTION_SFW;
+    public String ID = "";
+    public String PROPER_NAME;
+    public String PROPER_NAME_SFW;
+    public String[] NAMES;
+    public String[] NAMES_SFW;
+    public String DESCRIPTION;
+    public String DESCRIPTION_SFW;
+
+    public SuperstitioKeyWord makeCopy() {
+        SuperstitioKeyWord clone = new SuperstitioKeyWord();
+        clone.ID = this.ID;
+        clone.PROPER_NAME = this.PROPER_NAME;
+        clone.PROPER_NAME_SFW = this.PROPER_NAME_SFW;
+        clone.NAMES = this.NAMES;
+        clone.NAMES_SFW = this.NAMES_SFW;
+        clone.DESCRIPTION = this.DESCRIPTION;
+        clone.DESCRIPTION_SFW = this.DESCRIPTION_SFW;
+        return clone;
+    }
 
 //    private static final Map<String,String[]> multiKeyWords
 

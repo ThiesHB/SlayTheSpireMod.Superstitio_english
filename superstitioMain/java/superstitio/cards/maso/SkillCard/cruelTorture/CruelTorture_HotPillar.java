@@ -24,7 +24,7 @@ public class CruelTorture_HotPillar extends MasoCard implements GoSomewhereElseA
     public static final CardRarity CARD_RARITY = CardRarity.UNCOMMON;
 
     public static final CardTarget CARD_TARGET = CardTarget.SELF;
-    public static final int BURN_CARD_NUM = 2;
+    public static final int BURN_CARD_NUM = 1;
     private static final int COST = 1;
     private static final int MAGIC = 3;
     private static final int UPGRADE_MAGIC = 1;

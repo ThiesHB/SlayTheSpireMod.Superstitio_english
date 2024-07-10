@@ -32,7 +32,7 @@ public class BodyModification_TattooAndPiercing extends MasoCard {
     public static final CardTarget CARD_TARGET = CardTarget.SELF;
     public static final String[] TattooNames = getCardStringsWithSFWAndFlavor(BodyModification_TattooAndPiercing.ID).getEXTENDED_DESCRIPTION()[2].split(",");
 
-    private static final int COST = 2;
+    private static final int COST = 1;
     private static final int MAGIC = 2;
     private static final int UPGRADE_MAGIC = 1;
 

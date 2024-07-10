@@ -20,7 +20,7 @@ public class BlindfoldWithMilk extends GeneralCard {
     private static final int COST = 2;
     private static final int DAMAGE = 20;
     private static final int UPGRADE_DAMAGE = 8;
-    private static final int MAGIC = 2;
+    private static final int MAGIC = 4;
 
     public BlindfoldWithMilk() {
         super(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET);

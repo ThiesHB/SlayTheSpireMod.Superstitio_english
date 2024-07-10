@@ -7,9 +7,11 @@
   },
   "SuperstitioMod:SexBlock": {
     "NAME": "引诱",
-    "NAME_SFW": "外功",
+    "NAME_SFW": "格挡",
     "BASIC_INFO": "引诱性爱",
-    "DESCRIPTION": "持续到下回合开始前，阻挡伤害。 NL （原理：使敌人的物理伤害转换为性爱动作。）"
+    "BASIC_INFO_SFW": "格挡",
+    "DESCRIPTION": "持续到下回合开始前，阻挡伤害。 NL （原理：使敌人的物理伤害转换为性爱动作。）",
+    "DESCRIPTION_SFW": "持续到下回合开始前，阻挡伤害。"
   },
   "SuperstitioMod:DrySemenBlock": {
     "NAME": "精痕",
@@ -17,17 +19,12 @@
     "BASIC_INFO": "干涸精痕",
     "DESCRIPTION": "回合结束时不消失，阻挡伤害。 NL 受到伤害时，优先失去 #y精痕 。"
   },
-  "SuperstitioMod:MilkBlock": {
-    "NAME": "巨乳",
-    "NAME_SFW": "肉体",
-    "BASIC_INFO": "乳液狂飙",
-    "DESCRIPTION": "持续到下回合开始前，阻挡伤害。"
-  },
   "SuperstitioMod:DelayRemoveDelayHpLoseBlock": {
     "NAME": "回味情爱",
     "NAME_SFW": "回味热血",
     "BASIC_INFO": "情爱唤起（回味）",
-    "DESCRIPTION": "在下回合开始时，回味一些刺激的事情，从而移除 #r腐朽 。"
+    "DESCRIPTION": "在下回合开始时，回味一些刺激的事情，从而移除 #r新生腐朽 。",
+    "DESCRIPTION_SFW": "在下回合开始时，移除 #r新生腐朽 。"
   },
   "SuperstitioMod:PregnantBlock": {
     "NAME": "妊娠大肚",
@@ -39,6 +36,7 @@
     "NAME": "妊娠-回归",
     "NAME_SFW": "仪式-吞噬",
     "BASIC_INFO": "妊娠大肚-回归",
+    "BASIC_INFO_SFW": "仪式护盾-吞噬",
     "DESCRIPTION": "回合结束时不消失，阻挡伤害。 NL 受到攻击伤害而失去本格挡时，对内容物造成相当于失去数值的伤害。 NL #y流产 ： NL 将被 #y封印 的效果翻倍，然后重新给予自身这些效果。",
     "EXTENDED_DESCRIPTION": [
       "内容物：",
@@ -63,6 +61,6 @@
     "NAME": "沉重镣铐",
     "NAME_SFW": "沉重镣铐",
     "BASIC_INFO": "镣铐",
-    "DESCRIPTION": "持续到下回合开始前，阻挡伤害。 NL 失去后，抽 #b%d 张牌。"
+    "DESCRIPTION": "回合结束时不消失，阻挡伤害。 NL 失去后，抽 #b%d 张牌。"
   }
 }

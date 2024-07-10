@@ -1,6 +1,7 @@
 package superstitio.cards.maso.SkillCard;
 
 import basemod.cardmods.ExhaustMod;
+import basemod.cardmods.RetainMod;
 import basemod.helpers.CardModifierManager;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
@@ -20,7 +21,7 @@ public class LoveDirty extends MasoCard {
 
     private static final int COST = 1;
     //    private static final int MAGIC = 8;
-    private static final int BLOCK = 11;
+    private static final int BLOCK = 12;
     private static final int UPGRADE_BLOCK = 4;
 
     public LoveDirty() {
@@ -28,6 +29,7 @@ public class LoveDirty extends MasoCard {
 //        this.setupMagicNumber(MAGIC);
         this.setupBlock(BLOCK, UPGRADE_BLOCK, new DelayRemoveDelayHpLoseBlock());
         CardModifierManager.addModifier(this, new ExhaustMod());
+        CardModifierManager.addModifier(this, new RetainMod());
     }
 
     private void Trigger() {

@@ -8,6 +8,7 @@ public interface HasSFWVersion<T> extends HasDifferentVersionStringSet<T> {
     void initialSFW(T sfw);
 
     void setupSFWStringByWordReplace(List<WordReplace> replaceRules);
+    HasDifferentVersionStringSet<T> makeSFWCopy();
 
 //    default void replaceWord_String(List<WordReplace> replaceRules, Function<T, String> stringGetter, BiConsumer<T, String> stringSetter) {
 //        stringSetter.accept(getSFWVersion(), WordReplace.replaceWord(stringGetter.apply(

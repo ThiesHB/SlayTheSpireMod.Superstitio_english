@@ -26,13 +26,6 @@
       "高潮所需的快感提高了 #b%d 点。若本回合没有 #y高潮 ，则 失去 。"
     ]
   },
-  "SuperstitioMod:SexualHeatLoseModifier": {
-    "NAME": "潮吹修正",
-    "DESCRIPTIONS": [
-      "本回合潮吹减少的快感降低 #b%d 点每 [E] 。",
-      "本回合潮吹减少的快感提高 #b%d 点每 [E] 。"
-    ]
-  },
   "SuperstitioMod:SexToy": {
     "NAME": "情趣玩具",
     "DESCRIPTIONS": [

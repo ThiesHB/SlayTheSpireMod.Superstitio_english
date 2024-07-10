@@ -2,6 +2,7 @@ package superstitio.customStrings.stringsSet;
 
 import com.megacrit.cardcrawl.localization.LocalizedStrings;
 import com.megacrit.cardcrawl.localization.OrbStrings;
+import superstitio.customStrings.interFace.HasDifferentVersionStringSet;
 import superstitio.customStrings.interFace.HasOriginAndSFWVersion;
 import superstitio.customStrings.interFace.StringSetUtility;
 import superstitio.customStrings.interFace.WordReplace;
@@ -57,6 +58,16 @@ public class OrbStringsSet implements HasOriginAndSFWVersion<OrbStrings> {
     }
 
     @Override
+    public HasDifferentVersionStringSet<OrbStrings> makeCopy() {
+        OrbStringsSet clone = new OrbStringsSet();
+        clone.NAME = this.NAME;
+        clone.DESCRIPTION = this.DESCRIPTION;
+        clone.NAME_SFW = this.NAME_SFW;
+        clone.DESCRIPTION_SFW = this.DESCRIPTION_SFW;
+        return clone;
+    }
+
+    @Override
     public OrbStrings getSFWVersion() {
         return SFW;
     }
@@ -75,9 +86,25 @@ public class OrbStringsSet implements HasOriginAndSFWVersion<OrbStrings> {
             this.SFW.NAME = WordReplace.replaceWord(this.Origin.NAME, replaceRules);
         if (StringSetUtility.isNullOrEmpty(this.SFW.DESCRIPTION))
             this.SFW.DESCRIPTION = WordReplace.replaceWord(this.Origin.DESCRIPTION, replaceRules);
+
+        if (StringSetUtility.isNullOrEmpty(this.NAME_SFW))
+            this.NAME_SFW = this.SFW.NAME;
+        if (StringSetUtility.isNullOrEmpty(this.DESCRIPTION_SFW))
+            this.DESCRIPTION_SFW = this.SFW.DESCRIPTION;
     }
 
-//    private void replaceWord_NAME(OrbStrings replaced, List<WordReplace> replaceRules) {
+    @Override
+    public HasDifferentVersionStringSet<OrbStrings> makeSFWCopy() {
+        HasDifferentVersionStringSet<OrbStrings> clone = this.makeCopy();
+        if (clone instanceof OrbStringsSet){
+            OrbStringsSet clone1 = (OrbStringsSet) clone;
+            clone1.NAME = null;
+            clone1.DESCRIPTION = null;
+        }
+        return clone;
+    }
+
+    //    private void replaceWord_NAME(OrbStrings replaced, List<WordReplace> replaceRules) {
 //        if (StringSetUtility.isNullOrEmpty(replaced.NAME))
 //            replaced.NAME = WordReplace.replaceWord(this.Origin.NAME, replaceRules);
 //        else

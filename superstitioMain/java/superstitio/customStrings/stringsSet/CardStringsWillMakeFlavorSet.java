@@ -5,9 +5,7 @@ import com.megacrit.cardcrawl.localization.CardStrings;
 import com.megacrit.cardcrawl.localization.LocalizedStrings;
 import superstitio.SuperstitioConfig;
 import superstitio.customStrings.SuperstitioKeyWord;
-import superstitio.customStrings.interFace.HasOriginAndSFWVersion;
-import superstitio.customStrings.interFace.StringSetUtility;
-import superstitio.customStrings.interFace.WordReplace;
+import superstitio.customStrings.interFace.*;
 
 import java.util.List;
 import java.util.Optional;
@@ -103,6 +101,38 @@ public class CardStringsWillMakeFlavorSet implements HasOriginAndSFWVersion<Card
     }
 
     @Override
+    public HasDifferentVersionStringSet<CardStrings> makeCopy() {
+        CardStringsWillMakeFlavorSet clone = new CardStringsWillMakeFlavorSet();
+        clone.NAME = this.NAME;
+        clone.DESCRIPTION = this.DESCRIPTION;
+        clone.UPGRADE_DESCRIPTION = this.UPGRADE_DESCRIPTION;
+        clone.EXTENDED_DESCRIPTION = this.EXTENDED_DESCRIPTION;
+        clone.FLAVOR = this.FLAVOR;
+        clone.NAME_SFW = this.NAME_SFW;
+        clone.DESCRIPTION_SFW = this.DESCRIPTION_SFW;
+        clone.UPGRADE_DESCRIPTION_SFW = this.UPGRADE_DESCRIPTION_SFW;
+        clone.EXTENDED_DESCRIPTION_SFW = this.EXTENDED_DESCRIPTION_SFW;
+        clone.FLAVOR_SFW = this.FLAVOR_SFW;
+        clone.MAKE_KEYWORDS = this.MAKE_KEYWORDS;
+        clone.ADD_KEYWORDS_ID = this.ADD_KEYWORDS_ID;
+        return clone;
+    }
+
+    @Override
+    public HasDifferentVersionStringSet<CardStrings> makeSFWCopy() {
+        HasDifferentVersionStringSet<CardStrings> clone = this.makeCopy();
+        if (clone instanceof CardStringsWillMakeFlavorSet){
+            CardStringsWillMakeFlavorSet clone1 = (CardStringsWillMakeFlavorSet) clone;
+            clone1.NAME = null;
+            clone1.DESCRIPTION = null;
+            clone1.UPGRADE_DESCRIPTION = null;
+            clone1.EXTENDED_DESCRIPTION = null;
+            clone1.FLAVOR = null;
+        }
+        return clone;
+    }
+
+    @Override
     public void setupSFWStringByWordReplace(List<WordReplace> replaceRules) {
         if (StringSetUtility.isNullOrEmpty(this.SFW.NAME))
             this.SFW.NAME = WordReplace.replaceWord(this.Origin.NAME, replaceRules);
@@ -113,6 +143,15 @@ public class CardStringsWillMakeFlavorSet implements HasOriginAndSFWVersion<Card
                 this.SFW.UPGRADE_DESCRIPTION = WordReplace.replaceWord(this.Origin.UPGRADE_DESCRIPTION, replaceRules);
         if (StringSetUtility.isNullOrEmpty(this.SFW.EXTENDED_DESCRIPTION))
             this.SFW.EXTENDED_DESCRIPTION = WordReplace.replaceWord(this.Origin.EXTENDED_DESCRIPTION, replaceRules);
+
+        if (StringSetUtility.isNullOrEmpty(this.NAME_SFW))
+            this.NAME_SFW = this.SFW.NAME;
+        if (StringSetUtility.isNullOrEmpty(this.DESCRIPTION_SFW))
+            this.DESCRIPTION_SFW = this.SFW.DESCRIPTION;
+        if (StringSetUtility.isNullOrEmpty(this.UPGRADE_DESCRIPTION_SFW))
+            this.UPGRADE_DESCRIPTION_SFW = this.SFW.UPGRADE_DESCRIPTION;
+        if (StringSetUtility.isNullOrEmpty(this.EXTENDED_DESCRIPTION_SFW))
+            this.EXTENDED_DESCRIPTION_SFW = this.SFW.EXTENDED_DESCRIPTION;
     }
 
 

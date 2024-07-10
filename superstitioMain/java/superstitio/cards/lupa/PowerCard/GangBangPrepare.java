@@ -25,7 +25,7 @@ public class GangBangPrepare extends LupaCard {
 
     public static final CardTarget CARD_TARGET = CardTarget.SELF;
 
-    private static final int COST = 3;
+    private static final int COST = 2;
 //    private static final int COST_UPGRADED_NEW = 2;
 
     private static final int MAGIC = 15;

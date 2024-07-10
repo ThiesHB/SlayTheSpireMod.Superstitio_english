@@ -12,10 +12,10 @@ import superstitio.DataManager;
 import superstitio.Logger;
 import superstitio.cards.CardOwnerPlayerManager;
 import superstitio.cards.general.BaseCard.Kiss;
-import superstitio.cards.general.BaseCard.Masturbate;
 import superstitio.cards.maso.BaseCard.FistIn;
 import superstitio.cards.maso.BaseCard.Invite_Maso;
-import superstitio.relics.a_starter.DoubleBlockWithVulnerable;
+import superstitio.cards.maso.BaseCard.Spark;
+import superstitio.relics.a_starter.VulnerableTogetherRelic;
 import superstitio.relics.blight.DevaBody_Masochism;
 import superstitio.relics.blight.JokeDescription;
 import superstitio.relics.blight.MasochismMode;
@@ -32,7 +32,7 @@ import static superstitioapi.relicToBlight.InfoBlight.addAsInfoBlight;
 // 继承CustomPlayer类
 public class Maso extends BaseCharacter implements PlayerInitPostDungeonInitialize, RenderInCharacterSelect {
     public static final String ID = DataManager.MakeTextID(Maso.class.getSimpleName());
-    public static final CharacterSelectInfo characterInfo = new CharacterSelectInfo(60, 70, 99);
+    public static final CharacterSelectInfo characterInfo = new CharacterSelectInfo(60, 70, 110);
 
     public Maso(String name) {
         super(ID, name, MASO_Character);
@@ -54,7 +54,8 @@ public class Maso extends BaseCharacter implements PlayerInitPostDungeonInitiali
         for (int x = 0; x < 4; x++) {
             startingDeck.add(Invite_Maso.ID);
         }
-        startingDeck.add(Masturbate.ID);
+//        startingDeck.add(Masturbate.ID);
+        startingDeck.add(Spark.ID);
         startingDeck.add(FistIn.ID);
         return startingDeck;
     }
@@ -68,7 +69,7 @@ public class Maso extends BaseCharacter implements PlayerInitPostDungeonInitiali
     // 初始遗物
     public ArrayList<String> getStartingRelics() {
         ArrayList<String> retVal = new ArrayList<>();
-        retVal.add(DoubleBlockWithVulnerable.ID);
+        retVal.add(VulnerableTogetherRelic.ID);
         return retVal;
     }
 
@@ -79,7 +80,7 @@ public class Maso extends BaseCharacter implements PlayerInitPostDungeonInitiali
                 characterInfo.currentHp, // 当前血量
                 characterInfo.maxHp, // 最大血量
                 0, // 初始充能球栏位
-                110, // 初始携带金币
+                characterInfo.gold, // 初始携带金币
                 5, // 每回合抽牌数量
                 this, // 别动
                 this.getStartingRelics(), // 初始遗物

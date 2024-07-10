@@ -45,50 +45,36 @@ public class UnBirth extends GeneralCard {
     }
 
     private void ForPlayer(AbstractPlayer player) {
-        ArrayList<AbstractPower> sealPower = new ArrayList<>();
-        player.powers.forEach(power -> {
-            if ((power.type == AbstractPower.PowerType.DEBUFF || power instanceof ArtifactPower)
-                    && power instanceof InvisiblePower) {
-                power.owner = AbstractDungeon.player;
-                power.amount = power.amount * 2;
-                sealPower.add(power);
-                AutoDoneInstantAction.addToBotAbstract(() -> player.powers.remove(power));
-            }
-        });
+        ArrayList<AbstractPower> sealPower = doSealPowers(player.powers);
         addToBot_gainCustomBlock(new PregnantBlock_sealPower(sealPower, player));
         this.exhaust = true;
         addToBot_makeTempCardInBattle(new SelfReference(), ActionUtility.BattleCardPlace.Hand, upgraded);
     }
 
     private void ForMonsterBrokenSpaceStructure(AbstractMonster monster) {
-        ArrayList<AbstractPower> sealPower = new ArrayList<>();
-        monster.powers.forEach(power -> {
-            if ((power.type == AbstractPower.PowerType.DEBUFF || power instanceof ArtifactPower)
-                    && power instanceof InvisiblePower) {
-                power.owner = AbstractDungeon.player;
-                power.amount = power.amount * 2;
-                sealPower.add(power);
-                AutoDoneInstantAction.addToBotAbstract(() -> monster.powers.remove(power));
-            }
-        });
+        ArrayList<AbstractPower> sealPower = doSealPowers(monster.powers);
         addToBot_gainCustomBlock(new PregnantBlock_sealPower(sealPower, monster));
         this.exhaust = true;
         addToBot_makeTempCardInBattle(new SelfReference(), ActionUtility.BattleCardPlace.Hand, upgraded);
     }
 
     private void ForMonster(AbstractMonster monster) {
-        ArrayList<AbstractPower> sealPower = new ArrayList<>();
-        monster.powers.forEach(power -> {
-            if ((power.type == AbstractPower.PowerType.DEBUFF || power instanceof ArtifactPower)
-                    && power instanceof InvisiblePower) {
-                power.owner = AbstractDungeon.player;
-                power.amount = power.amount * 2;
-                sealPower.add(power);
-                AutoDoneInstantAction.addToBotAbstract(() -> monster.powers.remove(power));
-            }
-        });
+        ArrayList<AbstractPower> sealPower = doSealPowers(monster.powers);
         addToBot_gainCustomBlock(new PregnantBlock_sealPower(sealPower, monster));
         addToBot_makeTempCardInBattle(new GiveBirth(), ActionUtility.BattleCardPlace.Discard, upgraded);
+    }
+
+    private static ArrayList<AbstractPower> doSealPowers(ArrayList<AbstractPower> monster) {
+        ArrayList<AbstractPower> sealPower = new ArrayList<>();
+        monster.forEach(power -> {
+            if (power.type != AbstractPower.PowerType.DEBUFF && !(power instanceof ArtifactPower)) return;
+            if (power instanceof InvisiblePower) return;
+            power.owner = AbstractDungeon.player;
+            power.amount = power.amount * 2;
+            sealPower.add(power);
+            AutoDoneInstantAction.addToBotAbstract(() -> monster.remove(power));
+        });
+        return sealPower;
     }
 
     @Override

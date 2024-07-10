@@ -1,18 +1,22 @@
 package superstitio;
 
 
+import basemod.ReflectionHacks;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Color;
 import com.evacipated.cardcrawl.modthespire.lib.SpireEnum;
 import com.evacipated.cardcrawl.modthespire.lib.SpireInitializer;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.internal.$Gson$Types;
 import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.cards.DamageInfo;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.core.Settings;
 import com.megacrit.cardcrawl.helpers.CardLibrary;
+import com.megacrit.cardcrawl.localization.LocalizedStrings;
+import com.megacrit.cardcrawl.localization.RelicStrings;
 import superstitio.cards.CardOwnerPlayerManager;
 import superstitio.cards.general.SkillCard.gainEnergy.TimeStop;
 import superstitio.cards.lupa.LupaCard;
@@ -21,7 +25,9 @@ import superstitio.cards.maso.MasoCard;
 import superstitio.characters.cardpool.poolCover.GeneralPool;
 import superstitio.characters.cardpool.poolCover.LupaPool;
 import superstitio.characters.cardpool.poolCover.MasoPool;
+import superstitio.customStrings.SuperstitioKeyWord;
 import superstitio.customStrings.interFace.HasDifferentVersionStringSet;
+import superstitio.customStrings.interFace.HasSFWVersion;
 import superstitio.customStrings.interFace.HasTextID;
 import superstitio.customStrings.interFace.WordReplace;
 import superstitio.customStrings.stringsSet.*;
@@ -40,6 +46,7 @@ import superstitioapi.DataUtility;
 import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.nio.charset.StandardCharsets;
@@ -49,10 +56,14 @@ import java.util.function.BiFunction;
 import java.util.function.Consumer;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
+import static superstitio.customStrings.StringsSetManager.getAllKeywords;
 import static superstitioapi.DataUtility.makeDefaultPath;
 
 public class DataManager {
+    public static final String CODER_COMPUTERNAME = "DESKTOP-VK8L63C";
+    public static final String COMPUTERNAME = "COMPUTERNAME";
     public static Map<String, CardStringsWillMakeFlavorSet> cards = new HashMap<>();
     public static Map<String, PowerStringsSet> powers = new HashMap<>();
     public static Map<String, ModifierStringsSet> modifiers = new HashMap<>();
@@ -153,13 +164,9 @@ public class DataManager {
 
         return DataUtility.makeImgPath((string) -> {
             try {
-                if (Objects.equals(System.getenv().get("COMPUTERNAME"), "DESKTOP-VK8L63C"))
+                if (isRunningInCoderComputer())
                     makeNeedDrawPicture(defaultFileName, PathFinder, DataUtility.getIdOnly(fileName), makeDefaultPath(defaultFileName, PathFinder),
                             subFolder);
-//                else //if (Gdx.files.external(getResourcesFilesPath()).exists())
-//                    JOptionPane.showMessageDialog(null,
-//                    "非常抱歉，检测到之前误调用的调试用代码，请前往“Steam\\steamapps\\common\\SlayTheSpire”目录下，删除SuperstitioModResources
-//                    文件夹。当然你也可以保留，我只是想告诉你这个文件夹是不小心产生的，没有任何实际用处，并且可以删除。");
             } catch (IOException e) {
                 Logger.error(e);
             }
@@ -222,21 +229,94 @@ public class DataManager {
         target.putAll(map);
     }
 
+    //生成所有的SFW本地化
+    public static <T> void makeSFWLocalization(Map<String, T> data, String fileName) {
+        Gson gson = new GsonBuilder().setPrettyPrinting().create();
+        String jsonString = gson.toJson(data);
+        Gdx.files.local(makeLocalizationPath(Settings.language, fileName + "_sfw")).writeString(jsonString, false, "UTF-8");
+    }
+
+    //生成所有的SFW本地化
+//    public static <T> void makeSFWLocalization(Map<String, RelicStrings> data, String fileName, Class<T> tClass) {
+//        Json json = new Json();
+//        String jsonString = json.toJson(data);
+//        Gdx.files.local(makeLocalizationPath(Settings.language, fileName + "_sfw")).writeString(jsonString, false);
+//    }
+
+    //生成所有的SFW本地化
+    public static <T> void makeSFWLocalization(List<T> data, String fileName) {
+        Gson gson = new GsonBuilder().setPrettyPrinting().create();
+        String jsonString = gson.toJson(data);
+        Gdx.files.local(makeLocalizationPath(Settings.language, fileName + "_sfw")).writeString(jsonString, false, "UTF-8");
+    }
+
+    public static void makeAllSFWLocalizationForCoder() {
+        if (!isRunningInCoderComputer()) return;
+        if (!SuperstitioConfig.isEnableSFW()) return;
+        DataManager.makeSFWLocalization(leaveOnlySFWMap(DataManager.cards, CardStringsWillMakeFlavorSet.class), "cards");
+        DataManager.makeSFWLocalization(leaveOnlySFWMap(DataManager.modifiers, ModifierStringsSet.class), "modifiers");
+        DataManager.makeSFWLocalization(leaveOnlySFWMap(DataManager.powers, PowerStringsSet.class), "powers");
+        DataManager.makeSFWLocalization(leaveOnlySFWMap(DataManager.orbs, OrbStringsSet.class), "orbs");
+        DataManager.makeSFWLocalization(leaveOnlySFWMap(DataManager.uiStrings, UIStringsSet.class), "ui");
+        Map<String, RelicStrings> relicsStrings = ReflectionHacks.getPrivateStatic(LocalizedStrings.class, "relics");
+        Map<String, RelicStrings> copyRelicsStrings = new HashMap<>();
+        relicsStrings.forEach((s, t) -> {
+            if (s.contains(getModID()))
+                copyRelicsStrings.put(s, t);
+        });
+        DataManager.makeSFWLocalization(copyRelicsStrings, "relics");
+        List<SuperstitioKeyWord> allKeywords = getAllKeywords().stream().map(SuperstitioKeyWord::makeCopy).collect(Collectors.toList());
+        for (SuperstitioKeyWord keyWord : allKeywords)
+        {
+            keyWord.NAMES = new String[]{""};
+            keyWord.PROPER_NAME = "";
+            keyWord.DESCRIPTION = "";
+        }
+        DataManager.makeSFWLocalization(allKeywords, "keywords");
+    }
+
+
+    public static <T extends HasSFWVersion<?>> T leaveOnlySFW(T stringSet, Class<T> tClass) throws NoSuchMethodException, InvocationTargetException
+            , InstantiationException, IllegalAccessException {
+        HasDifferentVersionStringSet<?> tryCopyStringSet = stringSet.makeSFWCopy();
+        T copyStringSet;
+        if (tClass.isInstance(stringSet))
+            copyStringSet = (T) tryCopyStringSet;
+        else {
+            copyStringSet = tClass.getDeclaredConstructor().newInstance();
+        }
+//        copyStringSet.initialSelfBlack();
+        return copyStringSet;
+    }
+
+    public static <T extends HasSFWVersion<?>> Map<String, T> leaveOnlySFWMap(Map<String, T> data, Class<T> tClass) {
+        Map<String, T> copyData = new HashMap<>();
+        data.forEach((s, t) -> {
+            try {
+                copyData.put(s, leaveOnlySFW(t, tClass));
+            } catch (NoSuchMethodException | InvocationTargetException | InstantiationException | IllegalAccessException e) {
+                Logger.error(e);
+            }
+        });
+        return copyData;
+    }
+
     static String makeLocalizationPath(Settings.GameLanguage language, String filename) {
         String ret = "localization/";
         switch (language) {
             case ZHS:
                 ret = ret + "zhs/";
                 break;
-            case ENG:
-                ret = ret + "eng/";
-                break;
             default:
-                ret = ret + "eng/";
+                ret = ret + "zhs/";
                 break;
         }
 
         return getResourcesFilesPath() + ret + filename + ".json";
+    }
+
+    private static boolean isRunningInCoderComputer() {
+        return Objects.equals(System.getenv().get(COMPUTERNAME), CODER_COMPUTERNAME);
     }
 
     private static String getResourcesFilesPath() {

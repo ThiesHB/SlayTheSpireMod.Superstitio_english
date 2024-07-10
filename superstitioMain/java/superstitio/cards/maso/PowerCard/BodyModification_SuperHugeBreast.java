@@ -21,8 +21,8 @@ public class BodyModification_SuperHugeBreast extends MasoCard {
     public static final CardTarget CARD_TARGET = CardTarget.SELF;
 
     private static final int COST = 2;
-    private static final int MAGIC = 4;
-    private static final int UPGRADE_MAGIC = 2;
+    private static final int MAGIC = 8;
+    private static final int UPGRADE_MAGIC = 4;
 
     public BodyModification_SuperHugeBreast() {
         super(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET);

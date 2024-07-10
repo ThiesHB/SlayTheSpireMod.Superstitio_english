@@ -43,7 +43,7 @@ public class Fuck_Eye extends MasoCard implements FuckJob_Card, GoSomewhereElseA
         super(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET);
         FuckJob_Card.initFuckJobCard(this);
         this.setupDamage(DAMAGE, UPGRADE_DAMAGE);
-        this.setupBlock(BLOCK, UPGRADE_BLOCK);
+        this.setupBlock(BLOCK, UPGRADE_BLOCK, new RemoveDelayHpLoseBlock());
         this.setupMagicNumber(MAGIC);
         this.exhaust = true;
     }

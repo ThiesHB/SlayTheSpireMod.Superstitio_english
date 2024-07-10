@@ -43,7 +43,7 @@ public class Ahegao extends GeneralCard implements GoSomewhereElseAfterUse {
     @Override
     public void afterInterruptMoveToCardGroup(CardGroup cardGroup) {
         new CardOrb_EachCardTrigger(this, cardGroup, this.magicNumber, (orb, card) -> {
-            AbstractMonster creature = CreatureUtility.getMonsterOrFirstMonster(orb.lastTarget);
+            AbstractMonster creature = CreatureUtility.getMonsterOrRandomMonster(orb.lastTarget);
             orb.StartHitCreature(creature);
             DamageActionMaker.maker(orb.getOriginCard().damage, creature).setExampleCard(this)
                     .setEffect(DamageActionMaker.DamageEffect.HeartMultiInOne)

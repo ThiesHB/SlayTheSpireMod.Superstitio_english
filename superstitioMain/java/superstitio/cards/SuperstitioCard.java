@@ -165,6 +165,13 @@ public abstract class SuperstitioCard extends CustomCard implements UpdateDescri
         return type;
     }
 
+    protected static int sumAllDelayHpLosePower() {
+        if (ActionUtility.isNotInBattle()) return 0;
+        return AbstractDungeon.player.powers.stream()
+                .filter(power -> power instanceof DelayHpLosePower)
+                .mapToInt(power -> power.amount).sum();
+    }
+
     public String makeFormatDESCRIPTION() {
         this.updateDescriptionArgs();
         if (descriptionArgs == null)
@@ -221,7 +228,7 @@ public abstract class SuperstitioCard extends CustomCard implements UpdateDescri
         } else {
             calculateMultipleDamage(player);
         }
-        selfOrEnemyTargeting.clearHovered();
+//        selfOrEnemyTargeting.clearHovered();
         return target;
     }
 
@@ -282,6 +289,10 @@ public abstract class SuperstitioCard extends CustomCard implements UpdateDescri
                 .addToBot();
     }
 
+    public final void addToBot_gainBlock() {
+        this.addToBot_gainBlock(this.block);
+    }
+
 //    public final void addToBot_dealDamageToAllEnemies(final AttackEffect effect,
 //                                                      Function<AbstractCreature, AbstractGameEffect> newAttackEffectMaker,
 //                                                      AbstractDamageModifier... damageModifiers) {
@@ -294,10 +305,6 @@ public abstract class SuperstitioCard extends CustomCard implements UpdateDescri
 //                .setDamageModifier(this, damageModifiers)
 //                .addToBot();
 //    }
-
-    public final void addToBot_gainBlock() {
-        this.addToBot_gainBlock(this.block);
-    }
 
     public final void addToBot_gainBlock(final int amount) {
         addToBot_gainBlock(this, amount);
@@ -359,10 +366,6 @@ public abstract class SuperstitioCard extends CustomCard implements UpdateDescri
         this.magicAutoUpgrade = amountOfAutoUpgrade;
     }
 
-//    protected final void addToBot_reducePower(final AbstractPower power) {
-//        ActionUtility.addToBot_reducePower(power, AbstractDungeon.player);
-//    }
-
     protected final void calculateMultipleDamage(AbstractPlayer player) {
         final ArrayList<AbstractMonster> monsters = AbstractDungeon.getCurrRoom().monsters.monsters;
         final float[] tmpDamages = new float[monsters.size()];
@@ -376,6 +379,10 @@ public abstract class SuperstitioCard extends CustomCard implements UpdateDescri
         }
         this.damage = this.multiDamage[0];
     }
+
+//    protected final void addToBot_reducePower(final AbstractPower power) {
+//        ActionUtility.addToBot_reducePower(power, AbstractDungeon.player);
+//    }
 
     protected final float getTmpDamage(AbstractPlayer player, float baseDamage, AbstractCreature creature) {
         float tempDamage = baseDamage;
@@ -414,6 +421,29 @@ public abstract class SuperstitioCard extends CustomCard implements UpdateDescri
         float tmpDamage = (float) this.baseDamage;
         tmpDamage = getTmpDamage(player, tmpDamage, creature);
         this.damage = MathUtils.floor(tmpDamage);
+    }
+
+    @Override
+    public void applyPowers() {
+        super.applyPowers();
+        if (ActionUtility.isNotInBattle()) return;
+        try {
+            initializeDescription();
+        } catch (Exception e) {
+            Logger.error(e);
+        }
+    }
+
+    @Override
+    public void initializeDescription() {
+        if (!ActionUtility.isNotInBattle()) {
+            try {
+                updateRawDescription();
+            } catch (Exception e) {
+                Logger.error(e);
+            }
+        }
+        super.initializeDescription();
     }
 
     /**

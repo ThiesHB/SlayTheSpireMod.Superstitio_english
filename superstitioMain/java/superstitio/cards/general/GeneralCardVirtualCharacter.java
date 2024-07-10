@@ -6,7 +6,7 @@ import com.megacrit.cardcrawl.cutscenes.CutscenePanel;
 import com.megacrit.cardcrawl.screens.CharSelectInfo;
 import superstitio.DataManager;
 import superstitio.cards.general.BaseCard.Kiss;
-import superstitio.cards.general.BaseCard.Masturbate;
+import superstitio.cards.lupa.BaseCard.Masturbate;
 import superstitio.characters.BaseCharacter;
 import superstitio.relics.blight.JokeDescription;
 

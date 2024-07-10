@@ -1,5 +1,7 @@
 package superstitio.cards.maso.SkillCard;
 
+import basemod.cardmods.RetainMod;
+import basemod.helpers.CardModifierManager;
 import com.megacrit.cardcrawl.actions.common.LoseHPAction;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
@@ -26,6 +28,7 @@ public class CutWrist extends MasoCard {
         super(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET);
         this.setupMagicNumber(MAGIC);
         this.setupBlock(BLOCK, UPGRADE_BLOCK, new RemoveDelayHpLoseBlock());
+        CardModifierManager.addModifier(this, new RetainMod());
     }
 
     @Override

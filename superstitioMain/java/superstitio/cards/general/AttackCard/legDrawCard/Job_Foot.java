@@ -5,7 +5,7 @@ import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import superstitio.DataManager;
-import superstitio.cards.general.BaseCard.Masturbate;
+import superstitio.cards.lupa.BaseCard.Masturbate;
 import superstitio.cards.general.FuckJob_Card;
 import superstitio.cards.general.GeneralCard;
 import superstitio.cards.lupa.LupaCard;

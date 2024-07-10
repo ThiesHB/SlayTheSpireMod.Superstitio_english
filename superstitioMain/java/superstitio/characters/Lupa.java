@@ -7,7 +7,7 @@ import superstitio.DataManager;
 import superstitio.Logger;
 import superstitio.cards.CardOwnerPlayerManager;
 import superstitio.cards.general.BaseCard.Kiss;
-import superstitio.cards.general.BaseCard.Masturbate;
+import superstitio.cards.lupa.BaseCard.Masturbate;
 import superstitio.cards.lupa.BaseCard.DrySemen;
 import superstitio.cards.lupa.BaseCard.Invite_Lupa;
 import superstitio.relics.a_starter.StartWithSexToy;

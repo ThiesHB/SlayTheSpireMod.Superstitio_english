@@ -43,7 +43,6 @@ public class BodyModification_Prolapse extends MasoCard {
         super(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET);
         this.setupMagicNumber(MAGIC, UPGRADE_MAGIC);
         CardModifierManager.addModifier(this, new BodyModificationTag());
-        updateRawDescription();
         initializeDescription();
     }
 

@@ -56,7 +56,7 @@
   "SuperstitioMod:Job_Hair": {
     "NAME": "发交",
     "NAME_SFW": "辫子神功",
-    "DESCRIPTION": "造成 !D! 点 伤害 。 NL superstitiomod:助兴- superstitiomod:欲求 NL 打出 !M! 任何牌： NL 把 带有 NL 消耗 的 复制加入手牌，其在被打出之前，耗能变为0 。 NL superstitiomod:自动释放 。",
+    "DESCRIPTION": "造成 !D! 点 伤害 。 NL superstitiomod:助兴- superstitiomod:欲求 NL 打出 !M! 任何牌： NL 把 带有 NL 消耗 的 复制加入手牌， NL 其在被打出之前，耗能变为0 。 NL superstitiomod:自动释放 。",
     "FLAVOR": "扯着有点疼，不会把我变成光头吧？",
     "EXTENDED_DESCRIPTION": [
       "头发"
@@ -140,7 +140,7 @@
   "SuperstitioMod:Masturbate": {
     "NAME": "自慰",
     "NAME_SFW": "准备战斗",
-    "DESCRIPTION": "获得 !M! 点 superstitiomod:快感 。 NL superstitiomod:助兴- superstitiomod:欲求 NL 打出 2 任何牌： NL 抽 1 张牌。 NL superstitiomod:自动释放 。",
+    "DESCRIPTION": "获得 !M! 点 superstitiomod:快感 。 NL superstitiomod:助兴- superstitiomod:欲求 NL 打出 %d 任何牌： NL 抽 %d 张牌。 NL superstitiomod:自动释放 。",
     "FLAVOR": "何以解忧？聊以自慰。",
     "EXTENDED_DESCRIPTION": [
       "抽牌"
@@ -148,5 +148,26 @@
     "ADD_KEYWORDS_ID": [
       "SuperstitioMod:Orgasm"
     ]
+  },
+  "SuperstitioMod:FistIn": {
+    "NAME": "拳头插入",
+    "NAME_SFW": "强制打出",
+    "DESCRIPTION": "选择一张手牌，失去其当前费用 !M! 倍的血量，强制打出。 NL superstitiomod:助兴- superstitiomod:欲求 NL 打出 %d 任何牌： NL 抽 %d 张牌。",
+    "FLAVOR": "再深一点会更好。",
+    "EXTENDED_DESCRIPTION": [
+      "强制打出。"
+    ]
+  },
+  "SuperstitioMod:DrySemen": {
+    "NAME": "精液护盾",
+    "NAME_SFW": "血液护盾",
+    "DESCRIPTION": "superstitiomod:精欲 !M! ： NL 获得 !B! 点 *格挡 。",
+    "FLAVOR": ""
+  },
+  "SuperstitioMod:Spark": {
+    "NAME": "打屁股",
+    "NAME_SFW": "给你一拳",
+    "DESCRIPTION": "造成 !D! 点 伤害 。 NL 若 *腐朽 大于 !M! ，再造成 !D! 点 伤害 。",
+    "FLAVOR": ""
   }
 }

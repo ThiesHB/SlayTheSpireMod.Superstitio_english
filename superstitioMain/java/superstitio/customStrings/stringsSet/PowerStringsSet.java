@@ -3,6 +3,7 @@ package superstitio.customStrings.stringsSet;
 import com.megacrit.cardcrawl.localization.LocalizedStrings;
 import com.megacrit.cardcrawl.localization.PowerStrings;
 import superstitio.customStrings.SuperstitioKeyWord;
+import superstitio.customStrings.interFace.HasDifferentVersionStringSet;
 import superstitio.customStrings.interFace.HasOriginAndSFWVersion;
 import superstitio.customStrings.interFace.StringSetUtility;
 import superstitio.customStrings.interFace.WordReplace;
@@ -17,7 +18,6 @@ public class PowerStringsSet implements HasOriginAndSFWVersion<PowerStrings>, Su
     private String NAME_SFW;
     private String[] DESCRIPTIONS;
     private SuperstitioKeyWord[] MAKE_KEYWORDS;
-
     private String[] DESCRIPTIONS_SFW;
 
     public PowerStringsSet() {
@@ -43,19 +43,16 @@ public class PowerStringsSet implements HasOriginAndSFWVersion<PowerStrings>, Su
         origin.DESCRIPTIONS = DESCRIPTIONS;
     }
 
-//    private void replaceWord_NAME(PowerStrings replaced, List<WordReplace> replaceRules) {
-//        if (StringSetUtility.isNullOrEmpty(replaced.NAME))
-//            replaced.NAME = WordReplace.replaceWord(this.NAME, replaceRules);
-//        else
-//            replaced.NAME = WordReplace.replaceWord(replaced.NAME, replaceRules);
-//    }
-//
-//    private void replaceWord_DESCRIPTIONS(PowerStrings replaced, List<WordReplace> replaceRules) {
-//        if (StringSetUtility.isNullOrEmpty(replaced.DESCRIPTIONS))
-//            replaced.DESCRIPTIONS = WordReplace.replaceWord(this.DESCRIPTIONS, replaceRules);
-//        else
-//            WordReplace.replaceWord(replaced.DESCRIPTIONS, replaceRules);
-//    }
+    @Override
+    public HasDifferentVersionStringSet<PowerStrings> makeCopy() {
+        PowerStringsSet clone = new PowerStringsSet();
+        clone.NAME = this.NAME;
+        clone.DESCRIPTIONS = this.DESCRIPTIONS;
+        clone.NAME_SFW = this.NAME_SFW;
+        clone.DESCRIPTIONS_SFW = DESCRIPTIONS_SFW;
+        clone.MAKE_KEYWORDS = this.MAKE_KEYWORDS;
+        return clone;
+    }
 
     @Override
     public void initialSFW(PowerStrings sfw) {
@@ -69,6 +66,22 @@ public class PowerStringsSet implements HasOriginAndSFWVersion<PowerStrings>, Su
             this.SFW.NAME = WordReplace.replaceWord(this.Origin.NAME, replaceRules);
         if (StringSetUtility.isNullOrEmpty(this.SFW.DESCRIPTIONS))
             this.SFW.DESCRIPTIONS = WordReplace.replaceWord(this.Origin.DESCRIPTIONS, replaceRules);
+
+        if (StringSetUtility.isNullOrEmpty(this.NAME_SFW))
+            this.NAME_SFW = this.SFW.NAME;
+        if (StringSetUtility.isNullOrEmpty(this.DESCRIPTIONS_SFW))
+            this.DESCRIPTIONS_SFW = this.SFW.DESCRIPTIONS;
+    }
+
+    @Override
+    public HasDifferentVersionStringSet<PowerStrings> makeSFWCopy() {
+        HasDifferentVersionStringSet<PowerStrings> clone = this.makeCopy();
+        if (clone instanceof PowerStringsSet) {
+            PowerStringsSet clone1 = (PowerStringsSet) clone;
+            clone1.NAME = null;
+            clone1.DESCRIPTIONS = null;
+        }
+        return clone;
     }
 
     @Override

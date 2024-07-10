@@ -1,24 +1,16 @@
 package superstitio.cards.maso.SkillCard.cruelTorture;
 
-import basemod.AutoAdd;
 import basemod.helpers.CardModifierManager;
-import com.megacrit.cardcrawl.cards.CardGroup;
-import com.megacrit.cardcrawl.cards.status.Burn;
+import com.megacrit.cardcrawl.actions.common.LoseHPAction;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
-import com.megacrit.cardcrawl.powers.DexterityPower;
-import com.megacrit.cardcrawl.powers.LoseDexterityPower;
 import superstitio.DataManager;
 import superstitio.cardModifier.modifiers.card.CruelTortureTag;
 import superstitio.cards.maso.MasoCard;
-import superstitioapi.cards.patch.GoSomewhereElseAfterUse;
-import superstitioapi.hangUpCard.CardOrb_AtStartOfTurnEachTime;
-import superstitioapi.utils.ActionUtility;
 
 //尖桩贯穿
-@AutoAdd.Ignore
-public class CruelTorture_Impale extends MasoCard implements GoSomewhereElseAfterUse {
+public class CruelTorture_Impale extends MasoCard {
     public static final String ID = DataManager.MakeTextID(CruelTorture_Impale.class);
 
     public static final CardType CARD_TYPE = CardType.SKILL;
@@ -26,45 +18,44 @@ public class CruelTorture_Impale extends MasoCard implements GoSomewhereElseAfte
     public static final CardRarity CARD_RARITY = CardRarity.UNCOMMON;
 
     public static final CardTarget CARD_TARGET = CardTarget.SELF;
-    public static final int BURN_CARD_NUM = 2;
+    //    public static final int BURN_CARD_NUM = 2;
     private static final int COST = 1;
-    private static final int MAGIC = 3;
-    private static final int UPGRADE_MAGIC = 1;
+    private static final int MAGIC = 5;
+    private static final int UPGRADE_MAGIC = -2;
 
     public CruelTorture_Impale() {
         super(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET);
         this.setupMagicNumber(MAGIC, UPGRADE_MAGIC);
         CardModifierManager.addModifier(this, new CruelTortureTag());
-        this.cardsToPreview = new Burn();
+        initializeDescription();
     }
 
-    private void addTempDexterity(CruelTorture_Impale self) {
-        self.addToBot_applyPower(new DexterityPower(AbstractDungeon.player, this.magicNumber));
-        self.addToBot_applyPower(new LoseDexterityPower(AbstractDungeon.player, this.magicNumber));
+    @Override
+    public void applyPowers() {
+//        updateRawDescription();
+        super.applyPowers();
+        initializeDescription();
+    }
+
+    @Override
+    public void initializeDescription() {
+        updateRawDescription();
+        super.initializeDescription();
     }
 
     @Override
     public void updateDescriptionArgs() {
-        setDescriptionArgs(BURN_CARD_NUM);
+        setDescriptionArgs(this.magicNumber != 0 ? sumAllDelayHpLosePower() / this.magicNumber : 0);
     }
 
     @Override
     public void use(AbstractPlayer player, AbstractMonster monster) {
-        ActionUtility.addToBot_makeTempCardInBattle(new Burn(), ActionUtility.BattleCardPlace.Discard, BURN_CARD_NUM);
-        addTempDexterity(this);
+        addToBot_drawCards(this.magicNumber != 0 ? sumAllDelayHpLosePower() / this.magicNumber : 0);
+        addToBot(new LoseHPAction(AbstractDungeon.player, AbstractDungeon.player, this.magicNumber));
+        addToBot_drawCards();
     }
 
     @Override
     public void upgradeAuto() {
-    }
-
-    @Override
-    public void afterInterruptMoveToCardGroup(CardGroup cardGroup) {
-        CruelTorture_Impale self = this;
-        new CardOrb_AtStartOfTurnEachTime(this, cardGroup, 99, cardOrbAtStartOfTurn -> {
-            cardOrbAtStartOfTurn.StartHitCreature(AbstractDungeon.player);
-            addTempDexterity(self);
-        })
-                .addToBot_HangCard();
     }
 }

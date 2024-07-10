@@ -8,7 +8,7 @@
   "SuperstitioMod:MasoCard:BellyStrike": {
     "NAME": "腹部打击",
     "NAME_SFW": "力量模式",
-    "DESCRIPTION": "对目标造成 !D! 伤害， NL 给予 !M! 临时力量 。 NL superstitiomod:受虐者 ： 造成未被格挡的伤害时， 自身的 临时力量 变为永久 。",
+    "DESCRIPTION": "对目标造成 !D! 伤害， NL 给予 !M! 临时力量 。 NL superstitiomod:受虐者 ： 只造成一半的伤害，造成未被格挡的伤害时，自身的 力量 翻倍。",
     "FLAVOR": "对着这里来！",
     "FLAVOR_SFW": "我是劳伦斯巴恩斯，他们叫我“先知”。"
   },
@@ -29,7 +29,7 @@
   "SuperstitioMod:MasoCard:NailExtraction": {
     "NAME": "拔指甲",
     "NAME_SFW": "以牙还牙",
-    "DESCRIPTION": "失去 %d 点生命， NL 抽 %d 张牌， NL 往抽牌堆中添加 %d 张 *拔指甲 。 NL 本回合只能打出 %d 张。 NL （已使用 !M! 张）",
+    "DESCRIPTION": "失去 %d 生命， NL 抽 %d 张牌， NL 往抽牌堆中添加 %d 张 *拔指甲 。 NL 本回合只能打出 %d 张。 NL （已使用 !M! 张）",
     "UPGRADE_DESCRIPTION": "对自身造成 %d 点伤害， NL 抽 %d 张牌， NL 往抽牌堆中添加 %d 张 *拔指甲 。 NL 本回合只能打出 %d 张。 NL （已使用 !M! 张）",
     "FLAVOR": "拔下来马上又会马上长回去，想往里面插根针都来不及。",
     "FLAVOR_SFW": ""
@@ -39,15 +39,6 @@
     "NAME_SFW": "加装义体",
     "DESCRIPTION": "抽到 superstitiomod:无法打出 的牌时，将其消耗，在手牌中添加一张 *感受幻肢 。",
     "FLAVOR": "真希望我一开始就没有这些部位，那样一定很无助~❤"
-  },
-  "SuperstitioMod:MasoCard:FistIn": {
-    "NAME": "拳头插入",
-    "NAME_SFW": "强制打出",
-    "DESCRIPTION": "选择一张手牌，失去其当前费用 !M! 倍的血量，强制打出。",
-    "FLAVOR": "再深一点会更好。",
-    "EXTENDED_DESCRIPTION": [
-      "强制打出。"
-    ]
   },
   "SuperstitioMod:MasoCard:BodyModification_CutOff": {
     "NAME": "身体欠损",
@@ -121,6 +112,13 @@
     "DESCRIPTION": "将%d张 *灼伤 放入你的弃牌堆中 。 superstitiomod:助兴-急切 。 NL superstitiomod:助兴- superstitiomod:缠绵 NL 下 99 回合开始时： NL 获得 !M! 点 临时敏捷 。",
     "FLAVOR": "",
     "FLAVOR_SFW": ""
+  },
+  "SuperstitioMod:MasoCard:CruelTorture_Impale": {
+    "NAME": "尖桩贯穿",
+    "NAME_SFW": "祭祀",
+    "DESCRIPTION": "每有 !M! 点 *腐朽 ，抽一张牌。 NL （预计抽牌：%d） NL 失去 !M! 生命，抽一张牌。",
+    "FLAVOR": "",
+    "FLAVOR_SFW": "以撒和他的父母住在山上的一所小房子里。"
   },
   "SuperstitioMod:MasoCard:LoveDirty": {
     "NAME": "恋污",

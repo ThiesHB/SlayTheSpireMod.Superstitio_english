@@ -67,24 +67,21 @@ public class CreatureUtility {
         return c != null && !c.isDeadOrEscaped() && !c.isDead;
     }
 
-    public static AbstractCreature getTargetOrFirstMonster(AbstractCreature target) {
+    public static AbstractCreature getTargetOrRandomMonster(AbstractCreature target) {
         if (isAlive(target)) {
             return target;
         }
-        AbstractMonster first = getAllAliveMonsters()[0];
-        if (first != null)
-            return first;
-        return new ApologySlime();
+        return getRandomMonsterSafe();
     }
 
-    public static AbstractMonster getMonsterOrFirstMonster(AbstractCreature target) {
+    public static AbstractMonster getMonsterOrRandomMonster(AbstractCreature target) {
         if (target instanceof AbstractMonster && isAlive(target)) {
             return (AbstractMonster) target;
         }
-        AbstractMonster first = getAllAliveMonsters()[0];
-        if (first != null)
-            return first;
-        Logger.warning("NoAliveMonsters");
-        return new ApologySlime();
+        return getRandomMonsterSafe();
+//        if (first != null)
+//            return first;
+//        Logger.warning("NoAliveMonsters");
+//        return new ApologySlime();
     }
 }

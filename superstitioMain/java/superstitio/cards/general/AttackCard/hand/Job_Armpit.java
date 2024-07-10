@@ -52,7 +52,7 @@ public class Job_Armpit extends GeneralCard implements FuckJob_Card, GoSomewhere
     @Override
     public void afterInterruptMoveToCardGroup(CardGroup cardGroup) {
         new CardOrb_WaitCardTrigger(this, cardGroup, this.magicNumber, (orb, card) -> {
-            AbstractMonster creature = CreatureUtility.getMonsterOrFirstMonster(orb.lastTarget);
+            AbstractMonster creature = CreatureUtility.getMonsterOrRandomMonster(orb.lastTarget);
             orb.StartHitCreature(creature);
             DamageActionMaker.maker(orb.getOriginCard().damage, creature)
                     .setEffect(DamageActionMaker.DamageEffect.HeartMultiInOne)
@@ -64,7 +64,7 @@ public class Job_Armpit extends GeneralCard implements FuckJob_Card, GoSomewhere
         if (upgraded)
             copyCard.upgrade();
         new CardOrb_WaitCardTrigger(copyCard, cardGroup, this.magicNumber, (orb, card) -> {
-            AbstractMonster creature = CreatureUtility.getMonsterOrFirstMonster(orb.lastTarget);
+            AbstractMonster creature = CreatureUtility.getMonsterOrRandomMonster(orb.lastTarget);
             orb.StartHitCreature(creature);
             DamageActionMaker.maker(orb.getOriginCard().damage, creature)
                     .setEffect(DamageActionMaker.DamageEffect.HeartMultiInOne)

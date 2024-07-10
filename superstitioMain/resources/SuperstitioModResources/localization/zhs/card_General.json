@@ -23,7 +23,7 @@
       "高潮总次数： %d"
     ],
     "EXTENDED_DESCRIPTION_SFW": [
-      "激怒总次数： %d"
+      "狂暴总次数： %d"
     ]
   },
   "SuperstitioMod:FastWindUp": {
@@ -35,8 +35,8 @@
   },
   "SuperstitioMod:CalmDown": {
     "NAME": "冷静",
-    "DESCRIPTION": "抽当前 superstitiomod:助兴 数量的 牌。 NL superstitiomod:释放 所有处于 *助兴队列 的卡牌。",
-    "UPGRADE_DESCRIPTION": "抽当前 superstitiomod:助兴 数量 +1 的 牌。 NL superstitiomod:释放 所有处于 *助兴队列 的卡牌。",
+    "DESCRIPTION": "抽当前 superstitiomod:助兴 数量的 牌。 NL superstitiomod:释放 所有处于 *助兴序列 的卡牌。",
+    "UPGRADE_DESCRIPTION": "抽当前 superstitiomod:助兴 数量 +1 的 牌。 NL superstitiomod:释放 所有处于 *助兴序列 的卡牌。",
     "FLAVOR": "冥想……冷静，冷静，冥想……果然还是好想自慰。 NL o(TヘTo)"
   },
   "SuperstitioMod:Ku_Koro": {
@@ -78,7 +78,7 @@
   },
   "SuperstitioMod:Samsara": {
     "NAME": "轮转",
-    "DESCRIPTION": "回合结束时， NL 保留 所有的手牌。 NL 每当你使用卡牌， NL 抽 1 张牌。 NL 在抽牌堆中添加 !M! 张 *伤口 。",
+    "DESCRIPTION": "在抽牌堆中添加 !M! 张 *伤口 。 NL 回合结束时， NL 保留 所有的手牌。 NL 每当你使用卡牌， NL 抽 1 张牌。",
     "FLAVOR": "一切都只是轮回的一部分，何不放肆一点？"
   },
   "SuperstitioMod:TimeStop": {
@@ -90,7 +90,7 @@
   },
   "SuperstitioMod:Endure": {
     "NAME": "忍耐",
-    "DESCRIPTION": "下回合获得 !M! superstitiomod:快感 。 NL 抽 2 张牌。",
+    "DESCRIPTION": "获得 !B! *格挡 。 NL 下回合获得 !M! superstitiomod:快感 。 NL 抽 2 张牌。",
     "FLAVOR": "吃得巨中巨，方为忍上忍。",
     "ADD_KEYWORDS_ID": [
       "SuperstitioMod:Orgasm"
@@ -161,7 +161,7 @@
   },
   "SuperstitioMod:EroSion": {
     "NAME": "腐蚀",
-    "DESCRIPTION": "失去 !M! 点 生命。 NL 造成等同于 *腐朽 的伤害。 NL （ !D! 点）",
+    "DESCRIPTION": "失去 !M! 点 生命。 NL 造成等同于 *腐朽 的伤害。 NL （预计为 !D! 点）",
     "FLAVOR": "想尝尝看我的屄吗？那就插进来吧。什么？不想？可是你已经插进来了呀。"
   },
   "SuperstitioMod:ForcePutSexToy": {
@@ -181,7 +181,7 @@
   "SuperstitioMod:EscapeConjuring": {
     "NAME": "逃脱魔术",
     "NAME_SFW": "金蝉脱壳",
-    "DESCRIPTION": "获得手牌中 状态 和 诅咒 数量的 [E] 。 NL 获得 当前负面状态 !M! 倍的 superstitiomod:快感 。 NL *丢弃 所有费用不为0的手牌， NL 每 *丢弃 一张 状态 或 诅咒 牌，抽一张牌。",
+    "DESCRIPTION": "获得 当前负面状态 !M! 倍的 superstitiomod:快感 。 NL 从手牌中 *丢弃 所有 状态 和 诅咒 ， NL 每 *丢弃 一张， NL 获得 [E] ，抽一张牌。",
     "FLAVOR": "也许不挣脱也是一个好选择？",
     "FLAVOR_SFW": "这个故事，要从一只金蝉说起……",
     "ADD_KEYWORDS_ID": [

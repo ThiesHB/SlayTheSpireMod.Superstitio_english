@@ -16,10 +16,14 @@ import superstitio.characters.Lupa;
 import superstitio.characters.Maso;
 import superstitio.characters.Tzeentch;
 import superstitio.customStrings.StringsSetManager;
+import superstitio.customStrings.SuperstitioKeyWord;
 import superstitio.customStrings.interFace.WordReplace;
+import superstitio.customStrings.stringsSet.*;
 import superstitio.relics.SuperstitioRelic;
 import superstitioapi.relicToBlight.InfoBlight;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
@@ -31,6 +35,7 @@ import static superstitio.DataManager.SPTT_DATA.MasoEnums.MASO_CARD;
 import static superstitio.DataManager.SPTT_DATA.MasoEnums.MASO_Character;
 import static superstitio.DataManager.SPTT_DATA.TempCardEnums.TempCard_CARD;
 import static superstitio.DataManager.SPTT_DATA.TzeentchEnums.TZEENTCH_Character;
+import static superstitio.customStrings.StringsSetManager.makeSFWVersion;
 import static superstitio.customStrings.StringsSetManager.makeWordReplaceRule;
 
 @SpireInitializer
@@ -39,6 +44,10 @@ public class SuperstitioModSetup implements
         EditCharactersSubscriber, AddAudioSubscriber, PostInitializeSubscriber {
 
     public static final String MOD_NAME = "Superstitio";
+    /**
+     * 人工启用sfw模式
+     */
+    public static final boolean SEAL_MANUAL_SFW = false;
     public DataManager data;
 
     public SuperstitioModSetup() {
@@ -105,6 +114,7 @@ public class SuperstitioModSetup implements
         ReflectionHacks.setPrivateStaticFinal(LocalizedStrings.class, "relics", relicsStrings);
     }
 
+
     @Override
     public void receiveEditCharacters() {
         //添加角色到MOD中
@@ -151,30 +161,57 @@ public class SuperstitioModSetup implements
     @Override
     public void receiveEditStrings() {
         Logger.run("Beginning to edit strings for mod with ID: " + DataManager.getModID());
-        StringsSetManager.loadAllStrings();
-//        BaseMod.loadCustomStringsFile(EventStrings.class, DataManager.makeLocalizationPath(Settings.language, "event_general"));
-//        BaseMod.loadCustomStringsFile(PotionStrings.class, makeLocPath(Settings.language,"potion"));
-        BaseMod.loadCustomStringsFile(CharacterStrings.class,
-                DataManager.makeLocalizationPath(Settings.language, SuperstitioConfig.isEnableSFW() ? "character_LupaSFW" : "character_Lupa"));
-        BaseMod.loadCustomStringsFile(CharacterStrings.class,
-                DataManager.makeLocalizationPath(Settings.language, "character_General"));
-        BaseMod.loadCustomStringsFile(RelicStrings.class, DataManager.makeLocalizationPath(Settings.language, "relic_Lupa"));
-        BaseMod.loadCustomStringsFile(UIStrings.class, DataManager.makeLocalizationPath(Settings.language, "UIStrings"));
-        BaseMod.loadCustomStringsFile(MonsterStrings.class, DataManager.makeLocalizationPath(Settings.language, "monsters"));
-        if (SuperstitioConfig.isEnableSFW()) {
-            makeSFWWordForOriginStrings();
+        if (!SEAL_MANUAL_SFW) {
+            StringsSetManager.loadAllStrings();
+            BaseMod.loadCustomStringsFile(CharacterStrings.class,
+                    DataManager.makeLocalizationPath(Settings.language, SuperstitioConfig.isEnableSFW() ? "character_LupaSFW" : "character_Lupa"));
+            BaseMod.loadCustomStringsFile(CharacterStrings.class,
+                    DataManager.makeLocalizationPath(Settings.language, "character_General"));
+            BaseMod.loadCustomStringsFile(RelicStrings.class, DataManager.makeLocalizationPath(Settings.language, "relic_Lupa"));
+            BaseMod.loadCustomStringsFile(UIStrings.class, DataManager.makeLocalizationPath(Settings.language, "UIStrings"));
+            BaseMod.loadCustomStringsFile(MonsterStrings.class, DataManager.makeLocalizationPath(Settings.language, "monsters"));
+            if (SuperstitioConfig.isEnableSFW()) {
+                makeSFWWordForOriginStrings();
+            }
+        } else {
+            DataManager.loadCustomStringsFile("sfw/" + "cards" + "_sfw", DataManager.cards, CardStringsWillMakeFlavorSet.class);
+            DataManager.loadCustomStringsFile("sfw/" + "modifiers" + "_sfw", DataManager.modifiers, ModifierStringsSet.class);
+            DataManager.loadCustomStringsFile("sfw/" + "powers" + "_sfw", DataManager.powers, PowerStringsSet.class);
+            DataManager.loadCustomStringsFile("sfw/" + "orbs" + "_sfw", DataManager.orbs, OrbStringsSet.class);
+            DataManager.loadCustomStringsFile("sfw/" + "ui" + "_sfw", DataManager.uiStrings, UIStringsSet.class);
+
+            makeSFWVersion();
+
+            BaseMod.loadCustomStringsFile(CharacterStrings.class, DataManager.makeLocalizationPath(Settings.language, "character_LupaSFW"));
+            BaseMod.loadCustomStringsFile(CharacterStrings.class, DataManager.makeLocalizationPath(Settings.language, "character_General"));
+            BaseMod.loadCustomStringsFile(UIStrings.class, DataManager.makeLocalizationPath(Settings.language, "UIStrings"));
+            BaseMod.loadCustomStringsFile(MonsterStrings.class, DataManager.makeLocalizationPath(Settings.language, "monsters"));
         }
         Logger.run("Done editing strings");
     }
 
     @Override
     public void receiveEditKeywords() {
-        StringsSetManager.makeKeyWords();
+        if (!SEAL_MANUAL_SFW) {
+            StringsSetManager.makeKeyWords();
+            DataManager.makeAllSFWLocalizationForCoder();
+        } else {
+            List<SuperstitioKeyWord> keywordsSFW = new ArrayList<>(
+                    Arrays.asList(DataManager.makeJsonStringFromFile("sfw/" + "keywords" + "_sfw", SuperstitioKeyWord[].class)));
+
+            DataManager.forEachData(data -> data.forEach((string, stringSet) -> {
+                if (stringSet instanceof SuperstitioKeyWord.WillMakeSuperstitioKeyWords) {
+                    keywordsSFW.addAll(Arrays.asList(((SuperstitioKeyWord.WillMakeSuperstitioKeyWords) stringSet).getWillMakeKEYWORDS()));
+                }
+            }));
+
+            keywordsSFW.forEach(SuperstitioKeyWord::registerKeywordFormFile);
+            keywordsSFW.forEach(SuperstitioKeyWord::addToGame);
+        }
     }
 
     @Override
     public void receivePostInitialize() {
         SuperstitioConfig.setUpModOptions();
     }
-
 }

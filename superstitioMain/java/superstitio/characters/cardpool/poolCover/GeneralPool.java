@@ -3,7 +3,7 @@ package superstitio.characters.cardpool.poolCover;
 import com.megacrit.cardcrawl.cards.AbstractCard;
 import superstitio.DataManager;
 import superstitio.cards.CardOwnerPlayerManager;
-import superstitio.cards.general.BaseCard.Masturbate;
+import superstitio.cards.lupa.BaseCard.Masturbate;
 
 import java.util.function.Predicate;
 

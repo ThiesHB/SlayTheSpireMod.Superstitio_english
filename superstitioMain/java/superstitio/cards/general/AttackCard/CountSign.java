@@ -27,7 +27,7 @@ public class CountSign extends GeneralCard {
     private static final int DAMAGE = 16;
     private static final int UPGRADE_DAMAGE = 5;
 
-    private static final int MAGIC = 2;
+    private static final int MAGIC = 3;
 
     private static final int UPGRADE_MAGIC = 1;
 

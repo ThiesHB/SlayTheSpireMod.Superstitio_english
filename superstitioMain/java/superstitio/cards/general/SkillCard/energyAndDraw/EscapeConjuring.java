@@ -42,10 +42,11 @@ public class EscapeConjuring extends GeneralCard {
                 .filter(power -> power.type == AbstractPower.PowerType.DEBUFF).count();
 
         SexualHeat.addToBot_addSexualHeat(AbstractDungeon.player, deBuffNum * this.magicNumber);
-        addToBot(new GainEnergyAction(statusCardNum));
+//        addToBot(new GainEnergyAction(statusCardNum));
 
-        AbstractDungeon.player.hand.group.stream().filter(card -> card.costForTurn != 0 && !card.freeToPlay())
+        AbstractDungeon.player.hand.group.stream().filter(card -> card.type == CardType.STATUS || card.type == CardType.CURSE)
                 .map(DiscardSpecificCardAction::new).forEach(this::addToBot);
+        addToBot(new GainEnergyAction(statusCardNum));
         addToBot_drawCards(statusCardNum);
     }
 

@@ -40,6 +40,7 @@ public class DrinkPoison extends MasoCard {
         int totalDelayHpLose = findAll(AbstractDungeon.player, DelayHpLosePower.class)
                 .mapToInt(power -> power.amount).sum();
         DelayHpLosePower.addToBot_removePower(totalDelayHpLose / 2, AbstractDungeon.player, true);
+        if (totalDelayHpLose / 4 <= 0) return;
         addToBot_applyPower(new PoisonPower(AbstractDungeon.player, AbstractDungeon.player,
                 totalDelayHpLose / 4));
     }

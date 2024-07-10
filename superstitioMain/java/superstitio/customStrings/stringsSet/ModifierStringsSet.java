@@ -4,10 +4,7 @@ import com.evacipated.cardcrawl.mod.stslib.Keyword;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.localization.LocalizedStrings;
 import superstitio.DataManager;
-import superstitio.customStrings.interFace.HasOriginAndSFWVersion;
-import superstitio.customStrings.interFace.HasTextID;
-import superstitio.customStrings.interFace.StringSetUtility;
-import superstitio.customStrings.interFace.WordReplace;
+import superstitio.customStrings.interFace.*;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -129,6 +126,15 @@ public class ModifierStringsSet implements HasTextID, HasOriginAndSFWVersion<Mod
             this.SFW.BASIC_INFO = WordReplace.replaceWord(this.Origin.BASIC_INFO, replaceRules);
         if (StringSetUtility.isNullOrEmpty(this.SFW.EXTENDED_DESCRIPTION))
             this.SFW.EXTENDED_DESCRIPTION = WordReplace.replaceWord(this.Origin.EXTENDED_DESCRIPTION, replaceRules);
+
+        if (StringSetUtility.isNullOrEmpty(this.NAME_SFW))
+            this.NAME_SFW = this.SFW.NAME;
+        if (StringSetUtility.isNullOrEmpty(this.DESCRIPTION_SFW))
+            this.DESCRIPTION_SFW = this.SFW.DESCRIPTION;
+        if (StringSetUtility.isNullOrEmpty(this.BASIC_INFO_SFW))
+            this.BASIC_INFO_SFW = this.SFW.BASIC_INFO;
+        if (StringSetUtility.isNullOrEmpty(this.EXTENDED_DESCRIPTION_SFW))
+            this.EXTENDED_DESCRIPTION_SFW = this.SFW.EXTENDED_DESCRIPTION;
     }
 
     @Override
@@ -139,6 +145,32 @@ public class ModifierStringsSet implements HasTextID, HasOriginAndSFWVersion<Mod
     @Override
     public void setTextID(String textID) {
         this.textID = textID;
+    }
+    @Override
+    public HasDifferentVersionStringSet<ModifierStrings> makeCopy() {
+        ModifierStringsSet clone =  new ModifierStringsSet();
+        clone.NAME = this.NAME;
+        clone.DESCRIPTION = this.DESCRIPTION;
+        clone.BASIC_INFO = this.BASIC_INFO;
+        clone.EXTENDED_DESCRIPTION = this.EXTENDED_DESCRIPTION;
+        clone.NAME_SFW = this.NAME_SFW;
+        clone.DESCRIPTION_SFW = this.DESCRIPTION_SFW;
+        clone.BASIC_INFO_SFW = this.BASIC_INFO_SFW;
+        clone.EXTENDED_DESCRIPTION_SFW = this.EXTENDED_DESCRIPTION_SFW;
+        return clone;
+    }
+
+    @Override
+    public HasDifferentVersionStringSet<ModifierStrings> makeSFWCopy() {
+        HasDifferentVersionStringSet<ModifierStrings> clone = this.makeCopy();
+        if (clone instanceof ModifierStringsSet){
+            ModifierStringsSet clone1 = (ModifierStringsSet) clone;
+            clone1.NAME = null;
+            clone1.DESCRIPTION = null;
+            clone1.BASIC_INFO = null;
+            clone1.EXTENDED_DESCRIPTION = null;
+        }
+        return clone;
     }
 
     public static class ModifierStrings {

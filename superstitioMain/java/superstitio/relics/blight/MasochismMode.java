@@ -23,7 +23,7 @@ public class MasochismMode extends SuperstitioRelic implements InfoBlight.Become
     private static final LandingSound LANDING_SOUND = LandingSound.FLAT;
     private static final int MasochismModeDamageNeed = 3;
 
-    private static final int MasochismModeSexualHeatRate = 1;
+    private static final int MasochismModeSexualHeatRate = 2;
 
     public MasochismMode() {
         super(ID, RELIC_TIER, LANDING_SOUND);

@@ -20,6 +20,11 @@ public class WhenLostDrawCardBlock extends AbstractLupaBlock {
     }
 
     @Override
+    public int amountLostAtStartOfTurn() {
+        return 0;
+    }
+
+    @Override
     public boolean shouldStack() {
         return false;
     }

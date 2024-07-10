@@ -7,7 +7,6 @@ import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import superstitio.DataManager;
 import superstitio.cards.general.GeneralCard;
-import superstitio.delayHpLose.DelayHpLosePower;
 import superstitioapi.actions.AutoDoneInstantAction;
 import superstitioapi.cards.DamageActionMaker;
 
@@ -31,15 +30,12 @@ public class EroSion extends GeneralCard {
         this.setupMagicNumber(MAGIC);
     }
 
-
     private int getOriginDamage() {
         return DAMAGE;
     }
 
     private void updateDamage() {
-        float damageUp = AbstractDungeon.player.powers.stream()
-                .filter(power -> power instanceof DelayHpLosePower)
-                .mapToInt(power -> power.amount).sum();
+        float damageUp = sumAllDelayHpLosePower();
 //        if (damageUp >= 1)
 //            this.isDamageModified = true;
         this.baseDamage = (int) (this.getOriginDamage() + damageUp);
