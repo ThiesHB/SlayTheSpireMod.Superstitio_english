@@ -4,10 +4,10 @@ import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import superstitio.DataManager;
 import superstitio.cardModifier.modifiers.damage.SexDamage;
-import superstitio.cards.lupa.LupaCard;
+import superstitio.cards.maso.MasoCard;
 import superstitioapi.actions.AutoDoneInstantAction;
 
-public class Spark extends LupaCard {
+public class Spark extends MasoCard {
     public static final String ID = DataManager.MakeTextID(Spark.class);
 
     public static final CardType CARD_TYPE = CardType.SKILL;

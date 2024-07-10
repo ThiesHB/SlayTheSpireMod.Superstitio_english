@@ -92,10 +92,10 @@
   },
   "SuperstitioMod:LupaCard:Whipping": {
     "NAME": "鞭打",
-    "NAME_SFW": "鞭打",
+    "NAME_SFW": "掌握风暴",
     "DESCRIPTION": "对 所有敌人 造成 !D! 点 伤害 。 NL 每对一个敌人造成 !M! 点 攻击伤害 ，获得 %d 点 superstitiomod:快感 。",
     "FLAVOR": "",
-    "FLAVOR_SFW": "",
+    "FLAVOR_SFW": "闪电风暴接近中。",
     "ADD_KEYWORDS_ID": [
       "SuperstitioMod:Orgasm"
     ]

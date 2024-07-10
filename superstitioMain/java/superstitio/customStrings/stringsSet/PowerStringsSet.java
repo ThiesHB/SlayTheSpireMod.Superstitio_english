@@ -80,6 +80,7 @@ public class PowerStringsSet implements HasOriginAndSFWVersion<PowerStrings>, Su
             PowerStringsSet clone1 = (PowerStringsSet) clone;
             clone1.NAME = null;
             clone1.DESCRIPTIONS = null;
+            clone1.MAKE_KEYWORDS = null;
         }
         return clone;
     }

@@ -128,6 +128,7 @@ public class CardStringsWillMakeFlavorSet implements HasOriginAndSFWVersion<Card
             clone1.UPGRADE_DESCRIPTION = null;
             clone1.EXTENDED_DESCRIPTION = null;
             clone1.FLAVOR = null;
+            clone1.MAKE_KEYWORDS = null;
         }
         return clone;
     }

@@ -17,6 +17,7 @@ import java.util.Arrays;
 import java.util.stream.Collectors;
 
 import static com.megacrit.cardcrawl.actions.AbstractGameAction.AttackEffect;
+import static superstitioapi.shader.ShaderUtility.canUseShader;
 
 /**
  * 这个类其实已经是过度包装了，它本来是原始{@link DamageAction}的builder，但我已经重写了一套新的代码（并且附带了builder）
@@ -55,8 +56,12 @@ public class DamageActionMaker {
     }
 
     public AbstractContinuallyAction createAction() {
-        if (effect == DamageActionMaker.DamageEffect.HeartMultiInOne)
-            this.builder.setNewAttackEffectMaker(creature -> new HeartMultiAtOneShader.HeartMultiAtOneEffect(creature.hb));
+        if (effect == DamageActionMaker.DamageEffect.HeartMultiInOne) {
+            if (canUseShader)
+                this.builder.setNewAttackEffectMaker(creature -> new HeartMultiAtOneShader.HeartMultiAtOneEffect(creature.hb));
+            else
+                this.builder.setAttackEffectType(AttackEffect.BLUNT_LIGHT);
+        }
         return this.builder.create();
     }
 

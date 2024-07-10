@@ -21,6 +21,7 @@ import superstitio.customStrings.interFace.WordReplace;
 import superstitio.customStrings.stringsSet.*;
 import superstitio.relics.SuperstitioRelic;
 import superstitioapi.relicToBlight.InfoBlight;
+import superstitioapi.shader.ShaderUtility;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -47,7 +48,7 @@ public class SuperstitioModSetup implements
     /**
      * 人工启用sfw模式
      */
-    public static final boolean SEAL_MANUAL_SFW = true;
+    public static final boolean SEAL_MANUAL_SFW = false;
     public DataManager data;
 
     public SuperstitioModSetup() {
@@ -174,6 +175,7 @@ public class SuperstitioModSetup implements
                 makeSFWWordForOriginStrings();
             }
         } else {
+            ShaderUtility.canUseShader = false;
             DataManager.loadCustomStringsFile("sfw/" + "cards" + "_sfw", DataManager.cards, CardStringsWillMakeFlavorSet.class);
             DataManager.loadCustomStringsFile("sfw/" + "modifiers" + "_sfw", DataManager.modifiers, ModifierStringsSet.class);
             DataManager.loadCustomStringsFile("sfw/" + "powers" + "_sfw", DataManager.powers, PowerStringsSet.class);
