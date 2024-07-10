@@ -1,0 +1,811 @@
+{
+  "SuperstitioMod:UnBirth": {
+    "Origin": {},
+    "SFW": {},
+    "NAME_SFW": "力量汲取",
+    "DESCRIPTION_SFW": "获得 !B! superstitiomod:仪式 。 NL superstitiomod:封印 目标所有的 负面效果 和 人工制品 。 NL superstitiomod:仪式崩溃 时，自身获得两倍 superstitiomod:封印 的效果。",
+    "EXTENDED_DESCRIPTION_SFW": []
+  },
+  "SuperstitioMod:TimeStop": {
+    "Origin": {},
+    "SFW": {},
+    "NAME_SFW": "世界",
+    "DESCRIPTION_SFW": "持续 !M! 回合。 NL superstitiomod:怒火 不改变，且不再抽卡。 NL 在 superstitiomod:回合结束 或 superstitiomod:你的回合结束 时，你的 superstitiomod:负面效果和强化效果 均不触发。 NL 回合开始时，释放期间产生的 superstitiomod:怒火 的 2 倍。",
+    "EXTENDED_DESCRIPTION_SFW": [],
+    "FLAVOR_SFW": "时间静止住了，接着只见沙地上的鲜血。"
+  },
+  "SuperstitioMod:HaveBirthWith": {
+    "Origin": {},
+    "SFW": {},
+    "NAME_SFW": "呼神护卫",
+    "DESCRIPTION_SFW": "获得 !B! superstitiomod:仪式 。 NL 仪式成功： 生成和目标对应的 superstitiomod:宝宝 。",
+    "EXTENDED_DESCRIPTION_SFW": [],
+    "FLAVOR_SFW": "是鸟？是飞机？是我的守护神哒！"
+  },
+  "SuperstitioMod:LupaCard:GangBangPrepare": {
+    "Origin": {},
+    "SFW": {},
+    "NAME_SFW": "武学真髓",
+    "DESCRIPTION_SFW": "当你打出 *武学牌 时，获得对应的印记，集齐5个后，自动打出一张 *血战沙场 。 使得除了印记本身的数值外，每多一种印记， *血战沙场 就提高 百分之 !M! 的数值。",
+    "EXTENDED_DESCRIPTION_SFW": [],
+    "FLAVOR_SFW": "英勇之士、尚武之师、引领群体的神……降临吧，武神罗波那！"
+  },
+  "SuperstitioMod:ForceOrgasm": {
+    "Origin": {},
+    "SFW": {},
+    "NAME_SFW": "难掩怒火",
+    "DESCRIPTION_SFW": "造成 !M! 点 superstitiomod:怒火 。 NL 下回合开始时， NL 消耗 1 张牌 。 NL 重复 X 次。 NL 消耗 。",
+    "EXTENDED_DESCRIPTION_SFW": [],
+    "ADD_KEYWORDS_ID": [
+      "SuperstitioMod:Orgasm"
+    ]
+  },
+  "SuperstitioMod:Fuck_Vaginal": {
+    "Origin": {},
+    "SFW": {},
+    "NAME_SFW": "燕形拳",
+    "DESCRIPTION_SFW": "造成 !D! 点 伤害 ， NL 无消耗触发所有 superstitiomod:合力- superstitiomod:伴随 效果 !M! 次。",
+    "EXTENDED_DESCRIPTION_SFW": []
+  },
+  "SuperstitioMod:GloryHole": {
+    "Origin": {},
+    "SFW": {},
+    "NAME_SFW": "荣耀勋章",
+    "DESCRIPTION_SFW": "从卡组中任选1张牌，将其复制加入手牌。 NL 消耗 。",
+    "EXTENDED_DESCRIPTION_SFW": [
+      "选择1张牌并将其复制加入手牌。"
+    ],
+    "FLAVOR_SFW": "那个冬天真冷啊。暖气停了，房间里结了冰，我只好抱着电视机取暖。"
+  },
+  "SuperstitioMod:Job_Groin": {
+    "Origin": {},
+    "SFW": {},
+    "NAME_SFW": "震波震震",
+    "DESCRIPTION_SFW": "造成 !D! 点 伤害 ， NL 根据手牌平均耗能， NL 减少 !M! 伤害每 [E] 。 NL （平均耗能不取整）",
+    "EXTENDED_DESCRIPTION_SFW": [
+      "弹弹弹弹"
+    ]
+  },
+  "SuperstitioMod:KakaaGirlMode": {
+    "Origin": {},
+    "SFW": {},
+    "NAME_SFW": "咔咔变形",
+    "DESCRIPTION_SFW": "回合开始时，获得 !M! 力量 。",
+    "EXTENDED_DESCRIPTION_SFW": [],
+    "FLAVOR_SFW": "Kakaa~~"
+  },
+  "SuperstitioMod:SelfReference": {
+    "Origin": {},
+    "SFW": {},
+    "NAME_SFW": "自我指涉",
+    "DESCRIPTION_SFW": "superstitiomod:时空递归 。 NL 移除 !B! *腐朽 。",
+    "EXTENDED_DESCRIPTION_SFW": [],
+    "FLAVOR_SFW": "是的，你达成了本模组的可选结局之一。"
+  },
+  "SuperstitioMod:RideDildoBike": {
+    "Origin": {},
+    "SFW": {},
+    "NAME_SFW": "好马配好鞍",
+    "DESCRIPTION_SFW": "选择最多 !M! 张手牌，抽对应数量的牌，将选中手牌 superstitiomod:合力- superstitiomod:延迟 NL 打出 %d 任何牌： NL 回到手牌。 NL superstitiomod:自动释放 。",
+    "EXTENDED_DESCRIPTION_SFW": [
+      "合力并抽一张牌，最多选择%d张牌。"
+    ],
+    "FLAVOR_SFW": "而非吕布骑狗。"
+  },
+  "SuperstitioMod:MasoCard:BodyModification_SuperHugeBreast": {
+    "Origin": {},
+    "SFW": {},
+    "NAME_SFW": "仁慈之心",
+    "DESCRIPTION_SFW": "受到攻击时，获得 !M! superstitiomod:仁慈 。",
+    "EXTENDED_DESCRIPTION_SFW": [],
+    "FLAVOR_SFW": "你得知道LV和EXP到底是什么的缩写。"
+  },
+  "SuperstitioMod:LupaCard:Whipping": {
+    "Origin": {},
+    "SFW": {},
+    "NAME_SFW": "鞭打",
+    "DESCRIPTION_SFW": "对 所有敌人 造成 !D! 点 伤害 。 NL 每对一个敌人造成 !M! 点 攻击伤害 ，获得 %d 点 superstitiomod:怒火 。",
+    "EXTENDED_DESCRIPTION_SFW": [],
+    "FLAVOR_SFW": "",
+    "ADD_KEYWORDS_ID": [
+      "SuperstitioMod:Orgasm"
+    ]
+  },
+  "SuperstitioMod:MasoCard:BellyStrike": {
+    "Origin": {},
+    "SFW": {},
+    "NAME_SFW": "力量模式",
+    "DESCRIPTION_SFW": "对目标造成 !D! 伤害， NL 给予 !M! 临时力量 。 NL superstitiomod:鞭策 ： 只造成一半的伤害，造成未被格挡的伤害时，自身的 力量 翻倍。",
+    "EXTENDED_DESCRIPTION_SFW": [],
+    "FLAVOR_SFW": "我是劳伦斯巴恩斯，他们叫我“先知”。"
+  },
+  "SuperstitioMod:Masturbate": {
+    "Origin": {},
+    "SFW": {},
+    "NAME_SFW": "准备战斗",
+    "DESCRIPTION_SFW": "获得 !M! 点 superstitiomod:怒火 。 NL superstitiomod:合力- superstitiomod:延迟 NL 打出 %d 任何牌： NL 抽 %d 张牌。 NL superstitiomod:自动释放 。",
+    "EXTENDED_DESCRIPTION_SFW": [
+      "抽牌"
+    ],
+    "ADD_KEYWORDS_ID": [
+      "SuperstitioMod:Orgasm"
+    ]
+  },
+  "SuperstitioMod:AddSexToy": {
+    "Origin": {},
+    "SFW": {},
+    "NAME_SFW": "制作旗帜",
+    "DESCRIPTION_SFW": "添加 !M! 张 *神圣旗帜 到手牌中。 NL 消耗 。",
+    "EXTENDED_DESCRIPTION_SFW": [],
+    "FLAVOR_SFW": "得造坚固点，据说有个红帽子的喜欢爬。"
+  },
+  "SuperstitioMod:MasoCard:CruelTorture_Dismember": {
+    "Origin": {},
+    "SFW": {},
+    "NAME_SFW": "鲜血护体",
+    "DESCRIPTION_SFW": "superstitiomod:极速 。 NL 每有一张处于 superstitiomod:合力 的卡牌，失去 !M! 生命，移除 !B! *腐朽 。",
+    "EXTENDED_DESCRIPTION_SFW": [],
+    "FLAVOR_SFW": ""
+  },
+  "SuperstitioMod:Overdraft": {
+    "Origin": {},
+    "SFW": {},
+    "NAME_SFW": "透支",
+    "DESCRIPTION_SFW": "抽 !M! 张牌。 NL 下回合开始时， NL 消耗 1 张牌 。",
+    "EXTENDED_DESCRIPTION_SFW": []
+  },
+  "SuperstitioMod:PassiveGangBang": {
+    "Origin": {},
+    "SFW": {},
+    "NAME_SFW": "超级无敌我爱你",
+    "DESCRIPTION_SFW": "superstitiomod:极速 。 NL 移除 !B! 点 *腐朽 。 NL *满足 所有 superstitiomod:合力 卡牌 !M! 次。",
+    "EXTENDED_DESCRIPTION_SFW": [],
+    "FLAVOR_SFW": "强化冲击第十二级境界！"
+  },
+  "SuperstitioMod:Job_Hand": {
+    "Origin": {},
+    "SFW": {},
+    "NAME_SFW": "升龙拳",
+    "DESCRIPTION_SFW": "造成 !D! 点 伤害 两次。 NL superstitiomod:合力- superstitiomod:伴随 NL 打出 !M! 攻击牌： NL 获得 %d 力量 。 superstitiomod:自动释放 。",
+    "EXTENDED_DESCRIPTION_SFW": [
+      "手"
+    ]
+  },
+  "SuperstitioMod:LupaCard:NudeLive": {
+    "Origin": {},
+    "SFW": {},
+    "NAME_SFW": "回望岁月",
+    "DESCRIPTION_SFW": "获得 !B! 点 *格挡 。 NL 获得 !M! 回合 superstitiomod:激情 。",
+    "EXTENDED_DESCRIPTION_SFW": [],
+    "FLAVOR_SFW": ""
+  },
+  "SuperstitioMod:JuicyPussy": {
+    "Origin": {},
+    "SFW": {},
+    "NAME_SFW": "一怒之下",
+    "DESCRIPTION_SFW": "superstitiomod:狂暴 时，移除 !M! *腐朽 。",
+    "EXTENDED_DESCRIPTION_SFW": [],
+    "FLAVOR_SFW": "怒了一下。"
+  },
+  "SuperstitioMod:BlindfoldWithMilk": {
+    "Origin": {},
+    "SFW": {},
+    "NAME_SFW": "以血蒙眼",
+    "DESCRIPTION_SFW": "造成 !D! 点 伤害 。 NL 目标敌人跳过一个动作。 NL 给予 !M! superstitiomod:仁慈 。",
+    "EXTENDED_DESCRIPTION_SFW": [],
+    "FLAVOR_SFW": "这招如何？"
+  },
+  "SuperstitioMod:Fuck_Navel": {
+    "Origin": {},
+    "SFW": {},
+    "NAME_SFW": "熊形拳",
+    "DESCRIPTION_SFW": "对 *敌我双方 造成 !D! 点 伤害 。 NL 自身获得 易伤 。 NL 在手牌中时，每 superstitiomod:狂暴 一次，提高 !M! 点伤害。",
+    "EXTENDED_DESCRIPTION_SFW": []
+  },
+  "SuperstitioMod:VulnerableTogether": {
+    "Origin": {},
+    "SFW": {},
+    "NAME_SFW": "复仇怒火",
+    "DESCRIPTION_SFW": "给予 *敌我双方 !M! 层 易伤 。",
+    "EXTENDED_DESCRIPTION_SFW": []
+  },
+  "SuperstitioMod:MasoCard:HeavyCuffs": {
+    "Origin": {},
+    "SFW": {},
+    "NAME_SFW": "沉重镣铐",
+    "DESCRIPTION_SFW": "获得 !B! *格挡 。 NL 若从本卡获得的格挡失去，则抽 !M! 张牌。",
+    "EXTENDED_DESCRIPTION_SFW": []
+  },
+  "SuperstitioMod:Job_Foot": {
+    "Origin": {},
+    "SFW": {},
+    "NAME_SFW": "回旋踢",
+    "DESCRIPTION_SFW": "造成 !D! 点 伤害 两次。 NL superstitiomod:合力- superstitiomod:伴随 NL 打出 !M! 武学牌： NL 抽一张牌。 NL superstitiomod:自动释放 。",
+    "EXTENDED_DESCRIPTION_SFW": [
+      "鞋"
+    ]
+  },
+  "SuperstitioMod:MonsterGirlMode": {
+    "Origin": {},
+    "SFW": {},
+    "NAME_SFW": "掌控进化",
+    "DESCRIPTION_SFW": "从多个可选的变形中，选择一个。",
+    "EXTENDED_DESCRIPTION_SFW": [],
+    "FLAVOR_SFW": "自然进化一直以来只能用一个简单且粗暴的词来形容：失败。 NL 如今，我们将亲自定义成功。"
+  },
+  "SuperstitioMod:FistIn": {
+    "Origin": {},
+    "SFW": {},
+    "NAME_SFW": "强制打出",
+    "DESCRIPTION_SFW": "选择一张手牌，失去其当前费用 !M! 倍的血量，强制打出。 NL superstitiomod:合力- superstitiomod:延迟 NL 打出 %d 任何牌： NL 抽 %d 张牌。",
+    "EXTENDED_DESCRIPTION_SFW": [
+      "强制打出。"
+    ]
+  },
+  "SuperstitioMod:MasoCard:BodyModification_Prolapse": {
+    "Origin": {},
+    "SFW": {},
+    "NAME_SFW": "反应装甲",
+    "DESCRIPTION_SFW": "受到攻击伤害时， *丢弃 一张随机手牌，此次伤害减为 %d 分之一。 NL 若没有手牌，则尝试 *丢弃 一张 superstitiomod:合力序列 中的随机牌。",
+    "EXTENDED_DESCRIPTION_SFW": [
+      " NL 当前反应装甲 ： %s",
+      " NL %s ： #b%d ；",
+      "普通反应装甲,正常反应装甲,平凡反应装甲"
+    ],
+    "FLAVOR_SFW": "什么都贴爆反只会害了你。"
+  },
+  "SuperstitioMod:MasoCard:CutWrist": {
+    "Origin": {},
+    "SFW": {},
+    "NAME_SFW": "放血疗法",
+    "DESCRIPTION_SFW": "失去 !M! 生命 。 NL 移除 !B! 点 *腐朽 。",
+    "EXTENDED_DESCRIPTION_SFW": [],
+    "FLAVOR_SFW": "你不是失血过多。相反，你血液过剩了。来，让我划上一刀。"
+  },
+  "SuperstitioMod:LupaCard:CoitalVocal": {
+    "Origin": {},
+    "SFW": {},
+    "NAME_SFW": "战吼",
+    "DESCRIPTION_SFW": "获得 在场敌人数量+1次的 !B! 点 *格挡 。",
+    "EXTENDED_DESCRIPTION_SFW": [],
+    "FLAVOR_SFW": "抽牌。将手牌中的一张牌放到你的抽牌堆顶部。消耗。"
+  },
+  "SuperstitioMod:LupaCard:Philter": {
+    "Origin": {},
+    "SFW": {},
+    "NAME_SFW": "硬气功",
+    "DESCRIPTION_SFW": "失去 所有 的 格挡 ， NL 获得 1/ !M! 的 多层护甲 。",
+    "EXTENDED_DESCRIPTION_SFW": [],
+    "FLAVOR_SFW": "那么，你不需要护盾也可以完成仪式。"
+  },
+  "SuperstitioMod:Job_LegPit": {
+    "Origin": {},
+    "SFW": {},
+    "NAME_SFW": "膝击",
+    "DESCRIPTION_SFW": "造成 !D! 点 伤害 两次。 NL superstitiomod:狂暴中 ，每造成未被格挡的伤害，抽 1 张牌。",
+    "EXTENDED_DESCRIPTION_SFW": [
+      "膝盖"
+    ]
+  },
+  "SuperstitioMod:LupaCard:SemenMagic": {
+    "Origin": {},
+    "SFW": {},
+    "NAME_SFW": "御血术",
+    "DESCRIPTION_SFW": "superstitiomod:渴血 !M! ： NL 造成 !D! 点 伤害 。",
+    "EXTENDED_DESCRIPTION_SFW": []
+  },
+  "SuperstitioMod:LupaCard:ZenState": {
+    "Origin": {},
+    "SFW": {},
+    "NAME_SFW": "禅意",
+    "DESCRIPTION_SFW": "移除 !B! 点 *腐朽 。 NL 从手牌中选择 !M! 张不具有 消耗 的牌赋予 消耗 ， 若其为 superstitiomod:无法打出 的牌，直接将其 消耗 。",
+    "EXTENDED_DESCRIPTION_SFW": [
+      "赋予消耗，最多选择%d张牌 。"
+    ]
+  },
+  "SuperstitioMod:Job_Breast": {
+    "Origin": {},
+    "SFW": {},
+    "NAME_SFW": "木兰飞弹",
+    "DESCRIPTION_SFW": "造成 !D! 点 伤害 。 NL 获得 !M! 层 superstitiomod:仁慈 。",
+    "EXTENDED_DESCRIPTION_SFW": [
+      "胸口"
+    ]
+  },
+  "SuperstitioMod:LupaCard:SemenTattoo": {
+    "Origin": {},
+    "SFW": {},
+    "NAME_SFW": "血液护体",
+    "DESCRIPTION_SFW": "当你获得 *血液 时， NL 获得 其价值的 !M! 点 *格挡 。",
+    "EXTENDED_DESCRIPTION_SFW": []
+  },
+  "SuperstitioMod:CountSign": {
+    "Origin": {},
+    "SFW": {},
+    "NAME_SFW": "盛怒",
+    "DESCRIPTION_SFW": "造成 !D! 点 伤害 。 NL superstitiomod:狂暴中 ，额外造成本场战斗中 superstitiomod:狂暴 总次数的 !M! 倍伤害 。",
+    "EXTENDED_DESCRIPTION_SFW": [
+      "狂暴总次数： %d"
+    ],
+    "FLAVOR_SFW": "我被囚禁了一万年，又被逐出了自己的故乡……"
+  },
+  "SuperstitioMod:MasoPool": {
+    "Origin": {},
+    "SFW": {},
+    "NAME_SFW": "复仇卡池",
+    "DESCRIPTION_SFW": "启用复仇天人卡池内容。",
+    "EXTENDED_DESCRIPTION_SFW": []
+  },
+  "SuperstitioMod:LupaCard:SemenBath": {
+    "Origin": {},
+    "SFW": {},
+    "NAME_SFW": "浴血奋战",
+    "DESCRIPTION_SFW": "失去 所有的 *血液 ， NL 每 失去 1点价值的 *血液 ，移除 !B! 的 *腐朽 。",
+    "EXTENDED_DESCRIPTION_SFW": [],
+    "FLAVOR_SFW": "WAAAGH!"
+  },
+  "SuperstitioMod:BodyModification_CutOff_Chose": {
+    "Origin": {},
+    "SFW": {},
+    "NAME_SFW": "部位选择",
+    "DESCRIPTION_SFW": "这张牌用于选择，它的名称和描述都会在选择界面改变。",
+    "EXTENDED_DESCRIPTION_SFW": []
+  },
+  "SuperstitioMod:Samsara": {
+    "Origin": {},
+    "SFW": {},
+    "NAME_SFW": "轮转",
+    "DESCRIPTION_SFW": "在抽牌堆中添加 !M! 张 *伤口 。 NL 回合结束时， NL 保留 所有的手牌。 NL 每当你使用卡牌， NL 抽 1 张牌。",
+    "EXTENDED_DESCRIPTION_SFW": []
+  },
+  "SuperstitioMod:Invite": {
+    "Origin": {},
+    "SFW": {},
+    "NAME_SFW": "防御",
+    "DESCRIPTION_SFW": "获得 !B! 点 格挡 。",
+    "EXTENDED_DESCRIPTION_SFW": []
+  },
+  "SuperstitioMod:ChokeChoker": {
+    "Origin": {},
+    "SFW": {},
+    "NAME_SFW": "怒火中烧",
+    "DESCRIPTION_SFW": "获得 !M! 层 superstitiomod:干烧 。",
+    "EXTENDED_DESCRIPTION_SFW": []
+  },
+  "SuperstitioMod:SelfBind": {
+    "Origin": {},
+    "SFW": {},
+    "NAME_SFW": "结下束缚",
+    "DESCRIPTION_SFW": "获得 !M! 点 力量 。 NL 失去 1 点 敏捷 。",
+    "EXTENDED_DESCRIPTION_SFW": [],
+    "FLAVOR_SFW": "为什么要瞬发空间斩？"
+  },
+  "SuperstitioMod:MeasureDick": {
+    "Origin": {},
+    "SFW": {},
+    "NAME_SFW": "投技",
+    "DESCRIPTION_SFW": "从手牌中选择最多 !M! 张牌 *丢弃 ， NL 若 *丢弃 卡牌的当前耗能小于初始耗能，获得相当于这一差值的 [E] 。",
+    "EXTENDED_DESCRIPTION_SFW": [
+      "丢弃，最多选择%d张牌。"
+    ],
+    "FLAVOR_SFW": "牛战士从来不会摘下他的面具。"
+  },
+  "SuperstitioMod:Job_Armpit": {
+    "Origin": {},
+    "SFW": {},
+    "NAME_SFW": "肘击",
+    "DESCRIPTION_SFW": "执行两次： NL superstitiomod:合力- superstitiomod:延迟 NL 打出 !M! 攻击牌： NL 造成 !D! 点 伤害 。",
+    "EXTENDED_DESCRIPTION_SFW": [
+      "直升机舱门"
+    ]
+  },
+  "SuperstitioMod:Job_Blow": {
+    "Origin": {},
+    "SFW": {},
+    "NAME_SFW": "铁头撞击",
+    "DESCRIPTION_SFW": "造成 !D! 点 伤害 。 NL superstitiomod:合力- superstitiomod:伴随 NL 打出 !M! 武学牌： NL 获得 1 superstitiomod:怒火 。",
+    "EXTENDED_DESCRIPTION_SFW": [
+      "脸"
+    ],
+    "ADD_KEYWORDS_ID": [
+      "SuperstitioMod:Orgasm"
+    ]
+  },
+  "SuperstitioMod:Fuck_Anal": {
+    "Origin": {},
+    "SFW": {},
+    "NAME_SFW": "鹞形拳",
+    "DESCRIPTION_SFW": "造成 !D! 点 伤害 ， NL 使目标敌人 superstitiomod:恐惧 增加 10分之 !M! 。",
+    "EXTENDED_DESCRIPTION_SFW": []
+  },
+  "SuperstitioMod:FastWindUp": {
+    "Origin": {},
+    "SFW": {},
+    "NAME_SFW": "漆黑噤默之页",
+    "DESCRIPTION_SFW": "当你 superstitiomod:狂暴 时， *满足 所有 superstitiomod:合力 的卡牌 !M! 次。",
+    "EXTENDED_DESCRIPTION_SFW": [],
+    "FLAVOR_SFW": "一码，归一码。"
+  },
+  "SuperstitioMod:MasoCard:BodyModification_TattooAndPiercing": {
+    "Origin": {},
+    "SFW": {},
+    "NAME_SFW": "强者战纹",
+    "DESCRIPTION_SFW": "每当有一张牌被 消耗 或被 *丢弃 时，获得 !M! superstitiomod:怒火 。",
+    "EXTENDED_DESCRIPTION_SFW": [
+      " NL 当前战纹 ： %s",
+      " NL %s ： #b%d ；",
+      "海虎,奥加,天道,地狱,蓝梦,黑暗"
+    ],
+    "FLAVOR_SFW": "好刺激，好刺激，难得能亲眼看到强者之战，这回就算死也值回票价呀！",
+    "ADD_KEYWORDS_ID": [
+      "SuperstitioMod:Orgasm"
+    ]
+  },
+  "SuperstitioMod:MasoCard:BodyModification_CutOff": {
+    "Origin": {},
+    "SFW": {},
+    "NAME_SFW": "义体升级",
+    "DESCRIPTION_SFW": "若还有可选择的部位：移除 !B! *腐朽 ， NL 攻击力提升 百分之 !M! 。 NL 选择一个部位，其对应的 *武学牌 无法打出。",
+    "EXTENDED_DESCRIPTION_SFW": [
+      "攻击力提升 百分之 %d 。"
+    ]
+  },
+  "SuperstitioMod:LupaCard:CultaeForm": {
+    "Origin": {},
+    "SFW": {},
+    "NAME_SFW": "异神形态",
+    "DESCRIPTION_SFW": "",
+    "EXTENDED_DESCRIPTION_SFW": []
+  },
+  "SuperstitioMod:LupaCard:SemenLubricate": {
+    "Origin": {},
+    "SFW": {},
+    "NAME_SFW": "连续技",
+    "DESCRIPTION_SFW": "造成 !D! 点 伤害 。 NL superstitiomod:连绵： NL superstitiomod:渴血 !M! ： NL 从抽牌堆中打出一张非 *血液润滑 的 攻击牌 。",
+    "EXTENDED_DESCRIPTION_SFW": []
+  },
+  "SuperstitioMod:GeneralPool": {
+    "Origin": {},
+    "SFW": {},
+    "NAME_SFW": "通用卡池",
+    "DESCRIPTION_SFW": "启用通用卡池内容。",
+    "EXTENDED_DESCRIPTION_SFW": []
+  },
+  "SuperstitioMod:HideInPussy": {
+    "Origin": {},
+    "SFW": {},
+    "NAME_SFW": "秘密武器",
+    "DESCRIPTION_SFW": "在你的回合结束时， 保留 最多 !M! 张牌，并让其下次打出时不消耗能量。",
+    "EXTENDED_DESCRIPTION_SFW": [
+      "保留并免费一次，最多选择%d张牌。"
+    ],
+    "FLAVOR_SFW": "大榴莲更是给你无数惊喜。"
+  },
+  "SuperstitioMod:MasoCard:NailExtraction": {
+    "Origin": {},
+    "SFW": {},
+    "NAME_SFW": "以牙还牙",
+    "DESCRIPTION_SFW": "失去 %d 生命， NL 抽 %d 张牌， NL 往抽牌堆中添加 %d 张 *以牙还牙 。 NL 本回合只能打出 %d 张。 NL （已使用 !M! 张）",
+    "UPGRADE_DESCRIPTION_SFW": "对自身造成 %d 点伤害， NL 抽 %d 张牌， NL 往抽牌堆中添加 %d 张 *以牙还牙 。 NL 本回合只能打出 %d 张。 NL （已使用 !M! 张）",
+    "EXTENDED_DESCRIPTION_SFW": [],
+    "FLAVOR_SFW": ""
+  },
+  "SuperstitioMod:ForcePutSexToy": {
+    "Origin": {},
+    "SFW": {},
+    "NAME_SFW": "插旗无数",
+    "DESCRIPTION_SFW": "佩戴 !M! superstitiomod:神圣旗帜 ， NL 失去 !M! 生命 ， NL 触发所有 superstitiomod:神圣旗帜 的效果 。",
+    "EXTENDED_DESCRIPTION_SFW": [],
+    "FLAVOR_SFW": "我已经看到结局了。"
+  },
+  "SuperstitioMod:LupaCard:ExposeSelf": {
+    "Origin": {},
+    "SFW": {},
+    "NAME_SFW": "战局剖析",
+    "DESCRIPTION_SFW": "移除 !B! 点 *腐朽 。 NL 到 下回合 开始前 ， NL 受到攻击伤害 时， NL 获得其数值一半的 superstitiomod:体表血液 。",
+    "EXTENDED_DESCRIPTION_SFW": [],
+    "FLAVOR_SFW": "战局对我们的战士太不利了，我得重新集结部队。"
+  },
+  "SuperstitioMod:LupaCard:NakedToSchool": {
+    "Origin": {},
+    "SFW": {},
+    "NAME_SFW": "奋笔疾书",
+    "DESCRIPTION_SFW": "从弃牌堆中选择最多 !M! 张牌，将它们升级并放入抽牌堆。",
+    "EXTENDED_DESCRIPTION_SFW": [
+      "升级并放入抽牌堆，最多选择%d张牌。"
+    ]
+  },
+  "SuperstitioMod:MasoCard:DeathDoor": {
+    "Origin": {},
+    "SFW": {},
+    "NAME_SFW": "重整旗鼓",
+    "DESCRIPTION_SFW": "免除 !M! 次死亡 。 NL 第一次免除死亡 后， NL 进入 superstitiomod:濒死 状态",
+    "EXTENDED_DESCRIPTION_SFW": []
+  },
+  "SuperstitioMod:Fuck_Nipple": {
+    "Origin": {},
+    "SFW": {},
+    "NAME_SFW": "猴形拳",
+    "DESCRIPTION_SFW": "重复两次： NL 对随机敌人 造成 !D! 点 伤害 ，给予 !M! superstitiomod:仁慈 。",
+    "EXTENDED_DESCRIPTION_SFW": []
+  },
+  "SuperstitioMod:Job_Hair": {
+    "Origin": {},
+    "SFW": {},
+    "NAME_SFW": "辫子神功",
+    "DESCRIPTION_SFW": "造成 !D! 点 伤害 。 NL superstitiomod:合力- superstitiomod:延迟 NL 打出 !M! 任何牌： NL 把 带有 NL 消耗 的 复制加入手牌， NL 其在被打出之前，耗能变为0 。 NL superstitiomod:自动释放 。",
+    "EXTENDED_DESCRIPTION_SFW": [
+      "头发"
+    ]
+  },
+  "SuperstitioMod:DrySemen": {
+    "Origin": {},
+    "SFW": {},
+    "NAME_SFW": "血液护盾",
+    "DESCRIPTION_SFW": "superstitiomod:渴血 !M! ： NL 获得 !B! 点 *格挡 。",
+    "EXTENDED_DESCRIPTION_SFW": []
+  },
+  "SuperstitioMod:SlimeGirlMode": {
+    "Origin": {},
+    "SFW": {},
+    "NAME_SFW": "史莱姆变形",
+    "DESCRIPTION_SFW": "回合开始时，获得 !M! superstitiomod:史莱姆韧性 。",
+    "EXTENDED_DESCRIPTION_SFW": []
+  },
+  "SuperstitioMod:CalmDown": {
+    "Origin": {},
+    "SFW": {},
+    "NAME_SFW": "冷静",
+    "DESCRIPTION_SFW": "抽当前 superstitiomod:合力 数量的 牌。 NL superstitiomod:释放 所有处于 *合力序列 的卡牌。",
+    "UPGRADE_DESCRIPTION_SFW": "抽当前 superstitiomod:合力 数量 +1 的 牌。 NL superstitiomod:释放 所有处于 *合力序列 的卡牌。",
+    "EXTENDED_DESCRIPTION_SFW": []
+  },
+  "SuperstitioMod:MasoCard:CruelTorture_Impale": {
+    "Origin": {},
+    "SFW": {},
+    "NAME_SFW": "祭祀",
+    "DESCRIPTION_SFW": "每有 !M! 点 *腐朽 ，抽一张牌。 NL （预计抽牌：%d） NL 失去 !M! 生命，抽一张牌。",
+    "EXTENDED_DESCRIPTION_SFW": [],
+    "FLAVOR_SFW": "以撒和他的父母住在山上的一所小房子里。"
+  },
+  "SuperstitioMod:FindCardAndHang": {
+    "Origin": {},
+    "SFW": {},
+    "NAME_SFW": "超级搜寻",
+    "DESCRIPTION_SFW": "从抽牌堆中选取最多 10 张牌，将其全部 superstitiomod:合力- superstitiomod:延迟 NL 打出 !M! 任何牌： NL 送入手牌。",
+    "EXTENDED_DESCRIPTION_SFW": [
+      "将其合力。"
+    ]
+  },
+  "SuperstitioMod:Ahegao": {
+    "Origin": {},
+    "SFW": {},
+    "NAME_SFW": "连砍带顺劈",
+    "DESCRIPTION_SFW": "superstitiomod:合力- superstitiomod:伴随 NL 打出 !M! 攻击牌： NL 造成 !D! 点 伤害。",
+    "EXTENDED_DESCRIPTION_SFW": [],
+    "FLAVOR_SFW": "把普通攻击变成全体二连击。"
+  },
+  "SuperstitioMod:OneMoreHour": {
+    "Origin": {},
+    "SFW": {},
+    "NAME_SFW": "前尘忆梦",
+    "DESCRIPTION_SFW": "superstitiomod:极速 。 NL 移除 !B! 点 *腐朽 。 NL 所有 superstitiomod:合力 卡牌的计数变为 !M! 倍。",
+    "EXTENDED_DESCRIPTION_SFW": [],
+    "FLAVOR_SFW": "却道天凉好个秋。"
+  },
+  "SuperstitioMod:EscapeConjuring": {
+    "Origin": {},
+    "SFW": {},
+    "NAME_SFW": "金蝉脱壳",
+    "DESCRIPTION_SFW": "获得 当前负面状态 !M! 倍的 superstitiomod:怒火 。 NL 从手牌中 *丢弃 所有 状态 和 诅咒 ， NL 每 *丢弃 一张， NL 获得 [E] ，抽一张牌。",
+    "EXTENDED_DESCRIPTION_SFW": [],
+    "FLAVOR_SFW": "这个故事，要从一只金蝉说起……",
+    "ADD_KEYWORDS_ID": [
+      "SuperstitioMod:Orgasm"
+    ]
+  },
+  "SuperstitioMod:MasoCard:LoveDirty": {
+    "Origin": {},
+    "SFW": {},
+    "NAME_SFW": "光辉飞盾",
+    "DESCRIPTION_SFW": "如果这张牌从你的手牌中被 *丢弃 或 消耗 ，获得 !B! *格挡 。",
+    "EXTENDED_DESCRIPTION_SFW": [],
+    "FLAVOR_SFW": "你好，程序！"
+  },
+  "SuperstitioMod:LupaCard:PutEveryCumInBody": {
+    "Origin": {},
+    "SFW": {},
+    "NAME_SFW": "鲜血环绕",
+    "DESCRIPTION_SFW": "失去所有 superstitiomod:地板血液 和 superstitiomod:体表血液 ，获得等量 superstitiomod:怒火 和等量 superstitiomod:体内血液 。 NL 将 superstitiomod:体内血液 的上限提升到其当前层数最近的整十数（向下取整）。",
+    "EXTENDED_DESCRIPTION_SFW": []
+  },
+  "SuperstitioMod:HaveBirthWith_Test": {
+    "Origin": {},
+    "SFW": {},
+    "NAME_SFW": "召唤宝宝",
+    "DESCRIPTION_SFW": "还在测试阶段的卡，用于体验召唤系统。",
+    "EXTENDED_DESCRIPTION_SFW": []
+  },
+  "SuperstitioMod:Tease": {
+    "Origin": {},
+    "SFW": {},
+    "NAME_SFW": "温水煮青蛙",
+    "DESCRIPTION_SFW": "目标敌人 获得 脆弱 和 虚弱 ， NL 失去上限的 !M! % 生命 ， NL 失去的 生命 转化为 格挡 。 NL 给予 *壁垒 。 NL 消耗 。",
+    "EXTENDED_DESCRIPTION_SFW": []
+  },
+  "SuperstitioMod:GiveBirth": {
+    "Origin": {},
+    "SFW": {},
+    "NAME_SFW": "仪式启动",
+    "DESCRIPTION_SFW": "失去 所有的 superstitiomod:仪式 。获得 !B! 临时生命 。 NL 通过这张牌 失去 的 superstitiomod:仪式 不会触发 superstitiomod:仪式崩溃 ，而是触发 superstitiomod:仪式成功 。 NL 消耗 。",
+    "EXTENDED_DESCRIPTION_SFW": []
+  },
+  "SuperstitioMod:FeelPhantomBody": {
+    "Origin": {},
+    "SFW": {},
+    "NAME_SFW": "义体",
+    "DESCRIPTION_SFW": "抽一张牌，使随机敌人流失 !M! 点生命。 NL 若回合结束时在手牌中， 消耗 并把原本的卡牌加入弃牌堆。",
+    "EXTENDED_DESCRIPTION_SFW": []
+  },
+  "SuperstitioMod:LupaCard:PrivatePhoto": {
+    "Origin": {},
+    "SFW": {},
+    "NAME_SFW": "回望过去",
+    "DESCRIPTION_SFW": "获得 !B! 点 *格挡 。 NL 本回合 获得 !M! 次 superstitiomod:激情 。",
+    "EXTENDED_DESCRIPTION_SFW": [],
+    "FLAVOR_SFW": ""
+  },
+  "SuperstitioMod:Spark": {
+    "Origin": {},
+    "SFW": {},
+    "NAME_SFW": "给你一拳",
+    "DESCRIPTION_SFW": "造成 !D! 点 伤害 。 NL 若 *腐朽 大于 !M! ，再造成 !D! 点 伤害 。",
+    "EXTENDED_DESCRIPTION_SFW": []
+  },
+  "SuperstitioMod:MasoCard:DrinkPoison": {
+    "Origin": {},
+    "SFW": {},
+    "NAME_SFW": "饮鸩止渴",
+    "DESCRIPTION_SFW": "移除一半的 *腐朽 ， NL 获得 移除量一半的 中毒。 NL （预计移除： !M! ）",
+    "EXTENDED_DESCRIPTION_SFW": [],
+    "FLAVOR_SFW": "未入肠胃，已绝咽喉，岂可为哉！"
+  },
+  "SuperstitioMod:Fuck_Ear": {
+    "Origin": {},
+    "SFW": {},
+    "NAME_SFW": "龙形拳",
+    "DESCRIPTION_SFW": "造成 !D! 点 伤害 两次。 NL 把 *蛇形拳 加入手牌。 NL 获得 1 层 脆弱 。 NL 消耗 。",
+    "EXTENDED_DESCRIPTION_SFW": []
+  },
+  "SuperstitioMod:Endure": {
+    "Origin": {},
+    "SFW": {},
+    "NAME_SFW": "忍耐",
+    "DESCRIPTION_SFW": "获得 !B! *格挡 。 NL 下回合获得 !M! superstitiomod:怒火 。 NL 抽 2 张牌。",
+    "EXTENDED_DESCRIPTION_SFW": [],
+    "ADD_KEYWORDS_ID": [
+      "SuperstitioMod:Orgasm"
+    ]
+  },
+  "SuperstitioMod:Kiss": {
+    "Origin": {},
+    "SFW": {},
+    "NAME_SFW": "打击",
+    "DESCRIPTION_SFW": "造成 !D! 点 伤害 。",
+    "EXTENDED_DESCRIPTION_SFW": []
+  },
+  "SuperstitioMod:BecomeTrash": {
+    "Origin": {},
+    "SFW": {},
+    "NAME_SFW": "废弃",
+    "DESCRIPTION_SFW": "从抽牌堆中选择最多 !M! 张牌并 消耗 。 NL 消耗 。",
+    "EXTENDED_DESCRIPTION_SFW": [
+      "选择%d张牌并消耗。"
+    ]
+  },
+  "SuperstitioMod:Ku_Koro": {
+    "Origin": {},
+    "SFW": {},
+    "NAME_SFW": "咕杀",
+    "DESCRIPTION_SFW": "受到攻击伤害而失去生命时，获得 1 张 随机 状态 牌。 NL 所有 消耗 牌会送入 弃牌堆 。",
+    "EXTENDED_DESCRIPTION_SFW": []
+  },
+  "SuperstitioMod:LupaCard:DrinkSemenBeer": {
+    "Origin": {},
+    "SFW": {},
+    "NAME_SFW": "饮血",
+    "DESCRIPTION_SFW": " 获得其他 *血液 时， 转化为 *杯中血液 。 当收集满 !M! 或 战斗结束 时，回复 其 数量的 生命 。",
+    "EXTENDED_DESCRIPTION_SFW": [],
+    "FLAVOR_SFW": "朝避猛虎，夕避长蛇。"
+  },
+  "SuperstitioMod:Fuck_Throat": {
+    "Origin": {},
+    "SFW": {},
+    "NAME_SFW": "虎吼拳",
+    "DESCRIPTION_SFW": "造成 !D! 点 伤害 。 NL 如果有 superstitiomod:合力 的卡牌， NL 获得 !M! 的 [E] 。",
+    "EXTENDED_DESCRIPTION_SFW": []
+  },
+  "SuperstitioMod:ReadyToSex": {
+    "Origin": {},
+    "SFW": {},
+    "NAME_SFW": "重新练起",
+    "DESCRIPTION_SFW": "选择一张手牌，将其 superstitiomod:合力- superstitiomod:延迟 NL 打出 !M! 任何牌： NL 打出复制后被 *丢弃 。",
+    "EXTENDED_DESCRIPTION_SFW": [
+      "将其合力。"
+    ],
+    "FLAVOR_SFW": "从扎马步开始，重新练起吧！"
+  },
+  "SuperstitioMod:LupaPool": {
+    "Origin": {},
+    "SFW": {},
+    "NAME_SFW": "好斗卡池",
+    "DESCRIPTION_SFW": "启用好斗天人卡池内容。",
+    "EXTENDED_DESCRIPTION_SFW": []
+  },
+  "SuperstitioMod:MasoCard:OrgasmWithLostBody": {
+    "Origin": {},
+    "SFW": {},
+    "NAME_SFW": "加装义体",
+    "DESCRIPTION_SFW": "抽到 superstitiomod:无法打出 的牌时，将其消耗，在手牌中添加一张 *义体 。",
+    "EXTENDED_DESCRIPTION_SFW": []
+  },
+  "SuperstitioMod:GangBang": {
+    "Origin": {},
+    "SFW": {},
+    "NAME_SFW": "血战沙场",
+    "DESCRIPTION_SFW": "stslib:自动打出 。 NL superstitiomod:合力- superstitiomod:伴随 NL 下 一 次回合结束： NL 对 所有敌人 造成 !D! 点 伤害 。 获得 !B! superstitiomod:干涸血液 。",
+    "EXTENDED_DESCRIPTION_SFW": [
+      "困倦的",
+      "平淡的",
+      "愉快的",
+      "满足的",
+      "完美的"
+    ]
+  },
+  "SuperstitioMod:MasoCard:CruelTorture_HotPillar": {
+    "Origin": {},
+    "SFW": {},
+    "NAME_SFW": "超载",
+    "DESCRIPTION_SFW": "将%d张 *灼伤 放入你的弃牌堆中 。 superstitiomod:合力-急切 。 NL superstitiomod:合力- superstitiomod:伴随 NL 下 99 回合开始时： NL 获得 !M! 点 临时敏捷 。",
+    "EXTENDED_DESCRIPTION_SFW": [],
+    "FLAVOR_SFW": ""
+  },
+  "SuperstitioMod:EroSion": {
+    "Origin": {},
+    "SFW": {},
+    "NAME_SFW": "腐蚀",
+    "DESCRIPTION_SFW": "失去 !M! 点 生命。 NL 造成等同于 *腐朽 的伤害。 NL （预计为 !D! 点）",
+    "EXTENDED_DESCRIPTION_SFW": []
+  },
+  "SuperstitioMod:LupaCard:ChooseCoitalPosture": {
+    "Origin": {},
+    "SFW": {},
+    "NAME_SFW": "武学精通",
+    "DESCRIPTION_SFW": "把1张带有 消耗 的随机 *武学牌 加入手牌。 NL 这张牌在本回合耗能变为0。",
+    "EXTENDED_DESCRIPTION_SFW": []
+  },
+  "SuperstitioMod:SexToy": {
+    "Origin": {},
+    "SFW": {},
+    "NAME_SFW": "神圣旗帜",
+    "DESCRIPTION_SFW": "给目标装备 !M! 个 随机 superstitiomod:神圣旗帜 。",
+    "EXTENDED_DESCRIPTION_SFW": [
+      "龙凤旗,花花旗,日月旗"
+    ],
+    "FLAVOR_SFW": "出来漂的人都想打个好字旗。"
+  },
+  "SuperstitioMod:FishGirlMode": {
+    "Origin": {},
+    "SFW": {},
+    "NAME_SFW": "火元素变形",
+    "DESCRIPTION_SFW": "回合开始时，获得 !M! 层 superstitiomod:干烧 。",
+    "EXTENDED_DESCRIPTION_SFW": []
+  },
+  "SuperstitioMod:Fuck_Eye": {
+    "Origin": {},
+    "SFW": {},
+    "NAME_SFW": "蛇形拳",
+    "DESCRIPTION_SFW": "对自身和目标敌人造成 !D! 点 伤害 两次， 获得 1 层 虚弱 。 NL superstitiomod:合力- superstitiomod:延迟 NL 打出 !M! 任何牌： NL 移除 !B! 点 *腐朽 ， 把 *龙形拳 加入手牌 。 NL 消耗 。",
+    "EXTENDED_DESCRIPTION_SFW": []
+  }
+}

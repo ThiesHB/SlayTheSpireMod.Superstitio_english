@@ -53,6 +53,8 @@ public class SuperstitioConfig {
     }
 
     public static boolean isEnableSFW() {
+        if (SuperstitioModSetup.SEAL_MANUAL_SFW)
+            return true;
         return enableSFW;
     }
 

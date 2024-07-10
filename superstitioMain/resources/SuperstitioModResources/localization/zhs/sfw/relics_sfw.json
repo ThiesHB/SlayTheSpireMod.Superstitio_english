@@ -1,0 +1,89 @@
+{
+  "SuperstitioMod:Sensitive": {
+    "NAME": "炽热",
+    "FLAVOR": "",
+    "DESCRIPTIONS": [
+      "你使用的每个 [E] 均会立即带来 #b%d 点 #ysuperstitiomod:怒火 。 NL 核心机制： #ysuperstitiomod:狂暴 。 NL 有必要提及的机制： #ysuperstitiomod:结束狂暴 。"
+    ]
+  },
+  "SuperstitioMod:EjaculationMaster": {
+    "NAME": "试图把我激怒",
+    "FLAVOR": "",
+    "DESCRIPTIONS": [
+      "本场战斗中，每触发 %d 次 #ysuperstitiomod:能量使用 ，抽 %d 张卡。"
+    ]
+  },
+  "SuperstitioMod:DevaBody_Masochism": {
+    "NAME": "腐朽天人",
+    "FLAVOR": "",
+    "DESCRIPTIONS": [
+      "不会因为任何其他原因失去体力。 NL 当本应失去体力时，获得 #r腐朽 作为代替。 NL 回合结束时， 对于 #ysuperstitiomod:新生腐朽 ， #ysuperstitiomod:接纳腐朽 。 NL 战斗结束时清空你的 #r腐朽 。 NL 当有 #y易伤 时，从卡牌中获得的 #y格挡 提高 #b%f 倍 。"
+    ]
+  },
+  "SuperstitioMod:JokeDescription": {
+    "NAME": "五衰之相-小",
+    "FLAVOR": "",
+    "DESCRIPTIONS": [
+      "你已经经历了小五衰，这使你无暇的天人之躯出现了缺漏，你变得更像是凡人了。 NL 你所经历的小五衰为： NL #ysuperstitiomod:乐声不起 、 #ysuperstitiomod:身光忽灭 、 #ysuperstitiomod:浴水着身 、 #ysuperstitiomod:着境不舍 、 #ysuperstitiomod:眼目数瞬 。"
+    ]
+  },
+  "SuperstitioMod:NippleRings": {
+    "NAME": "耳环",
+    "FLAVOR": "",
+    "DESCRIPTIONS": [
+      "每次 #ysuperstitiomod:狂暴 时，获得 %d 临时力量 。"
+    ]
+  },
+  "SuperstitioMod:StartWithSexToy": {
+    "NAME": "自由引领我们",
+    "FLAVOR": "",
+    "DESCRIPTIONS": [
+      "战斗开始时，佩戴 %d 个 #ysuperstitiomod:神圣旗帜 。"
+    ]
+  },
+  "SuperstitioMod:VulnerableTogetherRelic": {
+    "NAME": "复仇怒火",
+    "FLAVOR": "",
+    "DESCRIPTIONS": [
+      "战斗开始时，将一张 #ysuperstitiomod:复仇怒火 加入手牌。"
+    ]
+  },
+  "SuperstitioMod:MasochismMode": {
+    "NAME": "复仇者",
+    "FLAVOR": "",
+    "DESCRIPTIONS": [
+      "单次失去的生命每有 #b%d 点获得 #b%d 点 #ysuperstitiomod:怒火 。"
+    ]
+  },
+  "SuperstitioMod:SorM": {
+    "NAME": "性格切换",
+    "FLAVOR": "",
+    "DESCRIPTIONS": [
+      "反击人格: 受到的伤害每有 #b%d 点获得%d点 #ysuperstitiomod:怒火 。 NL 进攻人格: 造成伤害超过 #b%d 点时获得%d点 #ysuperstitiomod:怒火 。 NL 战斗外右键切换性格。",
+      "处于反击人格。 NL 受到的伤害每有 #b%d 点获得%d点 #ysuperstitiomod:怒火 。 NL 战斗外右键切换为进攻人格。",
+      "处于进攻人格。 NL 造成伤害超过 #b%d 点时获得%d点 #ysuperstitiomod:怒火 。 NL 战斗外右键切换为反击人格。",
+      "处于双重性格。 NL 受到的伤害每有 #b%d 点获得%d点 #ysuperstitiomod:怒火 ， NL 造成伤害超过 #b%d 点时获得%d点 #ysuperstitiomod:怒火 。"
+    ]
+  },
+  "SuperstitioMod:Prostitution": {
+    "NAME": "赏金",
+    "FLAVOR": "",
+    "DESCRIPTIONS": [
+      "每打出 %d 次 #ysuperstitiomod:招式 或 #ysuperstitiomod:染血 牌，获得 %d 金币 。"
+    ]
+  },
+  "SuperstitioMod:CumOnShoes": {
+    "NAME": "血液高跟鞋",
+    "FLAVOR": "",
+    "DESCRIPTIONS": [
+      "本场战斗中，每 使用 %d #y武学牌 ，获得 1 层 敏捷。"
+    ]
+  },
+  "SuperstitioMod:DevaBody_Lupa": {
+    "NAME": "腐朽天人",
+    "FLAVOR": "",
+    "DESCRIPTIONS": [
+      "不会因为任何其他原因失去体力。 NL 当本应失去体力时，会获得 #r腐朽 作为代替。 NL 受到攻击伤害而失去生命时， #ysuperstitiomod:接纳腐朽 。 NL 当你打出 #y攻击牌 时， #ysuperstitiomod:获得血液 。"
+    ]
+  }
+}

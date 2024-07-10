@@ -1,0 +1,396 @@
+{
+  "SuperstitioMod:FastWindUpPower": {
+    "Origin": {},
+    "SFW": {},
+    "NAME_SFW": "漆黑噤默之页",
+    "DESCRIPTIONS_SFW": [
+      "当你 #y狂暴 时，触发所有 #y合力 的卡牌 #b%d 次。"
+    ]
+  },
+  "SuperstitioMod:PreventHpLimit_Times": {
+    "Origin": {},
+    "SFW": {},
+    "NAME_SFW": "激情",
+    "DESCRIPTIONS_SFW": [
+      "本回合，下 #b%d 次受到攻击伤害而失去生命时，不 #r接纳腐朽 。"
+    ]
+  },
+  "SuperstitioMod:DoubleRemoveHpLostWhenHasVulnerablePower": {
+    "Origin": {},
+    "SFW": {},
+    "NAME_SFW": "翻倍格挡",
+    "DESCRIPTIONS_SFW": [
+      "当有 #y易伤 时，翻倍来自卡牌的 #r腐朽 移除量 和 #y格挡 获得量。"
+    ]
+  },
+  "SuperstitioMod:SexualHeat": {
+    "Origin": {},
+    "SFW": {},
+    "NAME_SFW": "怒火",
+    "DESCRIPTIONS_SFW": [
+      "每累计 #b%d 点迎来一次狂暴。 %s",
+      "每累计 #b%d 点迎来一次狂暴。狂暴时，被眩晕。 %s",
+      " NL #y狂暴 中，累计狂暴: #b%d 次。",
+      "狂暴！",
+      "连续狂暴！",
+      "狂暴结束…",
+      "能量使用！",
+      "狂暴被阻止！"
+    ]
+  },
+  "SuperstitioMod:ExposeSelfPower": {
+    "Origin": {},
+    "SFW": {},
+    "NAME_SFW": "战局剖析",
+    "DESCRIPTIONS_SFW": [
+      "持续 %d 回合 ，受到攻击伤害 时，获得其数值一半的 #y体表血液 。 "
+    ]
+  },
+  "SuperstitioMod:BeerCupSemen": {
+    "Origin": {},
+    "SFW": {},
+    "NAME_SFW": "杯中血液",
+    "DESCRIPTIONS_SFW": [
+      " 获得其他 #y血液 时， 转化为 #y杯中血液 。 当收集满 %d 或 战斗结束 时，回复 其 数量的 生命 。",
+      "收集",
+      "杯满！",
+      "痛饮！"
+    ]
+  },
+  "SuperstitioMod:DeathDoorPower": {
+    "Origin": {},
+    "SFW": {},
+    "NAME_SFW": "死亡抗拒",
+    "DESCRIPTIONS_SFW": [
+      "免除 %d 次死亡，第一次免除后，进入濒死状态。"
+    ]
+  },
+  "SuperstitioMod:LostBodyPart_Castration": {
+    "Origin": {},
+    "SFW": {},
+    "NAME_SFW": "鸟形拳禁止",
+    "DESCRIPTIONS_SFW": [
+      "无法打出燕形拳和鹞形拳。"
+    ]
+  },
+  "SuperstitioMod:SexualDamage": {
+    "Origin": {},
+    "SFW": {},
+    "NAME_SFW": "恐惧",
+    "MAKE_KEYWORDS": [
+      {
+        "ID": "",
+        "PROPER_NAME": "爱欲",
+        "PROPER_NAME_SFW": "恐惧",
+        "NAMES": [
+          "superstitiomod:爱欲"
+        ],
+        "NAMES_SFW": [
+          "superstitiomod:恐惧"
+        ],
+        "DESCRIPTION": "回合开始时，受到伤害。",
+        "DESCRIPTION_SFW": "回合开始时，受到伤害。"
+      }
+    ],
+    "DESCRIPTIONS_SFW": [
+      "回合开始时，受到 #b%d 点伤害。"
+    ]
+  },
+  "SuperstitioMod:InsideSemen": {
+    "Origin": {},
+    "SFW": {},
+    "NAME_SFW": "体内血液",
+    "DESCRIPTIONS_SFW": [
+      "当前数量： #b%d 。 NL 当前价值： #b%d 。 NL 你的回合结束时，超过 #b%d 点的部分会溢出，每点溢出转化为 #b%d 点 #y体表血液 。 NL 用作卡牌资源。",
+      "溢出！",
+      "扩张！"
+    ]
+  },
+  "SuperstitioMod:DelaySexualHeat": {
+    "Origin": {},
+    "SFW": {},
+    "NAME_SFW": "延迟怒火",
+    "DESCRIPTIONS_SFW": [
+      "下回合抽卡后，获得 #b%d 怒火。"
+    ]
+  },
+  "SuperstitioMod:DelayHpLosePower_ApplyOnAttacked": {
+    "Origin": {},
+    "SFW": {},
+    "NAME_SFW": "#r腐朽",
+    "DESCRIPTIONS_SFW": [
+      "下次受到攻击伤害而失去生命时或战斗结束时： NL #r降低 #r%d #r点生命。"
+    ]
+  },
+  "SuperstitioMod:DelayRemoveDelayHpLosePower": {
+    "Origin": {},
+    "SFW": {},
+    "NAME_SFW": "回味热血",
+    "DESCRIPTIONS_SFW": [
+      "在下回合开始时，移除 #b%d #r腐朽 。 NL 只能移除从本回合开始到下回合开始前获得的 #r腐朽 。"
+    ]
+  },
+  "SuperstitioMod:FloorSemen": {
+    "Origin": {},
+    "SFW": {},
+    "NAME_SFW": "地板血液",
+    "DESCRIPTIONS_SFW": [
+      "当前数量： #b%d 。 NL 当前价值： #b%d 。 NL 用作卡牌资源。"
+    ]
+  },
+  "SuperstitioMod:CanNotGetSemen": {
+    "Origin": {},
+    "SFW": {},
+    "NAME_SFW": "无法获得血液",
+    "DESCRIPTIONS_SFW": [
+      "无法获得血液。"
+    ]
+  },
+  "SuperstitioMod:RefractoryPeriod": {
+    "Origin": {},
+    "SFW": {},
+    "NAME_SFW": "迟钝",
+    "DESCRIPTIONS_SFW": [
+      "狂暴所需的怒火提高了 #b%d 点。若下回合结束前没有 #y狂暴 ，则 失去 。",
+      "狂暴所需的怒火提高了 #b%d 点。若本回合没有 #y狂暴 ，则 失去 。"
+    ]
+  },
+  "SuperstitioMod:OutsideSemen": {
+    "Origin": {},
+    "SFW": {},
+    "NAME_SFW": "体表血液",
+    "DESCRIPTIONS_SFW": [
+      "当前数量： #b%d 。 NL 当前价值： #b%d 。 NL 用作卡牌资源。"
+    ]
+  },
+  "SuperstitioMod:ChokeChokerPower": {
+    "Origin": {},
+    "SFW": {},
+    "NAME_SFW": "干烧",
+    "MAKE_KEYWORDS": [
+      {
+        "ID": "",
+        "PROPER_NAME": "窒息",
+        "PROPER_NAME_SFW": "干烧",
+        "NAMES": [
+          "superstitiomod:窒息",
+          "superstitiomod:窒息项圈"
+        ],
+        "NAMES_SFW": [
+          "superstitiomod:干烧",
+          "superstitiomod:干烧项圈"
+        ],
+        "DESCRIPTION": "提供 #g快感修正 ，其可以 #g减少 高潮所需的快感。 NL 进入 #y高潮 时 ，流失 层数一半的 生命 。",
+        "DESCRIPTION_SFW": "提供 #g怒火修正 ，其可以 #g减少 狂暴所需的怒火。 NL 进入 #y狂暴 时 ，流失 层数一半的 生命 。"
+      }
+    ],
+    "DESCRIPTIONS_SFW": [
+      "提供 #b%d #g怒火修正 。 NL 进入 #y狂暴 时 ，流失 #b%d 点生命。"
+    ]
+  },
+  "SuperstitioMod:PreventHpLimit_Turns": {
+    "Origin": {},
+    "SFW": {},
+    "NAME_SFW": "激情",
+    "MAKE_KEYWORDS": [
+      {
+        "ID": "",
+        "PROPER_NAME": "激情",
+        "PROPER_NAME_SFW": "激情",
+        "NAMES": [
+          "superstitiomod:激情"
+        ],
+        "NAMES_SFW": [
+          "superstitiomod:激情"
+        ],
+        "DESCRIPTION": "受到攻击伤害而失去生命时，不 #r接纳腐朽 。",
+        "DESCRIPTION_SFW": "受到攻击伤害而失去生命时，不 #r接纳腐朽 。"
+      }
+    ],
+    "DESCRIPTIONS_SFW": [
+      "受到攻击伤害而失去生命时，不 #r接纳腐朽 ，生效 #b%d 回合。"
+    ]
+  },
+  "SuperstitioMod:LostBodyPart_Breast": {
+    "Origin": {},
+    "SFW": {},
+    "NAME_SFW": "肌肉义体化",
+    "DESCRIPTIONS_SFW": [
+      "无法打出木兰飞弹和猴形拳。"
+    ]
+  },
+  "SuperstitioMod:InTurnSexualHeatNeededModifier": {
+    "Origin": {},
+    "SFW": {},
+    "NAME_SFW": "回合内怒火修正",
+    "DESCRIPTIONS_SFW": [
+      "本回合狂暴所需的怒火 #r降低 了 #b%d 点。",
+      "本回合狂暴所需的怒火 #g提高 了 #b%d 点。"
+    ]
+  },
+  "SuperstitioMod:SexPlateArmorPower": {
+    "Origin": {},
+    "SFW": {},
+    "NAME_SFW": "多层护甲",
+    "DESCRIPTIONS_SFW": [
+      "在你的回合结束时获得 #b%d 点 #y格挡 。受到攻击伤害而失去生命时，层数将会减少 #b1 。"
+    ]
+  },
+  "SuperstitioMod:LostBodyPart_Arm": {
+    "Origin": {},
+    "SFW": {},
+    "NAME_SFW": "手臂义体化",
+    "DESCRIPTIONS_SFW": [
+      "无法打出肘击和升龙拳。"
+    ]
+  },
+  "SuperstitioMod:DelayHpLosePower_ApplyOnlyOnVictory": {
+    "Origin": {},
+    "SFW": {},
+    "NAME_SFW": "#r腐朽",
+    "DESCRIPTIONS_SFW": [
+      "战斗结束时： NL #r降低 #r%d #r点生命。"
+    ]
+  },
+  "SuperstitioMod:AtDeathDoor": {
+    "Origin": {},
+    "SFW": {},
+    "NAME_SFW": "濒死",
+    "MAKE_KEYWORDS": [
+      {
+        "ID": "",
+        "PROPER_NAME": "濒死",
+        "PROPER_NAME_SFW": "濒死",
+        "NAMES": [
+          "superstitiomod:濒死"
+        ],
+        "NAMES_SFW": [
+          "superstitiomod:濒死"
+        ],
+        "DESCRIPTION": "免疫 生命流失 和 荆棘 伤害。",
+        "DESCRIPTION_SFW": "免疫 生命流失 和 荆棘 伤害。"
+      }
+    ],
+    "DESCRIPTIONS_SFW": [
+      "免疫 生命流失 和 荆棘 伤害。"
+    ]
+  },
+  "SuperstitioMod:Milk": {
+    "Origin": {},
+    "SFW": {},
+    "NAME_SFW": "仁慈",
+    "MAKE_KEYWORDS": [
+      {
+        "ID": "",
+        "PROPER_NAME": "乳汁",
+        "PROPER_NAME_SFW": "仁慈",
+        "NAMES": [
+          "superstitiomod:乳汁"
+        ],
+        "NAMES_SFW": [
+          "superstitiomod:仁慈"
+        ],
+        "DESCRIPTION": "在下一次攻击后，给予目标和自身 #y临时生命。",
+        "DESCRIPTION_SFW": "在下一次攻击后，给予目标和自身 #y临时生命。"
+      }
+    ],
+    "DESCRIPTIONS_SFW": [
+      "在下一次攻击后，给予目标和自身 %d 点 #y临时生命 。"
+    ]
+  },
+  "SuperstitioMod:LostBodyPart_Leg": {
+    "Origin": {},
+    "SFW": {},
+    "NAME_SFW": "腿部义体化",
+    "DESCRIPTIONS_SFW": [
+      "无法打出腿部相关的武学牌。"
+    ]
+  },
+  "SuperstitioMod:DelayHpLosePower_HealOnVictory": {
+    "Origin": {},
+    "SFW": {},
+    "NAME_SFW": "#r腐朽",
+    "DESCRIPTIONS_SFW": [
+      "敌人行动结束时： NL #r降低 #r%d #r点生命。 NL 总腐朽： #r%d 层。"
+    ]
+  },
+  "SuperstitioMod:TimeStopPower": {
+    "Origin": {},
+    "SFW": {},
+    "NAME_SFW": "世界",
+    "DESCRIPTIONS_SFW": [
+      "持续 #b%d 回合。本回合怒火不改变。 NL #y回合结束 或 #y自身的回合结束 时，自身的 #y负面效果和强化效果 均不触发。 NL 回合开始时，释放吸收的怒火并且翻 #b%d 倍。"
+    ]
+  },
+  "SuperstitioMod:PlayerFlightPower": {
+    "Origin": {},
+    "SFW": {},
+    "NAME_SFW": "史莱姆韧性",
+    "MAKE_KEYWORDS": [
+      {
+        "ID": "",
+        "PROPER_NAME": "史莱姆韧性",
+        "PROPER_NAME_SFW": "史莱姆韧性",
+        "NAMES": [
+          "superstitiomod:史莱姆韧性"
+        ],
+        "NAMES_SFW": [
+          "superstitiomod:史莱姆韧性"
+        ],
+        "DESCRIPTION": "下次受到的 #y攻击 伤害 减半。",
+        "DESCRIPTION_SFW": "下次受到的 #y攻击 伤害 减半。"
+      }
+    ],
+    "DESCRIPTIONS_SFW": [
+      "将下 %d 次 所受到的 #y攻击 伤害 减半 。"
+    ]
+  },
+  "SuperstitioMod:LostBodyPart_Head": {
+    "Origin": {},
+    "SFW": {},
+    "NAME_SFW": "头部义体化",
+    "DESCRIPTIONS_SFW": [
+      "无法打出头部相关的武学牌。"
+    ]
+  },
+  "SuperstitioMod:Overdraft": {
+    "Origin": {},
+    "SFW": {},
+    "NAME_SFW": "透支",
+    "DESCRIPTIONS_SFW": [
+      "回合开始时，消耗 #b%d 张牌。"
+    ]
+  },
+  "SuperstitioMod:SamsaraPower": {
+    "Origin": {},
+    "SFW": {},
+    "NAME_SFW": "轮转",
+    "DESCRIPTIONS_SFW": [
+      "每当你使用卡牌，抽 1 张牌。"
+    ]
+  },
+  "SuperstitioMod:SexToy": {
+    "Origin": {},
+    "SFW": {},
+    "NAME_SFW": "神圣旗帜",
+    "MAKE_KEYWORDS": [
+      {
+        "ID": "",
+        "PROPER_NAME": "情趣玩具",
+        "PROPER_NAME_SFW": "神圣旗帜",
+        "NAMES": [
+          "superstitiomod:情趣玩具"
+        ],
+        "NAMES_SFW": [
+          "superstitiomod:神圣旗帜"
+        ],
+        "DESCRIPTION": "回合开始时， #y情趣玩具 会提供 #y快感 。",
+        "DESCRIPTION_SFW": "回合开始时， #y神圣旗帜 会提供 #y怒火 。"
+      }
+    ],
+    "DESCRIPTIONS_SFW": [
+      "回合开始时， 每有 #b%d 个 #y神圣旗帜 会提供 #b1 点 #y怒火。 NL 当前携带的 #y神圣旗帜 ： %s",
+      " NL %s ： #b%d ；"
+    ]
+  }
+}

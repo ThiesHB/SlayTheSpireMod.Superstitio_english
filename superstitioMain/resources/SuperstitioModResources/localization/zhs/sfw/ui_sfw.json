@@ -1,0 +1,30 @@
+{
+  "SuperstitioMod:BodyModificationTag": {
+    "Origin": {},
+    "SFW": {},
+    "TEXT_SFW": [
+      "改造：%s"
+    ]
+  },
+  "SuperstitioMod:InsideEjaculationTag": {
+    "Origin": {},
+    "SFW": {},
+    "TEXT_SFW": [
+      "武学：%s"
+    ]
+  },
+  "SuperstitioMod:CruelTortureTag": {
+    "Origin": {},
+    "SFW": {},
+    "TEXT_SFW": [
+      "魔法：%s"
+    ]
+  },
+  "SuperstitioMod:OutsideEjaculationTag": {
+    "Origin": {},
+    "SFW": {},
+    "TEXT_SFW": [
+      "武学：%s"
+    ]
+  }
+}

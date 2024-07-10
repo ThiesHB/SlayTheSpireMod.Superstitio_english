@@ -47,7 +47,7 @@ public class SuperstitioModSetup implements
     /**
      * 人工启用sfw模式
      */
-    public static final boolean SEAL_MANUAL_SFW = false;
+    public static final boolean SEAL_MANUAL_SFW = true;
     public DataManager data;
 
     public SuperstitioModSetup() {
@@ -181,7 +181,7 @@ public class SuperstitioModSetup implements
             DataManager.loadCustomStringsFile("sfw/" + "ui" + "_sfw", DataManager.uiStrings, UIStringsSet.class);
 
             makeSFWVersion();
-
+            BaseMod.loadCustomStringsFile(RelicStrings.class, DataManager.makeLocalizationPath(Settings.language, "sfw/" + "relics" + "_sfw"));
             BaseMod.loadCustomStringsFile(CharacterStrings.class, DataManager.makeLocalizationPath(Settings.language, "character_LupaSFW"));
             BaseMod.loadCustomStringsFile(CharacterStrings.class, DataManager.makeLocalizationPath(Settings.language, "character_General"));
             BaseMod.loadCustomStringsFile(UIStrings.class, DataManager.makeLocalizationPath(Settings.language, "UIStrings"));
