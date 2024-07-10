@@ -7,8 +7,8 @@
       ""
     ],
     "NAMES_SFW": [
-      "superstitiomod:渴血",
-      "superstitiomod:渴血："
+      "渴血",
+      "渴血："
     ],
     "DESCRIPTION": "",
     "DESCRIPTION_SFW": "消耗足够价值的血液才能发挥下述效果。 NL 若血液价值不足，这张牌不能被打出。"
@@ -21,7 +21,7 @@
       ""
     ],
     "NAMES_SFW": [
-      "superstitiomod:怒火"
+      "怒火"
     ],
     "DESCRIPTION": "",
     "DESCRIPTION_SFW": "每累计一定点数迎来一次 #y狂暴 。 NL 自身的回合结束后失去。"
@@ -34,7 +34,7 @@
       ""
     ],
     "NAMES_SFW": [
-      "superstitiomod:接纳腐朽"
+      "接纳腐朽"
     ],
     "DESCRIPTION": "",
     "DESCRIPTION_SFW": "接纳腐朽后，生命值才会真正失去。"
@@ -47,7 +47,7 @@
       ""
     ],
     "NAMES_SFW": [
-      "superstitiomod:新生腐朽"
+      "新生腐朽"
     ],
     "DESCRIPTION": "",
     "DESCRIPTION_SFW": "上回合获得的 #r腐朽 。"
@@ -60,8 +60,8 @@
       ""
     ],
     "NAMES_SFW": [
-      "superstitiomod:狂暴",
-      "superstitiomod:狂暴中"
+      "狂暴",
+      "狂暴中"
     ],
     "DESCRIPTION": "",
     "DESCRIPTION_SFW": " 你 #y狂暴 时，所有卡牌耗能临时减少 [E] ， NL 敌人则会在 #y狂暴 后 眩晕 。"
@@ -74,7 +74,7 @@
       ""
     ],
     "NAMES_SFW": [
-      "superstitiomod:连续狂暴"
+      "连续狂暴"
     ],
     "DESCRIPTION": "",
     "DESCRIPTION_SFW": " #y狂暴 情况下，再积累 #y怒火 就会 #y连续狂暴 。 NL #y连续狂暴 会进一步增加减免的 [E] 。"
@@ -87,7 +87,7 @@
       ""
     ],
     "NAMES_SFW": [
-      "superstitiomod:能量使用"
+      "能量使用"
     ],
     "DESCRIPTION": "",
     "DESCRIPTION_SFW": " 在 #y狂暴 期间， 打出耗能降低的卡视作 #y能量使用 。"
@@ -100,7 +100,7 @@
       ""
     ],
     "NAMES_SFW": [
-      "superstitiomod:结束狂暴"
+      "结束狂暴"
     ],
     "DESCRIPTION": "",
     "DESCRIPTION_SFW": " #y怒火 低于 #y狂暴 阈值时，结束 #y狂暴 。"
@@ -113,7 +113,7 @@
       ""
     ],
     "NAMES_SFW": [
-      "superstitiomod:怒火修正"
+      "怒火修正"
     ],
     "DESCRIPTION": "",
     "DESCRIPTION_SFW": " 本回合增加或减少 #y狂暴 所需的 #y怒火 数量 。"
@@ -126,7 +126,7 @@
       ""
     ],
     "NAMES_SFW": [
-      "superstitiomod:残虐"
+      "残虐"
     ],
     "DESCRIPTION": "",
     "DESCRIPTION_SFW": "对敌人使用时触发的额外效果。"
@@ -139,7 +139,7 @@
       ""
     ],
     "NAMES_SFW": [
-      "superstitiomod:鞭策"
+      "鞭策"
     ],
     "DESCRIPTION": "",
     "DESCRIPTION_SFW": "对自己使用时触发的额外效果。"
@@ -152,7 +152,7 @@
       ""
     ],
     "NAMES_SFW": [
-      "superstitiomod:乐声不起"
+      "乐声不起"
     ],
     "DESCRIPTION": "",
     "DESCRIPTION_SFW": "遇到敌人时，不再根据战斗情节播放个人背景音乐。"
@@ -165,7 +165,7 @@
       ""
     ],
     "NAMES_SFW": [
-      "superstitiomod:身光忽灭"
+      "身光忽灭"
     ],
     "DESCRIPTION": "",
     "DESCRIPTION_SFW": "渲染图片时，屏幕亮度从百分之五亿调至凡人范围。"
@@ -178,7 +178,7 @@
       ""
     ],
     "NAMES_SFW": [
-      "superstitiomod:浴水着身"
+      "浴水着身"
     ],
     "DESCRIPTION": "",
     "DESCRIPTION_SFW": "掉入水坑时，无法毫发无损地从史莱姆黏液中逃脱。"
@@ -191,7 +191,7 @@
       ""
     ],
     "NAMES_SFW": [
-      "superstitiomod:着境不舍"
+      "着境不舍"
     ],
     "DESCRIPTION": "",
     "DESCRIPTION_SFW": "开始游戏时，必须选择一个涅奥的祝福选项以继续。"
@@ -204,7 +204,7 @@
       ""
     ],
     "NAMES_SFW": [
-      "superstitiomod:眼目数瞬"
+      "眼目数瞬"
     ],
     "DESCRIPTION": "",
     "DESCRIPTION_SFW": "查看地图时，无法看到问号房间中具体的事件内容。"
@@ -217,7 +217,7 @@
       ""
     ],
     "NAMES_SFW": [
-      "superstitiomod:时空递归"
+      "时空递归"
     ],
     "DESCRIPTION": "",
     "DESCRIPTION_SFW": "#b你摧毁了时空结构，你这个小坏蛋！ NL #y自动打出 。 NL 无法逃脱 。 NL 将这张牌放入你的抽牌堆。"
@@ -230,9 +230,9 @@
       ""
     ],
     "NAMES_SFW": [
-      "superstitiomod:仪式",
-      "superstitiomod:仪式崩溃",
-      "superstitiomod:仪式成功"
+      "仪式",
+      "仪式崩溃",
+      "仪式成功"
     ],
     "DESCRIPTION": "",
     "DESCRIPTION_SFW": "#y仪式 所对应的 #y格挡 被攻击伤害打破后，会触发 #y仪式崩溃 效果。 NL 由于不同原因获得的 #y仪式 具有不同的 #y仪式崩溃 和 #y仪式成功 效果。"
@@ -245,7 +245,7 @@
       ""
     ],
     "NAMES_SFW": [
-      "superstitiomod:宝宝"
+      "宝宝"
     ],
     "DESCRIPTION": "",
     "DESCRIPTION_SFW": "宝宝是友好的召唤物，会攻击敌人和强化自身，宝宝只有正常生物1/3的攻击力和1/10的血量。 NL 因为宝宝系统目前还在测试版，宝宝不会受到伤害。"
@@ -258,7 +258,7 @@
       ""
     ],
     "NAMES_SFW": [
-      "superstitiomod:无法打出"
+      "无法打出"
     ],
     "DESCRIPTION": "",
     "DESCRIPTION_SFW": "这张牌 #y不能被打出 ，或是被其他效果影响而 #y无法打出 。 NL 不包括能量不足或回合结束导致 #y无法打出 的情况。"
@@ -271,7 +271,7 @@
       ""
     ],
     "NAMES_SFW": [
-      "superstitiomod:封印"
+      "封印"
     ],
     "DESCRIPTION": "",
     "DESCRIPTION_SFW": "失去 指定的 效果 ，这些 效果 会被保存起来。"
@@ -284,7 +284,7 @@
       ""
     ],
     "NAMES_SFW": [
-      "superstitiomod:负面效果和强化效果"
+      "负面效果和强化效果"
     ],
     "DESCRIPTION": "",
     "DESCRIPTION_SFW": "即所有显示在生命值下方“效果”栏的效果，也包括部分本应显示在效果栏但隐藏了的效果。"
@@ -297,7 +297,7 @@
       ""
     ],
     "NAMES_SFW": [
-      "superstitiomod:回合结束"
+      "回合结束"
     ],
     "DESCRIPTION": "",
     "DESCRIPTION_SFW": "你的行动结束，且所有的敌人的行动结束。 NL 若效果为“持续 x 回合”或“本回合”，则一般会在这个时间点失去。"
@@ -310,7 +310,7 @@
       ""
     ],
     "NAMES_SFW": [
-      "superstitiomod:本回合"
+      "本回合"
     ],
     "DESCRIPTION": "",
     "DESCRIPTION_SFW": "持续到 #y回合结束 前。"
@@ -323,10 +323,10 @@
       ""
     ],
     "NAMES_SFW": [
-      "superstitiomod:你的回合结束",
-      "superstitiomod:自身的回合结束",
-      "superstitiomod:敌人的回合结束",
-      "superstitiomod:目标的回合结束"
+      "你的回合结束",
+      "自身的回合结束",
+      "敌人的回合结束",
+      "目标的回合结束"
     ],
     "DESCRIPTION": "",
     "DESCRIPTION_SFW": "怪物的行动结束或玩家点击回合结束按钮后。但不包括在回合结束的弃牌前触发的效果。"
@@ -339,7 +339,7 @@
       ""
     ],
     "NAMES_SFW": [
-      "superstitiomod:极速"
+      "极速"
     ],
     "DESCRIPTION": "",
     "DESCRIPTION_SFW": "这张卡不 #y满足 任何 #y合力 牌的条件。（不会因为这张牌的打出而减少它们的计数，但可能会因为这张牌的效果而减少它们的计数。）"
@@ -352,7 +352,7 @@
       ""
     ],
     "NAMES_SFW": [
-      "superstitiomod:合力-急切"
+      "合力-急切"
     ],
     "DESCRIPTION": "",
     "DESCRIPTION_SFW": "这张卡的 #y合力 效果会在打出时起效一次，但不减少其计数。"
@@ -365,9 +365,9 @@
       ""
     ],
     "NAMES_SFW": [
-      "superstitiomod:合力",
-      "superstitiomod:合力-",
-      "superstitiomod:合力序列"
+      "合力",
+      "合力-",
+      "合力序列"
     ],
     "DESCRIPTION": "",
     "DESCRIPTION_SFW": "打出后，不进入牌堆，而是进入 #y合力序列 。 NL （所有 #y合力序列 中的 卡牌正常受 #y力量 等效果影响。）"
@@ -380,8 +380,8 @@
       ""
     ],
     "NAMES_SFW": [
-      "superstitiomod:延迟",
-      "superstitiomod:延迟-"
+      "延迟",
+      "延迟-"
     ],
     "DESCRIPTION": "",
     "DESCRIPTION_SFW": "#y满足 条件后，减少计数。 NL 计数归零时 #y触发效果 并返回牌堆。"
@@ -394,8 +394,8 @@
       ""
     ],
     "NAMES_SFW": [
-      "superstitiomod:伴随",
-      "superstitiomod:伴随-"
+      "伴随",
+      "伴随-"
     ],
     "DESCRIPTION": "",
     "DESCRIPTION_SFW": "#y满足 条件时，减少计数并 #y触发效果 。 NL 计数归零后返回牌堆。"
@@ -408,8 +408,8 @@
       ""
     ],
     "NAMES_SFW": [
-      "superstitiomod:放任",
-      "superstitiomod:放任-"
+      "放任",
+      "放任-"
     ],
     "DESCRIPTION": "",
     "DESCRIPTION_SFW": "#y满足 条件后，减少计数。 NL 计数归零时返回牌堆。 NL 仅当被 #y释放 时， #y触发效果 。"
@@ -422,8 +422,8 @@
       ""
     ],
     "NAMES_SFW": [
-      "superstitiomod:释放",
-      "superstitiomod:释放自身"
+      "释放",
+      "释放自身"
     ],
     "DESCRIPTION": "",
     "DESCRIPTION_SFW": "将卡牌直接从 #y合力序列 中 移除 。 NL 若卡牌去往 弃牌堆 ，则视作 #y丢弃 。"
@@ -436,7 +436,7 @@
       ""
     ],
     "NAMES_SFW": [
-      "superstitiomod:自动释放"
+      "自动释放"
     ],
     "DESCRIPTION": "",
     "DESCRIPTION_SFW": "回合结束时， #y释放 自身 —— 将卡牌直接从 #y合力序列 中 移除 。 NL 若卡牌去往 弃牌堆 ，则视作 #y丢弃 。"
@@ -449,7 +449,7 @@
       ""
     ],
     "NAMES_SFW": [
-      "superstitiomod:自动取下"
+      "自动取下"
     ],
     "DESCRIPTION": "",
     "DESCRIPTION_SFW": "将卡牌直接从 #y合力序列 中 #y丢弃 。"
@@ -462,7 +462,7 @@
       ""
     ],
     "NAMES_SFW": [
-      "superstitiomod:自动取下"
+      "自动取下"
     ],
     "DESCRIPTION": "",
     "DESCRIPTION_SFW": "回合结束时， #y释放 自身 —— 将卡牌直接从 #y合力序列 中 #y丢弃 。"
@@ -475,8 +475,8 @@
       ""
     ],
     "NAMES_SFW": [
-      "superstitiomod:获得血液",
-      "superstitiomod:血液"
+      "获得血液",
+      "血液"
     ],
     "DESCRIPTION": "",
     "DESCRIPTION_SFW": "#y招式牌 会获得 #y体内血液 ； NL #y染血牌 会获得 #y体表血液 ； NL 其他 #y攻击牌 会获得 #y地板血液 。 NL 不同的血液是同等使用的，但是具有不同的价值。"
@@ -489,7 +489,7 @@
       ""
     ],
     "NAMES_SFW": [
-      "superstitiomod:地板血液"
+      "地板血液"
     ],
     "DESCRIPTION": "",
     "DESCRIPTION_SFW": "一种卡牌需要的资源。价值为1。"
@@ -502,7 +502,7 @@
       ""
     ],
     "NAMES_SFW": [
-      "superstitiomod:体表血液"
+      "体表血液"
     ],
     "DESCRIPTION": "",
     "DESCRIPTION_SFW": "一种卡牌需要的资源。价值为2。"
@@ -515,7 +515,7 @@
       ""
     ],
     "NAMES_SFW": [
-      "superstitiomod:体内血液"
+      "体内血液"
     ],
     "DESCRIPTION": "",
     "DESCRIPTION_SFW": "一种卡牌需要的资源。价值为3。 NL 满点之后会 溢出 并且转化为 #y体表血液 。"
@@ -528,8 +528,8 @@
       ""
     ],
     "NAMES_SFW": [
-      "superstitiomod:连绵：",
-      "superstitiomod:连绵"
+      "连绵：",
+      "连绵"
     ],
     "DESCRIPTION": "",
     "DESCRIPTION_SFW": "反复执行效果，直到无法执行。"
@@ -542,7 +542,7 @@
       ""
     ],
     "NAMES_SFW": [
-      "superstitiomod:复仇怒火"
+      "复仇怒火"
     ],
     "DESCRIPTION": "",
     "DESCRIPTION_SFW": "#y保留 。 #y消耗 。 NL 给予 #y敌我双方 #b1 层 #y易伤 。"
@@ -555,7 +555,7 @@
       ""
     ],
     "NAMES_SFW": [
-      "superstitiomod:恐惧"
+      "恐惧"
     ],
     "DESCRIPTION": "",
     "DESCRIPTION_SFW": "回合开始时，受到伤害。"
@@ -568,8 +568,8 @@
       ""
     ],
     "NAMES_SFW": [
-      "superstitiomod:干烧",
-      "superstitiomod:干烧项圈"
+      "干烧",
+      "干烧项圈"
     ],
     "DESCRIPTION": "",
     "DESCRIPTION_SFW": "提供 #g怒火修正 ，其可以 #g减少 狂暴所需的怒火。 NL 进入 #y狂暴 时 ，流失 层数一半的 生命 。"
@@ -582,7 +582,7 @@
       ""
     ],
     "NAMES_SFW": [
-      "superstitiomod:激情"
+      "激情"
     ],
     "DESCRIPTION": "",
     "DESCRIPTION_SFW": "受到攻击伤害而失去生命时，不 #r接纳腐朽 。"
@@ -595,7 +595,7 @@
       ""
     ],
     "NAMES_SFW": [
-      "superstitiomod:濒死"
+      "濒死"
     ],
     "DESCRIPTION": "",
     "DESCRIPTION_SFW": "免疫 生命流失 和 荆棘 伤害。"
@@ -608,7 +608,7 @@
       ""
     ],
     "NAMES_SFW": [
-      "superstitiomod:仁慈"
+      "仁慈"
     ],
     "DESCRIPTION": "",
     "DESCRIPTION_SFW": "在下一次攻击后，给予目标和自身 #y临时生命。"
@@ -621,7 +621,7 @@
       ""
     ],
     "NAMES_SFW": [
-      "superstitiomod:史莱姆韧性"
+      "史莱姆韧性"
     ],
     "DESCRIPTION": "",
     "DESCRIPTION_SFW": "下次受到的 #y攻击 伤害 减半。"
@@ -634,7 +634,7 @@
       ""
     ],
     "NAMES_SFW": [
-      "superstitiomod:神圣旗帜"
+      "神圣旗帜"
     ],
     "DESCRIPTION": "",
     "DESCRIPTION_SFW": "回合开始时， #y神圣旗帜 会提供 #y怒火 。"

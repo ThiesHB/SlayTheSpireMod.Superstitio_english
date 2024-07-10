@@ -753,7 +753,7 @@
     "Origin": {},
     "SFW": {},
     "NAME_SFW": "血战沙场",
-    "DESCRIPTION_SFW": "stslib:自动打出 。 NL superstitiomod:合力- superstitiomod:伴随 NL 下 一 次回合结束： NL 对 所有敌人 造成 !D! 点 伤害 。 获得 !B! superstitiomod:干涸血液 。",
+    "DESCRIPTION_SFW": "stslib:自动打出 。 NL superstitiomod:合力- superstitiomod:伴随 NL 下 一 次回合结束： NL 对 所有敌人 造成 !D! 点 伤害 。 获得 !B! *干涸血液 。",
     "EXTENDED_DESCRIPTION_SFW": [
       "困倦的",
       "平淡的",

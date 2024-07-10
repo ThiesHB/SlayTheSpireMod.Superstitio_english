@@ -90,7 +90,7 @@
     "Origin": {},
     "NAME_SFW": "热血",
     "BASIC_INFO_SFW": "热血唤起",
-    "DESCRIPTION_SFW": "尝试一些刺激的事情，从而移除 #r腐朽 。",
+    "DESCRIPTION_SFW": "移除 #r腐朽 。",
     "EXTENDED_DESCRIPTION_SFW": []
   },
   "SuperstitioMod:DelayRemoveDelayHpLoseBlock": {
