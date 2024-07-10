@@ -7,15 +7,17 @@ import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.core.AbstractCreature;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import superstitio.DataManager;
+import superstitio.delayHpLose.DelayHpLosePower;
 import superstitio.powers.AbstractSuperstitioPower;
 import superstitio.powers.SexualHeat;
+import superstitio.powers.patchAndInterface.interfaces.orgasm.OnOrgasm_onOrgasmFirst;
 import superstitio.relics.SuperstitioRelic;
 import superstitioapi.actions.AutoDoneInstantAction;
 import superstitioapi.relicToBlight.InfoBlight;
 import superstitioapi.utils.ActionUtility;
 
 @AutoAdd.Seen
-public class MasochismMode extends SuperstitioRelic implements InfoBlight.BecomeInfoBlight {
+public class MasochismMode extends SuperstitioRelic implements InfoBlight.BecomeInfoBlight, OnOrgasm_onOrgasmFirst {
     public static final String ID = DataManager.MakeTextID(MasochismMode.class);
     // 遗物类型
     private static final RelicTier RELIC_TIER = RelicTier.SPECIAL;
@@ -24,6 +26,7 @@ public class MasochismMode extends SuperstitioRelic implements InfoBlight.Become
     private static final int MasochismModeDamageNeed = 3;
 
     private static final int MasochismModeSexualHeatRate = 2;
+    private static final int ReduceDelayHpLose = 3;
 
     public MasochismMode() {
         super(ID, RELIC_TIER, LANDING_SOUND);
@@ -34,12 +37,16 @@ public class MasochismMode extends SuperstitioRelic implements InfoBlight.Become
     }
 
     @Override
-    public void updateDescriptionArgs() {
+    public void onOrgasmFirst(SexualHeat SexualHeatPower) {
+        DelayHpLosePower.addToBot_removePower(ReduceDelayHpLose, AbstractDungeon.player, true);
     }
 
     @Override
+    public void updateDescriptionArgs() {
+    }
+    @Override
     public String getDescriptionStrings() {
-        return String.format(this.DESCRIPTIONS[0], MasochismModeDamageNeed, MasochismModeSexualHeatRate);
+        return String.format(this.DESCRIPTIONS[0], MasochismModeDamageNeed, MasochismModeSexualHeatRate, ReduceDelayHpLose);
     }
 
     @Override
@@ -49,17 +56,17 @@ public class MasochismMode extends SuperstitioRelic implements InfoBlight.Become
 
     @Override
     public void obtain() {
-        InfoBlight.obtain(this);
+        AInfoBlightOnOrgasm.obtain(this);
     }
 
     @Override
     public void instantObtain(AbstractPlayer p, int slot, boolean callOnEquip) {
-        InfoBlight.instanceObtain(this, callOnEquip);
+        AInfoBlightOnOrgasm.instanceObtain(this, callOnEquip);
     }
 
     @Override
     public void instantObtain() {
-        InfoBlight.instanceObtain(this, true);
+        AInfoBlightOnOrgasm.instanceObtain(this, true);
     }
 
     private static class MasochismModePower extends AbstractSuperstitioPower implements InvisiblePower {

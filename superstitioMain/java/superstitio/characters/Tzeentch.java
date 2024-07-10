@@ -11,6 +11,7 @@ import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.core.EnergyManager;
 import com.megacrit.cardcrawl.core.Settings;
+import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.helpers.ImageMaster;
 import com.megacrit.cardcrawl.helpers.PowerTip;
 import com.megacrit.cardcrawl.localization.CharacterStrings;
@@ -20,9 +21,10 @@ import com.megacrit.cardcrawl.screens.charSelect.CharacterOption;
 import superstitio.DataManager;
 import superstitio.Logger;
 import superstitio.characters.cardpool.CardPoolManager;
+import superstitio.characters.cardpool.LupaCardPool;
 import superstitio.characters.cardpool.MasoCardPool;
-import superstitio.relics.a_starter.VulnerableTogetherRelic;
 import superstitio.relics.a_starter.StartWithSexToy;
+import superstitio.relics.a_starter.VulnerableTogetherRelic;
 import superstitio.relics.blight.*;
 import superstitioapi.player.PlayerInitPostDungeonInitialize;
 import superstitioapi.renderManager.characterSelectScreenRender.RelicSelectionUI;
@@ -184,10 +186,16 @@ public class Tzeentch extends BaseCharacter implements PlayerInitPostDungeonInit
     @Override
     public void initPostDungeonInitialize() {
         TzeentchSave.saveConfig();
-        STARTER_RELIC_Selection_UI.getSelectRelic().makeCopy().instantObtain();
+        STARTER_RELIC_Selection_UI.getSelectRelic().makeCopy().instantObtain(AbstractDungeon.player, AbstractDungeon.player.relics.size(), false);
         addAsInfoBlight(new JokeDescription());
         addAsInfoBlight(DEVABODY_RELIC_Selection_UI.getSelectRelic());
         addAsInfoBlight(SEXUAL_HEAT_RELIC_Selection_UI.getSelectRelic());
+        CardPoolManager.instance.cardPools.forEach(baseCardPool -> {
+            if (baseCardPool instanceof LupaCardPool)
+                addAsInfoBlight(new SemenMagician());
+            if (baseCardPool instanceof MasoCardPool)
+                addAsInfoBlight(new EnjoyAilment());
+        });
         if (Maso.class.isAssignableFrom(getOwnerFromRelic(DEVABODY_RELIC_Selection_UI.getSelectRelic()))) {
             Maso.setUpMaso();
         }

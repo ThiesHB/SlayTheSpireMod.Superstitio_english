@@ -136,7 +136,9 @@ public class InfoBlight extends BlightWithRelic implements
     public static void addAsInfoBlight(AbstractRelic relic) {
         if (player == null) return;
         if (player.hasRelic(relic.relicId)) return;
-        instanceObtain(relic, false);
+        if (relic instanceof InfoBlight.BecomeInfoBlight)
+            relic.instantObtain(player, player.blights.size(), false);
+//            instanceObtain(relic, false);
     }
 
     /**

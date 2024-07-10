@@ -16,9 +16,7 @@ import superstitio.cards.maso.BaseCard.FistIn;
 import superstitio.cards.maso.BaseCard.Invite_Maso;
 import superstitio.cards.maso.BaseCard.Spark;
 import superstitio.relics.a_starter.VulnerableTogetherRelic;
-import superstitio.relics.blight.DevaBody_Masochism;
-import superstitio.relics.blight.JokeDescription;
-import superstitio.relics.blight.MasochismMode;
+import superstitio.relics.blight.*;
 import superstitioapi.player.PlayerInitPostDungeonInitialize;
 import superstitioapi.renderManager.characterSelectScreenRender.RenderInCharacterSelect;
 
@@ -109,13 +107,11 @@ public class Maso extends BaseCharacter implements PlayerInitPostDungeonInitiali
 
     @Override
     public void initPostDungeonInitialize() {
-//        if (!SuperstitioConfig.isEnableGuroCharacter()) {
-//            SuperstitioConfig.setEnableGuroCharacter(true);
-//        }
         setUpMaso();
         addAsInfoBlight(new JokeDescription());
         addAsInfoBlight(new DevaBody_Masochism());
         addAsInfoBlight(new MasochismMode());
+        addAsInfoBlight(new EnjoyAilment());
     }
 
     @Override

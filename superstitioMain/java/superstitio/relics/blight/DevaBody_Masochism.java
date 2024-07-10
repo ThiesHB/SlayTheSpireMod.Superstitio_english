@@ -1,24 +1,18 @@
 package superstitio.relics.blight;
 
 import basemod.AutoAdd;
-import com.evacipated.cardcrawl.mod.stslib.powers.interfaces.InvisiblePower;
 import com.megacrit.cardcrawl.actions.common.RelicAboveCreatureAction;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
-import com.megacrit.cardcrawl.core.AbstractCreature;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
-import com.megacrit.cardcrawl.powers.VulnerablePower;
 import superstitio.DataManager;
 import superstitio.delayHpLose.DelayHpLosePatch;
 import superstitio.delayHpLose.DelayHpLosePower_HealOnVictory;
-import superstitio.powers.AbstractSuperstitioPower;
 import superstitio.relics.SuperstitioRelic;
 import superstitioapi.relicToBlight.InfoBlight;
 import superstitioapi.utils.ActionUtility;
 
 import static com.megacrit.cardcrawl.dungeons.AbstractDungeon.player;
 import static superstitio.DataManager.CanOnlyDamageDamageType.UnBlockAbleDamageType;
-import static superstitio.relics.blight.DevaBody_Masochism.DoubleRemoveHpLostWhenHasVulnerablePower.BLOCK_RATE;
-import static superstitioapi.utils.ActionUtility.addToBot_applyPower;
 import static superstitioapi.utils.ActionUtility.addToTop_applyPower;
 
 @AutoAdd.Seen
@@ -45,53 +39,32 @@ public class DevaBody_Masochism extends SuperstitioRelic implements InfoBlight.B
     }
 
     @Override
+    public void updateDescriptionArgs() {
+    }
+
+    @Override
     public void atBattleStart() {
         this.flash();
         ActionUtility.addToBot(new RelicAboveCreatureAction(AbstractDungeon.player, this));
-        addToBot_applyPower(new DoubleRemoveHpLostWhenHasVulnerablePower(AbstractDungeon.player));
         DevaBody_Masochism.SetPlayerImmunity();
-    }
-
-
-    @Override
-    public void updateDescriptionArgs() {
-        setDescriptionArgs(BLOCK_RATE);
     }
 
     @Override
     public void obtain() {
-        InfoBlight.obtain(this);
+        AInfoBlightOnOrgasm.obtain(this);
     }
 
     @Override
     public void instantObtain(AbstractPlayer p, int slot, boolean callOnEquip) {
-        InfoBlight.instanceObtain(this, callOnEquip);
+        AInfoBlightOnOrgasm.instanceObtain(this, callOnEquip);
     }
 
     @Override
     public void instantObtain() {
-        InfoBlight.instanceObtain(this, true);
+        AInfoBlightOnOrgasm.instanceObtain(this, true);
     }
 
-    public static class DoubleRemoveHpLostWhenHasVulnerablePower extends AbstractSuperstitioPower implements InvisiblePower {
-        public static final String POWER_ID = DataManager.MakeTextID(DoubleRemoveHpLostWhenHasVulnerablePower.class);
-        protected static final float BLOCK_RATE = 1.5f;
 
-        private DoubleRemoveHpLostWhenHasVulnerablePower(AbstractCreature owner) {
-            super(POWER_ID, owner, -1);
-        }
-
-        @Override
-        public float modifyBlockLast(float blockAmount) {
-            if (owner.powers.stream().anyMatch(power -> power instanceof VulnerablePower))
-                return super.modifyBlockLast(blockAmount * BLOCK_RATE);
-            return super.modifyBlockLast(blockAmount);
-        }
-
-        @Override
-        public void updateDescriptionArgs() {
-        }
-    }
 }
 
 

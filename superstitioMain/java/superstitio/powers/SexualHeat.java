@@ -25,7 +25,6 @@ import superstitio.powers.sexualHeatNeedModifier.RefractoryPeriod;
 import superstitio.powers.sexualHeatNeedModifier.SexualHeatNeedModifier;
 import superstitioapi.actions.AutoDoneInstantAction;
 import superstitioapi.powers.AllCardCostModifier;
-import superstitioapi.powers.AllCardCostModifier_PerEnergy;
 import superstitioapi.powers.barIndepend.*;
 import superstitioapi.powers.interfaces.HasAllCardCostModifyEffect;
 import superstitioapi.powers.interfaces.OnPostApplyThisPower;
@@ -35,7 +34,6 @@ import superstitioapi.powers.interfaces.invisible.InvisiblePower_InvisibleRemove
 import superstitioapi.powers.interfaces.invisible.InvisiblePower_InvisibleTips;
 import superstitioapi.utils.PowerUtility;
 
-import java.lang.reflect.InvocationTargetException;
 import java.util.Optional;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.BiFunction;
@@ -45,7 +43,8 @@ import java.util.function.Supplier;
 import static superstitio.InBattleDataManager.OrgasmTimesInTurn;
 import static superstitio.InBattleDataManager.OrgasmTimesTotal;
 import static superstitioapi.actions.AutoDoneInstantAction.addToBotAbstract;
-import static superstitioapi.powers.AllCardCostModifier.*;
+import static superstitioapi.powers.AllCardCostModifier.RemoveAllByHolder;
+import static superstitioapi.powers.AllCardCostModifier.getAllByHolder;
 import static superstitioapi.shader.ShaderUtility.canUseShader;
 import static superstitioapi.shader.heart.HeartStreamShader.RenderHeartStream.addToBot_addHeartStreamEffect;
 import static superstitioapi.utils.ActionUtility.VoidSupplier;
@@ -128,7 +127,7 @@ public class SexualHeat extends AbstractSuperstitioPower implements
                 .filter(power -> power instanceof SexualHeat).findAny().orElse(null));
     }
 
-    private static int getOrgasmTimesInTurn() {
+    public static int getOrgasmTimesInTurn() {
         return OrgasmTimesInTurn;
     }
 
@@ -147,7 +146,7 @@ public class SexualHeat extends AbstractSuperstitioPower implements
     }
 
     public void CheckOrgasm() {
-        OnOrgasm.AllOnOrgasm(owner).forEach(power -> power.onCheckOrgasm(this));
+        OnOrgasm.AllOnOrgasm(owner).forEachOrdered(power -> power.onCheckOrgasm(this));
         if (getOrgasmTimesInTurn() >= (this.heatAmount / getHeatRequired())) return;
         this.StartOrgasm();
     }
@@ -172,13 +171,13 @@ public class SexualHeat extends AbstractSuperstitioPower implements
 
     private void StartOrgasm() {
         if (OnOrgasm.AllOnOrgasm(owner).anyMatch(power -> power.preventOrgasm(this))) {
-            OnOrgasm.AllOnOrgasm(owner).forEach(power -> power.onSuccessfullyPreventOrgasm(this));
+            OnOrgasm.AllOnOrgasm(owner).forEachOrdered(power -> power.onSuccessfullyPreventOrgasm(this));
             return;
         }
         Orgasm();
-        OnOrgasm.AllOnOrgasm(owner).forEach(power -> power.onOrgasm(this));
+        OnOrgasm.AllOnOrgasm(owner).forEachOrdered(power -> power.onOrgasm(this));
         if (IsContinueOrgasm())
-            OnOrgasm.AllOnOrgasm(owner).forEach(power -> power.onContinuallyOrgasm(this));
+            OnOrgasm.AllOnOrgasm(owner).forEachOrdered(power -> power.onContinuallyOrgasm(this));
         CheckOrgasm();
     }
 
@@ -196,23 +195,8 @@ public class SexualHeat extends AbstractSuperstitioPower implements
             addToBot_applyPower(new RefractoryPeriod(this.owner, HEAT_REQUIREDOrigin));
             return;
         }
-        final int decreaseCost = Math.min(getOrgasmTimesInTurn(), AbstractDungeon.player.energy.energyMaster);
 
-
-        addToBotAbstract(() -> {
-            try {
-                addTo_Bot_EditAmount_Top_FirstByHolder(this, decreaseCost, power -> {
-                    if (power.isPresent())
-                        return 1;
-                    else
-                        return 1;
-                }, AllCardCostModifier_PerEnergy.class.getConstructor(AbstractCreature.class, int.class, int.class,
-                        HasAllCardCostModifyEffect.class));
-            } catch (NoSuchMethodException | InvocationTargetException | InstantiationException |
-                     IllegalAccessException e) {
-                Logger.error(e);
-            }
-        });
+        OnOrgasm.AllOnOrgasm(owner).forEachOrdered(power -> power.onOrgasmFirst(this));
 
         Orgasm.startOrgasm(owner);
     }
@@ -224,7 +208,7 @@ public class SexualHeat extends AbstractSuperstitioPower implements
     private void ForceEndOrgasm() {
         if (!isInOrgasm()) return;
 //        OrgasmTimesInTurn = 0;
-        OnOrgasm.AllOnOrgasm(owner).filter(power -> !(power instanceof SexualHeat)).forEach(power -> power.onEndOrgasm(this));
+        OnOrgasm.AllOnOrgasm(owner).filter(power -> !(power instanceof SexualHeat)).forEachOrdered(power -> power.onEndOrgasm(this));
         this.onEndOrgasm(this);
         Orgasm.endOrgasm(owner);
     }
@@ -319,7 +303,7 @@ public class SexualHeat extends AbstractSuperstitioPower implements
         AtomicInteger reduceEnergyAmount = new AtomicInteger();
         this.getActiveEffectHold().ifPresent(power -> reduceEnergyAmount.set(power.getOriginCost(card) - card.costForTurn));
         if (reduceEnergyAmount.get() <= 0) return;
-        OnOrgasm.AllOnOrgasm(owner).forEach(power -> power.onSquirt(this, card));
+        OnOrgasm.AllOnOrgasm(owner).forEachOrdered(power -> power.onSquirt(this, card));
     }
 
     @Override

@@ -13,6 +13,7 @@ import superstitio.cards.lupa.BaseCard.Invite_Lupa;
 import superstitio.relics.a_starter.StartWithSexToy;
 import superstitio.relics.blight.DevaBody_Lupa;
 import superstitio.relics.blight.JokeDescription;
+import superstitio.relics.blight.SemenMagician;
 import superstitio.relics.blight.Sensitive;
 import superstitioapi.player.PlayerInitPostDungeonInitialize;
 
@@ -99,6 +100,7 @@ public class Lupa extends BaseCharacter implements PlayerInitPostDungeonInitiali
         addAsInfoBlight(new JokeDescription());
         addAsInfoBlight(new DevaBody_Lupa());
         addAsInfoBlight(new Sensitive());
+        addAsInfoBlight(new SemenMagician());
     }
 
     @Override

@@ -14,7 +14,7 @@
     "NAMES": [
       "快感"
     ],
-    "DESCRIPTION": "每累计一定点数迎来一次 #y高潮 。 NL 自身的回合结束后失去。"
+    "DESCRIPTION": "每累计一定层数迎来一次 #y高潮 。 NL 自身的回合结束后失去。"
   },
   {
     "PROPER_NAME": "#r接纳腐朽",
@@ -37,14 +37,22 @@
       "高潮",
       "高潮中"
     ],
-    "DESCRIPTION": " 你 #y高潮 时，所有卡牌耗能临时减少 [E] ， NL 敌人则会在 #y高潮 后 眩晕 。"
+    "DESCRIPTION": "累积 #y快感 ，进入 #y高潮 。"
+  },
+  {
+    "ID": "SuperstitioMod:EnemyOrgasm",
+    "PROPER_NAME": "敌人高潮",
+    "NAMES": [
+      "敌人高潮"
+    ],
+    "DESCRIPTION": "敌人 #y高潮 时，其被 眩晕 一回合。"
   },
   {
     "PROPER_NAME": "连续高潮",
     "NAMES": [
       "连续高潮"
     ],
-    "DESCRIPTION": " #y高潮 情况下，再积累 #y快感 就会 #y连续高潮 。 NL #y连续高潮 会进一步增加减免的 [E] 。"
+    "DESCRIPTION": " #y高潮 情况下，再积累 #y快感 就会 #y连续高潮 。"
   },
   {
     "PROPER_NAME": "潮吹",

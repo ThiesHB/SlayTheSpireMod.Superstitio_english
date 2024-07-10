@@ -1,4 +1,4 @@
-package superstitio.cards.general.PowerCard.defend;
+package superstitio.cards.lupa.PowerCard.defend;
 
 import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
@@ -6,14 +6,14 @@ import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import superstitio.DataManager;
 import superstitio.cards.SuperstitioCard;
-import superstitio.cards.general.GeneralCard;
+import superstitio.cards.lupa.LupaCard;
 import superstitio.delayHpLose.DelayHpLosePower;
 import superstitio.powers.EasyBuildAbstractPowerForPowerCard;
 import superstitio.powers.SexualHeat;
 import superstitio.powers.patchAndInterface.interfaces.orgasm.OnOrgasm_onSquirt;
 
 
-public class JuicyPussy extends GeneralCard {
+public class JuicyPussy extends LupaCard {
     public static final String ID = DataManager.MakeTextID(JuicyPussy.class);
 
     public static final CardType CARD_TYPE = CardType.POWER;

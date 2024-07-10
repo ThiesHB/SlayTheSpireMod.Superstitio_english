@@ -2,61 +2,16 @@
   "SuperstitioMod:Sensitive": {
     "NAME": "敏感",
     "DESCRIPTIONS": [
-      "你使用的每个 [E] 均会立即带来 #b%d 点 #ysuperstitiomod:快感 。 NL 核心机制： #ysuperstitiomod:高潮 。 NL 有必要提及的机制： #ysuperstitiomod:结束高潮 。"
+      "你使用的每个 [E] 均会立即带来 #b%d 点 #ysuperstitiomod:快感 。 NL #ysuperstitiomod:高潮 时，所有卡牌耗能临时减少 [E] 。 NL #ysuperstitiomod:连续高潮 会进一步增加减免的 [E] 。"
     ],
     "FLAVOR": "你的身体非常敏感。"
-  },
-  "SuperstitioMod:JokeDescription": {
-    "NAME": "五衰之相-小",
-    "DESCRIPTIONS": [
-      "你已经经历了小五衰，这使你无暇的天人之躯出现了缺漏，你变得更像是凡人了。 NL 你所经历的小五衰为： NL #ysuperstitiomod:乐声不起 、 #ysuperstitiomod:身光忽灭 、 #ysuperstitiomod:浴水着身 、 #ysuperstitiomod:着境不舍 、 #ysuperstitiomod:眼目数瞬 。"
-    ],
-    "FLAVOR": "作者：我希望你反应过来了，我根本没有给这个遗物做任何效果。"
   },
   "SuperstitioMod:DevaBody_Lupa": {
     "NAME": "腐朽天人",
     "DESCRIPTIONS": [
-      "不会因为任何其他原因失去体力。 NL 当本应失去体力时，会获得 #r腐朽 作为代替。 NL 受到攻击伤害而失去生命时， #ysuperstitiomod:接纳腐朽 。 NL 当你打出 #y攻击牌 时， #ysuperstitiomod:获得精液 。"
+      "不会因为任何其他原因失去体力。 NL 当本应失去体力时，会获得 #r腐朽 作为代替。 NL 受到攻击伤害而失去生命时， #ysuperstitiomod:接纳腐朽 。 NL 战斗结束时清空你的 #r腐朽 。"
     ],
     "FLAVOR": "你的身体刀枪不入，当然，“枪”可以。"
-  },
-  "SuperstitioMod:SorM": {
-    "NAME": "性格切换",
-    "DESCRIPTIONS": [
-      "M性格: 受到的伤害每有 #b%d 点获得%d点 #ysuperstitiomod:快感 。 NL S性格: 造成伤害超过 #b%d 点时获得%d点 #ysuperstitiomod:快感 。 NL 战斗外右键切换性格。",
-      "处于M性格。 NL 受到的伤害每有 #b%d 点获得%d点 #ysuperstitiomod:快感 。 NL 战斗外右键切换为S性格。",
-      "处于S性格。 NL 造成伤害超过 #b%d 点时获得%d点 #ysuperstitiomod:快感 。 NL 战斗外右键切换为M性格。",
-      "处于双重性格。 NL 受到的伤害每有 #b%d 点获得%d点 #ysuperstitiomod:快感 ， NL 造成伤害超过 #b%d 点时获得%d点 #ysuperstitiomod:快感 。"
-    ],
-    "FLAVOR": "我两个都一样的操操……操x99——啊！"
-  },
-  "SuperstitioMod:NippleRings": {
-    "NAME": "乳环",
-    "DESCRIPTIONS": [
-      "每次 #ysuperstitiomod:高潮 时，获得 %d 临时力量 。"
-    ],
-    "FLAVOR": "会让人更有吸引力，特别是乳头勃起时。"
-  },
-  "SuperstitioMod:Prostitution": {
-    "NAME": "嫖资",
-    "DESCRIPTIONS": [
-      "每打出 %d 次 #ysuperstitiomod:内射 或 #ysuperstitiomod:外射 牌，获得 %d 金币 。"
-    ],
-    "FLAVOR": "肉体交易，物美价廉。"
-  },
-  "SuperstitioMod:EjaculationMaster": {
-    "NAME": "潮吹大师",
-    "DESCRIPTIONS": [
-      "本场战斗中，每触发 %d 次 #ysuperstitiomod:潮吹 ，抽 %d 张卡。"
-    ],
-    "FLAVOR": "看我喷的多远！"
-  },
-  "SuperstitioMod:CumOnShoes": {
-    "NAME": "精液高跟鞋",
-    "DESCRIPTIONS": [
-      "本场战斗中，每 使用 %d #y性交牌 ，获得 1 层 敏捷。"
-    ],
-    "FLAVOR": "黏糊糊的好舒服呀。"
   },
   "SuperstitioMod:StartWithSexToy": {
     "NAME": "小玩具",
@@ -65,25 +20,11 @@
     ],
     "FLAVOR": "还是太少了。"
   },
-  "SuperstitioMod:VulnerableTogetherRelic": {
-    "NAME": "共沉沦",
+  "SuperstitioMod:SemenMagician": {
+    "NAME": "精液魔法师",
     "DESCRIPTIONS": [
-      "战斗开始时，将一张 #ysuperstitiomod:共沉沦 加入手牌。"
+      "当你打出 #y攻击牌 时， #ysuperstitiomod:获得精液 。"
     ],
     "FLAVOR": "还是太少了。"
-  },
-  "SuperstitioMod:MasochismMode": {
-    "NAME": "受虐狂",
-    "DESCRIPTIONS": [
-      "单次失去的生命每有 #b%d 点获得 #b%d 点 #ysuperstitiomod:快感 。"
-    ],
-    "FLAVOR": "是的，我是个受虐狂。"
-  },
-  "SuperstitioMod:DevaBody_Masochism": {
-    "NAME": "腐朽天人",
-    "DESCRIPTIONS": [
-      "不会因为任何其他原因失去体力。 NL 当本应失去体力时，获得 #r腐朽 作为代替。 NL 回合结束时， 对于 #ysuperstitiomod:新生腐朽 ， #ysuperstitiomod:接纳腐朽 。 NL 战斗结束时清空你的 #r腐朽 。 NL 当有 #y易伤 时，从卡牌中获得的 #y格挡 提高 #b%f 倍 。"
-    ],
-    "FLAVOR": "你的身体能极速恢复，但是所经历的一切都会在你的心中留下印痕。"
   }
 }

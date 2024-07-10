@@ -1,15 +1,15 @@
-package superstitio.cards.general.SkillCard.gainEnergy;
+package superstitio.cards.lupa.SkillCard.energy;
 
 import com.megacrit.cardcrawl.actions.common.DiscardSpecificCardAction;
 import com.megacrit.cardcrawl.actions.common.GainEnergyAction;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import superstitio.DataManager;
-import superstitio.cards.general.GeneralCard;
+import superstitio.cards.lupa.LupaCard;
 import superstitioapi.actions.AutoDoneInstantAction;
 import superstitioapi.actions.ChoseCardFromHandCardSelectScreen;
 
-public class MeasureDick extends GeneralCard {
+public class MeasureDick extends LupaCard {
     public static final String ID = DataManager.MakeTextID(MeasureDick.class);
 
     public static final CardType CARD_TYPE = CardType.SKILL;

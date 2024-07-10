@@ -1,5 +1,6 @@
 package superstitio.cards.maso.BaseCard;
 
+import com.badlogic.gdx.graphics.Color;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import superstitio.DataManager;
@@ -25,7 +26,7 @@ public class Spark extends MasoCard {
     public Spark() {
         super(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET, "base");
         this.setupMagicNumber(MAGIC, UPGRADE_MAGIC);
-        this.setupDamage(DAMAGE, UPGRADE_DAMAGE,new SexDamage());
+        this.setupDamage(DAMAGE, UPGRADE_DAMAGE, new SexDamage());
     }
 
     @Override
@@ -37,25 +38,12 @@ public class Spark extends MasoCard {
         });
     }
 
-//    @Override
-//    public void afterInterruptMoveToCardGroup(CardGroup cardGroup) {
-//        new CardOrb_WaitCardTrigger(this, cardGroup, WAIT, (orb, playedCard) -> {
-//            orb.StartHitCreature(AbstractDungeon.player);
-//            addToBot_drawCards(DRAWCard);
-//            PowerUtility.BubbleMessage(orb.getOriginCard().hb, false, this.cardStrings.getEXTENDED_DESCRIPTION()[0]);
-//        })
-//                .setDiscardOnEndOfTurn()
-//                .addToBot_HangCard();
-//    }
-
-//    @Override
-//    public void update() {
-//        super.update();
-//        if (AbstractDungeon.player != null && AbstractDungeon.player.hoveredCard == this) {
-//            calculateBlock();
-//            initializeDescription();
-//        }
-//    }
+    @Override
+    public void triggerOnGlowCheck() {
+        this.glowColor = BLUE_BORDER_GLOW_COLOR.cpy();
+        if (sumAllDelayHpLosePower() >= this.magicNumber)
+            this.glowColor = Color.PINK.cpy();
+    }
 
     @Override
     public void upgradeAuto() {

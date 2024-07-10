@@ -16,6 +16,7 @@ public interface OnOrgasm {
         ArrayList<OnOrgasm> onOrgasms =
                 owner.powers.stream().filter(OnOrgasm.class::isInstance).map(power -> (OnOrgasm) power).collect(Collectors.toCollection(ArrayList::new));
         if (owner.isPlayer) {
+            onOrgasms.addAll(AbstractDungeon.player.blights.stream().filter(OnOrgasm.class::isInstance).map(relic -> (OnOrgasm) relic).collect(Collectors.toList()));
             onOrgasms.addAll(CardUtility.AllCardInBattle().stream().filter(OnOrgasm.class::isInstance).map(card -> (OnOrgasm) card).collect(Collectors.toList()));
             onOrgasms.addAll(AbstractDungeon.player.relics.stream().filter(OnOrgasm.class::isInstance).map(relic -> (OnOrgasm) relic).collect(Collectors.toList()));
         }
@@ -26,6 +27,12 @@ public interface OnOrgasm {
      * 检测高潮时的钩子
      */
     default void onCheckOrgasm(SexualHeat SexualHeatPower) {
+    }
+
+    /**
+     * 高潮时的优先处理
+     */
+    default void onOrgasmFirst(SexualHeat SexualHeatPower) {
     }
 
     /**

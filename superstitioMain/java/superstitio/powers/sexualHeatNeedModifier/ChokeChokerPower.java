@@ -54,7 +54,7 @@ public class ChokeChokerPower extends AbstractSuperstitioPower implements
 
     @Override
     public void updateDescriptionArgs() {
-        this.setDescriptionArgs(amount, amount);
+        this.setDescriptionArgs(amount, amount / ChokeRate);
     }
 
     @Override

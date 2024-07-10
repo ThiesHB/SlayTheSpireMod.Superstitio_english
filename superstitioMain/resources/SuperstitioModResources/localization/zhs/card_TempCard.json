@@ -23,6 +23,9 @@
     "NAME_SFW": "神圣旗帜",
     "DESCRIPTION": "给目标装备 !M! 个 随机 superstitiomod:情趣玩具 。",
     "FLAVOR": "越多越好！",
+    "ADD_KEYWORDS_ID": [
+      "SuperstitioMod:EnemyOrgasm"
+    ],
     "FLAVOR_SFW": "出来漂的人都想打个好字旗。",
     "EXTENDED_DESCRIPTION": [
       "震动棒,肛塞,跳蛋"

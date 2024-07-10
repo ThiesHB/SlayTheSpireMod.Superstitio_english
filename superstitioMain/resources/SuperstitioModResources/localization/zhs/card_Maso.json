@@ -132,5 +132,11 @@
     "NAME_SFW": "沉重镣铐",
     "DESCRIPTION": "获得 !B! *格挡 。 NL 若从本卡获得的格挡失去，则抽 !M! 张牌。",
     "FLAVOR": ""
+  },
+  "SuperstitioMod:MasoCard:Sensitive3000": {
+    "NAME": "感度3000",
+    "NAME_SFW": "炽热之魂",
+    "DESCRIPTION": "superstitiomod:高潮 时，获得 !M! 的 [E] 。",
+    "FLAVOR": ""
   }
 }
