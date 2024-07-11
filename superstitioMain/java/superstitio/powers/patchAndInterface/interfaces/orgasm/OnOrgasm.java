@@ -3,7 +3,9 @@ package superstitio.powers.patchAndInterface.interfaces.orgasm;
 import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.core.AbstractCreature;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
+import com.megacrit.cardcrawl.relics.AbstractRelic;
 import superstitio.powers.SexualHeat;
+import superstitioapi.relicToBlight.InfoBlight;
 import superstitioapi.utils.CardUtility;
 
 import java.util.ArrayList;
@@ -16,6 +18,7 @@ public interface OnOrgasm {
         ArrayList<OnOrgasm> onOrgasms =
                 owner.powers.stream().filter(OnOrgasm.class::isInstance).map(power -> (OnOrgasm) power).collect(Collectors.toCollection(ArrayList::new));
         if (owner.isPlayer) {
+            onOrgasms.addAll(InfoBlight.getAllRelics(AbstractRelic.class).stream().filter(OnOrgasm.class::isInstance).map(relic -> (OnOrgasm) relic).collect(Collectors.toList()));
             onOrgasms.addAll(AbstractDungeon.player.blights.stream().filter(OnOrgasm.class::isInstance).map(relic -> (OnOrgasm) relic).collect(Collectors.toList()));
             onOrgasms.addAll(CardUtility.AllCardInBattle().stream().filter(OnOrgasm.class::isInstance).map(card -> (OnOrgasm) card).collect(Collectors.toList()));
             onOrgasms.addAll(AbstractDungeon.player.relics.stream().filter(OnOrgasm.class::isInstance).map(relic -> (OnOrgasm) relic).collect(Collectors.toList()));

@@ -51,17 +51,17 @@ public class DevaBody_Masochism extends SuperstitioRelic implements InfoBlight.B
 
     @Override
     public void obtain() {
-        AInfoBlightOnOrgasm.obtain(this);
+        InfoBlight.obtain(this);
     }
 
     @Override
     public void instantObtain(AbstractPlayer p, int slot, boolean callOnEquip) {
-        AInfoBlightOnOrgasm.instanceObtain(this, callOnEquip);
+        InfoBlight.instanceObtain(this, callOnEquip);
     }
 
     @Override
     public void instantObtain() {
-        AInfoBlightOnOrgasm.instanceObtain(this, true);
+        InfoBlight.instanceObtain(this, true);
     }
 
 

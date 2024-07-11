@@ -15,7 +15,7 @@
   "SuperstitioMod:GiveBirth": {
     "NAME": "分娩",
     "NAME_SFW": "仪式启动",
-    "DESCRIPTION": "失去 所有的 superstitiomod:妊娠 。获得 !B! 临时生命 。 NL 通过这张牌 失去 的 superstitiomod:妊娠 不会触发 superstitiomod:流产 ，而是触发 superstitiomod:顺产 。 NL 消耗 。",
+    "DESCRIPTION": "失去 所有的 superstitiomod:妊娠 *格挡 。获得 !B! 临时生命 。 NL 通过这张牌 失去 的 superstitiomod:妊娠 *格挡 不会触发 superstitiomod:流产 ，而是触发 superstitiomod:顺产 。 NL 消耗 。",
     "FLAVOR": "重获新生吧。"
   },
   "SuperstitioMod:SexToy": {

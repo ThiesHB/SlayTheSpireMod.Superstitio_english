@@ -2,7 +2,7 @@
   "SuperstitioMod:LupaCard:CoitalVocal": {
     "NAME": "叫床",
     "NAME_SFW": "战吼",
-    "DESCRIPTION": "获得 在场敌人数量+1次的 !B! 点 *格挡 。",
+    "DESCRIPTION": "获得 在场敌人数量+1次的 !B! 点 *引诱格挡 。",
     "FLAVOR": "兴之所至。",
     "FLAVOR_SFW": "抽牌。将手牌中的一张牌放到你的抽牌堆顶部。消耗。"
   },
@@ -67,7 +67,7 @@
   "SuperstitioMod:LupaCard:SemenTattoo": {
     "NAME": "精液香氛",
     "NAME_SFW": "血液护体",
-    "DESCRIPTION": "当你获得 *精液 时， NL 获得 其价值的 !M! 点 *格挡 。",
+    "DESCRIPTION": "当你获得 *精液 时， NL 获得 其价值的 !M! 点 *引诱格挡 。",
     "FLAVOR": "拥有催情的神奇效果。"
   },
   "SuperstitioMod:LupaCard:SemenMagic": {
@@ -79,14 +79,14 @@
   "SuperstitioMod:LupaCard:PrivatePhoto": {
     "NAME": "私房照",
     "NAME_SFW": "回望过去",
-    "DESCRIPTION": "获得 !B! 点 *格挡 。 NL 本回合 获得 !M! 次 superstitiomod:激情 。",
+    "DESCRIPTION": "获得 !B! 点 *引诱格挡 。 NL 本回合 获得 !M! 次 superstitiomod:激情 。",
     "FLAVOR": "哎呀，我“不小心”连带身份地址也发网上了，而且门锁也“不小心”坏掉了，这可怎么办是好~❤",
     "FLAVOR_SFW": ""
   },
   "SuperstitioMod:LupaCard:NudeLive": {
     "NAME": "色情直播",
     "NAME_SFW": "回望岁月",
-    "DESCRIPTION": "获得 !B! 点 *格挡 。 NL 获得 !M! 回合 superstitiomod:激情 。",
+    "DESCRIPTION": "获得 !B! 点 *引诱格挡 。 NL 获得 !M! 回合 superstitiomod:激情 。",
     "FLAVOR": "",
     "FLAVOR_SFW": ""
   },

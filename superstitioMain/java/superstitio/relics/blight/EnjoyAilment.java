@@ -42,17 +42,17 @@ public class EnjoyAilment extends SuperstitioRelic implements InfoBlight.BecomeI
 
     @Override
     public void obtain() {
-        AInfoBlightOnOrgasm.obtain(this);
+        InfoBlight.obtain(this);
     }
 
     @Override
     public void instantObtain(AbstractPlayer p, int slot, boolean callOnEquip) {
-        AInfoBlightOnOrgasm.instanceObtain(this, callOnEquip);
+        InfoBlight.instanceObtain(this, callOnEquip);
     }
 
     @Override
     public void instantObtain() {
-        AInfoBlightOnOrgasm.instanceObtain(this, true);
+        InfoBlight.instanceObtain(this, true);
     }
 
     public static class DoubleRemoveHpLostWhenHasVulnerablePower extends AbstractSuperstitioPower implements InvisiblePower {

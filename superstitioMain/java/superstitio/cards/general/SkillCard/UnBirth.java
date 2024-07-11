@@ -7,8 +7,7 @@ import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.core.AbstractCreature;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
-import com.megacrit.cardcrawl.powers.AbstractPower;
-import com.megacrit.cardcrawl.powers.ArtifactPower;
+import com.megacrit.cardcrawl.powers.*;
 import superstitio.DataManager;
 import superstitio.cardModifier.modifiers.block.PregnantBlock_sealPower;
 import superstitio.cards.general.GeneralCard;
@@ -34,7 +33,7 @@ public class UnBirth extends GeneralCard {
     public static final CardTarget CARD_TARGET = SelfOrEnemyTargeting.SELF_OR_ENEMY;
 
     private static final int COST = 1;
-    private static final int BLOCK = 11;
+    private static final int BLOCK = 8;
     private static final int UPGRADE_BLOCK = 3;
 
     public UnBirth() {
@@ -42,6 +41,20 @@ public class UnBirth extends GeneralCard {
         this.setupBlock(BLOCK, UPGRADE_BLOCK, new PregnantBlock_sealPower(new ArrayList<>(), null).removeAutoBind());
         this.cardsToPreview = new GiveBirth();
         //this.exhaust = true;
+    }
+
+    private static ArrayList<AbstractPower> doSealPowers(ArrayList<AbstractPower> monster) {
+        ArrayList<AbstractPower> sealPower = new ArrayList<>();
+        monster.forEach(power -> {
+            if (power instanceof WeakPower || power instanceof VulnerablePower || power instanceof FrailPower || power instanceof ArtifactPower) {
+                if (power instanceof InvisiblePower) return;
+                power.owner = AbstractDungeon.player;
+                power.amount = power.amount * 2;
+                sealPower.add(power);
+                AutoDoneInstantAction.addToBotAbstract(() -> monster.remove(power));
+            }
+        });
+        return sealPower;
     }
 
     private void ForPlayer(AbstractPlayer player) {
@@ -62,19 +75,6 @@ public class UnBirth extends GeneralCard {
         ArrayList<AbstractPower> sealPower = doSealPowers(monster.powers);
         addToBot_gainCustomBlock(new PregnantBlock_sealPower(sealPower, monster));
         addToBot_makeTempCardInBattle(new GiveBirth(), ActionUtility.BattleCardPlace.Discard, upgraded);
-    }
-
-    private static ArrayList<AbstractPower> doSealPowers(ArrayList<AbstractPower> monster) {
-        ArrayList<AbstractPower> sealPower = new ArrayList<>();
-        monster.forEach(power -> {
-            if (power.type != AbstractPower.PowerType.DEBUFF && !(power instanceof ArtifactPower)) return;
-            if (power instanceof InvisiblePower) return;
-            power.owner = AbstractDungeon.player;
-            power.amount = power.amount * 2;
-            sealPower.add(power);
-            AutoDoneInstantAction.addToBotAbstract(() -> monster.remove(power));
-        });
-        return sealPower;
     }
 
     @Override

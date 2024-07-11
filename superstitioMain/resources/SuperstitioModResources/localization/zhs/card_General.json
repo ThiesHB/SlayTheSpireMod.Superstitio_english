@@ -67,7 +67,7 @@
   "SuperstitioMod:UnBirth": {
     "NAME": "胎内回归",
     "NAME_SFW": "力量汲取",
-    "DESCRIPTION": "获得 !B! superstitiomod:妊娠 。 NL superstitiomod:封印 目标所有的 负面效果 和 人工制品 。 NL superstitiomod:流产 时，自身获得两倍 superstitiomod:封印 的效果。",
+    "DESCRIPTION": "在弃牌堆中添加一张 *分娩。 NL 获得 !B! superstitiomod:妊娠 *格挡 。 NL superstitiomod:封印 目标所有的 superstitiomod:通用负面效果 和 人工制品 。 NL superstitiomod:流产 时，自身获得两倍 superstitiomod:封印 的效果。",
     "FLAVOR": "我会包容你的一切：你的欲望、你的梦想、你的爱…… NL 请把你的一切交给我。"
   },
   "SuperstitioMod:ChokeChoker": {
@@ -90,7 +90,7 @@
   },
   "SuperstitioMod:Endure": {
     "NAME": "忍耐",
-    "DESCRIPTION": "获得 !B! *格挡 。 NL 下回合获得 !M! superstitiomod:快感 。 NL 抽 2 张牌。",
+    "DESCRIPTION": "获得 !B! *引诱格挡 。 NL 下回合获得 !M! superstitiomod:快感 。 NL 抽 2 张牌。",
     "FLAVOR": "吃得巨中巨，方为忍上忍。",
     "ADD_KEYWORDS_ID": [
       "SuperstitioMod:Orgasm"
@@ -129,7 +129,7 @@
   "SuperstitioMod:ForceOrgasm": {
     "NAME": "强制高潮",
     "NAME_SFW": "难掩怒火",
-    "DESCRIPTION": "造成 !M! 点 superstitiomod:快感 。 NL 下回合开始时， NL 消耗 1 张牌 。 NL 重复 X 次。 NL 消耗 。",
+    "DESCRIPTION": "获得 !M! 点 superstitiomod:快感 。 NL 下回合开始时， NL 消耗 1 张牌 。 NL 重复 X 次。 NL 消耗 。",
     "FLAVOR": "数到3就高潮！ NL 一、二、三！三！三！三三三三三三三三……",
     "ADD_KEYWORDS_ID": [
       "SuperstitioMod:Orgasm"
@@ -201,7 +201,7 @@
   "SuperstitioMod:HaveBirthWith": {
     "NAME": "孕育",
     "NAME_SFW": "呼神护卫",
-    "DESCRIPTION": "获得 !B! superstitiomod:妊娠 。 NL 顺产： 生成和目标对应的 superstitiomod:宝宝 。",
+    "DESCRIPTION": "在弃牌堆中添加一张 *分娩。 NL 获得 !B! superstitiomod:妊娠 *格挡 。 NL 顺产： 生成和目标对应的 superstitiomod:宝宝 。",
     "FLAVOR": "",
     "FLAVOR_SFW": "是鸟？是飞机？是我的守护神哒！"
   },

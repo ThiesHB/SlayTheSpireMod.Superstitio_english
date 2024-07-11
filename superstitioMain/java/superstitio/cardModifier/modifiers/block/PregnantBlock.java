@@ -1,5 +1,6 @@
 package superstitio.cardModifier.modifiers.block;
 
+import com.badlogic.gdx.graphics.Color;
 import com.megacrit.cardcrawl.cards.DamageInfo;
 import superstitio.cardModifier.modifiers.AbstractLupaBlock;
 
@@ -43,7 +44,10 @@ public abstract class PregnantBlock extends AbstractLupaBlock {
             remain = removeNaturally(remain);
         return remain;
     }
-
+    @Override
+    public Color blockImageColor() {
+        return Color.GOLDENROD.cpy();
+    }
     @Override
     public Priority priority() {
         return Priority.BOTTOM;

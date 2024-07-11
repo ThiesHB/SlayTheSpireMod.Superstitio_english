@@ -138,7 +138,6 @@ public class InfoBlight extends BlightWithRelic implements
         if (player.hasRelic(relic.relicId)) return;
         if (relic instanceof InfoBlight.BecomeInfoBlight)
             relic.instantObtain(player, player.blights.size(), false);
-//            instanceObtain(relic, false);
     }
 
     /**

@@ -123,14 +123,14 @@
   "SuperstitioMod:MasoCard:LoveDirty": {
     "NAME": "恋污",
     "NAME_SFW": "光辉飞盾",
-    "DESCRIPTION": "如果这张牌从你的手牌中被 *丢弃 或 消耗 ，获得 !B! *格挡 。",
+    "DESCRIPTION": "如果这张牌从你的手牌中被 *丢弃 或 消耗 ，获得 !B! *回味情爱 。",
     "FLAVOR": "",
     "FLAVOR_SFW": "你好，程序！"
   },
   "SuperstitioMod:MasoCard:HeavyCuffs": {
     "NAME": "沉重镣铐",
     "NAME_SFW": "沉重镣铐",
-    "DESCRIPTION": "获得 !B! *格挡 。 NL 若从本卡获得的格挡失去，则抽 !M! 张牌。",
+    "DESCRIPTION": "获得 !B! *镣铐格挡 。 NL 若从本卡获得的格挡失去，则抽 !M! 张牌。",
     "FLAVOR": ""
   },
   "SuperstitioMod:MasoCard:Sensitive3000": {

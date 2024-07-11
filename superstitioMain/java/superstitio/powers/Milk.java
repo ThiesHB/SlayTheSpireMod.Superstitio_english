@@ -2,6 +2,7 @@ package superstitio.powers;
 
 import com.megacrit.cardcrawl.cards.DamageInfo;
 import com.megacrit.cardcrawl.core.AbstractCreature;
+import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import superstitio.DataManager;
 import superstitioapi.actions.SuperFastAddTempHPAction;
 
@@ -23,8 +24,8 @@ public class Milk extends AbstractSuperstitioPower {
         if (info.type != DamageInfo.DamageType.NORMAL) return;
 //        if (damageAmount <= 0) return;
         this.flash();
-        addToBot(new SuperFastAddTempHPAction(target, owner, this.amount));
-        addToBot(new SuperFastAddTempHPAction(owner, owner, this.amount));
+//        addToBot(new SuperFastAddTempHPAction(target, owner, this.amount));
+        addToBot(new SuperFastAddTempHPAction(AbstractDungeon.player, owner, this.amount));
         addToBot_removeSpecificPower(this);
 //        addToBot_reducePowerToOwner(Milk.POWER_ID, this.amount / 2);
     }

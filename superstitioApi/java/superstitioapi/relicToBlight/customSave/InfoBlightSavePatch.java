@@ -8,7 +8,6 @@ import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.relics.AbstractRelic;
 import superstitioapi.relicToBlight.BlightWithRelic;
-import superstitioapi.relicToBlight.InfoBlight;
 
 import java.util.ArrayList;
 
@@ -28,11 +27,6 @@ public class InfoBlightSavePatch {
             else
                 ((CustomSavableRaw) relic).onLoadRaw(null);
         }
-
-        InfoBlight.getAllRelicsWithBlightIndex(AbstractRelic.class).forEach((integer, relic) ->
-        {
-
-        });
     }
 
 }

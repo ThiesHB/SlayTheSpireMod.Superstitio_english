@@ -22,7 +22,7 @@ public class KakaaGirlMode extends AbstractTempCard {
     public static final CardTarget CARD_TARGET = CardTarget.SELF;
 
     private static final int COST = -2;
-    private static final int MAGIC = 2;
+    private static final int MAGIC = 3;
 
     public KakaaGirlMode() {
         super(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET);
@@ -38,7 +38,7 @@ public class KakaaGirlMode extends AbstractTempCard {
         } else {
             CardCrawlGame.sound.play("VO_CULTIST_1C");
         }
-        AbstractDungeon.effectList.add(new SpeechBubble(this.hb.cX + AbstractDungeon.player.dialogX, this.hb.cY + AbstractDungeon.player.dialogY,
+        AbstractDungeon.effectList.add(new SpeechBubble(AbstractDungeon.player.hb.cX + AbstractDungeon.player.dialogX, AbstractDungeon.player.hb.cY + AbstractDungeon.player.dialogY,
                 2.5f, Cultist.DIALOG[2], false));
     }
 

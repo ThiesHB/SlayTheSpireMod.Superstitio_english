@@ -1,7 +1,6 @@
 package superstitio.cardModifier.modifiers.block;
 
 import com.evacipated.cardcrawl.mod.stslib.blockmods.AbstractBlockModifier;
-import com.megacrit.cardcrawl.cards.DamageInfo;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import superstitio.DataManager;
 import superstitio.monster.ChibiKindMonster;
@@ -56,10 +55,10 @@ public class PregnantBlock_newMonster extends PregnantBlock {
         return super.getDescription();
     }
 
-    @Override
-    public int removeUnNaturally(DamageInfo info, int remainingDamage) {
-        return super.removeUnNaturally(info, remainingDamage * 2);
-    }
+//    @Override
+//    public int removeUnNaturally(DamageInfo info, int remainingDamage) {
+//        return super.removeUnNaturally(info, remainingDamage * 2);
+//    }
 
     @Override
     public int removeNaturally(int remainingDamage) {

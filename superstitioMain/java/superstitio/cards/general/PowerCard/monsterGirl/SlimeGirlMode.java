@@ -21,7 +21,7 @@ public class SlimeGirlMode extends AbstractTempCard {
     public static final CardTarget CARD_TARGET = CardTarget.SELF;
 
     private static final int COST = -2;
-    private static final int MAGIC = 1;
+    private static final int MAGIC = 2;
 
     public SlimeGirlMode() {
         super(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET);

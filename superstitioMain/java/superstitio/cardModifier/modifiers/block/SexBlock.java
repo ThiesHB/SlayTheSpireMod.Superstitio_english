@@ -27,8 +27,8 @@ public class SexBlock extends AbstractLupaBlock {
         return new SexBlock();
     }
 
-    @Override
-    public Color blockImageColor() {
-        return Color.PINK.cpy();
-    }
+//    @Override
+//    public Color blockImageColor() {
+//        return Color.PINK.cpy();
+//    }
 }

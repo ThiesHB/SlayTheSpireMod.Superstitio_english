@@ -132,7 +132,7 @@
   "SuperstitioMod:Milk": {
     "NAME": "乳汁",
     "DESCRIPTIONS": [
-      "在下一次攻击后，给予目标和自身 %d 点 #y临时生命 。"
+      "在下一次攻击后，给予玩家 %d 点 #y临时生命 。"
     ],
     "MAKE_KEYWORDS": [
       {
@@ -140,7 +140,7 @@
         "NAMES": [
           "乳汁"
         ],
-        "DESCRIPTION": "在下一次攻击后，给予目标和自身 #y临时生命。"
+        "DESCRIPTION": "在下一次攻击后，给予玩家 #y临时生命。"
       }
     ]
   },

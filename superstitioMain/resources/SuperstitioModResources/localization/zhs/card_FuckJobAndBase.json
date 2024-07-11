@@ -35,7 +35,7 @@
   "SuperstitioMod:Job_Foot": {
     "NAME": "足交",
     "NAME_SFW": "回旋踢",
-    "DESCRIPTION": "造成 !D! 点 伤害 两次。 NL superstitiomod:助兴- superstitiomod:缠绵 NL 打出 !M! 性交牌： NL 抽一张牌。 NL superstitiomod:自动释放 。",
+    "DESCRIPTION": "造成 !D! 点 伤害 两次。 NL superstitiomod:助兴- superstitiomod:缠绵 !M! 次， NL 打出 性交牌： NL 抽一张牌。 NL superstitiomod:自动释放 。",
     "FLAVOR": "最好是射鞋里，个人来说还是比较喜欢黏糊糊地走路。",
     "EXTENDED_DESCRIPTION": [
       "鞋"
@@ -161,7 +161,7 @@
   "SuperstitioMod:DrySemen": {
     "NAME": "精液护盾",
     "NAME_SFW": "血液护盾",
-    "DESCRIPTION": "superstitiomod:精欲 !M! ： NL 获得 !B! 点 *格挡 。",
+    "DESCRIPTION": "superstitiomod:精欲 !M! ： NL 获得 !B! 点 *精液格挡 。",
     "FLAVOR": ""
   },
   "SuperstitioMod:Spark": {
