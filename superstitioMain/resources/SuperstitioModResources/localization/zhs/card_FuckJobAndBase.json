@@ -2,7 +2,7 @@
   "SuperstitioMod:Job_Armpit": {
     "NAME": "腋交",
     "NAME_SFW": "肘击",
-    "DESCRIPTION": "执行两次： NL superstitiomod:助兴- superstitiomod:欲求 NL 打出 !M! 攻击牌： NL 造成 !D! 点 伤害 。",
+    "DESCRIPTION": "执行两次： NL superstitiomod:欲求 打出攻击牌 !M! 次： NL 造成 !D! 点 伤害 。",
     "FLAVOR": "很想试试看被打火机一点点烧掉腋毛的感觉，可惜本小姐没有这种东西。",
     "EXTENDED_DESCRIPTION": [
       "腋下"
@@ -14,7 +14,7 @@
   "SuperstitioMod:Job_Blow": {
     "NAME": "口交",
     "NAME_SFW": "铁头撞击",
-    "DESCRIPTION": "造成 !D! 点 伤害 。 NL superstitiomod:助兴- superstitiomod:缠绵 NL 打出 !M! 性交牌： NL 获得 1 superstitiomod:快感 。",
+    "DESCRIPTION": "造成 !D! 点 伤害 。 NL superstitiomod:缠绵 打出性交牌 !M! 次： NL 获得 1 superstitiomod:快感 。",
     "FLAVOR": "听说有一些天人会把自己的牙齿都拔掉，就为了给别人口交时方便。有点可怕。",
     "EXTENDED_DESCRIPTION": [
       "脸"
@@ -35,7 +35,7 @@
   "SuperstitioMod:Job_Foot": {
     "NAME": "足交",
     "NAME_SFW": "回旋踢",
-    "DESCRIPTION": "造成 !D! 点 伤害 两次。 NL superstitiomod:助兴- superstitiomod:缠绵 !M! 次， NL 打出 性交牌： NL 抽一张牌。 NL superstitiomod:自动释放 。",
+    "DESCRIPTION": "造成 !D! 点 伤害 两次。 NL superstitiomod:缠绵 打出性交牌 !M! 次： NL 抽一张牌。 NL superstitiomod:自动释放 。",
     "FLAVOR": "最好是射鞋里，个人来说还是比较喜欢黏糊糊地走路。",
     "EXTENDED_DESCRIPTION": [
       "鞋"
@@ -56,7 +56,7 @@
   "SuperstitioMod:Job_Hair": {
     "NAME": "发交",
     "NAME_SFW": "辫子神功",
-    "DESCRIPTION": "造成 !D! 点 伤害 。 NL superstitiomod:助兴- superstitiomod:欲求 NL 打出 !M! 任何牌： NL 把 带有 NL 消耗 的 复制加入手牌， NL 其在被打出之前，耗能变为0 。 NL superstitiomod:自动释放 。",
+    "DESCRIPTION": "造成 !D! 点 伤害 。 NL superstitiomod:欲求 打出任何牌 !M! 次： NL 把 带有 NL 消耗 的 复制加入手牌， NL 其在被打出之前，耗能变为0 。 NL superstitiomod:自动释放 。",
     "FLAVOR": "扯着有点疼，不会把我变成光头吧？",
     "EXTENDED_DESCRIPTION": [
       "头发"
@@ -65,7 +65,7 @@
   "SuperstitioMod:Job_Hand": {
     "NAME": "手交",
     "NAME_SFW": "升龙拳",
-    "DESCRIPTION": "造成 !D! 点 伤害 两次。 NL superstitiomod:助兴- superstitiomod:缠绵 NL 打出 !M! 攻击牌： NL 获得 %d 力量 。 superstitiomod:自动释放 。",
+    "DESCRIPTION": "造成 !D! 点 伤害 两次。 NL superstitiomod:缠绵 打出攻击牌 !M! 次： NL 获得 %d 力量 。 superstitiomod:自动释放 。",
     "FLAVOR": "用手就能做好的事情却要用其他的部位。该说是你们需求太高了，还是我的两只手应付不过来了？",
     "EXTENDED_DESCRIPTION": [
       "手"
@@ -98,7 +98,7 @@
   "SuperstitioMod:Fuck_Eye": {
     "NAME": "眼交",
     "NAME_SFW": "蛇形拳",
-    "DESCRIPTION": "对自身和目标敌人造成 !D! 点 伤害 两次， 获得 1 层 虚弱 。 NL superstitiomod:助兴- superstitiomod:欲求 NL 打出 !M! 任何牌： NL 移除 !B! 点 *腐朽 ， 把 *耳交 加入手牌 。 NL 消耗 。",
+    "DESCRIPTION": "对自身和目标敌人造成 !D! 点 伤害 两次， 获得 1 层 虚弱 。 NL superstitiomod:欲求 打出任何牌 !M! 次： NL 移除 !B! 点 *腐朽 ， 把 *耳交 加入手牌 。 NL 消耗 。",
     "FLAVOR": "也许是脑交。总的来说还是取决于肉棒的主人敢不敢用力吧。"
   },
   "SuperstitioMod:Fuck_Navel": {
@@ -116,13 +116,13 @@
   "SuperstitioMod:Fuck_Throat": {
     "NAME": "深喉",
     "NAME_SFW": "虎吼拳",
-    "DESCRIPTION": "造成 !D! 点 伤害 。 NL 如果有 superstitiomod:助兴 的卡牌， NL 获得 !M! 的 [E] 。",
+    "DESCRIPTION": "造成 !D! 点 伤害 。 NL 如果 superstitiomod:助兴序列 不为空， NL 获得 !M! 的 [E] 。",
     "FLAVOR": "经过练习就不会反胃了，真好。"
   },
   "SuperstitioMod:Fuck_Vaginal": {
     "NAME": "阴道",
     "NAME_SFW": "燕形拳",
-    "DESCRIPTION": "造成 !D! 点 伤害 ， NL 无消耗触发所有 superstitiomod:助兴- superstitiomod:缠绵 效果 !M! 次。",
+    "DESCRIPTION": "造成 !D! 点 伤害 ， NL 无消耗触发所有 superstitiomod:助兴序列 拥有 superstitiomod:缠绵 效果的卡牌 !M! 次。",
     "FLAVOR": "朴实无华。如果没有其他东西助兴的话就会困得想睡觉。"
   },
   "SuperstitioMod:Invite": {
@@ -140,7 +140,7 @@
   "SuperstitioMod:Masturbate": {
     "NAME": "自慰",
     "NAME_SFW": "准备战斗",
-    "DESCRIPTION": "获得 !M! 点 superstitiomod:快感 。 NL superstitiomod:助兴- superstitiomod:欲求 NL 打出 %d 任何牌： NL 抽 %d 张牌。 NL superstitiomod:自动释放 。",
+    "DESCRIPTION": "获得 !M! 点 superstitiomod:快感 。 NL superstitiomod:欲求 打出任何牌 %d 次： NL 抽 %d 张牌。 NL superstitiomod:自动释放 。",
     "FLAVOR": "何以解忧？聊以自慰。",
     "EXTENDED_DESCRIPTION": [
       "抽牌"
@@ -152,7 +152,7 @@
   "SuperstitioMod:FistIn": {
     "NAME": "拳头插入",
     "NAME_SFW": "强制打出",
-    "DESCRIPTION": "选择一张手牌，失去其当前费用 !M! 倍的血量，强制打出。 NL superstitiomod:助兴- superstitiomod:欲求 NL 打出 %d 任何牌： NL 抽 %d 张牌。",
+    "DESCRIPTION": "选择一张手牌，失去其当前费用 !M! 倍的血量，强制打出。 NL superstitiomod:欲求 打出任何牌 %d 次： NL 抽 %d 张牌。",
     "FLAVOR": "再深一点会更好。",
     "EXTENDED_DESCRIPTION": [
       "强制打出。"

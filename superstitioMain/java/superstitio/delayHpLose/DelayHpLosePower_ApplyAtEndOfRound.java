@@ -4,10 +4,9 @@ import com.badlogic.gdx.graphics.Color;
 import com.megacrit.cardcrawl.core.AbstractCreature;
 import com.megacrit.cardcrawl.powers.AbstractPower;
 import superstitioapi.actions.AutoDoneInstantAction;
-import superstitioapi.powers.interfaces.OnPostApplyThisPower;
 import superstitioapi.utils.ActionUtility;
 
-public abstract class DelayHpLosePower_ApplyAtEndOfRound extends DelayHpLosePower implements OnPostApplyThisPower<DelayHpLosePower_ApplyAtEndOfRound> {
+public abstract class DelayHpLosePower_ApplyAtEndOfRound extends DelayHpLosePower {
     private static final Color ReadyToRemoveColor = new Color(1.0F, 0.5F, 0.0F, 1.0F);
     private static final Color ForAWhileColor = new Color(0.9412F, 0.4627f, 0.5451f, 1.0f);
     private static final Color OriginColor = new Color(1.0F, 0.85f, 0.90f, 1.0f);
@@ -50,7 +49,7 @@ public abstract class DelayHpLosePower_ApplyAtEndOfRound extends DelayHpLosePowe
     }
 
     @Override
-    public void InitializePostApplyThisPower(DelayHpLosePower_ApplyAtEndOfRound addedPower) {
+    public void InitializePostApplyThisPower(DelayHpLosePower addedPower) {
         AutoDoneInstantAction.addToBotAbstract(() ->
                 findAll(this.owner, DelayHpLosePower.class).forEach(DelayHpLosePower::updateDescription));
     }

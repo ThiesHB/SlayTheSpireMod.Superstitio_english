@@ -14,7 +14,7 @@
     "NAMES": [
       "快感"
     ],
-    "DESCRIPTION": "每累计一定层数迎来一次 #y高潮 。 NL 自身的回合结束后失去。"
+    "DESCRIPTION": "每累计 10 点迎来一次 #y高潮 。 NL 自身的回合结束后失去。"
   },
   {
     "PROPER_NAME": "#r接纳腐朽",
@@ -37,7 +37,7 @@
       "高潮",
       "高潮中"
     ],
-    "DESCRIPTION": "累积 #y快感 ，进入 #y高潮 。"
+    "DESCRIPTION": "累积 10 点 #y快感 ，进入 #y高潮 。"
   },
   {
     "ID": "SuperstitioMod:EnemyOrgasm",

@@ -20,7 +20,7 @@ public class Endure extends GeneralCard {
     private static final int MAGIC = 10;
     private static final int UPGRADE_MAGIC = 5;
     private static final int BLOCK = 5;
-    private static final int UPGRADE_BLOCK = 2;
+    private static final int UPGRADE_BLOCK = 0;
     private static final int DRAWCard_NUM = 2;
 
 
@@ -32,6 +32,7 @@ public class Endure extends GeneralCard {
 
     @Override
     public void use(AbstractPlayer player, AbstractMonster monster) {
+        addToBot_gainBlock();
         addToBot_applyPower(new DelaySexualHeat(player, this.magicNumber));
         addToBot_drawCards(DRAWCard_NUM);
     }

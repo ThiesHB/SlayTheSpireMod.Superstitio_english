@@ -15,6 +15,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static basemod.BaseMod.MAX_HAND_SIZE;
+
 public class CardUtility {
 
 
@@ -156,5 +158,13 @@ public class CardUtility {
             return false;
         }
         return EnergyPanel.totalCount >= card.costForTurn || card.freeToPlay() || card.isInAutoplay;
+    }
+
+    public static void moveToHandOrDiscardWhenMaxHand(CardGroup cardHolder, AbstractCard originCard) {
+        if (AbstractDungeon.player.hand.size() >= MAX_HAND_SIZE) {
+            AbstractDungeon.player.createHandIsFullDialog();
+            cardHolder.moveToDiscardPile(originCard);
+        } else
+            cardHolder.moveToHand(originCard);
     }
 }

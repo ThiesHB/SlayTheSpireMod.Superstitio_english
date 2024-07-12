@@ -84,7 +84,7 @@ public abstract class CardOrb extends AbstractOrb {
     }
 
     public static Optional<AbstractMonster> getHoveredMonster() {
-        AbstractMonster hoveredMonster =  ReflectionHacks.getPrivate(AbstractDungeon.player, AbstractPlayer.class, "hoveredMonster");
+        AbstractMonster hoveredMonster = ReflectionHacks.getPrivate(AbstractDungeon.player, AbstractPlayer.class, "hoveredMonster");
         if (hoveredMonster == null) return Optional.empty();
         return Optional.of(hoveredMonster);
     }
@@ -118,7 +118,7 @@ public abstract class CardOrb extends AbstractOrb {
                     cardHolder.moveToDeck(originCard, true);
                     break;
                 case HAND:
-                    cardHolder.moveToHand(originCard);
+                    CardUtility.moveToHandOrDiscardWhenMaxHand(cardHolder,originCard);
                     break;
                 case EXHAUST_PILE:
                     AbstractDungeon.effectList.add(new ExhaustCardEffect(card));

@@ -12,10 +12,12 @@ import com.megacrit.cardcrawl.vfx.combat.PowerBuffEffect;
 import superstitio.DataManager;
 import superstitio.Logger;
 import superstitio.SuperstitioImg;
+//import superstitio.modTips.TipsManager;
 import superstitio.powers.AbstractSuperstitioPower;
 import superstitioapi.actions.AutoDoneInstantAction;
 import superstitioapi.cards.DamageActionMaker;
 import superstitioapi.powers.interfaces.DecreaseHealthBarNumberPower;
+import superstitioapi.powers.interfaces.OnPostApplyThisPower;
 import superstitioapi.powers.interfaces.invisible.InvisiblePower_InvisibleApplyPowerEffect;
 import superstitioapi.powers.interfaces.invisible.InvisiblePower_InvisibleIconAndAmount;
 import superstitioapi.powers.interfaces.invisible.InvisiblePower_InvisibleRemovePowerEffect;
@@ -26,13 +28,15 @@ import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.stream.Stream;
 
+//import static superstitio.modTips.TipsManager.DELAY_HP_LOSE_TIP;
+
 @SuperstitioImg.NoNeedImg
 public abstract class DelayHpLosePower extends AbstractSuperstitioPower implements
         HealthBarRenderPower, DecreaseHealthBarNumberPower,
         InvisiblePower_InvisibleIconAndAmount, InvisiblePower_InvisibleTips,
-        InvisiblePower_InvisibleApplyPowerEffect, InvisiblePower_InvisibleRemovePowerEffect {
+        InvisiblePower_InvisibleApplyPowerEffect, InvisiblePower_InvisibleRemovePowerEffect,
+        OnPostApplyThisPower<DelayHpLosePower> {
     private static final Color OriginColor = new Color(1.0F, 0.85f, 0.90f, 1.0f);
-
     protected boolean isRemovedForApplyDamage = false;
 
     public DelayHpLosePower(String id, final AbstractCreature owner, int amount) {
@@ -137,6 +141,11 @@ public abstract class DelayHpLosePower extends AbstractSuperstitioPower implemen
                 .setDamageModifier(this, new UnBlockAbleIgnoresTempHPDamage())
                 .setEffect(AbstractGameAction.AttackEffect.LIGHTNING)
                 .setDamageType(DataManager.CanOnlyDamageDamageType.UnBlockAbleDamageType);
+    }
+
+    @Override
+    public void InitializePostApplyThisPower(DelayHpLosePower addedPower) {
+//        TipsManager.tryShowTip(DELAY_HP_LOSE_TIP);
     }
 
     @Override
