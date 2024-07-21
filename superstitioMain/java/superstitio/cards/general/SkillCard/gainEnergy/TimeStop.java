@@ -120,7 +120,10 @@ public class TimeStop extends GeneralCard {
             }
 
             public static boolean shouldEscapeEndOfRound(AbstractPower power) {
+                if (power == null) return false;
                 if (power instanceof TimeStopPower) return false;
+                if (power.owner == null) return false;
+                if (power.owner.powers == null) return false;
 //                if (power instanceof NoDrawPower) return false;
                 Optional<AbstractPower> timeStopPower =
                         power.owner.powers.stream().filter(power1 -> power1 instanceof TimeStopPower).findAny();
