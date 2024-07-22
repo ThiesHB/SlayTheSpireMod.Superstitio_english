@@ -5,11 +5,12 @@ import com.megacrit.cardcrawl.actions.common.HealAction;
 import com.megacrit.cardcrawl.cards.DamageInfo;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.core.AbstractCreature;
-import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import superstitio.DataManager;
+import superstitio.cards.SuperstitioCard;
 import superstitio.cards.maso.MasoCard;
 import superstitio.powers.AbstractSuperstitioPower;
+import superstitio.powers.EasyBuildAbstractPowerForPowerCard;
 
 
 public class DeathDoor extends MasoCard {
@@ -33,18 +34,17 @@ public class DeathDoor extends MasoCard {
 
     @Override
     public void use(AbstractPlayer player, AbstractMonster monster) {
-        addToBot_applyPower(new DeathDoorPower(AbstractDungeon.player, this.magicNumber));
+        addToBot_applyPower(new DeathDoorPower(this.magicNumber));
     }
 
     @Override
     public void upgradeAuto() {
     }
 
-    public static class DeathDoorPower extends AbstractSuperstitioPower implements OnPlayerDeathPower {
-        public static final String POWER_ID = DataManager.MakeTextID(DeathDoorPower.class);
+    public static class DeathDoorPower extends EasyBuildAbstractPowerForPowerCard implements OnPlayerDeathPower {
 
-        public DeathDoorPower(final AbstractCreature owner, int amount) {
-            super(POWER_ID, owner, amount);
+        public DeathDoorPower(int amount) {
+            super(amount);
         }
 
         @Override
@@ -60,6 +60,11 @@ public class DeathDoor extends MasoCard {
             addToBot_applyPower(new AtDeathDoor(this.owner));
             addToBot_AutoRemoveOne(this);
             return false;
+        }
+
+        @Override
+        protected SuperstitioCard makePowerCard() {
+            return new DeathDoor();
         }
     }
 

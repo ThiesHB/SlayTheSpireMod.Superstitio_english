@@ -1,4 +1,4 @@
-package superstitio.cards.general.SkillCard;
+package superstitio.cards.maso.SkillCard;
 
 import com.evacipated.cardcrawl.mod.stslib.blockmods.BlockModifierManager;
 import com.evacipated.cardcrawl.mod.stslib.cards.targeting.SelfOrEnemyTargeting;
@@ -10,9 +10,9 @@ import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import com.megacrit.cardcrawl.powers.*;
 import superstitio.DataManager;
 import superstitio.cardModifier.modifiers.block.PregnantBlock_sealPower;
-import superstitio.cards.general.GeneralCard;
 import superstitio.cards.general.TempCard.GiveBirth;
 import superstitio.cards.general.TempCard.SelfReference;
+import superstitio.cards.maso.MasoCard;
 import superstitioapi.actions.AutoDoneInstantAction;
 import superstitioapi.utils.ActionUtility;
 
@@ -23,7 +23,7 @@ import static superstitioapi.utils.CardUtility.getSelfOrEnemyTarget;
 
 
 //TODO 增加一个按照怪物体型获得格挡的效果
-public class UnBirth extends GeneralCard {
+public class UnBirth extends MasoCard {
     public static final String ID = DataManager.MakeTextID(UnBirth.class);
 
     public static final CardType CARD_TYPE = CardType.SKILL;

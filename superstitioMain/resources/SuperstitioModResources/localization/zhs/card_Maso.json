@@ -2,7 +2,7 @@
   "SuperstitioMod:MasoCard:DeathDoor": {
     "NAME": "濒死体验",
     "NAME_SFW": "重整旗鼓",
-    "DESCRIPTION": "免除 !M! 次死亡 。 NL 第一次免除死亡 后， NL 进入 superstitiomod:濒死 状态",
+    "DESCRIPTION": "superstitiomod:免除死亡 !M! 次 。 NL 第一次 *免除死亡 后， NL 获得 superstitiomod:濒死 。",
     "FLAVOR": "好刺激，好有趣，还想再来。"
   },
   "SuperstitioMod:MasoCard:BellyStrike": {

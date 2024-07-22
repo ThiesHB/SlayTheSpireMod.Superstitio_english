@@ -1,4 +1,4 @@
-package superstitio.cards.general.AttackCard.legDrawCard;
+package superstitio.cards.lupa.AttackCard;
 
 import com.badlogic.gdx.graphics.Color;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
@@ -6,12 +6,12 @@ import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import superstitio.DataManager;
 import superstitio.cards.general.FuckJob_Card;
-import superstitio.cards.general.GeneralCard;
+import superstitio.cards.lupa.LupaCard;
 import superstitio.powers.SexualHeat;
 import superstitioapi.actions.AutoDoneInstantAction;
 import superstitioapi.cards.DamageActionMaker;
 
-public class Job_LegPit extends GeneralCard implements FuckJob_Card {
+public class Job_LegPit extends LupaCard implements FuckJob_Card {
     public static final String ID = DataManager.MakeTextID(Job_LegPit.class);
 
     public static final CardType CARD_TYPE = CardType.ATTACK;

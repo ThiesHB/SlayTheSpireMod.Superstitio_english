@@ -29,7 +29,7 @@
   "SuperstitioMod:FastWindUp": {
     "NAME": "快速收尾",
     "NAME_SFW": "漆黑噤默之页",
-    "DESCRIPTION": "当你 superstitiomod:高潮 时， *满足 所有 superstitiomod:助兴序列中 的卡牌 !M! 次。",
+    "DESCRIPTION": "当你 superstitiomod:高潮 时， *满足 所有 superstitiomod:助兴序列 中的卡牌 !M! 次。",
     "FLAVOR": "一起来，快点，我要收工了。",
     "FLAVOR_SFW": "一码，归一码。"
   },

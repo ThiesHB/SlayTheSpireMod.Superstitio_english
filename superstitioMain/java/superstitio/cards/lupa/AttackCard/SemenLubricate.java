@@ -55,7 +55,7 @@ public class SemenLubricate extends LupaCard {
                 .filter(card -> card.type == CardType.ATTACK)
                 .filter(card -> !(card instanceof SemenLubricate))
 //                .filter(card -> card != notCard)
-                .filter(card -> card.canUse(AbstractDungeon.player, null))
+//                .filter(card -> CardUtility.canUseWithoutEnvironment())
                 .findFirst();
         if (!attackCard.isPresent()) {
             inPlayingCard = false;

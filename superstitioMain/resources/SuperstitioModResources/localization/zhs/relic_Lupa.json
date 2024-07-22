@@ -26,5 +26,12 @@
       "当你打出 #y攻击牌 时， #ysuperstitiomod:获得精液 。"
     ],
     "FLAVOR": "还是太少了。"
+  },
+  "SuperstitioMod:LewdGirlComing": {
+    "NAME": "淫荡女孩来袭！",
+    "DESCRIPTIONS": [
+      "在每回合开始时获得 [E] 。 所有敌人初始获得 #b%d 点 #ysuperstitiomod:宁死不屈 。"
+    ],
+    "FLAVOR": "别跑嘛。"
   }
 }

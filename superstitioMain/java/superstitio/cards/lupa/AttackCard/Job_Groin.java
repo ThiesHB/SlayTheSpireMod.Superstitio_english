@@ -1,15 +1,15 @@
-package superstitio.cards.general.AttackCard.torsoJustDamage;
+package superstitio.cards.lupa.AttackCard;
 
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import superstitio.DataManager;
 import superstitio.cards.general.FuckJob_Card;
-import superstitio.cards.general.GeneralCard;
+import superstitio.cards.lupa.LupaCard;
 import superstitioapi.cards.DamageActionMaker;
 
 //腹股沟
-public class Job_Groin extends GeneralCard implements FuckJob_Card {
+public class Job_Groin extends LupaCard implements FuckJob_Card {
     public static final String ID = DataManager.MakeTextID(Job_Groin.class);
 
     public static final CardType CARD_TYPE = CardType.ATTACK;

@@ -60,5 +60,20 @@
     "DESCRIPTIONS_SFW": [
       "无法打出腿部相关的武学牌。"
     ]
+  },
+  "SuperstitioMod:AtDeathDoor": {
+    "NAME": "濒死",
+    "DESCRIPTIONS": [
+      "免疫 生命流失 和 荆棘 伤害。"
+    ],
+    "MAKE_KEYWORDS": [
+      {
+        "PROPER_NAME": "濒死",
+        "NAMES": [
+          "濒死"
+        ],
+        "DESCRIPTION": "免疫 生命流失 和 荆棘 伤害。"
+      }
+    ]
   }
 }

@@ -81,27 +81,6 @@
       "回合开始时，消耗 #b%d 张牌。"
     ]
   },
-  "SuperstitioMod:DeathDoorPower": {
-    "NAME": "死亡抗拒",
-    "DESCRIPTIONS": [
-      "免除 %d 次死亡，第一次免除后，进入濒死状态。"
-    ]
-  },
-  "SuperstitioMod:AtDeathDoor": {
-    "NAME": "濒死",
-    "DESCRIPTIONS": [
-      "免疫 生命流失 和 荆棘 伤害。"
-    ],
-    "MAKE_KEYWORDS": [
-      {
-        "PROPER_NAME": "濒死",
-        "NAMES": [
-          "濒死"
-        ],
-        "DESCRIPTION": "免疫 生命流失 和 荆棘 伤害。"
-      }
-    ]
-  },
   "SuperstitioMod:SexualDamage": {
     "NAME": "爱欲",
     "DESCRIPTIONS": [

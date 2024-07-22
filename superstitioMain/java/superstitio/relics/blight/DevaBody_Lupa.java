@@ -12,7 +12,6 @@ import superstitioapi.relicToBlight.InfoBlight;
 import superstitioapi.utils.ActionUtility;
 
 import static com.megacrit.cardcrawl.dungeons.AbstractDungeon.player;
-import static superstitio.DataManager.CanOnlyDamageDamageType.NoTriggerLupaAndMasoRelicHpLose;
 import static superstitio.DataManager.CanOnlyDamageDamageType.UnBlockAbleDamageType;
 import static superstitioapi.utils.ActionUtility.addToTop_applyPower;
 
@@ -32,9 +31,6 @@ public class DevaBody_Lupa extends SuperstitioRelic implements InfoBlight.Become
         DelayHpLosePatch.IsImmunityFields.checkShouldImmunity.set(
                 player, ((player, damageInfo, damageAmount) -> {
                     if (damageInfo.type == UnBlockAbleDamageType) {
-                        return false;
-                    }
-                    if (damageInfo.type == NoTriggerLupaAndMasoRelicHpLose) {
                         return false;
                     }
                     addToTop_applyPower(new DelayHpLosePower_ApplyOnAttacked(AbstractDungeon.player, damageAmount));

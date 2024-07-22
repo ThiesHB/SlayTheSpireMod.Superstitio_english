@@ -21,12 +21,12 @@ public class Job_Hair extends GeneralCard implements FuckJob_Card, GoSomewhereEl
 
     public static final CardType CARD_TYPE = CardType.ATTACK;
 
-    public static final CardRarity CARD_RARITY = CardRarity.UNCOMMON;
+    public static final CardRarity CARD_RARITY = CardRarity.COMMON;
 
     public static final CardTarget CARD_TARGET = CardTarget.ENEMY;
 
     private static final int COST = 1;
-    private static final int DAMAGE = 6;
+    private static final int DAMAGE = 5;
     private static final int UPGRADE_DAMAGE = 2;
     private static final int MAGIC = 3;
 

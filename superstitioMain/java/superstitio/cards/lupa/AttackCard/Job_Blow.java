@@ -1,4 +1,4 @@
-package superstitio.cards.general.AttackCard.mouthCost;
+package superstitio.cards.lupa.AttackCard;
 
 import com.megacrit.cardcrawl.cards.CardGroup;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
@@ -6,14 +6,14 @@ import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import superstitio.DataManager;
 import superstitio.cards.general.FuckJob_Card;
-import superstitio.cards.general.GeneralCard;
+import superstitio.cards.lupa.LupaCard;
 import superstitio.powers.SexualHeat;
 import superstitioapi.cards.DamageActionMaker;
 import superstitioapi.cards.patch.GoSomewhereElseAfterUse;
 import superstitioapi.hangUpCard.CardOrb_EachCardTrigger;
 
 
-public class Job_Blow extends GeneralCard implements FuckJob_Card, GoSomewhereElseAfterUse {
+public class Job_Blow extends LupaCard implements FuckJob_Card, GoSomewhereElseAfterUse {
     public static final String ID = DataManager.MakeTextID(Job_Blow.class);
 
     public static final CardType CARD_TYPE = CardType.ATTACK;

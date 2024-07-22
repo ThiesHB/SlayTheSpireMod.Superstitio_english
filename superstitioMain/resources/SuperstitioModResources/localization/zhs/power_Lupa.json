@@ -28,7 +28,7 @@
   "SuperstitioMod:BeerCupSemen": {
     "NAME": "杯中精液",
     "DESCRIPTIONS": [
-      " 获得其他 #y精液 时， 转化为 #y杯中精液 。 当收集满 %d 或 战斗结束 时，回复 其 数量的 生命 。",
+      " 获得其他 #y精液 时， 转化为 #y杯中精液 。 当收集满 %d 价值或 战斗结束 时，回复 其 数量的 生命 。",
       "收集",
       "杯满！",
       "痛饮！"
@@ -77,6 +77,12 @@
         ],
         "DESCRIPTION": "受到攻击伤害而失去生命时，不 #r接纳腐朽 。"
       }
+    ]
+  },
+  "SuperstitioMod:RatherThanDeath": {
+    "NAME": "宁死不屈",
+    "DESCRIPTIONS": [
+      "免除死亡 #b%d 次。"
     ]
   }
 }

@@ -25,7 +25,7 @@ public class Sensitive3000 extends MasoCard {
     private static final int COST_UPGRADED_NEW = 1;
 
     private static final int MAGIC = 1;
-    private static final int UPGRADE_MAGIC = 1;
+    private static final int UPGRADE_MAGIC = 0;
 
     public Sensitive3000() {
         super(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET);

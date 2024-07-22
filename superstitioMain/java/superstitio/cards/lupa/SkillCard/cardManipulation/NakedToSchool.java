@@ -26,7 +26,7 @@ public class NakedToSchool extends LupaCard {
     public static final CardTarget CARD_TARGET = CardTarget.SELF;
 
     private static final int COST = 1;
-    private static final int MAGIC = 2;
+    private static final int MAGIC = 3;
     private static final int UPGRADE_MAGIC = 1;
 
     public NakedToSchool() {

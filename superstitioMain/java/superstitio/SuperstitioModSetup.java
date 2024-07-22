@@ -20,6 +20,7 @@ import superstitio.customStrings.SuperstitioKeyWord;
 import superstitio.customStrings.interFace.WordReplace;
 import superstitio.customStrings.stringsSet.*;
 import superstitio.relics.SuperstitioRelic;
+import superstitio.relics.interFace.SelfRelic;
 import superstitioapi.relicToBlight.InfoBlight;
 import superstitioapi.shader.ShaderUtility;
 
@@ -152,7 +153,10 @@ public class SuperstitioModSetup implements
                         relic.isSeen = true;
                         return;
                     }
-                    BaseMod.addRelic(relic, RelicType.SHARED);
+                    if (relic instanceof SelfRelic)
+                        BaseMod.addRelicToCustomPool(relic, ((SelfRelic) relic).getRelicOwner());
+                    else
+                        BaseMod.addRelic(relic, RelicType.SHARED);
                     if (info.seen) {
                         UnlockTracker.markRelicAsSeen(relic.relicId);
                     }
