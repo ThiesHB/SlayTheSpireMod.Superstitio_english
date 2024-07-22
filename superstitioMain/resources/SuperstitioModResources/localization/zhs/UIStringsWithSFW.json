@@ -9,18 +9,18 @@
   },
   "SuperstitioMod:InsideEjaculationTag": {
     "TEXT": [
-      "性交：%s"
+      "性交：%s-内射"
     ],
     "TEXT_SFW": [
-      "武学：%s"
+      "武学：%s-招式"
     ]
   },
   "SuperstitioMod:OutsideEjaculationTag": {
     "TEXT": [
-      "性交：%s"
+      "性交：%s-外射"
     ],
     "TEXT_SFW": [
-      "武学：%s"
+      "武学：%s-染血"
     ]
   },
   "SuperstitioMod:BodyModificationTag": {

@@ -35,9 +35,9 @@ public class VulnerableTogether extends AbstractTempCard {
 
     @Override
     public void use(AbstractPlayer player, AbstractMonster monster) {
-        addToBot_applyPower(new VulnerablePower(AbstractDungeon.player, 1, false));
+        addToBot_applyPower(new VulnerablePower(AbstractDungeon.player, this.magicNumber, false));
         Arrays.stream(CreatureUtility.getAllAliveMonsters()).forEach(creature -> {
-            addToBot_applyPower(new VulnerablePower(creature, 1, false));
+            addToBot_applyPower(new VulnerablePower(creature, this.magicNumber, false));
         });
     }
 

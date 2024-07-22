@@ -28,7 +28,7 @@ public class AllCardCostModifier_PerEnergy extends AllCardCostModifier {
 
     @Override
     public void updateDescriptionArgs() {
-        setDescriptionArgs(decreasedCost, amount, (!isActive() ? powerStrings.DESCRIPTIONS[1] : ""));
+        setDescriptionArgs(Math.min(decreasedCost, amount), amount, (!isActive() ? powerStrings.DESCRIPTIONS[1] : ""));
     }
 
     @Override

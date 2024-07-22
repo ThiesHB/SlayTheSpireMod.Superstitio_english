@@ -9,7 +9,7 @@
   "SuperstitioApiMod:AllCardCostModifier_PerEnergy": {
     "NAME": "Save Energy",
     "DESCRIPTIONS": [
-      "The cost of all cards has been reduced by #b%d . Lose this effect after reducing #b%d energy. %s",
+      "The cost of all cards has been reduced. Lose this effect after reducing #b%d energy. %s",
       " NL Effect not activated."
     ]
   },
