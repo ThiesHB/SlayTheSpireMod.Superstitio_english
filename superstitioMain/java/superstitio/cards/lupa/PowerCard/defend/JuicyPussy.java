@@ -1,6 +1,5 @@
 package superstitio.cards.lupa.PowerCard.defend;
 
-import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
@@ -10,7 +9,7 @@ import superstitio.cards.lupa.LupaCard;
 import superstitio.delayHpLose.DelayHpLosePower;
 import superstitio.powers.EasyBuildAbstractPowerForPowerCard;
 import superstitio.powers.SexualHeat;
-import superstitio.powers.patchAndInterface.interfaces.orgasm.OnOrgasm_onSquirt;
+import superstitio.powers.patchAndInterface.interfaces.orgasm.OnOrgasm;
 
 
 public class JuicyPussy extends LupaCard {
@@ -41,7 +40,7 @@ public class JuicyPussy extends LupaCard {
     public void upgradeAuto() {
     }
 
-    public static class JuicyPussyPower extends EasyBuildAbstractPowerForPowerCard implements OnOrgasm_onSquirt {
+    public static class JuicyPussyPower extends EasyBuildAbstractPowerForPowerCard implements OnOrgasm {
         public JuicyPussyPower(int amount) {
             super(amount);
         }
@@ -52,7 +51,7 @@ public class JuicyPussy extends LupaCard {
         }
 
         @Override
-        public void onSquirt(SexualHeat SexualHeatPower, AbstractCard card) {
+        public void onOrgasm(SexualHeat SexualHeatPower) {
             this.flash();
             DelayHpLosePower.addToBot_removePower(amount, AbstractDungeon.player, true);
         }

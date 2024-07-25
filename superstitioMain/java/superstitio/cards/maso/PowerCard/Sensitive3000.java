@@ -1,7 +1,6 @@
 package superstitio.cards.maso.PowerCard;
 
 import com.megacrit.cardcrawl.actions.common.GainEnergyAction;
-import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import superstitio.DataManager;
@@ -9,7 +8,7 @@ import superstitio.cards.SuperstitioCard;
 import superstitio.cards.maso.MasoCard;
 import superstitio.powers.EasyBuildAbstractPowerForPowerCard;
 import superstitio.powers.SexualHeat;
-import superstitio.powers.patchAndInterface.interfaces.orgasm.OnOrgasm_onSquirt;
+import superstitio.powers.patchAndInterface.interfaces.orgasm.OnOrgasm;
 
 
 public class Sensitive3000 extends MasoCard {
@@ -42,7 +41,7 @@ public class Sensitive3000 extends MasoCard {
         upgradeBaseCost(COST_UPGRADED_NEW);
     }
 
-    public static class JuicyPussy_TempPower extends EasyBuildAbstractPowerForPowerCard implements OnOrgasm_onSquirt {
+    public static class JuicyPussy_TempPower extends EasyBuildAbstractPowerForPowerCard implements OnOrgasm {
         public JuicyPussy_TempPower(int amount) {
             super(amount);
         }
@@ -53,7 +52,7 @@ public class Sensitive3000 extends MasoCard {
         }
 
         @Override
-        public void onSquirt(SexualHeat SexualHeatPower, AbstractCard card) {
+        public void onOrgasm(SexualHeat SexualHeatPower) {
             this.flash();
             this.addToBot(new GainEnergyAction(this.amount));
         }
