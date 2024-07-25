@@ -9,12 +9,12 @@ import com.megacrit.cardcrawl.helpers.MathHelper;
 import com.megacrit.cardcrawl.vfx.AbstractGameEffect;
 import superstitioapi.renderManager.inBattleManager.RenderInBattle;
 import superstitioapi.shader.ShaderUtility;
+import superstitioapi.utils.ActionUtility;
 
 import java.util.ArrayList;
 import java.util.Optional;
 import java.util.function.Supplier;
 
-import static superstitioapi.actions.AutoDoneInstantAction.addToBotAbstract;
 import static superstitioapi.shader.ShaderUtility.*;
 
 public class HeartStreamShader {
@@ -112,38 +112,63 @@ public class HeartStreamShader {
 
     public static class RenderHeartStream implements RenderInBattle {
         private final int maxLevel;
-        private final Supplier<Boolean> customShouldRemove;
         private final Supplier<Hitbox> hitboxBondTo;
         private final ArrayList<HeartStreamSubRender> heartStreamSubRenders = new ArrayList<>();
+        private final Supplier<Boolean> customShouldRemove;
+        private boolean forceRemove = false;
         private float level;
         private float levelTarget;
 
         public RenderHeartStream(int maxLevel, Supplier<Boolean> customShouldRemove, Supplier<Hitbox> hitboxBondTo) {
+            this(maxLevel, customShouldRemove, hitboxBondTo, 0.0f);
+        }
+
+        public RenderHeartStream(int maxLevel, Supplier<Boolean> customShouldRemove, Supplier<Hitbox> hitboxBondTo, float levelTarget) {
             this.customShouldRemove = customShouldRemove;
             this.hitboxBondTo = hitboxBondTo;
-            level = 3.0f;
-            levelTarget = 3.5f;
+            this.level = 3.0f;
+            this.levelTarget = levelTarget + 3.5f;
             this.maxLevel = maxLevel;
-            levelUp();
+            checkLevelUp();
         }
 
-        public static void addToBot_addHeartStreamEffect(int maxLevel, Supplier<Boolean> customShouldRemove, Supplier<Hitbox> hitboxBondTo) {
-            if (!canUseShader) return;
-            Optional<RenderHeartStream> renderOrgasm =
-                    RenderInBattle.getRenderGroup(RenderType.Stance).stream()
-                            .filter(renderInBattle -> renderInBattle instanceof RenderHeartStream)
-                            .map(renderInBattle -> (RenderHeartStream) renderInBattle)
-                            .findAny();
-            if (renderOrgasm.isPresent())
-                addToBotAbstract(() ->
-                        renderOrgasm.get().levelUp());
-            else
-                RenderInBattle.Register(RenderType.Stance,
-                        new RenderHeartStream(maxLevel, customShouldRemove, hitboxBondTo));
+        public static ActionUtility.VoidSupplier action_addHeartStreamEffect(int maxLevel, Supplier<Boolean> customShouldRemove,
+                                                                             Supplier<Hitbox> hitboxBondTo) {
+            if (!canUseShader) return ActionUtility.VoidSupplier.Empty;
+            Optional<RenderHeartStream> renderHeartStream = getRenderHeartStream();
+            return renderHeartStream.<ActionUtility.VoidSupplier>map(stream -> () ->
+            {
+                stream.levelTarget++;
+                stream.checkLevelUp();
+            }).orElseGet(() -> () -> RenderInBattle.Register(RenderType.Stance,
+                    new RenderHeartStream(maxLevel, customShouldRemove, hitboxBondTo)));
         }
 
-        private void levelUp() {
-            levelTarget += 1.0f;
+        public static ActionUtility.VoidSupplier action_addHeartStreamEffectAndSetLevel(int maxLevel, Supplier<Boolean> customShouldRemove,
+                                                                                        Supplier<Hitbox> hitboxBondTo, int setLevel) {
+            if (!canUseShader) return ActionUtility.VoidSupplier.Empty;
+            Optional<RenderHeartStream> renderHeartStream = getRenderHeartStream();
+            return renderHeartStream.<ActionUtility.VoidSupplier>map(stream -> () ->
+            {
+                stream.levelTarget = setLevel;
+                stream.checkLevelUp();
+            }).orElseGet(() -> () -> RenderInBattle.Register(RenderType.Stance,
+                    new RenderHeartStream(maxLevel, customShouldRemove, hitboxBondTo, setLevel)));
+        }
+
+        public static ActionUtility.VoidSupplier action_setStopRender() {
+            return () -> getRenderHeartStream().ifPresent(renderHeartStream -> renderHeartStream.forceRemove = true);
+        }
+
+        private static Optional<RenderHeartStream> getRenderHeartStream() {
+            return RenderInBattle.getRenderGroup(RenderType.Stance).stream()
+                    .filter(renderInBattle -> renderInBattle instanceof RenderHeartStream)
+                    .map(renderInBattle -> (RenderHeartStream) renderInBattle)
+                    .findAny();
+        }
+
+        private void checkLevelUp() {
+//            levelTarget += 1.0f;
             if (heartStreamSubRenders.size() >= maxLevel) return;
             int newIndex = (int) Math.min(maxLevel, Math.ceil(level));
             for (int i = heartStreamSubRenders.size(); i < newIndex; i++) {
@@ -154,6 +179,9 @@ public class HeartStreamShader {
             }
         }
 
+        private boolean startEndRenderMode() {
+            return customShouldRemove.get() || forceRemove;
+        }
 
         @Override
         public void render(SpriteBatch sb) {
@@ -167,7 +195,7 @@ public class HeartStreamShader {
 
         @Override
         public boolean shouldRemove() {
-            return customShouldRemove.get() && heartStreamSubRenders.stream().allMatch(heartStreamSubRender -> heartStreamSubRender.anim_timer < 0.0f);
+            return startEndRenderMode() && heartStreamSubRenders.stream().allMatch(heartStreamSubRender -> heartStreamSubRender.anim_timer < 0.0f);
         }
 
         @Override
@@ -193,8 +221,11 @@ public class HeartStreamShader {
             }
 
             public void update() {
-                if (!owner.customShouldRemove.get()) {
+                if (!owner.startEndRenderMode()) {
                     anim_timer += Gdx.graphics.getDeltaTime();
+                    if (anim_timer >= 20.0f) {
+                        anim_timer = ALPHA_TIME;
+                    }
                     return;
                 }
                 if (anim_timer >= ALPHA_TIME)

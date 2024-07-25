@@ -17,7 +17,7 @@ public class EjaculationMaster extends SuperstitioRelic implements OnOrgasm_onSq
     // 点击音效
     private static final LandingSound LANDING_SOUND = LandingSound.FLAT;
     private static final int DrawAmount = 1;
-    private static final int EjaculationMax = 2;
+    private static final int EjaculationMax = 3;
 
     public EjaculationMaster() {
         super(ID, RELIC_TIER, LANDING_SOUND);

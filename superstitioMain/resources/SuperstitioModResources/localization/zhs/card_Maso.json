@@ -58,7 +58,7 @@
   "SuperstitioMod:MasoCard:BodyModification_SuperHugeBreast": {
     "NAME": "超巨乳化",
     "NAME_SFW": "仁慈之心",
-    "DESCRIPTION": "受到攻击时，获得 !M! superstitiomod:乳汁 。",
+    "DESCRIPTION": "受到攻击伤害而失去生命时，获得 !M! superstitiomod:乳汁 。",
     "FLAVOR": "大大大大大！",
     "FLAVOR_SFW": "你得知道LV和EXP到底是什么的缩写。"
   },

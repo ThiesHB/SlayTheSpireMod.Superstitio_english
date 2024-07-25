@@ -2,7 +2,7 @@
   "SuperstitioMod:Job_Armpit": {
     "NAME": "腋交",
     "NAME_SFW": "肘击",
-    "DESCRIPTION": "执行两次： NL superstitiomod:欲求 打出攻击牌 !M! 次： NL 造成 !D! 点 伤害 。",
+    "DESCRIPTION": "superstitiomod:欲求 打出攻击牌 !M! 次： NL 造成 !D! 点 伤害 。 NL 在 superstitiomod:助兴序列 放入一张此牌的复制品。",
     "FLAVOR": "很想试试看被打火机一点点烧掉腋毛的感觉，可惜本小姐没有这种东西。",
     "EXTENDED_DESCRIPTION": [
       "腋下"
@@ -26,7 +26,7 @@
   "SuperstitioMod:Job_Breast": {
     "NAME": "乳交",
     "NAME_SFW": "木兰飞弹",
-    "DESCRIPTION": "造成 !D! 点 伤害 。 NL 获得 !M! 层 superstitiomod:乳汁 。",
+    "DESCRIPTION": "造成 !D! 点 伤害 。 NL 给予 !M! 层 superstitiomod:乳汁 。",
     "FLAVOR": "养胸千日，用胸一时。胸越大，胸就能挺的越高。",
     "EXTENDED_DESCRIPTION": [
       "胸口"

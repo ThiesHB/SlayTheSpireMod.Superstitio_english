@@ -35,7 +35,6 @@ import superstitioapi.powers.interfaces.invisible.InvisiblePower_InvisibleTips;
 import superstitioapi.utils.PowerUtility;
 
 import java.util.Optional;
-import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.BiFunction;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
@@ -46,7 +45,7 @@ import static superstitioapi.actions.AutoDoneInstantAction.addToBotAbstract;
 import static superstitioapi.powers.AllCardCostModifier.RemoveAllByHolder;
 import static superstitioapi.powers.AllCardCostModifier.getAllByHolder;
 import static superstitioapi.shader.ShaderUtility.canUseShader;
-import static superstitioapi.shader.heart.HeartStreamShader.RenderHeartStream.addToBot_addHeartStreamEffect;
+import static superstitioapi.shader.heart.HeartStreamShader.RenderHeartStream.action_addHeartStreamEffectAndSetLevel;
 import static superstitioapi.utils.ActionUtility.VoidSupplier;
 
 @SuperstitioImg.NoNeedImg
@@ -136,9 +135,9 @@ public class SexualHeat extends AbstractSuperstitioPower implements
         OrgasmTimesTotal++;
     }
 
-    private static void addToBot_addOrgasmEffect(SexualHeat sexualHeat) {
-        addToBot_addHeartStreamEffect(getMAX_ORGASM_HEART_STREAM_LEVEL(), () -> !Orgasm.isPlayerInOrgasm(),
-                () -> sexualHeat.owner.hb);
+    private static VoidSupplier action_addOrgasmEffectAndSetLevel(SexualHeat sexualHeat) {
+        return action_addHeartStreamEffectAndSetLevel(getMAX_ORGASM_HEART_STREAM_LEVEL(), () -> !Orgasm.isPlayerInOrgasm(),
+                () -> sexualHeat.owner.hb, OrgasmTimesInTurn);
     }
 
     public boolean isInOrgasm() {
@@ -300,10 +299,13 @@ public class SexualHeat extends AbstractSuperstitioPower implements
     @Override
     public void onPlayCard(AbstractCard card, AbstractMonster m) {
         if (!this.isInOrgasm() || !this.owner.isPlayer) return;
-        AtomicInteger reduceEnergyAmount = new AtomicInteger();
-        this.getActiveEffectHold().ifPresent(power -> reduceEnergyAmount.set(power.getOriginCost(card) - card.costForTurn));
-        if (reduceEnergyAmount.get() <= 0) return;
+//        AtomicInteger reduceEnergyAmount = new AtomicInteger();
+//        this.getActiveEffectHold().ifPresent(power -> reduceEnergyAmount.set(power.getOriginCost(card) - card.costForTurn));
+//        if (reduceEnergyAmount.get() <= 0) return;
         OnOrgasm.AllOnOrgasm(owner).forEachOrdered(power -> power.onSquirt(this, card));
+        if (!card.freeToPlay() && card.costForTurn != 0) {
+            ForceEndOrgasm();
+        }
     }
 
     @Override
@@ -363,7 +365,7 @@ public class SexualHeat extends AbstractSuperstitioPower implements
     public void onOrgasm(SexualHeat SexualHeatPower) {
         addToBotAbstract(() -> bubbleMessage(false, IsContinueOrgasm() ? 4 : 3));
         if (!isInOrgasm() || !(this.owner instanceof AbstractPlayer)) return;
-        addToBot_addOrgasmEffect(this);
+        action_addOrgasmEffectAndSetLevel(this).addToBotAsAbstractAction();
     }
 
     @Override

@@ -37,7 +37,7 @@
       "高潮",
       "高潮中"
     ],
-    "DESCRIPTION": "累积 10 点 #y快感 ，进入 #y高潮 。"
+    "DESCRIPTION": "累积 10 点 #y快感 ，进入 #y高潮 。 NL 打出一张非0耗能的牌后， #y高潮结束 。"
   },
   {
     "ID": "SuperstitioMod:EnemyOrgasm",
@@ -52,14 +52,14 @@
     "NAMES": [
       "连续高潮"
     ],
-    "DESCRIPTION": " #y高潮 情况下，再积累 #y快感 就会 #y连续高潮 。"
+    "DESCRIPTION": "本回合已 #y高潮 过的情况下，再积累 #y快感 就会 #y连续高潮 。"
   },
   {
     "PROPER_NAME": "潮吹",
     "NAMES": [
       "潮吹"
     ],
-    "DESCRIPTION": " 在 #y高潮 期间， 打出耗能降低的卡视作 #y潮吹 。"
+    "DESCRIPTION": " 在 #y高潮 期间， 打出卡牌。"
   },
   {
     "PROPER_NAME": "结束高潮",

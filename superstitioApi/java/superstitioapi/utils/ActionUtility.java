@@ -132,6 +132,9 @@ public class ActionUtility {
 
     @FunctionalInterface
     public interface VoidSupplier {
+        VoidSupplier Empty = () -> {
+        };
+
         void get();
 
         default void addToBotAsAbstractAction() {
