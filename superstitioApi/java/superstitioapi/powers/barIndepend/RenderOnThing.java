@@ -196,7 +196,7 @@ public abstract class RenderOnThing {
             return sortedChunkList;
         if (index <= 0)
             return Collections.singletonList(sortedChunkList.get(0));
-        return sortedChunkList.subList(0, index);
+        return sortedChunkList.subList(0, index + 1);
     }
 
     protected final int getTotalAmount() {

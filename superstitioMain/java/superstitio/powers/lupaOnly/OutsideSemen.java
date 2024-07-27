@@ -60,17 +60,6 @@ public class OutsideSemen extends AbstractSuperstitioPower implements
     public Color setupBarOrginColor() {
         return ImgUtility.mixColor(semenColor(), Color.GRAY, 0.1f, 0.9f);
     }
-
-    @Override
-    public int maxBarAmount() {
-        return Integer.max((int) (this.amount * 1.5f), this.owner.maxHealth / 2);
-    }
-
-    @Override
-    public String makeBarText() {
-        return "%d";
-    }
-
     @Override
     public BiFunction<Supplier<Hitbox>, HasBarRenderOnCreature, ? extends RenderOnThing> makeNewBarRenderOnCreature() {
         return HasBarRenderOnCreature_SemenPower::makeNewBar_BodySemen;

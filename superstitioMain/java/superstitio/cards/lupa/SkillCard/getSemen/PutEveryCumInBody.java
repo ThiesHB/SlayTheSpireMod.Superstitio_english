@@ -9,11 +9,8 @@ import com.megacrit.cardcrawl.powers.AbstractPower;
 import superstitio.DataManager;
 import superstitio.cards.lupa.LupaCard;
 import superstitio.powers.SexualHeat;
-import superstitio.powers.lupaOnly.FloorSemen;
 import superstitio.powers.lupaOnly.InsideSemen;
-import superstitio.powers.lupaOnly.OutsideSemen;
-
-import static superstitioapi.actions.AutoDoneInstantAction.addToBotAbstract;
+import superstitio.powers.lupaOnly.SemenPower;
 
 //强制塞入
 public class PutEveryCumInBody extends LupaCard {
@@ -41,18 +38,18 @@ public class PutEveryCumInBody extends LupaCard {
     @Override
     public void use(AbstractPlayer player, AbstractMonster monster) {
         for (AbstractPower power : AbstractDungeon.player.powers) {
-            if (power instanceof OutsideSemen || power instanceof FloorSemen) {
+            if (power instanceof SemenPower && !(power instanceof InsideSemen)) {
                 addToBot_removeSpecificPower(power);
-                SexualHeat.addToBot_addSexualHeat(AbstractDungeon.player, power.amount);
+                SexualHeat.addToBot_addSexualHeat(AbstractDungeon.player, power.amount * ((SemenPower) power).getSemenValue());
                 addToBot_applyPower(new InsideSemen(AbstractDungeon.player, power.amount));
             }
         }
-        addToBotAbstract(() -> {
-            for (AbstractPower power : AbstractDungeon.player.powers) {
-                if (power instanceof InsideSemen) {
-                    ((InsideSemen) power).expand(power.amount);
-                }
-            }
-        });
+//        addToBotAbstract(() -> {
+//            for (AbstractPower power : AbstractDungeon.player.powers) {
+//                if (power instanceof InsideSemen) {
+//                    ((InsideSemen) power).expand(power.amount);
+//                }
+//            }
+//        });
     }
 }

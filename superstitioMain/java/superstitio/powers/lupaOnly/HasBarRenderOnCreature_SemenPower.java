@@ -30,12 +30,23 @@ public interface HasBarRenderOnCreature_SemenPower extends HasBarRenderOnCreatur
     }
 
     @Override
+    default String makeBarText() {
+        return "%d";
+    }
+
+    @Override
+    default int maxBarAmount() {
+        return Integer.max((int) (getSelf().amount * 1.5f), getSelf().owner.maxHealth / 2);
+    }
+
+
+    @Override
     default int getAmountForDraw() {
         return HasBarRenderOnCreature_Power.super.getAmountForDraw() * getSemenValue();
     }
 
     @Override
     default String uuidPointTo() {
-        return "SemenOutside";
+        return "AllSemen";
     }
 }

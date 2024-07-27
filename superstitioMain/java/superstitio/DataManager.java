@@ -20,6 +20,7 @@ import com.megacrit.cardcrawl.localization.RelicStrings;
 import superstitio.cards.CardOwnerPlayerManager;
 import superstitio.cards.general.SkillCard.gainEnergy.TimeStop;
 import superstitio.cards.lupa.LupaCard;
+import superstitio.cards.lupa.PowerCard.defend.DrinkSemenBeer;
 import superstitio.cards.lupa.SkillCard.block.Philter;
 import superstitio.cards.maso.MasoCard;
 import superstitio.characters.cardpool.poolCover.GeneralPool;
@@ -36,7 +37,6 @@ import superstitio.delayHpLose.DelayHpLosePower_ApplyOnlyOnVictory;
 import superstitio.delayHpLose.DelayHpLosePower_HealOnVictory;
 import superstitio.delayHpLose.DelayRemoveDelayHpLosePower;
 import superstitio.powers.SexualHeat;
-import superstitio.powers.lupaOnly.BeerCupSemen;
 import superstitio.powers.lupaOnly.FloorSemen;
 import superstitio.powers.lupaOnly.InsideSemen;
 import superstitio.powers.lupaOnly.OutsideSemen;
@@ -432,7 +432,7 @@ public class DataManager {
             return true;
         if (checkName.equals(DataUtility.getIdOnly(OutsideSemen.POWER_ID)))
             return true;
-        if (checkName.equals(DataUtility.getIdOnly(BeerCupSemen.POWER_ID)))
+        if (checkName.equals(DataUtility.getIdOnly(DrinkSemenBeer.DrinkSemenBeerPower.POWER_ID)))
             return true;
         return false;
     }

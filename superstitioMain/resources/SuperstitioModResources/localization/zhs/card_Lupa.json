@@ -16,7 +16,13 @@
   "SuperstitioMod:LupaCard:DrinkSemenBeer": {
     "NAME": "饮精",
     "NAME_SFW": "饮血",
-    "DESCRIPTION": " 获得其他 *精液 时， 转化为 *杯中精液 。 当收集满 !M! 或 战斗结束 时，回复 其 数量的 生命 。",
+    "DESCRIPTION": "获得 *精液 时， 同时获得等量的 *佳酿 。 NL 当收集满 !M! *佳酿 或 战斗结束 时，回复 *佳酿 数量的 生命 。",
+    "EXTENDED_DESCRIPTION": [
+      "佳酿",
+      "收集",
+      "杯满！",
+      "痛饮！"
+    ],
     "FLAVOR": "收集到杯子里，然后喝。",
     "FLAVOR_SFW": "朝避猛虎，夕避长蛇。"
   },
@@ -48,7 +54,7 @@
   "SuperstitioMod:LupaCard:PutEveryCumInBody": {
     "NAME": "精液倒灌",
     "NAME_SFW": "鲜血环绕",
-    "DESCRIPTION": "失去所有 superstitiomod:地板精液 和 superstitiomod:体表精液 ，获得等量 superstitiomod:快感 和等量 superstitiomod:体内精液 。 NL 将 superstitiomod:体内精液 的上限提升到其当前层数最近的整十数（向下取整）。",
+    "DESCRIPTION": "失去所有 superstitiomod:地板精液 和 superstitiomod:体表精液 ，获得等价值 superstitiomod:快感 和等量 superstitiomod:体内精液 。",
     "FLAVOR": "满满当当，好舒服~"
   },
   "SuperstitioMod:LupaCard:SemenBath": {
