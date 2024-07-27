@@ -35,6 +35,7 @@ import superstitioapi.utils.TipsUtility;
 import java.util.ArrayList;
 
 import static superstitio.DataManager.SPTT_DATA.GeneralEnums.GENERAL_CARD;
+import static superstitio.SuperstitioConfig.isForcePlayGuroCharacter;
 import static superstitioapi.utils.ActionUtility.isNotInBattle;
 
 // 继承CustomPlayer类
@@ -104,7 +105,7 @@ public abstract class BaseCharacter extends CustomPlayer {
     }
 
     protected static void unableByGuroSetting() {
-        if (!SuperstitioConfig.isEnableGuroCharacter()) {
+        if (!SuperstitioConfig.isEnableGuroCharacter() && !isForcePlayGuroCharacter()) {
             try {
                 CardCrawlGame.mainMenuScreen.charSelectScreen.confirmButton.isDisabled = true;
                 if (CardCrawlGame.mainMenuScreen.charSelectScreen.confirmButton.isHovered) {
@@ -118,16 +119,7 @@ public abstract class BaseCharacter extends CustomPlayer {
 
     protected static void updateIsUnableByGuroSetting(boolean moreCheck) {
         if (moreCheck) {
-            if (!SuperstitioConfig.isEnableGuroCharacter()) {
-                try {
-                    CardCrawlGame.mainMenuScreen.charSelectScreen.confirmButton.isDisabled = true;
-                    if (CardCrawlGame.mainMenuScreen.charSelectScreen.confirmButton.isHovered) {
-                        TipsUtility.renderTipsWithMouse(GuroTip);
-                    }
-                } catch (Exception e) {
-                    Logger.warning("no confirmButton found");
-                }
-            }
+            unableByGuroSetting();
         } else CardCrawlGame.mainMenuScreen.charSelectScreen.confirmButton.isDisabled = false;
     }
 

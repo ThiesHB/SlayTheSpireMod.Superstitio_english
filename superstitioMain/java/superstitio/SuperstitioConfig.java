@@ -19,6 +19,7 @@ public class SuperstitioConfig {
     private static final String ENABLE_GURO_CHARACTER_STRING = "enableGuroCharacter";
     private static final String ENABLE_PERFORMANCE_MODE = "enablePerformanceMode";
     private static final String ENABLE_ONLY_SHOW_CARD_NOT_GENERAL = "enableOnlyShowCardNotGeneral";
+    private static final String isForcePlayGuroCharacter_STRING = "isForcePlayGuroCharacter";
     private static final ModPanel settingsPanel = new ModPanel();
     public static SpireConfig config = null;
     public static Properties theDefaultSettings = new Properties();
@@ -26,12 +27,14 @@ public class SuperstitioConfig {
     private static boolean enableGuroCharacter = false;
     private static boolean enablePerformanceMode = false;
     private static boolean enableOnlyShowCardNotGeneral = false;
+    private static boolean isForcePlayGuroCharacter = false;
 
     public static void loadConfig() {
         theDefaultSettings.setProperty(ENABLE_SFW_STRING, "TRUE");
         theDefaultSettings.setProperty(ENABLE_GURO_CHARACTER_STRING, "FALSE");
         theDefaultSettings.setProperty(ENABLE_PERFORMANCE_MODE, "FALSE");
         theDefaultSettings.setProperty(ENABLE_ONLY_SHOW_CARD_NOT_GENERAL, "FALSE");
+        theDefaultSettings.setProperty(isForcePlayGuroCharacter_STRING, "FALSE");
         try {
             config = new SpireConfig(DataManager.getModID(), DataManager.getModID() + "Config", theDefaultSettings);
             config.load();
@@ -39,6 +42,7 @@ public class SuperstitioConfig {
             enableGuroCharacter = config.getBool(ENABLE_GURO_CHARACTER_STRING);
             enablePerformanceMode = config.getBool(ENABLE_PERFORMANCE_MODE);
             enableOnlyShowCardNotGeneral = config.getBool(ENABLE_ONLY_SHOW_CARD_NOT_GENERAL);
+            isForcePlayGuroCharacter = config.getBool(isForcePlayGuroCharacter_STRING);
         } catch (Exception e) {
             Logger.error(e);
         }
@@ -60,6 +64,10 @@ public class SuperstitioConfig {
 
     public static boolean isEnableGuroCharacter() {
         return enableSFW || enableGuroCharacter;
+    }
+
+    public static boolean isForcePlayGuroCharacter() {
+        return isForcePlayGuroCharacter;
     }
 
     public static void setEnableGuroCharacter(boolean value) {
@@ -87,14 +95,10 @@ public class SuperstitioConfig {
         }, button -> {
             enableSFW = button.enabled;
             setConfigBool(ENABLE_SFW_STRING, enableSFW);
-
-//            ArrayList<IUIElement> uiElementsRender = ReflectionHacks.getPrivate(settingsPanel, ModPanel.class, "uiElementsRender");
-//            ArrayList<IUIElement> uiElementsUpdate = ReflectionHacks.getPrivate(settingsPanel, ModPanel.class, "uiElementsUpdate");
-//            uiElementsRender.clear();
-//            uiElementsUpdate.clear();
-//            setUpPanel();
         }));
+
         settingYPos -= 4 * lineSpacing;
+
         settingsPanel.addUIElement(new ModLabeledToggleButton(SettingText[1], settingXPos, settingYPos, Settings.CREAM_COLOR,
                 FontHelper.charDescFont, enableGuroCharacter, settingsPanel, label -> {
         }, button -> {
@@ -117,6 +121,27 @@ public class SuperstitioConfig {
         settingYPos -= 1 * lineSpacing;
 
         settingsPanel.addUIElement(new ModLabeledToggleButton(SettingText[2], settingXPos, settingYPos, Settings.CREAM_COLOR,
+                FontHelper.charDescFont, isForcePlayGuroCharacter, settingsPanel, label -> {
+        }, button -> {
+            isForcePlayGuroCharacter = button.enabled;
+            setConfigBool(isForcePlayGuroCharacter_STRING, isForcePlayGuroCharacter);
+        }) {
+            @Override
+            public void render(SpriteBatch sb) {
+                if (isEnableSFW() || isEnableGuroCharacter()) return;
+                super.render(sb);
+            }
+
+            @Override
+            public void update() {
+                if (isEnableSFW() || isEnableGuroCharacter()) return;
+                super.update();
+            }
+        });
+
+        settingYPos -= 1 * lineSpacing;
+
+        settingsPanel.addUIElement(new ModLabeledToggleButton(SettingText[3], settingXPos, settingYPos, Settings.CREAM_COLOR,
                 FontHelper.charDescFont, enableOnlyShowCardNotGeneral, settingsPanel, label -> {
         }, button -> {
             enableOnlyShowCardNotGeneral = button.enabled;
@@ -125,7 +150,7 @@ public class SuperstitioConfig {
 
         settingYPos -= 3 * lineSpacing;
 
-        settingsPanel.addUIElement(new ModLabeledToggleButton(SettingText[3], settingXPos, settingYPos, Settings.CREAM_COLOR,
+        settingsPanel.addUIElement(new ModLabeledToggleButton(SettingText[4], settingXPos, settingYPos, Settings.CREAM_COLOR,
                 FontHelper.charDescFont, enablePerformanceMode, settingsPanel, label -> {
         }, button -> {
             enablePerformanceMode = button.enabled;

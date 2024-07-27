@@ -64,6 +64,7 @@ import static superstitioapi.DataUtility.makeDefaultPath;
 public class DataManager {
     public static final String CODER_COMPUTERNAME = "DESKTOP-VK8L63C";
     public static final String COMPUTERNAME = "COMPUTERNAME";
+    public static final String GURO_VERSION_TIPS = "#GuroVersion#";
     public static Map<String, CardStringsWillMakeFlavorSet> cards = new HashMap<>();
     public static Map<String, PowerStringsSet> powers = new HashMap<>();
     public static Map<String, ModifierStringsSet> modifiers = new HashMap<>();
@@ -85,7 +86,7 @@ public class DataManager {
     }
 
     public static String makeImgFilesPath(String fileName, String... folderPaths) {
-        return getImgFolderPath(makeFolderTotalString(folderPaths)) + "/" + fileName + ".png";
+        return getImgFolderPath(makeFolderTotalString(folderPaths) , fileName + ".png");
     }
 
     public static String makeFolderTotalString(String... strings) {
@@ -158,19 +159,22 @@ public class DataManager {
 
     public static String makeImgPath(
             String defaultFileName, BiFunction<String, String[], String> PathFinder, String fileName, String... subFolder) {
-
-        if (!SuperstitioConfig.isEnableGuroCharacter() && fileName.contains(MasoCard.class.getSimpleName()))
-            return makeDefaultPath(defaultFileName, PathFinder);
+        String name;
+        if (fileName.contains(MasoCard.class.getSimpleName())) {
+            name = fileName + GURO_VERSION_TIPS;
+        } else {
+            name = fileName;
+        }
 
         return DataUtility.makeImgPath((string) -> {
             try {
                 if (isRunningInCoderComputer())
-                    makeNeedDrawPicture(defaultFileName, PathFinder, DataUtility.getIdOnly(fileName), makeDefaultPath(defaultFileName, PathFinder),
+                    makeNeedDrawPicture(defaultFileName, PathFinder, DataUtility.getIdOnly(name), makeDefaultPath(defaultFileName, PathFinder),
                             subFolder);
             } catch (IOException e) {
                 Logger.error(e);
             }
-        }, defaultFileName, PathFinder, fileName, subFolder);
+        }, defaultFileName, PathFinder, name, subFolder);
     }
 
     public static <T> T makeJsonStringFromFile(String fileName, Class<T> objectClass) {
@@ -266,8 +270,7 @@ public class DataManager {
         });
         DataManager.makeSFWLocalization(copyRelicsStrings, "relics");
         List<SuperstitioKeyWord> allKeywords = getAllKeywords().stream().map(SuperstitioKeyWord::makeCopy).collect(Collectors.toList());
-        for (SuperstitioKeyWord keyWord : allKeywords)
-        {
+        for (SuperstitioKeyWord keyWord : allKeywords) {
             keyWord.NAMES = new String[]{""};
             keyWord.PROPER_NAME = "";
             keyWord.DESCRIPTION = "";
@@ -323,9 +326,18 @@ public class DataManager {
         return getModID() + "Resources/";
     }
 
-    private static String getImgFolderPath(String path) {
-        String allLevelPath = getResourcesFilesPath() + "img" + path;
-        String sfwLevelPath = getResourcesFilesPath() + "imgSFW" + path;
+    private static String getImgFolderPath(String path,String file) {
+        String allLevelPath = getResourcesFilesPath() + "img" + path + "/" + file;
+        String sfwLevelPath = getResourcesFilesPath() + "imgSFW" + path+ "/" + file;
+
+        if (path.contains(GURO_VERSION_TIPS) || file.contains(GURO_VERSION_TIPS)) {
+            sfwLevelPath = sfwLevelPath.replaceAll(GURO_VERSION_TIPS, "");
+            allLevelPath = allLevelPath.replaceAll(GURO_VERSION_TIPS, "");
+            if (!SuperstitioConfig.isEnableGuroCharacter()) {
+                return sfwLevelPath;
+            }
+        }
+
 
         if (!SuperstitioConfig.isEnableSFW()) {
             return allLevelPath;
