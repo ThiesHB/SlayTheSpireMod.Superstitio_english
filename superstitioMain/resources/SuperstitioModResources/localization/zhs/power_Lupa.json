@@ -74,6 +74,15 @@
     "NAME": "宁死不屈",
     "DESCRIPTIONS": [
       "免除死亡 #b%d 次。"
+    ],
+    "MAKE_KEYWORDS": [
+      {
+        "PROPER_NAME": "宁死不屈",
+        "NAMES": [
+          "宁死不屈"
+        ],
+        "DESCRIPTION": "免除死亡一次。"
+      }
     ]
   }
 }

@@ -30,6 +30,7 @@ import superstitio.DataManager;
 import superstitio.Logger;
 import superstitio.SuperstitioConfig;
 import superstitio.cards.general.BaseCard.Kiss;
+import superstitio.cards.general.TempCard.NullCard;
 import superstitioapi.utils.TipsUtility;
 
 import java.util.ArrayList;
@@ -53,18 +54,12 @@ public abstract class BaseCharacter extends CustomPlayer {
     private static final String EnergyBall_Path = "EnergyBall_Lupa/";
     private static final String EnergyBall_VFX_Path = DataManager.makeImgFilesPath_UI(EnergyBall_Path + "vfx");
     // 战斗界面左下角能量图标的每个图层
-    private static final String[] EnergyBall_TEXTURES = new String[]{
-            DataManager.makeImgFilesPath_UI(EnergyBall_Path + "layer5"),
-            DataManager.makeImgFilesPath_UI(EnergyBall_Path + "layer4"),
-            DataManager.makeImgFilesPath_UI(EnergyBall_Path + "layer3"),
-            DataManager.makeImgFilesPath_UI(EnergyBall_Path + "layer2"),
-            DataManager.makeImgFilesPath_UI(EnergyBall_Path + "layer1"),
-            DataManager.makeImgFilesPath_UI(EnergyBall_Path + "layer6"),
-            DataManager.makeImgFilesPath_UI(EnergyBall_Path + "layer5d"),
-            DataManager.makeImgFilesPath_UI(EnergyBall_Path + "layer4d"),
-            DataManager.makeImgFilesPath_UI(EnergyBall_Path + "layer3d"),
-            DataManager.makeImgFilesPath_UI(EnergyBall_Path + "layer2d"),
-            DataManager.makeImgFilesPath_UI(EnergyBall_Path + "layer1d")};
+    private static final String[] EnergyBall_TEXTURES = new String[]{DataManager.makeImgFilesPath_UI(EnergyBall_Path + "layer5"),
+            DataManager.makeImgFilesPath_UI(EnergyBall_Path + "layer4"), DataManager.makeImgFilesPath_UI(EnergyBall_Path + "layer3"),
+            DataManager.makeImgFilesPath_UI(EnergyBall_Path + "layer2"), DataManager.makeImgFilesPath_UI(EnergyBall_Path + "layer1"),
+            DataManager.makeImgFilesPath_UI(EnergyBall_Path + "layer6"), DataManager.makeImgFilesPath_UI(EnergyBall_Path + "layer5d"),
+            DataManager.makeImgFilesPath_UI(EnergyBall_Path + "layer4d"), DataManager.makeImgFilesPath_UI(EnergyBall_Path + "layer3d"),
+            DataManager.makeImgFilesPath_UI(EnergyBall_Path + "layer2d"), DataManager.makeImgFilesPath_UI(EnergyBall_Path + "layer1d")};
     // 每个图层的旋转速度
     private static final float[] LAYER_SPEED = new float[]{-40.0F, -32.0F, 20.0F, -20.0F, 0.0F, -10.0F, -8.0F, 5.0F, -5.0F, 0.0F};
     // 人物的本地化文本，如卡牌的本地化文本一样，如何书写见下
@@ -85,8 +80,7 @@ public abstract class BaseCharacter extends CustomPlayer {
 
 
         // 初始化你的人物，如果你的人物只有一张图，那么第一个参数填写你人物图片的路径。
-        this.initializeClass(
-                LUPA_CHARACTER, // 人物图片
+        this.initializeClass(LUPA_CHARACTER, // 人物图片
                 LUPA_CHARACTER_SHOULDER_2, LUPA_CHARACTER_SHOULDER_1, LUPA_CORPSE_IMAGE, // 人物死亡图像
                 this.getLoadout(), 0.0F, 0.0F, 250.0F, 375.0F, // 人物碰撞箱大小，越大的人物模型这个越大
                 new EnergyManager(3) // 初始每回合的能量
@@ -136,12 +130,9 @@ public abstract class BaseCharacter extends CustomPlayer {
 
     protected void addCardByCardFilter(ArrayList<AbstractCard> originCardPool) {
         CardLibrary.cards.forEach(((string, card) -> {
-            if (UnlockTracker.isCardLocked(string) && !Settings.treatEverythingAsUnlocked())
-                return;
-            if (card.rarity == AbstractCard.CardRarity.BASIC)
-                return;
-            if (originCardPool.contains(card))
-                return;
+            if (UnlockTracker.isCardLocked(string) && !Settings.treatEverythingAsUnlocked()) return;
+            if (card.rarity == AbstractCard.CardRarity.BASIC) return;
+            if (originCardPool.contains(card)) return;
             if (isCardCanAdd(card)) {
                 originCardPool.add(card);
             }
@@ -155,12 +146,9 @@ public abstract class BaseCharacter extends CustomPlayer {
         float v = 0.005f * MathUtils.sinDeg(MathUtils.sinDeg(simpleAnim * 360) * 15);
         float scaleY = 1.0f + v;
         float rotation = 0;
-        sb.draw(this.img, this.drawX - (float) this.img.getWidth() * Settings.scale / 2.0F + this.animX,
-                this.drawY + this.hb.height * v,
-                0, 0,
-                (float) this.img.getWidth() * Settings.scale, (float) this.img.getHeight() * Settings.scale,
-                scaleX, scaleY, rotation,
-                0, 0, this.img.getWidth(), this.img.getHeight(), this.flipHorizontal, this.flipVertical);
+        sb.draw(this.img, this.drawX - (float) this.img.getWidth() * Settings.scale / 2.0F + this.animX, this.drawY + this.hb.height * v, 0, 0,
+                (float) this.img.getWidth() * Settings.scale, (float) this.img.getHeight() * Settings.scale, scaleX, scaleY, rotation, 0, 0,
+                this.img.getWidth(), this.img.getHeight(), this.flipHorizontal, this.flipVertical);
     }
 
     @Override
@@ -172,15 +160,22 @@ public abstract class BaseCharacter extends CustomPlayer {
     public ArrayList<AbstractCard> getCardPool(ArrayList<AbstractCard> tmpPool) {
         ArrayList<AbstractCard> originCardPool = super.getCardPool(tmpPool);
         addCardByCardFilter(originCardPool);
+        checkAndFillErrorCardPool(originCardPool);
         return originCardPool;
+    }
+
+    protected static void checkAndFillErrorCardPool(ArrayList<AbstractCard> originCardPool) {
+        if (NullCard.needMakeNullCardToFill(originCardPool)) {
+            originCardPool.clear();
+            originCardPool.addAll(NullCard.makeNullCardPool());
+        }
     }
 
     @Override
     public void update() {
         super.update();
         simpleAnim += Gdx.graphics.getDeltaTime();
-        if (simpleAnim >= 1.0f)
-            simpleAnim = 0;
+        if (simpleAnim >= 1.0f) simpleAnim = 0;
     }
 
     @Override
@@ -218,8 +213,7 @@ public abstract class BaseCharacter extends CustomPlayer {
     // 人物名字（出现在游戏左上角）
     @Override
     public String getTitle(PlayerClass playerClass) {
-        if (characterStrings == null)
-            return "[MISSING_Title]";
+        if (characterStrings == null) return "[MISSING_Title]";
         return characterStrings.NAMES[1];
     }
 

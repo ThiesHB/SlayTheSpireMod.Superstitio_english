@@ -84,7 +84,7 @@
   "SuperstitioMod:SexualDamage": {
     "NAME": "爱欲",
     "DESCRIPTIONS": [
-      "回合开始时，受到 #b%d 点伤害。"
+      "下回合开始时，受到 #b%d 点伤害。"
     ],
     "MAKE_KEYWORDS": [
       {
@@ -92,7 +92,7 @@
         "NAMES": [
           "爱欲"
         ],
-        "DESCRIPTION": "回合开始时，受到伤害。"
+        "DESCRIPTION": "下回合开始时，受到伤害。"
       }
     ]
   },
@@ -136,6 +136,12 @@
         ],
         "DESCRIPTION": "下次受到的 #y攻击 伤害 减半。"
       }
+    ]
+  },
+  "SuperstitioMod:GetTempStrengthNextTurn": {
+    "NAME": "延迟临时力量",
+    "DESCRIPTIONS": [
+      "下回合开始时，获得 %d 临时力量。"
     ]
   }
 }

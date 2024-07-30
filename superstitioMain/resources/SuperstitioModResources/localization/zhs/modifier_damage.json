@@ -3,21 +3,22 @@
     "NAME": "性爱",
     "NAME_SFW": "内劲",
     "BASIC_INFO": "性爱",
-    "DESCRIPTION": "若目标不为玩家：打破护甲后，只造成1点伤害，剩下的伤害转换为 #y内劲 ——目标回合开始时，受到伤害。"
+    "BASIC_INFO_SFW": "内劲",
+    "DESCRIPTION": "若目标不为玩家：打破护甲后，只造成1点伤害，剩下的伤害转换为 #y爱欲 ——目标下回合开始时，受到伤害。"
   },
   "SuperstitioMod:SexDamage_Fuck": {
     "NAME": "内射",
     "NAME_SFW": "招式",
     "BASIC_INFO": "内射-插入动作",
     "BASIC_INFO_SFW": "内劲-招式连打",
-    "DESCRIPTION": "若目标不为玩家：打破护甲后，只造成1点伤害，剩下的伤害转换为 #y内劲 ——目标回合开始时，受到伤害。"
+    "DESCRIPTION": "若目标不为玩家：打破护甲后，只造成1点伤害，剩下的伤害转换为 #y爱欲 ——目标下回合开始时，受到伤害。"
   },
   "SuperstitioMod:SexDamage_Job": {
     "NAME": "外射",
     "NAME_SFW": "染血",
     "BASIC_INFO": "外射-精液覆身",
     "BASIC_INFO_SFW": "内劲-血液覆身",
-    "DESCRIPTION": "若目标不为玩家：打破护甲后，只造成1点伤害，剩下的伤害转换为 #y内劲 ——目标回合开始时，受到伤害。"
+    "DESCRIPTION": "若目标不为玩家：打破护甲后，只造成1点伤害，剩下的伤害转换为 #y爱欲 ——目标下回合开始时，受到伤害。"
   },
   "SuperstitioMod:UnBlockAbleDamage": {
     "NAME": "不可阻挡的伤害",

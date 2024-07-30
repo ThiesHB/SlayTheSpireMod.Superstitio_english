@@ -138,5 +138,22 @@
     "NAME_SFW": "炽热之魂",
     "DESCRIPTION": "superstitiomod:高潮 时，获得 !M! 的 [E] 。",
     "FLAVOR": ""
+  },
+  "SuperstitioMod:MasoCard:SadismForm": {
+    "NAME": "施虐形态",
+    "NAME_SFW": "复仇形态",
+    "DESCRIPTION": "造成攻击伤害或失去生命时，下回合获得 !M! 临时力量。",
+    "FLAVOR": ""
+  },
+  "SuperstitioMod:MasoCard:STDRoulette": {
+    "NAME": "性病轮盘赌",
+    "NAME_SFW": "轮盘赌",
+    "DESCRIPTION": "获得 !B! *回味情爱 。 NL 本回合，每当你失去生命时，给予 全体敌人 !M! 层 superstitiomod:爱欲 。",
+    "FLAVOR": "",
+    "EXTENDED_DESCRIPTION": [
+      "本回合，每当你失去生命时，给予 全体敌人 %d 层 #y爱欲 。",
+      "安全！",
+      "中标！"
+    ]
   }
 }

@@ -170,6 +170,7 @@ public class Tzeentch extends BaseCharacter implements PlayerInitPostDungeonInit
     @Override
     public ArrayList<AbstractCard> getCardPool(ArrayList<AbstractCard> tmpPool) {
         addCardByCardFilter(tmpPool);
+        checkAndFillErrorCardPool(tmpPool);
         return tmpPool;
     }
 

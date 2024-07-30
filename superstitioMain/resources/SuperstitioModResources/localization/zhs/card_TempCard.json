@@ -77,5 +77,32 @@
     "NAME_SFW": "召唤宝宝",
     "DESCRIPTION": "还在测试阶段的卡，用于体验召唤系统。",
     "FLAVOR": ""
+  },
+  "SuperstitioMod:NullCard": {
+    "NAME": "空白卡",
+    "DESCRIPTION": "打出后，对所有敌人造成114514点伤害。 NL *看到 *这张卡 *说明 *你的 *战斗奖励卡池 *没有包含 *足够数量的 *卡牌。",
+    "FLAVOR": "你得重新集结部队。",
+    "ADD_KEYWORDS_ID": [
+      "SuperstitioMod:NullCardDescription1",
+      "SuperstitioMod:NullCardDescription2"
+    ],
+    "MAKE_KEYWORDS": [
+      {
+        "ID": "SuperstitioMod:NullCardDescription1",
+        "PROPER_NAME": "你的战士们坚持不住了",
+        "NAMES": [
+          "你的战士们坚持不住了"
+        ],
+        "DESCRIPTION": "显然，其需要所有稀有度的攻击卡和技能卡各一张，以及稀有度为罕见和稀有的能力卡各一张，除此之外，其总数还应该大于20张。"
+      },
+      {
+        "ID": "SuperstitioMod:NullCardDescription2",
+        "PROPER_NAME": "你的部队损失惨重",
+        "NAMES": [
+          "你的部队损失惨重"
+        ],
+        "DESCRIPTION": "目前，游戏没有因为你的错误操作而闪退，这是因为作者大发慈悲做了处理。但是这不代表你应该无视这些东西继续游戏——胜败乃兵家常事，请大侠重新来过吧。"
+      }
+    ]
   }
 }
