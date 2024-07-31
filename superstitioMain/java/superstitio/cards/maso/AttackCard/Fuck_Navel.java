@@ -31,6 +31,7 @@ public class Fuck_Navel extends MasoCard implements FuckJob_Card, OnOrgasm_onOrg
 
     private static final int MAGIC = 5;
     private static final int UPGRADE_MAGIC = 2;
+//    private int orgasmTimes;
 
     public Fuck_Navel() {
         super(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET);
@@ -39,6 +40,7 @@ public class Fuck_Navel extends MasoCard implements FuckJob_Card, OnOrgasm_onOrg
         this.setupMagicNumber(MAGIC, UPGRADE_MAGIC);
         this.isMultiDamage = true;
         CardModifierManager.addModifier(this, new RetainMod());
+//        this.orgasmTimes = 0;
     }
 
     @Override
@@ -56,7 +58,7 @@ public class Fuck_Navel extends MasoCard implements FuckJob_Card, OnOrgasm_onOrg
     public void onOrgasm(SexualHeat SexualHeatPower) {
         if (AbstractDungeon.player.hand.contains(this)) {
             this.flash();
-            this.setupDamage(this.damage + this.magicNumber);
+            this.setupDamage(this.baseDamage + this.magicNumber);
         }
     }
 }

@@ -73,8 +73,8 @@ public class NullCard extends GeneralCard {
             return true;
         if (cardList.stream().noneMatch(card -> card.type == CardType.SKILL && card.rarity == CardRarity.RARE))
             return true;
-        if (cardList.stream().noneMatch(card -> card.type == CardType.POWER && card.rarity == CardRarity.COMMON))
-            return true;
+//        if (cardList.stream().noneMatch(card -> card.type == CardType.POWER && card.rarity == CardRarity.COMMON))
+//            return true;
         if (cardList.stream().noneMatch(card -> card.type == CardType.POWER && card.rarity == CardRarity.UNCOMMON))
             return true;
         if (cardList.stream().noneMatch(card -> card.type == CardType.POWER && card.rarity == CardRarity.RARE))
