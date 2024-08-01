@@ -9,6 +9,7 @@ import superstitio.DataManager;
 import superstitio.powers.AbstractSuperstitioPower;
 import superstitio.relics.SuperstitioRelic;
 import superstitioapi.powers.interfaces.OnMonsterDeath;
+import superstitioapi.utils.CreatureUtility;
 
 public class LewdGirlComing extends SuperstitioRelic {
     public static final String ID = DataManager.MakeTextID(LewdGirlComing.class);
@@ -31,18 +32,19 @@ public class LewdGirlComing extends SuperstitioRelic {
 
     @Override
     public void atBattleStart() {
-        for (AbstractMonster monster : AbstractDungeon.getMonsters().monsters) {
-            this.addToTop(new RelicAboveCreatureAction(monster, this));
-            monster.addPower(new RatherThanDeath(monster, DEATH_DOOR_AMOUNT));
-        }
+        AbstractMonster monster = CreatureUtility.getRandomMonsterSafe();
+//        for (AbstractMonster monster : AbstractDungeon.getMonsters().monsters) {
+        this.addToTop(new RelicAboveCreatureAction(monster, this));
+        monster.addPower(new RatherThanDeath(monster, DEATH_DOOR_AMOUNT));
+//        }
         AbstractDungeon.onModifyPower();
     }
 
-    @Override
-    public void onSpawnMonster(AbstractMonster monster) {
-        monster.addPower(new RatherThanDeath(monster, DEATH_DOOR_AMOUNT));
-        AbstractDungeon.onModifyPower();
-    }
+//    @Override
+//    public void onSpawnMonster(AbstractMonster monster) {
+//        monster.addPower(new RatherThanDeath(monster, DEATH_DOOR_AMOUNT));
+//        AbstractDungeon.onModifyPower();
+//    }
 
     public void onEquip() {
         ++AbstractDungeon.player.energy.energyMaster;
