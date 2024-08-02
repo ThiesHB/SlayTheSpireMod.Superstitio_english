@@ -142,7 +142,7 @@
   "SuperstitioMod:MasoCard:SadismForm": {
     "NAME": "施虐形态",
     "NAME_SFW": "复仇形态",
-    "DESCRIPTION": "造成攻击伤害或失去生命时，下回合获得 !M! 临时力量。",
+    "DESCRIPTION": "造成攻击伤害或失去生命后，下回合获得 !M! 力量 。",
     "FLAVOR": ""
   },
   "SuperstitioMod:MasoCard:STDRoulette": {

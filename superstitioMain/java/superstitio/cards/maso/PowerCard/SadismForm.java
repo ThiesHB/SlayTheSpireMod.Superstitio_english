@@ -4,7 +4,6 @@ import com.megacrit.cardcrawl.cards.DamageInfo;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.core.AbstractCreature;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
-import com.megacrit.cardcrawl.powers.LoseStrengthPower;
 import com.megacrit.cardcrawl.powers.StrengthPower;
 import superstitio.DataManager;
 import superstitio.cards.SuperstitioCard;
@@ -87,7 +86,7 @@ public class SadismForm extends MasoCard {
         @Override
         public void atStartOfTurn() {
             addToBot_applyPower(new StrengthPower(this.owner, this.amount));
-            addToBot_applyPower(new LoseStrengthPower(this.owner, this.amount));
+//            addToBot_applyPower(new LoseStrengthPower(this.owner, this.amount));
             addToBot_removeSpecificPower(this);
         }
     }
