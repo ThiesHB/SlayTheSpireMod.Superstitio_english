@@ -8,8 +8,8 @@ import superstitio.DataManager;
 import superstitio.cards.general.FuckJob_Card;
 import superstitio.cards.lupa.LupaCard;
 import superstitio.powers.SexualHeat;
+import superstitioapi.SuperstitioApiSetup;
 import superstitioapi.actions.AutoDoneInstantAction;
-import superstitioapi.cards.DamageActionMaker;
 
 public class Job_LegPit extends LupaCard implements FuckJob_Card {
     public static final String ID = DataManager.MakeTextID(Job_LegPit.class);
@@ -35,7 +35,7 @@ public class Job_LegPit extends LupaCard implements FuckJob_Card {
     @Override
     public void use(AbstractPlayer player, AbstractMonster monster) {
         for (int i = 0; i < Attack_Num; i++) {
-            addToBot_dealDamage(monster, DamageActionMaker.DamageEffect.HeartMultiInOne);
+            addToBot_dealDamage(monster, SuperstitioApiSetup.DamageEffect.HeartMultiInOne);
             AutoDoneInstantAction.addToBotAbstract(() -> {
                 if (monster.lastDamageTaken > 0 && SexualHeat.isInOrgasm(AbstractDungeon.player))
                     addToBot_drawCards();

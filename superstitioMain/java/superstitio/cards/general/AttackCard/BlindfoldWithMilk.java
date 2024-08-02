@@ -5,8 +5,8 @@ import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import superstitio.DataManager;
 import superstitio.cards.general.GeneralCard;
 import superstitio.powers.Milk;
+import superstitioapi.SuperstitioApiSetup;
 import superstitioapi.actions.AutoDoneInstantAction;
-import superstitioapi.cards.DamageActionMaker;
 
 public class BlindfoldWithMilk extends GeneralCard {
     public static final String ID = DataManager.MakeTextID(BlindfoldWithMilk.class);
@@ -30,7 +30,7 @@ public class BlindfoldWithMilk extends GeneralCard {
 
     @Override
     public void use(AbstractPlayer player, AbstractMonster monster) {
-        addToBot_dealDamage(monster, DamageActionMaker.DamageEffect.HeartMultiInOne);
+        addToBot_dealDamage(monster, SuperstitioApiSetup.DamageEffect.HeartMultiInOne);
         if (monster.isDeadOrEscaped()) return;
         AutoDoneInstantAction.addToBotAbstract(() -> {
                     monster.rollMove();

@@ -6,6 +6,7 @@ import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import superstitio.DataManager;
 import superstitio.cardModifier.modifiers.damage.SexDamage;
 import superstitio.cards.general.GeneralCard;
+import superstitioapi.SuperstitioApiSetup;
 import superstitioapi.cards.DamageActionMaker;
 import superstitioapi.cards.patch.GoSomewhereElseAfterUse;
 import superstitioapi.hangUpCard.CardOrb_EachCardTrigger;
@@ -46,7 +47,7 @@ public class Ahegao extends GeneralCard implements GoSomewhereElseAfterUse {
             AbstractMonster creature = CreatureUtility.getMonsterOrRandomMonster(orb.lastTarget);
             orb.StartHitCreature(creature);
             DamageActionMaker.maker(orb.getOriginCard().damage, creature).setExampleCard(this)
-                    .setEffect(DamageActionMaker.DamageEffect.HeartMultiInOne)
+                    .setEffect(SuperstitioApiSetup.DamageEffect.HeartMultiInOne)
                     .addToBot();
         })
                 .setCardPredicate(card -> card.type == CardType.ATTACK)

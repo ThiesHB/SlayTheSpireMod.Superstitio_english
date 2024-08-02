@@ -7,6 +7,7 @@ import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import superstitio.DataManager;
 import superstitio.cards.general.FuckJob_Card;
 import superstitio.cards.general.GeneralCard;
+import superstitioapi.SuperstitioApiSetup;
 import superstitioapi.cards.DamageActionMaker;
 import superstitioapi.cards.patch.GoSomewhereElseAfterUse;
 import superstitioapi.hangUpCard.CardOrb_WaitCardTrigger;
@@ -55,7 +56,7 @@ public class Job_Armpit extends GeneralCard implements FuckJob_Card, GoSomewhere
             AbstractMonster creature = CreatureUtility.getMonsterOrRandomMonster(orb.lastTarget);
             orb.StartHitCreature(creature);
             DamageActionMaker.maker(orb.getOriginCard().damage, creature)
-                    .setEffect(DamageActionMaker.DamageEffect.HeartMultiInOne)
+                    .setEffect(SuperstitioApiSetup.DamageEffect.HeartMultiInOne)
                     .setExampleCard(this).addToBot();
         })
                 .setCardPredicate(card -> card.type == CardType.ATTACK)
@@ -67,7 +68,7 @@ public class Job_Armpit extends GeneralCard implements FuckJob_Card, GoSomewhere
             AbstractMonster creature = CreatureUtility.getMonsterOrRandomMonster(orb.lastTarget);
             orb.StartHitCreature(creature);
             DamageActionMaker.maker(orb.getOriginCard().damage, creature)
-                    .setEffect(DamageActionMaker.DamageEffect.HeartMultiInOne)
+                    .setEffect(SuperstitioApiSetup.DamageEffect.HeartMultiInOne)
                     .setExampleCard(this).addToBot();
         })
                 .setCardPredicate(card -> card.type == CardType.ATTACK)

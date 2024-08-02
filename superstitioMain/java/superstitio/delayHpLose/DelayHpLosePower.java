@@ -12,7 +12,6 @@ import com.megacrit.cardcrawl.vfx.combat.PowerBuffEffect;
 import superstitio.DataManager;
 import superstitio.Logger;
 import superstitio.SuperstitioImg;
-//import superstitio.modTips.TipsManager;
 import superstitio.powers.AbstractSuperstitioPower;
 import superstitioapi.actions.AutoDoneInstantAction;
 import superstitioapi.cards.DamageActionMaker;

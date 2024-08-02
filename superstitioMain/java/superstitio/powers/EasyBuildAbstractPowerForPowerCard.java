@@ -1,5 +1,6 @@
 package superstitio.powers;
 
+import com.megacrit.cardcrawl.core.AbstractCreature;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.localization.LocalizedStrings;
 import superstitio.DataManager;
@@ -12,15 +13,22 @@ public abstract class EasyBuildAbstractPowerForPowerCard extends AbstractSuperst
     protected final SuperstitioCard powerCard;
 
     public EasyBuildAbstractPowerForPowerCard(int amount) {
-        this(amount, true);
+        this(AbstractDungeon.player, amount, true);
+    }
+    public EasyBuildAbstractPowerForPowerCard(int amount, boolean shouldUpdateDesc) {
+        this(AbstractDungeon.player, amount, shouldUpdateDesc);
     }
 
-    public EasyBuildAbstractPowerForPowerCard(int amount, boolean shouldUpdateDesc) {
+    public EasyBuildAbstractPowerForPowerCard(AbstractCreature owner, int amount) {
+        this(owner, amount, true);
+    }
+
+    public EasyBuildAbstractPowerForPowerCard(AbstractCreature owner, int amount, boolean shouldUpdateDesc) {
         super(true);
         this.powerCard = makePowerCard();
         SetupPower(powerCard.cardID,
                 getPowerStringsWithSFW(powerCard.cardID),
-                AbstractDungeon.player,
+                owner,
                 amount,
                 PowerType.BUFF,
                 false);

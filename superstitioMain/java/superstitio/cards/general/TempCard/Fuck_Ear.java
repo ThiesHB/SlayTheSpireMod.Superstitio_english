@@ -1,5 +1,7 @@
 package superstitio.cards.general.TempCard;
 
+import basemod.cardmods.ExhaustMod;
+import basemod.helpers.CardModifierManager;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
@@ -8,7 +10,7 @@ import superstitio.DataManager;
 import superstitio.cards.general.AbstractTempCard;
 import superstitio.cards.general.FuckJob_Card;
 import superstitio.cards.maso.AttackCard.Fuck_Eye;
-import superstitioapi.cards.DamageActionMaker;
+import superstitioapi.SuperstitioApiSetup;
 import superstitioapi.utils.ActionUtility;
 
 public class Fuck_Ear extends AbstractTempCard implements FuckJob_Card {
@@ -33,13 +35,13 @@ public class Fuck_Ear extends AbstractTempCard implements FuckJob_Card {
         super(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET);
         FuckJob_Card.initFuckJobCard(this);
         this.setupDamage(DAMAGE, UPGRADE_DAMAGE);
-        this.exhaust = true;
+        CardModifierManager.addModifier(this, new ExhaustMod());
     }
 
     @Override
     public void use(AbstractPlayer player, AbstractMonster monster) {
-        addToBot_dealDamage(monster, DamageActionMaker.DamageEffect.HeartMultiInOne);
-        addToBot_dealDamage(monster, DamageActionMaker.DamageEffect.HeartMultiInOne);
+        addToBot_dealDamage(monster, SuperstitioApiSetup.DamageEffect.HeartMultiInOne);
+        addToBot_dealDamage(monster, SuperstitioApiSetup.DamageEffect.HeartMultiInOne);
         ActionUtility.addToBot_makeTempCardInBattle(new Fuck_Eye(), ActionUtility.BattleCardPlace.Hand, this.upgraded);
         addToBot_applyPower(new FrailPower(AbstractDungeon.player, 1, false));
 

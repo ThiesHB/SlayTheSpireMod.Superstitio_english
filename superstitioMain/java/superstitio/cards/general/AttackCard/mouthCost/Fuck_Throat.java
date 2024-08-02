@@ -7,7 +7,7 @@ import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import superstitio.DataManager;
 import superstitio.cards.general.FuckJob_Card;
 import superstitio.cards.general.GeneralCard;
-import superstitioapi.cards.DamageActionMaker;
+import superstitioapi.SuperstitioApiSetup;
 import superstitioapi.hangUpCard.HangUpCardGroup;
 
 public class Fuck_Throat extends GeneralCard implements FuckJob_Card {
@@ -33,7 +33,7 @@ public class Fuck_Throat extends GeneralCard implements FuckJob_Card {
 
     @Override
     public void use(AbstractPlayer player, AbstractMonster monster) {
-        addToBot_dealDamage(monster, DamageActionMaker.DamageEffect.HeartMultiInOne);
+        addToBot_dealDamage(monster, SuperstitioApiSetup.DamageEffect.HeartMultiInOne);
         HangUpCardGroup.forHangUpCardGroup(group -> {
             if (group.hasOrb())
                 addToBot(new GainEnergyAction(this.magicNumber));

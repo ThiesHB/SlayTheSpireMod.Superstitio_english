@@ -2,7 +2,9 @@ package superstitioapi;
 
 import basemod.BaseMod;
 import basemod.interfaces.EditStringsSubscriber;
+import com.evacipated.cardcrawl.modthespire.lib.SpireEnum;
 import com.evacipated.cardcrawl.modthespire.lib.SpireInitializer;
+import com.megacrit.cardcrawl.actions.AbstractGameAction;
 import com.megacrit.cardcrawl.core.Settings;
 import com.megacrit.cardcrawl.localization.PowerStrings;
 
@@ -24,5 +26,10 @@ public class SuperstitioApiSetup implements EditStringsSubscriber {
     @Override
     public void receiveEditStrings() {
         BaseMod.loadCustomStringsFile(PowerStrings.class, DataUtility.makeLocalizationPath(Settings.language, "power"));
+    }
+
+    public static class DamageEffect {
+        @SpireEnum
+        public static AbstractGameAction.AttackEffect HeartMultiInOne;
     }
 }

@@ -5,7 +5,10 @@ import com.megacrit.cardcrawl.localization.CardStrings;
 import com.megacrit.cardcrawl.localization.LocalizedStrings;
 import superstitio.SuperstitioConfig;
 import superstitio.customStrings.SuperstitioKeyWord;
-import superstitio.customStrings.interFace.*;
+import superstitio.customStrings.interFace.HasDifferentVersionStringSet;
+import superstitio.customStrings.interFace.HasOriginAndSFWVersion;
+import superstitio.customStrings.interFace.StringSetUtility;
+import superstitio.customStrings.interFace.WordReplace;
 
 import java.util.List;
 import java.util.Optional;

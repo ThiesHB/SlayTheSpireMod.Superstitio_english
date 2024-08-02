@@ -1,6 +1,5 @@
 package superstitio.cardModifier.modifiers.block;
 
-import com.badlogic.gdx.graphics.Color;
 import com.evacipated.cardcrawl.mod.stslib.blockmods.AbstractBlockModifier;
 import com.megacrit.cardcrawl.cards.DamageInfo;
 import superstitio.DataManager;

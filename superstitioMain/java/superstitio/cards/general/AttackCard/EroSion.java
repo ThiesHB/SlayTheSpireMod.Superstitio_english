@@ -7,8 +7,8 @@ import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import superstitio.DataManager;
 import superstitio.cards.general.GeneralCard;
+import superstitioapi.SuperstitioApiSetup;
 import superstitioapi.actions.AutoDoneInstantAction;
-import superstitioapi.cards.DamageActionMaker;
 
 public class EroSion extends GeneralCard {
     public static final String ID = DataManager.MakeTextID(EroSion.class);
@@ -52,7 +52,7 @@ public class EroSion extends GeneralCard {
         AbstractCard self = this;
         AutoDoneInstantAction.addToBotAbstract(() -> {
             calculateCardDamage(monster);
-            addToBot_dealDamage(monster, self.damage, DamageActionMaker.DamageEffect.HeartMultiInOne);
+            addToBot_dealDamage(monster, self.damage, SuperstitioApiSetup.DamageEffect.HeartMultiInOne);
         });
     }
 

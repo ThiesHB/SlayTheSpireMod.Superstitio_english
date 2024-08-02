@@ -2,18 +2,19 @@ package superstitioapi.cards;
 
 import com.evacipated.cardcrawl.mod.stslib.damagemods.AbstractDamageModifier;
 import com.evacipated.cardcrawl.mod.stslib.damagemods.DamageModifierManager;
-import com.evacipated.cardcrawl.modthespire.lib.SpireEnum;
 import com.megacrit.cardcrawl.actions.common.DamageAction;
 import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.cards.DamageInfo;
 import com.megacrit.cardcrawl.core.AbstractCreature;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
+import superstitioapi.SuperstitioApiSetup;
 import superstitioapi.actions.AbstractContinuallyAction;
 import superstitioapi.actions.DamageAllEnemiesAction;
 import superstitioapi.actions.DamageEnemiesAction;
 import superstitioapi.shader.heart.HeartMultiAtOneShader;
 
 import java.util.Arrays;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 import static com.megacrit.cardcrawl.actions.AbstractGameAction.AttackEffect;
@@ -21,17 +22,21 @@ import static superstitioapi.shader.ShaderUtility.canUseShader;
 
 /**
  * 这个类其实已经是过度包装了，它本来是原始{@link DamageAction}的builder，但我已经重写了一套新的代码（并且附带了builder）
- * <p>现在它唯一的用处就是实现{@link DamageEffect#HeartMultiInOne} 一类的特效，算是个可有可无的玩意</p>
+ * <p>现在它唯一的用处就是实现{@link SuperstitioApiSetup.DamageEffect#HeartMultiInOne} 一类的特效，算是个可有可无的玩意</p>
  */
 public class DamageActionMaker {
     private final DamageEnemiesAction.Builder builder;
-    private AttackEffect effect = DamageActionMaker.DamageEffect.HeartMultiInOne;
+    private AttackEffect effect = SuperstitioApiSetup.DamageEffect.HeartMultiInOne;
 
     /**
      * 产生一个AOE伤害
      */
     protected DamageActionMaker(final int[] multiDamage) {
         this.builder = DamageAllEnemiesAction.builder(multiDamage);
+    }
+
+    protected DamageActionMaker(Map<AbstractCreature, Integer> creatureDamageMap) {
+        this.builder = DamageAllEnemiesAction.builder(creatureDamageMap);
     }
 
     protected DamageActionMaker(final int[] multiDamage, final AbstractMonster... targets) {
@@ -50,17 +55,25 @@ public class DamageActionMaker {
         return new DamageActionMaker(exampleCard.multiDamage, targets);
     }
 
+    public static DamageActionMaker makeDamages(Map<AbstractCreature, Integer> creatureDamageMap) {
+        return new DamageActionMaker(creatureDamageMap);
+    }
+
     public static DamageActionMaker makeAoeDamage(final AbstractCard exampleCard) {
         return new DamageActionMaker(exampleCard.multiDamage)
                 .setDamageModifier(exampleCard, DamageModifierManager.modifiers(exampleCard).toArray(new AbstractDamageModifier[]{}));
     }
 
+    public static void trySetHeartEffect(DamageEnemiesAction.Builder builder) {
+        if (canUseShader)
+            builder.setNewAttackEffectMaker(creature -> new HeartMultiAtOneShader.HeartMultiAtOneEffect(creature.hb));
+        else
+            builder.setAttackEffectType(AttackEffect.BLUNT_LIGHT);
+    }
+
     public AbstractContinuallyAction createAction() {
-        if (effect == DamageActionMaker.DamageEffect.HeartMultiInOne) {
-            if (canUseShader)
-                this.builder.setNewAttackEffectMaker(creature -> new HeartMultiAtOneShader.HeartMultiAtOneEffect(creature.hb));
-            else
-                this.builder.setAttackEffectType(AttackEffect.BLUNT_LIGHT);
+        if (effect == SuperstitioApiSetup.DamageEffect.HeartMultiInOne) {
+            trySetHeartEffect(this.builder);
         }
         return this.builder.create();
     }
@@ -104,8 +117,4 @@ public class DamageActionMaker {
         return this;
     }
 
-    public static class DamageEffect {
-        @SpireEnum
-        public static AttackEffect HeartMultiInOne;
-    }
 }

@@ -16,7 +16,10 @@ import superstitio.cards.maso.BaseCard.FistIn;
 import superstitio.cards.maso.BaseCard.Invite_Maso;
 import superstitio.cards.maso.BaseCard.Spark;
 import superstitio.relics.a_starter.VulnerableTogetherRelic;
-import superstitio.relics.blight.*;
+import superstitio.relics.blight.DevaBody_Masochism;
+import superstitio.relics.blight.EnjoyAilment;
+import superstitio.relics.blight.JokeDescription;
+import superstitio.relics.blight.MasochismMode;
 import superstitioapi.player.PlayerInitPostDungeonInitialize;
 import superstitioapi.renderManager.characterSelectScreenRender.RenderInCharacterSelect;
 

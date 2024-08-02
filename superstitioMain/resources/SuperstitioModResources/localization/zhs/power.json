@@ -93,6 +93,14 @@
           "爱欲"
         ],
         "DESCRIPTION": "下回合开始时，受到伤害。"
+      },
+      {
+        "ID" : "SuperstitioMod:CardForSexualDamage",
+        "PROPER_NAME": "能提供爱欲的方式",
+        "NAMES": [
+          "能提供爱欲的方式"
+        ],
+        "DESCRIPTION": "除了直接给予 #y爱欲 层数的卡牌以外，当造成 #y性爱伤害 时，其延迟造成的部分 也是以 #y爱欲 的形式存在的。"
       }
     ]
   },

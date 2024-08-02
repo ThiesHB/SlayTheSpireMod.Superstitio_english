@@ -1,5 +1,7 @@
 package superstitio.cards.maso.AttackCard;
 
+import basemod.cardmods.ExhaustMod;
+import basemod.helpers.CardModifierManager;
 import com.megacrit.cardcrawl.actions.AbstractGameAction;
 import com.megacrit.cardcrawl.cards.CardGroup;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
@@ -10,8 +12,7 @@ import superstitio.DataManager;
 import superstitio.cards.general.FuckJob_Card;
 import superstitio.cards.general.TempCard.Fuck_Ear;
 import superstitio.cards.maso.MasoCard;
-import superstitio.delayHpLose.RemoveDelayHpLoseBlock;
-import superstitioapi.cards.DamageActionMaker;
+import superstitioapi.SuperstitioApiSetup;
 import superstitioapi.cards.patch.GoSomewhereElseAfterUse;
 import superstitioapi.hangUpCard.CardOrb_WaitCardTrigger;
 import superstitioapi.utils.ActionUtility;
@@ -30,8 +31,8 @@ public class Fuck_Eye extends MasoCard implements FuckJob_Card, GoSomewhereElseA
     private static final int COST = 1;
     private static final int DAMAGE = 4;
     private static final int UPGRADE_DAMAGE = 1;
-    private static final int BLOCK = 8;
-    private static final int UPGRADE_BLOCK = 2;
+//    private static final int BLOCK = 8;
+//    private static final int UPGRADE_BLOCK = 2;
     private static final int MAGIC = 3;
 
     public Fuck_Eye() {
@@ -43,15 +44,15 @@ public class Fuck_Eye extends MasoCard implements FuckJob_Card, GoSomewhereElseA
         super(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET);
         FuckJob_Card.initFuckJobCard(this);
         this.setupDamage(DAMAGE, UPGRADE_DAMAGE);
-        this.setupBlock(BLOCK, UPGRADE_BLOCK, new RemoveDelayHpLoseBlock());
+//        this.setupBlock(BLOCK, UPGRADE_BLOCK, new RemoveDelayHpLoseBlock());
         this.setupMagicNumber(MAGIC);
-        this.exhaust = true;
+        CardModifierManager.addModifier(this,new ExhaustMod());
     }
 
     @Override
     public void use(AbstractPlayer player, AbstractMonster monster) {
-        addToBot_dealDamage(monster, DamageActionMaker.DamageEffect.HeartMultiInOne);
-        addToBot_dealDamage(monster, DamageActionMaker.DamageEffect.HeartMultiInOne);
+        addToBot_dealDamage(monster, SuperstitioApiSetup.DamageEffect.HeartMultiInOne);
+        addToBot_dealDamage(monster, SuperstitioApiSetup.DamageEffect.HeartMultiInOne);
         addToBot_dealDamage(AbstractDungeon.player, AbstractGameAction.AttackEffect.BLUNT_LIGHT);
         addToBot_dealDamage(AbstractDungeon.player, AbstractGameAction.AttackEffect.BLUNT_LIGHT);
         addToBot_applyPower(new WeakPower(AbstractDungeon.player, 1, false));
@@ -66,7 +67,7 @@ public class Fuck_Eye extends MasoCard implements FuckJob_Card, GoSomewhereElseA
     public void afterInterruptMoveToCardGroup(CardGroup cardGroup) {
         new CardOrb_WaitCardTrigger(this, cardGroup, this.magicNumber, (orb, card) -> {
             orb.StartHitCreature(AbstractDungeon.player);
-            addToBot_gainCustomBlock(new RemoveDelayHpLoseBlock());
+//            addToBot_gainCustomBlock(new RemoveDelayHpLoseBlock());
             ActionUtility.addToBot_makeTempCardInBattle(new Fuck_Ear(), ActionUtility.BattleCardPlace.Hand, this.upgraded);
         })
                 .setTargetType(CardTarget.SELF)

@@ -5,11 +5,11 @@ import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import superstitio.DataManager;
-import superstitio.cards.lupa.BaseCard.Masturbate;
 import superstitio.cards.general.FuckJob_Card;
 import superstitio.cards.general.GeneralCard;
+import superstitio.cards.lupa.BaseCard.Masturbate;
 import superstitio.cards.lupa.LupaCard;
-import superstitioapi.cards.DamageActionMaker;
+import superstitioapi.SuperstitioApiSetup;
 import superstitioapi.cards.patch.GoSomewhereElseAfterUse;
 import superstitioapi.hangUpCard.CardOrb_EachCardTrigger;
 import superstitioapi.utils.PowerUtility;
@@ -40,8 +40,8 @@ public class Job_Foot extends GeneralCard implements FuckJob_Card, GoSomewhereEl
 
     @Override
     public void use(AbstractPlayer player, AbstractMonster monster) {
-        addToBot_dealDamage(monster, DamageActionMaker.DamageEffect.HeartMultiInOne);
-        addToBot_dealDamage(monster, DamageActionMaker.DamageEffect.HeartMultiInOne);
+        addToBot_dealDamage(monster, SuperstitioApiSetup.DamageEffect.HeartMultiInOne);
+        addToBot_dealDamage(monster, SuperstitioApiSetup.DamageEffect.HeartMultiInOne);
     }
 
     @Override

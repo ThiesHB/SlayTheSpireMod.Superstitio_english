@@ -6,7 +6,7 @@ import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import superstitio.DataManager;
 import superstitio.cards.general.FuckJob_Card;
 import superstitio.cards.general.GeneralCard;
-import superstitioapi.cards.DamageActionMaker;
+import superstitioapi.SuperstitioApiSetup;
 import superstitioapi.hangUpCard.*;
 
 public class Fuck_Vaginal extends GeneralCard implements FuckJob_Card, Card_TriggerHangCardManually {
@@ -36,7 +36,7 @@ public class Fuck_Vaginal extends GeneralCard implements FuckJob_Card, Card_Trig
 
     @Override
     public void use(final AbstractPlayer player, final AbstractMonster monster) {
-        addToBot_dealDamage(monster, DamageActionMaker.DamageEffect.HeartMultiInOne);
+        addToBot_dealDamage(monster, SuperstitioApiSetup.DamageEffect.HeartMultiInOne);
         for (int i = 0; i < this.magicNumber; i++) {
             HangUpCardGroup.forEachHangUpCard(orb -> {
                 if (orb instanceof ICardOrb_EachTime) {

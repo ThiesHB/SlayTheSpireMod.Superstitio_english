@@ -9,7 +9,7 @@ import superstitio.DataManager;
 import superstitio.InBattleDataManager;
 import superstitio.cards.general.GeneralCard;
 import superstitio.powers.SexualHeat;
-import superstitioapi.cards.DamageActionMaker;
+import superstitioapi.SuperstitioApiSetup;
 import superstitioapi.utils.ActionUtility;
 
 import java.util.List;
@@ -70,7 +70,7 @@ public class CountSign extends GeneralCard {
     @Override
     public void use(final AbstractPlayer player, final AbstractMonster monster) {
         updateDamage();
-        addToBot_dealDamage(monster, DamageActionMaker.DamageEffect.HeartMultiInOne);
+        addToBot_dealDamage(monster, SuperstitioApiSetup.DamageEffect.HeartMultiInOne);
     }
 
     @Override
