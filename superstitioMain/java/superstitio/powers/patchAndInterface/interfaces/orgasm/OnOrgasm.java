@@ -5,6 +5,7 @@ import com.megacrit.cardcrawl.core.AbstractCreature;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.relics.AbstractRelic;
 import superstitio.powers.SexualHeat;
+import superstitioapi.hangUpCard.HangUpCardGroup;
 import superstitioapi.relicToBlight.InfoBlight;
 import superstitioapi.utils.CardUtility;
 
@@ -22,6 +23,10 @@ public interface OnOrgasm {
             onOrgasms.addAll(AbstractDungeon.player.blights.stream().filter(OnOrgasm.class::isInstance).map(relic -> (OnOrgasm) relic).collect(Collectors.toList()));
             onOrgasms.addAll(CardUtility.AllCardInBattle().stream().filter(OnOrgasm.class::isInstance).map(card -> (OnOrgasm) card).collect(Collectors.toList()));
             onOrgasms.addAll(AbstractDungeon.player.relics.stream().filter(OnOrgasm.class::isInstance).map(relic -> (OnOrgasm) relic).collect(Collectors.toList()));
+            HangUpCardGroup.forEachHangUpCard(card -> {
+                if (card instanceof OnOrgasm)
+                    onOrgasms.add((OnOrgasm) card);
+            }).get();
         }
         return onOrgasms.stream();
     }

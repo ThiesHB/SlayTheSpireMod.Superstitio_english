@@ -43,10 +43,10 @@
   "SuperstitioMod:MasoCard:BodyModification_CutOff": {
     "NAME": "身体欠损",
     "NAME_SFW": "义体升级",
-    "DESCRIPTION": "若还有可选择的部位：移除 !B! *腐朽 ， NL 攻击力提升 百分之 !M! 。 NL 选择一个部位，其对应的 *性交牌 无法打出。",
+    "DESCRIPTION": "若还有可选择的部位：移除 !B! *腐朽 ， NL 攻击力提升 !M! % 。 NL 选择一个部位，其对应的 *性交牌 无法打出。",
     "FLAVOR": "用刀砍，还是用手拽下来呢？这是个问题。",
     "EXTENDED_DESCRIPTION": [
-      "攻击力提升 百分之 %d 。"
+      "攻击力提升 #b%d%% 。"
     ]
   },
   "SuperstitioMod:BodyModification_CutOff_Chose": {
@@ -172,6 +172,15 @@
         ],
         "DESCRIPTION": "受到 #y攻击 伤害时，对 #y敌我双方 造成 伤害 。"
       }
+    ]
+  },
+  "SuperstitioMod:MasoCard:Guillotine": {
+    "NAME": "断头台",
+    "NAME_SFW": "命悬一线",
+    "DESCRIPTION": "本回合，高潮所需的快感提高 %d ，攻击造成的伤害提高 %d %% 。 NL superstitiomod:缠绵 高潮 !M! 次： NL *立即死亡？ NL superstitiomod:自动释放 。",
+    "FLAVOR": "",
+    "EXTENDED_DESCRIPTION": [
+      "本回合，高潮所需的快感提高 #b%d ，攻击造成的伤害提高 #b%d%% 。"
     ]
   }
 }

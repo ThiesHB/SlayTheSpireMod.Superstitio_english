@@ -128,10 +128,7 @@ public abstract class AbstractSuperstitioPower extends AbstractPower implements 
 
     @Override
     public final void setDescriptionArgs(Object... args) {
-        if (args[0] instanceof Object[])
-            descriptionArgs = (Object[]) args[0];
-        else
-            descriptionArgs = args;
+        setDescriptionToArgs(allArgs -> descriptionArgs = allArgs, args);
     }
 
     /**

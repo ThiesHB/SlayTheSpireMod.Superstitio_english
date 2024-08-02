@@ -15,6 +15,7 @@ public abstract class EasyBuildAbstractPowerForPowerCard extends AbstractSuperst
     public EasyBuildAbstractPowerForPowerCard(int amount) {
         this(AbstractDungeon.player, amount, true);
     }
+
     public EasyBuildAbstractPowerForPowerCard(int amount, boolean shouldUpdateDesc) {
         this(AbstractDungeon.player, amount, shouldUpdateDesc);
     }
@@ -47,7 +48,7 @@ public abstract class EasyBuildAbstractPowerForPowerCard extends AbstractSuperst
 
     protected String getDesc() {
         String desc;
-        if (powerCard.cardStrings.getDESCRIPTION().contains("%s"))
+        if (powerCard.cardStrings.getDESCRIPTION().contains("%s") || powerCard.cardStrings.getDESCRIPTION().contains("%%"))
             desc = powerCard.cardStrings.getDESCRIPTION();
         else
             desc = powerCard.rawDescription;

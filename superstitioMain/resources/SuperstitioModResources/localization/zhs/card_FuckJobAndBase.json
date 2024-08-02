@@ -125,7 +125,7 @@
   "SuperstitioMod:Fuck_Vaginal": {
     "NAME": "阴道",
     "NAME_SFW": "燕形拳",
-    "DESCRIPTION": "造成 !D! 点 伤害 ， NL 无消耗触发所有 superstitiomod:助兴序列 拥有 superstitiomod:缠绵 效果的卡牌 !M! 次。",
+    "DESCRIPTION": "造成 !D! 点 伤害 ， NL 无消耗触发 superstitiomod:助兴序列 所有拥有 superstitiomod:缠绵 效果的卡牌 !M! 次。",
     "FLAVOR": "朴实无华。如果没有其他东西助兴的话就会困得想睡觉。"
   },
   "SuperstitioMod:Invite": {

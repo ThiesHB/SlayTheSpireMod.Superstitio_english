@@ -37,6 +37,11 @@ public class GangBangPrepare extends LupaCard {
         this.cardsToPreview = new GangBang();
     }
 
+    @Override
+    public void updateDescriptionArgs() {
+        setDescriptionArgs();
+    }
+
     public static void addToBot_gainSexMark_Inside(String sexName) {
         addToBot_GiveMarkToOrbGroup(sexName, SexMarkOrbGroup.SexMarkType.Inside);
     }

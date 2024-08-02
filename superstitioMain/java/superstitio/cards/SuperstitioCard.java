@@ -467,10 +467,7 @@ public abstract class SuperstitioCard extends CustomCard implements UpdateDescri
 
     @Override
     public void setDescriptionArgs(Object... args) {
-        if (args[0] instanceof Object[])
-            descriptionArgs = (Object[]) args[0];
-        else
-            descriptionArgs = args;
+        setDescriptionToArgs(allArgs -> descriptionArgs = allArgs, args);
     }
 
     @Override

@@ -45,7 +45,7 @@
   "SuperstitioMod:ChokeChokerPower": {
     "NAME": "窒息",
     "DESCRIPTIONS": [
-      "提供 #b%d #g快感修正 。 NL 进入 #y高潮 时 ，流失 #b%d 点生命。"
+      "高潮所需的快感降低 #b%d 。 NL 进入 #y高潮 时 ，流失 #b%d 点生命。"
     ],
     "MAKE_KEYWORDS": [
       {
@@ -53,7 +53,7 @@
         "NAMES": [
           "窒息"
         ],
-        "DESCRIPTION": "提供 #g快感修正 ，其可以 #g减少 高潮所需的快感。 NL 进入 #y高潮 时 ，流失 层数一半的 生命 。"
+        "DESCRIPTION": "高潮所需的快感降低。 NL 进入 #y高潮 时 ，流失 层数一半的 生命 。"
       }
     ]
   },
