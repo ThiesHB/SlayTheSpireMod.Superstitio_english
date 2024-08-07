@@ -10,6 +10,7 @@ import superstitio.DataManager;
 import superstitio.cards.general.AbstractTempCard;
 import superstitio.cards.general.FuckJob_Card;
 import superstitio.cards.maso.AttackCard.Fuck_Eye;
+import superstitio.delayHpLose.RemoveDelayHpLoseBlock;
 import superstitioapi.SuperstitioApiSetup;
 import superstitioapi.utils.ActionUtility;
 
@@ -25,6 +26,8 @@ public class Fuck_Ear extends AbstractTempCard implements FuckJob_Card {
     private static final int COST = 0;
     private static final int DAMAGE = 2;
     private static final int UPGRADE_DAMAGE = 1;
+    private static final int BLOCK = 4;
+    private static final int UPGRADE_BLOCK = 1;
 
     public Fuck_Ear() {
         this(false);
@@ -36,12 +39,14 @@ public class Fuck_Ear extends AbstractTempCard implements FuckJob_Card {
         FuckJob_Card.initFuckJobCard(this);
         this.setupDamage(DAMAGE, UPGRADE_DAMAGE);
         CardModifierManager.addModifier(this, new ExhaustMod());
+        this.setupBlock(BLOCK, UPGRADE_BLOCK, new RemoveDelayHpLoseBlock());
     }
 
     @Override
     public void use(AbstractPlayer player, AbstractMonster monster) {
         addToBot_dealDamage(monster, SuperstitioApiSetup.DamageEffect.HeartMultiInOne);
         addToBot_dealDamage(monster, SuperstitioApiSetup.DamageEffect.HeartMultiInOne);
+        addToBot_gainBlock();
         ActionUtility.addToBot_makeTempCardInBattle(new Fuck_Eye(), ActionUtility.BattleCardPlace.Hand, this.upgraded);
         addToBot_applyPower(new FrailPower(AbstractDungeon.player, 1, false));
 

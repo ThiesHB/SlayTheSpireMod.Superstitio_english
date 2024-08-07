@@ -26,7 +26,7 @@ public class MasochismMode extends SuperstitioRelic implements InfoBlight.Become
     private static final int MasochismModeDamageNeed = 3;
 
     private static final int MasochismModeSexualHeatRate = 2;
-    private static final int ReduceDelayHpLose = 3;
+    private static final int ReduceDelayHpLose = 5;
 
     public MasochismMode() {
         super(ID, RELIC_TIER, LANDING_SOUND);

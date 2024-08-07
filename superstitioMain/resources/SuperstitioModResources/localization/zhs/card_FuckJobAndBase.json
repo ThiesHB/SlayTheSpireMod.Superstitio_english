@@ -95,7 +95,7 @@
   "SuperstitioMod:Fuck_Ear": {
     "NAME": "耳交",
     "NAME_SFW": "龙形拳",
-    "DESCRIPTION": "造成 !D! 点 伤害 两次。 NL 把 *眼交 加入手牌。 NL 获得 1 层 脆弱 。",
+    "DESCRIPTION": "移除 !B! 点 *腐朽 。 NL 造成 !D! 点 伤害 两次。 NL 把 *眼交 加入手牌。 NL 获得 1 层 脆弱 。",
     "FLAVOR": "是脑交！要是脑子有触觉就好了，哧溜。"
   },
   "SuperstitioMod:Fuck_Eye": {

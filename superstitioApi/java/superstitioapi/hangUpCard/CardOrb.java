@@ -14,6 +14,7 @@ import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import com.megacrit.cardcrawl.orbs.AbstractOrb;
 import com.megacrit.cardcrawl.vfx.cardManip.ExhaustCardEffect;
 import superstitioapi.DataUtility;
+import superstitioapi.actions.AutoDoneInstantAction;
 import superstitioapi.utils.CardUtility;
 import superstitioapi.utils.CreatureUtility;
 
@@ -101,6 +102,7 @@ public abstract class CardOrb extends AbstractOrb {
 
     public void addToBot_HangCard() {
         HangUpCardGroup.addToBot_AddCardOrbToOrbGroup(this);
+        AutoDoneInstantAction.addToBotAbstract(AbstractDungeon::onModifyPower);
     }
 
     /**
@@ -118,7 +120,7 @@ public abstract class CardOrb extends AbstractOrb {
                     cardHolder.moveToDeck(originCard, true);
                     break;
                 case HAND:
-                    CardUtility.moveToHandOrDiscardWhenMaxHand(cardHolder,originCard);
+                    CardUtility.moveToHandOrDiscardWhenMaxHand(cardHolder, originCard);
                     break;
                 case EXHAUST_PILE:
                     AbstractDungeon.effectList.add(new ExhaustCardEffect(card));
@@ -436,13 +438,22 @@ public abstract class CardOrb extends AbstractOrb {
 
     @Override
     public void updateDescription() {
-        if (this.card == null) return;
-        this.card.applyPowers();
-        this.card.calculateDamageDisplay(CardOrb.getHoveredMonsterSafe());
-        this.card.initializeDescription();
-        this.originCard.applyPowers();
-        this.originCard.calculateDamageDisplay(CardOrb.getHoveredMonsterSafe());
-        this.originCard.initializeDescription();
+        if (this.card != null) {
+            this.card.applyPowers();
+            this.card.calculateDamageDisplay(CardOrb.getHoveredMonsterSafe());
+            this.card.initializeDescription();
+
+            if (this.card.cardsToPreview != null) {
+                this.card.cardsToPreview.applyPowers();
+                this.card.cardsToPreview.initializeDescription();
+                this.card.cardsToPreview.calculateDamageDisplay(CardOrb.getHoveredMonsterSafe());
+            }
+            if (this.originCard != null) {
+                this.originCard.applyPowers();
+                this.originCard.calculateDamageDisplay(CardOrb.getHoveredMonsterSafe());
+                this.originCard.initializeDescription();
+            }
+        }
     }
 
     @Override

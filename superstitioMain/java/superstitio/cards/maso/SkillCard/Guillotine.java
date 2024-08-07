@@ -1,5 +1,6 @@
 package superstitio.cards.maso.SkillCard;
 
+import com.evacipated.cardcrawl.mod.stslib.powers.interfaces.NonStackablePower;
 import com.megacrit.cardcrawl.actions.AbstractGameAction;
 import com.megacrit.cardcrawl.cards.CardGroup;
 import com.megacrit.cardcrawl.cards.DamageInfo;
@@ -18,7 +19,7 @@ import superstitioapi.cards.patch.GoSomewhereElseAfterUse;
 
 import static superstitio.cards.CardOwnerPlayerManager.IsNotLupaCard;
 
-public class Guillotine extends MasoCard implements FuckJob_Card, GoSomewhereElseAfterUse, IsNotLupaCard {
+public class Guillotine extends MasoCard implements FuckJob_Card, GoSomewhereElseAfterUse, IsNotLupaCard{
     public static final String ID = DataManager.MakeTextID(Guillotine.class);
 
     public static final CardType CARD_TYPE = CardType.SKILL;
@@ -73,7 +74,7 @@ public class Guillotine extends MasoCard implements FuckJob_Card, GoSomewhereEls
                 .addToBot_HangCard();
     }
 
-    public static class GuillotinePower extends EasyBuildAbstractPowerForPowerCard implements SexualHeatNeedModifier {
+    public static class GuillotinePower extends EasyBuildAbstractPowerForPowerCard implements SexualHeatNeedModifier, NonStackablePower  {
 
         public GuillotinePower() {
             super(-1);

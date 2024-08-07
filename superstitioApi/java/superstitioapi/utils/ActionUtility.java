@@ -137,6 +137,30 @@ public class ActionUtility {
 
         void get();
 
+        /**
+         * 在之后添加
+         * 旧的不改变，只是返回一个新的
+         */
+        default VoidSupplier additionActionToPost(VoidSupplier action) {
+            VoidSupplier self = this;
+            return () -> {
+                self.get();
+                action.get();
+            };
+        }
+
+        /**
+         * 在之前添加
+         * 旧的不改变，只是返回一个新的
+         */
+        default VoidSupplier additionActionToPrev(VoidSupplier action) {
+            VoidSupplier self = this;
+            return () -> {
+                action.get();
+                self.get();
+            };
+        }
+
         default void addToBotAsAbstractAction() {
             AutoDoneInstantAction.addToBotAbstract(this);
         }
