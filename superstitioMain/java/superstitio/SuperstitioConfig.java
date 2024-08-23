@@ -97,7 +97,7 @@ public class SuperstitioConfig {
             setConfigBool(ENABLE_SFW_STRING, enableSFW);
         }));
 
-        settingYPos -= 4 * lineSpacing;
+        settingYPos -= 5 * lineSpacing;
 
         settingsPanel.addUIElement(new ModLabeledToggleButton(SettingText[1], settingXPos, settingYPos, Settings.CREAM_COLOR,
                 FontHelper.charDescFont, enableGuroCharacter, settingsPanel, label -> {
@@ -118,7 +118,7 @@ public class SuperstitioConfig {
             }
         });
 
-        settingYPos -= 1 * lineSpacing;
+        settingYPos -= 2 * lineSpacing;
 
         settingsPanel.addUIElement(new ModLabeledToggleButton(SettingText[2], settingXPos, settingYPos, Settings.CREAM_COLOR,
                 FontHelper.charDescFont, isForcePlayGuroCharacter, settingsPanel, label -> {

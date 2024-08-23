@@ -436,13 +436,14 @@ public abstract class SuperstitioCard extends CustomCard implements UpdateDescri
 
     @Override
     public void initializeDescription() {
-        if (!ActionUtility.isNotInBattle()) {
-            try {
-                updateRawDescription();
-            } catch (Exception e) {
-                Logger.error(e);
-            }
+//        if (ActionUtility.isNotInBattle()) {
+//        } else {
+        try {
+            updateRawDescription();
+        } catch (Exception e) {
+            Logger.error(e);
         }
+//        }
         super.initializeDescription();
     }
 
