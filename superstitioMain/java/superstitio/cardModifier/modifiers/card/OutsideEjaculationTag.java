@@ -8,6 +8,10 @@ public class OutsideEjaculationTag extends AbstractCardTagModifier {
     public static final String ID = DataManager.MakeTextID(OutsideEjaculationTag.class);
     private static final UIStringsSet uiStrings = OutsideEjaculationTag.getUIStringsWithSFW(ID);
 
+    public static AbstractCard.CardTags getOutsideEjaculationTag() {
+        return DataManager.CardTagsType.OutsideEjaculation;
+    }
+
     @Override
     protected UIStringsSet getUiStrings() {
         return uiStrings;
@@ -20,6 +24,7 @@ public class OutsideEjaculationTag extends AbstractCardTagModifier {
 
     @Override
     protected AbstractCard.CardTags getTag() {
-        return DataManager.CardTagsType.OutsideEjaculation;
+        return getOutsideEjaculationTag();
     }
+
 }

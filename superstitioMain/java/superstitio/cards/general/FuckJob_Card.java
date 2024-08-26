@@ -52,34 +52,47 @@ public interface FuckJob_Card {
         return BodyPart.unknown;
     }
 
-    static void initFuckJobCard(SuperstitioCard card) {
+    static void initFuckJobCard(SuperstitioCard card, SexType sexType) {
         if (!SuperstitioConfig.isEnableSFW())
             card.setBackgroundTexture(
                     DataManager.SPTT_DATA.BG_ATTACK_512_SEMEN,
                     DataManager.SPTT_DATA.BG_ATTACK_SEMEN);
-        if (card.cardID.contains("Fuck")) {
+        if (sexType == SexType.Fuck) {
             CardModifierManager.addModifier(card, new InsideEjaculationTag());
             DamageModifierManager.addModifier(card, new SexDamage_Fuck());
-        } else if (card.cardID.contains("Job")) {
+        } else if (sexType == SexType.Job) {
             CardModifierManager.addModifier(card, new OutsideEjaculationTag());
             DamageModifierManager.addModifier(card, new SexDamage_Job());
         } else
             DamageModifierManager.addModifier(card, new SexDamage());
     }
 
-    static void initFuckJobCardWithoutBond(SuperstitioCard card) {
+    static void initFuckJobCard(SuperstitioCard card) {
+        if (card.cardID.contains("Fuck")) {
+            initFuckJobCard(card, SexType.Fuck);
+            return;
+        }
+        if (card.cardID.contains("Job")) {
+            initFuckJobCard(card, SexType.Job);
+            return;
+        }
+        initFuckJobCard(card, SexType.Unknown);
+    }
+
+    static void initFuckJobCardWithoutBond(SuperstitioCard card, SexType sexType) {
         if (!SuperstitioConfig.isEnableSFW())
             card.setBackgroundTexture(
                     DataManager.SPTT_DATA.BG_ATTACK_512_SEMEN,
                     DataManager.SPTT_DATA.BG_ATTACK_SEMEN);
-
-        if (card.cardID.contains("Fuck"))
+        if (sexType == SexType.Fuck)
             DamageModifierManager.addModifier(card, new SexDamage_Fuck().removeAutoBind());
-        else if (card.cardID.contains("Job"))
+        else if (sexType == SexType.Job)
             DamageModifierManager.addModifier(card, new SexDamage_Job().removeAutoBind());
         else
             DamageModifierManager.addModifier(card, new SexDamage().removeAutoBind());
     }
+
+    enum SexType {Fuck, Job, Unknown}
 
     enum BodyPart {
         leg,

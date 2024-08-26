@@ -6,6 +6,8 @@ import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import superstitio.DataManager;
 import superstitio.InBattleDataManager;
+import superstitio.cardModifier.modifiers.card.InsideEjaculationTag;
+import superstitio.cardModifier.modifiers.card.OutsideEjaculationTag;
 import superstitio.cards.SuperstitioCard;
 import superstitio.cards.general.FuckJob_Card;
 import superstitio.cards.general.TempCard.GangBang;
@@ -37,17 +39,17 @@ public class GangBangPrepare extends LupaCard {
         this.cardsToPreview = new GangBang();
     }
 
-    @Override
-    public void updateDescriptionArgs() {
-        setDescriptionArgs();
-    }
-
     public static void addToBot_gainSexMark_Inside(String sexName) {
         addToBot_GiveMarkToOrbGroup(sexName, SexMarkOrbGroup.SexMarkType.Inside);
     }
 
     public static void addToBot_gainSexMark_Outside(String sexName) {
         addToBot_GiveMarkToOrbGroup(sexName, SexMarkOrbGroup.SexMarkType.OutSide);
+    }
+
+    @Override
+    public void updateDescriptionArgs() {
+        setDescriptionArgs();
     }
 
     @Override
@@ -78,11 +80,11 @@ public class GangBangPrepare extends LupaCard {
         @Override
         public void onPlayCard(AbstractCard card, AbstractMonster m) {
             if (card instanceof FuckJob_Card && card instanceof SuperstitioCard) {
-                if (card.cardID.contains("Fuck_")) {
+                if (card.hasTag(InsideEjaculationTag.getInsideEjaculationTag())) {
                     addToBot_gainSexMark_Inside(card.name);
                     return;
                 }
-                if (card.cardID.contains("Job_")) {
+                if (card.hasTag(OutsideEjaculationTag.getOutsideEjaculationTag())) {
                     addToBot_gainSexMark_Outside(((SuperstitioCard) card).getEXTENDED_DESCRIPTION()[0]);
                 }
             }
