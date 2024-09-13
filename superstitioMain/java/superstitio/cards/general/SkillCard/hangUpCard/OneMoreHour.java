@@ -33,11 +33,11 @@ public class OneMoreHour extends GeneralCard implements Card_TriggerHangCardManu
     @Override
     public void use(AbstractPlayer player, AbstractMonster monster) {
         addToBot_gainBlock();
-        for (int i = 0; i < this.magicNumber; i++) {
-            HangUpCardGroup.forEachHangUpCard(orb ->
-                            orb.OrbCounter *= this.magicNumber)
-                    .addToBotAsAbstractAction();
-        }
+//        for (int i = 0; i < this.magicNumber; i++) {
+        HangUpCardGroup.forEachHangUpCard(orb ->
+                        orb.OrbCounter *= this.magicNumber)
+                .addToBotAsAbstractAction();
+//        }
     }
 
     @Override
