@@ -53,7 +53,7 @@ public class RefractoryPeriod extends AbstractSuperstitioPower implements Sexual
 
     @Override
     public String getDescriptionStrings() {
-        return powerStrings.getDESCRIPTIONS()[isAddedThisTurn ? 0 : 1];
+        return powerStrings.getDESCRIPTION(isAddedThisTurn ? 0 : 1);
     }
 
     @Override

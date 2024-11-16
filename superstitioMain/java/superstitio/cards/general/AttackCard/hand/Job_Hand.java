@@ -54,6 +54,7 @@ public class Job_Hand extends GeneralCard implements FuckJob_Card, GoSomewhereEl
                 .setDiscardOnEndOfTurn()
                 .setCardPredicate(card -> card.type == CardType.ATTACK)
                 .setTargetType(CardTarget.SELF)
+                .setCardRawDescriptionWillShow(cardStrings.getEXTENDED_DESCRIPTION(1), STRENGTH_GET)
                 .addToBot_HangCard();
     }
 

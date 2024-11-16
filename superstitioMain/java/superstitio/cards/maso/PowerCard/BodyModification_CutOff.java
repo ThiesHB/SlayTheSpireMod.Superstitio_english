@@ -17,6 +17,7 @@ import superstitio.cards.maso.MasoCard;
 import superstitio.delayHpLose.RemoveDelayHpLoseBlock;
 import superstitio.powers.EasyBuildAbstractPowerForPowerCard;
 import superstitio.powers.masoOnly.*;
+import superstitioapi.cards.HasMultiCardsToPreview;
 import superstitioapi.utils.CardUtility;
 
 import java.util.ArrayList;
@@ -96,7 +97,7 @@ public class BodyModification_CutOff extends MasoCard {
 
         @Override
         protected String getDesc() {
-            return powerCard.getEXTENDED_DESCRIPTION()[0];
+            return powerCard.cardStrings.getEXTENDED_DESCRIPTION(0);
         }
 
         @Override

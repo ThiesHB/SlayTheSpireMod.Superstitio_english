@@ -19,6 +19,7 @@ import superstitioapi.utils.CardUtility;
 import superstitioapi.utils.CreatureUtility;
 
 import java.util.Optional;
+import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.function.Consumer;
 
 import static superstitioapi.utils.ActionUtility.FunctionReturnSelfType;
@@ -46,6 +47,7 @@ public abstract class CardOrb extends AbstractOrb {
     public int OrbCounter;
     protected AbstractCard card;
     protected boolean isNewMovingModeSetup;
+    private String cardRawDescriptionWillShow;
     private Consumer<CardOrb> afterEvokeConsumer;
     private boolean shouldRemove;
     private boolean isRemoved;
@@ -67,8 +69,10 @@ public abstract class CardOrb extends AbstractOrb {
         this.cardHolder.addToTop(card);
         this.originCard = card;
         this.originCard.targetDrawScale = DRAW_SCALE_SMALL;
-
-        setUpShownCard(card.makeStatEquivalentCopy()); //什么替身文学，绷不住了
+        AbstractCard fakeCard = card.makeStatEquivalentCopy();
+        setUpShownCard(fakeCard); //什么替身文学，绷不住了
+//        this.cardRawDescriptionWillShow = cardRawDescriptionWillShow;
+//        tryUpdateOrbCounterInCard(cardRawDescriptionWillShow, OrbCounter);
 
         setHoverTypeFromCard(this.card.target);
         targetTypeOrigin = targetType;
@@ -76,8 +80,6 @@ public abstract class CardOrb extends AbstractOrb {
 
         this.thisCardGroup.addToTop(this.card);
         this.movingType = State_Idle();
-
-
     }
 
     public static AbstractMonster getHoveredMonsterSafe() {
@@ -88,6 +90,15 @@ public abstract class CardOrb extends AbstractOrb {
         AbstractMonster hoveredMonster = ReflectionHacks.getPrivate(AbstractDungeon.player, AbstractPlayer.class, "hoveredMonster");
         if (hoveredMonster == null) return Optional.empty();
         return Optional.of(hoveredMonster);
+    }
+
+    public CardOrb setCardRawDescriptionWillShow(String cardRawDescriptionWillShow, Object... args) {
+        if (args != null && args.length > 0)
+            this.cardRawDescriptionWillShow = String.format(cardRawDescriptionWillShow, args);
+        else
+            this.cardRawDescriptionWillShow = cardRawDescriptionWillShow;
+        tryUpdateOrbCounterInCard(this.cardRawDescriptionWillShow, OrbCounter);
+        return this;
     }
 
     public CardOrb setTriggerDiscardIfMoveToDiscard() {
@@ -153,6 +164,11 @@ public abstract class CardOrb extends AbstractOrb {
         this.card.target_x = vector2.x;
         this.card.target_y = vector2.y;
     }
+
+    public CardOrb setShowCard(AbstractCard showCard) {
+        setUpShownCard(showCard);
+        return this;
+    }
 //
 //    public static void renderCardPreview(){
 //        float tmpScale = this.drawScale * 0.8F;
@@ -166,11 +182,6 @@ public abstract class CardOrb extends AbstractOrb {
 //        this.cardsToPreview.drawScale = tmpScale;
 //        this.cardsToPreview.render(sb);
 //    }
-
-    public CardOrb setShowCard(AbstractCard showCard) {
-        setUpShownCard(showCard);
-        return this;
-    }
 
     public CardOrb setTargetType(AbstractCard.CardTarget cardTarget) {
         setHoverTypeFromCard(cardTarget);
@@ -243,7 +254,7 @@ public abstract class CardOrb extends AbstractOrb {
     }
 
     protected void updateAnimationIdle() {
-        if (isCardHovered()) {
+        if (isCardHoveredInCardGroup() && isCardHovered()) {
             this.card.target_x = this.cX;
             this.card.target_y = this.cY + YOffsetWhenHovered();
             card.targetDrawScale = DRAW_SCALE_BIG;
@@ -268,6 +279,16 @@ public abstract class CardOrb extends AbstractOrb {
 
     protected float YOffsetBoBing() {
         return ANIMATION_Y_SCALE * this.bobEffect.y * this.card.drawScale * DRAW_SCALE_BIG / DRAW_SCALE_SMALL;
+    }
+
+    protected boolean isCardHoveredInCardGroup() {
+        AtomicBoolean isHovered = new AtomicBoolean(false);
+        HangUpCardGroup.forHangUpCardGroup(hangUpCardGroup -> {
+            if (hangUpCardGroup.isCardHovered(this)) {
+                isHovered.set(true);
+            }
+        }).get();
+        return isHovered.get();
     }
 
     protected boolean isCardHovered() {
@@ -372,6 +393,12 @@ public abstract class CardOrb extends AbstractOrb {
         return false;
     }
 
+    private void tryUpdateOrbCounterInCard(String cardRawDescriptionWillShow, int NewOrbCounter) {
+        if (cardRawDescriptionWillShow == null || cardRawDescriptionWillShow.isEmpty())
+            return;
+        this.card.rawDescription = cardRawDescriptionWillShow.replace("superstitioApi:!HANGING_TIME!", String.valueOf(NewOrbCounter));
+    }
+
     private void setUpShownCard(AbstractCard card) {
         this.card = card;
         this.card.drawScale = card.drawScale;
@@ -442,6 +469,7 @@ public abstract class CardOrb extends AbstractOrb {
             this.card.applyPowers();
             this.card.calculateDamageDisplay(CardOrb.getHoveredMonsterSafe());
             this.card.initializeDescription();
+            this.tryUpdateOrbCounterInCard(this.cardRawDescriptionWillShow, OrbCounter);
 
             if (this.card.cardsToPreview != null) {
                 this.card.cardsToPreview.applyPowers();

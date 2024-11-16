@@ -109,9 +109,12 @@
   "SuperstitioMod:MasoCard:CruelTorture_HotPillar": {
     "NAME": "炮烙",
     "NAME_SFW": "超载",
-    "DESCRIPTION": "将%d张 *灼伤 放入你的弃牌堆中。 NL 获得 !M! 点 临时敏捷 。 NL superstitiomod:缠绵 回合开始 99次： NL 获得 !M! 点 临时敏捷 。",
+    "DESCRIPTION": "将 %d 张 *灼伤 放入你的弃牌堆中。 NL 获得 !M! 点 临时敏捷 。 NL superstitiomod:缠绵 回合开始 %d 次： NL 获得 !M! 点 临时敏捷 。",
     "FLAVOR": "",
-    "FLAVOR_SFW": ""
+    "FLAVOR_SFW": "",
+    "EXTENDED_DESCRIPTION": [
+      "superstitiomod:缠绵 回合开始 superstitioApi:!HANGING_TIME! 次： NL 获得 !M! 点 临时敏捷 。"
+    ]
   },
   "SuperstitioMod:MasoCard:CruelTorture_Impale": {
     "NAME": "尖桩贯穿",

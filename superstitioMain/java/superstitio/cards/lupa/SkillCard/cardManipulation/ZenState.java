@@ -51,7 +51,7 @@ public class ZenState extends LupaCard {
                     if (!CardUtility.canUseWithoutEnvironment(card))
                         addToBot(new ExhaustSpecificCardAction(card, AbstractDungeon.player.hand));
                 })
-                .setWindowText(String.format(getEXTENDED_DESCRIPTION()[0], this.magicNumber))
+                .setWindowText(String.format(this.cardStrings.getEXTENDED_DESCRIPTION(0), this.magicNumber))
                 .setChoiceAmount(this.magicNumber)
                 .setRetainFilter(card -> !card.exhaust, card -> !CardModifierManager.hasModifier(card, ExhaustMod.ID))
                 .addToBot();

@@ -82,7 +82,7 @@ public class Guillotine extends MasoCard implements FuckJob_Card, GoSomewhereEls
 
         @Override
         public String getDescriptionStrings() {
-            return powerCard.getEXTENDED_DESCRIPTION()[0];
+            return powerCard.cardStrings.getEXTENDED_DESCRIPTION(0);
         }
 
         @Override

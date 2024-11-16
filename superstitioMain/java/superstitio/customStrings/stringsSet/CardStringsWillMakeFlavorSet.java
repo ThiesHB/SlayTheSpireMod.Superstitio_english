@@ -3,6 +3,7 @@ package superstitio.customStrings.stringsSet;
 import com.evacipated.cardcrawl.mod.stslib.patches.FlavorText;
 import com.megacrit.cardcrawl.localization.CardStrings;
 import com.megacrit.cardcrawl.localization.LocalizedStrings;
+import superstitio.Logger;
 import superstitio.SuperstitioConfig;
 import superstitio.customStrings.SuperstitioKeyWord;
 import superstitio.customStrings.interFace.HasDifferentVersionStringSet;
@@ -51,8 +52,18 @@ public class CardStringsWillMakeFlavorSet implements HasOriginAndSFWVersion<Card
         return getFromRightVersion(strings -> strings.UPGRADE_DESCRIPTION);
     }
 
-    public String[] getEXTENDED_DESCRIPTION() {
-        return getArrayFromRightVersion(strings -> strings.EXTENDED_DESCRIPTION);
+//    public String[] getEXTENDED_DESCRIPTION() {
+//        return getArrayFromRightVersion(strings -> strings.EXTENDED_DESCRIPTION);
+//    }
+
+    public String getEXTENDED_DESCRIPTION(int index) {
+        String[] EXTENDED_DESCRIPTION = getArrayFromRightVersion(strings -> strings.EXTENDED_DESCRIPTION);
+        if (index < EXTENDED_DESCRIPTION.length)
+            return EXTENDED_DESCRIPTION[index];
+        else {
+            Logger.warning("Can't find the index " + index + " in the EXTENDED_DESCRIPTION array of" + this.NAME);
+            return "";
+        }
     }
 
     public Optional<String> getFLAVOR() {
@@ -124,7 +135,7 @@ public class CardStringsWillMakeFlavorSet implements HasOriginAndSFWVersion<Card
     @Override
     public HasDifferentVersionStringSet<CardStrings> makeSFWCopy() {
         HasDifferentVersionStringSet<CardStrings> clone = this.makeCopy();
-        if (clone instanceof CardStringsWillMakeFlavorSet){
+        if (clone instanceof CardStringsWillMakeFlavorSet) {
             CardStringsWillMakeFlavorSet clone1 = (CardStringsWillMakeFlavorSet) clone;
             clone1.NAME = null;
             clone1.DESCRIPTION = null;

@@ -33,7 +33,7 @@ public class BodyModification_Prolapse extends MasoCard {
 
     public static final CardTarget CARD_TARGET = CardTarget.SELF;
     //    private static final int UPGRADE_MAGIC = 1;
-    public static final String[] ProlapseNames = getCardStringsWithSFWAndFlavor(BodyModification_Prolapse.ID).getEXTENDED_DESCRIPTION()[2].split(",");
+    public static final String[] ProlapseNames = getCardStringsWithSFWAndFlavor(BodyModification_Prolapse.ID).getEXTENDED_DESCRIPTION(2).split(",");
     private static final int COST = 1;
     //    private static final int COST_UPGRADED_NEW = 0;
     private static final int MAGIC = 1;
@@ -103,7 +103,7 @@ public class BodyModification_Prolapse extends MasoCard {
         @Override
         public void updateDescriptionArgs() {
             final String[] strings = {""};
-            this.prolapseNames.forEach((name, num) -> strings[0] += String.format(powerCard.getEXTENDED_DESCRIPTION()[1], name, num));
+            this.prolapseNames.forEach((name, num) -> strings[0] += String.format(powerCard.cardStrings.getEXTENDED_DESCRIPTION(1), name, num));
             setDescriptionArgs((int) Math.pow(2, this.amount), strings[0]);
         }
 
@@ -123,7 +123,7 @@ public class BodyModification_Prolapse extends MasoCard {
 
         @Override
         protected String getDesc() {
-            return super.getDesc() + powerCard.getEXTENDED_DESCRIPTION()[0];
+            return super.getDesc() + powerCard.cardStrings.getEXTENDED_DESCRIPTION(0);
         }
     }
 }

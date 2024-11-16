@@ -69,6 +69,7 @@ public class Job_Hair extends GeneralCard implements FuckJob_Card, GoSomewhereEl
             ActionUtility.addToBot_makeTempCardInBattle(job_hair, ActionUtility.BattleCardPlace.Hand, this.upgraded);
         })
                 .setDiscardOnEndOfTurn()
+                .setCardRawDescriptionWillShow(cardStrings.getEXTENDED_DESCRIPTION(1))
                 .setTargetType(CardTarget.SELF)
                 .addToBot_HangCard();
     }

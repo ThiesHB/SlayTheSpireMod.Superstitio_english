@@ -39,8 +39,8 @@ public class PregnantBlock_sealPower extends PregnantBlock {
         if (sealCreature == null)
             return super.getDescription();
         if (sealCreature instanceof AbstractPlayer)
-            return super.getDescription() + this.blockStrings.getEXTENDED_DESCRIPTION()[0] + this.blockStrings.getEXTENDED_DESCRIPTION()[1];
-        return super.getDescription() + this.blockStrings.getEXTENDED_DESCRIPTION()[0] + sealCreature.name;
+            return super.getDescription() + this.blockStrings.getEXTENDED_DESCRIPTION(0) + this.blockStrings.getEXTENDED_DESCRIPTION(1);
+        return super.getDescription() + this.blockStrings.getEXTENDED_DESCRIPTION(0) + sealCreature.name;
     }
 
     @Override

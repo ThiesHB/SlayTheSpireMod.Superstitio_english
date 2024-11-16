@@ -62,7 +62,7 @@ public class CountSign extends GeneralCard {
     @Override
     public List<TooltipInfo> getCustomTooltipsTop() {
         List<TooltipInfo> customTooltipsTop = super.getCustomTooltipsTop();
-        customTooltipsTop.add(new TooltipInfo(this.name, String.format(this.cardStrings.getEXTENDED_DESCRIPTION()[0],
+        customTooltipsTop.add(new TooltipInfo(this.name, String.format(this.cardStrings.getEXTENDED_DESCRIPTION(0),
                 InBattleDataManager.OrgasmTimesTotal)));
         return customTooltipsTop;
     }

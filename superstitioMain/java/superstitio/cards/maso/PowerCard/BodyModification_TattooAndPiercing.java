@@ -30,7 +30,7 @@ public class BodyModification_TattooAndPiercing extends MasoCard {
     public static final CardRarity CARD_RARITY = CardRarity.UNCOMMON;
 
     public static final CardTarget CARD_TARGET = CardTarget.SELF;
-    public static final String[] TattooNames = getCardStringsWithSFWAndFlavor(BodyModification_TattooAndPiercing.ID).getEXTENDED_DESCRIPTION()[2].split(",");
+    public static final String[] TattooNames = getCardStringsWithSFWAndFlavor(BodyModification_TattooAndPiercing.ID).getEXTENDED_DESCRIPTION(2).split(",");
 
     private static final int COST = 1;
     private static final int MAGIC = 2;
@@ -79,7 +79,7 @@ public class BodyModification_TattooAndPiercing extends MasoCard {
         @Override
         public void updateDescriptionArgs() {
             final String[] strings = {""};
-            this.tattooNames.forEach((name, num) -> strings[0] += String.format(powerCard.getEXTENDED_DESCRIPTION()[1], name, num));
+            this.tattooNames.forEach((name, num) -> strings[0] += String.format(powerCard.cardStrings.getEXTENDED_DESCRIPTION(1), name, num));
             setDescriptionArgs(this.amount, strings[0]);
         }
 
@@ -94,7 +94,7 @@ public class BodyModification_TattooAndPiercing extends MasoCard {
 
         @Override
         protected String getDesc() {
-            return super.getDesc() + powerCard.getEXTENDED_DESCRIPTION()[0];
+            return super.getDesc() + powerCard.cardStrings.getEXTENDED_DESCRIPTION(0);
         }
 
         @Override

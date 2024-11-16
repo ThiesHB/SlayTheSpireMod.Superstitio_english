@@ -61,7 +61,7 @@ public class HumanCentipede extends MasoCard {
 
         @Override
         public String getDescriptionStrings() {
-            return powerCard.getEXTENDED_DESCRIPTION()[0];
+            return powerCard.cardStrings.getEXTENDED_DESCRIPTION(0);
         }
 
         @Override

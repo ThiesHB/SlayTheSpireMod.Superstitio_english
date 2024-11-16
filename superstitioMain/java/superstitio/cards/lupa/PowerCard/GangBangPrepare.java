@@ -85,7 +85,7 @@ public class GangBangPrepare extends LupaCard {
                     return;
                 }
                 if (card.hasTag(OutsideEjaculationTag.getOutsideEjaculationTag())) {
-                    addToBot_gainSexMark_Outside(((SuperstitioCard) card).getEXTENDED_DESCRIPTION()[0]);
+                    addToBot_gainSexMark_Outside(((SuperstitioCard) card).cardStrings.getEXTENDED_DESCRIPTION(0));
                 }
             }
         }

@@ -51,6 +51,7 @@ public class Ahegao extends GeneralCard implements GoSomewhereElseAfterUse {
                     .addToBot();
         })
                 .setCardPredicate(card -> card.type == CardType.ATTACK)
+                .setCardRawDescriptionWillShow(cardStrings.getEXTENDED_DESCRIPTION(0))
                 .addToBot_HangCard();
 
     }

@@ -53,6 +53,7 @@ public class Job_Blow extends LupaCard implements FuckJob_Card, GoSomewhereElseA
         })
                 .setCardPredicate(card -> card instanceof FuckJob_Card)
                 .setTargetType(CardTarget.SELF)
+                .setCardRawDescriptionWillShow(cardStrings.getEXTENDED_DESCRIPTION(1))
                 .addToBot_HangCard();
     }
 }

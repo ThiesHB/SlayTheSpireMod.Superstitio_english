@@ -2,6 +2,7 @@ package superstitio.customStrings.stringsSet;
 
 import com.megacrit.cardcrawl.localization.LocalizedStrings;
 import com.megacrit.cardcrawl.localization.PowerStrings;
+import superstitio.Logger;
 import superstitio.customStrings.SuperstitioKeyWord;
 import superstitio.customStrings.interFace.HasDifferentVersionStringSet;
 import superstitio.customStrings.interFace.HasOriginAndSFWVersion;
@@ -27,6 +28,16 @@ public class PowerStringsSet implements HasOriginAndSFWVersion<PowerStrings>, Su
         return getFromRightVersion(strings -> strings.NAME);
     }
 
+    public String getDESCRIPTION(int index) {
+        String[] DESCRIPTIONS = getArrayFromRightVersion(strings -> strings.DESCRIPTIONS);
+        if (index < DESCRIPTIONS.length)
+            return DESCRIPTIONS[index];
+        else {
+            Logger.warning("Can't find the index " + index + " in the EXTENDED_DESCRIPTION array of" + this.NAME);
+            return "";
+        }
+//        return getArrayFromRightVersion(strings -> strings.DESCRIPTIONS);
+    }
     public String[] getDESCRIPTIONS() {
         return getArrayFromRightVersion(strings -> strings.DESCRIPTIONS);
     }

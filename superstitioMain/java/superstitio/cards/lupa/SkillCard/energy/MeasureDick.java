@@ -37,7 +37,7 @@ public class MeasureDick extends LupaCard {
                 .setCanPickZero(true)
 //                        .setRetainFilter(card -> card.isCostModifiedForTurn || card.isCostModified)
                 .setChoiceAmount(this.magicNumber)
-                .setWindowText(String.format(this.cardStrings.getEXTENDED_DESCRIPTION()[0], this.magicNumber))
+                .setWindowText(String.format(this.cardStrings.getEXTENDED_DESCRIPTION(0), this.magicNumber))
                 .addToBot();
     }
 

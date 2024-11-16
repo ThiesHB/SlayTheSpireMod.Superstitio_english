@@ -23,7 +23,7 @@ public class SexToy extends AbstractTempCard {
     public static final CardRarity CARD_RARITY = CardRarity.SPECIAL;
 
     public static final CardTarget CARD_TARGET = SelfOrEnemyTargeting.SELF_OR_ENEMY;
-    public static final String[] sexToyNames = getCardStringsWithSFWAndFlavor(SexToy.ID).getEXTENDED_DESCRIPTION()[0].split(",");
+    public static final String[] sexToyNames = getCardStringsWithSFWAndFlavor(SexToy.ID).getEXTENDED_DESCRIPTION(0).split(",");
     private static final int COST = 0;
     private static final int MAGIC = 2;
     private static final int UPGRADE_MAGIC = 1;

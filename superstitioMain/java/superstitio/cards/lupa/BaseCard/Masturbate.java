@@ -53,9 +53,10 @@ public class Masturbate extends LupaCard implements GoSomewhereElseAfterUse {
         new CardOrb_WaitCardTrigger(this, cardGroup, WAIT, (orb, playedCard) -> {
             orb.StartHitCreature(AbstractDungeon.player);
             addToBot_drawCards(DRAWCard);
-            PowerUtility.BubbleMessage(orb.getOriginCard().hb, false, this.cardStrings.getEXTENDED_DESCRIPTION()[0]);
+            PowerUtility.BubbleMessage(orb.getOriginCard().hb, false, this.cardStrings.getEXTENDED_DESCRIPTION(0));
         })
                 .setDiscardOnEndOfTurn()
+                .setCardRawDescriptionWillShow(cardStrings.getEXTENDED_DESCRIPTION(1),DRAWCard)
                 .addToBot_HangCard();
     }
 

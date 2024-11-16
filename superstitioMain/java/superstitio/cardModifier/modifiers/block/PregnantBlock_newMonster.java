@@ -49,9 +49,9 @@ public class PregnantBlock_newMonster extends PregnantBlock {
         if (father == null)
             return super.getDescription();
         if (sealCreature == null)
-            return super.getDescription() + this.blockStrings.getEXTENDED_DESCRIPTION()[0] + father.name;
+            return super.getDescription() + this.blockStrings.getEXTENDED_DESCRIPTION(0) + father.name;
         if (sealCreature instanceof ChibiKindMonster.MinionChibi)
-            return super.getDescription() + this.blockStrings.getEXTENDED_DESCRIPTION()[0] + this.blockStrings.getEXTENDED_DESCRIPTION()[1];
+            return super.getDescription() + this.blockStrings.getEXTENDED_DESCRIPTION(0) + this.blockStrings.getEXTENDED_DESCRIPTION(1);
         return super.getDescription();
     }
 

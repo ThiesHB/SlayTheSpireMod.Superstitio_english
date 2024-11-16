@@ -36,13 +36,14 @@ public class FindCardAndHang extends SuperstitioCard {
     private void HangUpSpecificCard(AbstractCard card) {
         AbstractCard copyCard = card.makeStatEquivalentCopy();
         copyCard.exhaust = true;
-        AbstractCard showUpCard = this.makeStatEquivalentCopy();
+        AbstractCard showUpCard = card.makeStatEquivalentCopy();
         showUpCard.cardsToPreview = copyCard;
         AutoDoneInstantAction.addToBotAbstract(() -> {
             AbstractDungeon.player.drawPile.removeCard(card);
             new CardOrb_WaitCardTrigger(card, AbstractDungeon.player.hand, magicNumber, (orb, usedcard) -> {
             })
                     .setShowCard(showUpCard)
+                    .setCardRawDescriptionWillShow(this.cardStrings.getEXTENDED_DESCRIPTION(1))
                     .addToBot_HangCard();
         });
     }
@@ -51,7 +52,7 @@ public class FindCardAndHang extends SuperstitioCard {
     public void use(AbstractPlayer player, AbstractMonster monster) {
         new ChoseCardFromGridSelectWindowAction(AbstractDungeon.player.drawPile,
                 this::HangUpSpecificCard)
-                .setWindowText(String.format(getEXTENDED_DESCRIPTION()[0], CHOSE_CARD))
+                .setWindowText(String.format(this.cardStrings.getEXTENDED_DESCRIPTION(0), CHOSE_CARD))
                 .setChoseAmount(CHOSE_CARD)
                 .setAnyNumber(true)
                 .addToBot();

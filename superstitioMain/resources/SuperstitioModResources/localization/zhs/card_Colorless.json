@@ -3,7 +3,8 @@
     "NAME": "超级搜寻",
     "DESCRIPTION": "从抽牌堆中选取最多 10 张牌，使其全部 superstitiomod:欲求 打出任何牌 !M! 次： NL 送入手牌。",
     "EXTENDED_DESCRIPTION": [
-      "将其送入助兴序列。"
+      "将其送入助兴序列。",
+      "superstitiomod:欲求 打出任何牌 superstitioApi:!HANGING_TIME! 次： NL 送入手牌。"
     ]
   },
   "SuperstitioMod:GeneralPool": {

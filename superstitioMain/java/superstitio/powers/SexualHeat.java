@@ -233,7 +233,7 @@ public class SexualHeat extends AbstractSuperstitioPower implements
     }
 
     private void bubbleMessage(boolean isDeBuffVer, int messageIndex) {
-        bubbleMessage(isDeBuffVer, powerStrings.getDESCRIPTIONS()[messageIndex]);
+        bubbleMessage(isDeBuffVer, powerStrings.getDESCRIPTION(messageIndex));
     }
 
     private void bubbleMessage(boolean isDeBuffVer, String message) {
@@ -352,12 +352,12 @@ public class SexualHeat extends AbstractSuperstitioPower implements
 
     @Override
     public String getDescriptionStrings() {
-        return powerStrings.getDESCRIPTIONS()[this.owner.isPlayer ? 0 : 1];
+        return powerStrings.getDESCRIPTION(this.owner.isPlayer ? 0 : 1);
     }
 
     @Override
     public void updateDescriptionArgs() {
-        setDescriptionArgs(getHeatRequired(), this.isInOrgasm() ? String.format(powerStrings.getDESCRIPTIONS()[2],
+        setDescriptionArgs(getHeatRequired(), this.isInOrgasm() ? String.format(powerStrings.getDESCRIPTION(2),
                 getOrgasmTimesInTurn()) : "");
     }
 

@@ -57,8 +57,10 @@ public abstract class EasyBuildAbstractPowerForPowerCard extends AbstractSuperst
 
     @Override
     public String getDescriptionStrings() {
-        if (powerStrings.getDESCRIPTIONS() != null && powerStrings.getDESCRIPTIONS().length != 0 && !Objects.equals(powerStrings.getDESCRIPTIONS()[0], LocalizedStrings.createMockStringArray(1)[0]))
-            return powerStrings.getDESCRIPTIONS()[0];
+        if (powerStrings.getDESCRIPTIONS() != null
+                && powerStrings.getDESCRIPTIONS().length != 0
+                && !Objects.equals(powerStrings.getDESCRIPTION(0), LocalizedStrings.createMockStringArray(1)[0]))
+            return powerStrings.getDESCRIPTION(0);
         String desc = getDesc();
         desc = desc.replace(DataManager.getModID().toLowerCase() + ":", "#y");
         desc = desc.replace("*", " ");

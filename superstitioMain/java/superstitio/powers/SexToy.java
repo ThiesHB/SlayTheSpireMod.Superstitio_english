@@ -31,7 +31,7 @@ public class SexToy extends AbstractSuperstitioPower {
     @Override
     public void updateDescriptionArgs() {
         final String[] SexToysString = {""};
-        this.sexToyNames.forEach((name, num) -> SexToysString[0] += String.format(powerStrings.getDESCRIPTIONS()[1], name, num));
+        this.sexToyNames.forEach((name, num) -> SexToysString[0] += String.format(powerStrings.getDESCRIPTION(1), name, num));
         setDescriptionArgs(SEXUAL_HEAT_RATE, SexToysString[0]);
     }
 

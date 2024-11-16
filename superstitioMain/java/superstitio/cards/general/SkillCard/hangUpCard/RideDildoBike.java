@@ -33,7 +33,7 @@ public class RideDildoBike extends GeneralCard {
     private void HangUpSpecificCard(AbstractCard card) {
         AbstractCard copyCard = card.makeStatEquivalentCopy();
 //        copyCard.exhaust = true;
-        AbstractCard showUpCard = this.makeStatEquivalentCopy();
+        AbstractCard showUpCard = card.makeStatEquivalentCopy();
         showUpCard.cardsToPreview = copyCard;
         AutoDoneInstantAction.addToBotAbstract(() -> {
             AbstractDungeon.player.hand.removeCard(card);
@@ -42,6 +42,7 @@ public class RideDildoBike extends GeneralCard {
             })
                     .setDiscardOnEndOfTurn()
                     .setShowCard(showUpCard)
+                    .setCardRawDescriptionWillShow(cardStrings.getEXTENDED_DESCRIPTION(1))
                     .addToBot_HangCard();
         });
     }
@@ -52,7 +53,7 @@ public class RideDildoBike extends GeneralCard {
                     HangUpSpecificCard(card);
                     addToBot_drawCards();
                 })
-                .setWindowText(String.format(getEXTENDED_DESCRIPTION()[0], this.magicNumber))
+                .setWindowText(String.format(this.cardStrings.getEXTENDED_DESCRIPTION(0), this.magicNumber))
                 .setChoiceAmount(this.magicNumber)
                 .setAnyNumber(true)
                 .setCanPickZero(true)

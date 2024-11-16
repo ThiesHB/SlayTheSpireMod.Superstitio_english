@@ -147,7 +147,7 @@ public abstract class AbstractSuperstitioPower extends AbstractPower implements 
 
     @Override
     public String getDescriptionStrings() {
-        return powerStrings.getDESCRIPTIONS()[0];
+        return powerStrings.getDESCRIPTION(0);
     }
 
     private enum IconSize {

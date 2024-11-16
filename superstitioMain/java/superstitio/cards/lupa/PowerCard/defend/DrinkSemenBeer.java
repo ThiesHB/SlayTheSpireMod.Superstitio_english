@@ -63,7 +63,7 @@ public class DrinkSemenBeer extends LupaCard {
 
         public DrinkSemenBeerPower(final int maxAmount) {
             super(-1, false);
-            this.name = powerCard.cardStrings.getEXTENDED_DESCRIPTION()[0];
+            this.name = powerCard.cardStrings.getEXTENDED_DESCRIPTION(0);
             this.maxAmount = maxAmount;
             this.semenAmount = 0;
             updateDescription();
@@ -79,11 +79,11 @@ public class DrinkSemenBeer extends LupaCard {
             this.flash();
             AbstractPower power = this;
             AutoDoneInstantAction.addToBotAbstract(() ->
-                    PowerUtility.BubbleMessageHigher(power, false, powerCard.cardStrings.getEXTENDED_DESCRIPTION()[2]));
+                    PowerUtility.BubbleMessageHigher(power, false, powerCard.cardStrings.getEXTENDED_DESCRIPTION(2)));
             this.semenAmount = 0;
             addToBot(new HealAction(this.owner, this.owner, maxBarAmount()));
             AutoDoneInstantAction.addToBotAbstract(() ->
-                    PowerUtility.BubbleMessageHigher(power, false, powerCard.cardStrings.getEXTENDED_DESCRIPTION()[3]));
+                    PowerUtility.BubbleMessageHigher(power, false, powerCard.cardStrings.getEXTENDED_DESCRIPTION(3)));
             addToBot_removeSpecificPower(this);
         }
 
@@ -146,7 +146,7 @@ public class DrinkSemenBeer extends LupaCard {
         public boolean betterOnApplyPower(AbstractPower power, AbstractCreature creature, AbstractCreature creature1) {
             if ((power instanceof SemenPower) && power.amount > 0) {
                 AutoDoneInstantAction.addToBotAbstract(() ->
-                        PowerUtility.BubbleMessageHigher(power, false, powerCard.cardStrings.getEXTENDED_DESCRIPTION()[1]));
+                        PowerUtility.BubbleMessageHigher(power, false, powerCard.cardStrings.getEXTENDED_DESCRIPTION(1)));
                 SemenPower semenPower = (SemenPower) power;
                 this.semenAmount += power.amount * semenPower.getSemenValue();
                 CheckFull();

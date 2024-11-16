@@ -55,7 +55,7 @@ public class GloryHole extends GeneralCard {
     public void use(AbstractPlayer player, AbstractMonster monster) {
         new ChoseCardFromGridSelectWindowAction(AbstractDungeon.player.masterDeck, card ->
                 addToBot(makeChoseCardCopy(card)))
-                .setWindowText(String.format(getEXTENDED_DESCRIPTION()[0]))
+                .setWindowText(String.format(this.cardStrings.getEXTENDED_DESCRIPTION(0)))
                 .setAnyNumber(true)
                 .addToBot();
 //                .setRetainFilter(card -> !Objects.equals(card.cardID, GloryHole.ID))

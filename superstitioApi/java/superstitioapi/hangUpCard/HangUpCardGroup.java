@@ -73,7 +73,6 @@ public class HangUpCardGroup implements RenderInBattle,
         });
     }
 
-
     public static <TArg, TOrb extends CardOrb> ActionUtility.VoidSupplier forEachHangUpCard(
             Class<TOrb> OrbClass, BiConsumer<TOrb, TArg> consumer, TArg arg) {
         return forHangUpCardGroup(hangUpCardGroup -> {
@@ -122,6 +121,14 @@ public class HangUpCardGroup implements RenderInBattle,
     protected void hangUpNewCard(CardOrb orb) {
         cards.add(orb);
         letEachOrbToSlotPlaces();
+    }
+
+    public boolean isCardHovered(CardOrb cardOrb) {
+        if (hoveredCard == null)
+            return false;
+        if (hoveredCard == cardOrb)
+            return true;
+        return false;
     }
 
     private <T> void forEachOrbInThisOrbGroup(BiConsumer<CardOrb, T> consumer, T arg) {

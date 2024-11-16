@@ -33,7 +33,7 @@ public class InTurnSexualHeatNeededModifier extends AbstractSuperstitioPower imp
 
     @Override
     public String getDescriptionStrings() {
-        return powerStrings.getDESCRIPTIONS()[this.amount < 0 ? 1 : 0];
+        return powerStrings.getDESCRIPTION(this.amount < 0 ? 1 : 0);
     }
 
 //    @Override

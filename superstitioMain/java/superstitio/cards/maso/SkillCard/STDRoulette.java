@@ -56,7 +56,12 @@ public class STDRoulette extends MasoCard {
 
         @Override
         public String getDescriptionStrings() {
-            return powerCard.getEXTENDED_DESCRIPTION()[0];
+            return powerCard.cardStrings.getEXTENDED_DESCRIPTION(0);
+        }
+
+        @Override
+        public void atEndOfRound() {
+            addToBot_removeSpecificPower(this);
         }
 
         @Override
@@ -66,9 +71,9 @@ public class STDRoulette extends MasoCard {
                 addToBot_applyPower(new SexualDamage(monster, this.amount, this.owner));
             }
             if (AbstractDungeon.cardRandomRng.randomBoolean()) {
-                PowerUtility.BubbleMessage(this.owner.hb, false, this.powerCard.getEXTENDED_DESCRIPTION()[1]);
+                PowerUtility.BubbleMessage(this.owner.hb, false, this.powerCard.cardStrings.getEXTENDED_DESCRIPTION(1));
             } else {
-                PowerUtility.BubbleMessage(this.owner.hb, false, this.powerCard.getEXTENDED_DESCRIPTION()[2]);
+                PowerUtility.BubbleMessage(this.owner.hb, false, this.powerCard.cardStrings.getEXTENDED_DESCRIPTION(2));
             }
         }
 

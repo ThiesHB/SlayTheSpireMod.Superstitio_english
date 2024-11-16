@@ -45,11 +45,6 @@ public class FistIn extends MasoCard implements GoSomewhereElseAfterUse {
         this.setupMagicNumber(MAGIC, UPGRADE_MAGIC);
     }
 
-    @Override
-    public void updateDescriptionArgs() {
-        setDescriptionArgs(WAIT,DRAWCard);
-    }
-
     private void tryToUseCard(AbstractCard card, AbstractCreature target) {
         if (card.target == CardTarget.ENEMY && target instanceof AbstractMonster)
             addToBot(new NewQueueCardAction(card, target, false, true));
@@ -57,6 +52,11 @@ public class FistIn extends MasoCard implements GoSomewhereElseAfterUse {
             addToBot(new NewQueueCardAction(card, target instanceof AbstractMonster ? target : null, false, true));
         } else
             addToBot(new NewQueueCardAction(card, true, false, true));
+    }
+
+    @Override
+    public void updateDescriptionArgs() {
+        setDescriptionArgs(WAIT, DRAWCard);
     }
 
     @Override
@@ -82,7 +82,7 @@ public class FistIn extends MasoCard implements GoSomewhereElseAfterUse {
             });
         })
                 .setRetainFilter()
-                .setWindowText(cardStrings.getEXTENDED_DESCRIPTION()[0])
+                .setWindowText(cardStrings.getEXTENDED_DESCRIPTION(0))
                 .addToBot();
     }
 
@@ -91,9 +91,10 @@ public class FistIn extends MasoCard implements GoSomewhereElseAfterUse {
         new CardOrb_WaitCardTrigger(this, cardGroup, WAIT, (orb, playedCard) -> {
             orb.StartHitCreature(AbstractDungeon.player);
             addToBot_drawCards(DRAWCard);
-            PowerUtility.BubbleMessage(orb.getOriginCard().hb, false, this.cardStrings.getEXTENDED_DESCRIPTION()[0]);
+            PowerUtility.BubbleMessage(orb.getOriginCard().hb, false, this.cardStrings.getEXTENDED_DESCRIPTION(0));
         })
 //                .setDiscardOnEndOfTurn()
+                .setCardRawDescriptionWillShow(cardStrings.getEXTENDED_DESCRIPTION(1), DRAWCard)
                 .addToBot_HangCard();
     }
 

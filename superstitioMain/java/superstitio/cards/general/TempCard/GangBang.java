@@ -28,6 +28,7 @@ public class GangBang extends AbstractTempCard implements GoSomewhereElseAfterUs
     private static final int COST = -2;
     private static final int DAMAGE = 3;
     private static final int BLOCK = 4;
+    private static final int TURN_TAKE =1;
 
     public GangBang() {
         this(DAMAGE, BLOCK, 1, 0.15);
@@ -38,7 +39,7 @@ public class GangBang extends AbstractTempCard implements GoSomewhereElseAfterUs
      */
     public GangBang(int attackAmount, int blockAmount, int score, double scoreRate) {
         super(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET);
-        this.originalName = cardStrings.getEXTENDED_DESCRIPTION()[score - 1] + cardStrings.getNAME();
+        this.originalName = cardStrings.getEXTENDED_DESCRIPTION(score) + cardStrings.getNAME();
         this.name = this.originalName;
         this.setupDamage((int) (attackAmount * (1 + (score - 1) * scoreRate)), new SexDamage());
         this.setupBlock((int) (blockAmount * (1 + (score - 1) * scoreRate)), new DrySemenBlock());
@@ -71,14 +72,20 @@ public class GangBang extends AbstractTempCard implements GoSomewhereElseAfterUs
     }
 
     @Override
+    public void updateDescriptionArgs() {
+        setDescriptionArgs(TURN_TAKE);
+    }
+
+    @Override
     public void afterInterruptMoveToCardGroup(CardGroup cardGroup) {
         GangBang self = this;
-        new CardOrb_AtEndOfTurnEachTime(this, cardGroup, 1, cardOrbAtEndOfTurn -> {
+        new CardOrb_AtEndOfTurnEachTime(this, cardGroup, TURN_TAKE, cardOrbAtEndOfTurn -> {
             cardOrbAtEndOfTurn.StartHitCreature(CreatureUtility.getRandomMonsterWithoutRngSafe());
             self.addToBot_gainCustomBlock(self.block, new DrySemenBlock());
             self.addToBot_dealDamageToAllEnemies(SuperstitioApiSetup.DamageEffect.HeartMultiInOne);
             addToBot(new WaitAction(1.0f));
         })
+                .setCardRawDescriptionWillShow(cardStrings.getEXTENDED_DESCRIPTION(0))
                 .addToBot_HangCard();
     }
 }

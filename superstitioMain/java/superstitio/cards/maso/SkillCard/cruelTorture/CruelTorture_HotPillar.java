@@ -28,6 +28,7 @@ public class CruelTorture_HotPillar extends MasoCard implements GoSomewhereElseA
     private static final int COST = 1;
     private static final int MAGIC = 3;
     private static final int UPGRADE_MAGIC = 1;
+    private static final int BIG_NUMBER_FOR_TURN = 99;
 
     public CruelTorture_HotPillar() {
         super(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET);
@@ -43,7 +44,7 @@ public class CruelTorture_HotPillar extends MasoCard implements GoSomewhereElseA
 
     @Override
     public void updateDescriptionArgs() {
-        setDescriptionArgs(BURN_CARD_NUM);
+        setDescriptionArgs(BURN_CARD_NUM,BIG_NUMBER_FOR_TURN);
     }
 
     @Override
@@ -59,10 +60,11 @@ public class CruelTorture_HotPillar extends MasoCard implements GoSomewhereElseA
     @Override
     public void afterInterruptMoveToCardGroup(CardGroup cardGroup) {
         CruelTorture_HotPillar self = this;
-        new CardOrb_AtStartOfTurnEachTime(this, cardGroup, 99, cardOrbAtStartOfTurn -> {
+        new CardOrb_AtStartOfTurnEachTime(this, cardGroup, BIG_NUMBER_FOR_TURN, cardOrbAtStartOfTurn -> {
             cardOrbAtStartOfTurn.StartHitCreature(AbstractDungeon.player);
             addTempDexterity(self);
         })
+                .setCardRawDescriptionWillShow(cardStrings.getEXTENDED_DESCRIPTION(0))
                 .addToBot_HangCard();
     }
 }

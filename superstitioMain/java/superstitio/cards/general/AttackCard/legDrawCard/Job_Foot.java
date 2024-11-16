@@ -49,6 +49,11 @@ public class Job_Foot extends GeneralCard implements FuckJob_Card, GoSomewhereEl
     }
 
     @Override
+    public void updateDescriptionArgs() {
+        setDescriptionArgs(DRAW_CARD);
+    }
+
+    @Override
     public void afterInterruptMoveToCardGroup(CardGroup cardGroup) {
         new CardOrb_EachCardTrigger(this, cardGroup, this.magicNumber, (orb, card) -> {
             orb.StartHitCreature(AbstractDungeon.player);
@@ -56,11 +61,12 @@ public class Job_Foot extends GeneralCard implements FuckJob_Card, GoSomewhereEl
             PowerUtility.BubbleMessage(orb.getOriginCard().hb, false,
                     LupaCard.getCardStringsWithSFWAndFlavor(
                                     DataManager.MakeTextID(Masturbate.class))
-                            .getEXTENDED_DESCRIPTION()[0]);
+                            .getEXTENDED_DESCRIPTION(0));
         })
                 .setDiscardOnEndOfTurn()
                 .setCardPredicate(card -> card instanceof FuckJob_Card)
                 .setTargetType(CardTarget.SELF)
+                .setCardRawDescriptionWillShow(cardStrings.getEXTENDED_DESCRIPTION(1),DRAW_CARD)
                 .addToBot_HangCard();
 
     }

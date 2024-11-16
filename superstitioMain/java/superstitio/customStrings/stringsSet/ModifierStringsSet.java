@@ -4,6 +4,7 @@ import com.evacipated.cardcrawl.mod.stslib.Keyword;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.localization.LocalizedStrings;
 import superstitio.DataManager;
+import superstitio.Logger;
 import superstitio.customStrings.interFace.*;
 
 import java.util.List;
@@ -51,8 +52,15 @@ public class ModifierStringsSet implements HasTextID, HasOriginAndSFWVersion<Mod
         return getBasicInfo_Pure();
     }
 
-    public String[] getEXTENDED_DESCRIPTION() {
-        return getArrayFromRightVersion(strings -> strings.EXTENDED_DESCRIPTION);
+    public String getEXTENDED_DESCRIPTION(int index) {
+        String[] EXTENDED_DESCRIPTION = getArrayFromRightVersion(strings -> strings.EXTENDED_DESCRIPTION);
+        if (index < EXTENDED_DESCRIPTION.length)
+            return EXTENDED_DESCRIPTION[index];
+        else {
+            Logger.warning("Can't find the index " + index + " in the EXTENDED_DESCRIPTION array of" + this.NAME);
+            return "";
+        }
+//        return getArrayFromRightVersion(strings -> strings.EXTENDED_DESCRIPTION);
     }
 
     public Keyword ToKeyWord() {

@@ -34,7 +34,7 @@ public class ReadyToSex extends GeneralCard {
     private void HangUpSpecificCard(AbstractCard card) {
         AbstractCard copyCard = card.makeStatEquivalentCopy();
         copyCard.exhaust = true;
-        AbstractCard showUpCard = this.makeStatEquivalentCopy();
+        AbstractCard showUpCard = card.makeStatEquivalentCopy();
         showUpCard.cardsToPreview = copyCard;
         AutoDoneInstantAction.addToBotAbstract(() -> {
             AbstractDungeon.player.hand.removeCard(card);
@@ -42,6 +42,7 @@ public class ReadyToSex extends GeneralCard {
                 addToBot(new NewQueueCardAction(copyCard, true, false, true));
             })
                     .setShowCard(showUpCard)
+                    .setCardRawDescriptionWillShow(cardStrings.getEXTENDED_DESCRIPTION(1))
                     .setTriggerDiscardIfMoveToDiscard()
                     .addToBot_HangCard();
         });
@@ -51,7 +52,7 @@ public class ReadyToSex extends GeneralCard {
     public void use(AbstractPlayer player, AbstractMonster monster) {
         new ChoseCardFromHandCardSelectScreen(
                 this::HangUpSpecificCard)
-                .setWindowText(String.format(getEXTENDED_DESCRIPTION()[0], CHOSE_CARD))
+                .setWindowText(String.format(this.cardStrings.getEXTENDED_DESCRIPTION(0), CHOSE_CARD))
                 .setChoiceAmount(CHOSE_CARD)
                 .addToBot();
     }
