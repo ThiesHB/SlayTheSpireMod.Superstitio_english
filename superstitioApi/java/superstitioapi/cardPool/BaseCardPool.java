@@ -98,6 +98,8 @@ public abstract class BaseCardPool implements IUIElement {
         return banedCard;
     }
 
+//    public HashSet<>
+
     protected void clickThisPool() {
         this.isSelect = !this.isSelect;
     }

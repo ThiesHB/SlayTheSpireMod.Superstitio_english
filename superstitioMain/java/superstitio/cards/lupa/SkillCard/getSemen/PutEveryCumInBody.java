@@ -39,9 +39,10 @@ public class PutEveryCumInBody extends LupaCard {
     public void use(AbstractPlayer player, AbstractMonster monster) {
         for (AbstractPower power : AbstractDungeon.player.powers) {
             if (power instanceof SemenPower && !(power instanceof InsideSemen)) {
-                addToBot_removeSpecificPower(power);
+//                addToBot_removeSpecificPower(power);
                 SexualHeat.addToBot_addSexualHeat(AbstractDungeon.player, power.amount * ((SemenPower) power).getSemenValue());
-                addToBot_applyPower(new InsideSemen(AbstractDungeon.player, power.amount));
+//                addToBot_applyPower(new InsideSemen(AbstractDungeon.player, power.amount));
+                ((SemenPower) power).transToOtherSemen((num) -> new InsideSemen(AbstractDungeon.player, num));
             }
         }
 //        addToBotAbstract(() -> {

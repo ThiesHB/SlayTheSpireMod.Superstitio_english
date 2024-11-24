@@ -4,7 +4,9 @@ import com.badlogic.gdx.math.MathUtils;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.powers.AbstractPower;
 
-import static superstitioapi.utils.ActionUtility.addToBot_reducePower;
+import java.util.function.Function;
+
+import static superstitioapi.utils.ActionUtility.*;
 
 public interface SemenPower {
     int getSemenValue();
@@ -23,6 +25,13 @@ public interface SemenPower {
     default void addToBot_UseValue(int valueUse) {
         addToBot_reducePower(this.getSelf().ID, MathUtils.ceil((float) valueUse / this.getSemenValue()), AbstractDungeon.player,
                 AbstractDungeon.player);
+    }
+
+    default void transToOtherSemen(Function<Integer, AbstractPower> toOtherSemen) {
+        AbstractPower SemenTo = toOtherSemen.apply(getSelf().amount);
+        if (!(SemenTo instanceof SemenPower)) return;
+        addToBot_removeSpecificPower(getSelf().ID, getSelf().owner, getSelf().owner);
+        addToBot_applyPower(SemenTo);
     }
 
     default int getTotalValue() {

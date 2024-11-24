@@ -51,6 +51,9 @@ public abstract class AbstractSuperstitioPower extends AbstractPower implements 
     public void addToBot_reducePowerToOwner(final String powerID, int amount) {
         ActionUtility.addToBot_reducePower(powerID, amount, this.owner, this.owner);
     }
+    public void addToTop_reducePowerToOwner(final String powerID, int amount) {
+        ActionUtility.addToTop_reducePower(powerID, amount, this.owner, this.owner);
+    }
 
     public void addToBot_removeSpecificPower(AbstractPower power) {
         ActionUtility.addToBot_removeSpecificPower(power, power.owner);

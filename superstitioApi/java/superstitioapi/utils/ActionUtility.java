@@ -39,6 +39,10 @@ public class ActionUtility {
             final String powerId, final int amount, final AbstractCreature target, final AbstractCreature source) {
         AbstractDungeon.actionManager.addToBottom(new ReducePowerAction(target, source, powerId, amount));
     }
+    public static void addToTop_reducePower(
+            final String powerId, final int amount, final AbstractCreature target, final AbstractCreature source) {
+        AbstractDungeon.actionManager.addToTop(new ReducePowerAction(target, source, powerId, amount));
+    }
 
     public static void addToBot_removeSpecificPower(final AbstractPower power, final AbstractCreature source) {
         AbstractDungeon.actionManager.addToBottom(new RemoveSpecificPowerAction(power.owner, source, power));

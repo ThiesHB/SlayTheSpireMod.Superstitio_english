@@ -207,9 +207,12 @@ public class SexualHeat extends AbstractSuperstitioPower implements
     private void ForceEndOrgasm() {
         if (!isInOrgasm()) return;
 //        OrgasmTimesInTurn = 0;
-        OnOrgasm.AllOnOrgasm(owner).filter(power -> !(power instanceof SexualHeat)).forEachOrdered(power -> power.onEndOrgasm(this));
-        this.onEndOrgasm(this);
-        Orgasm.endOrgasm(owner);
+
+        AutoDoneInstantAction.addToBotAbstract(() -> {
+            OnOrgasm.AllOnOrgasm(owner).filter(power -> !(power instanceof SexualHeat)).forEachOrdered(power -> power.onEndOrgasm(this));
+            this.onEndOrgasm(this);
+            Orgasm.endOrgasm(owner);
+        }, 2);
     }
 
 //    @Override

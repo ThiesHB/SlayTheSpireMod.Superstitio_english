@@ -80,6 +80,7 @@ public abstract class BlightWithRelic extends AbstractBlight {
             isInit = !Loader.isModLoadedOrSideloaded("VUPShionMod");
         }
 
+        if (AbstractDungeon.isScreenUp) return;
 
         //翻页时不显示，不更新碰撞箱，Relic本来就有这个功能所以不写
         if (AbstractDungeon.player != null && AbstractDungeon.player.blights.indexOf(this) / MAX_RELICS_PER_PAGE == relicPage) {
