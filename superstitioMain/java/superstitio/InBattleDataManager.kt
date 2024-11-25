@@ -1,48 +1,48 @@
-package superstitio;
+package superstitio
 
-import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
-import superstitio.characters.BaseCharacter;
-import superstitio.orbs.orbgroup.SexMarkOrbGroup;
-import superstitio.powers.SexualHeat;
-import superstitioapi.utils.CreatureUtility;
+import com.megacrit.cardcrawl.dungeons.AbstractDungeon
+import superstitio.characters.BaseCharacter
+import superstitio.orbs.orbgroup.SexMarkOrbGroup
+import superstitio.powers.SexualHeat
+import superstitio.powers.SexualHeat.Orgasm
+import superstitioapi.renderManager.inBattleManager.InBattleDataManager
+import superstitioapi.utils.CreatureUtility
 
-import java.util.Optional;
+object InBattleDataManager {
+    //    public static boolean InOrgasm = false;
+    var OrgasmTimesInTurn: Int = 0
 
-public class InBattleDataManager {
-//    public static boolean InOrgasm = false;
+    var NailExtractionPlayedInTurn: Int = 0
 
-    public static int OrgasmTimesInTurn = 0;
-
-    public static int NailExtractionPlayedInTurn = 0;
-
-    public static int OrgasmTimesTotal = 0;
-
-    public static void InitializeAtStartOfBattle() {
-        ResetAll();
-        if (AbstractDungeon.player instanceof BaseCharacter)
-            SexualHeat.addToBot_addSexualHeat(AbstractDungeon.player, 0);
+    var OrgasmTimesTotal: Int = 0
+    @JvmStatic
+    fun InitializeAtStartOfBattle() {
+        ResetAll()
+        if (AbstractDungeon.player is BaseCharacter) SexualHeat.addToBot_addSexualHeat(
+            AbstractDungeon.player,
+            0
+        )
+    }
+    @JvmStatic
+    fun ClearOnEndOfBattle() {
+        ResetAll()
     }
 
-    public static void ClearOnEndOfBattle() {
-        ResetAll();
+    fun getSexMarkOrbGroup(): SexMarkOrbGroup? {
+        return InBattleDataManager.subscribeManageGroups
+            .filterIsInstance<SexMarkOrbGroup>().firstOrNull()
+    }
+    @JvmStatic
+    fun InitializeAtStartOfTurn() {
+        OrgasmTimesInTurn = 0
+        NailExtractionPlayedInTurn = 0
     }
 
-    public static Optional<SexMarkOrbGroup> getSexMarkOrbGroup() {
-        return superstitioapi.renderManager.inBattleManager.InBattleDataManager.subscribeManageGroups.stream()
-                .filter(orbGroup -> orbGroup instanceof SexMarkOrbGroup)
-                .map(orbGroup -> (SexMarkOrbGroup) orbGroup).findAny();
-    }
+    private fun ResetAll() {
+        CreatureUtility.forPlayerAndEachMonsters(Orgasm::endOrgasm)
 
-    public static void InitializeAtStartOfTurn() {
-        OrgasmTimesInTurn = 0;
-        NailExtractionPlayedInTurn = 0;
-    }
-
-    private static void ResetAll() {
-        CreatureUtility.forPlayerAndEachMonsters(SexualHeat.Orgasm::endOrgasm);
-
-        OrgasmTimesInTurn = 0;
-        OrgasmTimesTotal = 0;
-        NailExtractionPlayedInTurn = 0;
+        OrgasmTimesInTurn = 0
+        OrgasmTimesTotal = 0
+        NailExtractionPlayedInTurn = 0
     }
 }

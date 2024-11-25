@@ -1,31 +1,24 @@
-package superstitio.cardModifier.modifiers.block;
+package superstitio.cardModifier.modifiers.block
 
-import com.badlogic.gdx.graphics.Color;
-import com.evacipated.cardcrawl.mod.stslib.blockmods.AbstractBlockModifier;
-import com.megacrit.cardcrawl.cards.DamageInfo;
-import superstitio.DataManager;
-import superstitio.cardModifier.modifiers.AbstractLupaBlock;
+import com.badlogic.gdx.graphics.Color
+import com.evacipated.cardcrawl.mod.stslib.blockmods.AbstractBlockModifier
+import com.megacrit.cardcrawl.cards.DamageInfo
+import superstitio.DataManager
+import superstitio.cardModifier.modifiers.AbstractLupaBlock
 
-public class MilkBlock extends AbstractLupaBlock {
-
-    public static final String ID = DataManager.MakeTextID(MilkBlock.class);
-
-    public MilkBlock() {
-        super(ID);
+class MilkBlock : AbstractLupaBlock(ID) {
+    override fun onThisBlockDamaged(info: DamageInfo, lostAmount: Int) {
     }
 
-    @Override
-    public void onThisBlockDamaged(DamageInfo info, int lostAmount) {
-
+    override fun makeCopy(): AbstractBlockModifier {
+        return MilkBlock()
     }
 
-    @Override
-    public AbstractBlockModifier makeCopy() {
-        return new MilkBlock();
+    override fun blockImageColor(): Color {
+        return Color.WHITE.cpy()
     }
 
-    @Override
-    public Color blockImageColor() {
-        return Color.WHITE.cpy();
+    companion object {
+        val ID: String = DataManager.MakeTextID(MilkBlock::class.java)
     }
 }

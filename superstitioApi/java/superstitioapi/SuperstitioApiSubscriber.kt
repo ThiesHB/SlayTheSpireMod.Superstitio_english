@@ -1,181 +1,219 @@
-package superstitioapi;
+package superstitioapi
 
-import basemod.BaseMod;
-import basemod.interfaces.*;
-import com.evacipated.cardcrawl.modthespire.lib.SpireInitializer;
-import com.evacipated.cardcrawl.modthespire.lib.SpirePatch2;
-import com.evacipated.cardcrawl.modthespire.lib.SpirePrefixPatch;
-import com.megacrit.cardcrawl.actions.GameActionManager;
-import com.megacrit.cardcrawl.cards.AbstractCard;
-import com.megacrit.cardcrawl.core.AbstractCreature;
-import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
-import com.megacrit.cardcrawl.monsters.AbstractMonster;
-import com.megacrit.cardcrawl.powers.AbstractPower;
-import com.megacrit.cardcrawl.relics.AbstractRelic;
-import com.megacrit.cardcrawl.rooms.AbstractRoom;
-import superstitioapi.actions.AutoDoneInstantAction;
-import superstitioapi.player.PlayerInitPostDungeonInitialize;
-import superstitioapi.powers.interfaces.OnPostApplyThisPower;
-import superstitioapi.renderManager.inBattleManager.InBattleDataManager;
-import superstitioapi.utils.ToolBox;
-
-import java.util.Objects;
-
-import static superstitioapi.renderManager.inBattleManager.InBattleDataManager.ApplyAll;
-import static superstitioapi.utils.PowerUtility.foreachPower;
-
-
+import basemod.BaseMod
+import basemod.interfaces.*
+import com.evacipated.cardcrawl.modthespire.lib.SpireInitializer
+import com.evacipated.cardcrawl.modthespire.lib.SpirePatch2
+import com.evacipated.cardcrawl.modthespire.lib.SpirePrefixPatch
+import com.megacrit.cardcrawl.actions.GameActionManager
+import com.megacrit.cardcrawl.cards.AbstractCard
+import com.megacrit.cardcrawl.core.AbstractCreature
+import com.megacrit.cardcrawl.dungeons.AbstractDungeon
+import com.megacrit.cardcrawl.monsters.AbstractMonster
+import com.megacrit.cardcrawl.powers.AbstractPower
+import com.megacrit.cardcrawl.relics.AbstractRelic
+import com.megacrit.cardcrawl.rooms.AbstractRoom
+import superstitioapi.actions.AutoDoneInstantAction
+import superstitioapi.player.PlayerInitPostDungeonInitialize
+import superstitioapi.powers.interfaces.OnPostApplyThisPower
+import superstitioapi.renderManager.inBattleManager.InBattleDataManager
+import superstitioapi.utils.PowerUtility
+import superstitioapi.utils.ToolBox
 @SpireInitializer
-public class SuperstitioApiSubscriber implements
-        PostExhaustSubscriber, StartGameSubscriber, RelicGetSubscriber, PostPowerApplySubscriber,
-        PostBattleSubscriber, PostDungeonInitializeSubscriber, OnStartBattleSubscriber, OnPlayerTurnStartSubscriber,
-        OnCardUseSubscriber, OnPowersModifiedSubscriber, PostDrawSubscriber, PostEnergyRechargeSubscriber, PreMonsterTurnSubscriber {
-
-//    public static boolean hasHadInMonsterTurn = false;
-
-    public SuperstitioApiSubscriber() {
-        BaseMod.subscribe(this);
-        Logger.run("Done " + this + " subscribing");
+class SuperstitioApiSubscriber : PostExhaustSubscriber, StartGameSubscriber, RelicGetSubscriber,
+    PostPowerApplySubscriber, PostBattleSubscriber, PostDungeonInitializeSubscriber, OnStartBattleSubscriber,
+    OnPlayerTurnStartSubscriber, OnCardUseSubscriber, OnPowersModifiedSubscriber, PostDrawSubscriber,
+    PostEnergyRechargeSubscriber, PreMonsterTurnSubscriber {
+    //    public static boolean hasHadInMonsterTurn = false;
+    init {
+        BaseMod.subscribe(this)
+        Logger.run("Done $this subscribing")
     }
 
-    public static void initialize() {
-        new SuperstitioApiSubscriber();
+    override fun receivePostExhaust(abstractCard: AbstractCard?) {
+        InBattleDataManager.ApplyAll(
+            { sub: PostExhaustSubscriber -> sub.receivePostExhaust(abstractCard) },
+            PostExhaustSubscriber::class.java
+        )
     }
 
-    @Override
-    public void receivePostExhaust(AbstractCard abstractCard) {
-        ApplyAll((sub) -> sub.receivePostExhaust(abstractCard), PostExhaustSubscriber.class);
+    override fun receiveStartGame() {
+        InBattleDataManager.ApplyAll(
+            StartGameSubscriber::receiveStartGame,
+            StartGameSubscriber::class.java
+        )
     }
 
-    @Override
-    public void receiveStartGame() {
-        ApplyAll(StartGameSubscriber::receiveStartGame, StartGameSubscriber.class);
+    override fun receiveCardUsed(abstractCard: AbstractCard?) {
+        InBattleDataManager.ApplyAll(
+            { sub: OnCardUseSubscriber -> sub.receiveCardUsed(abstractCard) },
+            OnCardUseSubscriber::class.java
+        )
     }
 
-    @Override
-    public void receiveCardUsed(AbstractCard abstractCard) {
-        ApplyAll((sub) -> sub.receiveCardUsed(abstractCard), OnCardUseSubscriber.class);
+    override fun receivePowersModified() {
+        InBattleDataManager.ApplyAll(
+            OnPowersModifiedSubscriber::receivePowersModified,
+            OnPowersModifiedSubscriber::class.java
+        )
     }
 
-    @Override
-    public void receivePowersModified() {
-        ApplyAll(OnPowersModifiedSubscriber::receivePowersModified, OnPowersModifiedSubscriber.class);
+    override fun receivePostBattle(abstractRoom: AbstractRoom?) {
+        InBattleDataManager.ClearOnEndOfBattle()
+        InBattleDataManager.ApplyAll(
+            { sub: PostBattleSubscriber -> sub.receivePostBattle(abstractRoom) },
+            PostBattleSubscriber::class.java
+        )
     }
 
-    @Override
-    public void receivePostBattle(AbstractRoom abstractRoom) {
-        InBattleDataManager.ClearOnEndOfBattle();
-        ApplyAll((sub) -> sub.receivePostBattle(abstractRoom), PostBattleSubscriber.class);
+    override fun receivePostDraw(abstractCard: AbstractCard?) {
+        InBattleDataManager.ApplyAll(
+            { it.receivePostDraw(abstractCard) },
+            PostDrawSubscriber::class.java
+        )
     }
 
-    @Override
-    public void receivePostDraw(AbstractCard abstractCard) {
-        ApplyAll((sub) -> sub.receivePostDraw(abstractCard), PostDrawSubscriber.class);
-    }
-
-    @Override
-    public void receivePostDungeonInitialize() {
-        ApplyAll(PostDungeonInitializeSubscriber::receivePostDungeonInitialize, PostDungeonInitializeSubscriber.class);
-        if (AbstractDungeon.player instanceof PlayerInitPostDungeonInitialize) {
-            ((PlayerInitPostDungeonInitialize) AbstractDungeon.player).initPostDungeonInitialize();
+    override fun receivePostDungeonInitialize() {
+        InBattleDataManager.ApplyAll(
+            PostDungeonInitializeSubscriber::receivePostDungeonInitialize,
+            PostDungeonInitializeSubscriber::class.java
+        )
+        if (AbstractDungeon.player is PlayerInitPostDungeonInitialize) {
+            (AbstractDungeon.player as PlayerInitPostDungeonInitialize).initPostDungeonInitialize()
         }
     }
 
-    @Override
-    public void receivePostEnergyRecharge() {
-        ApplyAll(PostEnergyRechargeSubscriber::receivePostEnergyRecharge, PostEnergyRechargeSubscriber.class);
+    override fun receivePostEnergyRecharge() {
+        InBattleDataManager.ApplyAll(
+            PostEnergyRechargeSubscriber::receivePostEnergyRecharge,
+            PostEnergyRechargeSubscriber::class.java
+        )
     }
 
-    @Override
-    public void receivePostPowerApplySubscriber(
-            AbstractPower appliedPower, AbstractCreature target, AbstractCreature source) {
-        AutoDoneInstantAction.addToTopAbstract(() -> {
-            if (appliedPower instanceof OnPostApplyThisPower)
-                target.powers.forEach(power -> {
-                    if (power instanceof OnPostApplyThisPower)
-                        if (Objects.equals(power.ID, appliedPower.ID)) {
-                            ((OnPostApplyThisPower) power).tryInitializePostApplyThisPower(appliedPower, power.getClass());
-                        }
-                });
-        });
-        ApplyAll((sub) -> sub.receivePostPowerApplySubscriber(appliedPower, source, source), PostPowerApplySubscriber.class);
-
+    override fun receivePostPowerApplySubscriber(
+        appliedPower: AbstractPower?, target: AbstractCreature?, source: AbstractCreature?
+    ) {
+        if (target == null) return
+        AutoDoneInstantAction.addToTopAbstract {
+            if (appliedPower is OnPostApplyThisPower<*>)
+                for (power: AbstractPower in target.powers) {
+                    if (power is OnPostApplyThisPower<out AbstractPower>
+                        && power.ID == appliedPower.ID
+                    )
+                        power.tryInitializePostApplyThisPower(appliedPower)
+                }
+        }
+        InBattleDataManager.ApplyAll({ sub: PostPowerApplySubscriber ->
+            sub.receivePostPowerApplySubscriber(
+                appliedPower,
+                source,
+                source
+            )
+        }, PostPowerApplySubscriber::class.java)
     }
 
-    @Override
-    public void receiveRelicGet(AbstractRelic abstractRelic) {
-        ApplyAll((sub) -> sub.receiveRelicGet(abstractRelic), RelicGetSubscriber.class);
+    override fun receiveRelicGet(abstractRelic: AbstractRelic?) {
+        InBattleDataManager.ApplyAll(
+            { sub: RelicGetSubscriber -> sub.receiveRelicGet(abstractRelic) },
+            RelicGetSubscriber::class.java
+        )
     }
 
-    @Override
-    public void receiveOnBattleStart(AbstractRoom abstractRoom) {
-        InBattleDataManager.InitializeAtStartOfBattle();
-//        hasHadInMonsterTurn = false;
-        ApplyAll((sub) -> sub.receiveOnBattleStart(abstractRoom), OnStartBattleSubscriber.class);
+    override fun receiveOnBattleStart(abstractRoom: AbstractRoom?) {
+        InBattleDataManager.InitializeAtStartOfBattle()
+        //        hasHadInMonsterTurn = false;
+        InBattleDataManager.ApplyAll(
+            { sub: OnStartBattleSubscriber -> sub.receiveOnBattleStart(abstractRoom) },
+            OnStartBattleSubscriber::class.java
+        )
     }
 
-    @Override
-    public void receiveOnPlayerTurnStart() {
-        InBattleDataManager.InitializeAtStartOfTurn();
-//        hasHadInMonsterTurn = false;
-        ApplyAll(OnPlayerTurnStartSubscriber::receiveOnPlayerTurnStart, OnPlayerTurnStartSubscriber.class);
+    override fun receiveOnPlayerTurnStart() {
+        InBattleDataManager.InitializeAtStartOfTurn()
+        //        hasHadInMonsterTurn = false;
+        InBattleDataManager.ApplyAll(
+            OnPlayerTurnStartSubscriber::receiveOnPlayerTurnStart,
+            OnPlayerTurnStartSubscriber::class.java
+        )
     }
 
-    @Override
-    public boolean receivePreMonsterTurn(AbstractMonster abstractMonster) {
+    override fun receivePreMonsterTurn(abstractMonster: AbstractMonster?): Boolean {
 //        if (!hasHadInMonsterTurn)
 //            ApplyAll(AtStartOfMonsterTurnSubscriber::atStartOfMonsterTurn, AtStartOfMonsterTurnSubscriber.class);
 //        hasHadInMonsterTurn = true;
-        ApplyAll((sub) -> sub.receivePreMonsterTurn(abstractMonster), PreMonsterTurnSubscriber.class);
-        return true;
+        InBattleDataManager.ApplyAll(
+            { sub: PreMonsterTurnSubscriber -> sub.receivePreMonsterTurn(abstractMonster) },
+            PreMonsterTurnSubscriber::class.java
+        )
+        return true
     }
 
-//    public interface AtStartOfMonsterTurnSubscriber extends ISubscriber {
-//        void atStartOfMonsterTurn();
-//    }
+    //    public interface AtStartOfMonsterTurnSubscriber extends ISubscriber {
+    //        void atStartOfMonsterTurn();
+    //    }
+    interface AtEndOfPlayerTurnPreCardSubscriber : ISubscriber {
+        fun receiveAtEndOfPlayerTurnPreCard()
 
-    public interface AtEndOfPlayerTurnPreCardSubscriber extends ISubscriber {
-        void receiveAtEndOfPlayerTurnPreCard();
-
-        @SpirePatch2(clz = GameActionManager.class, method = "callEndOfTurnActions")
-        class AtEndOfTurnSubscriberPatch {
-            @SpirePrefixPatch
-            public static void Prefix(GameActionManager __instance) {
-                ApplyAll(AtEndOfPlayerTurnPreCardSubscriber::receiveAtEndOfPlayerTurnPreCard, AtEndOfPlayerTurnPreCardSubscriber.class);
+        companion object {
+            @SpirePatch2(clz = GameActionManager::class, method = "callEndOfTurnActions")
+            object AtEndOfTurnSubscriberPatch {
+                @SpirePrefixPatch
+                @JvmStatic
+                fun Prefix(__instance: GameActionManager?) {
+                    InBattleDataManager.ApplyAll(
+                        AtEndOfPlayerTurnPreCardSubscriber::receiveAtEndOfPlayerTurnPreCard,
+                        AtEndOfPlayerTurnPreCardSubscriber::class.java
+                    )
+                }
             }
         }
     }
 
-    public interface AtManualDiscardSubscriber extends ISubscriber {
-        void receiveAtManualDiscard();
+    interface AtManualDiscardSubscriber : ISubscriber {
+        fun receiveAtManualDiscard()
 
         interface AtManualDiscardPower {
-            void atManualDiscard();
+            fun atManualDiscard()
         }
 
-        @SpirePatch2(clz = GameActionManager.class, method = "incrementDiscard", paramtypez = {boolean.class})
-        class MotherFuckerWhyTheyDoNotMakeThisDiscardSubscriberPatch {
-            @SpirePrefixPatch
-            public static void Prefix(boolean endOfTurn) {
-                if (endOfTurn) return;
-                ApplyAll(AtManualDiscardSubscriber::receiveAtManualDiscard, AtManualDiscardSubscriber.class);
-                foreachPower(power ->
-                        ToolBox.doIfIsInstance(power, AtManualDiscardPower.class, AtManualDiscardPower::atManualDiscard));
+        companion object {
+            @SpirePatch2(clz = GameActionManager::class, method = "incrementDiscard", paramtypez = [Boolean::class])
+            object MotherFuckerWhyTheyDoNotMakeThisDiscardSubscriberPatch {
+                @SpirePrefixPatch
+                @JvmStatic
+                fun Prefix(endOfTurn: Boolean) {
+                    if (endOfTurn) return
+                    InBattleDataManager.ApplyAll(
+                        AtManualDiscardSubscriber::receiveAtManualDiscard,
+                        AtManualDiscardSubscriber::class.java
+                    )
+                    PowerUtility.foreachPower { power: AbstractPower ->
+                        ToolBox.doIfIsInstance(
+                            power,
+                            AtManualDiscardPower::class.java,
+                            AtManualDiscardPower::atManualDiscard
+                        )
+                    }
+                }
             }
         }
+    } //    public interface AtEndOfRoundSubscriber extends ISubscriber {
+    //        void receiveAtEndOfRound();
+    //
+    //        @SpirePatch2(clz = A.class, method = "applyEndOfTurnTriggers")
+    //        class AtEndOfRoundSubscriberPatch {
+    //            @SpirePrefixPatch
+    //            public static void Prefix(AbstractCreature __instance) {
+    //                if (__instance instanceof AbstractPlayer)
+    //                    ApplyAll(AtEndOfRoundSubscriber::receiveAtEndOfRound, AtEndOfRoundSubscriber.class);
+    //            }
+    //        }
+    //    }
+
+    companion object {
+        @JvmStatic
+        fun initialize() {
+            val mod = SuperstitioApiSubscriber()
+        }
     }
-
-
-//    public interface AtEndOfRoundSubscriber extends ISubscriber {
-//        void receiveAtEndOfRound();
-//
-//        @SpirePatch2(clz = A.class, method = "applyEndOfTurnTriggers")
-//        class AtEndOfRoundSubscriberPatch {
-//            @SpirePrefixPatch
-//            public static void Prefix(AbstractCreature __instance) {
-//                if (__instance instanceof AbstractPlayer)
-//                    ApplyAll(AtEndOfRoundSubscriber::receiveAtEndOfRound, AtEndOfRoundSubscriber.class);
-//            }
-//        }
-//    }
 }

@@ -1,295 +1,333 @@
-package superstitioapi.actions;
+package superstitioapi.actions
 
-import com.evacipated.cardcrawl.mod.stslib.damagemods.AbstractDamageModifier;
-import com.evacipated.cardcrawl.mod.stslib.damagemods.BindingHelper;
-import com.evacipated.cardcrawl.mod.stslib.damagemods.DamageModContainer;
-import com.megacrit.cardcrawl.actions.utility.WaitAction;
-import com.megacrit.cardcrawl.cards.AbstractCard;
-import com.megacrit.cardcrawl.cards.DamageInfo;
-import com.megacrit.cardcrawl.core.AbstractCreature;
-import com.megacrit.cardcrawl.core.Settings;
-import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
-import com.megacrit.cardcrawl.monsters.AbstractMonster;
-import com.megacrit.cardcrawl.vfx.AbstractGameEffect;
-import com.megacrit.cardcrawl.vfx.combat.FlashAtkImgEffect;
-import superstitioapi.utils.ActionUtility.TriFunction;
+import com.evacipated.cardcrawl.mod.stslib.damagemods.AbstractDamageModifier
+import com.evacipated.cardcrawl.mod.stslib.damagemods.BindingHelper
+import com.evacipated.cardcrawl.mod.stslib.damagemods.DamageModContainer
+import com.megacrit.cardcrawl.actions.utility.WaitAction
+import com.megacrit.cardcrawl.cards.AbstractCard
+import com.megacrit.cardcrawl.cards.DamageInfo
+import com.megacrit.cardcrawl.cards.DamageInfo.DamageType
+import com.megacrit.cardcrawl.core.AbstractCreature
+import com.megacrit.cardcrawl.core.Settings
+import com.megacrit.cardcrawl.dungeons.AbstractDungeon
+import com.megacrit.cardcrawl.monsters.AbstractMonster
+import com.megacrit.cardcrawl.vfx.AbstractGameEffect
+import com.megacrit.cardcrawl.vfx.combat.FlashAtkImgEffect
+import superstitioapi.utils.ActionUtility.TriFunction
+import java.util.*
+import java.util.function.*
+import java.util.function.Function
+import kotlin.math.min
 
-import java.util.*;
-import java.util.function.Consumer;
-import java.util.function.Function;
-import java.util.function.Supplier;
+open class DamageEnemiesAction protected constructor(
+    source: AbstractCreature, targetsDamagesMap: Map<AbstractCreature, Int>, effect: AttackEffect?,
+    skipWait: Boolean, duration: Float, newDamageInfoMaker: Function<Int, DamageInfo?>,
+    newAttackEffectMaker: Function<AbstractCreature, AbstractGameEffect?>,
+    atStart_additionalEffects: List<Supplier<AbstractGameEffect?>>?,
+    atEnd_additionalEffects: List<Function<AbstractCreature, AbstractGameEffect?>>?,
+    afterDamageConsumer: Consumer<DamageEnemiesAction?>?
+) : AbstractContinuallyAction(ActionType.DAMAGE, duration) {
+    protected val newDamageInfoMaker: Function<Int, DamageInfo?>
+    protected val skipWait: Boolean
+    protected val afterDamageConsumer: Consumer<DamageEnemiesAction?>?
+    protected val atStart_additionalEffects: MutableList<Supplier<AbstractGameEffect?>> = ArrayList()
+    protected val atEnd_additionalEffects: MutableList<Function<AbstractCreature, AbstractGameEffect?>> = ArrayList()
+    protected val newAttackEffectMaker: Function<AbstractCreature, AbstractGameEffect?>
+    protected val targetsDamagesMap: Map<AbstractCreature, Int>
 
-import static com.megacrit.cardcrawl.cards.DamageInfo.DamageType;
-
-public class DamageEnemiesAction extends AbstractContinuallyAction {
-    protected static final float DURATION = 0.1F;
-    protected static final float POST_ATTACK_WAIT_DUR = 0.1F;
-    protected final Function<Integer, DamageInfo> newDamageInfoMaker;
-    protected final boolean skipWait;
-    protected final Consumer<DamageEnemiesAction> afterDamageConsumer;
-    protected final List<Supplier<AbstractGameEffect>> atStart_additionalEffects = new ArrayList<>();
-    protected final List<Function<AbstractCreature, AbstractGameEffect>> atEnd_additionalEffects = new ArrayList<>();
-    protected final Function<AbstractCreature, AbstractGameEffect> newAttackEffectMaker;
-    protected final Map<AbstractCreature, Integer> targetsDamagesMap;
-
-    public static class Builder {
-        protected final List<Supplier<AbstractGameEffect>> atStart_additionalEffects = new ArrayList<>();
-        protected final List<Function<AbstractCreature, AbstractGameEffect>> atEnd_additionalEffects = new ArrayList<>();
-        protected final Map<AbstractCreature, Integer> targetsDamagesMap;
-        protected AbstractCreature source;
-        protected DamageType damageType;
-        protected boolean skipWait = false;
-        protected float duration = DURATION;
-        protected Function<Integer, DamageInfo> newDamageInfoMaker;
-        protected Function<AbstractCreature, AbstractGameEffect> newAttackEffectMaker;
-        protected Consumer<DamageEnemiesAction> afterDamageConsumer;
-        protected AttackEffect attackEffectType = AttackEffect.NONE;
+    open class Builder {
+        protected val atStart_additionalEffects: MutableList<Supplier<AbstractGameEffect?>> = ArrayList()
+        protected val atEnd_additionalEffects: MutableList<Function<AbstractCreature, AbstractGameEffect?>> =
+            ArrayList()
+        protected val targetsDamagesMap: MutableMap<AbstractCreature, Int>
+        protected var source: AbstractCreature
+        protected var damageType: DamageType
+        protected var skipWait: Boolean = false
+        protected var duration: Float = DURATION
+        protected var newDamageInfoMaker: Function<Int, DamageInfo?>
+        protected var newAttackEffectMaker: Function<AbstractCreature, AbstractGameEffect?>
+        protected var afterDamageConsumer: Consumer<DamageEnemiesAction?>? = null
+        protected var attackEffectType: AttackEffect = AttackEffect.NONE
 
         /**
          * @param calculatedDamage 计算后的伤害值
          * @param target           单一目标
          */
-        protected Builder(int calculatedDamage, AbstractCreature target) {
-            this.source = AbstractDungeon.player;
-            this.damageType = DamageType.NORMAL;
-            this.newDamageInfoMaker = damage -> new DamageInfo(this.source, damage, this.damageType);
-            this.newAttackEffectMaker = creature -> new FlashAtkImgEffect(creature.hb.cX, creature.hb.cY, attackEffectType);
-            this.targetsDamagesMap = new HashMap<>();
-            this.targetsDamagesMap.put(target, calculatedDamage);
+        constructor(calculatedDamage: Int, target: AbstractCreature) {
+            this.source = AbstractDungeon.player
+            this.damageType = DamageType.NORMAL
+            this.newDamageInfoMaker = Function { damage: Int -> DamageInfo(this.source, damage, this.damageType) }
+            this.newAttackEffectMaker = Function { creature: AbstractCreature ->
+                FlashAtkImgEffect(
+                    creature.hb.cX,
+                    creature.hb.cY,
+                    attackEffectType
+                )
+            }
+            this.targetsDamagesMap = HashMap()
+            targetsDamagesMap[target] = calculatedDamage
         }
 
         /**
-         * 本初始化只能对 {@link AbstractMonster}起作用
+         * 本初始化只能对 [AbstractMonster]起作用
          *
-         * @param multiDamages   计算后的复数伤害值，考虑到兼容性，可以直接拿{@link AbstractCard#multiDamage}
+         * @param multiDamages   计算后的复数伤害值，考虑到兼容性，可以直接拿[AbstractCard.multiDamage]
          * @param targetMonsters 复数目标
          */
-        protected Builder(int[] multiDamages, List<AbstractMonster> targetMonsters) {
-            this.source = AbstractDungeon.player;
-            this.damageType = DamageType.NORMAL;
-            this.newDamageInfoMaker = damage -> new DamageInfo(this.source, damage, this.damageType);
-            this.newAttackEffectMaker = creature -> new FlashAtkImgEffect(creature.hb.cX, creature.hb.cY, attackEffectType);
-            this.targetsDamagesMap = GetDamageMapFromMultiDamagesOfCard(targetMonsters, multiDamages);
+        constructor(multiDamages: IntArray, targetMonsters: List<AbstractMonster?>) {
+            this.source = AbstractDungeon.player
+            this.damageType = DamageType.NORMAL
+            this.newDamageInfoMaker = Function { damage: Int -> DamageInfo(this.source, damage, this.damageType) }
+            this.newAttackEffectMaker = Function { creature: AbstractCreature ->
+                FlashAtkImgEffect(
+                    creature.hb.cX,
+                    creature.hb.cY,
+                    attackEffectType
+                )
+            }
+            this.targetsDamagesMap = GetDamageMapFromMultiDamagesOfCard(targetMonsters, multiDamages)
         }
 
         /**
          * @param targetsDamagesMap 计算后的伤害值
          */
-        protected Builder(Map<AbstractCreature, Integer> targetsDamagesMap) {
-            this.source = AbstractDungeon.player;
-            this.damageType = DamageType.NORMAL;
-            this.newDamageInfoMaker = damage -> new DamageInfo(this.source, damage, this.damageType);
-            this.newAttackEffectMaker = creature -> new FlashAtkImgEffect(creature.hb.cX, creature.hb.cY, attackEffectType);
-            this.targetsDamagesMap = targetsDamagesMap;
-        }
-
-        public static Map<AbstractCreature, Integer> GetDamageMapFromMultiDamagesOfCard(List<AbstractMonster> targetMonsters, int[] multiDamages) {
-            ArrayList<AbstractMonster> monsters = AbstractDungeon.getCurrRoom().monsters.monsters;
-            Map<AbstractCreature, Integer> targetsDamagesMap = new HashMap<>();
-            for (int i = 0; i < Math.min(monsters.size(), multiDamages.length); i++) {
-                if (targetMonsters.contains(monsters.get(i)))
-                    targetsDamagesMap.put(monsters.get(i), multiDamages[i]);
+        constructor(targetsDamagesMap: MutableMap<AbstractCreature, Int>) {
+            this.source = AbstractDungeon.player
+            this.damageType = DamageType.NORMAL
+            this.newDamageInfoMaker = Function { damage: Int -> DamageInfo(this.source, damage, this.damageType) }
+            this.newAttackEffectMaker = Function { creature: AbstractCreature ->
+                FlashAtkImgEffect(
+                    creature.hb.cX,
+                    creature.hb.cY,
+                    attackEffectType
+                )
             }
-            return targetsDamagesMap;
+            this.targetsDamagesMap = targetsDamagesMap
         }
 
-        public static int DefaultDamageCalculator(AbstractCreature target, AbstractCreature source, int baseDamage) {
-            DamageInfo info = new DamageInfo(source, baseDamage);
-            info.applyPowers(source, target);
-            return info.output;
+        open fun create(): AbstractContinuallyAction {
+            return DamageEnemiesAction(
+                source, targetsDamagesMap, attackEffectType, skipWait, duration, newDamageInfoMaker,
+                newAttackEffectMaker, atStart_additionalEffects, atEnd_additionalEffects, afterDamageConsumer
+            )
         }
 
-        public static int DoNotCalculateDamageCalculator(AbstractCreature target, AbstractCreature source, int damage) {
-            return damage;
+        fun setSource(source: AbstractCreature): Builder {
+            this.source = source
+            return this
         }
 
-        public static Map<AbstractCreature, Integer> createDamageMatrix(int baseDamage, AbstractCreature source, List<AbstractCreature> targets,
-                                                                        TriFunction<AbstractCreature, AbstractCreature, Integer, Integer> damageCalculator) {
-            Map<AbstractCreature, Integer> targetsDamagesMap = new HashMap<>();
-            for (AbstractCreature creature : targets) {
-                targetsDamagesMap.put(creature, damageCalculator.apply(creature, source, baseDamage));
+        fun setNewAttackEffectMakerAsMuteSfxFlashAtkImgEffect(): Builder {
+            this.newAttackEffectMaker = Function { creature: AbstractCreature ->
+                FlashAtkImgEffect(
+                    creature.hb.cX,
+                    creature.hb.cY,
+                    attackEffectType,
+                    true
+                )
             }
-            return targetsDamagesMap;
+            return this
         }
 
-        public AbstractContinuallyAction create() {
-            return new DamageEnemiesAction(source, targetsDamagesMap, attackEffectType, skipWait, duration, newDamageInfoMaker,
-                    newAttackEffectMaker, atStart_additionalEffects, atEnd_additionalEffects, afterDamageConsumer);
+        fun setDamageType(damageType: DamageType): Builder {
+            this.damageType = damageType
+            return this
         }
 
-        public final Builder setSource(AbstractCreature source) {
-            this.source = source;
-            return this;
-        }
-
-        public final Builder setNewAttackEffectMakerAsMuteSfxFlashAtkImgEffect() {
-            this.newAttackEffectMaker = creature -> new FlashAtkImgEffect(creature.hb.cX, creature.hb.cY, attackEffectType, true);
-            return this;
-        }
-
-        public final Builder setDamageType(DamageType damageType) {
-            this.damageType = damageType;
-            return this;
-        }
-
-        public final Builder setSkipWait(boolean skipWait) {
-            this.skipWait = skipWait;
-            return this;
+        fun setSkipWait(skipWait: Boolean): Builder {
+            this.skipWait = skipWait
+            return this
         }
 
 
-        public final Builder setAfterDamageConsumer(Consumer<DamageEnemiesAction> afterDamageConsumer) {
-            this.afterDamageConsumer = afterDamageConsumer;
-            return this;
+        fun setAfterDamageConsumer(afterDamageConsumer: Consumer<DamageEnemiesAction?>?): Builder {
+            this.afterDamageConsumer = afterDamageConsumer
+            return this
         }
 
-        public final Builder setAttackEffectType(AttackEffect attackEffectType) {
-            this.attackEffectType = attackEffectType;
-            return this;
+        fun setAttackEffectType(attackEffectType: AttackEffect): Builder {
+            this.attackEffectType = attackEffectType
+            return this
         }
 
-        public final Builder setNewAttackEffectMaker(Function<AbstractCreature, AbstractGameEffect> newAttackEffectMaker) {
-            this.newAttackEffectMaker = newAttackEffectMaker;
-            return this;
+        fun setNewAttackEffectMaker(newAttackEffectMaker: Function<AbstractCreature, AbstractGameEffect?>): Builder {
+            this.newAttackEffectMaker = newAttackEffectMaker
+            return this
         }
 
         @SafeVarargs
-        public final Builder setAtStart_additionalEffects(Supplier<AbstractGameEffect>... atStart_additionalEffects) {
-            this.atStart_additionalEffects.addAll(Arrays.asList(atStart_additionalEffects));
-            return this;
+        fun setAtStart_additionalEffects(vararg atStart_additionalEffects: Supplier<AbstractGameEffect?>): Builder {
+            this.atStart_additionalEffects.addAll(atStart_additionalEffects)
+            return this
         }
 
         @SafeVarargs
-        public final Builder setAtEnd_additionalEffects(Function<AbstractCreature, AbstractGameEffect>... atEnd_additionalEffects) {
-            this.atEnd_additionalEffects.addAll(Arrays.asList(atEnd_additionalEffects));
-            return this;
+        fun setAtEnd_additionalEffects(vararg atEnd_additionalEffects: Function<AbstractCreature, AbstractGameEffect?>): Builder {
+            this.atEnd_additionalEffects.addAll(atEnd_additionalEffects)
+            return this
         }
 
-        public final Builder setFast() {
-            this.duration = Settings.ACTION_DUR_XFAST;
-            return this;
+        fun setFast(): Builder {
+            this.duration = Settings.ACTION_DUR_XFAST
+            return this
         }
 
-        public final Builder setNewDamageInfoMaker(Function<Integer, DamageInfo> newDamageInfoMaker) {
-            this.newDamageInfoMaker = newDamageInfoMaker;
-            return this;
+        fun setNewDamageInfoMaker(newDamageInfoMaker: Function<Int, DamageInfo?>): Builder {
+            this.newDamageInfoMaker = newDamageInfoMaker
+            return this
         }
 
-        public final Builder setDuration(float duration) {
-            this.duration = duration;
-            return this;
+        fun setDuration(duration: Float): Builder {
+            this.duration = duration
+            return this
         }
 
-        public final Builder setDamageModifier(Object instigator, AbstractDamageModifier... damageModifiers) {
-            this.newDamageInfoMaker = damageAmount -> BindingHelper.makeInfo(new DamageModContainer(instigator, damageModifiers), source,
-                    damageAmount, damageType);
-            return this;
+        fun setDamageModifier(instigator: Any?, vararg damageModifiers: AbstractDamageModifier?): Builder {
+            this.newDamageInfoMaker = Function { damageAmount: Int ->
+                BindingHelper.makeInfo(
+                    DamageModContainer(instigator, *damageModifiers), source,
+                    damageAmount, damageType
+                )
+            }
+            return this
         }
 
-        public final void addToBot() {
-            this.create().addToBot();
+        fun addToBot() {
+            create().addToBot()
         }
 
-        public final void addToTop() {
-            this.create().addToTop();
+        fun addToTop() {
+            create().addToTop()
+        }
+
+        companion object {
+            fun GetDamageMapFromMultiDamagesOfCard(
+                targetMonsters: List<AbstractMonster?>,
+                multiDamages: IntArray
+            ): MutableMap<AbstractCreature, Int> {
+                val monsters = AbstractDungeon.getCurrRoom().monsters.monsters
+                val targetsDamagesMap: MutableMap<AbstractCreature, Int> = HashMap()
+                for (i in 0 until min(monsters.size.toDouble(), multiDamages.size.toDouble()).toInt()) {
+                    if (targetMonsters.contains(monsters[i])) targetsDamagesMap[monsters[i]] = multiDamages[i]
+                }
+                return targetsDamagesMap
+            }
+
+            fun DefaultDamageCalculator(target: AbstractCreature, source: AbstractCreature, baseDamage: Int): Int {
+                val info = DamageInfo(source, baseDamage)
+                info.applyPowers(source, target)
+                return info.output
+            }
+
+            fun DoNotCalculateDamageCalculator(target: AbstractCreature, source: AbstractCreature, damage: Int): Int {
+                return damage
+            }
+
+            fun createDamageMatrix(
+                baseDamage: Int, source: AbstractCreature, targets: List<AbstractCreature>,
+                damageCalculator: TriFunction<AbstractCreature, AbstractCreature, Int, Int>
+            ): Map<AbstractCreature, Int> {
+                val targetsDamagesMap: MutableMap<AbstractCreature, Int> = HashMap()
+                for (creature in targets) {
+                    targetsDamagesMap[creature] = damageCalculator.apply(creature, source, baseDamage)
+                }
+                return targetsDamagesMap
+            }
         }
     }
 
-    protected DamageEnemiesAction(AbstractCreature source, Map<AbstractCreature, Integer> targetsDamagesMap, AttackEffect effect,
-                                  boolean skipWait, float duration, Function<Integer, DamageInfo> newDamageInfoMaker,
-                                  Function<AbstractCreature, AbstractGameEffect> newAttackEffectMaker,
-                                  List<Supplier<AbstractGameEffect>> atStart_additionalEffects,
-                                  List<Function<AbstractCreature, AbstractGameEffect>> atEnd_additionalEffects,
-                                  Consumer<DamageEnemiesAction> afterDamageConsumer) {
-        super(ActionType.DAMAGE, duration);
-        this.targetsDamagesMap = Collections.unmodifiableMap(targetsDamagesMap);
-        if (targetsDamagesMap.size() == 1)
-            this.target = targetsDamagesMap.keySet().stream().findAny().get();
-        this.source = source;
-        this.skipWait = skipWait;
-        this.newDamageInfoMaker = newDamageInfoMaker;
-        this.afterDamageConsumer = afterDamageConsumer;
-        this.newAttackEffectMaker = newAttackEffectMaker;
-        this.atStart_additionalEffects.addAll(atStart_additionalEffects);
-        this.atEnd_additionalEffects.addAll(atEnd_additionalEffects);
-        this.attackEffect = effect;
+    init {
+        this.targetsDamagesMap = Collections.unmodifiableMap(targetsDamagesMap)
+        if (targetsDamagesMap.size == 1) this.target = targetsDamagesMap.keys.stream().findAny().get()
+        this.source = source
+        this.skipWait = skipWait
+        this.newDamageInfoMaker = newDamageInfoMaker
+        this.afterDamageConsumer = afterDamageConsumer
+        this.newAttackEffectMaker = newAttackEffectMaker
+        this.atStart_additionalEffects.addAll(atStart_additionalEffects!!)
+        this.atEnd_additionalEffects.addAll(atEnd_additionalEffects!!)
+        this.attackEffect = effect
     }
 
-    /**
-     * 详情请查看{@link Builder#Builder(int, AbstractCreature)}
-     */
-    public static Builder builder(int damage, AbstractCreature target) {
-        return new Builder(damage, target);
-    }
-
-    /**
-     * 详情请查看{@link Builder#Builder(int, AbstractCreature)}
-     */
-    public static Builder builder(AbstractCreature source, int damage, AbstractCreature target) {
-        return builder(damage, target).setSource(source);
-    }
-
-    /**
-     * 详情请查看{@link Builder#Builder(Map)}
-     */
-    public static Builder builder(Map<AbstractCreature, Integer> targetsDamagesMap) {
-        return new Builder(targetsDamagesMap);
-    }
-
-    /**
-     * 详情请查看{@link Builder#Builder(Map)}
-     */
-    public static Builder builder(AbstractCreature source, Map<AbstractCreature, Integer> targetsDamagesMap) {
-        return builder(targetsDamagesMap).setSource(source);
-    }
-
-    /**
-     * 详情请查看{@link Builder#Builder(int[], List)}
-     */
-    public static Builder builder(int[] multiDamages, List<AbstractMonster> targetMonsters) {
-        return new Builder(multiDamages, targetMonsters);
-    }
-
-    /**
-     * 详情请查看{@link Builder#Builder(int[], List)}
-     */
-    public static Builder builder(AbstractCreature source, int[] multiDamages, List<AbstractMonster> targetMonsters) {
-        return builder(multiDamages, targetMonsters).setSource(source);
-    }
-
-    @Override
-    protected void StartAction() {
-        for (Supplier<AbstractGameEffect> additionalEffect : atStart_additionalEffects)
-            AbstractDungeon.effectList.add(additionalEffect.get());
-        targetsDamagesMap.forEach((creature, damage) -> {
-            AbstractDungeon.effectList.add(newAttackEffectMaker.apply(creature));
-        });
+    override fun StartAction() {
+        for (additionalEffect in atStart_additionalEffects) AbstractDungeon.effectList.add(additionalEffect.get())
+        targetsDamagesMap.forEach { (creature: AbstractCreature, damage: Int) ->
+            AbstractDungeon.effectList.add(newAttackEffectMaker.apply(creature))
+        }
     }
 
 
-    @Override
-    protected void RunAction() {
+    override fun RunAction() {
     }
 
-    @Override
-    protected void EndAction() {
-        targetsDamagesMap.forEach((creature, damage) -> {
-            for (Function<AbstractCreature, AbstractGameEffect> action : atEnd_additionalEffects)
-                AbstractDungeon.effectList.add(action.apply(creature));
-            creature.damage(newDamageInfoMaker.apply(damage));
-        });
+    override fun EndAction() {
+        targetsDamagesMap.forEach { (creature: AbstractCreature, damage: Int) ->
+            for (action in atEnd_additionalEffects) AbstractDungeon.effectList.add(action.apply(creature))
+            creature.damage(newDamageInfoMaker.apply(damage))
+        }
 
-        if (AbstractDungeon.getCurrRoom().monsters.areMonstersBasicallyDead()) AbstractDungeon.actionManager.clearPostCombatActions();
+        if (AbstractDungeon.getCurrRoom().monsters.areMonstersBasicallyDead()) AbstractDungeon.actionManager.clearPostCombatActions()
 
-        if (afterDamageConsumer != null) afterDamageConsumer.accept(this);
+        afterDamageConsumer?.accept(this)
 
-        if (!this.skipWait && !Settings.FAST_MODE) this.addToTop(new WaitAction(POST_ATTACK_WAIT_DUR));
+        if (!this.skipWait && !Settings.FAST_MODE) this.addToTop(WaitAction(POST_ATTACK_WAIT_DUR))
     }
 
 
-    @Override
-    protected boolean isDoneCheck() {
-        if (this.damageType == DamageType.THORNS) return false;
-        return this.source == null || this.source.isDying || this.source.halfDead;
+    override val isDoneCheck: Boolean
+        get() {
+            if (this.damageType == DamageType.THORNS) return false
+            return this.source == null || source.isDying || source.halfDead
+        }
+
+    companion object {
+        protected const val DURATION: Float = 0.1f
+        protected const val POST_ATTACK_WAIT_DUR: Float = 0.1f
+
+        /**
+         * 详情请查看[Builder.Builder]
+         */
+        fun builder(damage: Int, target: AbstractCreature): Builder {
+            return Builder(damage, target)
+        }
+
+        /**
+         * 详情请查看[Builder.Builder]
+         */
+        fun builder(source: AbstractCreature, damage: Int, target: AbstractCreature): Builder {
+            return builder(damage, target).setSource(source)
+        }
+
+        /**
+         * 详情请查看[Builder.Builder]
+         */
+        fun builder(targetsDamagesMap: MutableMap<AbstractCreature, Int>): Builder {
+            return Builder(targetsDamagesMap)
+        }
+
+        /**
+         * 详情请查看[Builder.Builder]
+         */
+        fun builder(source: AbstractCreature, targetsDamagesMap: MutableMap<AbstractCreature, Int>): Builder {
+            return builder(targetsDamagesMap).setSource(source)
+        }
+
+        /**
+         * 详情请查看[Builder.Builder]
+         */
+        fun builder(multiDamages: IntArray, targetMonsters: List<AbstractMonster?>): Builder {
+            return Builder(multiDamages, targetMonsters)
+        }
+
+        /**
+         * 详情请查看[Builder.Builder]
+         */
+        fun builder(
+            source: AbstractCreature,
+            multiDamages: IntArray,
+            targetMonsters: List<AbstractMonster?>
+        ): Builder {
+            return builder(multiDamages, targetMonsters).setSource(source)
+        }
     }
 }

@@ -1,45 +1,36 @@
-package superstitio.cardModifier.modifiers.block;
+package superstitio.cardModifier.modifiers.block
 
-import com.badlogic.gdx.graphics.Color;
-import com.evacipated.cardcrawl.mod.stslib.blockmods.AbstractBlockModifier;
-import com.megacrit.cardcrawl.cards.DamageInfo;
-import superstitio.DataManager;
-import superstitio.cardModifier.modifiers.AbstractLupaBlock;
+import com.badlogic.gdx.graphics.Color
+import com.evacipated.cardcrawl.mod.stslib.blockmods.AbstractBlockModifier
+import com.megacrit.cardcrawl.cards.DamageInfo
+import superstitio.DataManager
+import superstitio.cardModifier.modifiers.AbstractLupaBlock
 
-public class DrySemenBlock extends AbstractLupaBlock {
-
-    public static final String ID = DataManager.MakeTextID(DrySemenBlock.class);
-
-    public DrySemenBlock() {
-        super(ID);
+class DrySemenBlock : AbstractLupaBlock(ID) {
+    override fun onThisBlockDamaged(info: DamageInfo, lostAmount: Int) {
     }
 
-    @Override
-    public void onThisBlockDamaged(DamageInfo info, int lostAmount) {
+    override fun makeCopy(): AbstractBlockModifier {
+        return DrySemenBlock()
     }
 
-    @Override
-    public AbstractBlockModifier makeCopy() {
-        return new DrySemenBlock();
+    override fun priority(): Priority {
+        return Priority.TOP
     }
 
-    @Override
-    public Priority priority() {
-        return Priority.TOP;
+    override fun subPriority(): Short {
+        return 223
+    } //Kokoro
+
+    override fun blockImageColor(): Color {
+        return Color.LIGHT_GRAY.cpy()
     }
 
-    @Override
-    public short subPriority() {
-        return 223;
-    }//Kokoro
-
-    @Override
-    public Color blockImageColor() {
-        return Color.LIGHT_GRAY.cpy();
+    override fun amountLostAtStartOfTurn(): Int {
+        return 0
     }
 
-    @Override
-    public int amountLostAtStartOfTurn() {
-        return 0;
+    companion object {
+        val ID: String = DataManager.MakeTextID(DrySemenBlock::class.java)
     }
 }

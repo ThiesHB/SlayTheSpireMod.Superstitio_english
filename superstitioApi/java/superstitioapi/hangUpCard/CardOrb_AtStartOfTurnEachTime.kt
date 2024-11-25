@@ -1,47 +1,36 @@
-package superstitioapi.hangUpCard;
+package superstitioapi.hangUpCard
 
-import com.megacrit.cardcrawl.cards.AbstractCard;
-import com.megacrit.cardcrawl.cards.CardGroup;
-import com.megacrit.cardcrawl.orbs.AbstractOrb;
-import superstitioapi.actions.AutoDoneInstantAction;
+import com.megacrit.cardcrawl.cards.AbstractCard
+import com.megacrit.cardcrawl.cards.CardGroup
+import com.megacrit.cardcrawl.orbs.AbstractOrb
+import superstitioapi.actions.AutoDoneInstantAction
+import superstitioapi.utils.ActionUtility.VoidSupplier
+import java.util.function.Consumer
 
-import java.util.function.Consumer;
-
-
-public class CardOrb_AtStartOfTurnEachTime extends CardOrb implements ICardOrb_EachTime {
-
-    public final Consumer<CardOrb_AtStartOfTurnEachTime> action;
-
-    public CardOrb_AtStartOfTurnEachTime(AbstractCard card, CardGroup cardGroupReturnAfterEvoke, int OrbCounter,
-                                         Consumer<CardOrb_AtStartOfTurnEachTime> action) {
-        super(card, cardGroupReturnAfterEvoke, OrbCounter);
-        this.action = action;
+class CardOrb_AtStartOfTurnEachTime(
+    card: AbstractCard, cardGroupReturnAfterEvoke: CardGroup?, OrbCounter: Int,
+    val action: Consumer<CardOrb_AtStartOfTurnEachTime>
+) : CardOrb(card, cardGroupReturnAfterEvoke, OrbCounter), ICardOrb_EachTime {
+    protected fun actionAccept() {
+        AutoDoneInstantAction.addToBotAbstract(VoidSupplier { action.accept(this) })
     }
 
-    protected void actionAccept() {
-        AutoDoneInstantAction.addToBotAbstract(() -> action.accept(this));
+    override fun onStartOfTurn() {
+        orbCounter--
+        if (orbCounter < 0) return
+        actionAccept()
     }
 
-    @Override
-    public void onStartOfTurn() {
-        OrbCounter--;
-        if (OrbCounter < 0) return;
-        actionAccept();
+    override fun makeCopy(): AbstractOrb {
+        return CardOrb_AtStartOfTurnEachTime(originCard, cardGroupReturnAfterEvoke, orbCounter, action)
     }
 
-    @Override
-    public AbstractOrb makeCopy() {
-        return new CardOrb_AtStartOfTurnEachTime(getOriginCard(), cardGroupReturnAfterEvoke, OrbCounter, action);
+    override fun forceAcceptAction(card: AbstractCard) {
+        orbCounter--
+        if (orbCounter < 0) return
+        actionAccept()
     }
 
-    @Override
-    public void forceAcceptAction(AbstractCard card) {
-        OrbCounter--;
-        if (OrbCounter < 0) return;
-        actionAccept();
-    }
-
-    @Override
-    protected void onRemoveCard() {
+    override fun onRemoveCard() {
     }
 }

@@ -1,89 +1,78 @@
-package superstitio.cardModifier.modifiers;
+package superstitio.cardModifier.modifiers
 
-import basemod.helpers.TooltipInfo;
-import com.evacipated.cardcrawl.mod.stslib.blockmods.AbstractBlockModifier;
-import superstitio.DataManager;
-import superstitio.customStrings.interFace.StringSetUtility;
-import superstitio.customStrings.stringsSet.ModifierStringsSet;
-import superstitioapi.utils.UpdateDescriptionAdvanced;
+import basemod.helpers.TooltipInfo
+import com.evacipated.cardcrawl.mod.stslib.blockmods.AbstractBlockModifier
+import superstitio.DataManager
+import superstitio.customStrings.interFace.StringSetUtility
+import superstitio.customStrings.stringsSet.ModifierStringsSet
+import superstitioapi.utils.UpdateDescriptionAdvanced
+import superstitioapi.utils.getFormattedDescription
 
-import java.util.ArrayList;
+abstract class AbstractLupaBlock(id: String) : AbstractBlockModifier(), UpdateDescriptionAdvanced {
+    val blockStrings: ModifierStringsSet?
+    var tooltip: TooltipInfo? = null
 
-public abstract class AbstractLupaBlock extends AbstractBlockModifier implements UpdateDescriptionAdvanced {
-    public final ModifierStringsSet blockStrings;
-    TooltipInfo tooltip = null;
-    private Object[] descriptionArgs;
-
-    public AbstractLupaBlock(String id) {
-        this.blockStrings = getBlockStringsWithSFW(id);
-        this.automaticBindingForCards = true;
+    init {
+        this.blockStrings = getBlockStringsWithSFW(id)
+        this.automaticBindingForCards = true
     }
 
-    public static ModifierStringsSet getBlockStringsWithSFW(String cardName) {
-        return StringSetUtility.getCustomStringsWithSFW(cardName, DataManager.modifiers, ModifierStringsSet.class);
+    fun removeAutoBind(): AbstractLupaBlock {
+        this.automaticBindingForCards = false
+        return this
     }
 
-    public AbstractLupaBlock removeAutoBind() {
-        this.automaticBindingForCards = false;
-        return this;
+    override fun getName(): String {
+        return blockStrings!!.getNAME()
     }
 
-    @Override
-    public final String getName() {
-        return blockStrings.getNAME();
-    }
+    override var descriptionArgs: Array<out Any>? = null
 
     /**
      * 卡牌的描述
      */
-    @Override
-    public final ArrayList<TooltipInfo> getCustomTooltips() {
+    override fun getCustomTooltips(): ArrayList<TooltipInfo>? {
         if (tooltip == null) {
-            tooltip = new TooltipInfo(blockStrings.getBasicInfo(), getDescription());
+            tooltip = TooltipInfo(blockStrings!!.getBasicInfo(), description)
         }
-        ArrayList<TooltipInfo> tooltipInfos = new ArrayList<>();
-        tooltipInfos.add(tooltip);
-        return tooltipInfos;
+        val tooltipInfos = ArrayList<TooltipInfo>()
+        tooltipInfos.add(tooltip!!)
+        return tooltipInfos
     }
 
     /**
      * 鼠标放到格挡上的描述
      */
-    @Override
-    public String getDescription() {
-        return getFormattedDescription();
+    override fun getDescription(): String? {
+        return getFormattedDescription()
     }
 
-    @Override
-    public Object[] getDescriptionArgs() {
-        return descriptionArgs;
+    override fun updateDescriptionArgs() {
     }
 
-    @Override
-    public final void setDescriptionArgs(Object... args) {
-        setDescriptionToArgs(allArgs -> descriptionArgs = allArgs, args);
-    }
-
-    @Override
-    public void updateDescriptionArgs() {
-    }
-
-    @Override
-    public String getDescriptionStrings() {
-        return this.blockStrings.getDESCRIPTION();
+    override fun getDescriptionStrings(): String {
+        return blockStrings!!.getDESCRIPTION()
     }
 
 
     /**
      * 显示在卡牌的类型旁边的那玩意
      */
-    @Override
-    public final String getCardDescriptor() {
-        return blockStrings.getNAME();
+    override fun getCardDescriptor(): String {
+        return blockStrings!!.getNAME()
     }
 
-    @Override
-    public boolean isInherent() {
-        return true;
+    override fun isInherent(): Boolean {
+        return true
+    }
+
+    companion object {
+        fun getBlockStringsWithSFW(cardName: String): ModifierStringsSet {
+            return StringSetUtility.getCustomStringsWithSFW(
+                cardName,
+                DataManager.modifiers,
+                ModifierStringsSet::class.java
+            )
+        }
     }
 }

@@ -1,59 +1,45 @@
-package superstitio.cardModifier.modifiers.block;
+package superstitio.cardModifier.modifiers.block
 
-import com.evacipated.cardcrawl.mod.stslib.blockmods.AbstractBlockModifier;
-import com.megacrit.cardcrawl.actions.common.DrawCardAction;
-import com.megacrit.cardcrawl.cards.DamageInfo;
-import superstitio.DataManager;
-import superstitio.cardModifier.modifiers.AbstractLupaBlock;
+import com.evacipated.cardcrawl.mod.stslib.blockmods.AbstractBlockModifier
+import com.megacrit.cardcrawl.actions.common.DrawCardAction
+import com.megacrit.cardcrawl.cards.DamageInfo
+import superstitio.DataManager
+import superstitio.cardModifier.modifiers.AbstractLupaBlock
+import superstitioapi.utils.setDescriptionArgs
 
-public class WhenLostDrawCardBlock extends AbstractLupaBlock {
-    public static final String ID = DataManager.MakeTextID(WhenLostDrawCardBlock.class);
-    private final int drawAmount;
-
-    public WhenLostDrawCardBlock() {
-        this(1);
+class WhenLostDrawCardBlock @JvmOverloads constructor(private val drawAmount: Int = 1) : AbstractLupaBlock(ID) {
+    override fun amountLostAtStartOfTurn(): Int {
+        return 0
     }
 
-    public WhenLostDrawCardBlock(int drawAmount) {
-        super(ID);
-        this.drawAmount = drawAmount;
+    override fun shouldStack(): Boolean {
+        return false
     }
 
-    @Override
-    public int amountLostAtStartOfTurn() {
-        return 0;
-    }
-
-    @Override
-    public boolean shouldStack() {
-        return false;
-    }
-
-    @Override
-    public final int onRemove(boolean lostByStartOfTurn, DamageInfo info, int remainingDamage) {
+    override fun onRemove(lostByStartOfTurn: Boolean, info: DamageInfo?, remainingDamage: Int): Int {
         if (info != null) {
-            addToBot(new DrawCardAction(drawAmount));
+            addToBot(DrawCardAction(drawAmount))
         }
-        return remainingDamage;
+        return remainingDamage
     }
 
-    @Override
-    public void updateDescriptionArgs() {
-        setDescriptionArgs(this.drawAmount);
+    override fun updateDescriptionArgs() {
+        setDescriptionArgs(this.drawAmount)
     }
 
-    @Override
-    public Priority priority() {
-        return Priority.TOP;
+    override fun priority(): Priority {
+        return Priority.TOP
     }
 
-    @Override
-    public short subPriority() {
-        return 255;
+    override fun subPriority(): Short {
+        return 255
     }
 
-    @Override
-    public AbstractBlockModifier makeCopy() {
-        return new WhenLostDrawCardBlock();
+    override fun makeCopy(): AbstractBlockModifier {
+        return WhenLostDrawCardBlock()
+    }
+
+    companion object {
+        val ID: String = DataManager.MakeTextID(WhenLostDrawCardBlock::class.java)
     }
 }

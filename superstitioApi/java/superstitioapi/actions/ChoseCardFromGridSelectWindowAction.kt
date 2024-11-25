@@ -1,75 +1,72 @@
-package superstitioapi.actions;
+package superstitioapi.actions
 
-import com.megacrit.cardcrawl.cards.AbstractCard;
-import com.megacrit.cardcrawl.cards.CardGroup;
-import com.megacrit.cardcrawl.core.Settings;
-import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
+import com.megacrit.cardcrawl.cards.AbstractCard
+import com.megacrit.cardcrawl.cards.CardGroup
+import com.megacrit.cardcrawl.cards.CardGroup.CardGroupType
+import com.megacrit.cardcrawl.core.Settings
+import com.megacrit.cardcrawl.dungeons.AbstractDungeon
+import java.util.function.Consumer
+import java.util.function.Predicate
 
-import java.util.Arrays;
-import java.util.function.Consumer;
-import java.util.function.Predicate;
+class ChoseCardFromGridSelectWindowAction(
+    private val cardGroup: CardGroup,
+    private val gameActionMaker: Consumer<AbstractCard>
+) : AbstractContinuallyAction(ActionType.CARD_MANIPULATION, Settings.ACTION_DUR_FAST) {
+    private var windowText = ""
+    private var anyNumber = false
+    private var retainFilter = Predicate { card: AbstractCard? -> true }
 
-public class ChoseCardFromGridSelectWindowAction extends AbstractContinuallyAction {
-    private final Consumer<AbstractCard> gameActionMaker;
-    private final CardGroup cardGroup;
-    private String windowText = "";
-    private boolean anyNumber = false;
-    private Predicate<AbstractCard> retainFilter = card -> true;
-
-    public ChoseCardFromGridSelectWindowAction(
-            final CardGroup cardGroup,
-            Consumer<AbstractCard> GameActionMaker) {
-        super(ActionType.CARD_MANIPULATION, Settings.ACTION_DUR_FAST);
-        this.cardGroup = cardGroup;
-        this.gameActionMaker = GameActionMaker;
-        this.amount = 1;
+    init {
+        this.amount = 1
     }
 
-    public final ChoseCardFromGridSelectWindowAction setAnyNumber(boolean anyNumber) {
-        this.anyNumber = anyNumber;
-        return this;
+    fun setAnyNumber(anyNumber: Boolean): ChoseCardFromGridSelectWindowAction {
+        this.anyNumber = anyNumber
+        return this
     }
 
-    public final ChoseCardFromGridSelectWindowAction setWindowText(String windowText) {
-        this.windowText = windowText;
-        return this;
+    fun setWindowText(windowText: String): ChoseCardFromGridSelectWindowAction {
+        this.windowText = windowText
+        return this
     }
 
-    public final ChoseCardFromGridSelectWindowAction setChoseAmount(int choseAmount) {
-        this.amount = choseAmount;
-        return this;
+    fun setChoseAmount(choseAmount: Int): ChoseCardFromGridSelectWindowAction {
+        this.amount = choseAmount
+        return this
     }
 
     @SafeVarargs
-    public final ChoseCardFromGridSelectWindowAction setRetainFilter(Predicate<AbstractCard>... filters) {
-        Arrays.stream(filters).forEach(abstractCardPredicate -> this.retainFilter = this.retainFilter.and(abstractCardPredicate));
-        return this;
-    }
-
-    @Override
-    protected void StartAction() {
-        if (cardGroup.isEmpty() || this.amount <= 0) {
-            this.isDone = true;
-            return;
+    fun setRetainFilter(vararg filters: Predicate<AbstractCard>): ChoseCardFromGridSelectWindowAction {
+        filters.forEach { abstractCardPredicate: Predicate<AbstractCard>? ->
+            if (abstractCardPredicate == null)
+                return@forEach
+            this.retainFilter = retainFilter
+                .and { card: AbstractCard? -> card?.let(abstractCardPredicate::test) ?: false }
         }
-        final CardGroup temp = new CardGroup(CardGroup.CardGroupType.UNSPECIFIED);
-        cardGroup.group.stream().filter(this.retainFilter).forEach(temp::addToTop);
-        temp.sortAlphabetically(true);
-        temp.sortByRarityPlusStatusCardType(false);
-        AbstractDungeon.gridSelectScreen.open(temp, amount, anyNumber, windowText);
+        return this
     }
 
-    @Override
-    protected void RunAction() {
-        if (AbstractDungeon.gridSelectScreen.selectedCards.isEmpty()) return;
-        for (final AbstractCard c : AbstractDungeon.gridSelectScreen.selectedCards) {
-            gameActionMaker.accept(c);
+    override fun StartAction() {
+        if (cardGroup.isEmpty || this.amount <= 0) {
+            this.isDone = true
+            return
         }
-        AbstractDungeon.gridSelectScreen.selectedCards.clear();
-        AbstractDungeon.player.hand.refreshHandLayout();
+        val temp = CardGroup(CardGroupType.UNSPECIFIED)
+        cardGroup.group.stream().filter(this.retainFilter).forEach(temp::addToTop)
+        temp.sortAlphabetically(true)
+        temp.sortByRarityPlusStatusCardType(false)
+        AbstractDungeon.gridSelectScreen.open(temp, amount, anyNumber, windowText)
     }
 
-    @Override
-    protected void EndAction() {
+    override fun RunAction() {
+        if (AbstractDungeon.gridSelectScreen.selectedCards.isEmpty()) return
+        for (c in AbstractDungeon.gridSelectScreen.selectedCards) {
+            gameActionMaker.accept(c)
+        }
+        AbstractDungeon.gridSelectScreen.selectedCards.clear()
+        AbstractDungeon.player.hand.refreshHandLayout()
+    }
+
+    override fun EndAction() {
     }
 }

@@ -1,9 +1,8 @@
-package superstitio;
+package superstitio
 
-import basemod.AutoAdd;
+import basemod.AutoAdd
 
 @AutoAdd.Ignore
-public class SuperstitioImg {
-    public @interface NoNeedImg {
-    }
+class SuperstitioImg {
+    annotation class NoNeedImg
 }

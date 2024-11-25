@@ -1,33 +1,26 @@
-package superstitio.cardModifier.modifiers.block;
+package superstitio.cardModifier.modifiers.block
 
-import com.evacipated.cardcrawl.mod.stslib.blockmods.AbstractBlockModifier;
-import com.megacrit.cardcrawl.cards.DamageInfo;
-import superstitio.DataManager;
-import superstitio.cardModifier.modifiers.AbstractLupaBlock;
+import com.evacipated.cardcrawl.mod.stslib.blockmods.AbstractBlockModifier
+import com.megacrit.cardcrawl.cards.DamageInfo
+import superstitio.DataManager
+import superstitio.cardModifier.modifiers.AbstractLupaBlock
 
-public class SexBlock extends AbstractLupaBlock {
-
-    public static final String ID = DataManager.MakeTextID(SexBlock.class);
-
-    public SexBlock() {
-        super(ID);
+class SexBlock : AbstractLupaBlock(ID) {
+    override fun onThisBlockDamaged(info: DamageInfo, lostAmount: Int) {
     }
 
-    @Override
-    public void onThisBlockDamaged(DamageInfo info, int lostAmount) {
+    override fun priority(): Priority {
+        return Priority.NORMAL
     }
 
-    public Priority priority() {
-        return Priority.NORMAL;
-    }
+    override fun makeCopy(): AbstractBlockModifier {
+        return SexBlock()
+    } //    @Override
+    //    public Color blockImageColor() {
+    //        return Color.PINK.cpy();
+    //    }
 
-    @Override
-    public AbstractBlockModifier makeCopy() {
-        return new SexBlock();
+    companion object {
+        val ID: String = DataManager.MakeTextID(SexBlock::class.java)
     }
-
-//    @Override
-//    public Color blockImageColor() {
-//        return Color.PINK.cpy();
-//    }
 }

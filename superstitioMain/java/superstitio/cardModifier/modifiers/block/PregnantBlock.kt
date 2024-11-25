@@ -1,55 +1,44 @@
-package superstitio.cardModifier.modifiers.block;
+package superstitio.cardModifier.modifiers.block
 
-import com.badlogic.gdx.graphics.Color;
-import com.megacrit.cardcrawl.cards.DamageInfo;
-import superstitio.cardModifier.modifiers.AbstractLupaBlock;
+import com.badlogic.gdx.graphics.Color
+import com.megacrit.cardcrawl.cards.DamageInfo
+import superstitio.cardModifier.modifiers.AbstractLupaBlock
 
-public abstract class PregnantBlock extends AbstractLupaBlock {
-
-    public PregnantBlock(String id) {
-        super(id);
-    }
-
-//    @Override
-//    public void onThisBlockDamaged(DamageInfo info, int lostAmount) {
-//
-//    }
-
+abstract class PregnantBlock(id: String) : AbstractLupaBlock(id) {
+    //    @Override
+    //    public void onThisBlockDamaged(DamageInfo info, int lostAmount) {
+    //
+    //    }
     ///受到外力则为流产
-    public int removeUnNaturally(DamageInfo info, int remainingDamage) {
-        return remainingDamage;
+    open fun removeUnNaturally(info: DamageInfo?, remainingDamage: Int): Int {
+        return remainingDamage
     }
 
     ///正常顺产的效果
-    public int removeNaturally(int remainingDamage) {
-        return remainingDamage;
+    open fun removeNaturally(remainingDamage: Int): Int {
+        return remainingDamage
     }
 
-    @Override
-    public boolean shouldStack() {
-        return false;
+    override fun shouldStack(): Boolean {
+        return false
     }
 
-    @Override
-    public int amountLostAtStartOfTurn() {
-        return 0;
+    override fun amountLostAtStartOfTurn(): Int {
+        return 0
     }
 
-    @Override
-    public final int onRemove(boolean lostByStartOfTurn, DamageInfo info, int remainingDamage) {
-        int remain = remainingDamage;
-        if (info != null)
-            remain = removeUnNaturally(info, remain);
-        else
-            remain = removeNaturally(remain);
-        return remain;
+    override fun onRemove(lostByStartOfTurn: Boolean, info: DamageInfo, remainingDamage: Int): Int {
+        var remain = remainingDamage
+        remain = if (info != null) removeUnNaturally(info, remain)
+        else removeNaturally(remain)
+        return remain
     }
-    @Override
-    public Color blockImageColor() {
-        return Color.GOLDENROD.cpy();
+
+    override fun blockImageColor(): Color {
+        return Color.GOLDENROD.cpy()
     }
-    @Override
-    public Priority priority() {
-        return Priority.BOTTOM;
+
+    override fun priority(): Priority {
+        return Priority.BOTTOM
     }
 }

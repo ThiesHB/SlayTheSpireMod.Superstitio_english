@@ -2,108 +2,107 @@
 // Source code recreated from a .class file by IntelliJ IDEA
 // (powered by FernFlower decompiler)
 //
+package superstitioapi.actions
 
-package superstitioapi.actions;
+import com.megacrit.cardcrawl.cards.AbstractCard
+import com.megacrit.cardcrawl.cards.CardGroup
+import com.megacrit.cardcrawl.cards.CardGroup.CardGroupType
+import com.megacrit.cardcrawl.characters.AbstractPlayer
+import com.megacrit.cardcrawl.core.AbstractCreature
+import com.megacrit.cardcrawl.core.Settings
+import com.megacrit.cardcrawl.dungeons.AbstractDungeon
+import java.util.function.Consumer
+import java.util.function.Predicate
 
-import com.megacrit.cardcrawl.cards.AbstractCard;
-import com.megacrit.cardcrawl.cards.CardGroup;
-import com.megacrit.cardcrawl.characters.AbstractPlayer;
-import com.megacrit.cardcrawl.core.AbstractCreature;
-import com.megacrit.cardcrawl.core.Settings;
-import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
+class ChoseCardFromHandCardSelectScreen(private val actionApply: Consumer<AbstractCard>) :
+    AbstractContinuallyAction(ActionType.CARD_MANIPULATION, Settings.ACTION_DUR_XFAST) {
+    private val player: AbstractPlayer = AbstractDungeon.player
+    private val temp_remove_from_hand = CardGroup(CardGroupType.UNSPECIFIED)
+    private var windowText = ""
+    private var anyNumber = false
+    private var canPickZero = false
+    private var retainFilter = Predicate { card: AbstractCard? -> true }
 
-import java.util.Arrays;
-import java.util.function.Consumer;
-import java.util.function.Predicate;
-
-public class ChoseCardFromHandCardSelectScreen extends AbstractContinuallyAction {
-    private final AbstractPlayer player = AbstractDungeon.player;
-    private final Consumer<AbstractCard> actionApply;
-    private final CardGroup temp_remove_from_hand = new CardGroup(CardGroup.CardGroupType.UNSPECIFIED);
-    private String windowText = "";
-    private boolean anyNumber = false;
-    private boolean canPickZero = false;
-    private Predicate<AbstractCard> retainFilter = card -> true;
-
-    public ChoseCardFromHandCardSelectScreen(Consumer<AbstractCard> actionApply) {
-        super(ActionType.CARD_MANIPULATION, Settings.ACTION_DUR_XFAST);
-        this.actionApply = actionApply;
-        this.target = player;
-        this.source = player;
-        this.amount = 1;
+    init {
+        this.target = player
+        this.source = player
+        this.amount = 1
     }
 
-    private void doAction(AbstractCard c) {
-        this.actionApply.accept(c);
+    private fun doAction(c: AbstractCard) {
+        actionApply.accept(c)
     }
 
-    public final ChoseCardFromHandCardSelectScreen setChoiceAmount(int choiceAmount) {
-        this.amount = choiceAmount;
-        return this;
+    fun setChoiceAmount(choiceAmount: Int): ChoseCardFromHandCardSelectScreen {
+        this.amount = choiceAmount
+        return this
     }
 
-    public final ChoseCardFromHandCardSelectScreen setSource(AbstractCreature source) {
-        this.source = source;
-        return this;
+    fun setSource(source: AbstractCreature): ChoseCardFromHandCardSelectScreen {
+        this.source = source
+        return this
     }
 
-    public final ChoseCardFromHandCardSelectScreen setWindowText(String windowText) {
-        this.windowText = windowText;
-        return this;
+    fun setWindowText(windowText: String): ChoseCardFromHandCardSelectScreen {
+        this.windowText = windowText
+        return this
     }
 
-    public final ChoseCardFromHandCardSelectScreen setAnyNumber(boolean anyNumber) {
-        this.anyNumber = anyNumber;
-        return this;
+    fun setAnyNumber(anyNumber: Boolean): ChoseCardFromHandCardSelectScreen {
+        this.anyNumber = anyNumber
+        return this
     }
 
-    public final ChoseCardFromHandCardSelectScreen setCanPickZero(boolean canPickZero) {
-        this.canPickZero = canPickZero;
-        return this;
+    fun setCanPickZero(canPickZero: Boolean): ChoseCardFromHandCardSelectScreen {
+        this.canPickZero = canPickZero
+        return this
     }
 
     @SafeVarargs
-    public final ChoseCardFromHandCardSelectScreen setRetainFilter(Predicate<AbstractCard>... filters) {
-        Arrays.stream(filters).forEach(abstractCardPredicate -> this.retainFilter = this.retainFilter.and(abstractCardPredicate));
-        return this;
-    }
-
-    @Override
-    protected void StartAction() {
-        if (this.amount <= 0) {
-            this.isDone = true;
-            return;
+    fun setRetainFilter(vararg filters: Predicate<AbstractCard>?): ChoseCardFromHandCardSelectScreen {
+        filters.forEach { abstractCardPredicate: Predicate<AbstractCard>? ->
+            if (abstractCardPredicate == null)
+                return@forEach
+            this.retainFilter = retainFilter
+                .and { card: AbstractCard? -> card?.let(abstractCardPredicate::test) ?: false }
         }
-        this.player.hand.group.stream().filter(card -> !retainFilter.test(card)).forEach(this.temp_remove_from_hand.group::add);
-        this.player.hand.group.removeAll(this.temp_remove_from_hand.group);
-//        this.player.hand.group.clear();
-
-        if (this.player.hand.size() <= this.amount && !anyNumber && !canPickZero) {
-            CardGroup hand = this.player.hand;
-            this.amount = hand.size();
-            hand.group.forEach(this::doAction);
-            this.temp_remove_from_hand.group.forEach(card -> this.player.hand.addToTop(card));
-            this.isDone = true;
-        } else if (!this.player.hand.isEmpty())//if (this.player.hand.size() > this.amount)
-            AbstractDungeon.handCardSelectScreen.open(windowText, this.amount, anyNumber, canPickZero);
-        AbstractDungeon.player.hand.applyPowers();
+        return this
     }
 
-    @Override
-    protected void RunAction() {
-        if (AbstractDungeon.handCardSelectScreen.wereCardsRetrieved) return;
-        this.temp_remove_from_hand.group.forEach(card -> this.player.hand.addToTop(card));
-        AbstractDungeon.handCardSelectScreen.selectedCards.group.forEach(card -> {
-            this.player.hand.addToTop(card);
-            doAction(card);
-        });
-        AbstractDungeon.handCardSelectScreen.wereCardsRetrieved = true;
-        AbstractDungeon.handCardSelectScreen.selectedCards.group.clear();
-        this.temp_remove_from_hand.clear();
-        this.player.hand.refreshHandLayout();
+    override fun StartAction() {
+        if (this.amount <= 0) {
+            this.isDone = true
+            return
+        }
+        player.hand.group.stream().filter { card: AbstractCard -> !retainFilter.test(card) }
+            .forEach(temp_remove_from_hand.group::add)
+        player.hand.group.removeAll(temp_remove_from_hand.group.toSet())
+
+        //        this.player.hand.group.clear();
+        if (player.hand.size() <= this.amount && !anyNumber && !canPickZero) {
+            val hand = player.hand
+            this.amount = hand.size()
+            hand.group.forEach(Consumer(this::doAction))
+            temp_remove_from_hand.group.forEach(Consumer(player.hand::addToTop))
+            this.isDone = true
+        } else if (!player.hand.isEmpty) //if (this.player.hand.size() > this.amount)
+            AbstractDungeon.handCardSelectScreen.open(windowText, this.amount, anyNumber, canPickZero)
+        AbstractDungeon.player.hand.applyPowers()
     }
 
-    @Override
-    protected void EndAction() {
+    override fun RunAction() {
+        if (AbstractDungeon.handCardSelectScreen.wereCardsRetrieved) return
+        temp_remove_from_hand.group.forEach(Consumer(player.hand::addToTop))
+        AbstractDungeon.handCardSelectScreen.selectedCards.group.forEach(Consumer { card: AbstractCard ->
+            player.hand.addToTop(card)
+            doAction(card)
+        })
+        AbstractDungeon.handCardSelectScreen.wereCardsRetrieved = true
+        AbstractDungeon.handCardSelectScreen.selectedCards.group.clear()
+        temp_remove_from_hand.clear()
+        player.hand.refreshHandLayout()
+    }
+
+    override fun EndAction() {
     }
 }
