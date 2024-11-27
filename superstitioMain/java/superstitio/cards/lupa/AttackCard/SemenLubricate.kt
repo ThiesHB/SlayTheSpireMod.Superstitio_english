@@ -14,21 +14,26 @@ import superstitio.powers.EasyBuildAbstractPowerForPowerCard
 import superstitioapi.actions.AutoDoneInstantAction
 import superstitioapi.utils.ActionUtility
 
-class SemenLubricate : LupaCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET) {
+class SemenLubricate : LupaCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET)
+{
     private var inPlayingCard = false
 
-    init {
+    init
+    {
         this.setupDamage(DAMAGE, UPGRADE_DAMAGE)
         this.setupMagicNumber(MAGIC)
     }
 
-    fun continuePlayCard() {
+    fun continuePlayCard()
+    {
         if (!inPlayingCard) return
-        if (!hasEnoughSemen(this.magicNumber)) {
+        if (!hasEnoughSemen(this.magicNumber))
+        {
             inPlayingCard = false
             return
         }
-        if (ActionUtility.isNotInBattle) {
+        if (ActionUtility.isNotInBattle)
+        {
             inPlayingCard = false
             return
         }
@@ -37,7 +42,8 @@ class SemenLubricate : LupaCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET) {
             .filter { card: AbstractCard? -> card !is SemenLubricate } //                .filter(card -> card != notCard)
             //                .filter(card -> CardUtility.canUseWithoutEnvironment())
             .findFirst()
-        if (!attackCard.isPresent) {
+        if (!attackCard.isPresent)
+        {
             inPlayingCard = false
             return
         }
@@ -47,46 +53,56 @@ class SemenLubricate : LupaCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET) {
         addToBot(NewQueueCardAction(attackCard.get(), true, false, true))
     }
 
-    override fun use(player: AbstractPlayer?, monster: AbstractMonster?) {
+    override fun use(player: AbstractPlayer?, monster: AbstractMonster?)
+    {
         addToBot_dealDamage(monster)
         inPlayingCard = true
         AutoDoneInstantAction.addToBotAbstract(this::continuePlayCard)
     }
 
-    override fun canUse(p: AbstractPlayer?, m: AbstractMonster?): Boolean {
+    override fun canUse(p: AbstractPlayer?, m: AbstractMonster?): Boolean
+    {
         return super.canUse(p, m) && hasEnoughSemen(this.magicNumber)
     }
 
-    override fun upgradeAuto() {
+    override fun upgradeAuto()
+    {
     }
 
     @NoNeedImg
-    private class ContinuePlayCardPower(card: AbstractCard?) : EasyBuildAbstractPowerForPowerCard(-1), InvisiblePower {
+    private class ContinuePlayCardPower(card: AbstractCard?) : EasyBuildAbstractPowerForPowerCard(-1), InvisiblePower
+    {
         private var semenLubricate: SemenLubricate? = null
 
-        init {
+        init
+        {
             semenLubricate = if (card is SemenLubricate) card
             else null
         }
 
-        override fun onAfterCardPlayed(usedCard: AbstractCard) {
+        override fun onAfterCardPlayed(usedCard: AbstractCard)
+        {
             if (owner !is AbstractPlayer) return
-            if (semenLubricate != null && semenLubricate!!.inPlayingCard) {
+            if (semenLubricate != null && semenLubricate!!.inPlayingCard)
+            {
                 AutoDoneInstantAction.addToBotAbstract(semenLubricate!!::continuePlayCard)
                 return
             }
             addToBot_removeSpecificPower(this)
         }
 
-        override fun updateDescriptionArgs() {
+        override fun updateDescriptionArgs()
+        {
         }
 
-        override fun makePowerCard(): SuperstitioCard {
+        override fun makePowerCard(): SuperstitioCard
+        {
             return SemenLubricate()
         }
     }
 
-    companion object {
+    companion object
+    {
         val ID: String = DataManager.MakeTextID(SemenLubricate::class.java)
 
         val CARD_TYPE: CardType = CardType.ATTACK

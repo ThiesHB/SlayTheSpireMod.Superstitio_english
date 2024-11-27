@@ -11,18 +11,22 @@ import java.util.function.Consumer
 class CardOrb_OnOrgasm_WaitTime(
     card: AbstractCard, cardGroupReturnAfterEvoke: CardGroup?, OrbCounter: CardUtility.CostSmart,
     action_thisCard: Consumer<CardOrb_OnOrgasm>
-) : CardOrb_OnOrgasm(card, cardGroupReturnAfterEvoke, OrbCounter, action_thisCard), ICardOrb_WaitTime {
-    override fun makeCopy(): AbstractOrb {
+) : CardOrb_OnOrgasm(card, cardGroupReturnAfterEvoke, OrbCounter, action_thisCard), ICardOrb_WaitTime
+{
+    override fun makeCopy(): AbstractOrb
+    {
         return CardOrb_OnOrgasm_WaitTime(fakeCard, cardGroupReturnAfterEvoke, orbCounter, action)
     }
 
-    override fun onOrgasm(SexualHeatPower: SexualHeat) {
+    override fun onOrgasm(SexualHeatPower: SexualHeat)
+    {
         orbCounter--
         if (orbCounter < 0) return
         if (orbCounter.equals(0)) actionAccept()
     }
 
-    override fun forceAcceptAction(card: AbstractCard) {
+    override fun forceAcceptAction(card: AbstractCard)
+    {
         orbCounter--
         if (orbCounter < 0) return
         if (orbCounter.equals(0)) actionAccept()

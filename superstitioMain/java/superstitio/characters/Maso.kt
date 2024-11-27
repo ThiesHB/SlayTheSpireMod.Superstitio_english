@@ -29,19 +29,23 @@ import superstitioapi.renderManager.characterSelectScreenRender.RenderInCharacte
 
 // 继承CustomPlayer类
 class Maso(name: String) : BaseCharacter(ID, name, MasoEnums.MASO_Character), PlayerInitPostDungeonInitialize,
-    RenderInCharacterSelect {
-    override fun getAscensionMaxHPLoss(): Int {
+    RenderInCharacterSelect
+{
+    override fun getAscensionMaxHPLoss(): Int
+    {
         return 5
     }
 
     // 初始遗物
-    override fun getStartingRelics(): ArrayList<String> {
+    override fun getStartingRelics(): ArrayList<String>
+    {
         val retVal = ArrayList<String>()
         retVal.add(VulnerableTogetherRelic.ID)
         return retVal
     }
 
-    override fun getLoadout(): CharSelectInfo {
+    override fun getLoadout(): CharSelectInfo
+    {
         return CharSelectInfo(
             characterStrings!!.NAMES[0],  // 人物名字
             characterStrings.TEXT[0],  // 人物介绍
@@ -57,22 +61,26 @@ class Maso(name: String) : BaseCharacter(ID, name, MasoEnums.MASO_Character), Pl
         )
     }
 
-    override fun getStartingDeck(): ArrayList<String> {
+    override fun getStartingDeck(): ArrayList<String>
+    {
         Logger.run("Begin loading starter Deck Strings")
         return MasoStartDeck()
     }
 
     // 你的卡牌颜色（这个枚举在最下方创建）
-    override fun getCardColor(): CardColor {
+    override fun getCardColor(): CardColor
+    {
         return MasoEnums.MASO_CARD
     }
 
     // 创建人物实例，照抄
-    override fun newInstance(): AbstractPlayer {
+    override fun newInstance(): AbstractPlayer
+    {
         return Maso(this.name)
     }
 
-    override fun initPostDungeonInitialize() {
+    override fun initPostDungeonInitialize()
+    {
         setUpMaso()
         InfoBlight.addAsInfoBlight(JokeDescription())
         InfoBlight.addAsInfoBlight(DevaBody_Masochism())
@@ -80,36 +88,45 @@ class Maso(name: String) : BaseCharacter(ID, name, MasoEnums.MASO_Character), Pl
         InfoBlight.addAsInfoBlight(EnjoyAilment())
     }
 
-    override fun renderInCharacterSelectScreen(characterOption: CharacterOption, sb: SpriteBatch) {
+    override fun renderInCharacterSelectScreen(characterOption: CharacterOption, sb: SpriteBatch)
+    {
     }
 
-    override fun updateInCharacterSelectScreen(characterOption: CharacterOption) {
+    override fun updateInCharacterSelectScreen(characterOption: CharacterOption)
+    {
         unableByGuroSetting()
     }
 
-    override fun isCardCanAdd(card: AbstractCard?): Boolean {
+    override fun isCardCanAdd(card: AbstractCard?): Boolean
+    {
         return CardOwnerPlayerManager.isMasoCard(card)
     }
 
-    companion object {
+    companion object
+    {
         val ID: String = DataManager.MakeTextID(Maso::class.java.simpleName)
         val characterInfo: CharacterSelectInfo = CharacterSelectInfo(60, 70, 110)
 
-        fun setUpMaso() {
+        fun setUpMaso()
+        {
             if (AbstractDungeon.floorNum > 1 || CardCrawlGame.dungeon !is Exordium) return
             AbstractDungeon.player.currentHealth = AbstractDungeon.player.loadout.currentHp
-            if (AbstractDungeon.ascensionLevel >= 6) {
+            if (AbstractDungeon.ascensionLevel >= 6)
+            {
                 AbstractDungeon.player.currentHealth =
                     MathUtils.round(AbstractDungeon.player.currentHealth.toFloat() * 0.9f)
             }
         }
 
-        fun MasoStartDeck(): ArrayList<String> {
+        fun MasoStartDeck(): ArrayList<String>
+        {
             val startingDeck = ArrayList<String>()
-            for (x in 0..4) {
+            for (x in 0..4)
+            {
                 startingDeck.add(Kiss.ID)
             }
-            for (x in 0..3) {
+            for (x in 0..3)
+            {
                 startingDeck.add(Invite_Maso.ID)
             }
             //        startingDeck.add(Masturbate.ID);

@@ -22,44 +22,55 @@ import superstitioapi.utils.setDescriptionArgs
 import java.util.stream.IntStream
 import kotlin.math.pow
 
-class BodyModification_Prolapse : MasoCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET) {
-    init {
+class BodyModification_Prolapse : MasoCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET)
+{
+    init
+    {
         this.setupMagicNumber(MAGIC, UPGRADE_MAGIC)
         CardModifierManager.addModifier(this, BodyModificationTag())
         initializeDescription()
     }
 
-    override fun updateDescriptionArgs() {
+    override fun updateDescriptionArgs()
+    {
         setDescriptionArgs(2.0.pow(magicNumber).toInt())
     }
 
-    override fun use(player: AbstractPlayer?, monster: AbstractMonster?) {
+    override fun use(player: AbstractPlayer?, monster: AbstractMonster?)
+    {
         IntStream.range(0, this.magicNumber)
             .forEach { i: Int -> addToBot_applyPower(BodyModification_ProlapsePower(1, randomName)) }
     }
 
-    override fun upgradeAuto() {
+    override fun upgradeAuto()
+    {
     }
 
     class BodyModification_ProlapsePower(amount: Int, name: String) :
-        EasyBuildAbstractPowerForPowerCard(amount, false) {
+        EasyBuildAbstractPowerForPowerCard(amount, false)
+    {
         var prolapseNames: MutableMap<String, Int>
 
-        init {
+        init
+        {
             this.prolapseNames = HashMap()
             prolapseNames[name] = amount
             updateDescription()
         }
 
-        override fun onAttacked(info: DamageInfo, damageAmount: Int): Int {
+        override fun onAttacked(info: DamageInfo, damageAmount: Int): Int
+        {
             if (info.type != DamageType.NORMAL) return damageAmount
-            if (!AbstractDungeon.player.hand.isEmpty) {
+            if (!AbstractDungeon.player.hand.isEmpty)
+            {
                 val card = AbstractDungeon.player.hand.getRandomCard(AbstractDungeon.cardRandomRng)
                 AbstractDungeon.player.hand.moveToDiscardPile(card)
                 card.triggerOnManualDiscard()
                 GameActionManager.incrementDiscard(false)
                 return (damageAmount.toDouble() / 2.0.pow(amount)).toInt()
-            } else {
+            }
+            else
+            {
                 val cards = ArrayList<CardOrb>()
                 HangUpCardGroup.forEachHangUpCard { cardOrb: CardOrb ->
                     if (!cardOrb.ifShouldRemove()) cards.add(cardOrb)
@@ -73,7 +84,8 @@ class BodyModification_Prolapse : MasoCard(ID, CARD_TYPE, COST, CARD_RARITY, CAR
             }
         }
 
-        override fun updateDescriptionArgs() {
+        override fun updateDescriptionArgs()
+        {
             val strings = arrayOf("")
             prolapseNames.forEach { (name: String?, num: Int) ->
                 strings[0] += String.format(
@@ -83,22 +95,26 @@ class BodyModification_Prolapse : MasoCard(ID, CARD_TYPE, COST, CARD_RARITY, CAR
             setDescriptionArgs(2.0.pow(amount).toInt(), strings[0])
         }
 
-        override fun onApplyPower(power: AbstractPower, target: AbstractCreature, source: AbstractCreature) {
-            if (power !is BodyModification_ProlapsePower) {
+        override fun onApplyPower(power: AbstractPower, target: AbstractCreature, source: AbstractCreature)
+        {
+            if (power !is BodyModification_ProlapsePower)
+            {
                 return
             }
             this.prolapseNames = PowerUtility.mergeAndSumMaps(this.prolapseNames, power.prolapseNames)
             updateDescription()
         }
 
-        override fun makePowerCard(): SuperstitioCard {
+        override fun makePowerCard(): SuperstitioCard
+        {
             return BodyModification_Prolapse()
         }
 
         override fun getDesc(): String = super.getDesc() + powerCard.cardStrings.getEXTENDED_DESCRIPTION(0)
     }
 
-    companion object {
+    companion object
+    {
         val ID: String = DataManager.MakeTextID(BodyModification_Prolapse::class.java)
 
         val CARD_TYPE: CardType = CardType.POWER

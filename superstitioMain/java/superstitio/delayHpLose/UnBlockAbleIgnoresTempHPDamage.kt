@@ -11,31 +11,39 @@ import superstitio.DataManager
 import superstitio.DataManager.CanOnlyDamageDamageType
 import superstitio.cardModifier.modifiers.AbstractLupaDamage
 
-class UnBlockAbleIgnoresTempHPDamage : AbstractLupaDamage(ID) {
-    override fun ignoresBlock(target: AbstractCreature): Boolean {
+class UnBlockAbleIgnoresTempHPDamage : AbstractLupaDamage(ID)
+{
+    override fun ignoresBlock(target: AbstractCreature): Boolean
+    {
         return true
     }
 
-    override fun atDamageGive(damage: Float, type: DamageType, target: AbstractCreature, card: AbstractCard): Float {
+    override fun atDamageGive(damage: Float, type: DamageType, target: AbstractCreature, card: AbstractCard): Float
+    {
         return super.atDamageGive(damage, CanOnlyDamageDamageType.UnBlockAbleDamageType, target, card)
     }
 
-    override fun ignoresTempHP(target: AbstractCreature): Boolean {
+    override fun ignoresTempHP(target: AbstractCreature): Boolean
+    {
         return true
     }
 
-    override fun ignoresThorns(): Boolean {
+    override fun ignoresThorns(): Boolean
+    {
         return true
     }
 
-    override fun makeCopy(): AbstractDamageModifier {
+    override fun makeCopy(): AbstractDamageModifier
+    {
         return UnBlockAbleIgnoresTempHPDamage()
     }
 
-    companion object {
+    companion object
+    {
         val ID: String = DataManager.MakeTextID(UnBlockAbleIgnoresTempHPDamage::class.java)
 
-        fun damageInfo(instigator: Any?, amount: Int): DamageInfo {
+        fun damageInfo(instigator: Any?, amount: Int): DamageInfo
+        {
             return BindingHelper.makeInfo(
                 DamageModContainer(instigator, UnBlockAbleIgnoresTempHPDamage()), null, amount,
                 CanOnlyDamageDamageType.UnBlockAbleDamageType

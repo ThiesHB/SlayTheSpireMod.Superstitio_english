@@ -19,19 +19,24 @@ class AllCardCostModifier_PerEnergy(
     holder: HasAllCardCostModifyEffect
 ) : AllCardCostModifier(
     POWER_ID, owner, decreasedCost, totalEnergy, holder
-) {
-    init {
+)
+{
+    init
+    {
         amount = totalEnergy
     }
 
-    fun totalCostDecreased(card: AbstractCard): Int {
-        if (!InBattleDataManager.costMap.containsKey(card.uuid) || getOriginCost(card) <= card.costForTurn || card.freeToPlay()) {
+    fun totalCostDecreased(card: AbstractCard): Int
+    {
+        if (!InBattleDataManager.costMap.containsKey(card.uuid) || getOriginCost(card) <= card.costForTurn || card.freeToPlay())
+        {
             return 0
         }
         return getOriginCost(card) - card.costForTurn
     }
 
-    override fun updateDescriptionArgs() {
+    override fun updateDescriptionArgs()
+    {
         setDescriptionArgs(
             min(decreasedCost.toDouble(), amount.toDouble()),
             amount,
@@ -39,18 +44,21 @@ class AllCardCostModifier_PerEnergy(
         )
     }
 
-    override fun getDescriptionStrings(): String {
+    override fun getDescriptionStrings(): String
+    {
         return powerStrings.DESCRIPTIONS[0]
     }
 
-    override fun onPlayCard(card: AbstractCard, m: AbstractMonster?) {
+    override fun onPlayCard(card: AbstractCard, m: AbstractMonster?)
+    {
         if (!isActive) return
         if (totalCostDecreased(card) == 0) return
         AutoDoneInstantAction.addToBotAbstract(VoidSupplier {
             this.flash()
             this.amount -= totalCostDecreased(card)
             this.amount = Integer.max(0, amount)
-            if (amount < decreasedCost) {
+            if (amount < decreasedCost)
+            {
                 this.decreasedCost = amount
                 this.CostToOriginAllCards()
                 if (amount == 0) this.removeSelf()
@@ -59,7 +67,8 @@ class AllCardCostModifier_PerEnergy(
         })
     }
 
-    companion object {
+    companion object
+    {
         val POWER_ID: String = DataUtility.MakeTextID(AllCardCostModifier_PerEnergy::class.java)
         var powerStrings: PowerStrings = getPowerStrings(POWER_ID)
     }

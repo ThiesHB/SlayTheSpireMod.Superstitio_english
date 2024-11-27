@@ -16,20 +16,25 @@ import superstitioapi.utils.CardUtility
 import superstitioapi.utils.CreatureUtility
 import java.util.function.Predicate
 
-class Ahegao : GeneralCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET), GoSomewhereElseAfterUse {
-    init {
+class Ahegao : GeneralCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET), GoSomewhereElseAfterUse
+{
+    init
+    {
         this.setupDamage(DAMAGE, SexDamage())
 //        this.setupMagicNumber(MAGIC)
     }
 
-    override fun use(player: AbstractPlayer?, monster: AbstractMonster?) {
+    override fun use(player: AbstractPlayer?, monster: AbstractMonster?)
+    {
     }
 
-    override fun upgradeAuto() {
+    override fun upgradeAuto()
+    {
         upgradeBaseCost(COST_UPGRADED_NEW)
     }
 
-    override fun afterInterruptMoveToCardGroup(cardGroup: CardGroup) {
+    override fun afterInterruptMoveToCardGroup(cardGroup: CardGroup)
+    {
         CardOrb_EachCardTrigger(this, cardGroup, CardUtility.CostSmart(CardUtility.CostSmart.CostType.NaN))
         { orb: CardOrb_CardTrigger, card: AbstractCard? ->
             val creature = CreatureUtility.getMonsterOrRandomMonster(orb.lastTarget)
@@ -43,7 +48,8 @@ class Ahegao : GeneralCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET), GoSom
             .addToBot_HangCard()
     }
 
-    companion object {
+    companion object
+    {
         val ID: String = DataManager.MakeTextID(Ahegao::class.java)
 
         val CARD_TYPE: CardType = CardType.ATTACK

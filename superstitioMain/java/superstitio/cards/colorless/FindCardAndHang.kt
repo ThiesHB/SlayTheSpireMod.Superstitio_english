@@ -14,13 +14,16 @@ import superstitioapi.hangUpCard.CardOrb_CardTrigger
 import superstitioapi.hangUpCard.CardOrb_WaitCardTrigger
 import superstitioapi.utils.CardUtility
 
-class FindCardAndHang : SuperstitioCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET, CardColor.COLORLESS, "special") {
-    init {
+class FindCardAndHang : SuperstitioCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET, CardColor.COLORLESS, "special")
+{
+    init
+    {
         this.setupMagicNumber(MAGIC, UPGRADE_MAGIC)
         CardModifierManager.addModifier(this, ExhaustMod())
     }
 
-    private fun HangUpSpecificCard(card: AbstractCard) {
+    private fun HangUpSpecificCard(card: AbstractCard)
+    {
         val copyCard = card.makeStatEquivalentCopy()
         copyCard.exhaust = true
         val showUpCard = card.makeStatEquivalentCopy()
@@ -38,7 +41,8 @@ class FindCardAndHang : SuperstitioCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_T
         }
     }
 
-    override fun use(player: AbstractPlayer?, monster: AbstractMonster?) {
+    override fun use(player: AbstractPlayer?, monster: AbstractMonster?)
+    {
         ChoseCardFromGridSelectWindowAction(AbstractDungeon.player.drawPile, this::HangUpSpecificCard)
             .setWindowText(String.format(cardStrings.getEXTENDED_DESCRIPTION(0), CHOSE_CARD))
             .setChoseAmount(CHOSE_CARD)
@@ -46,10 +50,12 @@ class FindCardAndHang : SuperstitioCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_T
             .addToBot()
     }
 
-    override fun upgradeAuto() {
+    override fun upgradeAuto()
+    {
     }
 
-    companion object {
+    companion object
+    {
         val ID: String = DataManager.MakeTextID(FindCardAndHang::class.java)
 
         val CARD_TYPE: CardType = CardType.SKILL

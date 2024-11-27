@@ -4,7 +4,8 @@ import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.math.MathUtils
 import com.megacrit.cardcrawl.cards.AbstractCard
 
-interface HasMultiCardsToPreview {
+interface HasMultiCardsToPreview
+{
     val multiCardsToPreview: MutableList<AbstractCard>
 
     var cardsToPreviewTimer: Float
@@ -14,11 +15,13 @@ interface HasMultiCardsToPreview {
 
     fun setCardsToPreview(cardsToPreview: AbstractCard)
 
-    fun update() {
+    fun update()
+    {
         if (multiCardsToPreview.isEmpty())
             return
         val timer = cardsToPreviewTimer
-        if (timer < 0) {
+        if (timer < 0)
+        {
             cardsToPreviewTimer = multiCardsToPreview.size * SHOW_TIME
         }
         var index = MathUtils.floor(timer / SHOW_TIME)
@@ -31,7 +34,8 @@ interface HasMultiCardsToPreview {
         cardsToPreviewTimer -= Gdx.graphics.deltaTime
     }
 
-    companion object {
+    companion object
+    {
         const val SHOW_TIME: Float = 1.0f
     }
 }

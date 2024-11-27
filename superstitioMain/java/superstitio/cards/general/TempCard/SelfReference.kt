@@ -10,27 +10,33 @@ import superstitio.delayHpLose.RemoveDelayHpLoseBlock
 import superstitioapi.utils.ActionUtility
 
 @AutoAdd.Ignore
-class SelfReference : AbstractTempCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET) {
-    init {
+class SelfReference : AbstractTempCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET)
+{
+    init
+    {
         this.setupBlock(BLOCK, UPGRADE_PLUS_BLOCK, RemoveDelayHpLoseBlock())
         AutoplayField.autoplay[this] = true
         this.dontTriggerOnUseCard = true
         this.shuffleBackIntoDrawPile = true
     }
 
-    override fun use(player: AbstractPlayer?, monster: AbstractMonster?) {
+    override fun use(player: AbstractPlayer?, monster: AbstractMonster?)
+    {
         this.dontTriggerOnUseCard = true
         this.addToBot_gainBlock()
     }
 
-    override fun triggerOnExhaust() {
+    override fun triggerOnExhaust()
+    {
         ActionUtility.addToBot_makeTempCardInBattle(SelfReference(), ActionUtility.BattleCardPlace.Hand, upgraded)
     }
 
-    override fun upgradeAuto() {
+    override fun upgradeAuto()
+    {
     }
 
-    companion object {
+    companion object
+    {
         val ID: String = DataManager.MakeTextID(SelfReference::class.java)
 
         val CARD_TYPE: CardType = CardType.CURSE

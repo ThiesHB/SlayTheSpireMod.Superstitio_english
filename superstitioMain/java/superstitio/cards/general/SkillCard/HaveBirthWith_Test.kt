@@ -15,8 +15,10 @@ import superstitioapi.shader.heart.HeartMultiAtOneShader.HeartMultiAtOneEffect
 import superstitioapi.utils.CardUtility
 
 @AutoAdd.Ignore
-class HaveBirthWith_Test : GeneralCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET), IsNotLupaCard, IsNotMasoCard {
-    override fun use(player: AbstractPlayer?, monster: AbstractMonster?) {
+class HaveBirthWith_Test : GeneralCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET), IsNotLupaCard, IsNotMasoCard
+{
+    override fun use(player: AbstractPlayer?, monster: AbstractMonster?)
+    {
         val target = CardUtility.getSelfOrEnemyTarget(this, monster)
         if (target is AbstractMonster) InBattleDataManager.getPetManager()
             ?.let {
@@ -30,10 +32,12 @@ class HaveBirthWith_Test : GeneralCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TA
             }
     }
 
-    override fun upgradeAuto() {
+    override fun upgradeAuto()
+    {
     }
 
-    companion object {
+    companion object
+    {
         val ID: String = DataManager.MakeTextID(HaveBirthWith_Test::class.java)
 
         val CARD_TYPE: CardType = CardType.SKILL

@@ -15,20 +15,24 @@ import superstitioapi.actions.ChoseCardFromHandCardSelectScreen
 import superstitioapi.utils.CardUtility
 import java.util.function.Predicate
 
-class ZenState : LupaCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET) {
-    init {
+class ZenState : LupaCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET)
+{
+    init
+    {
         this.setupMagicNumber(MAGIC)
         this.setupBlock(BLOCK, UPGRADE_BLOCK, RemoveDelayHpLoseBlock())
     }
 
-    fun addToBot_letSpecificCardExhaust(card: AbstractCard) {
+    fun addToBot_letSpecificCardExhaust(card: AbstractCard)
+    {
         AutoDoneInstantAction.addToBotAbstract {
             card.superFlash()
             CardModifierManager.addModifier(card, ExhaustMod())
         }
     }
 
-    override fun use(player: AbstractPlayer?, monster: AbstractMonster?) {
+    override fun use(player: AbstractPlayer?, monster: AbstractMonster?)
+    {
         addToBot_gainBlock()
         ChoseCardFromHandCardSelectScreen { card: AbstractCard ->
             addToBot_letSpecificCardExhaust(card)
@@ -47,11 +51,13 @@ class ZenState : LupaCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET) {
             .addToBot()
     }
 
-    override fun upgradeAuto() {
+    override fun upgradeAuto()
+    {
         this.upgradeBaseCost(COST_UPGRADED_NEW)
     }
 
-    companion object {
+    companion object
+    {
         val ID: String = DataManager.MakeTextID(ZenState::class.java)
 
         val CARD_TYPE: CardType = CardType.SKILL

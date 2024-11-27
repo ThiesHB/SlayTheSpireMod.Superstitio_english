@@ -17,11 +17,13 @@ import superstitioapi.utils.UpdateDescriptionAdvanced
 abstract class SuperstitioApiPower(
     id: String, powerStrings: PowerStrings, owner: AbstractCreature, amount: Int, powerType: PowerType,
     needUpdateDescription: Boolean
-) : AbstractPower(), UpdateDescriptionAdvanced {
+) : AbstractPower(), UpdateDescriptionAdvanced
+{
 
     override var descriptionArgs: Array<out Any>? = null
 
-    init {
+    init
+    {
         SetupPower(id, powerStrings, owner, amount, powerType, needUpdateDescription)
     }
 
@@ -34,22 +36,26 @@ abstract class SuperstitioApiPower(
         needUpdateDescription: Boolean = true
     ) : this(id, getPowerStrings(id), owner, amount, powerType, needUpdateDescription)
 
-    fun addToBot_applyPower(power: AbstractPower) {
+    fun addToBot_applyPower(power: AbstractPower)
+    {
         ActionUtility.addToBot_applyPower(power, this.owner)
     }
 
-    fun addToBot_reducePowerToOwner(powerID: String, amount: Int) {
+    fun addToBot_reducePowerToOwner(powerID: String, amount: Int)
+    {
         ActionUtility.addToBot_reducePower(powerID, amount, this.owner, this.owner)
     }
 
-    fun addToBot_removeSpecificPower(power: AbstractPower) {
+    fun addToBot_removeSpecificPower(power: AbstractPower)
+    {
         ActionUtility.addToBot_removeSpecificPower(power, power.owner)
     }
 
     protected fun SetupPower(
         id: String, powerStrings: PowerStrings, owner: AbstractCreature, amount: Int, powerType: PowerType,
         needUpdateDescription: Boolean
-    ) {
+    )
+    {
         this.name = powerStrings.NAME
         this.ID = id
         this.owner = owner
@@ -63,7 +69,8 @@ abstract class SuperstitioApiPower(
         if (needUpdateDescription) this.updateDescription()
     }
 
-    protected fun renderAmount2(sb: SpriteBatch, x: Float, y: Float, c: Color, amount2: Int) {
+    protected fun renderAmount2(sb: SpriteBatch, x: Float, y: Float, c: Color, amount2: Int)
+    {
         if (amount2 <= 0) return
         FontHelper.renderFontRightTopAligned(
             sb,
@@ -76,7 +83,8 @@ abstract class SuperstitioApiPower(
         )
     }
 
-    private fun makeImgPath(id: String, size: IconSize): String {
+    private fun makeImgPath(id: String, size: IconSize): String
+    {
         return DataUtility.makeImgPath(
             DEFAULT + returnSizeNum(size),
             DataUtility::makeImgFilesPath_Power,
@@ -84,14 +92,16 @@ abstract class SuperstitioApiPower(
         )
     }
 
-    private fun returnSizeNum(size: IconSize): String {
+    private fun returnSizeNum(size: IconSize): String
+    {
         return if (size == IconSize.Big) "84" else "32"
     }
 
     /**
      * 没事干不要重写这个
      */
-    override fun updateDescription() {
+    override fun updateDescription()
+    {
         this.updateDescriptionArgs()
         var string = getDescriptionStrings()
         string = String.format(string, *descriptionArgs!!)
@@ -101,27 +111,34 @@ abstract class SuperstitioApiPower(
     abstract override fun updateDescriptionArgs()
 
 
-    private sealed class IconSize {
+    private sealed class IconSize
+    {
         data object Big : IconSize()
         data object Small : IconSize()
-        companion object {
-            fun values(): Array<IconSize> {
+        companion object
+        {
+            fun values(): Array<IconSize>
+            {
                 return arrayOf(Big, Small)
             }
 
-            fun valueOf(value: String): IconSize {
-                return when (value) {
-                    "Big" -> Big
+            fun valueOf(value: String): IconSize
+            {
+                return when (value)
+                {
+                    "Big"   -> Big
                     "Small" -> Small
-                    else -> throw IllegalArgumentException("No object superstitioapi.powers.SuperstitioApiPower.IconSize.$value")
+                    else    -> throw IllegalArgumentException("No object superstitioapi.powers.SuperstitioApiPower.IconSize.$value")
                 }
             }
         }
     }
 
-    companion object {
+    companion object
+    {
         const val DEFAULT: String = "default"
-        fun getPowerStrings(powerID: String?): PowerStrings {
+        fun getPowerStrings(powerID: String?): PowerStrings
+        {
             return CardCrawlGame.languagePack.getPowerStrings(powerID)
         }
     }

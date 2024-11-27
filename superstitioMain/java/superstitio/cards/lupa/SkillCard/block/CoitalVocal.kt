@@ -9,25 +9,31 @@ import superstitio.DataManager
 import superstitio.cardModifier.modifiers.block.SexBlock
 import superstitio.cards.lupa.LupaCard
 
-class CoitalVocal : LupaCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET) {
-    init {
+class CoitalVocal : LupaCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET)
+{
+    init
+    {
         this.setupBlock(BLOCK, UPGRADE_BLOCK, SexBlock())
         CardModifierManager.addModifier(this, RetainMod())
     }
 
-    override fun upgradeAuto() {
+    override fun upgradeAuto()
+    {
     }
 
 
-    override fun use(player: AbstractPlayer?, monster: AbstractMonster?) {
+    override fun use(player: AbstractPlayer?, monster: AbstractMonster?)
+    {
         val monsterNum = AbstractDungeon.getMonsters().monsters.stream()
             .filter { m: AbstractMonster -> !m.isDeadOrEscaped }.count().toInt()
-        for (i in 0 until monsterNum + 1) {
+        for (i in 0 until monsterNum + 1)
+        {
             addToBot_gainBlock()
         }
     }
 
-    companion object {
+    companion object
+    {
         val ID: String = DataManager.MakeTextID(CoitalVocal::class.java)
 
         val CARD_TYPE: CardType = CardType.SKILL

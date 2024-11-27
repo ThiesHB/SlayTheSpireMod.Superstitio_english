@@ -14,13 +14,15 @@ import superstitio.cards.maso.MasoCard
 import superstitio.powers.SexualHeat
 import superstitio.powers.patchAndInterface.interfaces.orgasm.OnOrgasm_onOrgasm
 import superstitioapi.SuperstitioApiSetup
-import superstitioapi.actions.*
+import superstitioapi.actions.DamageAllEnemiesAction
 import superstitioapi.cards.DamageActionMaker
 
 class Fuck_Navel : MasoCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET), FuckJob_Card, OnOrgasm_onOrgasm,
-    IsNotLupaCard {
+    IsNotLupaCard
+{
     //    private int orgasmTimes;
-    init {
+    init
+    {
         FuckJob_Card.initFuckJobCard(this)
         this.setupDamage(DAMAGE, UPGRADE_DAMAGE)
         this.setupMagicNumber(MAGIC, UPGRADE_MAGIC)
@@ -29,7 +31,8 @@ class Fuck_Navel : MasoCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET), Fuck
         //        this.orgasmTimes = 0;
     }
 
-    override fun use(player: AbstractPlayer?, monster: AbstractMonster?) {
+    override fun use(player: AbstractPlayer?, monster: AbstractMonster?)
+    {
 //        addToBot_dealDamageToAllEnemies(SuperstitioApiSetup.DamageEffect.HeartMultiInOne);
 //        addToBot_dealDamage(AbstractDungeon.player, SuperstitioApiSetup.DamageEffect.HeartMultiInOne);
         val damageMap = DamageAllEnemiesAction.Builder.GetDamageMapFromMultiDamagesOfCard(this.multiDamage)
@@ -45,17 +48,21 @@ class Fuck_Navel : MasoCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET), Fuck
         addToBot_applyPower(VulnerablePower(AbstractDungeon.player, 1, false))
     }
 
-    override fun upgradeAuto() {
+    override fun upgradeAuto()
+    {
     }
 
-    override fun onOrgasm(SexualHeatPower: SexualHeat) {
-        if (AbstractDungeon.player.hand.contains(this)) {
+    override fun onOrgasm(SexualHeatPower: SexualHeat)
+    {
+        if (AbstractDungeon.player.hand.contains(this))
+        {
             this.flash()
             this.setupDamage(this.baseDamage + this.magicNumber)
         }
     }
 
-    companion object {
+    companion object
+    {
         val ID: String = DataManager.MakeTextID(Fuck_Navel::class.java)
 
         val CARD_TYPE: CardType = CardType.ATTACK

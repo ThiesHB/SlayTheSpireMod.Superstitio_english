@@ -18,42 +18,58 @@ import javassist.expr.ExprEditor
 import javassist.expr.MethodCall
 import sun.reflect.generics.reflectiveObjects.NotImplementedException
 
-interface ClickableBlight : ClickableRelic {
-    override fun clickUpdate() {
-        if (this !is AbstractBlight) {
+interface ClickableBlight : ClickableRelic
+{
+    override fun clickUpdate()
+    {
+        if (this !is AbstractBlight)
+        {
             throw NotImplementedException()
-        } else {
+        }
+        else
+        {
             val blight = this as AbstractBlight
-            if (HitboxRightClick.rightClicked[blight.hb] || (Settings.isControllerMode && blight.hb.hovered && CInputActionSet.topPanel.isJustPressed)) {
+            if (HitboxRightClick.rightClicked[blight.hb] || (Settings.isControllerMode && blight.hb.hovered && CInputActionSet.topPanel.isJustPressed))
+            {
                 CInputActionSet.topPanel.unpress()
                 this.onRightClick()
             }
         }
     }
 
-    override fun hovered(): Boolean {
-        if (this is AbstractBlight) {
+    override fun hovered(): Boolean
+    {
+        if (this is AbstractBlight)
+        {
             val blight = this as AbstractBlight
             return blight.hb.hovered
-        } else {
+        }
+        else
+        {
             throw NotImplementedException()
         }
     }
 
-    companion object {
+    companion object
+    {
         @SpirePatch2(clz = OverlayMenu::class, method = "update")
-        object ClickableBlightUpdatePatch {
+        object ClickableBlightUpdatePatch
+        {
             @SpireInsertPatch(locator = Locator::class, localvars = ["b"])
             @JvmStatic
-            fun Insert(__instance: OverlayMenu?, b: AbstractBlight?) {
-                if (b is ClickableBlight) {
+            fun Insert(__instance: OverlayMenu?, b: AbstractBlight?)
+            {
+                if (b is ClickableBlight)
+                {
                     (b as ClickableBlight).clickUpdate()
                 }
             }
 
-            private class Locator : SpireInsertLocator() {
+            private class Locator : SpireInsertLocator()
+            {
                 @Throws(Exception::class)
-                override fun Locate(ctMethodToPatch: CtBehavior): IntArray {
+                override fun Locate(ctMethodToPatch: CtBehavior): IntArray
+                {
                     val finalMatcher: Matcher = MethodCallMatcher(AbstractBlight::class.java, "update")
                     return LineFinder.findInOrder(ctMethodToPatch, finalMatcher)
                 }
@@ -62,24 +78,33 @@ interface ClickableBlight : ClickableRelic {
 
 
         @JvmStatic
-        fun isClickableBlightHovered(action: Any?, image: Any?): Boolean {
-            return if (!Settings.isControllerMode || action != null && action !== CInputActionSet.topPanel || image != null && image !== CInputActionSet.topPanel.keyImg) {
+        fun isClickableBlightHovered(action: Any?, image: Any?): Boolean
+        {
+            return if (!Settings.isControllerMode || action != null && action !== CInputActionSet.topPanel || image != null && image !== CInputActionSet.topPanel.keyImg)
+            {
                 false
-            } else {
+            }
+            else
+            {
                 AbstractDungeon.player != null && AbstractDungeon.player.blights != null && AbstractDungeon.player.blights.stream()
                     .anyMatch { b: AbstractBlight -> b.hb.hovered && b is ClickableBlight }
             }
         }
 
         @SpirePatch2(clz = TopPanel::class, method = "renderControllerUi")
-        object HidePotionButtonPatch {
+        object HidePotionButtonPatch
+        {
             @SpireInstrumentPatch
             @JvmStatic
-            fun Instrument(): ExprEditor {
-                return object : ExprEditor() {
+            fun Instrument(): ExprEditor
+            {
+                return object : ExprEditor()
+                {
                     @Throws(CannotCompileException::class)
-                    override fun edit(m: MethodCall) {
-                        if (m.methodName == "draw") {
+                    override fun edit(m: MethodCall)
+                    {
+                        if (m.methodName == "draw")
+                        {
                             m.replace(
                                 String.format(
                                     "if (!%s.isClickableBlightHovered(null, $1)) { \$_ = \$proceed($$); }",
@@ -93,14 +118,19 @@ interface ClickableBlight : ClickableRelic {
         }
 
         @SpirePatch2(clz = TopPanel::class, method = "update")
-        object DisablePotionButtonPatch {
+        object DisablePotionButtonPatch
+        {
             @SpireInstrumentPatch
             @JvmStatic
-            fun Instrument(): ExprEditor {
-                return object : ExprEditor() {
+            fun Instrument(): ExprEditor
+            {
+                return object : ExprEditor()
+                {
                     @Throws(CannotCompileException::class)
-                    override fun edit(m: MethodCall) {
-                        if (m.methodName == "isJustPressed") {
+                    override fun edit(m: MethodCall)
+                    {
+                        if (m.methodName == "isJustPressed")
+                        {
                             m.replace(
                                 String.format(
                                     "\$_ = \$proceed($$) && !%s.isClickableBlightHovered($0, null);",
@@ -114,11 +144,14 @@ interface ClickableBlight : ClickableRelic {
         }
 
         @SpirePatch2(clz = AbstractBlight::class, method = "renderInTopPanel", paramtypez = [SpriteBatch::class])
-        object AbstractBlightRenderPatch {
+        object AbstractBlightRenderPatch
+        {
             @SpirePostfixPatch
             @JvmStatic
-            fun Postfix(__instance: AbstractBlight, ___sb: SpriteBatch) {
-                if (!Settings.hideRelics && Settings.isControllerMode && __instance is ClickableBlight && (AbstractDungeon.screen != AbstractDungeon.CurrentScreen.BOSS_REWARD || __instance.isObtained) && __instance.hb.hovered) {
+            fun Postfix(__instance: AbstractBlight, ___sb: SpriteBatch)
+            {
+                if (!Settings.hideRelics && Settings.isControllerMode && __instance is ClickableBlight && (AbstractDungeon.screen != AbstractDungeon.CurrentScreen.BOSS_REWARD || __instance.isObtained) && __instance.hb.hovered)
+                {
                     val scale = Settings.scale
                     ___sb.setColor(1.0f, 1.0f, 1.0f, 1.0f)
                     val texture = TextureRegion(CInputActionSet.topPanel.keyImg)

@@ -15,7 +15,8 @@ import superstitio.customStrings.stringsSet.PowerStringsSet
 import superstitioapi.utils.ActionUtility
 import superstitioapi.utils.UpdateDescriptionAdvanced
 
-abstract class AbstractSuperstitioPower : AbstractPower, UpdateDescriptionAdvanced {
+abstract class AbstractSuperstitioPower : AbstractPower, UpdateDescriptionAdvanced
+{
     lateinit var powerStrings: PowerStringsSet
 
     override var descriptionArgs: Array<out Any>? = null
@@ -29,30 +30,36 @@ abstract class AbstractSuperstitioPower : AbstractPower, UpdateDescriptionAdvanc
         amount: Int,
         powerType: PowerType = PowerType.BUFF,
         needUpdateDescription: Boolean = true
-    ) {
+    )
+    {
         SetupPower(id, getPowerStringsWithSFW(id), owner, amount, powerType, needUpdateDescription)
     }
 
-    fun addToBot_applyPower(power: AbstractPower) {
+    fun addToBot_applyPower(power: AbstractPower)
+    {
         ActionUtility.addToBot_applyPower(power, this.owner)
     }
 
-    fun addToBot_reducePowerToOwner(powerID: String, amount: Int) {
+    fun addToBot_reducePowerToOwner(powerID: String, amount: Int)
+    {
         ActionUtility.addToBot_reducePower(powerID, amount, this.owner, this.owner)
     }
 
-    fun addToTop_reducePowerToOwner(powerID: String, amount: Int) {
+    fun addToTop_reducePowerToOwner(powerID: String, amount: Int)
+    {
         ActionUtility.addToTop_reducePower(powerID, amount, this.owner, this.owner)
     }
 
-    fun addToBot_removeSpecificPower(power: AbstractPower) {
+    fun addToBot_removeSpecificPower(power: AbstractPower)
+    {
         ActionUtility.addToBot_removeSpecificPower(power, power.owner)
     }
 
     protected fun SetupPower(
         id: String, powerStrings: PowerStringsSet, owner: AbstractCreature, amount: Int, powerType: PowerType,
         needUpdateDescription: Boolean
-    ) {
+    )
+    {
         this.name = powerStrings.getNAME()
         this.ID = id
         this.owner = owner
@@ -69,7 +76,8 @@ abstract class AbstractSuperstitioPower : AbstractPower, UpdateDescriptionAdvanc
         if (needUpdateDescription) this.updateDescription()
     }
 
-    protected fun renderAmount2(sb: SpriteBatch?, x: Float, y: Float, c: Color?, amount2: Int) {
+    protected fun renderAmount2(sb: SpriteBatch?, x: Float, y: Float, c: Color?, amount2: Int)
+    {
         if (amount2 <= 0) return
         FontHelper.renderFontRightTopAligned(
             sb,
@@ -82,9 +90,11 @@ abstract class AbstractSuperstitioPower : AbstractPower, UpdateDescriptionAdvanc
         )
     }
 
-    protected fun update_showTips(hitbox: Hitbox) {
+    protected fun update_showTips(hitbox: Hitbox)
+    {
         hitbox.update()
-        if (hitbox.hovered) {
+        if (hitbox.hovered)
+        {
             TipHelper.renderGenericTip(
                 hitbox.cX + 96.0f * Settings.scale,
                 hitbox.cY + 64.0f * Settings.scale, this.name, this.description
@@ -94,32 +104,42 @@ abstract class AbstractSuperstitioPower : AbstractPower, UpdateDescriptionAdvanc
         this.fontScale = MathHelper.scaleLerpSnap(this.fontScale, 0.7f)
     }
 
-    protected fun addToBot_AutoRemoveOne(power: AbstractPower?) {
+    protected fun addToBot_AutoRemoveOne(power: AbstractPower?)
+    {
         this.flash()
-        if (this.amount == 0) {
+        if (this.amount == 0)
+        {
             this.addToBot(RemoveSpecificPowerAction(this.owner, this.owner, power))
-        } else {
+        }
+        else
+        {
             this.addToBot(ReducePowerAction(this.owner, this.owner, power, 1))
         }
     }
 
-    protected fun addToTop_AutoRemoveOne(power: AbstractPower?) {
+    protected fun addToTop_AutoRemoveOne(power: AbstractPower?)
+    {
         this.flash()
-        if (this.amount == 0) {
+        if (this.amount == 0)
+        {
             this.addToTop(RemoveSpecificPowerAction(this.owner, this.owner, power))
-        } else {
+        }
+        else
+        {
             this.addToTop(ReducePowerAction(this.owner, this.owner, power, 1))
         }
     }
 
-    private fun makeImgPath(id: String, size: IconSize): String {
+    private fun makeImgPath(id: String, size: IconSize): String
+    {
         return DataManager.makeImgPath(
             DEFAULT + returnSizeNum(size),
             DataManager::makeImgFilesPath_Power, id + returnSizeNum(size)
         )
     }
 
-    private fun returnSizeNum(size: IconSize): String {
+    private fun returnSizeNum(size: IconSize): String
+    {
         return if (size == IconSize.Big) "84" else "32"
     }
 
@@ -137,7 +157,8 @@ abstract class AbstractSuperstitioPower : AbstractPower, UpdateDescriptionAdvanc
     /**
      * 没事干不要重写这个
      */
-    override fun updateDescription() {
+    override fun updateDescription()
+    {
         this.updateDescriptionArgs()
         val string = getDescriptionStrings()
         val stringMayNull = descriptionArgs?.let { String.format(string, *it) }
@@ -146,31 +167,39 @@ abstract class AbstractSuperstitioPower : AbstractPower, UpdateDescriptionAdvanc
 
     abstract override fun updateDescriptionArgs()
 
-    override fun getDescriptionStrings(): String {
+    override fun getDescriptionStrings(): String
+    {
         return powerStrings.getDESCRIPTION(0)
     }
 
-    private sealed class IconSize {
+    private sealed class IconSize
+    {
         data object Big : IconSize()
         data object Small : IconSize()
-        companion object {
-            fun values(): Array<IconSize> {
+        companion object
+        {
+            fun values(): Array<IconSize>
+            {
                 return arrayOf(Big, Small)
             }
 
-            fun valueOf(value: String): IconSize {
-                return when (value) {
-                    "Big" -> Big
+            fun valueOf(value: String): IconSize
+            {
+                return when (value)
+                {
+                    "Big"   -> Big
                     "Small" -> Small
-                    else -> throw IllegalArgumentException("No object superstitio.powers.AbstractSuperstitioPower.IconSize.$value")
+                    else    -> throw IllegalArgumentException("No object superstitio.powers.AbstractSuperstitioPower.IconSize.$value")
                 }
             }
         }
     }
 
-    companion object {
+    companion object
+    {
         const val DEFAULT: String = "default"
-        fun getPowerStringsWithSFW(powerID: String): PowerStringsSet {
+        fun getPowerStringsWithSFW(powerID: String): PowerStringsSet
+        {
             return StringSetUtility.getCustomStringsWithSFW(
                 powerID,
                 DataManager.powers,

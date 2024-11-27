@@ -12,7 +12,8 @@ abstract class AbstractTempCard private constructor(
     cardTarget: CardTarget,
     imgSubFolder: String
 ) : GeneralCard(id, cardType, cost, cardRarity, cardTarget, TempCardEnums.TempCard_CARD, imgSubFolder), IsNotLupaCard,
-    IsNotMasoCard {
+    IsNotMasoCard
+{
     /**
      * @param id         卡牌ID
      * @param cardType   卡牌类型

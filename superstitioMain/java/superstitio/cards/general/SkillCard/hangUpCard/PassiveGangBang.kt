@@ -11,34 +11,42 @@ import superstitioapi.hangUpCard.Card_TriggerHangCardManually
 import superstitioapi.hangUpCard.HangUpCardGroup
 import kotlin.math.max
 
-class PassiveGangBang : GeneralCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET), Card_TriggerHangCardManually {
-    init {
+class PassiveGangBang : GeneralCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET), Card_TriggerHangCardManually
+{
+    init
+    {
         this.setupBlock(BLOCK, UPGRADE_BLOCK, RemoveDelayHpLoseBlock())
         this.setupMagicNumber(MAGIC, UPGRADE_MAGIC)
     }
 
-    override fun use(player: AbstractPlayer?, monster: AbstractMonster?) {
+    override fun use(player: AbstractPlayer?, monster: AbstractMonster?)
+    {
         addToBot_gainBlock()
         val self: AbstractCard = this
-        for (i in 0 until this.magicNumber) {
+        for (i in 0 until this.magicNumber)
+        {
             HangUpCardGroup.forEachHangUpCard { orb: CardOrb ->
                 orb.forceAcceptAction(self)
             }.addToBotAsAbstractAction()
         }
     }
 
-    override fun upgradeAuto() {
+    override fun upgradeAuto()
+    {
     }
 
-    override fun forceFilterCardOrbToHoveredMode(orb: CardOrb): Boolean {
+    override fun forceFilterCardOrbToHoveredMode(orb: CardOrb): Boolean
+    {
         return true
     }
 
-    override fun forceChangeOrbCounterShown(orb: CardOrb): Int {
+    override fun forceChangeOrbCounterShown(orb: CardOrb): Int
+    {
         return max(orb.orbCounter.toInt { it - this.magicNumber }, 0)
     }
 
-    companion object {
+    companion object
+    {
         val ID: String = DataManager.MakeTextID(PassiveGangBang::class.java)
 
         val CARD_TYPE: CardType = CardType.SKILL

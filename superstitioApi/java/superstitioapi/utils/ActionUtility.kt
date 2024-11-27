@@ -13,16 +13,20 @@ import superstitioapi.actions.AutoDoneInstantAction
 import superstitioapi.powers.AllCardCostModifier
 import superstitioapi.utils.ActionUtility.VoidSupplier
 
-object ActionUtility {
-    fun addToBot_applyPower(power: AbstractPower?) {
+object ActionUtility
+{
+    fun addToBot_applyPower(power: AbstractPower?)
+    {
         AbstractDungeon.actionManager.addToBottom(ApplyPowerAction(power?.owner, AbstractDungeon.player, power))
     }
 
-    fun addToBot_applyPower(power: AbstractPower?, source: AbstractCreature) {
+    fun addToBot_applyPower(power: AbstractPower?, source: AbstractCreature)
+    {
         AbstractDungeon.actionManager.addToBottom(ApplyPowerAction(power?.owner, source, power))
     }
 
-    fun addToTop_applyPower(power: AbstractPower?) {
+    fun addToTop_applyPower(power: AbstractPower?)
+    {
         AbstractDungeon.actionManager.addToTop(ApplyPowerAction(power?.owner, AbstractDungeon.player, power))
     }
 
@@ -33,23 +37,27 @@ object ActionUtility {
     //但是：this.addToBot(new ReducePowerAction(this.owner, this.owner, power, 1));这段代码就有用
     fun addToBot_reducePower(
         powerId: String, amount: Int, target: AbstractCreature, source: AbstractCreature
-    ) {
+    )
+    {
         AbstractDungeon.actionManager.addToBottom(ReducePowerAction(target, source, powerId, amount))
     }
 
     fun addToTop_reducePower(
         powerId: String, amount: Int, target: AbstractCreature, source: AbstractCreature
-    ) {
+    )
+    {
         AbstractDungeon.actionManager.addToTop(ReducePowerAction(target, source, powerId, amount))
     }
 
-    fun addToBot_removeSpecificPower(power: AbstractPower, source: AbstractCreature) {
+    fun addToBot_removeSpecificPower(power: AbstractPower, source: AbstractCreature)
+    {
         AbstractDungeon.actionManager.addToBottom(RemoveSpecificPowerAction(power.owner, source, power))
     }
 
     fun addToBot_removeSpecificPower(
         powerId: String, target: AbstractCreature, source: AbstractCreature
-    ) {
+    )
+    {
         AbstractDungeon.actionManager.addToBottom(RemoveSpecificPowerAction(target, source, powerId))
     }
 
@@ -57,7 +65,8 @@ object ActionUtility {
     fun addToBot_makeTempCardInBattle(
         card: AbstractCard, battleCardPlace: BattleCardPlace, amount: Int = 1,
         upgrade: Boolean = false
-    ) {
+    )
+    {
         if (upgrade && !card.upgraded) card.upgrade()
         val gameAction = getMakeTempCardAction(card, battleCardPlace, amount)
         addToBot(gameAction)
@@ -71,7 +80,8 @@ object ActionUtility {
     fun addToTop_makeTempCardInBattle(
         card: AbstractCard, battleCardPlace: BattleCardPlace, amount: Int,
         upgrade: Boolean
-    ) {
+    )
+    {
         if (upgrade) card.upgrade()
         val gameAction = getMakeTempCardAction(card, battleCardPlace, amount)
         AutoDoneInstantAction.addToTopAbstract(VoidSupplier {
@@ -81,24 +91,29 @@ object ActionUtility {
         addToTop(gameAction)
     }
 
-    fun addToBot_makeTempCardInBattle(card: AbstractCard, battleCardPlace: BattleCardPlace, upgrade: Boolean) {
+    fun addToBot_makeTempCardInBattle(card: AbstractCard, battleCardPlace: BattleCardPlace, upgrade: Boolean)
+    {
         addToBot_makeTempCardInBattle(card, battleCardPlace, 1, upgrade)
     }
 
-    fun addEffect(effect: AbstractGameEffect) {
+    fun addEffect(effect: AbstractGameEffect)
+    {
         AbstractDungeon.effectList.add(effect)
     }
 
-    fun addToBot(action: AbstractGameAction) {
+    fun addToBot(action: AbstractGameAction)
+    {
         AbstractDungeon.actionManager.addToBottom(action)
     }
 
-    fun addToTop(action: AbstractGameAction) {
+    fun addToTop(action: AbstractGameAction)
+    {
         AbstractDungeon.actionManager.addToTop(action)
     }
 
     val isNotInBattle: Boolean
-        get() {
+        get()
+        {
             if (AbstractDungeon.currMapNode == null) return true
             if (AbstractDungeon.getCurrRoom() == null) return true
             if (AbstractDungeon.getCurrRoom().phase != AbstractRoom.RoomPhase.COMBAT) return true
@@ -112,44 +127,53 @@ object ActionUtility {
         card: AbstractCard,
         battleCardPlace: BattleCardPlace,
         amount: Int
-    ): AbstractGameAction {
-        val gameAction = when (battleCardPlace) {
-            BattleCardPlace.Hand -> MakeTempCardInHandAction(card, amount)
+    ): AbstractGameAction
+    {
+        val gameAction = when (battleCardPlace)
+        {
+            BattleCardPlace.Hand     -> MakeTempCardInHandAction(card, amount)
             BattleCardPlace.DrawPile -> MakeTempCardInDrawPileAction(card, amount, true, true)
-            BattleCardPlace.Discard -> MakeTempCardInDiscardAction(card, amount)
-            else -> MakeTempCardInDiscardAction(card, amount)
+            BattleCardPlace.Discard  -> MakeTempCardInDiscardAction(card, amount)
+            else                     -> MakeTempCardInDiscardAction(card, amount)
         }
         return gameAction
     }
 
-    sealed class BattleCardPlace {
+    sealed class BattleCardPlace
+    {
         data object Hand : BattleCardPlace()
         data object DrawPile : BattleCardPlace()
         data object Discard : BattleCardPlace()
-        companion object {
-            fun values(): Array<BattleCardPlace> {
+        companion object
+        {
+            fun values(): Array<BattleCardPlace>
+            {
                 return arrayOf(Hand, DrawPile, Discard)
             }
 
-            fun valueOf(value: String): BattleCardPlace {
-                return when (value) {
-                    "Hand" -> Hand
+            fun valueOf(value: String): BattleCardPlace
+            {
+                return when (value)
+                {
+                    "Hand"     -> Hand
                     "DrawPile" -> DrawPile
-                    "Discard" -> Discard
-                    else -> throw IllegalArgumentException("No object superstitioapi.utils.ActionUtility.BattleCardPlace.$value")
+                    "Discard"  -> Discard
+                    else       -> throw IllegalArgumentException("No object superstitioapi.utils.ActionUtility.BattleCardPlace.$value")
                 }
             }
         }
     }
 
-    fun interface VoidSupplier {
+    fun interface VoidSupplier
+    {
         fun get()
 
         /**
          * 在之后添加
          * 旧的不改变，只是返回一个新的
          */
-        fun additionActionToPost(action: VoidSupplier): VoidSupplier {
+        fun additionActionToPost(action: VoidSupplier): VoidSupplier
+        {
             val self = this
             return VoidSupplier {
                 self.get()
@@ -161,7 +185,8 @@ object ActionUtility {
          * 在之前添加
          * 旧的不改变，只是返回一个新的
          */
-        fun additionActionToPrev(action: VoidSupplier): VoidSupplier {
+        fun additionActionToPrev(action: VoidSupplier): VoidSupplier
+        {
             val self = this
             return VoidSupplier {
                 action.get()
@@ -169,24 +194,29 @@ object ActionUtility {
             }
         }
 
-        fun addToBotAsAbstractAction() {
+        fun addToBotAsAbstractAction()
+        {
             AutoDoneInstantAction.addToBotAbstract(this)
         }
 
-        fun addToBotAsAbstractAction(time: Int) {
+        fun addToBotAsAbstractAction(time: Int)
+        {
             AutoDoneInstantAction.addToBotAbstract(this, time)
         }
 
-        companion object {
+        companion object
+        {
             val Empty: VoidSupplier = VoidSupplier {}
         }
     }
 
-    fun interface TriFunction<T1, T2, T3, R> {
+    fun interface TriFunction<T1, T2, T3, R>
+    {
         fun apply(t1: T1, t2: T2, t3: T3): R
     }
 
-    fun interface FunctionReturnSelfType {
+    fun interface FunctionReturnSelfType
+    {
         fun get(): FunctionReturnSelfType?
     }
 }

@@ -16,7 +16,8 @@ abstract class AbstractLupaOrb private constructor(
     baseEvokeAmount: Int,
     orbStringsSet: OrbStringsSet,
     autoUpdateDescription: Boolean
-) : AbstractOrb(), UpdateDescriptionAdvanced {
+) : AbstractOrb(), UpdateDescriptionAdvanced
+{
     protected val orbStringsSet: OrbStringsSet
 
     override var descriptionArgs: Array<out Any>? = null
@@ -29,7 +30,8 @@ abstract class AbstractLupaOrb private constructor(
         autoUpdateDescription: Boolean = true
     ) : this(ID, basePassiveAmount, baseEvokeAmount, getPowerStringsWithSFW(ID), autoUpdateDescription)
 
-    init {
+    init
+    {
         this.ID = ID
         this.name = orbStringsSet.getNAME()
         this.orbStringsSet = orbStringsSet
@@ -37,7 +39,8 @@ abstract class AbstractLupaOrb private constructor(
         super.passiveAmount = basePassiveAmount
         val imgPath = getImgPath(ID)
         this.img = orbTextures[imgPath]
-        if (this.img == null) {
+        if (this.img == null)
+        {
             this.img = ImageMaster.loadImage(imgPath)
             orbTextures[imgPath] = this.img
         }
@@ -47,34 +50,41 @@ abstract class AbstractLupaOrb private constructor(
 
     var evokeAmount: Int
         get() = super.evokeAmount
-        set(amount) {
+        set(amount)
+        {
             super.evokeAmount = amount
             super.baseEvokeAmount = amount
         }
 
     var passiveAmount: Int
         get() = super.passiveAmount
-        set(amount) {
+        set(amount)
+        {
             super.passiveAmount = amount
             super.basePassiveAmount = amount
         }
 
     abstract override fun applyFocus()
 
-      override fun updateDescription() {
+    override fun updateDescription()
+    {
         this.description = getFormattedDescription()
     }
 
-    override fun updateDescriptionArgs() {
+    override fun updateDescriptionArgs()
+    {
     }
 
-    override fun getDescriptionStrings(): String {
+    override fun getDescriptionStrings(): String
+    {
         return orbStringsSet.getRightVersion().DESCRIPTION[0]
     }
 
-    companion object {
+    companion object
+    {
         private val orbTextures: MutableMap<String, Texture> = HashMap()
-        fun getPowerStringsWithSFW(cardName: String): OrbStringsSet {
+        fun getPowerStringsWithSFW(cardName: String): OrbStringsSet
+        {
             return StringSetUtility.getCustomStringsWithSFW(
                 cardName,
                 DataManager.orbs,
@@ -82,7 +92,8 @@ abstract class AbstractLupaOrb private constructor(
             )
         }
 
-        protected fun getImgPath(id: String): String {
+        protected fun getImgPath(id: String): String
+        {
             return DataManager.makeImgPath(
                 "default",
                 BiFunction<String, Array<String>, String>(DataManager::makeImgFilesPath_Orb),

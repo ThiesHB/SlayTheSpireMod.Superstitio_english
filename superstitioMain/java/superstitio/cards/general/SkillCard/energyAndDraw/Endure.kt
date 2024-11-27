@@ -8,22 +8,27 @@ import superstitio.cardModifier.modifiers.block.SexBlock
 import superstitio.cards.general.GeneralCard
 import superstitio.powers.DelaySexualHeat
 
-class Endure : GeneralCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET) {
-    init {
+class Endure : GeneralCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET)
+{
+    init
+    {
         this.setupMagicNumber(MAGIC, UPGRADE_MAGIC)
         this.setupBlock(BLOCK, UPGRADE_BLOCK, SexBlock())
     }
 
-    override fun use(player: AbstractPlayer?, monster: AbstractMonster?) {
+    override fun use(player: AbstractPlayer?, monster: AbstractMonster?)
+    {
         addToBot_gainBlock()
         addToBot_applyPower(DelaySexualHeat(AbstractDungeon.player, this.magicNumber))
         addToBot_drawCards(DRAWCard_NUM)
     }
 
-    override fun upgradeAuto() {
+    override fun upgradeAuto()
+    {
     }
 
-    companion object {
+    companion object
+    {
         val ID: String = DataManager.MakeTextID(Endure::class.java)
 
         val CARD_TYPE: CardType = CardType.SKILL

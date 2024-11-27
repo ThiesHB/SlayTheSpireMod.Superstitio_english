@@ -22,31 +22,38 @@ import superstitioapi.utils.setDescriptionArgs
 import java.util.function.Consumer
 import java.util.stream.IntStream
 
-class BodyModification_TattooAndPiercing : MasoCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET) {
-    init {
+class BodyModification_TattooAndPiercing : MasoCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET)
+{
+    init
+    {
         this.setupMagicNumber(MAGIC, UPGRADE_MAGIC)
         CardModifierManager.addModifier(this, BodyModificationTag())
     }
 
-    override fun use(player: AbstractPlayer?, monster: AbstractMonster?) {
+    override fun use(player: AbstractPlayer?, monster: AbstractMonster?)
+    {
         IntStream.range(0, this.magicNumber)
             .forEach { i: Int -> addToBot_applyPower(BodyModification_TattooAndPiercingPower(1, randomName)) }
     }
 
-    override fun upgradeAuto() {
+    override fun upgradeAuto()
+    {
     }
 
     class BodyModification_TattooAndPiercingPower(amount: Int, name: String) :
-        EasyBuildAbstractPowerForPowerCard(amount, false), AtManualDiscardPower {
+        EasyBuildAbstractPowerForPowerCard(amount, false), AtManualDiscardPower
+    {
         var tattooNames: MutableMap<String, Int>
 
-        init {
+        init
+        {
             this.tattooNames = HashMap()
             tattooNames[name] = amount
             updateDescription()
         }
 
-        override fun onExhaust(card: AbstractCard) {
+        override fun onExhaust(card: AbstractCard)
+        {
             SexualHeat.useConsumer_addSexualHeat(
                 this.owner,
                 this.amount,
@@ -54,7 +61,8 @@ class BodyModification_TattooAndPiercing : MasoCard(ID, CARD_TYPE, COST, CARD_RA
             )
         }
 
-        override fun atManualDiscard() {
+        override fun atManualDiscard()
+        {
             SexualHeat.useConsumer_addSexualHeat(
                 this.owner,
                 this.amount,
@@ -62,7 +70,8 @@ class BodyModification_TattooAndPiercing : MasoCard(ID, CARD_TYPE, COST, CARD_RA
             )
         }
 
-        override fun updateDescriptionArgs() {
+        override fun updateDescriptionArgs()
+        {
             val strings = arrayOf("")
             tattooNames.forEach { (name: String?, num: Int) ->
                 strings[0] += String.format(
@@ -72,8 +81,10 @@ class BodyModification_TattooAndPiercing : MasoCard(ID, CARD_TYPE, COST, CARD_RA
             setDescriptionArgs(this.amount, strings[0])
         }
 
-        override fun onApplyPower(power: AbstractPower, target: AbstractCreature, source: AbstractCreature) {
-            if (power !is BodyModification_TattooAndPiercingPower) {
+        override fun onApplyPower(power: AbstractPower, target: AbstractCreature, source: AbstractCreature)
+        {
+            if (power !is BodyModification_TattooAndPiercingPower)
+            {
                 return
             }
             this.tattooNames = PowerUtility.mergeAndSumMaps(this.tattooNames, power.tattooNames)
@@ -82,12 +93,14 @@ class BodyModification_TattooAndPiercing : MasoCard(ID, CARD_TYPE, COST, CARD_RA
 
         override fun getDesc(): String = super.getDesc() + powerCard.cardStrings.getEXTENDED_DESCRIPTION(0)
 
-        override fun makePowerCard(): SuperstitioCard {
+        override fun makePowerCard(): SuperstitioCard
+        {
             return BodyModification_TattooAndPiercing()
         }
     }
 
-    companion object {
+    companion object
+    {
         val ID: String = DataManager.MakeTextID(BodyModification_TattooAndPiercing::class.java)
 
         val CARD_TYPE: CardType = CardType.POWER

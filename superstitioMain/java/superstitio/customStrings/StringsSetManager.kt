@@ -11,7 +11,8 @@ import java.util.function.Consumer
 import java.util.function.Function
 import java.util.stream.Collectors
 
-object StringsSetManager {
+object StringsSetManager
+{
     private val powerFiles = arrayOf("power", "power_Lupa", "power_Maso")
     private val modifierFiles = arrayOf("modifier_damage", "modifier_block")
     private val cardFiles = arrayOf(
@@ -19,32 +20,40 @@ object StringsSetManager {
         "card_Colorless"
     )
     private var wordReplaceRules: MutableList<WordReplace>? = null
+
     @JvmStatic
-    fun loadModifierStringsSet() {
+    fun loadModifierStringsSet()
+    {
         for (modifierFile in modifierFiles) DataManager.loadCustomStringsFile(
             modifierFile,
             DataManager.modifiers,
             ModifierStringsSet::class.java
         )
     }
+
     @JvmStatic
-    fun loadPowerStringsSet() {
+    fun loadPowerStringsSet()
+    {
         for (powerFile in powerFiles) DataManager.loadCustomStringsFile(
             powerFile,
             DataManager.powers,
             PowerStringsSet::class.java
         )
     }
+
     @JvmStatic
-    fun loadCardStringsSet() {
+    fun loadCardStringsSet()
+    {
         for (cardFile in cardFiles) DataManager.loadCustomStringsFile(
             cardFile,
             DataManager.cards,
             CardStringsWillMakeFlavorSet::class.java
         )
     }
+
     @JvmStatic
-    fun loadAllStrings() {
+    fun loadAllStrings()
+    {
         loadCardStringsSet()
         loadModifierStringsSet()
         loadPowerStringsSet()
@@ -53,9 +62,12 @@ object StringsSetManager {
 
         makeSFWVersion()
     }
+
     @JvmStatic
-    fun makeWordReplaceRule(): MutableList<WordReplace> {
-        if (SuperstitioModSetup.SEAL_MANUAL_SFW) {
+    fun makeWordReplaceRule(): MutableList<WordReplace>
+    {
+        if (SuperstitioModSetup.SEAL_MANUAL_SFW)
+        {
             return ArrayList()
         }
         if (!wordReplaceRules.isNullOrEmpty())
@@ -77,21 +89,28 @@ object StringsSetManager {
                 ArrayList(DataManager.modifiers.values)
             )
         )
-        sfwReplaces.addAll(SuperstitioKeyWord.makeKeywordNameReplaceRules(
-            SuperstitioKeyWord.getAndRegisterKeywordsFormFile()))
+        sfwReplaces.addAll(
+            SuperstitioKeyWord.makeKeywordNameReplaceRules(
+                SuperstitioKeyWord.getAndRegisterKeywordsFormFile()
+            )
+        )
         wordReplaceRules =
             sfwReplaces.filter { wordReplace: WordReplace -> !wordReplace.hasNullOrEmpty() }
-            .toMutableList()
+                .toMutableList()
         return wordReplaceRules as MutableList<WordReplace>
     }
+
     @JvmStatic
-    fun makeSFWVersion() {
+    fun makeSFWVersion()
+    {
 //        if (SuperstitioConfig.isEnableSFW()) {
         makeSFWWordForStringsSet()
         //        }
     }
+
     @JvmStatic
-    fun makeKeyWords() {
+    fun makeKeyWords()
+    {
         val keywords = allKeywords
         keywords.forEach(Consumer { keyWord: SuperstitioKeyWord? -> keyWord!!.makeSFWVersion(makeWordReplaceRule()) })
         keywords.forEach(Consumer { obj: SuperstitioKeyWord? -> obj!!.addToGame() })
@@ -99,18 +118,21 @@ object StringsSetManager {
     }
 
     val allKeywords: List<SuperstitioKeyWord?>
-        get() {
+        get()
+        {
             val keywordsSFW: MutableList<SuperstitioKeyWord?> = ArrayList()
             keywordsSFW.addAll(SuperstitioKeyWord.getAndRegisterKeywordsFormFile())
-            keywordsSFW.addAll(Arrays.stream(ModifierStringsSet.MakeKeyWords())
-                .map<SuperstitioKeyWord?>(
-                    Function<Keyword, SuperstitioKeyWord?>(SuperstitioKeyWord.Companion::STSLibKeyWordToThisType)
-                ).collect(Collectors.toList())
+            keywordsSFW.addAll(
+                Arrays.stream(ModifierStringsSet.MakeKeyWords())
+                    .map<SuperstitioKeyWord?>(
+                        Function<Keyword, SuperstitioKeyWord?>(SuperstitioKeyWord.Companion::STSLibKeyWordToThisType)
+                    ).collect(Collectors.toList())
             )
             return keywordsSFW
         }
 
-    private fun loadUIStringsSet() {
+    private fun loadUIStringsSet()
+    {
         DataManager.loadCustomStringsFile(
             "UIStringsWithSFW",
             DataManager.uiStrings,
@@ -118,7 +140,8 @@ object StringsSetManager {
         )
     }
 
-    private fun loadOrbStringsSet() {
+    private fun loadOrbStringsSet()
+    {
         DataManager.loadCustomStringsFile(
             "orb",
             DataManager.orbs,
@@ -126,7 +149,8 @@ object StringsSetManager {
         )
     }
 
-    private fun makeSFWWordForStringsSet() {
+    private fun makeSFWWordForStringsSet()
+    {
         val wordReplaces = makeWordReplaceRule()
 
         DataManager.cards.forEach(BiConsumer<String?, CardStringsWillMakeFlavorSet> { string: String?, card: CardStringsWillMakeFlavorSet ->
@@ -144,8 +168,7 @@ object StringsSetManager {
                 wordReplaces
             )
         }))
-        DataManager.orbs.forEach((BiConsumer<String?, OrbStringsSet> {
-            string: String?, orb: OrbStringsSet ->
+        DataManager.orbs.forEach((BiConsumer<String?, OrbStringsSet> { string: String?, orb: OrbStringsSet ->
             orb.setupSFWStringByWordReplace(wordReplaces)
         }))
     }

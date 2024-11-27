@@ -18,31 +18,38 @@ import superstitioapi.utils.CardUtility
 import superstitioapi.utils.setDescriptionArgs
 
 //炮烙
-class CruelTorture_HotPillar : MasoCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET), GoSomewhereElseAfterUse {
-    init {
+class CruelTorture_HotPillar : MasoCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET), GoSomewhereElseAfterUse
+{
+    init
+    {
         this.setupMagicNumber(MAGIC, UPGRADE_MAGIC)
         CardModifierManager.addModifier(this, CruelTortureTag())
         this.cardsToPreview = Burn()
     }
 
-    private fun addTempDexterity(self: CruelTorture_HotPillar) {
+    private fun addTempDexterity(self: CruelTorture_HotPillar)
+    {
         self.addToBot_applyPower(DexterityPower(AbstractDungeon.player, this.magicNumber))
         self.addToBot_applyPower(LoseDexterityPower(AbstractDungeon.player, this.magicNumber))
     }
 
-    override fun updateDescriptionArgs() {
+    override fun updateDescriptionArgs()
+    {
         setDescriptionArgs(BURN_CARD_NUM)
     }
 
-    override fun use(player: AbstractPlayer?, monster: AbstractMonster?) {
+    override fun use(player: AbstractPlayer?, monster: AbstractMonster?)
+    {
         ActionUtility.addToBot_makeTempCardInBattle(Burn(), ActionUtility.BattleCardPlace.Discard, BURN_CARD_NUM)
         addTempDexterity(this)
     }
 
-    override fun upgradeAuto() {
+    override fun upgradeAuto()
+    {
     }
 
-    override fun afterInterruptMoveToCardGroup(cardGroup: CardGroup) {
+    override fun afterInterruptMoveToCardGroup(cardGroup: CardGroup)
+    {
         val self = this
         CardOrb_AtStartOfTurnEachTime(
             this,
@@ -56,7 +63,8 @@ class CruelTorture_HotPillar : MasoCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_T
             .addToBot_HangCard()
     }
 
-    companion object {
+    companion object
+    {
         val ID: String = DataManager.MakeTextID(CruelTorture_HotPillar::class.java)
 
         val CARD_TYPE: CardType = CardType.SKILL

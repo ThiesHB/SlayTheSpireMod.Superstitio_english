@@ -12,17 +12,21 @@ import superstitio.cards.general.GeneralCardVirtualCharacter
 import superstitio.cards.general.TempCardVirtualCharacter
 
 @SpirePatch2(clz = ColorTabBarFix::class, method = "capitalizeWord")
-object TempCharaColorBarPatch {
+object TempCharaColorBarPatch
+{
     private val generalCardVirtualCharacter: AbstractPlayer = GeneralCardVirtualCharacter(CardCrawlGame.playerName)
     private val tempCardVirtualCharacter: AbstractPlayer = TempCardVirtualCharacter(CardCrawlGame.playerName)
 
     @SpirePrefixPatch
-        @JvmStatic
-    fun Prefix(str: String): SpireReturn<String> {
-        if (str.equals(GeneralEnums.GENERAL_LIBRARY.name, ignoreCase = true)) {
+    @JvmStatic
+    fun Prefix(str: String): SpireReturn<String>
+    {
+        if (str.equals(GeneralEnums.GENERAL_LIBRARY.name, ignoreCase = true))
+        {
             return SpireReturn.Return(generalCardVirtualCharacter.title)
         }
-        if (str.equals(TempCardEnums.TempCard_LIBRARY.name, ignoreCase = true)) {
+        if (str.equals(TempCardEnums.TempCard_LIBRARY.name, ignoreCase = true))
+        {
             return SpireReturn.Return(tempCardVirtualCharacter.title)
         }
         return SpireReturn.Continue()

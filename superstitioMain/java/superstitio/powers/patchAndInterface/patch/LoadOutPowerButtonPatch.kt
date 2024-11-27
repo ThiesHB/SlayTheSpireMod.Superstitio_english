@@ -10,22 +10,27 @@ import javassist.expr.FieldAccess
 import javassist.expr.MethodCall
 import superstitio.powers.AbstractSuperstitioPower
 
-object LoadOutPowerButtonPatch {
+object LoadOutPowerButtonPatch
+{
     @SpirePatch2(
         cls = "loadout.screens.PowerSelectScreen\$PowerButton",
         method = SpirePatch.CONSTRUCTOR,
         optional = true
     )
-    object LoadOutPowerButtonPatch_CONSTRUCTOR_FieldAccess_powerStrings_Set {
+    object LoadOutPowerButtonPatch_CONSTRUCTOR_FieldAccess_powerStrings_Set
+    {
         @SpireInstrumentPatch
         @JvmStatic
-        fun Instrument(): ExprEditor {
-            return object : ExprEditor() {
+        fun Instrument(): ExprEditor
+        {
+            return object : ExprEditor()
+            {
                 @Throws(CannotCompileException::class)
-                override fun edit(m: FieldAccess) {
+                override fun edit(m: FieldAccess)
+                {
                     if (m.fieldName != "powerStrings" || !m.isWriter) return
                     m.replace(
-                        "if ( $0.instance instanceof " +AbstractSuperstitioPower::class.qualifiedName +") {" +
+                        "if ( $0.instance instanceof " + AbstractSuperstitioPower::class.qualifiedName + ") {" +
                                 " $0.powerStrings = (( " + AbstractSuperstitioPower::class.qualifiedName + " ) $0.instance ).powerStrings.getRightVersion() " +
                                 "; " +  //                                "superstitio.Logger.temp( $0.instance.description ) ;" +
                                 "} else { \$proceed($$);}"
@@ -40,15 +45,19 @@ object LoadOutPowerButtonPatch {
         method = SpirePatch.CONSTRUCTOR,
         optional = true
     )
-    object LoadOutPowerButtonPatch_CONSTRUCTOR_FieldAccess_name_Set {
+    object LoadOutPowerButtonPatch_CONSTRUCTOR_FieldAccess_name_Set
+    {
         @SpireInstrumentPatch
         @JvmStatic
-        fun Instrument(): ExprEditor {
-            return object : ExprEditor() {
+        fun Instrument(): ExprEditor
+        {
+            return object : ExprEditor()
+            {
                 private var count = 0
 
                 @Throws(CannotCompileException::class)
-                override fun edit(m: FieldAccess) {
+                override fun edit(m: FieldAccess)
+                {
                     if (m.fieldName != "name" || !m.isWriter) return
                     if (count > 0) return
                     m.replace(
@@ -90,14 +99,19 @@ object LoadOutPowerButtonPatch {
         method = SpirePatch.CONSTRUCTOR,
         optional = true
     )
-    object LoadOutPowerButtonPatch_CONSTRUCTOR_MethodCall_getPrivateStatic {
+    object LoadOutPowerButtonPatch_CONSTRUCTOR_MethodCall_getPrivateStatic
+    {
         @SpireInstrumentPatch
         @JvmStatic
-        fun Instrument(): ExprEditor {
-            return object : ExprEditor() {
+        fun Instrument(): ExprEditor
+        {
+            return object : ExprEditor()
+            {
                 @Throws(CannotCompileException::class)
-                override fun edit(m: MethodCall) {
-                    if (m.className == ReflectionHacks::class.qualifiedName && m.methodName == "getPrivateStatic") {
+                override fun edit(m: MethodCall)
+                {
+                    if (m.className == ReflectionHacks::class.qualifiedName && m.methodName == "getPrivateStatic")
+                    {
                         m.replace(
                             "if ( ! " + AbstractSuperstitioPower::class.qualifiedName + ".class.isAssignableFrom ( $1 ) )" +
                                     " {  \$_ = \$proceed($$); } "

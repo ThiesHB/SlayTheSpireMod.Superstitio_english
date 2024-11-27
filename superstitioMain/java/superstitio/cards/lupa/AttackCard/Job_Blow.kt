@@ -16,22 +16,31 @@ import superstitioapi.hangUpCard.CardOrb_EachCardTrigger
 import superstitioapi.utils.CardUtility
 import java.util.function.Predicate
 
-class Job_Blow : LupaCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET), FuckJob_Card, GoSomewhereElseAfterUse {
-    init {
+class Job_Blow : LupaCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET), FuckJob_Card, GoSomewhereElseAfterUse
+{
+    init
+    {
         FuckJob_Card.initFuckJobCard(this)
         this.setupDamage(DAMAGE, UPGRADE_DAMAGE)
         this.setupMagicNumber(MAGIC, UPGRADE_MAGIC)
     }
 
-    override fun use(player: AbstractPlayer?, monster: AbstractMonster?) {
+    override fun use(player: AbstractPlayer?, monster: AbstractMonster?)
+    {
         addToBot_dealDamage(monster, SuperstitioApiSetup.DamageEffect.HeartMultiInOne)
     }
 
-    override fun upgradeAuto() {
+    override fun upgradeAuto()
+    {
     }
 
-    override fun afterInterruptMoveToCardGroup(cardGroup: CardGroup) {
-        CardOrb_EachCardTrigger(this, cardGroup, CardUtility.CostSmart(this.magicNumber)) { orb: CardOrb_CardTrigger, card: AbstractCard? ->
+    override fun afterInterruptMoveToCardGroup(cardGroup: CardGroup)
+    {
+        CardOrb_EachCardTrigger(
+            this,
+            cardGroup,
+            CardUtility.CostSmart(this.magicNumber)
+        ) { orb: CardOrb_CardTrigger, card: AbstractCard? ->
             orb.StartHitCreature(AbstractDungeon.player)
             SexualHeat.addToBot_addSexualHeat(AbstractDungeon.player, HEAT_GIVE)
         }
@@ -41,7 +50,8 @@ class Job_Blow : LupaCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET), FuckJo
             .addToBot_HangCard()
     }
 
-    companion object {
+    companion object
+    {
         val ID: String = DataManager.MakeTextID(Job_Blow::class.java)
 
         val CARD_TYPE: CardType = CardType.ATTACK

@@ -9,37 +9,47 @@ import superstitio.powers.EasyBuildAbstractPowerForPowerCard
 import superstitio.powers.sexualHeatNeedModifier.ChokeChokerPower
 import superstitioapi.utils.setDescriptionArgs
 
-class FishGirlMode : AbstractTempCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET) {
-    init {
+class FishGirlMode : AbstractTempCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET)
+{
+    init
+    {
         this.setupMagicNumber(MAGIC)
     }
 
-    override fun use(player: AbstractPlayer?, monster: AbstractMonster?) {
+    override fun use(player: AbstractPlayer?, monster: AbstractMonster?)
+    {
         this.onChoseThisOption()
     }
 
-    override fun onChoseThisOption() {
+    override fun onChoseThisOption()
+    {
         addToBot_applyPower(FishGirlModePower(this.magicNumber))
     }
 
-    override fun upgradeAuto() {
+    override fun upgradeAuto()
+    {
     }
 
-    class FishGirlModePower(amount: Int) : EasyBuildAbstractPowerForPowerCard(amount) {
-        override fun atStartOfTurn() {
+    class FishGirlModePower(amount: Int) : EasyBuildAbstractPowerForPowerCard(amount)
+    {
+        override fun atStartOfTurn()
+        {
             addToBot_applyPower(ChokeChokerPower(owner, amount))
         }
 
-        override fun updateDescriptionArgs() {
+        override fun updateDescriptionArgs()
+        {
             setDescriptionArgs(amount)
         }
 
-        override fun makePowerCard(): SuperstitioCard {
+        override fun makePowerCard(): SuperstitioCard
+        {
             return FishGirlMode()
         }
     }
 
-    companion object {
+    companion object
+    {
         val ID: String = DataManager.MakeTextID(FishGirlMode::class.java)
 
         val CARD_TYPE: CardType = CardType.POWER

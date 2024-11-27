@@ -10,7 +10,8 @@ import java.util.*
 import java.util.function.Consumer
 import java.util.stream.Collectors
 
-class SuperstitioKeyWord {
+class SuperstitioKeyWord
+{
     var ID: String = ""
     var PROPER_NAME: String? = null
     var PROPER_NAME_SFW: String? = null
@@ -19,7 +20,8 @@ class SuperstitioKeyWord {
     var DESCRIPTION: String? = null
     var DESCRIPTION_SFW: String? = null
 
-    fun makeCopy(): SuperstitioKeyWord {
+    fun makeCopy(): SuperstitioKeyWord
+    {
         val clone = SuperstitioKeyWord()
         clone.ID = this.ID
         clone.PROPER_NAME = this.PROPER_NAME
@@ -31,25 +33,29 @@ class SuperstitioKeyWord {
         return clone
     }
 
-    fun findPROPER_NAME(): String {
+    fun findPROPER_NAME(): String
+    {
         if (StringSetUtility.shouldReturnSFWVersion(PROPER_NAME_SFW))
             return PROPER_NAME_SFW!!
         return PROPER_NAME!!
     }
 
-    fun findNAMES(): Array<String> {
+    fun findNAMES(): Array<String>
+    {
         if (StringSetUtility.shouldReturnSFWVersion(NAMES_SFW))
             return NAMES_SFW!!
         return NAMES!!
     }
 
-    fun findDESCRIPTION(): String {
+    fun findDESCRIPTION(): String
+    {
         if (StringSetUtility.shouldReturnSFWVersion(DESCRIPTION_SFW))
             return DESCRIPTION_SFW!!
         return DESCRIPTION!!
     }
 
-    fun makeSFWVersion(replaceRules: List<WordReplace>) {
+    fun makeSFWVersion(replaceRules: List<WordReplace>)
+    {
         if (NAMES_SFW.isNullOrEmpty())
             this.NAMES_SFW = WordReplace.replaceWord(this.findNAMES(), replaceRules)
         if (PROPER_NAME_SFW.isNullOrEmpty())
@@ -58,7 +64,8 @@ class SuperstitioKeyWord {
             this.DESCRIPTION_SFW = WordReplace.replaceWord(this.findDESCRIPTION(), replaceRules)
     }
 
-    fun addToGame() {
+    fun addToGame()
+    {
         BaseMod.addKeyword(
             DataManager.getModID().lowercase(Locale.getDefault()),
             this.PROPER_NAME,
@@ -75,29 +82,35 @@ class SuperstitioKeyWord {
             KeywordsWithID.put(ID, this)
     }
 
-    fun registerKeywordFormFile() {
+    fun registerKeywordFormFile()
+    {
         if (!KeywordsFromFile.contains(this)) KeywordsFromFile.add(
             this
         )
     }
 
-    private fun toReplaceRule(): List<WordReplace> {
+    private fun toReplaceRule(): List<WordReplace>
+    {
         val wordReplaceList: MutableList<WordReplace> = ArrayList()
         if (!PROPER_NAME_SFW.isNullOrEmpty())
             wordReplaceList.add(WordReplace(this.PROPER_NAME!!, this.PROPER_NAME_SFW!!))
-        if (!NAMES_SFW.isNullOrEmpty() && NAMES!!.size == NAMES_SFW!!.size) {
-            for (i in NAMES!!.indices) {
+        if (!NAMES_SFW.isNullOrEmpty() && NAMES!!.size == NAMES_SFW!!.size)
+        {
+            for (i in NAMES!!.indices)
+            {
                 wordReplaceList.add(WordReplace(NAMES!![i], NAMES_SFW!![i]))
             }
         }
         return wordReplaceList
     }
 
-    private fun hasSFWVersionSelf(): Boolean {
+    private fun hasSFWVersionSelf(): Boolean
+    {
         return !PROPER_NAME_SFW.isNullOrEmpty() && !NAMES_SFW.isNullOrEmpty() && !DESCRIPTION_SFW.isNullOrEmpty()
     }
 
-    interface WillMakeSuperstitioKeyWords {
+    interface WillMakeSuperstitioKeyWords
+    {
         //        default void forKeywords(Consumer<SuperstitioKeyWord> keyWordConsumer) {
         fun getWillMakeKEYWORDS(): Array<SuperstitioKeyWord>
 
@@ -107,11 +120,14 @@ class SuperstitioKeyWord {
         //        }
     }
 
-    interface SetupWithKeyWords {
+    interface SetupWithKeyWords
+    {
         val needAddKeywords: List<SuperstitioKeyWord>
-            get() {
+            get()
+            {
                 val superstitioKeyWords: MutableList<SuperstitioKeyWord> = ArrayList()
-                for (keywordId in getWillAddKEYWORDS_ID()) {
+                for (keywordId in getWillAddKEYWORDS_ID())
+                {
                     val keyWord = getAddedKeyword(keywordId)
                     keyWord?.let(superstitioKeyWords::add)
                 }
@@ -127,17 +143,20 @@ class SuperstitioKeyWord {
         //        }
     }
 
-    companion object {
+    companion object
+    {
         val KeywordsFromFile: MutableList<SuperstitioKeyWord> = ArrayList()
         private val KeywordsWithID: MutableMap<String, SuperstitioKeyWord> = HashMap()
 
         //    private static final Map<String,String[]> multiKeyWords
-        fun makeKeywordNameReplaceRules(keyWords: List<SuperstitioKeyWord>): List<WordReplace> {
+        fun makeKeywordNameReplaceRules(keyWords: List<SuperstitioKeyWord>): List<WordReplace>
+        {
             return keyWords.stream().flatMap { keyWord: SuperstitioKeyWord -> keyWord.toReplaceRule().stream() }
                 .collect(Collectors.toList())
         }
 
-        fun STSLibKeyWordToThisType(keyword: Keyword): SuperstitioKeyWord {
+        fun STSLibKeyWordToThisType(keyword: Keyword): SuperstitioKeyWord
+        {
             val superstitioKeyWord = SuperstitioKeyWord()
             superstitioKeyWord.ID = keyword.ID
             superstitioKeyWord.PROPER_NAME = keyword.PROPER_NAME
@@ -150,14 +169,17 @@ class SuperstitioKeyWord {
         //        com.megacrit.cardcrawl.localization.Keyword keyword = new com.megacrit.cardcrawl.localization.Keyword();
         //        keyword.NAMES = superstitioKeyWord.NAMES;
         //    }
-        fun getAddedKeyword(keywordId: String): SuperstitioKeyWord? {
+        fun getAddedKeyword(keywordId: String): SuperstitioKeyWord?
+        {
             if (KeywordsWithID.containsKey(keywordId))
                 return KeywordsWithID[keywordId]!!
             return null
         }
 
-        fun getAndRegisterKeywordsFormFile(): List<SuperstitioKeyWord> {
-            if (KeywordsFromFile.isEmpty()) {
+        fun getAndRegisterKeywordsFormFile(): List<SuperstitioKeyWord>
+        {
+            if (KeywordsFromFile.isEmpty())
+            {
                 val keywordsSFW: MutableList<SuperstitioKeyWord> = ArrayList()
                 keywordsSFW.addAll(
                     DataManager.makeJsonStringFromFile(
@@ -184,7 +206,8 @@ class SuperstitioKeyWord {
 
                 DataManager.forEachData { data: Map<String, HasDifferentVersionStringSet<*>> ->
                     data.forEach { (string: String, stringSet: HasDifferentVersionStringSet<*>) ->
-                        if (stringSet is WillMakeSuperstitioKeyWords) {
+                        if (stringSet is WillMakeSuperstitioKeyWords)
+                        {
                             stringSet.getWillMakeKEYWORDS().toList().let(keywordsSFW::addAll)
                         }
                     }

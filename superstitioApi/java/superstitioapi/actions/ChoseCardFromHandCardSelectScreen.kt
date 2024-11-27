@@ -15,7 +15,8 @@ import java.util.function.Consumer
 import java.util.function.Predicate
 
 class ChoseCardFromHandCardSelectScreen(private val actionApply: Consumer<AbstractCard>) :
-    AbstractContinuallyAction(ActionType.CARD_MANIPULATION, Settings.ACTION_DUR_XFAST) {
+    AbstractContinuallyAction(ActionType.CARD_MANIPULATION, Settings.ACTION_DUR_XFAST)
+{
     private val player: AbstractPlayer = AbstractDungeon.player
     private val temp_remove_from_hand = CardGroup(CardGroupType.UNSPECIFIED)
     private var windowText = ""
@@ -23,43 +24,51 @@ class ChoseCardFromHandCardSelectScreen(private val actionApply: Consumer<Abstra
     private var canPickZero = false
     private var retainFilter = Predicate { card: AbstractCard? -> true }
 
-    init {
+    init
+    {
         this.target = player
         this.source = player
         this.amount = 1
     }
 
-    private fun doAction(c: AbstractCard) {
+    private fun doAction(c: AbstractCard)
+    {
         actionApply.accept(c)
     }
 
-    fun setChoiceAmount(choiceAmount: Int): ChoseCardFromHandCardSelectScreen {
+    fun setChoiceAmount(choiceAmount: Int): ChoseCardFromHandCardSelectScreen
+    {
         this.amount = choiceAmount
         return this
     }
 
-    fun setSource(source: AbstractCreature): ChoseCardFromHandCardSelectScreen {
+    fun setSource(source: AbstractCreature): ChoseCardFromHandCardSelectScreen
+    {
         this.source = source
         return this
     }
 
-    fun setWindowText(windowText: String): ChoseCardFromHandCardSelectScreen {
+    fun setWindowText(windowText: String): ChoseCardFromHandCardSelectScreen
+    {
         this.windowText = windowText
         return this
     }
 
-    fun setAnyNumber(anyNumber: Boolean): ChoseCardFromHandCardSelectScreen {
+    fun setAnyNumber(anyNumber: Boolean): ChoseCardFromHandCardSelectScreen
+    {
         this.anyNumber = anyNumber
         return this
     }
 
-    fun setCanPickZero(canPickZero: Boolean): ChoseCardFromHandCardSelectScreen {
+    fun setCanPickZero(canPickZero: Boolean): ChoseCardFromHandCardSelectScreen
+    {
         this.canPickZero = canPickZero
         return this
     }
 
     @SafeVarargs
-    fun setRetainFilter(vararg filters: Predicate<AbstractCard>?): ChoseCardFromHandCardSelectScreen {
+    fun setRetainFilter(vararg filters: Predicate<AbstractCard>?): ChoseCardFromHandCardSelectScreen
+    {
         filters.forEach { abstractCardPredicate: Predicate<AbstractCard>? ->
             if (abstractCardPredicate == null)
                 return@forEach
@@ -69,8 +78,10 @@ class ChoseCardFromHandCardSelectScreen(private val actionApply: Consumer<Abstra
         return this
     }
 
-    override fun StartAction() {
-        if (this.amount <= 0) {
+    override fun StartAction()
+    {
+        if (this.amount <= 0)
+        {
             this.isDone = true
             return
         }
@@ -79,18 +90,21 @@ class ChoseCardFromHandCardSelectScreen(private val actionApply: Consumer<Abstra
         player.hand.group.removeAll(temp_remove_from_hand.group.toSet())
 
         //        this.player.hand.group.clear();
-        if (player.hand.size() <= this.amount && !anyNumber && !canPickZero) {
+        if (player.hand.size() <= this.amount && !anyNumber && !canPickZero)
+        {
             val hand = player.hand
             this.amount = hand.size()
             hand.group.forEach(Consumer(this::doAction))
             temp_remove_from_hand.group.forEach(Consumer(player.hand::addToTop))
             this.isDone = true
-        } else if (!player.hand.isEmpty) //if (this.player.hand.size() > this.amount)
+        }
+        else if (!player.hand.isEmpty) //if (this.player.hand.size() > this.amount)
             AbstractDungeon.handCardSelectScreen.open(windowText, this.amount, anyNumber, canPickZero)
         AbstractDungeon.player.hand.applyPowers()
     }
 
-    override fun RunAction() {
+    override fun RunAction()
+    {
         if (AbstractDungeon.handCardSelectScreen.wereCardsRetrieved) return
         temp_remove_from_hand.group.forEach(Consumer(player.hand::addToTop))
         AbstractDungeon.handCardSelectScreen.selectedCards.group.forEach(Consumer { card: AbstractCard ->
@@ -103,6 +117,7 @@ class ChoseCardFromHandCardSelectScreen(private val actionApply: Consumer<Abstra
         player.hand.refreshHandLayout()
     }
 
-    override fun EndAction() {
+    override fun EndAction()
+    {
     }
 }

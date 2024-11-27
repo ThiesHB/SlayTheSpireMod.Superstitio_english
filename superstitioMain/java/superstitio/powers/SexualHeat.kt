@@ -44,11 +44,13 @@ class SexualHeat protected constructor(owner: AbstractCreature, private var heat
 //    InvisiblePower_InvisibleTips, InvisiblePower_InvisibleIconAndAmount, InvisiblePower_InvisibleApplyPowerEffect,
 //    InvisiblePower_InvisibleRemovePowerEffect,
     OnOrgasm_onSuccessfullyPreventOrgasm, OnOrgasm_onOrgasm,
-    OnOrgasm_onEndOrgasm, OnOrgasm_onSquirt, OnOrgasm_onContinuallyOrgasm {
+    OnOrgasm_onEndOrgasm, OnOrgasm_onSquirt, OnOrgasm_onContinuallyOrgasm
+{
     val barOrgasmShadowColor: Color = Color.YELLOW.cpy()
     private val barShadowColorOrigin: Color
 
-    init {
+    init
+    {
         barOrgasmShadowColor.a = 0.6f
         this.barShadowColorOrigin = this.setupBarShadowColor()!!
     }
@@ -56,7 +58,8 @@ class SexualHeat protected constructor(owner: AbstractCreature, private var heat
     val isInOrgasm: Boolean
         get() = Orgasm.isInOrgasm(owner)
 
-    fun CheckOrgasm() {
+    fun CheckOrgasm()
+    {
         OnOrgasm.AllOnOrgasm(owner).forEach { power: OnOrgasm ->
             power.onCheckOrgasm(this)
         }
@@ -64,7 +67,8 @@ class SexualHeat protected constructor(owner: AbstractCreature, private var heat
         this.StartOrgasm()
     }
 
-    protected fun addSexualHeat(heatAmount: Int) {
+    protected fun addSexualHeat(heatAmount: Int)
+    {
         this.heatAmount += heatAmount
         if (this.heatAmount < 0) this.heatAmount = 0
         CheckOrgasm()
@@ -72,7 +76,8 @@ class SexualHeat protected constructor(owner: AbstractCreature, private var heat
         AbstractDungeon.onModifyPower()
     }
 
-    protected fun reduceSexualHeat(heatAmount: Int) {
+    protected fun reduceSexualHeat(heatAmount: Int)
+    {
         this.heatAmount -= heatAmount
         if (this.heatAmount < 0) this.heatAmount = 0
         CheckEndOrgasm()
@@ -80,10 +85,12 @@ class SexualHeat protected constructor(owner: AbstractCreature, private var heat
         AbstractDungeon.onModifyPower()
     }
 
-    private fun StartOrgasm() {
+    private fun StartOrgasm()
+    {
         if (OnOrgasm.AllOnOrgasm(owner).any { power: OnOrgasm ->
                 power.preventOrgasm(this)
-            }) {
+            })
+        {
             OnOrgasm.AllOnOrgasm(owner).forEach { power: OnOrgasm ->
                 power.onSuccessfullyPreventOrgasm(this)
             }
@@ -101,13 +108,16 @@ class SexualHeat protected constructor(owner: AbstractCreature, private var heat
         CheckOrgasm()
     }
 
-    private fun IsContinueOrgasm(): Boolean {
+    private fun IsContinueOrgasm(): Boolean
+    {
         return getOrgasmTimesInTurn() > 1
     }
 
-    private fun Orgasm() {
+    private fun Orgasm()
+    {
         AddOrgasmTime()
-        if (!owner.isPlayer) {
+        if (!owner.isPlayer)
+        {
             this.addToBot(
                 ApplyPowerAction(
                     this.owner, this.owner, StunMonsterPower(
@@ -129,11 +139,13 @@ class SexualHeat protected constructor(owner: AbstractCreature, private var heat
         Orgasm.startOrgasm(owner)
     }
 
-    private fun CheckEndOrgasm() {
+    private fun CheckEndOrgasm()
+    {
         if (this.heatAmount < this.heatRequired) ForceEndOrgasm()
     }
 
-    private fun ForceEndOrgasm() {
+    private fun ForceEndOrgasm()
+    {
         if (!isInOrgasm) return
         OnOrgasm.AllOnOrgasm(owner)
             .filter { power: OnOrgasm? -> power !is SexualHeat }
@@ -152,18 +164,21 @@ class SexualHeat protected constructor(owner: AbstractCreature, private var heat
         )
             .toInt()
 
-    private fun bubbleMessage(isDeBuffVer: Boolean, messageIndex: Int) {
+    private fun bubbleMessage(isDeBuffVer: Boolean, messageIndex: Int)
+    {
         bubbleMessage(isDeBuffVer, powerStrings.getDESCRIPTION(messageIndex))
     }
 
-    private fun bubbleMessage(isDeBuffVer: Boolean, message: String?) {
+    private fun bubbleMessage(isDeBuffVer: Boolean, message: String?)
+    {
         PowerUtility.BubbleMessage(
             this.getBarRenderHitBox(), isDeBuffVer, message, -owner.hb.width / 2,
             PowerUtility.BubbleMessageHigher_HEIGHT + Height()
         )
     }
 
-    override fun getBarRenderHitBox(): Hitbox {
+    override fun getBarRenderHitBox(): Hitbox
+    {
         if (owner !is AbstractPlayer) return owner.hb
         val tipHitbox = ReflectionHacks.getPrivate<Hitbox>(
             AbstractDungeon.overlayMenu.energyPanel,
@@ -179,24 +194,29 @@ class SexualHeat protected constructor(owner: AbstractCreature, private var heat
     override fun getAmountForDraw() = this.heatAmount
 
 
-    override fun InitializePostApplyThisPower(addedPower: SexualHeat) {
+    override fun InitializePostApplyThisPower(addedPower: SexualHeat)
+    {
         CheckOrgasm()
         updateDescription()
     }
 
-    override fun onRemove() {
+    override fun onRemove()
+    {
         ForceEndOrgasm()
     }
 
-    override fun makeMessage(): BarRenderUpdateMessage {
+    override fun makeMessage(): BarRenderUpdateMessage
+    {
         return super.makeMessage().setDetail { bar: RenderOnThing? ->
             if (bar is BarRenderOnThing) bar.barShadowColor =
                 if (this.isInOrgasm)
-                    this.barOrgasmShadowColor else this.barShadowColorOrigin
+                    this.barOrgasmShadowColor
+                else this.barShadowColorOrigin
         }
     }
 
-    override fun makeNewBarRenderOnCreature(): BiFunction<Supplier<Hitbox>, HasBarRenderOnCreature, out RenderOnThing> {
+    override fun makeNewBarRenderOnCreature(): BiFunction<Supplier<Hitbox>, HasBarRenderOnCreature, out RenderOnThing>
+    {
         return BiFunction<Supplier<Hitbox>, HasBarRenderOnCreature, RenderOnThing> { hitbox: Supplier<Hitbox>, power: HasBarRenderOnCreature ->
             if (ShaderUtility.canUseShader && owner is AbstractPlayer) return@BiFunction BarRenderOnThing_Ring_Text(
                 hitbox,
@@ -206,98 +226,119 @@ class SexualHeat protected constructor(owner: AbstractCreature, private var heat
         }
     }
 
-    override fun onPlayCard(card: AbstractCard, m: AbstractMonster?) {
+    override fun onPlayCard(card: AbstractCard, m: AbstractMonster?)
+    {
         if (!this.isInOrgasm || !owner.isPlayer) return
         OnOrgasm.AllOnOrgasm(owner).forEach { power: OnOrgasm ->
             power.onSquirt(this, card)
         }
-        if (!card.freeToPlay() && card.costForTurn != 0) {
+        if (!card.freeToPlay() && card.costForTurn != 0)
+        {
             AutoDoneInstantAction.addToBotAbstract(::ForceEndOrgasm, 2)
         }
     }
 
-    override fun atEndOfTurn(isPlayer: Boolean) {
+    override fun atEndOfTurn(isPlayer: Boolean)
+    {
         if (!isPlayer) return
         this.reduceSexualHeat(this.heatAmount)
         ForceEndOrgasm()
     }
 
 
-    override fun Height(): Float {
+    override fun Height(): Float
+    {
         return HEIGHT
     }
 
-    override fun setupBarOriginColor(): Color {
+    override fun setupBarOriginColor(): Color
+    {
         return PINK
     }
 
-    override fun maxBarAmount(): Int {
+    override fun maxBarAmount(): Int
+    {
         return heatRequired
     }
 
-    override fun getDescriptionStrings(): String {
+    override fun getDescriptionStrings(): String
+    {
         return powerStrings.getDESCRIPTION(if (owner.isPlayer) 0 else 1)
     }
 
-    override fun updateDescriptionArgs() {
+    override fun updateDescriptionArgs()
+    {
         setDescriptionArgs(
             heatRequired, if (this.isInOrgasm) String.format(
                 powerStrings.getDESCRIPTION(2),
                 getOrgasmTimesInTurn()
-            ) else ""
+            )
+            else ""
         )
     }
 
-    override fun onOrgasm(SexualHeatPower: SexualHeat) {
+    override fun onOrgasm(SexualHeatPower: SexualHeat)
+    {
         AutoDoneInstantAction.addToBotAbstract { bubbleMessage(false, if (IsContinueOrgasm()) 4 else 3) }
         if (!isInOrgasm || owner !is AbstractPlayer) return
         action_addOrgasmEffectAndSetLevel(this).addToBotAsAbstractAction()
     }
 
-    override fun onEndOrgasm(SexualHeatPower: SexualHeat) {
+    override fun onEndOrgasm(SexualHeatPower: SexualHeat)
+    {
         bubbleMessage(true, 5)
     }
 
-    override fun onSquirt(SexualHeatPower: SexualHeat, card: AbstractCard) {
+    override fun onSquirt(SexualHeatPower: SexualHeat, card: AbstractCard)
+    {
         bubbleMessage(false, 6)
     }
 
-    override fun makeBarText(): String {
+    override fun makeBarText(): String
+    {
         return "%d/%d" + String.format("(%d)", getOrgasmTimesInTurn())
     }
 
-    override fun onSuccessfullyPreventOrgasm(SexualHeatPower: SexualHeat) {
+    override fun onSuccessfullyPreventOrgasm(SexualHeatPower: SexualHeat)
+    {
         bubbleMessage(false, 7)
     }
 
-    override fun onContinuallyOrgasm(SexualHeatPower: SexualHeat) {
+    override fun onContinuallyOrgasm(SexualHeatPower: SexualHeat)
+    {
         this.addToBot(DrawCardAction(DRAW_CARD_INContinueOrgasm))
     }
 
 
-    object Orgasm {
-        fun endOrgasm(creature: AbstractCreature) {
+    object Orgasm
+    {
+        fun endOrgasm(creature: AbstractCreature)
+        {
             OrgasmField.isInOrgasm[creature] = false
         }
 
         fun isPlayerInOrgasm(): Boolean = OrgasmField.isInOrgasm[AbstractDungeon.player]
 
-        fun startOrgasm(creature: AbstractCreature) {
+        fun startOrgasm(creature: AbstractCreature)
+        {
             OrgasmField.isInOrgasm[creature] = true
         }
 
-        fun isInOrgasm(creature: AbstractCreature): Boolean {
+        fun isInOrgasm(creature: AbstractCreature): Boolean
+        {
             return OrgasmField.isInOrgasm[creature]
         }
 
         @SpirePatch2(clz = AbstractCreature::class, method = "<class>")
-        private object OrgasmField {
+        private object OrgasmField
+        {
             @JvmField
             var isInOrgasm: SpireField<Boolean> = SpireField<Boolean> { false }
         }
     }
 
-    companion object {
+    companion object
+    {
         val POWER_ID: String = DataManager.MakeTextID(SexualHeat::class.java)
         const val HEAT_REQUIREDOrigin: Int = 10
         val HEIGHT: Float = 55 * Settings.scale
@@ -310,22 +351,28 @@ class SexualHeat protected constructor(owner: AbstractCreature, private var heat
             get() = if (SuperstitioConfig.isEnablePerformanceMode) 3
             else 8
 
-        fun addToBot_addSexualHeat(target: AbstractCreature, heatAmount: Int) {
+        fun addToBot_addSexualHeat(target: AbstractCreature, heatAmount: Int)
+        {
             useConsumer_addSexualHeat(target, heatAmount, AutoDoneInstantAction.Companion::addToBotAbstract)
         }
 
         fun useConsumer_addSexualHeat(
             target: AbstractCreature, heatAmount: Int,
             action: Consumer<VoidSupplier>
-        ) {
-            if (heatAmount < 0) {
+        )
+        {
+            if (heatAmount < 0)
+            {
                 Logger.warning("add error number " + SexualHeat::class.java.simpleName + ". Amount: " + heatAmount)
                 return
             }
             val activeSexualHeat = getActiveSexualHeat(target)
-            if (activeSexualHeat != null) {
+            if (activeSexualHeat != null)
+            {
                 action.accept(VoidSupplier { activeSexualHeat.addSexualHeat(heatAmount) })
-            } else {
+            }
+            else
+            {
                 val sexualHeat = SexualHeat(target, 0)
                 action.accept(VoidSupplier {
                     target.addPower(sexualHeat)
@@ -334,12 +381,15 @@ class SexualHeat protected constructor(owner: AbstractCreature, private var heat
             }
         }
 
-        fun addToBot_reduceSexualHeat(target: AbstractCreature, heatAmount: Int) {
+        fun addToBot_reduceSexualHeat(target: AbstractCreature, heatAmount: Int)
+        {
             addAction_reduceSexualHeat(target, heatAmount, AutoDoneInstantAction.Companion::addToBotAbstract)
         }
 
-        fun addAction_reduceSexualHeat(target: AbstractCreature, heatAmount: Int, action: Consumer<VoidSupplier>) {
-            if (heatAmount < 0) {
+        fun addAction_reduceSexualHeat(target: AbstractCreature, heatAmount: Int, action: Consumer<VoidSupplier>)
+        {
+            if (heatAmount < 0)
+            {
                 Logger.warning("reduce error number " + SexualHeat::class.java.simpleName + ". Amount: " + heatAmount)
                 return
             }
@@ -349,23 +399,27 @@ class SexualHeat protected constructor(owner: AbstractCreature, private var heat
             }
         }
 
-        fun isInOrgasm(creature: AbstractCreature): Boolean {
+        fun isInOrgasm(creature: AbstractCreature): Boolean
+        {
             val power = getActiveSexualHeat(creature)
             return power != null && power.isInOrgasm
         }
 
-        fun getActiveSexualHeat(creature: AbstractCreature): SexualHeat? {
+        fun getActiveSexualHeat(creature: AbstractCreature): SexualHeat?
+        {
             return creature.powers.filterIsInstance<SexualHeat>().firstOrNull()
         }
 
         fun getOrgasmTimesInTurn(): Int = InBattleDataManager.OrgasmTimesInTurn
 
-        private fun AddOrgasmTime() {
+        private fun AddOrgasmTime()
+        {
             InBattleDataManager.OrgasmTimesInTurn++
             InBattleDataManager.OrgasmTimesTotal++
         }
 
-        private fun action_addOrgasmEffectAndSetLevel(sexualHeat: SexualHeat): VoidSupplier {
+        private fun action_addOrgasmEffectAndSetLevel(sexualHeat: SexualHeat): VoidSupplier
+        {
             return RenderHeartStream.action_addHeartStreamEffectAndSetLevel(
                 MAX_ORGASM_HEART_STREAM_LEVEL, { !Orgasm.isPlayerInOrgasm() },
                 sexualHeat.owner::hb, InBattleDataManager.OrgasmTimesInTurn

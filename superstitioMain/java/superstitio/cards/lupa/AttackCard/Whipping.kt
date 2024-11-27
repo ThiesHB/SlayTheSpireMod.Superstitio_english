@@ -10,18 +10,22 @@ import superstitio.powers.SexualHeat
 import superstitioapi.utils.setDescriptionArgs
 import java.util.*
 
-class Whipping : LupaCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET) {
-    init {
+class Whipping : LupaCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET)
+{
+    init
+    {
         this.setupDamage(DAMAGE, UPGRADE_DAMAGE)
         this.setupMagicNumber(MAGIC)
         this.isMultiDamage = true
     }
 
-    override fun updateDescriptionArgs() {
+    override fun updateDescriptionArgs()
+    {
         setDescriptionArgs(HEAT_GET)
     }
 
-    override fun use(player: AbstractPlayer?, monster: AbstractMonster?) {
+    override fun use(player: AbstractPlayer?, monster: AbstractMonster?)
+    {
         addToBot_dealDamageToAllEnemies(AttackEffect.LIGHTNING)
         SexualHeat.addToBot_addSexualHeat(
             AbstractDungeon.player,
@@ -29,10 +33,12 @@ class Whipping : LupaCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET) {
         )
     }
 
-    override fun upgradeAuto() {
+    override fun upgradeAuto()
+    {
     }
 
-    companion object {
+    companion object
+    {
         val ID: String = DataManager.MakeTextID(Whipping::class.java)
 
         val CARD_TYPE: CardType = CardType.ATTACK

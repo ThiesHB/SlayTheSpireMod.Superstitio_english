@@ -14,21 +14,27 @@ import superstitioapi.actions.AutoDoneInstantAction
 import superstitioapi.utils.ActionUtility
 import superstitioapi.utils.CardUtility
 
-class OrgasmWithLostBody : MasoCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET) {
-    init {
+class OrgasmWithLostBody : MasoCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET)
+{
+    init
+    {
         this.cardsToPreview = FeelPhantomBody()
     }
 
-    override fun use(player: AbstractPlayer?, monster: AbstractMonster?) {
+    override fun use(player: AbstractPlayer?, monster: AbstractMonster?)
+    {
         addToBot_applyPower(OrgasmWithLostBodyPower().upgradeCardInThis(upgraded))
     }
 
-    override fun upgradeAuto() {
+    override fun upgradeAuto()
+    {
         this.upgradeCardsToPreview()
     }
 
-    class OrgasmWithLostBodyPower : EasyBuildAbstractPowerForPowerCard(-1) {
-        private fun tryBecomeFeelPhantomBodyCard(card: AbstractCard) {
+    class OrgasmWithLostBodyPower : EasyBuildAbstractPowerForPowerCard(-1)
+    {
+        private fun tryBecomeFeelPhantomBodyCard(card: AbstractCard)
+        {
             if (CardUtility.canUseWithoutEnvironment(card)) return
             AutoDoneInstantAction.addToBotAbstract {
                 AbstractDungeon.player.hand.removeCard(card)
@@ -40,21 +46,25 @@ class OrgasmWithLostBody : MasoCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGE
             )
         }
 
-        override fun onCardDraw(card: AbstractCard) {
+        override fun onCardDraw(card: AbstractCard)
+        {
             super.onCardDraw(card)
             if (ActionUtility.isNotInBattle) return
             tryBecomeFeelPhantomBodyCard(card)
         }
 
-        override fun updateDescriptionArgs() {
+        override fun updateDescriptionArgs()
+        {
         }
 
-        override fun makePowerCard(): SuperstitioCard {
+        override fun makePowerCard(): SuperstitioCard
+        {
             return OrgasmWithLostBody()
         }
     }
 
-    companion object {
+    companion object
+    {
         val ID: String = DataManager.MakeTextID(OrgasmWithLostBody::class.java)
 
         val CARD_TYPE: CardType = CardType.POWER

@@ -25,12 +25,15 @@ import superstitioapi.utils.PowerUtility
 import superstitioapi.utils.setDescriptionArgs
 import java.util.function.Consumer
 
-class FistIn : MasoCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET, "base"), GoSomewhereElseAfterUse {
-    init {
+class FistIn : MasoCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET, "base"), GoSomewhereElseAfterUse
+{
+    init
+    {
         this.setupMagicNumber(MAGIC, UPGRADE_MAGIC)
     }
 
-    private fun tryToUseCard(card: AbstractCard, target: AbstractCreature?) {
+    private fun tryToUseCard(card: AbstractCard, target: AbstractCreature?)
+    {
         if (card.target == CardTarget.ENEMY && target is AbstractMonster) addToBot(
             NewQueueCardAction(
                 card,
@@ -39,19 +42,24 @@ class FistIn : MasoCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET, "base"), 
                 true
             )
         )
-        else if (card.target == SelfOrEnemyTargeting.SELF_OR_ENEMY) {
+        else if (card.target == SelfOrEnemyTargeting.SELF_OR_ENEMY)
+        {
             addToBot(NewQueueCardAction(card, if (target is AbstractMonster) target else null, false, true))
-        } else addToBot(NewQueueCardAction(card, true, false, true))
+        }
+        else addToBot(NewQueueCardAction(card, true, false, true))
     }
 
-    override fun updateDescriptionArgs() {
+    override fun updateDescriptionArgs()
+    {
         setDescriptionArgs(WAIT, DRAWCard)
     }
 
-    override fun use(player: AbstractPlayer?, monster: AbstractMonster?) {
+    override fun use(player: AbstractPlayer?, monster: AbstractMonster?)
+    {
         val target = CardUtility.getSelfOrEnemyTarget(this, monster)
         ChoseCardFromHandCardSelectScreen(Consumer { card: AbstractCard ->
-            if (card is FistIn) {
+            if (card is FistIn)
+            {
                 ActionUtility.addToBot_makeTempCardInBattle(
                     SelfReference(),
                     ActionUtility.BattleCardPlace.Hand,
@@ -73,8 +81,13 @@ class FistIn : MasoCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET, "base"), 
             .addToBot()
     }
 
-    override fun afterInterruptMoveToCardGroup(cardGroup: CardGroup) {
-        CardOrb_WaitCardTrigger(this, cardGroup, CardUtility.CostSmart(WAIT)) { orb: CardOrb_CardTrigger, playedCard: AbstractCard ->
+    override fun afterInterruptMoveToCardGroup(cardGroup: CardGroup)
+    {
+        CardOrb_WaitCardTrigger(
+            this,
+            cardGroup,
+            CardUtility.CostSmart(WAIT)
+        ) { orb: CardOrb_CardTrigger, playedCard: AbstractCard ->
             orb.StartHitCreature(AbstractDungeon.player)
             addToBot_drawCards(DRAWCard)
             PowerUtility.BubbleMessage(orb.originCard.hb, false, cardStrings.getEXTENDED_DESCRIPTION(0))
@@ -83,10 +96,12 @@ class FistIn : MasoCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET, "base"), 
             .addToBot_HangCard()
     }
 
-    override fun upgradeAuto() {
+    override fun upgradeAuto()
+    {
     }
 
-    companion object {
+    companion object
+    {
         val ID: String = DataManager.MakeTextID(FistIn::class.java)
 
         val CARD_TYPE: CardType = CardType.SKILL

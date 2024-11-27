@@ -19,46 +19,54 @@ import superstitioapi.powers.interfaces.OnPostApplyThisPower
 import superstitioapi.renderManager.inBattleManager.InBattleDataManager
 import superstitioapi.utils.PowerUtility
 import superstitioapi.utils.ToolBox
+
 @SpireInitializer
 class SuperstitioApiSubscriber : PostExhaustSubscriber, StartGameSubscriber, RelicGetSubscriber,
     PostPowerApplySubscriber, PostBattleSubscriber, PostDungeonInitializeSubscriber, OnStartBattleSubscriber,
     OnPlayerTurnStartSubscriber, OnCardUseSubscriber, OnPowersModifiedSubscriber, PostDrawSubscriber,
-    PostEnergyRechargeSubscriber, PreMonsterTurnSubscriber {
+    PostEnergyRechargeSubscriber, PreMonsterTurnSubscriber
+{
     //    public static boolean hasHadInMonsterTurn = false;
-    init {
+    init
+    {
         BaseMod.subscribe(this)
         Logger.run("Done $this subscribing")
     }
 
-    override fun receivePostExhaust(abstractCard: AbstractCard?) {
+    override fun receivePostExhaust(abstractCard: AbstractCard?)
+    {
         InBattleDataManager.ApplyAll(
             { sub: PostExhaustSubscriber -> sub.receivePostExhaust(abstractCard) },
             PostExhaustSubscriber::class.java
         )
     }
 
-    override fun receiveStartGame() {
+    override fun receiveStartGame()
+    {
         InBattleDataManager.ApplyAll(
             StartGameSubscriber::receiveStartGame,
             StartGameSubscriber::class.java
         )
     }
 
-    override fun receiveCardUsed(abstractCard: AbstractCard?) {
+    override fun receiveCardUsed(abstractCard: AbstractCard?)
+    {
         InBattleDataManager.ApplyAll(
             { sub: OnCardUseSubscriber -> sub.receiveCardUsed(abstractCard) },
             OnCardUseSubscriber::class.java
         )
     }
 
-    override fun receivePowersModified() {
+    override fun receivePowersModified()
+    {
         InBattleDataManager.ApplyAll(
             OnPowersModifiedSubscriber::receivePowersModified,
             OnPowersModifiedSubscriber::class.java
         )
     }
 
-    override fun receivePostBattle(abstractRoom: AbstractRoom?) {
+    override fun receivePostBattle(abstractRoom: AbstractRoom?)
+    {
         InBattleDataManager.ClearOnEndOfBattle()
         InBattleDataManager.ApplyAll(
             { sub: PostBattleSubscriber -> sub.receivePostBattle(abstractRoom) },
@@ -66,24 +74,28 @@ class SuperstitioApiSubscriber : PostExhaustSubscriber, StartGameSubscriber, Rel
         )
     }
 
-    override fun receivePostDraw(abstractCard: AbstractCard?) {
+    override fun receivePostDraw(abstractCard: AbstractCard?)
+    {
         InBattleDataManager.ApplyAll(
             { it.receivePostDraw(abstractCard) },
             PostDrawSubscriber::class.java
         )
     }
 
-    override fun receivePostDungeonInitialize() {
+    override fun receivePostDungeonInitialize()
+    {
         InBattleDataManager.ApplyAll(
             PostDungeonInitializeSubscriber::receivePostDungeonInitialize,
             PostDungeonInitializeSubscriber::class.java
         )
-        if (AbstractDungeon.player is PlayerInitPostDungeonInitialize) {
+        if (AbstractDungeon.player is PlayerInitPostDungeonInitialize)
+        {
             (AbstractDungeon.player as PlayerInitPostDungeonInitialize).initPostDungeonInitialize()
         }
     }
 
-    override fun receivePostEnergyRecharge() {
+    override fun receivePostEnergyRecharge()
+    {
         InBattleDataManager.ApplyAll(
             PostEnergyRechargeSubscriber::receivePostEnergyRecharge,
             PostEnergyRechargeSubscriber::class.java
@@ -92,11 +104,13 @@ class SuperstitioApiSubscriber : PostExhaustSubscriber, StartGameSubscriber, Rel
 
     override fun receivePostPowerApplySubscriber(
         appliedPower: AbstractPower?, target: AbstractCreature?, source: AbstractCreature?
-    ) {
+    )
+    {
         if (target == null) return
         AutoDoneInstantAction.addToTopAbstract {
             if (appliedPower is OnPostApplyThisPower<*>)
-                for (power: AbstractPower in target.powers) {
+                for (power: AbstractPower in target.powers)
+                {
                     if (power is OnPostApplyThisPower<out AbstractPower>
                         && power.ID == appliedPower.ID
                     )
@@ -112,14 +126,16 @@ class SuperstitioApiSubscriber : PostExhaustSubscriber, StartGameSubscriber, Rel
         }, PostPowerApplySubscriber::class.java)
     }
 
-    override fun receiveRelicGet(abstractRelic: AbstractRelic?) {
+    override fun receiveRelicGet(abstractRelic: AbstractRelic?)
+    {
         InBattleDataManager.ApplyAll(
             { sub: RelicGetSubscriber -> sub.receiveRelicGet(abstractRelic) },
             RelicGetSubscriber::class.java
         )
     }
 
-    override fun receiveOnBattleStart(abstractRoom: AbstractRoom?) {
+    override fun receiveOnBattleStart(abstractRoom: AbstractRoom?)
+    {
         InBattleDataManager.InitializeAtStartOfBattle()
         //        hasHadInMonsterTurn = false;
         InBattleDataManager.ApplyAll(
@@ -128,7 +144,8 @@ class SuperstitioApiSubscriber : PostExhaustSubscriber, StartGameSubscriber, Rel
         )
     }
 
-    override fun receiveOnPlayerTurnStart() {
+    override fun receiveOnPlayerTurnStart()
+    {
         InBattleDataManager.InitializeAtStartOfTurn()
         //        hasHadInMonsterTurn = false;
         InBattleDataManager.ApplyAll(
@@ -137,7 +154,8 @@ class SuperstitioApiSubscriber : PostExhaustSubscriber, StartGameSubscriber, Rel
         )
     }
 
-    override fun receivePreMonsterTurn(abstractMonster: AbstractMonster?): Boolean {
+    override fun receivePreMonsterTurn(abstractMonster: AbstractMonster?): Boolean
+    {
 //        if (!hasHadInMonsterTurn)
 //            ApplyAll(AtStartOfMonsterTurnSubscriber::atStartOfMonsterTurn, AtStartOfMonsterTurnSubscriber.class);
 //        hasHadInMonsterTurn = true;
@@ -151,15 +169,19 @@ class SuperstitioApiSubscriber : PostExhaustSubscriber, StartGameSubscriber, Rel
     //    public interface AtStartOfMonsterTurnSubscriber extends ISubscriber {
     //        void atStartOfMonsterTurn();
     //    }
-    interface AtEndOfPlayerTurnPreCardSubscriber : ISubscriber {
+    interface AtEndOfPlayerTurnPreCardSubscriber : ISubscriber
+    {
         fun receiveAtEndOfPlayerTurnPreCard()
 
-        companion object {
+        companion object
+        {
             @SpirePatch2(clz = GameActionManager::class, method = "callEndOfTurnActions")
-            object AtEndOfTurnSubscriberPatch {
+            object AtEndOfTurnSubscriberPatch
+            {
                 @SpirePrefixPatch
                 @JvmStatic
-                fun Prefix(__instance: GameActionManager?) {
+                fun Prefix(__instance: GameActionManager?)
+                {
                     InBattleDataManager.ApplyAll(
                         AtEndOfPlayerTurnPreCardSubscriber::receiveAtEndOfPlayerTurnPreCard,
                         AtEndOfPlayerTurnPreCardSubscriber::class.java
@@ -169,19 +191,24 @@ class SuperstitioApiSubscriber : PostExhaustSubscriber, StartGameSubscriber, Rel
         }
     }
 
-    interface AtManualDiscardSubscriber : ISubscriber {
+    interface AtManualDiscardSubscriber : ISubscriber
+    {
         fun receiveAtManualDiscard()
 
-        interface AtManualDiscardPower {
+        interface AtManualDiscardPower
+        {
             fun atManualDiscard()
         }
 
-        companion object {
+        companion object
+        {
             @SpirePatch2(clz = GameActionManager::class, method = "incrementDiscard", paramtypez = [Boolean::class])
-            object MotherFuckerWhyTheyDoNotMakeThisDiscardSubscriberPatch {
+            object MotherFuckerWhyTheyDoNotMakeThisDiscardSubscriberPatch
+            {
                 @SpirePrefixPatch
                 @JvmStatic
-                fun Prefix(endOfTurn: Boolean) {
+                fun Prefix(endOfTurn: Boolean)
+                {
                     if (endOfTurn) return
                     InBattleDataManager.ApplyAll(
                         AtManualDiscardSubscriber::receiveAtManualDiscard,
@@ -210,9 +237,11 @@ class SuperstitioApiSubscriber : PostExhaustSubscriber, StartGameSubscriber, Rel
     //        }
     //    }
 
-    companion object {
+    companion object
+    {
         @JvmStatic
-        fun initialize() {
+        fun initialize()
+        {
             val mod = SuperstitioApiSubscriber()
         }
     }

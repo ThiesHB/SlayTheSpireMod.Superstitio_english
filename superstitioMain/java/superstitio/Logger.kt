@@ -4,32 +4,45 @@ import com.evacipated.cardcrawl.modthespire.Loader
 import org.apache.logging.log4j.LogManager
 import org.apache.logging.log4j.Logger
 
-object Logger {
+object Logger
+{
     private val logger: Logger = LogManager.getLogger(
         SuperstitioModSetup::class.qualifiedName
     )
+
     @JvmStatic
-    fun error(exception: Exception) {
+    fun error(exception: Exception)
+    {
         logger.error("[ERROR] " + exception.message)
     }
+
     @JvmStatic
-    fun info(string: String?) {
+    fun info(string: String?)
+    {
         logger.info(string)
     }
+
     @JvmStatic
-    fun run(string: String?) {
+    fun run(string: String?)
+    {
         if (Loader.DEBUG) logger.info(string)
     }
+
     @JvmStatic
-    fun temp(string: String?) {
+    fun temp(string: String?)
+    {
         logger.info(string)
     }
+
     @JvmStatic
-    fun debug(string: String?) {
+    fun debug(string: String?)
+    {
         if (Loader.DEBUG) logger.info(string)
     }
+
     @JvmStatic
-    fun warning(string: String) {
+    fun warning(string: String)
+    {
 //        if (Loader.DEBUG)
         logger.warn("[WARNING] $string")
     }

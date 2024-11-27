@@ -15,44 +15,57 @@ import superstitioapi.utils.CreatureUtility
 import superstitioapi.utils.PowerUtility
 import superstitioapi.utils.setDescriptionArgs
 
-class STDRoulette : MasoCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET) {
-    init {
+class STDRoulette : MasoCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET)
+{
+    init
+    {
         this.setupBlock(BLOCK, DelayRemoveDelayHpLoseBlock())
         this.setupMagicNumber(MAGIC, UPGRADE_MAGIC)
     }
 
-    override fun use(player: AbstractPlayer?, monster: AbstractMonster?) {
+    override fun use(player: AbstractPlayer?, monster: AbstractMonster?)
+    {
         addToBot_gainBlock()
         addToBot_applyPower(STDRoulettePower(this.magicNumber))
     }
 
-    override fun upgradeAuto() {
+    override fun upgradeAuto()
+    {
     }
 
-    class STDRoulettePower(amount: Int) : EasyBuildAbstractPowerForPowerCard(amount) {
-        override fun updateDescriptionArgs() {
+    class STDRoulettePower(amount: Int) : EasyBuildAbstractPowerForPowerCard(amount)
+    {
+        override fun updateDescriptionArgs()
+        {
             setDescriptionArgs(this.amount)
         }
 
-        override fun getDescriptionStrings(): String {
+        override fun getDescriptionStrings(): String
+        {
             return powerCard.cardStrings.getEXTENDED_DESCRIPTION(0)
         }
 
-        override fun atEndOfRound() {
+        override fun atEndOfRound()
+        {
             addToBot_removeSpecificPower(this)
         }
 
-        override fun wasHPLost(info: DamageInfo, damageAmount: Int) {
+        override fun wasHPLost(info: DamageInfo, damageAmount: Int)
+        {
             if (info.type == CanOnlyDamageDamageType.UnBlockAbleDamageType) return
-            for (monster in CreatureUtility.getAllAliveMonsters()) {
+            for (monster in CreatureUtility.getAllAliveMonsters())
+            {
                 addToBot_applyPower(SexualDamage(monster, this.amount, this.owner))
             }
-            if (AbstractDungeon.cardRandomRng.randomBoolean()) {
+            if (AbstractDungeon.cardRandomRng.randomBoolean())
+            {
                 PowerUtility.BubbleMessage(
                     owner.hb, false,
                     powerCard.cardStrings.getEXTENDED_DESCRIPTION(1)
                 )
-            } else {
+            }
+            else
+            {
                 PowerUtility.BubbleMessage(
                     owner.hb, false,
                     powerCard.cardStrings.getEXTENDED_DESCRIPTION(2)
@@ -60,12 +73,14 @@ class STDRoulette : MasoCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET) {
             }
         }
 
-        override fun makePowerCard(): SuperstitioCard {
+        override fun makePowerCard(): SuperstitioCard
+        {
             return STDRoulette()
         }
     }
 
-    companion object {
+    companion object
+    {
         val ID: String = DataManager.MakeTextID(STDRoulette::class.java)
 
         val CARD_TYPE: CardType = CardType.SKILL

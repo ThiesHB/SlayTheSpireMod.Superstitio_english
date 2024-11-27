@@ -17,15 +17,19 @@ import superstitio.powers.AbstractSuperstitioPower
 import superstitioapi.utils.setDescriptionArgs
 
 //春药
-class Philter : LupaCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET) {
-    init {
+class Philter : LupaCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET)
+{
+    init
+    {
         this.setupMagicNumber(MAGIC, UPGRADE_MAGIC)
     }
 
-    override fun upgradeAuto() {
+    override fun upgradeAuto()
+    {
     }
 
-    override fun use(player: AbstractPlayer?, monster: AbstractMonster?) {
+    override fun use(player: AbstractPlayer?, monster: AbstractMonster?)
+    {
         addToBot_applyPower(
             SexPlateArmorPower(
                 AbstractDungeon.player,
@@ -37,37 +41,46 @@ class Philter : LupaCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET) {
 
     @NoNeedImg
     class SexPlateArmorPower(owner: AbstractCreature, amount: Int) :
-        AbstractSuperstitioPower(POWER_ID, owner, amount) {
-        init {
+        AbstractSuperstitioPower(POWER_ID, owner, amount)
+    {
+        init
+        {
             this.loadRegion("platedarmor")
         }
 
-        override fun updateDescriptionArgs() {
+        override fun updateDescriptionArgs()
+        {
             setDescriptionArgs(this.amount)
         }
 
-        override fun playApplyPowerSfx() {
+        override fun playApplyPowerSfx()
+        {
             CardCrawlGame.sound.play("POWER_PLATED", 0.05f)
         }
 
-        override fun wasHPLost(info: DamageInfo, damageAmount: Int) {
-            if (info.owner != null && info.owner !== owner && info.type != DamageType.HP_LOSS && info.type != DamageType.THORNS && damageAmount > 0) {
+        override fun wasHPLost(info: DamageInfo, damageAmount: Int)
+        {
+            if (info.owner != null && info.owner !== owner && info.type != DamageType.HP_LOSS && info.type != DamageType.THORNS && damageAmount > 0)
+            {
                 this.flash()
                 addToBot_reducePowerToOwner(POWER_ID, 1)
             }
         }
 
-        override fun atEndOfTurnPreEndTurnCards(isPlayer: Boolean) {
+        override fun atEndOfTurnPreEndTurnCards(isPlayer: Boolean)
+        {
             this.flash()
             this.addToBot(GainBlockAction(this.owner, this.owner, this.amount))
         }
 
-        companion object {
+        companion object
+        {
             val POWER_ID: String = DataManager.MakeTextID(SexPlateArmorPower::class.java)
         }
     }
 
-    companion object {
+    companion object
+    {
         val ID: String = DataManager.MakeTextID(Philter::class.java)
 
         val CARD_TYPE: CardType = CardType.SKILL

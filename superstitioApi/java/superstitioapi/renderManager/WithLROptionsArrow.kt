@@ -10,19 +10,28 @@ import com.megacrit.cardcrawl.helpers.Hitbox
 import com.megacrit.cardcrawl.helpers.ImageMaster
 import com.megacrit.cardcrawl.helpers.input.InputHelper
 
-interface WithLROptionsArrow {
+interface WithLROptionsArrow
+{
     /**
      * 向左箭头点击时调用
      */
-    fun pageDown() {
-        if (isLoop) {
-            if (this.selectIndex > 0) {
+    fun pageDown()
+    {
+        if (isLoop)
+        {
+            if (this.selectIndex > 0)
+            {
                 this.selectIndex = this.selectIndex - 1
-            } else {
+            }
+            else
+            {
                 this.selectIndex = this.maxSelectIndex
             }
-        } else {
-            if (this.selectIndex > 0) {
+        }
+        else
+        {
+            if (this.selectIndex > 0)
+            {
                 this.selectIndex = this.selectIndex - 1
             }
         }
@@ -32,15 +41,23 @@ interface WithLROptionsArrow {
     /**
      * 向右箭头点击时调用
      */
-    fun pageUp() {
-        if (isLoop) {
-            if (this.selectIndex < this.maxSelectIndex) {
+    fun pageUp()
+    {
+        if (isLoop)
+        {
+            if (this.selectIndex < this.maxSelectIndex)
+            {
                 this.selectIndex = this.selectIndex + 1
-            } else {
+            }
+            else
+            {
                 this.selectIndex = 0
             }
-        } else {
-            if (this.selectIndex < this.maxSelectIndex) {
+        }
+        else
+        {
+            if (this.selectIndex < this.maxSelectIndex)
+            {
                 this.selectIndex = this.selectIndex + 1
             }
         }
@@ -60,20 +77,26 @@ interface WithLROptionsArrow {
 
     val maxSelectIndex: Int
 
-    fun renderArrow(sb: SpriteBatch) {
-        if (this.selectIndex != 0 || this.isLoop) {
+    fun renderArrow(sb: SpriteBatch)
+    {
+        if (this.selectIndex != 0 || this.isLoop)
+        {
             leftArrowButton.render(sb)
         }
-        if (this.selectIndex < this.maxSelectIndex || this.isLoop) {
+        if (this.selectIndex < this.maxSelectIndex || this.isLoop)
+        {
             rightArrowButton.render(sb)
         }
     }
 
-    fun updateArrow() {
-        if (this.selectIndex != 0 || this.isLoop) {
+    fun updateArrow()
+    {
+        if (this.selectIndex != 0 || this.isLoop)
+        {
             leftArrowButton.update()
         }
-        if (this.selectIndex < this.maxSelectIndex || this.isLoop) {
+        if (this.selectIndex < this.maxSelectIndex || this.isLoop)
+        {
             rightArrowButton.update()
         }
     }
@@ -86,47 +109,58 @@ interface WithLROptionsArrow {
      * 点击时调用pageDown()
      */
     class LeftArrowButton(private var x: Float, private var y: Float, private val owner: WithLROptionsArrow) :
-        IUIElement {
+        IUIElement
+    {
         val width: Float
         val height: Float
         private val arrow: Texture = ImageMaster.CF_LEFT_ARROW
         private val hitbox: Hitbox
 
-        init {
+        init
+        {
             this.width = Settings.scale * arrow.width
             this.height = Settings.scale * arrow.height
             this.hitbox = Hitbox(x, y, this.width, this.height)
         }
 
-        fun move(newX: Float, newY: Float) {
+        fun move(newX: Float, newY: Float)
+        {
             this.x = newX - this.width / 2.0f
             this.y = newY - this.height / 2.0f
             hitbox.move(newX, newY)
         }
 
-        override fun render(sb: SpriteBatch) {
-            if (hitbox.hovered) {
+        override fun render(sb: SpriteBatch)
+        {
+            if (hitbox.hovered)
+            {
                 sb.color = Color.WHITE
-            } else {
+            }
+            else
+            {
                 sb.color = Color.LIGHT_GRAY
             }
             sb.draw(this.arrow, this.x, this.y, this.width, this.height)
             hitbox.render(sb)
         }
 
-        override fun update() {
+        override fun update()
+        {
             hitbox.update()
-            if (hitbox.hovered && InputHelper.justClickedLeft) {
+            if (hitbox.hovered && InputHelper.justClickedLeft)
+            {
                 CardCrawlGame.sound.play("UI_CLICK_1")
                 owner.pageDown()
             }
         }
 
-        override fun renderLayer(): Int {
+        override fun renderLayer(): Int
+        {
             return 0
         }
 
-        override fun updateOrder(): Int {
+        override fun updateOrder(): Int
+        {
             return 0
         }
     }
@@ -135,47 +169,58 @@ interface WithLROptionsArrow {
      * 点击时调用pageUp()
      */
     class RightArrowButton(private var x: Float, private var y: Float, private val owner: WithLROptionsArrow) :
-        IUIElement {
+        IUIElement
+    {
         val width: Float
         val height: Float
         private val arrow: Texture = ImageMaster.CF_RIGHT_ARROW
         private val hitbox: Hitbox
 
-        init {
+        init
+        {
             this.width = Settings.scale * arrow.width
             this.height = Settings.scale * arrow.height
             this.hitbox = Hitbox(x, y, this.width, this.height)
         }
 
-        fun move(newX: Float, newY: Float) {
+        fun move(newX: Float, newY: Float)
+        {
             this.x = newX - this.width / 2.0f
             this.y = newY - this.height / 2.0f
             hitbox.move(newX, newY)
         }
 
-        override fun render(sb: SpriteBatch) {
-            if (hitbox.hovered) {
+        override fun render(sb: SpriteBatch)
+        {
+            if (hitbox.hovered)
+            {
                 sb.color = Color.WHITE
-            } else {
+            }
+            else
+            {
                 sb.color = Color.LIGHT_GRAY
             }
             sb.draw(this.arrow, this.x, this.y, width, height)
             hitbox.render(sb)
         }
 
-        override fun update() {
+        override fun update()
+        {
             hitbox.update()
-            if (hitbox.hovered && InputHelper.justClickedLeft) {
+            if (hitbox.hovered && InputHelper.justClickedLeft)
+            {
                 CardCrawlGame.sound.play("UI_CLICK_1")
                 owner.pageUp()
             }
         }
 
-        override fun renderLayer(): Int {
+        override fun renderLayer(): Int
+        {
             return 0
         }
 
-        override fun updateOrder(): Int {
+        override fun updateOrder(): Int
+        {
             return 0
         }
     }

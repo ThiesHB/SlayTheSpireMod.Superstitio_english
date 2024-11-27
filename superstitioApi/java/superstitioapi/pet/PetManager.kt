@@ -21,28 +21,38 @@ import superstitioapi.renderManager.inBattleManager.RenderInBattle
 import superstitioapi.utils.ActionUtility.VoidSupplier
 import java.util.function.Consumer
 
-class PetManager : RenderInBattle, AtEndOfPlayerTurnPreCardSubscriber, PostPowerApplySubscriber {
+class PetManager : RenderInBattle, AtEndOfPlayerTurnPreCardSubscriber, PostPowerApplySubscriber
+{
     val monsterGroup: MinionGroup = MinionGroup(arrayOf())
 
-    init {
+    init
+    {
         RenderInBattle.Register(RenderInBattle.RenderType.Normal, this)
     }
 
-    fun addPet(monster: AbstractMonster) {
+    fun addPet(monster: AbstractMonster)
+    {
         monsterGroup.add(monster)
     }
 
-    private fun monsterTurn(monster: AbstractMonster) {
-        if (!monster.isDeadOrEscaped || monster.halfDead) {
-            if (monster.intent != Intent.NONE) {
+    private fun monsterTurn(monster: AbstractMonster)
+    {
+        if (!monster.isDeadOrEscaped || monster.halfDead)
+        {
+            if (monster.intent != Intent.NONE)
+            {
                 AbstractDungeon.actionManager.addToBottom(ShowMoveNameAction(monster))
                 AbstractDungeon.actionManager.addToBottom(IntentFlashAction(monster))
             }
 
-            if (!TipTracker.tips["INTENT_TIP"]!! && AbstractDungeon.player.currentBlock == 0 && (monster.intent == Intent.ATTACK || monster.intent == Intent.ATTACK_DEBUFF || monster.intent == Intent.ATTACK_BUFF || monster.intent == Intent.ATTACK_DEFEND)) {
-                if (AbstractDungeon.floorNum <= 5) {
+            if (!TipTracker.tips["INTENT_TIP"]!! && AbstractDungeon.player.currentBlock == 0 && (monster.intent == Intent.ATTACK || monster.intent == Intent.ATTACK_DEBUFF || monster.intent == Intent.ATTACK_BUFF || monster.intent == Intent.ATTACK_DEFEND))
+            {
+                if (AbstractDungeon.floorNum <= 5)
+                {
                     ++TipTracker.blockCounter
-                } else {
+                }
+                else
+                {
                     TipTracker.neverShowAgain("INTENT_TIP")
                 }
             }
@@ -52,22 +62,26 @@ class PetManager : RenderInBattle, AtEndOfPlayerTurnPreCardSubscriber, PostPower
         }
     }
 
-    override fun receiveAtEndOfPlayerTurnPreCard() {
+    override fun receiveAtEndOfPlayerTurnPreCard()
+    {
         AutoDoneInstantAction.addToBotAbstract(VoidSupplier(monsterGroup::applyPreTurnLogic))
         monsterGroup.monsters.forEach(Consumer(this::monsterTurn))
         AutoDoneInstantAction.addToBotAbstract(VoidSupplier(monsterGroup::applyEndOfTurnPowers))
         AutoDoneInstantAction.addToBotAbstract(VoidSupplier(monsterGroup::showIntent), 2)
     }
 
-    override fun render(sb: SpriteBatch) {
+    override fun render(sb: SpriteBatch)
+    {
         monsterGroup.render(sb)
     }
 
-    override fun update() {
+    override fun update()
+    {
         monsterGroup.update()
     }
 
-    override fun updateAnimation() {
+    override fun updateAnimation()
+    {
         monsterGroup.updateAnimations()
     }
 
@@ -75,16 +89,20 @@ class PetManager : RenderInBattle, AtEndOfPlayerTurnPreCardSubscriber, PostPower
         abstractPower: AbstractPower?,
         abstractCreature: AbstractCreature?,
         abstractCreature1: AbstractCreature?
-    ) {
+    )
+    {
         monsterGroup.monsters.forEach(Consumer(AbstractMonster::applyPowers))
     }
 
-    companion object {
-        fun calculateSmartDistance(m1: AbstractCreature, m2: AbstractCreature): Float {
+    companion object
+    {
+        fun calculateSmartDistance(m1: AbstractCreature, m2: AbstractCreature): Float
+        {
             return (m1.hb_w + m2.hb_w) / 2.0f
         }
 
-        fun spawnMonster(monsterInstance: AbstractMonster): AbstractMonster {
+        fun spawnMonster(monsterInstance: AbstractMonster): AbstractMonster
+        {
             val monster = monsterInstance
             if (InBattleDataManager.getPetManager() == null)
                 return monster
@@ -93,7 +111,8 @@ class PetManager : RenderInBattle, AtEndOfPlayerTurnPreCardSubscriber, PostPower
             var monsterDX = Settings.WIDTH / 2.0f
             var monsterDY = AbstractDungeon.player.hb.y
             var lastMonster: AbstractMonster? = null
-            if (roomMonsters.monsters.isNotEmpty()) {
+            if (roomMonsters.monsters.isNotEmpty())
+            {
                 lastMonster = roomMonsters.monsters[roomMonsters.monsters.size - 1]
                 monsterDX = lastMonster.drawX
                 monsterDY = lastMonster.drawY
@@ -102,7 +121,8 @@ class PetManager : RenderInBattle, AtEndOfPlayerTurnPreCardSubscriber, PostPower
                 monsterDX - calculateSmartDistance(lastMonster, monster) * Settings.scale
             else monster.drawX = monsterDX - 200.0f * Settings.scale
             monster.drawY = monsterDY
-            if (monster.drawX < 0.0f || monster.drawX > Gdx.graphics.width || monster.drawY < 0.0f || monster.drawY > Gdx.graphics.height) {
+            if (monster.drawX < 0.0f || monster.drawX > Gdx.graphics.width || monster.drawY < 0.0f || monster.drawY > Gdx.graphics.height)
+            {
                 monster.drawX = MathUtils.random(0.0f, Gdx.graphics.width.toFloat())
                 monster.drawY = MathUtils.random(Gdx.graphics.height * 0.15f, Gdx.graphics.height * 0.85f)
             }
@@ -117,13 +137,15 @@ class PetManager : RenderInBattle, AtEndOfPlayerTurnPreCardSubscriber, PostPower
             return monster
         }
 
-        fun spawnMinion(monsterClass: Class<out AbstractMonster>): AbstractMonster {
+        fun spawnMinion(monsterClass: Class<out AbstractMonster>): AbstractMonster
+        {
             val minionMonster =
                 MinionMonster(CopyAndSpawnMonsterUtility.motherFuckerWhyIShouldUseThisToCopyMonster(monsterClass))
             return spawnMonster(minionMonster)
         }
 
-        fun spawnMonster(monsterClass: Class<out AbstractMonster>): AbstractMonster {
+        fun spawnMonster(monsterClass: Class<out AbstractMonster>): AbstractMonster
+        {
             val monster =
                 CopyAndSpawnMonsterUtility.motherFuckerWhyIShouldUseThisToCopyMonster(monsterClass)
             return spawnMonster(monster)

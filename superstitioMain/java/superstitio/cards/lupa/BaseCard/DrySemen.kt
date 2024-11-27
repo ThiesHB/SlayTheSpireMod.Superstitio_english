@@ -8,28 +8,35 @@ import superstitio.DataManager
 import superstitio.cardModifier.modifiers.block.DrySemenBlock
 import superstitio.cards.lupa.LupaCard
 
-class DrySemen : LupaCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET, "base") {
-    init {
+class DrySemen : LupaCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET, "base")
+{
+    init
+    {
         this.setupBlock(BLOCK, UPGRADE_BLOCK, DrySemenBlock())
         this.setupMagicNumber(MAGIC, UPGRADE_MAGIC)
         CardModifierManager.addModifier(this, RetainMod())
     }
 
-    override fun use(player: AbstractPlayer?, monster: AbstractMonster?) {
-        if (hasEnoughSemen(this.magicNumber)) {
+    override fun use(player: AbstractPlayer?, monster: AbstractMonster?)
+    {
+        if (hasEnoughSemen(this.magicNumber))
+        {
             addToBot_useSemenAndAutoRemove(this.magicNumber)
             addToBot_gainBlock()
         }
     }
 
-    override fun canUse(p: AbstractPlayer?, m: AbstractMonster?): Boolean {
+    override fun canUse(p: AbstractPlayer?, m: AbstractMonster?): Boolean
+    {
         return super.canUse(p, m) && hasEnoughSemen(this.magicNumber)
     }
 
-    override fun upgradeAuto() {
+    override fun upgradeAuto()
+    {
     }
 
-    companion object {
+    companion object
+    {
         val ID: String = DataManager.MakeTextID(DrySemen::class.java)
 
         val CARD_TYPE: CardType = CardType.SKILL

@@ -14,18 +14,24 @@ import superstitio.cards.CardOwnerPlayerManager
 import superstitio.cards.SuperstitioCard
 
 @SpirePatch2(clz = CardLibrary::class, method = "getCardList")
-object GetCardListSwitchPatch {
+object GetCardListSwitchPatch
+{
     @SpirePostfixPatch
-        @JvmStatic
-    fun Postfix(__result: MutableList<AbstractCard>, type: LibraryType): MutableList<AbstractCard> {
+    @JvmStatic
+    fun Postfix(__result: MutableList<AbstractCard>, type: LibraryType): MutableList<AbstractCard>
+    {
         if (BaseMod.isBaseGameCardColor(CardColor.valueOf(type.name))) return __result
         if (SuperstitioConfig.isEnableOnlyShowCardNotGeneral) return __result
-        for (card in CardLibrary.cards.values) {
+        for (card in CardLibrary.cards.values)
+        {
             if (card !is SuperstitioCard) continue
             if (__result.stream().anyMatch { c: AbstractCard -> c.cardID == card.cardID }) continue
-            if (type == LupaEnums.LUPA_LIBRARY && CardOwnerPlayerManager.isLupaCard(card)) {
+            if (type == LupaEnums.LUPA_LIBRARY && CardOwnerPlayerManager.isLupaCard(card))
+            {
                 __result.add(card.makeCopy())
-            } else if (type == MasoEnums.MASO_LIBRARY && CardOwnerPlayerManager.isMasoCard(card)) {
+            }
+            else if (type == MasoEnums.MASO_LIBRARY && CardOwnerPlayerManager.isMasoCard(card))
+            {
                 __result.add(card.makeCopy())
             }
         }

@@ -20,8 +20,10 @@ import superstitioapi.utils.ActionUtility
 import superstitioapi.utils.setDescriptionArgs
 
 @Seen
-class EnjoyAilment : SuperstitioRelic(ID, RELIC_TIER, LANDING_SOUND), BecomeInfoBlight {
-    override fun updateDescriptionArgs() {
+class EnjoyAilment : SuperstitioRelic(ID, RELIC_TIER, LANDING_SOUND), BecomeInfoBlight
+{
+    override fun updateDescriptionArgs()
+    {
         setDescriptionArgs(
             DoubleRemoveHpLostWhenHasVulnerablePower.BLOCK_RATE,
             DoubleRemoveHpLostWhenHasVulnerablePower.DAMAGE_RATE,
@@ -30,52 +32,65 @@ class EnjoyAilment : SuperstitioRelic(ID, RELIC_TIER, LANDING_SOUND), BecomeInfo
         )
     }
 
-    override fun atBattleStart() {
+    override fun atBattleStart()
+    {
         ActionUtility.addToBot_applyPower(DoubleRemoveHpLostWhenHasVulnerablePower(AbstractDungeon.player))
     }
 
-    override fun obtain() {
+    override fun obtain()
+    {
         InfoBlight.obtain(this)
     }
 
-    override fun instantObtain(p: AbstractPlayer, slot: Int, callOnEquip: Boolean) {
+    override fun instantObtain(p: AbstractPlayer, slot: Int, callOnEquip: Boolean)
+    {
         InfoBlight.instanceObtain(this, callOnEquip)
     }
 
-    override fun instantObtain() {
+    override fun instantObtain()
+    {
         InfoBlight.instanceObtain(this, true)
     }
 
     private class DoubleRemoveHpLostWhenHasVulnerablePower(owner: AbstractCreature) :
         AbstractSuperstitioPower(
             POWER_ID, owner, -1
-        ), InvisiblePower {
-        override fun modifyBlockLast(blockAmount: Float): Float {
+        ), InvisiblePower
+    {
+        override fun modifyBlockLast(blockAmount: Float): Float
+        {
             var blockLast = super.modifyBlockLast(blockAmount)
-            if (owner.powers.stream().anyMatch { power: AbstractPower? -> power is WeakPower }) {
+            if (owner.powers.stream().anyMatch { power: AbstractPower? -> power is WeakPower })
+            {
                 blockLast *= (1 + 1f / BLOCK_RATE)
             }
-            if (owner.powers.stream().anyMatch { power: AbstractPower? -> power is VulnerablePower }) {
+            if (owner.powers.stream().anyMatch { power: AbstractPower? -> power is VulnerablePower })
+            {
                 blockLast *= (1 + 1f / BLOCK_RATE)
             }
             return blockLast
         }
 
-        override fun atDamageGive(damage: Float, type: DamageType): Float {
+        override fun atDamageGive(damage: Float, type: DamageType): Float
+        {
             var damageLast = super.atDamageGive(damage, type)
-            if (owner.powers.stream().anyMatch { power: AbstractPower? -> power is FrailPower }) {
+            if (owner.powers.stream().anyMatch { power: AbstractPower? -> power is FrailPower })
+            {
                 damageLast *= (1 + 1f / DAMAGE_RATE)
             }
-            if (owner.powers.stream().anyMatch { power: AbstractPower? -> power is VulnerablePower }) {
+            if (owner.powers.stream().anyMatch { power: AbstractPower? -> power is VulnerablePower })
+            {
                 damageLast *= (1 + 1f / DAMAGE_RATE)
             }
             return damageLast
         }
 
-        override fun updateDescriptionArgs() {
+        override fun updateDescriptionArgs()
+        {
         }
 
-        companion object {
+        companion object
+        {
             val POWER_ID: String =
                 DataManager.MakeTextID(DoubleRemoveHpLostWhenHasVulnerablePower::class.java)
             const val BLOCK_RATE: Int = 3
@@ -83,7 +98,8 @@ class EnjoyAilment : SuperstitioRelic(ID, RELIC_TIER, LANDING_SOUND), BecomeInfo
         }
     }
 
-    companion object {
+    companion object
+    {
         val ID: String = DataManager.MakeTextID(EnjoyAilment::class.java)
 
         // 遗物类型

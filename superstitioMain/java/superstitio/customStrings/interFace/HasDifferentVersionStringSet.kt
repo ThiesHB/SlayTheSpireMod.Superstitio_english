@@ -1,6 +1,7 @@
 package superstitio.customStrings.interFace
 
-interface HasDifferentVersionStringSet<T> {
+interface HasDifferentVersionStringSet<T>
+{
     fun getRightVersion(): T
 
     fun initial()

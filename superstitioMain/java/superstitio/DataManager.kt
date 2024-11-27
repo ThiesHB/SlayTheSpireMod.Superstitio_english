@@ -54,11 +54,13 @@ import java.util.regex.Pattern
 import java.util.stream.Collectors
 
 
-class DataManager {
+class DataManager
+{
     var spttData: SPTT_DATA = SPTT_DATA()
 
     @SpireInitializer
-    class SPTT_DATA {
+    class SPTT_DATA
+    {
         // 在卡牌和遗物描述中的能量图标
         var SMALL_ORB: String = makeImgFilesPath_Character("small_orb")
 
@@ -94,7 +96,8 @@ class DataManager {
         var MASO_CHARACTER_PORTRAIT: String = makeImgFilesPath_Character("Character_Maso_Portrait")
 
         // 为原版人物枚举、卡牌颜色枚举扩展的枚举
-        object LupaEnums {
+        object LupaEnums
+        {
             @SpireEnum
             lateinit var LUPA_Character: PlayerClass
 
@@ -105,12 +108,14 @@ class DataManager {
             lateinit var LUPA_LIBRARY: LibraryType
         }
 
-        object TzeentchEnums {
+        object TzeentchEnums
+        {
             @SpireEnum
             lateinit var TZEENTCH_Character: PlayerClass
         }
 
-        object MasoEnums {
+        object MasoEnums
+        {
             @SpireEnum
             lateinit var MASO_Character: PlayerClass
 
@@ -121,7 +126,8 @@ class DataManager {
             lateinit var MASO_LIBRARY: LibraryType
         }
 
-        object GeneralEnums {
+        object GeneralEnums
+        {
             @SpireEnum
             lateinit var GENERAL_Virtual_Character: PlayerClass
 
@@ -132,7 +138,8 @@ class DataManager {
             lateinit var GENERAL_LIBRARY: LibraryType
         }
 
-        object TempCardEnums {
+        object TempCardEnums
+        {
             @SpireEnum
             lateinit var TempCard_Virtual_Character: PlayerClass
 
@@ -143,19 +150,22 @@ class DataManager {
             lateinit var TempCard_LIBRARY: LibraryType
         }
 
-        companion object {
+        companion object
+        {
             val SEX_COLOR: Color = Color(250.0f / 255.0f, 20.0f / 255.0f, 147.0f / 255.0f, 1.0f)
             val BG_ATTACK_SEMEN: String = makeImgFilesPath_UI("bg_attack_semen")
             val BG_ATTACK_512_SEMEN: String = makeImgFilesPath_UI("bg_attack_512_semen")
 
             @JvmStatic
-            fun initialize() {
+            fun initialize()
+            {
                 SPTT_DATA()
             }
         }
     }
 
-    object CanOnlyDamageDamageType {
+    object CanOnlyDamageDamageType
+    {
         @SpireEnum
         lateinit var UnBlockAbleDamageType: DamageType
 
@@ -163,7 +173,8 @@ class DataManager {
         lateinit var NoTriggerLupaAndMasoRelicHpLose: DamageType
     }
 
-    object CardTagsType {
+    object CardTagsType
+    {
         @SpireEnum
         lateinit var CruelTorture: AbstractCard.CardTags
 
@@ -177,7 +188,8 @@ class DataManager {
         lateinit var OutsideEjaculation: AbstractCard.CardTags
     }
 
-    companion object {
+    companion object
+    {
         const val CODER_COMPUTERNAME: String = "DESKTOP-VK8L63C"
         const val COMPUTERNAME: String = "COMPUTERNAME"
         const val GURO_VERSION_TIPS: String = "#GuroVersion#"
@@ -188,7 +200,8 @@ class DataManager {
         var uiStrings: MutableMap<String, UIStringsSet> = HashMap()
 
         //    public static Object[] allData = Arrays.stream(new Map[]{cards, powers, modifiers, orbs, uiStrings}).toArray();
-        fun forEachData(consumer: Consumer<Map<String, HasDifferentVersionStringSet<*>>>) {
+        fun forEachData(consumer: Consumer<Map<String, HasDifferentVersionStringSet<*>>>)
+        {
             consumer.accept(cards)
             consumer.accept(powers)
             consumer.accept(modifiers)
@@ -198,65 +211,79 @@ class DataManager {
 
         fun getModID(): String = SuperstitioModSetup.MOD_NAME + "Mod"
 
-        fun makeImgFilesPath(fileName: String, vararg folderPaths: String): String {
+        fun makeImgFilesPath(fileName: String, vararg folderPaths: String): String
+        {
             return getImgFolderPath(makeFolderTotalString(*folderPaths), "$fileName.png")
         }
 
-        fun makeFolderTotalString(vararg strings: String): String {
+        fun makeFolderTotalString(vararg strings: String): String
+        {
             if (strings.size == 0) return ""
             val totalString = StringBuilder()
             for (string in strings) totalString.append("/").append(string)
             return totalString.toString()
         }
 
-        fun makeImgFilesPath_Card(fileName: String, vararg subFolder: String): String {
+        fun makeImgFilesPath_Card(fileName: String, vararg subFolder: String): String
+        {
             return makeImgFilesPath(fileName, "cards", makeFolderTotalString(*subFolder))
         }
 
-        fun makeImgFilesPath_Relic(fileName: String, vararg subFolder: String): String {
+        fun makeImgFilesPath_Relic(fileName: String, vararg subFolder: String): String
+        {
             return makeImgFilesPath(fileName, "relics", makeFolderTotalString(*subFolder))
         }
 
-        fun makeImgFilesPath_UI(fileName: String, vararg subFolder: String): String {
+        fun makeImgFilesPath_UI(fileName: String, vararg subFolder: String): String
+        {
             return makeImgFilesPath(fileName, "ui", makeFolderTotalString(*subFolder))
         }
 
-        fun makeImgFilesPath_Character(fileName: String, vararg subFolder: String): String {
+        fun makeImgFilesPath_Character(fileName: String, vararg subFolder: String): String
+        {
             return makeImgFilesPath(fileName, "character", makeFolderTotalString(*subFolder))
         }
 
-        fun makeImgFilesPath_RelicOutline(fileName: String, vararg subFolder: String): String {
+        fun makeImgFilesPath_RelicOutline(fileName: String, vararg subFolder: String): String
+        {
             return makeImgFilesPath(fileName, "relics/outline", makeFolderTotalString(*subFolder))
         }
 
-        fun makeImgFilesPath_RelicLarge(fileName: String, vararg subFolder: String): String {
+        fun makeImgFilesPath_RelicLarge(fileName: String, vararg subFolder: String): String
+        {
             return makeImgFilesPath(fileName, "relics/large", makeFolderTotalString(*subFolder))
         }
 
-        fun makeImgFilesPath_Orb(fileName: String, vararg subFolder: String): String {
+        fun makeImgFilesPath_Orb(fileName: String, vararg subFolder: String): String
+        {
             return makeImgFilesPath(fileName, "orbs", makeFolderTotalString(*subFolder))
         }
 
-        fun makeImgFilesPath_Power(fileName: String, vararg subFolder: String): String {
+        fun makeImgFilesPath_Power(fileName: String, vararg subFolder: String): String
+        {
             return makeImgFilesPath(fileName, "powers", makeFolderTotalString(*subFolder))
         }
 
-        fun makeImgFilesPath_Event(fileName: String, vararg subFolder: String): String {
+        fun makeImgFilesPath_Event(fileName: String, vararg subFolder: String): String
+        {
             return makeImgFilesPath(fileName, "events", makeFolderTotalString(*subFolder))
         }
 
-        fun MakeTextID(idText: String): String {
+        fun MakeTextID(idText: String): String
+        {
             return getModID() + ":" + idText
         }
 
-        fun MakeTextID(idClass: Class<*>): String {
+        fun MakeTextID(idClass: Class<*>): String
+        {
             if (CardOwnerPlayerManager.isGeneralCard(idClass)) return getModID() + ":" + idClass.simpleName
             if (CardOwnerPlayerManager.isLupaCard(idClass)) return getModID() + ":" + LupaCard::class.java.simpleName + ":" + idClass.simpleName
             if (CardOwnerPlayerManager.isMasoCard(idClass)) return getModID() + ":" + MasoCard::class.java.simpleName + ":" + idClass.simpleName
             return getModID() + ":" + idClass.simpleName
         }
 
-        fun MakeTextID(idText: String, idClass: Class<*>): String {
+        fun MakeTextID(idText: String, idClass: Class<*>): String
+        {
             if (CardOwnerPlayerManager.isGeneralCard(idClass)) return getModID() + ":" + idText
             if (CardOwnerPlayerManager.isLupaCard(idClass)) return getModID() + ":" + LupaCard::class.java.simpleName + ":" + idText
             if (CardOwnerPlayerManager.isMasoCard(idClass)) return getModID() + ":" + MasoCard::class.java.simpleName + ":" + idText
@@ -268,15 +295,20 @@ class DataManager {
             PathFinder: BiFunction<String, Array<String>, String>,
             fileName: String,
             vararg subFolder: String
-        ): String {
-            val name = if (fileName.contains(MasoCard::class.java.simpleName)) {
+        ): String
+        {
+            val name = if (fileName.contains(MasoCard::class.java.simpleName))
+            {
                 fileName + GURO_VERSION_TIPS
-            } else {
+            }
+            else
+            {
                 fileName
             }
 
             return DataUtility.makeImgPath({
-                try {
+                try
+                {
                     if (isRunningInCoderComputer) makeNeedDrawPicture(
                         defaultFileName,
                         PathFinder,
@@ -284,37 +316,48 @@ class DataManager {
                         DataUtility.makeDefaultPath(defaultFileName, PathFinder),
                         *subFolder
                     )
-                } catch (e: IOException) {
+                }
+                catch (e: IOException)
+                {
                     Logger.error(e)
                 }
             }, defaultFileName, PathFinder, name, *subFolder)
         }
 
-        fun <T> makeJsonStringFromFile(fileName: String, objectClass: Class<T>?): T {
+        fun <T> makeJsonStringFromFile(fileName: String, objectClass: Class<T>?): T
+        {
             val gson = Gson()
             val json = Gdx.files.internal(makeLocalizationPath(Settings.language, fileName))
                 .readString(StandardCharsets.UTF_8.toString())
             return gson.fromJson(json, objectClass)
         }
 
-        fun replaceStringsInObj(obj: Any, wordReplace: WordReplace) {
-            for (field in obj.javaClass.declaredFields) {
+        fun replaceStringsInObj(obj: Any, wordReplace: WordReplace)
+        {
+            for (field in obj.javaClass.declaredFields)
+            {
                 field.isAccessible = true
-                try {
-                    if (field[obj] is String) {
+                try
+                {
+                    if (field[obj] is String)
+                    {
                         var value = field[obj] as String?
                         if (value == null || !value.contains(wordReplace.WordOrigin)) continue
                         value = value.replace(wordReplace.WordOrigin, wordReplace.WordReplace)
                         field[obj] = value
-                    } else if (field[obj] is Array<*> && (field[obj] as Array<*>).isArrayOf<String>()) {
+                    }
+                    else if (field[obj] is Array<*> && (field[obj] as Array<*>).isArrayOf<String>())
+                    {
                         val values = field[obj] as Array<String?>?
                         if (values.isNullOrEmpty()) continue
                         val list = arrayOfNulls<String>(values.size)
                         var i = 0
                         val valuesLength = values.size
-                        while (i < valuesLength) {
+                        while (i < valuesLength)
+                        {
                             var string = values[i]
-                            if (string != null && string.contains(wordReplace.WordOrigin)) {
+                            if (string != null && string.contains(wordReplace.WordOrigin))
+                            {
                                 string = string.replace(wordReplace.WordOrigin, wordReplace.WordReplace)
                             }
                             val apply = string
@@ -324,7 +367,9 @@ class DataManager {
 
                         field[obj] = list
                     }
-                } catch (e: IllegalAccessException) {
+                }
+                catch (e: IllegalAccessException)
+                {
                     Logger.error(e)
                 }
             }
@@ -334,7 +379,8 @@ class DataManager {
             fileName: String,
             target: MutableMap<String, T>,
             tSetClass: Class<T>
-        ) {
+        )
+        {
             superstitioapi.Logger.debug("loadJsonStrings: " + tSetClass.typeName)
             val jsonString = Gdx.files.internal(makeLocalizationPath(Settings.language, fileName))
                 .readString(StandardCharsets.UTF_8.toString())
@@ -350,7 +396,8 @@ class DataManager {
         }
 
         //生成所有的SFW本地化
-        fun <T> makeSFWLocalization(data: Map<String, T>, fileName: String) {
+        fun <T> makeSFWLocalization(data: Map<String, T>, fileName: String)
+        {
             val gson = GsonBuilder().setPrettyPrinting().create()
             val jsonString = gson.toJson(data)
             Gdx.files.local(makeLocalizationPath(Settings.language, fileName + "_sfw"))
@@ -364,14 +411,16 @@ class DataManager {
         //        Gdx.files.local(makeLocalizationPath(Settings.language, fileName + "_sfw")).writeString(jsonString, false);
         //    }
         //生成所有的SFW本地化
-        fun <T> makeSFWLocalization(data: List<T>, fileName: String) {
+        fun <T> makeSFWLocalization(data: List<T>, fileName: String)
+        {
             val gson = GsonBuilder().setPrettyPrinting().create()
             val jsonString = gson.toJson(data)
             Gdx.files.local(makeLocalizationPath(Settings.language, fileName + "_sfw"))
                 .writeString(jsonString, false, "UTF-8")
         }
 
-        fun makeAllSFWLocalizationForCoder() {
+        fun makeAllSFWLocalizationForCoder()
+        {
             if (!isRunningInCoderComputer) return
             if (!SuperstitioConfig.isEnableSFW()) return
             makeSFWLocalization(leaveOnlySFWMap(cards, CardStringsWillMakeFlavorSet::class.java), "cards")
@@ -393,7 +442,8 @@ class DataManager {
             val allKeywords =
                 StringsSetManager.allKeywords.stream().map { obj: SuperstitioKeyWord? -> obj!!.makeCopy() }
                     .collect(Collectors.toList())
-            for (keyWord in allKeywords) {
+            for (keyWord in allKeywords)
+            {
                 keyWord!!.NAMES = arrayOf("")
                 keyWord.PROPER_NAME = ""
                 keyWord.DESCRIPTION = ""
@@ -408,40 +458,54 @@ class DataManager {
             InstantiationException::class,
             IllegalAccessException::class
         )
-        fun <T : HasSFWVersion<*>?> leaveOnlySFW(stringSet: T, tClass: Class<T>): T {
+        fun <T : HasSFWVersion<*>?> leaveOnlySFW(stringSet: T, tClass: Class<T>): T
+        {
             val tryCopyStringSet = stringSet!!.makeSFWCopy()
             val copyStringSet = if (tClass.isInstance(stringSet))
                 tClass.cast(tryCopyStringSet)
-            else {
+            else
+            {
                 tClass.getDeclaredConstructor().newInstance()
             }
             //        copyStringSet.initialSelfBlack();
             return copyStringSet
         }
 
-        fun <T : HasSFWVersion<*>> leaveOnlySFWMap(data: Map<String, T>, tClass: Class<T>): Map<String, T> {
+        fun <T : HasSFWVersion<*>> leaveOnlySFWMap(data: Map<String, T>, tClass: Class<T>): Map<String, T>
+        {
             val copyData: MutableMap<String, T> = HashMap()
             data.forEach { (s: String, t: T) ->
-                try {
+                try
+                {
                     copyData[s] = leaveOnlySFW(t, tClass)
-                } catch (e: NoSuchMethodException) {
+                }
+                catch (e: NoSuchMethodException)
+                {
                     Logger.error(e)
-                } catch (e: InvocationTargetException) {
+                }
+                catch (e: InvocationTargetException)
+                {
                     Logger.error(e)
-                } catch (e: InstantiationException) {
+                }
+                catch (e: InstantiationException)
+                {
                     Logger.error(e)
-                } catch (e: IllegalAccessException) {
+                }
+                catch (e: IllegalAccessException)
+                {
                     Logger.error(e)
                 }
             }
             return copyData
         }
 
-        fun makeLocalizationPath(language: GameLanguage?, filename: String): String {
+        fun makeLocalizationPath(language: GameLanguage?, filename: String): String
+        {
             var ret = "localization/"
-            ret = when (language) {
+            ret = when (language)
+            {
                 GameLanguage.ZHS -> ret + "zhs/"
-                else -> ret + "zhs/"
+                else             -> ret + "zhs/"
             }
             return resourcesFilesPath + ret + filename + ".json"
         }
@@ -452,22 +516,27 @@ class DataManager {
         private val resourcesFilesPath: String
             get() = getModID() + "Resources/"
 
-        private fun getImgFolderPath(path: String, file: String): String {
+        private fun getImgFolderPath(path: String, file: String): String
+        {
             var allLevelPath = resourcesFilesPath + "img" + path + "/" + file
             var sfwLevelPath = resourcesFilesPath + "imgSFW" + path + "/" + file
 
-            if (path.contains(GURO_VERSION_TIPS) || file.contains(GURO_VERSION_TIPS)) {
+            if (path.contains(GURO_VERSION_TIPS) || file.contains(GURO_VERSION_TIPS))
+            {
                 sfwLevelPath = sfwLevelPath.replace(GURO_VERSION_TIPS.toRegex(), "")
                 allLevelPath = allLevelPath.replace(GURO_VERSION_TIPS.toRegex(), "")
-                if (!SuperstitioConfig.isEnableGuroCharacter()) {
+                if (!SuperstitioConfig.isEnableGuroCharacter())
+                {
                     return sfwLevelPath
                 }
             }
 
 
-            return if (!SuperstitioConfig.isEnableSFW()) {
+            return if (!SuperstitioConfig.isEnableSFW())
+            {
                 allLevelPath
-            } else sfwLevelPath
+            }
+            else sfwLevelPath
         }
 
         //生成所有的需要绘制的图片，方便检查
@@ -475,7 +544,8 @@ class DataManager {
         private fun makeNeedDrawPicture(
             defaultFileName: String, PathFinder: BiFunction<String, Array<String>, String>, fileName: String,
             defaultPath: String, vararg subFolder: String
-        ) {
+        )
+        {
             val needDrawFileName: MutableList<String> = ArrayList()
             needDrawFileName.add("needDraw")
             needDrawFileName.addAll(subFolder)
@@ -487,29 +557,40 @@ class DataManager {
             if (defaultPath.contains("large")) return
 
             val PathWithSubFolder = PathFinder.apply("", subFolder.toList().toTypedArray())
-            val defaultFileHandle = if (PathWithSubFolder.contains("card")) {
+            val defaultFileHandle = if (PathWithSubFolder.contains("card"))
+            {
                 Gdx.files.internal(PathFinder.apply(defaultFileName + "_p", arrayOf("")))
-            } else if (PathWithSubFolder.contains("orb")) {
+            }
+            else if (PathWithSubFolder.contains("orb"))
+            {
                 return
-            } else {
+            }
+            else
+            {
                 Gdx.files.internal(defaultPath)
             }
-            val needDrawFilePath = if (PathWithSubFolder.contains("card")) {
+            val needDrawFilePath = if (PathWithSubFolder.contains("card"))
+            {
                 PathFinder.apply(fileName + "_p", needDrawFileName.toTypedArray())
-            } else PathFinder.apply(fileName, needDrawFileName.toTypedArray())
+            }
+            else PathFinder.apply(fileName, needDrawFileName.toTypedArray())
             val defaultFileCopyTo = File(needDrawFilePath)
             val pattern = Pattern.compile("^(.+/)[^/]+$")
             val matcher = pattern.matcher(needDrawFilePath)
-            val totalFolderPath = if (matcher.find()) {
+            val totalFolderPath = if (matcher.find())
+            {
                 matcher.group(1)
-            } else {
+            }
+            else
+            {
                 needDrawFilePath
             }
             File(totalFolderPath).mkdirs()
             if (!defaultFileCopyTo.exists()) Files.copy(defaultFileHandle.read(), defaultFileCopyTo.toPath())
         }
 
-        private fun noNeedImgName(fileName: String): Boolean {
+        private fun noNeedImgName(fileName: String): Boolean
+        {
             if (fileName == LupaPool::class.java.simpleName) return true
             if (fileName == MasoPool::class.java.simpleName) return true
             if (fileName == GeneralPool::class.java.simpleName) return true
@@ -537,7 +618,8 @@ class DataManager {
         //        localizationStrings.putAll(GivenMap);
         //        ReflectionHacks.setPrivateStaticFinal(LocalizedStrings.class, mapName, localizationStrings);
         //    }
-        private fun noNeedDrawPower84(fileName: String): Boolean {
+        private fun noNeedDrawPower84(fileName: String): Boolean
+        {
             val checkName = fileName.replace("84", "")
             if (checkName == DataUtility.getIdOnly(SexPlateArmorPower.POWER_ID)) return true
             if (checkName == DataUtility.getIdOnly(TimeStopPower.POWER_ID)) return true
@@ -556,10 +638,12 @@ class DataManager {
 
         private fun <T> GetTypeOfMapByAComplexFunctionBecauseTheMotherfuckerGenericProgrammingWayTheFuckingJavaUse(
             tClass: Class<T>
-        ): ParameterizedType? {
+        ): ParameterizedType?
+        {
             val var0 = DataManager::class.java.declaredFields
 
-            for (f in var0) {
+            for (f in var0)
+            {
                 val type = f.genericType as? ParameterizedType ?: continue
                 val typeArgs = type.actualTypeArguments
                 if (typeArgs.size == 2 && typeArgs[0] == String::class.java && typeArgs[1] == tClass)

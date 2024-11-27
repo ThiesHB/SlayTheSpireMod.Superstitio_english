@@ -3,7 +3,8 @@ package superstitioapi.shader
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
 import com.badlogic.gdx.graphics.glutils.ShaderProgram
 
-object RingShader {
+object RingShader
+{
     private val ringShader: ShaderProgram =
         ShaderUtility.initShader(ShaderUtility.DEFAULT_VERTEX_GLSL, "ring_fragment.glsl")
     private val ringShader_useHalfPic: ShaderProgram = ShaderUtility.initShader(
@@ -11,7 +12,8 @@ object RingShader {
                 ".glsl"
     )
 
-    fun setUp_ringShader(sb: SpriteBatch, radius: Float, halfThick: Float, degreeStart: Float, degreeLength: Float) {
+    fun setUp_ringShader(sb: SpriteBatch, radius: Float, halfThick: Float, degreeStart: Float, degreeLength: Float)
+    {
         sb.shader = ringShader
         sb.shader.setUniformf("u_radius", radius)
         sb.shader.setUniformf("u_halfThick", halfThick)
@@ -25,7 +27,8 @@ object RingShader {
         halfThick: Float,
         degreeStart: Float,
         degreeLength: Float
-    ) {
+    )
+    {
         sb.shader = ringShader_useHalfPic
         sb.shader.setUniformf("u_radius", radius)
         sb.shader.setUniformf("u_halfThick", halfThick)

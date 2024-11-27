@@ -7,16 +7,20 @@ import superstitio.DataManager
 import superstitio.powers.patchAndInterface.interfaces.orgasm.OnOrgasm_onOrgasm
 
 class TempName_ApplyTempStrengthOnOrgasm(owner: AbstractCreature, amount: Int) :
-    AbstractSuperstitioPower(POWER_ID, owner, amount), OnOrgasm_onOrgasm {
-    override fun onOrgasm(SexualHeatPower: SexualHeat) {
+    AbstractSuperstitioPower(POWER_ID, owner, amount), OnOrgasm_onOrgasm
+{
+    override fun onOrgasm(SexualHeatPower: SexualHeat)
+    {
         addToBot_applyPower(StrengthPower(this.owner, this.amount))
         addToBot_applyPower(LoseStrengthPower(this.owner, this.amount))
     }
 
-    override fun updateDescriptionArgs() {
+    override fun updateDescriptionArgs()
+    {
     }
 
-    companion object {
+    companion object
+    {
         val POWER_ID: String = DataManager.MakeTextID(TempName_ApplyTempStrengthOnOrgasm::class.java)
     }
 }

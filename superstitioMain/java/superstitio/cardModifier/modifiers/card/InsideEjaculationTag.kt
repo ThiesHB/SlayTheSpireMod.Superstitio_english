@@ -5,18 +5,21 @@ import superstitio.DataManager
 import superstitio.DataManager.CardTagsType
 import superstitio.customStrings.stringsSet.UIStringsSet
 
-class InsideEjaculationTag : AbstractCardTagModifier() {
+class InsideEjaculationTag : AbstractCardTagModifier()
+{
     override val uiStrings: UIStringsSet
         get() = Companion.uiStrings
 
-    override fun getID(): String {
+    override fun getID(): String
+    {
         return ID
     }
 
     override val tag: AbstractCard.CardTags
         get() = getInsideEjaculationTag()
 
-    companion object {
+    companion object
+    {
         protected val ID: String = DataManager.MakeTextID(InsideEjaculationTag::class.java)
         private val uiStrings: UIStringsSet = getUIStringsWithSFW(ID)
 

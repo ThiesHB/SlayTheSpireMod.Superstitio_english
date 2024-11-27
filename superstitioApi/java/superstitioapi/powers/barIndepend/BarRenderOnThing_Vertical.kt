@@ -9,8 +9,10 @@ import superstitioapi.utils.ImgUtility
 import java.util.function.Supplier
 
 class BarRenderOnThing_Vertical(hitbox: Supplier<Hitbox>, power: HasBarRenderOnCreature) :
-    BarRenderOnThing(hitbox, power) {
-    init {
+    BarRenderOnThing(hitbox, power)
+{
+    init
+    {
         this.barLength = hitboxBondTo.get().height
         this.hitbox = Hitbox(
             BAR_WIDTH * 1.5f,
@@ -19,7 +21,8 @@ class BarRenderOnThing_Vertical(hitbox: Supplier<Hitbox>, power: HasBarRenderOnC
         updateHitBoxPlace(this.hitbox)
     }
 
-    override fun updateHitBoxPlace(hitbox: Hitbox) {
+    override fun updateHitBoxPlace(hitbox: Hitbox)
+    {
         hitbox.move(
             hitboxBondTo.get().cX - HeightOffset - hitboxBondTo.get().width / 2,
             hitboxBondTo.get().y + barLength / 2 + BAR_OFFSET_Y * 2
@@ -32,7 +35,8 @@ class BarRenderOnThing_Vertical(hitbox: Supplier<Hitbox>, power: HasBarRenderOnC
     override val xDrawStart: Float
         get() = hitbox.cX + BAR_WIDTH / 2.0f //绘制后会旋转，所以实际上的绘制位置更靠左
 
-    override fun drawBarShadow(sb: SpriteBatch, x: Float, y: Float, startLength: Float, length: Float) {
+    override fun drawBarShadow(sb: SpriteBatch, x: Float, y: Float, startLength: Float, length: Float)
+    {
         ImgUtility.draw(
             sb,
             ImageMaster.HB_SHADOW_L,
@@ -54,7 +58,8 @@ class BarRenderOnThing_Vertical(hitbox: Supplier<Hitbox>, power: HasBarRenderOnC
         )
     }
 
-    override fun drawBarMaxEnd(sb: SpriteBatch, x: Float, y: Float, startLength: Float, length: Float) {
+    override fun drawBarMaxEnd(sb: SpriteBatch, x: Float, y: Float, startLength: Float, length: Float)
+    {
         ImgUtility.draw(
             sb,
             ImageMaster.HEALTH_BAR_R,
@@ -66,11 +71,13 @@ class BarRenderOnThing_Vertical(hitbox: Supplier<Hitbox>, power: HasBarRenderOnC
         )
     }
 
-    override fun drawBarMiddle(sb: SpriteBatch, x: Float, y: Float, startLength: Float, length: Float) {
+    override fun drawBarMiddle(sb: SpriteBatch, x: Float, y: Float, startLength: Float, length: Float)
+    {
         ImgUtility.draw(sb, ImageMaster.HEALTH_BAR_B, x, y + startLength, length, BAR_WIDTH, ROTATION.toFloat())
     }
 
-    override fun drawBarMinEnd(sb: SpriteBatch, x: Float, y: Float, startLength: Float, length: Float) {
+    override fun drawBarMinEnd(sb: SpriteBatch, x: Float, y: Float, startLength: Float, length: Float)
+    {
         ImgUtility.draw(
             sb,
             ImageMaster.HEALTH_BAR_L,
@@ -82,7 +89,8 @@ class BarRenderOnThing_Vertical(hitbox: Supplier<Hitbox>, power: HasBarRenderOnC
         )
     }
 
-    override fun renderBarText(sb: SpriteBatch?, x: Float, y: Float) {
+    override fun renderBarText(sb: SpriteBatch?, x: Float, y: Float)
+    {
         FontHelper.renderFontCentered(
             sb, FontHelper.healthInfoFont, makeBarText(),
             hitbox.cX,
@@ -92,25 +100,31 @@ class BarRenderOnThing_Vertical(hitbox: Supplier<Hitbox>, power: HasBarRenderOnC
         )
     }
 
-    override fun chunkHitBoxReSize(amountChunk: BarAmountChunk) {
-        when (amountChunk.orderType) {
-            OrderType.Min -> {
+    override fun chunkHitBoxReSize(amountChunk: BarAmountChunk)
+    {
+        when (amountChunk.orderType)
+        {
+            OrderType.Min     ->
+            {
                 amountChunk.hitbox.height = amountChunk.length + BAR_DIAMETER / 2
                 amountChunk.hitbox.y =
                     amountChunk.drawY + amountChunk.startLength - BAR_DIAMETER / 2
             }
 
-            OrderType.Middle -> {
+            OrderType.Middle  ->
+            {
                 amountChunk.hitbox.height = amountChunk.length
                 amountChunk.hitbox.y = amountChunk.drawY + amountChunk.startLength
             }
 
-            OrderType.Max -> {
+            OrderType.Max     ->
+            {
                 amountChunk.hitbox.height = amountChunk.length + BAR_DIAMETER / 2
                 amountChunk.hitbox.y = amountChunk.drawY + amountChunk.startLength
             }
 
-            OrderType.OnlyOne -> {
+            OrderType.OnlyOne ->
+            {
                 amountChunk.hitbox.height = amountChunk.length + BAR_DIAMETER
                 amountChunk.hitbox.y =
                     amountChunk.drawY + amountChunk.startLength - BAR_DIAMETER / 2
@@ -120,7 +134,8 @@ class BarRenderOnThing_Vertical(hitbox: Supplier<Hitbox>, power: HasBarRenderOnC
         amountChunk.hitbox.moveX(hitbox.cX)
     }
 
-    companion object {
+    companion object
+    {
         const val ROTATION: Int = 90
         val BAR_WIDTH: Float = BAR_DIAMETER * 2.1f
         val BAR_BG_WIDTH: Float = BAR_WIDTH * 0.87f

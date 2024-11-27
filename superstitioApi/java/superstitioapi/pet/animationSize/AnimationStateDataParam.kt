@@ -7,11 +7,14 @@ import com.evacipated.cardcrawl.modthespire.lib.SpirePatch2
 import com.evacipated.cardcrawl.modthespire.lib.SpirePostfixPatch
 import com.megacrit.cardcrawl.core.AbstractCreature
 
-class AnimationStateDataParam(var fromName: String, var toName: String, var duration: Float) {
+class AnimationStateDataParam(var fromName: String, var toName: String, var duration: Float)
+{
 
-    companion object {
+    companion object
+    {
         var SkeletonName_DataParamListMap: MutableMap<String, MutableList<AnimationStateDataParam>> = HashMap()
-        fun tryReload(creature: AbstractCreature) {
+        fun tryReload(creature: AbstractCreature)
+        {
             val skeleton = ReflectionHacks.getPrivate<Skeleton>(creature, AbstractCreature::class.java, "skeleton")
             val key = skeleton.data.hash
             if (!SkeletonName_DataParamListMap.containsKey(key)) return
@@ -22,7 +25,8 @@ class AnimationStateDataParam(var fromName: String, var toName: String, var dura
             }
         }
 
-        private fun addData(skeletonDataName: String, fromName: String, toName: String, duration: Float) {
+        private fun addData(skeletonDataName: String, fromName: String, toName: String, duration: Float)
+        {
             val dataParam = AnimationStateDataParam(fromName, toName, duration)
             if (SkeletonName_DataParamListMap.containsKey(skeletonDataName)) SkeletonName_DataParamListMap[skeletonDataName]!!
                 .add(dataParam)
@@ -34,10 +38,12 @@ class AnimationStateDataParam(var fromName: String, var toName: String, var dura
             method = "setMix",
             paramtypez = [String::class, String::class, Float::class]
         )
-        object AnimationStateDataPatch {
+        object AnimationStateDataPatch
+        {
             @SpirePostfixPatch
-        @JvmStatic
-            fun Postfix(__instance: AnimationStateData, fromName: String, toName: String, duration: Float) {
+            @JvmStatic
+            fun Postfix(__instance: AnimationStateData, fromName: String, toName: String, duration: Float)
+            {
                 addData(__instance.skeletonData.hash, fromName, toName, duration)
             }
         }

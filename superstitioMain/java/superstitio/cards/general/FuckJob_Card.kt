@@ -29,28 +29,35 @@ import superstitio.powers.lupaOnly.FloorSemen
 import superstitio.powers.lupaOnly.InsideSemen
 import superstitio.powers.lupaOnly.OutsideSemen
 
-interface FuckJob_Card {
-    sealed class SexType {
+interface FuckJob_Card
+{
+    sealed class SexType
+    {
         data object Fuck : SexType()
         data object Job : SexType()
         data object Unknown : SexType()
-        companion object {
-            fun values(): Array<SexType> {
+        companion object
+        {
+            fun values(): Array<SexType>
+            {
                 return arrayOf(Fuck, Job, Unknown)
             }
 
-            fun valueOf(value: String): SexType {
-                return when (value) {
-                    "Fuck" -> Fuck
-                    "Job" -> Job
+            fun valueOf(value: String): SexType
+            {
+                return when (value)
+                {
+                    "Fuck"    -> Fuck
+                    "Job"     -> Job
                     "Unknown" -> Unknown
-                    else -> throw IllegalArgumentException("No object superstitio.cards.general.FuckJob_Card.SexType.$value")
+                    else      -> throw IllegalArgumentException("No object superstitio.cards.general.FuckJob_Card.SexType.$value")
                 }
             }
         }
     }
 
-    sealed class BodyPart {
+    sealed class BodyPart
+    {
         data object leg : BodyPart()
         data object hand : BodyPart()
         data object breast : BodyPart()
@@ -59,29 +66,35 @@ interface FuckJob_Card {
         data object torso : BodyPart()
         data object genital : BodyPart()
         data object unknown : BodyPart()
-        companion object {
-            fun values(): Array<BodyPart> {
+        companion object
+        {
+            fun values(): Array<BodyPart>
+            {
                 return arrayOf(leg, hand, breast, head, mouth, torso, genital, unknown)
             }
 
-            fun valueOf(value: String): BodyPart {
-                return when (value) {
-                    "leg" -> leg
-                    "hand" -> hand
-                    "breast" -> breast
-                    "head" -> head
-                    "mouth" -> mouth
-                    "torso" -> torso
+            fun valueOf(value: String): BodyPart
+            {
+                return when (value)
+                {
+                    "leg"     -> leg
+                    "hand"    -> hand
+                    "breast"  -> breast
+                    "head"    -> head
+                    "mouth"   -> mouth
+                    "torso"   -> torso
                     "genital" -> genital
                     "unknown" -> unknown
-                    else -> throw IllegalArgumentException("No object superstitio.cards.general.FuckJob_Card.BodyPart.$value")
+                    else      -> throw IllegalArgumentException("No object superstitio.cards.general.FuckJob_Card.BodyPart.$value")
                 }
             }
         }
     }
 
-    companion object {
-        fun getBodyPartType(fuckJob: FuckJob_Card?): BodyPart {
+    companion object
+    {
+        fun getBodyPartType(fuckJob: FuckJob_Card?): BodyPart
+        {
             if (fuckJob is Fuck_Nipple || fuckJob is Job_Breast) return BodyPart.breast
             if (fuckJob is Job_Foot || fuckJob is Job_LegPit) return BodyPart.leg
             if (fuckJob is Fuck_Anal || fuckJob is Fuck_Vaginal) return BodyPart.genital
@@ -95,36 +108,45 @@ interface FuckJob_Card {
         /**
          * 手动进行配置，手动指定SexType来配置卡牌
          */
-        fun initFuckJobCard(card: SuperstitioCard, sexType: SexType) {
+        fun initFuckJobCard(card: SuperstitioCard, sexType: SexType)
+        {
             if (!SuperstitioConfig.isEnableSFW()) card.setBackgroundTexture(
                 SPTT_DATA.BG_ATTACK_512_SEMEN,
                 SPTT_DATA.BG_ATTACK_SEMEN
             )
-            if (sexType == SexType.Fuck) {
+            if (sexType == SexType.Fuck)
+            {
                 CardModifierManager.addModifier(card, InsideEjaculationTag())
                 DamageModifierManager.addModifier(card, SexDamage_Fuck())
-            } else if (sexType == SexType.Job) {
+            }
+            else if (sexType == SexType.Job)
+            {
                 CardModifierManager.addModifier(card, OutsideEjaculationTag())
                 DamageModifierManager.addModifier(card, SexDamage_Job())
-            } else DamageModifierManager.addModifier(card, SexDamage())
+            }
+            else DamageModifierManager.addModifier(card, SexDamage())
         }
 
         /**
          * 自动化进行配置，根据卡牌ID自动判断是Fuck还是Job，并自动配置卡牌
          */
-        fun initFuckJobCard(card: SuperstitioCard) {
-            if (card.cardID.contains("Fuck")) {
+        fun initFuckJobCard(card: SuperstitioCard)
+        {
+            if (card.cardID.contains("Fuck"))
+            {
                 initFuckJobCard(card, SexType.Fuck)
                 return
             }
-            if (card.cardID.contains("Job")) {
+            if (card.cardID.contains("Job"))
+            {
                 initFuckJobCard(card, SexType.Job)
                 return
             }
             initFuckJobCard(card, SexType.Unknown)
         }
 
-        fun initFuckJobCardWithoutBond(card: SuperstitioCard, sexType: SexType) {
+        fun initFuckJobCardWithoutBond(card: SuperstitioCard, sexType: SexType)
+        {
             if (!SuperstitioConfig.isEnableSFW()) card.setBackgroundTexture(
                 SPTT_DATA.BG_ATTACK_512_SEMEN,
                 SPTT_DATA.BG_ATTACK_SEMEN

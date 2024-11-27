@@ -1,6 +1,7 @@
 package superstitio.customStrings.interFace
 
-interface HasSFWVersion<T> : HasDifferentVersionStringSet<T> {
+interface HasSFWVersion<T> : HasDifferentVersionStringSet<T>
+{
     val SfwVersion: T
 
     fun initialSFW(sfw: T)

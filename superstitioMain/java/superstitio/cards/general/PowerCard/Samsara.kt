@@ -14,37 +14,46 @@ import superstitio.cards.general.PowerCard.Samsara.SamsaraPower
 import superstitio.powers.AbstractSuperstitioPower
 import superstitioapi.utils.ActionUtility
 
-class Samsara : GeneralCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET) {
-    init {
+class Samsara : GeneralCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET)
+{
+    init
+    {
         this.setupMagicNumber(MAGIC, UPGRADE_MAGIC)
         this.cardsToPreview = Wound()
     }
 
-    override fun use(player: AbstractPlayer?, monster: AbstractMonster?) {
+    override fun use(player: AbstractPlayer?, monster: AbstractMonster?)
+    {
 //        AbstractDungeon.actionManager.addToBottom(new MakeTempCardInDrawPileAction(new Wound(), 8, true, true));
         ActionUtility.addToBot_makeTempCardInBattle(Wound(), ActionUtility.BattleCardPlace.DrawPile, this.magicNumber)
         addToBot_applyPower(EquilibriumPower(AbstractDungeon.player, 99))
         addToBot_applyPower(SamsaraPower(AbstractDungeon.player))
     }
 
-    override fun upgradeAuto() {
+    override fun upgradeAuto()
+    {
     }
 
-    class SamsaraPower(owner: AbstractCreature) : AbstractSuperstitioPower(POWER_ID, owner, -1) {
-        override fun onPlayCard(card: AbstractCard, m: AbstractMonster?) {
+    class SamsaraPower(owner: AbstractCreature) : AbstractSuperstitioPower(POWER_ID, owner, -1)
+    {
+        override fun onPlayCard(card: AbstractCard, m: AbstractMonster?)
+        {
             this.flash()
             this.addToBot(DrawCardAction(1))
         }
 
-        override fun updateDescriptionArgs() {
+        override fun updateDescriptionArgs()
+        {
         }
 
-        companion object {
+        companion object
+        {
             val POWER_ID: String = DataManager.MakeTextID(SamsaraPower::class.java)
         }
     }
 
-    companion object {
+    companion object
+    {
         val ID: String = DataManager.MakeTextID(Samsara::class.java)
 
         val CARD_TYPE: CardType = CardType.POWER

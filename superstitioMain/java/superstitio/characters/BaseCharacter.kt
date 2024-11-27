@@ -40,14 +40,16 @@ import java.util.function.BiConsumer
 
 // 继承CustomPlayer类
 abstract class BaseCharacter(ID: String, name: String, playerClass: PlayerClass) :
-    CustomPlayer(name, playerClass, EnergyBall_TEXTURES, EnergyBall_VFX_Path, LAYER_SPEED, null, null) {
+    CustomPlayer(name, playerClass, EnergyBall_TEXTURES, EnergyBall_VFX_Path, LAYER_SPEED, null, null)
+{
     // 人物的本地化文本，如卡牌的本地化文本一样，如何书写见下
     protected val characterStrings: CharacterStrings? = CardCrawlGame.languagePack.getCharacterString(ID)
     private var offsetX = 0f
     private var offsetY = 0f
     private var simpleAnim = 0.0f
 
-    init {
+    init
+    {
         this.title = getTitle(playerClass)
 
 
@@ -64,7 +66,8 @@ abstract class BaseCharacter(ID: String, name: String, playerClass: PlayerClass)
             EnergyManager(3) // 初始每回合的能量
         )
 
-        if (!SuperstitioConfig.isEnableSFW()) {
+        if (!SuperstitioConfig.isEnableSFW())
+        {
             this.setMoveOffset(0f, -hb.height / 3.0f)
         }
 
@@ -76,24 +79,28 @@ abstract class BaseCharacter(ID: String, name: String, playerClass: PlayerClass)
         // e.setTimeScale(1.2F);
     }
 
-    fun setMoveOffset(x: Float, y: Float) {
+    fun setMoveOffset(x: Float, y: Float)
+    {
         this.offsetX = x
         this.offsetY = y
     }
 
     val otherAddedCardColors: MutableList<CardColor?>
-        get() {
+        get()
+        {
             val cardColors = ArrayList<CardColor?>()
             cardColors.add(GeneralEnums.GENERAL_CARD)
             return cardColors
         }
 
-    protected fun addCardByCardFilter(originCardPool: MutableList<AbstractCard>) {
+    protected fun addCardByCardFilter(originCardPool: MutableList<AbstractCard>)
+    {
         CardLibrary.cards.forEach((BiConsumer { string: String?, card: AbstractCard ->
             if (UnlockTracker.isCardLocked(string) && !Settings.treatEverythingAsUnlocked()) return@BiConsumer
             if (card.rarity == CardRarity.BASIC) return@BiConsumer
             if (originCardPool.contains(card)) return@BiConsumer
-            if (isCardCanAdd(card)) {
+            if (isCardCanAdd(card))
+            {
                 originCardPool.add(card)
             }
         }))
@@ -101,7 +108,8 @@ abstract class BaseCharacter(ID: String, name: String, playerClass: PlayerClass)
 
     protected abstract fun isCardCanAdd(card: AbstractCard?): Boolean
 
-    private fun drawImg(sb: SpriteBatch) {
+    private fun drawImg(sb: SpriteBatch)
+    {
         val scaleX = 1.0f
         val v = 0.005f * MathUtils.sinDeg(MathUtils.sinDeg(simpleAnim * 360) * 15)
         val scaleY = 1.0f + v
@@ -126,36 +134,44 @@ abstract class BaseCharacter(ID: String, name: String, playerClass: PlayerClass)
         )
     }
 
-    override fun useCard(c: AbstractCard, monster: AbstractMonster?, energyOnUse: Int) {
+    override fun useCard(c: AbstractCard, monster: AbstractMonster?, energyOnUse: Int)
+    {
         super.useCard(c, monster, energyOnUse)
     }
 
-    override fun getCardPool(tmpPool: ArrayList<AbstractCard>): ArrayList<AbstractCard> {
+    override fun getCardPool(tmpPool: ArrayList<AbstractCard>): ArrayList<AbstractCard>
+    {
         val originCardPool = super.getCardPool(tmpPool)
         addCardByCardFilter(originCardPool)
         checkAndFillErrorCardPool(originCardPool)
         return originCardPool
     }
 
-    override fun update() {
+    override fun update()
+    {
         super.update()
         simpleAnim += Gdx.graphics.deltaTime
         if (simpleAnim >= 1.0f) simpleAnim = 0f
     }
 
-    override fun render(sb: SpriteBatch) {
+    override fun render(sb: SpriteBatch)
+    {
         stance.render(sb)
 
-        if (AbstractDungeon.getCurrRoom() is RestRoom) {
+        if (AbstractDungeon.getCurrRoom() is RestRoom)
+        {
             sb.color = Color.WHITE
             this.renderShoulderImg(sb)
             return
         }
         if (this.atlas != null &&
             !(ReflectionHacks.getPrivate<Any>(this, AbstractCreature::class.java, "renderCorpse") as Boolean)
-        ) {
+        )
+        {
             this.renderPlayerImage(sb)
-        } else {
+        }
+        else
+        {
             sb.color = Color.WHITE
             drawImg(sb)
         }
@@ -164,51 +180,61 @@ abstract class BaseCharacter(ID: String, name: String, playerClass: PlayerClass)
         healthHb.render(sb)
         if ((ActionUtility.isNotInBattle) || this.isDead) return
         this.renderHealth(sb)
-        if (orbs.isNotEmpty()) {
-            for (o in this.orbs) {
+        if (orbs.isNotEmpty())
+        {
+            for (o in this.orbs)
+            {
                 o.render(sb)
             }
         }
     }
 
-    override fun movePosition(x: Float, y: Float) {
+    override fun movePosition(x: Float, y: Float)
+    {
         super.movePosition(x + offsetX, y + offsetY)
     }
 
     // 人物名字（出现在游戏左上角）
-    override fun getTitle(playerClass: PlayerClass): String {
+    override fun getTitle(playerClass: PlayerClass): String
+    {
         if (characterStrings == null) return "[MISSING_Title]"
         return characterStrings.NAMES[1]
     }
 
     // 翻牌事件出现的你的职业牌（一般设为打击）
-    override fun getStartCardForEvent(): AbstractCard {
+    override fun getStartCardForEvent(): AbstractCard
+    {
         return Kiss()
     }
 
     // 卡牌轨迹颜色
-    override fun getCardTrailColor(): Color {
+    override fun getCardTrailColor(): Color
+    {
         return SPTT_DATA.SEX_COLOR
     }
 
     // 高进阶带来的生命值损失
-    override fun getAscensionMaxHPLoss(): Int {
+    override fun getAscensionMaxHPLoss(): Int
+    {
         return 5
     }
 
     // 卡牌的能量字体，没必要修改
-    override fun getEnergyNumFont(): BitmapFont {
+    override fun getEnergyNumFont(): BitmapFont
+    {
         return FontHelper.energyNumFontBlue
     }
 
     // 人物选择界面点击你的人物按钮时触发的方法，这里为屏幕轻微震动
-    override fun doCharSelectScreenSelectEffect() {
+    override fun doCharSelectScreenSelectEffect()
+    {
         CardCrawlGame.sound.playA("SELECT_WATCHER", MathUtils.random(-0.15f, 0.15f))
         CardCrawlGame.screenShake.shake(ScreenShake.ShakeIntensity.MED, ScreenShake.ShakeDur.SHORT, false)
     }
 
     // 碎心图片
-    override fun getCutscenePanels(): MutableList<CutscenePanel> {
+    override fun getCutscenePanels(): MutableList<CutscenePanel>
+    {
         val panels = ArrayList<CutscenePanel>()
         // 有两个参数的，第二个参数表示出现图片时播放的音效
         panels.add(CutscenePanel(DataManager.makeImgFilesPath_Character("Victory1"), "ATTACK_MAGIC_FAST_1"))
@@ -218,37 +244,44 @@ abstract class BaseCharacter(ID: String, name: String, playerClass: PlayerClass)
     }
 
     // 自定义模式选择你的人物时播放的音效
-    override fun getCustomModeCharacterButtonSoundKey(): String {
+    override fun getCustomModeCharacterButtonSoundKey(): String
+    {
         return "ATTACK_HEAVY"
     }
 
     // 游戏中左上角显示在你的名字之后的人物名称
-    override fun getLocalizedCharacterName(): String {
+    override fun getLocalizedCharacterName(): String
+    {
         return characterStrings!!.NAMES[0]
     }
 
     // 第三章面对心脏说的话（例如战士是“你握紧了你的长刀……”之类的）
-    override fun getSpireHeartText(): String {
+    override fun getSpireHeartText(): String
+    {
         return characterStrings!!.TEXT[1]
     }
 
     // 打心脏的颜色，不是很明显
-    override fun getSlashAttackColor(): Color {
+    override fun getSlashAttackColor(): Color
+    {
         return SPTT_DATA.SEX_COLOR
     }
 
     // 吸血鬼事件文本，主要是他（索引为0）和她（索引为1）的区别（机器人另外）
-    override fun getVampireText(): String {
+    override fun getVampireText(): String
+    {
         return Vampires.DESCRIPTIONS[1]
     }
 
     // 卡牌选择界面选择该牌的颜色
-    override fun getCardRenderColor(): Color {
+    override fun getCardRenderColor(): Color
+    {
         return SPTT_DATA.SEX_COLOR
     }
 
     // 第三章面对心脏造成伤害时的特效
-    override fun getSpireHeartSlashEffect(): Array<AttackEffect> {
+    override fun getSpireHeartSlashEffect(): Array<AttackEffect>
+    {
         return arrayOf(
             AttackEffect.SLASH_HEAVY, AttackEffect.FIRE,
             AttackEffect.SLASH_DIAGONAL, AttackEffect.SLASH_HEAVY, AttackEffect.FIRE,
@@ -256,7 +289,8 @@ abstract class BaseCharacter(ID: String, name: String, playerClass: PlayerClass)
         )
     }
 
-    override fun refreshHitboxLocation() {
+    override fun refreshHitboxLocation()
+    {
         super.refreshHitboxLocation()
         hb.move(hb.cX - this.offsetX, hb.cY - this.offsetY)
         healthHb.move(
@@ -265,15 +299,18 @@ abstract class BaseCharacter(ID: String, name: String, playerClass: PlayerClass)
         )
     }
 
-    class CharacterSelectInfo(var currentHp: Int, var maxHp: Int, var gold: Int) {
-        fun makeHpString(): String {
+    class CharacterSelectInfo(var currentHp: Int, var maxHp: Int, var gold: Int)
+    {
+        fun makeHpString(): String
+        {
             return "$currentHp/$maxHp"
         } //        public void refreshCharacterSelectScreen(CharacterOption characterOption) {
         //
         //        }
     }
 
-    companion object {
+    companion object
+    {
         // 人物立绘
         val LUPA_CHARACTER: String = DataManager.makeImgFilesPath_Character("character")
 
@@ -317,30 +354,42 @@ abstract class BaseCharacter(ID: String, name: String, playerClass: PlayerClass)
 
         // 每个图层的旋转速度
         private val LAYER_SPEED = floatArrayOf(-40.0f, -32.0f, 20.0f, -20.0f, 0.0f, -10.0f, -8.0f, 5.0f, -5.0f, 0.0f)
+
         @JvmStatic
-        protected fun unableByGuroSetting() {
-            if (!SuperstitioConfig.isEnableGuroCharacter() && !SuperstitioConfig.isForcePlayGuroCharacter) {
-                try {
+        protected fun unableByGuroSetting()
+        {
+            if (!SuperstitioConfig.isEnableGuroCharacter() && !SuperstitioConfig.isForcePlayGuroCharacter)
+            {
+                try
+                {
                     CardCrawlGame.mainMenuScreen.charSelectScreen.confirmButton.isDisabled = true
-                    if (CardCrawlGame.mainMenuScreen.charSelectScreen.confirmButton.isHovered) {
+                    if (CardCrawlGame.mainMenuScreen.charSelectScreen.confirmButton.isHovered)
+                    {
                         TipsUtility.renderTipsWithMouse(GuroTip)
                     }
-                } catch (e: Exception) {
+                }
+                catch (e: Exception)
+                {
                     Logger.warning("no confirmButton found")
                 }
             }
         }
 
         @JvmStatic
-        protected fun updateIsUnableByGuroSetting(moreCheck: Boolean) {
-            if (moreCheck) {
+        protected fun updateIsUnableByGuroSetting(moreCheck: Boolean)
+        {
+            if (moreCheck)
+            {
                 unableByGuroSetting()
-            } else CardCrawlGame.mainMenuScreen.charSelectScreen.confirmButton.isDisabled = false
+            }
+            else CardCrawlGame.mainMenuScreen.charSelectScreen.confirmButton.isDisabled = false
         }
 
         @JvmStatic
-        protected fun checkAndFillErrorCardPool(originCardPool: MutableList<AbstractCard>) {
-            if (NullCard.needMakeNullCardToFill(originCardPool)) {
+        protected fun checkAndFillErrorCardPool(originCardPool: MutableList<AbstractCard>)
+        {
+            if (NullCard.needMakeNullCardToFill(originCardPool))
+            {
                 originCardPool.clear()
                 originCardPool.addAll(NullCard.makeNullCardPool())
             }

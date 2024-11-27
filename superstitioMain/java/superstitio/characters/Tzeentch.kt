@@ -42,8 +42,10 @@ import java.util.stream.Collectors
 
 //
 class Tzeentch(name: String) : BaseCharacter(ID, name, TzeentchEnums.TZEENTCH_Character),
-    PlayerInitPostDungeonInitialize, RenderInCharacterSelect {
-    private fun refreshInit() {
+    PlayerInitPostDungeonInitialize, RenderInCharacterSelect
+{
+    private fun refreshInit()
+    {
         // 初始化你的人物，如果你的人物只有一张图，那么第一个参数填写你人物图片的路径。
         this.initializeClass(
             LUPA_CHARACTER,  // 人物图片
@@ -60,7 +62,8 @@ class Tzeentch(name: String) : BaseCharacter(ID, name, TzeentchEnums.TZEENTCH_Ch
     }
 
     // 初始遗物
-    override fun getStartingRelics(): ArrayList<String> {
+    override fun getStartingRelics(): ArrayList<String>
+    {
         val retVal = ArrayList<String>()
         //        retVal.add(StartWithSexToy.ID);
 //        retVal.add(JokeDescription.ID);
@@ -70,7 +73,8 @@ class Tzeentch(name: String) : BaseCharacter(ID, name, TzeentchEnums.TZEENTCH_Ch
         return retVal
     }
 
-    override fun getLoadout(): CharSelectInfo {
+    override fun getLoadout(): CharSelectInfo
+    {
         return CharSelectInfo(
             TezeentchCharacterStrings.NAMES[0],  // 人物名字
             TezeentchCharacterStrings.TEXT[0],  // 人物介绍
@@ -86,7 +90,8 @@ class Tzeentch(name: String) : BaseCharacter(ID, name, TzeentchEnums.TZEENTCH_Ch
         )
     }
 
-    override fun getStartingDeck(): ArrayList<String> {
+    override fun getStartingDeck(): ArrayList<String>
+    {
         Logger.run("Begin loading starter Deck Strings")
         if (Lupa::class.java.isAssignableFrom(getOwnerFromRelic(DEVABODY_RELIC_Selection_UI.selectRelic))) return Lupa.LupaStartDeck()
         if (Maso::class.java.isAssignableFrom(getOwnerFromRelic(DEVABODY_RELIC_Selection_UI.selectRelic))) return Maso.MasoStartDeck()
@@ -94,25 +99,30 @@ class Tzeentch(name: String) : BaseCharacter(ID, name, TzeentchEnums.TZEENTCH_Ch
     }
 
     // 你的卡牌颜色（这个枚举在最下方创建）
-    override fun getCardColor(): CardColor {
+    override fun getCardColor(): CardColor
+    {
         return MasoEnums.MASO_CARD
     }
 
-    override fun getCardPool(tmpPool: ArrayList<AbstractCard>): ArrayList<AbstractCard> {
+    override fun getCardPool(tmpPool: ArrayList<AbstractCard>): ArrayList<AbstractCard>
+    {
         addCardByCardFilter(tmpPool)
         checkAndFillErrorCardPool(tmpPool)
         return tmpPool
     }
 
-    override fun newInstance(): AbstractPlayer {
+    override fun newInstance(): AbstractPlayer
+    {
         return Tzeentch(this.name)
     }
 
-    override fun getAscensionMaxHPLoss(): Int {
+    override fun getAscensionMaxHPLoss(): Int
+    {
         return 5
     }
 
-    override fun initPostDungeonInitialize() {
+    override fun initPostDungeonInitialize()
+    {
         TzeentchSave.saveConfig()
         STARTER_RELIC_Selection_UI.selectRelic.makeCopy()
             .instantObtain(AbstractDungeon.player, AbstractDungeon.player.relics.size, false)
@@ -123,24 +133,28 @@ class Tzeentch(name: String) : BaseCharacter(ID, name, TzeentchEnums.TZEENTCH_Ch
             if (baseCardPool is LupaCardPool) InfoBlight.addAsInfoBlight(SemenMagician())
             if (baseCardPool is MasoCardPool) InfoBlight.addAsInfoBlight(EnjoyAilment())
         })
-        if (Maso::class.java.isAssignableFrom(getOwnerFromRelic(DEVABODY_RELIC_Selection_UI.selectRelic))) {
+        if (Maso::class.java.isAssignableFrom(getOwnerFromRelic(DEVABODY_RELIC_Selection_UI.selectRelic)))
+        {
             Maso.setUpMaso()
         }
     }
 
-    override fun doCharSelectScreenSelectEffect() {
+    override fun doCharSelectScreenSelectEffect()
+    {
         super.doCharSelectScreenSelectEffect()
         isCharacterInfoChanged = true
     }
 
-    override fun renderInCharacterSelectScreen(characterOption: CharacterOption, sb: SpriteBatch) {
+    override fun renderInCharacterSelectScreen(characterOption: CharacterOption, sb: SpriteBatch)
+    {
         STARTER_RELIC_Selection_UI.render(sb)
         DEVABODY_RELIC_Selection_UI.render(sb)
         SEXUAL_HEAT_RELIC_Selection_UI.render(sb)
         CardPoolManager.instance.render(sb)
     }
 
-    override fun updateInCharacterSelectScreen(characterOption: CharacterOption) {
+    override fun updateInCharacterSelectScreen(characterOption: CharacterOption)
+    {
         updateIsUnableByGuroSetting(
             CardPoolManager.instance.cardPools.stream().anyMatch(
                 Predicate { baseCardPool: BaseCardPool -> baseCardPool is MasoCardPool && baseCardPool.isSelect })
@@ -151,7 +165,8 @@ class Tzeentch(name: String) : BaseCharacter(ID, name, TzeentchEnums.TZEENTCH_Ch
         SEXUAL_HEAT_RELIC_Selection_UI.update()
         //        if (InputHelper.justClickedLeft || InputHelper.justClickedRight)
 //            Tzeentch.isCharacterInfoChanged = true;
-        if (isCharacterInfoChanged) {
+        if (isCharacterInfoChanged)
+        {
             isCharacterInfoChanged = false
             refreshInit()
             ReflectionHacks.setPrivate(characterOption, CharacterOption::class.java, "hp", characterInfo.makeHpString())
@@ -169,7 +184,8 @@ class Tzeentch(name: String) : BaseCharacter(ID, name, TzeentchEnums.TZEENTCH_Ch
     }
 
     //    public static RelicSelect relicSelect;
-    override fun isCardCanAdd(card: AbstractCard?): Boolean {
+    override fun isCardCanAdd(card: AbstractCard?): Boolean
+    {
         return CardPoolManager.instance.getAddedCard()
             .test(card) && !CardPoolManager.instance.getAddedCard().test(card)
     }
@@ -179,15 +195,19 @@ class Tzeentch(name: String) : BaseCharacter(ID, name, TzeentchEnums.TZEENTCH_Ch
         var devaBodyRelicId: String,
         var sexualHeatRelicId: String,
         var cardPoolId_IsSelect: HashMap<String, Boolean>
-    ) : Serializable {
-        companion object {
+    ) : Serializable
+    {
+        companion object
+        {
             private const val TzeentchSave_STRING = "TzeentchSave"
             var config: SpireConfig? = null
             var theDefaultSettings: Properties = Properties()
             var saveFileGson: Gson = Gson()
-            fun loadConfig() {
+            fun loadConfig()
+            {
                 theDefaultSettings.setProperty(TzeentchSave_STRING, "")
-                try {
+                try
+                {
                     config = SpireConfig(
                         DataManager.getModID() + TzeentchSave::class.java.simpleName,
                         DataManager.getModID() + TzeentchSave::class.java.simpleName + "Config",
@@ -197,35 +217,47 @@ class Tzeentch(name: String) : BaseCharacter(ID, name, TzeentchEnums.TZEENTCH_Ch
                     val tzeentchString = config!!.getString(TzeentchSave_STRING)
                     val tzeentchSave = saveFileGson.fromJson(tzeentchString, TzeentchSave::class.java)
                     onLoad(tzeentchSave)
-                } catch (e: Exception) {
+                }
+                catch (e: Exception)
+                {
                     Logger.error(e)
                 }
             }
 
-            fun saveConfig() {
+            fun saveConfig()
+            {
                 val tzeentchString = saveFileGson.toJsonTree(onSave(), TzeentchSave::class.java).toString()
                 config!!.setString(TzeentchSave_STRING, tzeentchString)
-                try {
+                try
+                {
                     config!!.save()
-                } catch (e: IOException) {
+                }
+                catch (e: IOException)
+                {
                     Logger.error(e)
                 }
             }
 
-            private fun onSaveRaw(): JsonElement {
+            private fun onSaveRaw(): JsonElement
+            {
                 return saveFileGson.toJsonTree(onSave())
             }
 
-            private fun onLoadRaw(value: JsonElement?) {
-                if (value != null) {
+            private fun onLoadRaw(value: JsonElement?)
+            {
+                if (value != null)
+                {
                     val parsed = saveFileGson.fromJson(value, TzeentchSave::class.java)
                     onLoad(parsed)
-                } else {
+                }
+                else
+                {
                     onLoad(null)
                 }
             }
 
-            private fun onSave(): TzeentchSave {
+            private fun onSave(): TzeentchSave
+            {
                 val cardPoolData = HashMap<String, Boolean>()
                 CardPoolManager.instance.cardPools.forEach(Consumer { cardPool: BaseCardPool ->
                     cardPoolData[cardPool.id] = cardPool.isSelect
@@ -239,7 +271,8 @@ class Tzeentch(name: String) : BaseCharacter(ID, name, TzeentchEnums.TZEENTCH_Ch
                 )
             }
 
-            private fun onLoad(tzeentchSave: TzeentchSave?) {
+            private fun onLoad(tzeentchSave: TzeentchSave?)
+            {
                 if (tzeentchSave == null) return
                 STARTER_RELIC_Selection_UI.setSelectRelic(tzeentchSave.starterRelicId)
                 DEVABODY_RELIC_Selection_UI.setSelectRelic(tzeentchSave.devaBodyRelicId)
@@ -254,7 +287,8 @@ class Tzeentch(name: String) : BaseCharacter(ID, name, TzeentchEnums.TZEENTCH_Ch
         }
     }
 
-    companion object {
+    companion object
+    {
         val ID: String = DataManager.MakeTextID(Tzeentch::class.java.simpleName)
         val TezeentchCharacterStrings: CharacterStrings = CardCrawlGame.languagePack.getCharacterString(ID)
         val Relic_Selection_Y: Float = Settings.HEIGHT.toFloat() / 2 - 100 * Settings.yScale
@@ -269,7 +303,8 @@ class Tzeentch(name: String) : BaseCharacter(ID, name, TzeentchEnums.TZEENTCH_Ch
         )
         var isCharacterInfoChanged: Boolean = false
 
-        init {
+        init
+        {
             STARTER_RELIC_Selection_UI = RelicSelectionUI(
                 Relic_Selection_X,
                 Relic_Selection_Y,
@@ -278,11 +313,13 @@ class Tzeentch(name: String) : BaseCharacter(ID, name, TzeentchEnums.TZEENTCH_Ch
                 PowerTip(TezeentchCharacterStrings.TEXT[2], TezeentchCharacterStrings.TEXT[3])
             )
                 .setRefreshAfterSelect { relic: AbstractRelic ->
-                    if (Lupa::class.java.isAssignableFrom(getOwnerFromRelic(relic))) {
+                    if (Lupa::class.java.isAssignableFrom(getOwnerFromRelic(relic)))
+                    {
                         characterInfo.gold = Lupa.characterInfo.gold
                         isCharacterInfoChanged = true
                     }
-                    if (Maso::class.java.isAssignableFrom(getOwnerFromRelic(relic))) {
+                    if (Maso::class.java.isAssignableFrom(getOwnerFromRelic(relic)))
+                    {
                         characterInfo.gold = Maso.characterInfo.gold
                         isCharacterInfoChanged = true
                     }
@@ -296,12 +333,14 @@ class Tzeentch(name: String) : BaseCharacter(ID, name, TzeentchEnums.TZEENTCH_Ch
                 PowerTip(TezeentchCharacterStrings.TEXT[4], TezeentchCharacterStrings.TEXT[5])
             )
                 .setRefreshAfterSelect { relic: AbstractRelic ->
-                    if (Lupa::class.java.isAssignableFrom(getOwnerFromRelic(relic))) {
+                    if (Lupa::class.java.isAssignableFrom(getOwnerFromRelic(relic)))
+                    {
                         characterInfo.currentHp = Lupa.characterInfo.currentHp
                         characterInfo.maxHp = Lupa.characterInfo.maxHp
                         isCharacterInfoChanged = true
                     }
-                    if (Maso::class.java.isAssignableFrom(getOwnerFromRelic(relic))) {
+                    if (Maso::class.java.isAssignableFrom(getOwnerFromRelic(relic)))
+                    {
                         characterInfo.currentHp = Maso.characterInfo.currentHp
                         characterInfo.maxHp = Maso.characterInfo.maxHp
                         isCharacterInfoChanged = true
@@ -318,11 +357,14 @@ class Tzeentch(name: String) : BaseCharacter(ID, name, TzeentchEnums.TZEENTCH_Ch
             TzeentchSave.loadConfig()
         }
 
-        private fun getOwnerFromRelic(relic: AbstractRelic): Class<out BaseCharacter?> {
-            if (relic is DevaBody_Lupa || relic is Sensitive || relic is StartWithSexToy) {
+        private fun getOwnerFromRelic(relic: AbstractRelic): Class<out BaseCharacter?>
+        {
+            if (relic is DevaBody_Lupa || relic is Sensitive || relic is StartWithSexToy)
+            {
                 return Lupa::class.java
             }
-            if (relic is DevaBody_Masochism || relic is MasochismMode || relic is VulnerableTogetherRelic) {
+            if (relic is DevaBody_Masochism || relic is MasochismMode || relic is VulnerableTogetherRelic)
+            {
                 return Maso::class.java
             }
             return Lupa::class.java

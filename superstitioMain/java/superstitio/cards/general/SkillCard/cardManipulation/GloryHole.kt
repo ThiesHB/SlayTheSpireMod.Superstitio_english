@@ -14,10 +14,12 @@ import superstitio.cards.general.TempCard.SelfReference
 import superstitioapi.actions.ChoseCardFromGridSelectWindowAction
 
 //荣耀洞
-class GloryHole : GeneralCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET) {
+class GloryHole : GeneralCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET)
+{
     //
     //    private static final int COST_UPGRADED_NEW = 2;
-    init {
+    init
+    {
         this.exhaust = true
     }
 
@@ -26,7 +28,8 @@ class GloryHole : GeneralCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET) {
     //            return new SelfReference();
     //        return card.makeStatEquivalentCopy();
     //    }
-    override fun use(player: AbstractPlayer?, monster: AbstractMonster?) {
+    override fun use(player: AbstractPlayer?, monster: AbstractMonster?)
+    {
         ChoseCardFromGridSelectWindowAction(AbstractDungeon.player.masterDeck) { card: AbstractCard ->
             addToBot(
                 makeChoseCardCopy(card)
@@ -39,12 +42,14 @@ class GloryHole : GeneralCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET) {
         //                .setRetainFilter(card -> !Objects.equals(card.cardID, GloryHole.ID))
     }
 
-    override fun upgradeAuto() {
+    override fun upgradeAuto()
+    {
 //        upgradeBaseCost(COST_UPGRADED_NEW);
         CardModifierManager.addModifier(this, RetainMod())
     }
 
-    companion object {
+    companion object
+    {
         val ID: String = DataManager.MakeTextID(GloryHole::class.java)
 
         val CARD_TYPE: CardType = CardType.SKILL
@@ -56,8 +61,10 @@ class GloryHole : GeneralCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET) {
         private const val COST = 2
 
 
-        private fun makeChoseCardCopy(card: AbstractCard): AbstractGameAction {
-            if (card.cardID == ID) {
+        private fun makeChoseCardCopy(card: AbstractCard): AbstractGameAction
+        {
+            if (card.cardID == ID)
+            {
                 val selfReference = SelfReference()
                 if (card.upgraded) selfReference.upgrade()
                 return MakeTempCardInHandAction(selfReference)

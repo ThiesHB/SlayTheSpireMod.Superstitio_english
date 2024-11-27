@@ -10,33 +10,41 @@ import superstitio.cards.maso.MasoCard
 import superstitio.delayHpLose.DelayRemoveDelayHpLoseBlock
 
 //恋污，被消耗或丢弃时触发
-class LoveDirty : MasoCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET) {
-    init {
+class LoveDirty : MasoCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET)
+{
+    init
+    {
         //        this.setupMagicNumber(MAGIC);
         this.setupBlock(BLOCK, UPGRADE_BLOCK, DelayRemoveDelayHpLoseBlock())
         CardModifierManager.addModifier(this, ExhaustMod())
         CardModifierManager.addModifier(this, RetainMod())
     }
 
-    private fun Trigger() {
+    private fun Trigger()
+    {
         addToBot_gainBlock()
     }
 
-    override fun use(player: AbstractPlayer?, monster: AbstractMonster?) {
+    override fun use(player: AbstractPlayer?, monster: AbstractMonster?)
+    {
     }
 
-    override fun triggerOnManualDiscard() {
+    override fun triggerOnManualDiscard()
+    {
         Trigger()
     }
 
-    override fun triggerOnExhaust() {
+    override fun triggerOnExhaust()
+    {
         Trigger()
     }
 
-    override fun upgradeAuto() {
+    override fun upgradeAuto()
+    {
     }
 
-    companion object {
+    companion object
+    {
         val ID: String = DataManager.MakeTextID(LoveDirty::class.java)
 
         val CARD_TYPE: CardType = CardType.SKILL

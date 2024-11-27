@@ -11,32 +11,38 @@ import java.util.function.Predicate
 class ChoseCardFromGridSelectWindowAction(
     private val cardGroup: CardGroup,
     private val gameActionMaker: Consumer<AbstractCard>
-) : AbstractContinuallyAction(ActionType.CARD_MANIPULATION, Settings.ACTION_DUR_FAST) {
+) : AbstractContinuallyAction(ActionType.CARD_MANIPULATION, Settings.ACTION_DUR_FAST)
+{
     private var windowText = ""
     private var anyNumber = false
     private var retainFilter = Predicate { card: AbstractCard? -> true }
 
-    init {
+    init
+    {
         this.amount = 1
     }
 
-    fun setAnyNumber(anyNumber: Boolean): ChoseCardFromGridSelectWindowAction {
+    fun setAnyNumber(anyNumber: Boolean): ChoseCardFromGridSelectWindowAction
+    {
         this.anyNumber = anyNumber
         return this
     }
 
-    fun setWindowText(windowText: String): ChoseCardFromGridSelectWindowAction {
+    fun setWindowText(windowText: String): ChoseCardFromGridSelectWindowAction
+    {
         this.windowText = windowText
         return this
     }
 
-    fun setChoseAmount(choseAmount: Int): ChoseCardFromGridSelectWindowAction {
+    fun setChoseAmount(choseAmount: Int): ChoseCardFromGridSelectWindowAction
+    {
         this.amount = choseAmount
         return this
     }
 
     @SafeVarargs
-    fun setRetainFilter(vararg filters: Predicate<AbstractCard>): ChoseCardFromGridSelectWindowAction {
+    fun setRetainFilter(vararg filters: Predicate<AbstractCard>): ChoseCardFromGridSelectWindowAction
+    {
         filters.forEach { abstractCardPredicate: Predicate<AbstractCard>? ->
             if (abstractCardPredicate == null)
                 return@forEach
@@ -46,8 +52,10 @@ class ChoseCardFromGridSelectWindowAction(
         return this
     }
 
-    override fun StartAction() {
-        if (cardGroup.isEmpty || this.amount <= 0) {
+    override fun StartAction()
+    {
+        if (cardGroup.isEmpty || this.amount <= 0)
+        {
             this.isDone = true
             return
         }
@@ -58,15 +66,18 @@ class ChoseCardFromGridSelectWindowAction(
         AbstractDungeon.gridSelectScreen.open(temp, amount, anyNumber, windowText)
     }
 
-    override fun RunAction() {
+    override fun RunAction()
+    {
         if (AbstractDungeon.gridSelectScreen.selectedCards.isEmpty()) return
-        for (c in AbstractDungeon.gridSelectScreen.selectedCards) {
+        for (c in AbstractDungeon.gridSelectScreen.selectedCards)
+        {
             gameActionMaker.accept(c)
         }
         AbstractDungeon.gridSelectScreen.selectedCards.clear()
         AbstractDungeon.player.hand.refreshHandLayout()
     }
 
-    override fun EndAction() {
+    override fun EndAction()
+    {
     }
 }

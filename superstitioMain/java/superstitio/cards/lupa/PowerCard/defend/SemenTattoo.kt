@@ -15,37 +15,46 @@ import superstitio.powers.EasyBuildAbstractPowerForPowerCard
 import superstitio.powers.lupaOnly.SemenPower
 import superstitioapi.utils.setDescriptionArgs
 
-class SemenTattoo : LupaCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET) {
-    init {
+class SemenTattoo : LupaCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET)
+{
+    init
+    {
         this.setupMagicNumber(MAGIC, UPGRADE_MAGIC)
         BlockModifierManager.addModifier(this, SexBlock())
     }
 
-    override fun use(player: AbstractPlayer?, monster: AbstractMonster?) {
+    override fun use(player: AbstractPlayer?, monster: AbstractMonster?)
+    {
         addToBot_applyPower(SemenTattooPower(this.magicNumber))
     }
 
-    override fun upgradeAuto() {
+    override fun upgradeAuto()
+    {
     }
 
-    class SemenTattooPower(amount: Int) : EasyBuildAbstractPowerForPowerCard(amount), OnAddSemenPower {
-        override fun updateDescriptionArgs() {
+    class SemenTattooPower(amount: Int) : EasyBuildAbstractPowerForPowerCard(amount), OnAddSemenPower
+    {
+        override fun updateDescriptionArgs()
+        {
             this.setDescriptionArgs(amount)
         }
 
-        override fun onAddSemen_shouldApply(power: AbstractPower?): Boolean {
+        override fun onAddSemen_shouldApply(power: AbstractPower?): Boolean
+        {
             if (power !is SemenPower) return true
             val blockAdd = this.amount * power.amount * (power as SemenPower).getSemenValue()
             AbstractDungeon.actionManager.addToBottom(GainBlockAction(this.owner, blockAdd))
             return true
         }
 
-        override fun makePowerCard(): SuperstitioCard {
+        override fun makePowerCard(): SuperstitioCard
+        {
             return SemenTattoo()
         }
     }
 
-    companion object {
+    companion object
+    {
         val ID: String = DataManager.MakeTextID(SemenTattoo::class.java)
 
         val CARD_TYPE: CardType = CardType.POWER

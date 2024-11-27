@@ -17,70 +17,87 @@ import superstitioapi.actions.AutoDoneInstantAction
 import java.util.concurrent.atomic.AtomicInteger
 
 class SexMarkOrbGroup(hitbox: Hitbox, var scoreRate: Double) :
-    OrbGroup(hitbox, SexMarkSetupOrbMax, SexMarkEmptySlot()) {
+    OrbGroup(hitbox, SexMarkSetupOrbMax, SexMarkEmptySlot())
+{
     private val fillSide: Boolean
 
-    init {
+    init
+    {
         this.hitbox.moveX(this.hitbox.cX + this.hitbox.width)
         this.hitbox.moveY(this.hitbox.cY - this.hitbox.height * 0.25f)
         this.letEachOrbToSlotPlaces()
         this.fillSide = MathUtils.randomBoolean()
     }
 
-    fun changeScoreRate(scoreRate: Double) {
+    fun changeScoreRate(scoreRate: Double)
+    {
         this.scoreRate = scoreRate
     }
 
-    fun evokeOrb(exampleSexMarkOrb: SexMarkOrb) {
-        for (i in orbs.indices) {
+    fun evokeOrb(exampleSexMarkOrb: SexMarkOrb)
+    {
+        for (i in orbs.indices)
+        {
             val orb = orbs[i]!! as? SexMarkOrb ?: continue
             if (orb.sexMarkName != exampleSexMarkOrb.sexMarkName) continue
             evokeOrbAndNotFill(i)
         }
     }
 
-    private fun ScoreTheGangBang(): Int {
+    private fun ScoreTheGangBang(): Int
+    {
         return orbs.filterIsInstance<SexMarkOrb>()
             .map(SexMarkOrb::sexMarkName)
             .size
     }
 
-    private fun MapIndex(index: Int): Int {
+    private fun MapIndex(index: Int): Int
+    {
         val countTotal = this.GetMaxOrbs()
-        if (countTotal % 2 == 1) {
+        if (countTotal % 2 == 1)
+        {
             return MapIndexTool(index, countTotal)
-        } else {
+        }
+        else
+        {
             val plusOneResult = MapIndexTool(index, countTotal + 1)
             return if (plusOneResult == countTotal) 0
             else plusOneResult
         }
     }
 
-    private fun MapIndexTool(index: Int, countTotal: Int): Int {
+    private fun MapIndexTool(index: Int, countTotal: Int): Int
+    {
         val mid = (countTotal - 1) / 2
-        if (index % 2 == 1) {
+        if (index % 2 == 1)
+        {
             if (fillSide) return mid + (index + 1) / 2
             return mid - (index + 1) / 2
-        } else {
+        }
+        else
+        {
             if (fillSide) return mid - index / 2
             return mid + index / 2
         }
     }
 
-    protected fun makeSlotPlaceHeart(scale: Float, slotIndex: Int): Vector2 {
+    protected fun makeSlotPlaceHeart(scale: Float, slotIndex: Int): Vector2
+    {
         return makeHeartLine2(
             scale,
             OffsetPercentageBySlotIndex_Cycle(slotIndex.toFloat()) * 360 + (if ((this.GetMaxOrbs() % 2 == 0)) 0 else -144)
         )
     }
 
-    protected fun makeHeartLine1(scale: Float, angle: Float): Vector2 {
+    protected fun makeHeartLine1(scale: Float, angle: Float): Vector2
+    {
         return Vector2(1f, 0f)
             .setLength((1 - MathUtils.sinDeg(angle)) * scale)
             .setAngle(angle)
     }
 
-    protected fun makeHeartLine2(scale: Float, angle: Float): Vector2 {
+    protected fun makeHeartLine2(scale: Float, angle: Float): Vector2
+    {
         val vector2 = Vector2()
         val sinDeg = MathUtils.sinDeg(angle)
         vector2.x = 16 * sinDeg * sinDeg * sinDeg
@@ -93,7 +110,8 @@ class SexMarkOrbGroup(hitbox: Hitbox, var scoreRate: Double) :
         return vector2
     }
 
-    protected fun makeHeartLine3(scale: Float, angle: Float): Vector2 {
+    protected fun makeHeartLine3(scale: Float, angle: Float): Vector2
+    {
         val vector2 = Vector2()
         val sinDeg = MathUtils.sinDeg(angle)
         vector2.x = 16 * sinDeg
@@ -103,11 +121,14 @@ class SexMarkOrbGroup(hitbox: Hitbox, var scoreRate: Double) :
         return vector2
     }
 
-    override fun findFirstEmptyOrb(): Int {
+    override fun findFirstEmptyOrb(): Int
+    {
         var index = -1
-        for (i in orbs.indices) {
+        for (i in orbs.indices)
+        {
             val o = orbs[MapIndex(i)]!!
-            if (isEmptySlot(o)) {
+            if (isEmptySlot(o))
+            {
                 index = MapIndex(i)
                 break
             }
@@ -115,17 +136,20 @@ class SexMarkOrbGroup(hitbox: Hitbox, var scoreRate: Double) :
         return index
     }
 
-    override fun makeSlotPlace(slotIndex: Int): Vector2 {
+    override fun makeSlotPlace(slotIndex: Int): Vector2
+    {
         return makeSlotPlaceHeart(hitbox.width, slotIndex)
     }
 
-    override fun onOrbChannel(channeledOrb: AbstractOrb?) {
+    override fun onOrbChannel(channeledOrb: AbstractOrb?)
+    {
         if (this.hasEmptySlot()) return
         val attackAmount = AtomicInteger()
         val blockAmount = AtomicInteger()
         orbs.forEach { orb: AbstractOrb? ->
             if (isEmptySlot(orb)) return@forEach
-            if (orb is SexMarkOrb) {
+            if (orb is SexMarkOrb)
+            {
                 val sexMarkOrb = orb
                 attackAmount.addAndGet(sexMarkOrb.attack())
                 blockAmount.addAndGet(sexMarkOrb.block())
@@ -142,25 +166,32 @@ class SexMarkOrbGroup(hitbox: Hitbox, var scoreRate: Double) :
         }
         AutoDoneInstantAction.addToBotAbstract {
             val bound = orbs.size
-            for (i in 0 until bound) {
+            for (i in 0 until bound)
+            {
                 this.evokeOrbAndNotFill(i)
             }
         }
     }
 
-    override fun onOrbEvoke(evokedOrb: AbstractOrb?) {
+    override fun onOrbEvoke(evokedOrb: AbstractOrb?)
+    {
     }
 
-    sealed class SexMarkType {
+    sealed class SexMarkType
+    {
         data object Inside : SexMarkType()
         data object OutSide : SexMarkType()
-        companion object {
-            fun values(): Array<SexMarkType> {
+        companion object
+        {
+            fun values(): Array<SexMarkType>
+            {
                 return arrayOf(Inside, OutSide)
             }
 
-            fun valueOf(value: String): SexMarkType {
-                return when (value) {
+            fun valueOf(value: String): SexMarkType
+            {
+                return when (value)
+                {
                     "Inside" -> Inside
                     "OutSide" -> OutSide
                     else -> throw IllegalArgumentException("No object superstitio.orbs.orbgroup.SexMarkOrbGroup.SexMarkType.$value")
@@ -169,17 +200,21 @@ class SexMarkOrbGroup(hitbox: Hitbox, var scoreRate: Double) :
         }
     }
 
-    companion object {
+    companion object
+    {
         const val SexMarkSetupOrbMax: Int = 5
-        fun makeSexMarkOrb(sexMarkType: SexMarkType): SexMarkOrb {
-            return when (sexMarkType) {
+        fun makeSexMarkOrb(sexMarkType: SexMarkType): SexMarkOrb
+        {
+            return when (sexMarkType)
+            {
                 SexMarkType.OutSide -> SexMarkOrb_Outside()
-                SexMarkType.Inside -> SexMarkOrb_Inside()
-                else -> SexMarkOrb_Inside()
+                SexMarkType.Inside  -> SexMarkOrb_Inside()
+                else                -> SexMarkOrb_Inside()
             }
         }
 
-        fun addToBot_GiveMarkToOrbGroup(sexName: String, sexMarkType: SexMarkType) {
+        fun addToBot_GiveMarkToOrbGroup(sexName: String, sexMarkType: SexMarkType)
+        {
             AbstractDungeon.actionManager.addToBottom(
                 InBattleDataManager.getSexMarkOrbGroup()?.let {
                     GiveSexMarkToOrbGroupInstantAction(it, makeSexMarkOrb(sexMarkType).setSexMarkName(sexName))

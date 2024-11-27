@@ -10,22 +10,27 @@ import superstitio.DataManager
 import superstitio.cards.maso.MasoCard
 import superstitio.delayHpLose.RemoveDelayHpLoseBlock
 
-class CutWrist : MasoCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET) {
-    init {
+class CutWrist : MasoCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET)
+{
+    init
+    {
         this.setupMagicNumber(MAGIC)
         this.setupBlock(BLOCK, UPGRADE_BLOCK, RemoveDelayHpLoseBlock())
         CardModifierManager.addModifier(this, RetainMod())
     }
 
-    override fun use(player: AbstractPlayer?, monster: AbstractMonster?) {
+    override fun use(player: AbstractPlayer?, monster: AbstractMonster?)
+    {
         addToBot(LoseHPAction(AbstractDungeon.player, AbstractDungeon.player, this.magicNumber))
         addToBot_gainBlock()
     }
 
-    override fun upgradeAuto() {
+    override fun upgradeAuto()
+    {
     }
 
-    companion object {
+    companion object
+    {
         val ID: String = DataManager.MakeTextID(CutWrist::class.java)
 
         val CARD_TYPE: CardType = CardType.SKILL

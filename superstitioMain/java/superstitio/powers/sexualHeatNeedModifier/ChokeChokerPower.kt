@@ -14,12 +14,15 @@ import superstitioapi.utils.setDescriptionArgs
 
 @NoNeedImg
 class ChokeChokerPower(owner: AbstractCreature, amount: Int) : AbstractSuperstitioPower(POWER_ID, owner, amount),
-    OnOrgasm_onOrgasm, SexualHeatNeedModifier {
-    init {
+    OnOrgasm_onOrgasm, SexualHeatNeedModifier
+{
+    init
+    {
         this.loadRegion("choke")
     }
 
-    override fun atStartOfTurnPostDraw() {
+    override fun atStartOfTurnPostDraw()
+    {
 //            AddPowers();
     }
 
@@ -31,7 +34,8 @@ class ChokeChokerPower(owner: AbstractCreature, amount: Int) : AbstractSuperstit
     //        public void AddPowers() {
     //            this.addToBot(new ApplyPowerAction(this.owner, this.owner, new InTurnSexualHeatNeededModifier(this.owner, amount)));
     //        }
-    override fun onOrgasm(SexualHeatPower: SexualHeat) {
+    override fun onOrgasm(SexualHeatPower: SexualHeat)
+    {
         this.flash()
         DamageActionMaker.maker(this.amount / ChokeRate, this.owner)
             .setSource(this.owner)
@@ -46,15 +50,18 @@ class ChokeChokerPower(owner: AbstractCreature, amount: Int) : AbstractSuperstit
 //            this.addToBot(new LoseHPAction(this.owner, null, this.amount));
     }
 
-    override fun updateDescriptionArgs() {
+    override fun updateDescriptionArgs()
+    {
         this.setDescriptionArgs(amount, amount / ChokeRate)
     }
 
-    override fun reduceSexualHeatNeeded(): Int {
+    override fun reduceSexualHeatNeeded(): Int
+    {
         return this.amount
     }
 
-    companion object {
+    companion object
+    {
         val POWER_ID: String = DataManager.MakeTextID(ChokeChokerPower::class.java)
         const val ChokeRate: Int = 2
     }

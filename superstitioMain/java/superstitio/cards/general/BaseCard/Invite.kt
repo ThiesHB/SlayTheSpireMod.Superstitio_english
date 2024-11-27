@@ -7,23 +7,28 @@ import superstitio.DataManager.SPTT_DATA.GeneralEnums
 import superstitio.cards.SuperstitioCard
 
 abstract class Invite(id: String) :
-    SuperstitioCard(id, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET, GeneralEnums.GENERAL_CARD, "base") {
-    init {
+    SuperstitioCard(id, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET, GeneralEnums.GENERAL_CARD, "base")
+{
+    init
+    {
         tags.add(CardTags.STARTER_DEFEND)
         this.setupBlock(BLOCK, UPGRADE_PLUS_BLOCK, makeNewBlockType())
     }
 
     protected abstract fun makeNewBlockType(): AbstractBlockModifier
 
-    override fun use(player: AbstractPlayer?, monster: AbstractMonster?) {
+    override fun use(player: AbstractPlayer?, monster: AbstractMonster?)
+    {
         addToBot_gainBlock()
         //        addToBot_reducePowerToPlayer(SexualDamage_ByEnemy.POWER_ID, this.block);
     }
 
-    override fun upgradeAuto() {
+    override fun upgradeAuto()
+    {
     }
 
-    companion object {
+    companion object
+    {
         val CARD_TYPE: CardType = CardType.SKILL
 
         val CARD_RARITY: CardRarity = CardRarity.BASIC

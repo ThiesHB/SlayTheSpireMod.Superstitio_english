@@ -10,21 +10,27 @@ import superstitioapi.hangUpCard.*
 
 
 class Fuck_Vaginal : GeneralCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET), FuckJob_Card,
-    Card_TriggerHangCardManually {
-    init {
+    Card_TriggerHangCardManually
+{
+    init
+    {
         FuckJob_Card.initFuckJobCard(this)
         this.setupDamage(DAMAGE, UPGRADE_DAMAGE)
         this.setupMagicNumber(MAGIC)
     }
 
-    override fun upgradeAuto() {
+    override fun upgradeAuto()
+    {
     }
 
-    override fun use(player: AbstractPlayer?, monster: AbstractMonster?) {
+    override fun use(player: AbstractPlayer?, monster: AbstractMonster?)
+    {
         addToBot_dealDamage(monster, SuperstitioApiSetup.DamageEffect.HeartMultiInOne)
-        for (i in 0 until this.magicNumber) {
+        for (i in 0 until this.magicNumber)
+        {
             HangUpCardGroup.forEachHangUpCard { orb: CardOrb ->
-                if (orb is ICardOrb_EachTime) {
+                if (orb is ICardOrb_EachTime)
+                {
                     orb.orbCounter++
                     orb.forceAcceptAction(this)
                 }
@@ -33,7 +39,8 @@ class Fuck_Vaginal : GeneralCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET),
         }
     }
 
-    override fun forceFilterCardOrbToHoveredMode(orb: CardOrb): Boolean {
+    override fun forceFilterCardOrbToHoveredMode(orb: CardOrb): Boolean
+    {
         if (orb is ICardOrb_EachTime) return true
         if (orb is ICardOrb_WaitTime && orb is CardOrb_CardTrigger) return (orb as CardOrb_CardTrigger).cardMatcher.test(
             this
@@ -41,16 +48,20 @@ class Fuck_Vaginal : GeneralCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET),
         return false
     }
 
-    override fun forceChangeOrbCounterShown(orb: CardOrb): Int {
-        if (orb is ICardOrb_WaitTime && orb is CardOrb_CardTrigger) {
-            if ((orb as CardOrb_CardTrigger).cardMatcher.test(this)) {
-                return orb.orbCounter.toInt { it-1 }
+    override fun forceChangeOrbCounterShown(orb: CardOrb): Int
+    {
+        if (orb is ICardOrb_WaitTime && orb is CardOrb_CardTrigger)
+        {
+            if ((orb as CardOrb_CardTrigger).cardMatcher.test(this))
+            {
+                return orb.orbCounter.toInt { it - 1 }
             }
         }
         return orb.orbCounter.toInt { it }
     }
 
-    companion object {
+    companion object
+    {
         val ID: String = DataManager.MakeTextID(Fuck_Vaginal::class.java)
 
         val CARD_TYPE: CardType = CardType.ATTACK

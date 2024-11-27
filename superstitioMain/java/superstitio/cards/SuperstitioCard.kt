@@ -53,7 +53,8 @@ abstract class SuperstitioCard(
 ) : CustomCard(
     id, getCardStringsWithSFWAndFlavor(id).getNAME(), CardOwnerPlayerManager.getImgPath(imgSubFolder, id), cost,
     getCardStringsWithSFWAndFlavor(id).getDESCRIPTION(), cardType, cardColor, cardRarity, cardTarget
-), UpdateDescriptionAdvanced {
+), UpdateDescriptionAdvanced
+{
 
     //调用父类的构造方法，传参为super(卡牌ID，卡牌名称，图片地址，能量花费，卡牌描述，卡牌类型，卡牌颜色，卡牌稀有度，卡牌目标)
     var cardStrings: CardStringsWillMakeFlavorSet = getCardStringsWithSFWAndFlavor(id)
@@ -63,7 +64,8 @@ abstract class SuperstitioCard(
 
     override var descriptionArgs: Array<out Any>? = null
 
-    init {
+    init
+    {
         Logger.debug("loadCard$id")
         val flavor = cardStrings.getFLAVOR()
         flavor.let { string: String? -> FlavorText.AbstractCardFlavorFields.flavor[this] = string }
@@ -73,28 +75,38 @@ abstract class SuperstitioCard(
         initializeDescription()
     }
 
-    override fun initializeDescription() {
-        try {
+    override fun initializeDescription()
+    {
+        try
+        {
             super.initializeDescription()
-        } catch (e: Exception) {
+        }
+        catch (e: Exception)
+        {
             Logger.error(e)
         }
     }
 
-    fun updateRawDescription() {
-        try {
+    fun updateRawDescription()
+    {
+        try
+        {
             this.rawDescription = getFormattedDescription()
-        } catch (e: Exception) {
+        }
+        catch (e: Exception)
+        {
             Logger.error(e)
             this.rawDescription = ""
         }
     }
 
-    fun upgradeCardsToPreview() {
+    fun upgradeCardsToPreview()
+    {
         if (this.cardsToPreview == null) return
         val nameUnUpgrade = cardsToPreview.name
         cardsToPreview.upgrade()
-        if (rawDescription.contains(nameUnUpgrade)) {
+        if (rawDescription.contains(nameUnUpgrade))
+        {
             this.rawDescription = rawDescription.replace(nameUnUpgrade, cardsToPreview.name)
         }
     }
@@ -104,83 +116,102 @@ abstract class SuperstitioCard(
     //    }
     abstract fun upgradeAuto()
 
-    open fun addToBot_gainCustomBlock(amount: Int, blockModifier: AbstractBlockModifier) {
+    open fun addToBot_gainCustomBlock(amount: Int, blockModifier: AbstractBlockModifier)
+    {
         this.addToBot(GainCustomBlockAction(BlockModContainer(this, blockModifier), AbstractDungeon.player, amount))
     }
 
-    open fun calculateCardDamageForSelfOrEnemyTargeting(): AbstractCreature? {
-        if (CustomTargeting.targetingMap[target] !is SelfOrEnemyTargeting) {
+    open fun calculateCardDamageForSelfOrEnemyTargeting(): AbstractCreature?
+    {
+        if (CustomTargeting.targetingMap[target] !is SelfOrEnemyTargeting)
+        {
             applyPowers()
             return null
         }
         val selfOrEnemyTargeting = CustomTargeting.targetingMap[target] as SelfOrEnemyTargeting
         updateSelfOrEnemyTargetingTargetHovered(AbstractDungeon.player, selfOrEnemyTargeting)
         val target = selfOrEnemyTargeting.hovered
-        if (target == null) {
+        if (target == null)
+        {
             applyPowers()
             return null
         }
 
-        if (target is AbstractMonster) {
+        if (target is AbstractMonster)
+        {
             super.calculateCardDamage(target)
             return target
         }
         this.applyPowersToBlock()
         val player = AbstractDungeon.player
         this.isDamageModified = false
-        if (!this.isMultiDamage) {
+        if (!this.isMultiDamage)
+        {
             calculateSingleDamage(player, target)
-        } else {
+        }
+        else
+        {
             calculateMultipleDamage(player)
         }
         //        selfOrEnemyTargeting.clearHovered();
         return target
     }
 
-    protected fun setCostToCostMap_ForTurn(amount: Int) {
-        if (InBattleDataManager.costMap.containsKey(this.uuid)) {
+    protected fun setCostToCostMap_ForTurn(amount: Int)
+    {
+        if (InBattleDataManager.costMap.containsKey(this.uuid))
+        {
             InBattleDataManager.costMap[uuid] = amount
         }
         this.setCostForTurn(amount)
     }
 
-    protected fun setCostToCostMap_ForBattle(amount: Int) {
-        if (InBattleDataManager.costMap.containsKey(this.uuid)) {
+    protected fun setCostToCostMap_ForBattle(amount: Int)
+    {
+        if (InBattleDataManager.costMap.containsKey(this.uuid))
+        {
             InBattleDataManager.costMap[uuid] = amount
         }
         this.updateCost(amount)
     }
 
-    fun addToBot_dealDamage(target: AbstractCreature?) {
+    fun addToBot_dealDamage(target: AbstractCreature?)
+    {
         DamageActionMaker.maker(this.damage, target!!).addToBot()
     }
 
-    fun addToBot_dealDamage(target: AbstractCreature?, effect: AttackEffect) {
+    fun addToBot_dealDamage(target: AbstractCreature?, effect: AttackEffect)
+    {
         DamageActionMaker.maker(this.damage, target!!).setEffect(effect).addToBot()
     }
 
-    fun addToBot_dealDamage(target: AbstractCreature?, damageAmount: Int, effect: AttackEffect) {
+    fun addToBot_dealDamage(target: AbstractCreature?, damageAmount: Int, effect: AttackEffect)
+    {
         DamageActionMaker.maker(damageAmount, target!!).setEffect(effect).addToBot()
     }
 
     fun addToBot_dealDamage(
         target: AbstractCreature?, damageAmount: Int, damageType: DamageType,
         effect: AttackEffect
-    ) {
+    )
+    {
         DamageActionMaker.maker(damageAmount, target!!).setDamageType(damageType).setEffect(effect).addToBot()
     }
 
     fun addToBot_dealDamage(
         target: AbstractCreature?, damageAmount: Int, damageType: DamageType,
         damageModifier: AbstractDamageModifier, effect: AttackEffect
-    ) {
+    )
+    {
         DamageActionMaker.maker(damageAmount, target!!).setDamageModifier(this, damageModifier)
             .setDamageType(damageType)
             .setEffect(effect).addToBot()
     }
 
-    fun addToBot_dealDamageToAllEnemies(effect: AttackEffect) {
-        if (!this.isMultiDamage) {
+    fun addToBot_dealDamageToAllEnemies(effect: AttackEffect)
+    {
+        if (!this.isMultiDamage)
+        {
             Logger.warning("错误，未设置isMultiDamage，可能会出错，所以群体攻击自动禁用，错误卡片：" + this.name)
             return
         }
@@ -189,8 +220,10 @@ abstract class SuperstitioCard(
             .addToBot()
     }
 
-    fun addToBot_dealDamageToAllEnemies(effect: AttackEffect, vararg damageModifiers: AbstractDamageModifier) {
-        if (!this.isMultiDamage) {
+    fun addToBot_dealDamageToAllEnemies(effect: AttackEffect, vararg damageModifiers: AbstractDamageModifier)
+    {
+        if (!this.isMultiDamage)
+        {
             Logger.warning("错误，未设置isMultiDamage，可能会出错，所以群体攻击自动禁用，错误卡片：" + this.name)
             return
         }
@@ -213,39 +246,48 @@ abstract class SuperstitioCard(
     //                .addToBot();
     //    }
     @JvmOverloads
-    fun addToBot_gainBlock(amount: Int = this.block) {
+    fun addToBot_gainBlock(amount: Int = this.block)
+    {
         addToBot_gainBlock(this, amount)
     }
 
-    fun addToBot_gainCustomBlock(blockModifier: AbstractBlockModifier) {
+    fun addToBot_gainCustomBlock(blockModifier: AbstractBlockModifier)
+    {
         this.addToBot_gainCustomBlock(this.block, blockModifier)
     }
 
-    fun addToBot_drawCards(amount: Int) {
+    fun addToBot_drawCards(amount: Int)
+    {
         this.addToBot(DrawCardAction(amount))
     }
 
-    fun addToBot_drawCards() {
+    fun addToBot_drawCards()
+    {
         this.addToBot(DrawCardAction(1))
     }
 
-    fun addToBot_applyPower(power: AbstractPower) {
+    fun addToBot_applyPower(power: AbstractPower)
+    {
         ActionUtility.addToBot_applyPower(power)
     }
 
-    fun addToBot_reducePower(powerID: String, amount: Int) {
+    fun addToBot_reducePower(powerID: String, amount: Int)
+    {
         ActionUtility.addToBot_reducePower(powerID, amount, AbstractDungeon.player, AbstractDungeon.player)
     }
 
-    fun addToBot_removeSpecificPower(power: AbstractPower) {
+    fun addToBot_removeSpecificPower(power: AbstractPower)
+    {
         ActionUtility.addToBot_removeSpecificPower(power, AbstractDungeon.player)
     }
 
-    protected fun setupDamage(amount: Int, vararg damageModifiers: AbstractDamageModifier) {
+    protected fun setupDamage(amount: Int, vararg damageModifiers: AbstractDamageModifier)
+    {
         this.setupDamage(amount, 0, *damageModifiers)
     }
 
-    protected fun setupDamage(amount: Int, amountOfAutoUpgrade: Int, vararg damageModifiers: AbstractDamageModifier) {
+    protected fun setupDamage(amount: Int, amountOfAutoUpgrade: Int, vararg damageModifiers: AbstractDamageModifier)
+    {
         this.baseDamage = amount
         this.damage = amount
         this.damageAutoUpgrade = amountOfAutoUpgrade
@@ -253,26 +295,31 @@ abstract class SuperstitioCard(
         DamageModifierManager.addModifiers(this, Arrays.stream(damageModifiers).collect(Collectors.toList()))
     }
 
-    protected fun setupBlock(amount: Int, vararg blockModifiers: AbstractBlockModifier) {
+    protected fun setupBlock(amount: Int, vararg blockModifiers: AbstractBlockModifier)
+    {
         setupBlock(amount, 0, *blockModifiers)
     }
 
-    protected fun setupBlock(amount: Int, amountOfAutoUpgrade: Int, vararg blockModifiers: AbstractBlockModifier) {
+    protected fun setupBlock(amount: Int, amountOfAutoUpgrade: Int, vararg blockModifiers: AbstractBlockModifier)
+    {
         setupBlock(this, amount, amountOfAutoUpgrade, *blockModifiers)
     }
 
-    protected fun setupMagicNumber(amount: Int, amountOfAutoUpgrade: Int = 0) {
+    protected fun setupMagicNumber(amount: Int, amountOfAutoUpgrade: Int = 0)
+    {
         this.baseMagicNumber = amount
         this.magicNumber = amount
         this.magicAutoUpgrade = amountOfAutoUpgrade
     }
 
-    protected fun calculateMultipleDamage(player: AbstractPlayer) {
+    protected fun calculateMultipleDamage(player: AbstractPlayer)
+    {
         val monsters = AbstractDungeon.getCurrRoom().monsters.monsters
         val tmpDamages = FloatArray(monsters.size)
         Arrays.fill(tmpDamages, baseDamage.toFloat())
         this.multiDamage = IntArray(tmpDamages.size)
-        for (i in tmpDamages.indices) {
+        for (i in tmpDamages.indices)
+        {
             var tmpDamage = tmpDamages[i]
             if (monsters[i].isDying || monsters[i].isEscaping) continue
             tmpDamage = getTmpDamage(player, tmpDamage, monsters[i])
@@ -284,40 +331,51 @@ abstract class SuperstitioCard(
     //    protected final void addToBot_reducePower(final AbstractPower power) {
     //        ActionUtility.addToBot_reducePower(power, AbstractDungeon.player);
     //    }
-    protected fun getTmpDamage(player: AbstractPlayer, baseDamage: Float, creature: AbstractCreature): Float {
+    protected fun getTmpDamage(player: AbstractPlayer, baseDamage: Float, creature: AbstractCreature): Float
+    {
         var tempDamage = baseDamage
-        for (r2 in player.relics) {
+        for (r2 in player.relics)
+        {
             tempDamage = r2.atDamageModify(tempDamage, this)
-            if (this.baseDamage != tempDamage.toInt()) {
+            if (this.baseDamage != tempDamage.toInt())
+            {
                 this.isDamageModified = true
             }
         }
-        for (p2 in player.powers) {
+        for (p2 in player.powers)
+        {
             tempDamage = p2.atDamageGive(tempDamage, this.damageTypeForTurn, this)
         }
         tempDamage = player.stance.atDamageGive(tempDamage, this.damageTypeForTurn, this)
-        if (this.baseDamage != tempDamage.toInt()) {
+        if (this.baseDamage != tempDamage.toInt())
+        {
             this.isDamageModified = true
         }
-        for (p2 in creature.powers) {
+        for (p2 in creature.powers)
+        {
             tempDamage = p2.atDamageReceive(tempDamage, this.damageTypeForTurn, this)
         }
-        for (p2 in player.powers) {
+        for (p2 in player.powers)
+        {
             tempDamage = p2.atDamageFinalGive(tempDamage, this.damageTypeForTurn, this)
         }
-        for (p2 in creature.powers) {
+        for (p2 in creature.powers)
+        {
             tempDamage = p2.atDamageFinalReceive(tempDamage, this.damageTypeForTurn, this)
         }
-        if (tempDamage < 0.0f) {
+        if (tempDamage < 0.0f)
+        {
             tempDamage = 0.0f
         }
-        if (this.baseDamage != MathUtils.floor(tempDamage)) {
+        if (this.baseDamage != MathUtils.floor(tempDamage))
+        {
             this.isDamageModified = true
         }
         return tempDamage
     }
 
-    protected fun calculateSingleDamage(player: AbstractPlayer, creature: AbstractCreature) {
+    protected fun calculateSingleDamage(player: AbstractPlayer, creature: AbstractCreature)
+    {
         var tmpDamage = baseDamage.toFloat()
         tmpDamage = getTmpDamage(player, tmpDamage, creature)
         this.damage = MathUtils.floor(tmpDamage)
@@ -326,10 +384,12 @@ abstract class SuperstitioCard(
     /**
      * 使用后别忘了updateRawDescription
      */
-    override fun updateDescriptionArgs() {
+    override fun updateDescriptionArgs()
+    {
     }
 
-    override fun getDescriptionStrings(): String {
+    override fun getDescriptionStrings(): String
+    {
         if (this.upgraded && cardStrings.getUPGRADE_DESCRIPTION()
                 .isNotEmpty()
         )
@@ -338,8 +398,10 @@ abstract class SuperstitioCard(
     }
 
 
-    override fun upgrade() {
-        if (!this.upgraded) {
+    override fun upgrade()
+    {
+        if (!this.upgraded)
+        {
             this.upgradeName()
             if (this.blockAutoUpgrade != 0) this.upgradeBlock(this.blockAutoUpgrade)
             if (this.damageAutoUpgrade != 0) this.upgradeDamage(this.damageAutoUpgrade)
@@ -352,13 +414,15 @@ abstract class SuperstitioCard(
 
     abstract override fun use(player: AbstractPlayer?, monster: AbstractMonster?)
 
-    override fun hover() {
+    override fun hover()
+    {
         val temp = this.drawScale
         super.hover()
         this.drawScale = temp
     }
 
-    override fun getCustomTooltips(): ArrayList<TooltipInfo> {
+    override fun getCustomTooltips(): ArrayList<TooltipInfo>
+    {
         val list: ArrayList<TooltipInfo> = ArrayList()
         cardStrings.needAddKeywords?.forEach { superstitioKeyWord ->
             val tooltipInfo = TooltipInfo(superstitioKeyWord.findPROPER_NAME(), superstitioKeyWord.findDESCRIPTION())
@@ -367,13 +431,16 @@ abstract class SuperstitioCard(
         return list
     }
 
-    override fun getCustomTooltipsTop(): ArrayList<TooltipInfo> {
+    override fun getCustomTooltipsTop(): ArrayList<TooltipInfo>
+    {
         return ArrayList()
     }
 
-    companion object {
+    companion object
+    {
         private val DESC_LINE_WIDTH = 418.0f * Settings.scale
-        fun getCardStringsWithSFWAndFlavor(cardId: String): CardStringsWillMakeFlavorSet {
+        fun getCardStringsWithSFWAndFlavor(cardId: String): CardStringsWillMakeFlavorSet
+        {
             val cardStringsSet = StringSetUtility.getCustomStringsWithSFW(
                 cardId,
                 DataManager.cards,
@@ -391,7 +458,8 @@ abstract class SuperstitioCard(
             amount: Int,
             amountOfAutoUpgrade: Int,
             vararg blockModifiers: AbstractBlockModifier
-        ) {
+        )
+        {
             card.baseBlock = amount
             card.block = amount
             card.blockAutoUpgrade = amountOfAutoUpgrade
@@ -408,12 +476,14 @@ abstract class SuperstitioCard(
             ) GainBlockTypeFields.ifReduceDelayHpLose[card] = true
         }
 
-        fun addToBot_gainBlock(card: SuperstitioCard?, amount: Int) {
+        fun addToBot_gainBlock(card: SuperstitioCard?, amount: Int)
+        {
             if (GainBlockTypeFields.ifReduceDelayHpLose[card]!! && GainBlockTypeFields.ifDelayReduceDelayHpLose[card]!!) Logger.warning(
                 "Do not use 'addToBot_gainBlock(int amount)' when setup this two block type."
             )
 
-            if (GainBlockTypeFields.ifReduceDelayHpLose[card]!!) {
+            if (GainBlockTypeFields.ifReduceDelayHpLose[card]!!)
+            {
                 DelayHpLosePower.addToBot_removePower(amount, AbstractDungeon.player, true)
                 AbstractDungeon.effectList.add(
                     FlashAtkImgEffect(
@@ -423,7 +493,8 @@ abstract class SuperstitioCard(
                 )
                 return
             }
-            if (GainBlockTypeFields.ifDelayReduceDelayHpLose[card]!!) {
+            if (GainBlockTypeFields.ifDelayReduceDelayHpLose[card]!!)
+            {
                 ActionUtility.addToBot_applyPower(DelayRemoveDelayHpLosePower(AbstractDungeon.player, amount))
                 AbstractDungeon.effectList.add(
                     FlashAtkImgEffect(
@@ -436,50 +507,66 @@ abstract class SuperstitioCard(
             AbstractDungeon.actionManager.addToBottom(GainBlockAction(AbstractDungeon.player, amount))
         }
 
-        fun updateSelfOrEnemyTargetingTargetHovered(player: AbstractPlayer, targeting: SelfOrEnemyTargeting) {
-            if (player.isInKeyboardMode) {
-                if (!InputActionSet.releaseCard.isJustPressed && !CInputActionSet.cancel.isJustPressed) {
+        fun updateSelfOrEnemyTargetingTargetHovered(player: AbstractPlayer, targeting: SelfOrEnemyTargeting)
+        {
+            if (player.isInKeyboardMode)
+            {
+                if (!InputActionSet.releaseCard.isJustPressed && !CInputActionSet.cancel.isJustPressed)
+                {
                     targeting.updateKeyboardTarget()
-                } else {
+                }
+                else
+                {
                     val cardFromHotkey = player.hoveredCard
                     player.inSingleTargetMode = false
                     player.toHover = cardFromHotkey
-                    if (Settings.isControllerMode && AbstractDungeon.actionManager.turnHasEnded) {
+                    if (Settings.isControllerMode && AbstractDungeon.actionManager.turnHasEnded)
+                    {
                         player.toHover = null
                     }
 
-                    if (cardFromHotkey != null && !player.inspectMode) {
+                    if (cardFromHotkey != null && !player.inspectMode)
+                    {
                         Gdx.input.setCursorPosition(
                             cardFromHotkey.hb.cX.toInt(),
                             (Settings.HEIGHT.toFloat() - AbstractPlayer.HOVER_CARD_Y_POSITION).toInt()
                         )
                     }
                 }
-            } else {
+            }
+            else
+            {
                 targeting.updateHovered()
             }
         }
 
         @JvmStatic
-        protected fun CardTypeToString(t: CardType?): String {
-            val type = when (t) {
-                CardType.ATTACK -> {
+        protected fun CardTypeToString(t: CardType?): String
+        {
+            val type = when (t)
+            {
+                CardType.ATTACK ->
+                {
                     "attack"
                 }
 
-                CardType.POWER -> {
+                CardType.POWER  ->
+                {
                     "power"
                 }
 
-                CardType.CURSE -> {
+                CardType.CURSE  ->
+                {
                     "curse"
                 }
 
-                CardType.SKILL -> {
+                CardType.SKILL  ->
+                {
                     "skill"
                 }
 
-                else -> {
+                else            ->
+                {
                     "special"
                 }
             }
@@ -487,7 +574,8 @@ abstract class SuperstitioCard(
         }
 
         @JvmStatic
-        protected fun sumAllDelayHpLosePower(): Int {
+        protected fun sumAllDelayHpLosePower(): Int
+        {
             if (ActionUtility.isNotInBattle) return 0
             return AbstractDungeon.player.powers
                 .filterIsInstance<DelayHpLosePower>()

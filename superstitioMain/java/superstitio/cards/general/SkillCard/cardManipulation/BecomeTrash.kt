@@ -9,13 +9,16 @@ import superstitio.DataManager
 import superstitio.cards.general.GeneralCard
 import superstitioapi.actions.ChoseCardFromGridSelectWindowAction
 
-class BecomeTrash : GeneralCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET) {
-    init {
+class BecomeTrash : GeneralCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET)
+{
+    init
+    {
         this.setupMagicNumber(MAGIC, UPGRADE_MAGIC)
         this.exhaust = true
     }
 
-    override fun use(player: AbstractPlayer?, monster: AbstractMonster?) {
+    override fun use(player: AbstractPlayer?, monster: AbstractMonster?)
+    {
         ChoseCardFromGridSelectWindowAction(
             AbstractDungeon.player.drawPile
         ) { card: AbstractCard? -> addToBot(ExhaustSpecificCardAction(card, AbstractDungeon.player.drawPile)) }
@@ -25,10 +28,12 @@ class BecomeTrash : GeneralCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET) {
             .addToBot()
     }
 
-    override fun upgradeAuto() {
+    override fun upgradeAuto()
+    {
     }
 
-    companion object {
+    companion object
+    {
         val ID: String = DataManager.MakeTextID(BecomeTrash::class.java)
 
         val CARD_TYPE: CardType = CardType.SKILL

@@ -16,30 +16,37 @@ import superstitioapi.relicToBlight.InfoBlight.BecomeInfoBlight
 import superstitioapi.utils.ActionUtility
 
 @Seen
-class DevaBody_Masochism : SuperstitioRelic(ID, RELIC_TIER, LANDING_SOUND), BecomeInfoBlight {
-    override fun updateDescriptionArgs() {
+class DevaBody_Masochism : SuperstitioRelic(ID, RELIC_TIER, LANDING_SOUND), BecomeInfoBlight
+{
+    override fun updateDescriptionArgs()
+    {
     }
 
-    override fun atBattleStart() {
+    override fun atBattleStart()
+    {
         this.flash()
         ActionUtility.addToBot(RelicAboveCreatureAction(AbstractDungeon.player, this))
         SetPlayerImmunity()
     }
 
-    override fun obtain() {
+    override fun obtain()
+    {
         InfoBlight.obtain(this)
     }
 
-    override fun instantObtain(p: AbstractPlayer, slot: Int, callOnEquip: Boolean) {
+    override fun instantObtain(p: AbstractPlayer, slot: Int, callOnEquip: Boolean)
+    {
         InfoBlight.instanceObtain(this, callOnEquip)
     }
 
-    override fun instantObtain() {
+    override fun instantObtain()
+    {
         InfoBlight.instanceObtain(this, true)
     }
 
 
-    companion object {
+    companion object
+    {
         val ID: String = DataManager.MakeTextID(DevaBody_Masochism::class.java)
 
         // 遗物类型
@@ -48,11 +55,12 @@ class DevaBody_Masochism : SuperstitioRelic(ID, RELIC_TIER, LANDING_SOUND), Beco
         // 点击音效
         private val LANDING_SOUND = LandingSound.FLAT
 
-        fun SetPlayerImmunity() {
+        fun SetPlayerImmunity()
+        {
             IsImmunityFields.checkShouldImmunity[AbstractDungeon.player] =
-                TriPredicate {
-                    player: AbstractPlayer?, damageInfo: DamageInfo?, damageAmount: Int ->
-                    if (damageInfo!!.type == CanOnlyDamageDamageType.UnBlockAbleDamageType) {
+                TriPredicate { player: AbstractPlayer?, damageInfo: DamageInfo?, damageAmount: Int ->
+                    if (damageInfo!!.type == CanOnlyDamageDamageType.UnBlockAbleDamageType)
+                    {
                         return@TriPredicate false
                     }
                     ActionUtility.addToTop_applyPower(

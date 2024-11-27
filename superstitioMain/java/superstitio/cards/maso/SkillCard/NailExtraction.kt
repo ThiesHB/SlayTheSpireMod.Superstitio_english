@@ -17,32 +17,39 @@ import superstitioapi.utils.setDescriptionArgs
 
 //拔指甲/趾甲
 class NailExtraction @JvmOverloads constructor(isPreview: Boolean = false) :
-    MasoCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET) {
-    init {
+    MasoCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET)
+{
+    init
+    {
         if (!isPreview) this.cardsToPreview = NailExtraction(true)
         this.setupMagicNumber(MAGIC)
         CardModifierManager.addModifier(this, ExhaustMod())
         CardModifierManager.addModifier(this, EtherealMod())
     }
 
-    override fun applyPowers() {
+    override fun applyPowers()
+    {
         super.applyPowers()
         initializeDescription()
     }
 
-    override fun updateDescriptionArgs() {
+    override fun updateDescriptionArgs()
+    {
         setDescriptionArgs(DAMAGE_TO_SELF, DRAW_CARD, COPY_SELF, MAX_IN_TURN)
     }
 
-    override fun initializeDescription() {
-        if (!ActionUtility.isNotInBattle) {
+    override fun initializeDescription()
+    {
+        if (!ActionUtility.isNotInBattle)
+        {
             this.baseMagicNumber = InBattleDataManager.NailExtractionPlayedInTurn
             this.magicNumber = this.baseMagicNumber
         }
         super.initializeDescription()
     }
 
-    override fun use(player: AbstractPlayer?, monster: AbstractMonster?) {
+    override fun use(player: AbstractPlayer?, monster: AbstractMonster?)
+    {
         val damageActionMaker = DamageActionMaker.maker(DAMAGE_TO_SELF, AbstractDungeon.player)
             .setEffect(AttackEffect.NONE)
         if (!upgraded) damageActionMaker.setDamageType(DamageType.HP_LOSS).addToBot()
@@ -57,16 +64,19 @@ class NailExtraction @JvmOverloads constructor(isPreview: Boolean = false) :
         InBattleDataManager.NailExtractionPlayedInTurn++
     }
 
-    override fun canUse(p: AbstractPlayer?, m: AbstractMonster?): Boolean {
+    override fun canUse(p: AbstractPlayer?, m: AbstractMonster?): Boolean
+    {
         if (InBattleDataManager.NailExtractionPlayedInTurn >= 20) return false
         return super.canUse(p, m)
     }
 
-    override fun upgradeAuto() {
+    override fun upgradeAuto()
+    {
         upgradeCardsToPreview()
     }
 
-    companion object {
+    companion object
+    {
         val ID: String = DataManager.MakeTextID(NailExtraction::class.java)
 
         val CARD_TYPE: CardType = CardType.SKILL

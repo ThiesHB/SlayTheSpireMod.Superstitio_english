@@ -6,29 +6,33 @@ import com.megacrit.cardcrawl.characters.AbstractPlayer
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon
 import com.megacrit.cardcrawl.monsters.AbstractMonster
 import superstitio.DataManager
-import superstitio.cards.SuperstitioCard
 import superstitio.cards.general.GeneralCard
 import superstitioapi.SuperstitioApiSetup
 import superstitioapi.actions.AutoDoneInstantAction
 
-class EroSion : GeneralCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET) {
-    init {
+class EroSion : GeneralCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET)
+{
+    init
+    {
         this.setupDamage(DAMAGE)
         this.setupMagicNumber(MAGIC)
     }
 
-    private fun updateDamage() {
+    private fun updateDamage()
+    {
         val damageUp = sumAllDelayHpLosePower()
         //        if (damageUp >= 1)
 //            this.isDamageModified = true;
         this.baseDamage = (originDamage + damageUp).toInt()
     }
 
-    override fun upgradeAuto() {
+    override fun upgradeAuto()
+    {
         upgradeBaseCost(COST_UPGRADED_NEW)
     }
 
-    override fun use(player: AbstractPlayer?, monster: AbstractMonster?) {
+    override fun use(player: AbstractPlayer?, monster: AbstractMonster?)
+    {
         addToBot(LoseHPAction(AbstractDungeon.player, AbstractDungeon.player, this.magicNumber))
         val self: AbstractCard = this
         AutoDoneInstantAction.addToBotAbstract {
@@ -37,22 +41,26 @@ class EroSion : GeneralCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET) {
         }
     }
 
-    override fun applyPowers() {
+    override fun applyPowers()
+    {
         super.applyPowers()
         updateDamage()
     }
 
-    override fun onMoveToDiscard() {
+    override fun onMoveToDiscard()
+    {
         this.initializeDescription()
     }
 
-    override fun calculateCardDamage(monster: AbstractMonster?) {
+    override fun calculateCardDamage(monster: AbstractMonster?)
+    {
         updateDamage()
         super.calculateCardDamage(monster)
         this.initializeDescription()
     }
 
-    companion object {
+    companion object
+    {
         val ID: String = DataManager.MakeTextID(EroSion::class.java)
 
         val CARD_TYPE: CardType = CardType.ATTACK

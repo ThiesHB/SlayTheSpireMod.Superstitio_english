@@ -11,27 +11,34 @@ import superstitio.DataManager
 import superstitio.DataManager.CanOnlyDamageDamageType
 import superstitio.cardModifier.modifiers.AbstractLupaDamage
 
-class UnBlockAbleHpLoseLikeDamage : AbstractLupaDamage(ID) {
-    override fun ignoresBlock(target: AbstractCreature): Boolean {
+class UnBlockAbleHpLoseLikeDamage : AbstractLupaDamage(ID)
+{
+    override fun ignoresBlock(target: AbstractCreature): Boolean
+    {
         return true
     }
 
-    override fun atDamageGive(damage: Float, type: DamageType, target: AbstractCreature, card: AbstractCard): Float {
+    override fun atDamageGive(damage: Float, type: DamageType, target: AbstractCreature, card: AbstractCard): Float
+    {
         return super.atDamageGive(damage, CanOnlyDamageDamageType.NoTriggerLupaAndMasoRelicHpLose, target, card)
     }
 
-    override fun ignoresThorns(): Boolean {
+    override fun ignoresThorns(): Boolean
+    {
         return true
     }
 
-    override fun makeCopy(): AbstractDamageModifier {
+    override fun makeCopy(): AbstractDamageModifier
+    {
         return UnBlockAbleHpLoseLikeDamage()
     }
 
-    companion object {
+    companion object
+    {
         val ID: String = DataManager.MakeTextID(UnBlockAbleHpLoseLikeDamage::class.java)
 
-        fun damageInfo(instigator: Any?, amount: Int): DamageInfo {
+        fun damageInfo(instigator: Any?, amount: Int): DamageInfo
+        {
             return BindingHelper.makeInfo(
                 DamageModContainer(instigator, UnBlockAbleHpLoseLikeDamage()), null, amount,
                 CanOnlyDamageDamageType.NoTriggerLupaAndMasoRelicHpLose

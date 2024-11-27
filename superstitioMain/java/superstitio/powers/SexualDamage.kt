@@ -19,27 +19,33 @@ import superstitioapi.utils.setDescriptionArgs
 class SexualDamage //        ReflectionHacks.setPrivate(this, "greenColor", Color.PINK.cpy());
     (owner: AbstractCreature, amount: Int, protected val giver: AbstractCreature) :
     AbstractSuperstitioPower(POWER_ID, owner, amount), HealthBarRenderPower, OnPostApplyThisPower<SexualDamage>,
-    AtEndOfPlayerTurnPreCardSubscriber {
-    override fun updateDescriptionArgs() {
+    AtEndOfPlayerTurnPreCardSubscriber
+{
+    override fun updateDescriptionArgs()
+    {
         setDescriptionArgs(this.amount)
     }
 
-    override fun getHealthBarAmount(): Int {
+    override fun getHealthBarAmount(): Int
+    {
         return this.amount
     }
 
-    override fun getColor(): Color {
+    override fun getColor(): Color
+    {
         return BarColor
     }
 
-    override fun renderAmount(sb: SpriteBatch, x: Float, y: Float, c: Color) {
+    override fun renderAmount(sb: SpriteBatch, x: Float, y: Float, c: Color)
+    {
         val temp = this.fontScale
         this.fontScale *= 1.5f
         super.renderAmount(sb, x, y, c)
         this.fontScale = temp
     }
 
-    override fun receiveAtEndOfPlayerTurnPreCard() {
+    override fun receiveAtEndOfPlayerTurnPreCard()
+    {
 //        this.owner.damage(BindingHelper.makeInfo(new DamageModContainer(this, new UnBlockAbleDamage()), giver, amount, DamageType.HP_LOSS));
         this.flash()
         DamageEnemiesAction.builder(this.amount, this.owner)
@@ -52,18 +58,21 @@ class SexualDamage //        ReflectionHacks.setPrivate(this, "greenColor", Colo
         addToBot_removeSpecificPower(this)
     }
 
-    override fun InitializePostApplyThisPower(addedPower: SexualDamage) {
+    override fun InitializePostApplyThisPower(addedPower: SexualDamage)
+    {
         if (InBattleDataManager.subscribeManageGroups.stream()
                 .anyMatch { iSubscriber: ISubscriber? -> iSubscriber is SexualDamage && iSubscriber.owner === this.owner }
         ) return
         InBattleDataManager.Subscribe(this)
     }
 
-    override fun onRemove() {
+    override fun onRemove()
+    {
         InBattleDataManager.UnSubscribe(this)
     }
 
-    companion object {
+    companion object
+    {
         val POWER_ID: String = DataManager.MakeTextID(SexualDamage::class.java)
         private val BarColor: Color = Color.PURPLE.cpy()
     }

@@ -17,7 +17,8 @@ import superstitioapi.pet.animationSize.AnimationSize
 abstract class Minion protected constructor(petCore: AbstractCreature, drawScale: Float) : CustomMonster(
     petCore.name, petCore.id, petCore.maxHealth,
     petCore.hb_x, petCore.hb_y, petCore.hb_w / drawScale, petCore.hb_h / drawScale, null, 0f, 0f, true
-) {
+)
+{
     protected val drawScale: Float
     val petCore: AbstractCreature
     protected var petCoreHitbox: Hitbox? = null
@@ -25,14 +26,18 @@ abstract class Minion protected constructor(petCore: AbstractCreature, drawScale
     private var oldMY = 0f
     private var simpleAnim = 0.0f
 
-    init {
+    init
+    {
         this.animX = 0.0f
         this.animY = 0.0f
         this.drawScale = drawScale
         this.petCore = petCore
-        if (ReflectionHacks.getPrivate<Any?>(petCore, AbstractCreature::class.java, "atlas") != null) try {
+        if (ReflectionHacks.getPrivate<Any?>(petCore, AbstractCreature::class.java, "atlas") != null) try
+        {
             AnimationSize.reloadAnimation(petCore, drawScale)
-        } catch (e: Exception) {
+        }
+        catch (e: Exception)
+        {
             this.hb_w *= drawScale
             this.hb_h *= drawScale
         }
@@ -57,7 +62,8 @@ abstract class Minion protected constructor(petCore: AbstractCreature, drawScale
     open val isHovered: Boolean
         get() = isCreatureHovered(this) || isCreatureHovered(this.petCore)
 
-    open fun updateHitBox() {
+    open fun updateHitBox()
+    {
         petCore.hb.update()
         petCore.healthHb.update()
     }
@@ -66,20 +72,24 @@ abstract class Minion protected constructor(petCore: AbstractCreature, drawScale
 
     protected abstract fun updatePetCore()
 
-    protected fun Drag_Press() {
+    protected fun Drag_Press()
+    {
         this.oldMX = InputHelper.mX.toFloat()
         this.oldMY = InputHelper.mY.toFloat()
     }
 
-    protected fun Drag_Release() {
+    protected fun Drag_Release()
+    {
         this.refreshHitboxLocation()
         ReflectionHacks.privateMethod(AbstractCreature::class.java, "refreshHitboxLocation").invoke<Any>(petCore)
         this.oldMX = 0.0f
         this.oldMY = 0.0f
     }
 
-    protected fun Drag_Hold() {
-        if (this.oldMX != 0.0f && this.oldMY != 0.0f) {
+    protected fun Drag_Hold()
+    {
+        if (this.oldMX != 0.0f && this.oldMY != 0.0f)
+        {
             val xDiff = InputHelper.mX - this.oldMX
             val yDiff = InputHelper.mY - this.oldMY
             this.drawX += xDiff
@@ -91,7 +101,8 @@ abstract class Minion protected constructor(petCore: AbstractCreature, drawScale
         this.oldMY = InputHelper.mY.toFloat()
     }
 
-    private fun refreshHitBox() {
+    private fun refreshHitBox()
+    {
         petCore.hb_x = this.hb_x
         petCore.hb_y = this.hb_y
         petCore.hb = Hitbox(this.hb_w, this.hb_h)
@@ -101,7 +112,8 @@ abstract class Minion protected constructor(petCore: AbstractCreature, drawScale
         this.petCoreHitbox = petCore.hb
     }
 
-    private fun drawImg(sb: SpriteBatch) {
+    private fun drawImg(sb: SpriteBatch)
+    {
         simpleAnim += Gdx.graphics.deltaTime
         if (simpleAnim >= 1.0f) simpleAnim = 0f
         val scaleX = 1.0f
@@ -121,7 +133,8 @@ abstract class Minion protected constructor(petCore: AbstractCreature, drawScale
 
     abstract override fun createIntent()
 
-    override fun init() {
+    override fun init()
+    {
         petCore.drawX = drawX
         petCore.drawY = drawY
         refreshHitBox()
@@ -131,24 +144,29 @@ abstract class Minion protected constructor(petCore: AbstractCreature, drawScale
         )
     }
 
-    override fun showHealthBar() {
+    override fun showHealthBar()
+    {
         petCore.showHealthBar()
     }
 
-    override fun damage(info: DamageInfo) {
+    override fun damage(info: DamageInfo)
+    {
         super.damage(info)
         petCore.damage(info)
     }
 
-    override fun render(sb: SpriteBatch) {
+    override fun render(sb: SpriteBatch)
+    {
         if (this.img != null) petCore.tint.color.a = 0f
         petCore.render(sb)
         if (this.isDead || this.escaped) return
-        if (this.atlas != null) {
+        if (this.atlas != null)
+        {
             return
         }
         sb.color = tint.color
-        if (this.img != null) {
+        if (this.img != null)
+        {
             drawImg(sb)
         }
         //        if (this == AbstractDungeon.getCurrRoom().monsters.hoveredMonster) {
@@ -163,17 +181,24 @@ abstract class Minion protected constructor(petCore: AbstractCreature, drawScale
 
     abstract override fun applyPowers()
 
-    override fun update() {
+    override fun update()
+    {
         if (petCore.hb !== petCoreHitbox) refreshHitBox()
         super.update()
         updatePetCore()
 
-        if (!AbstractDungeon.player.isDraggingCard && AbstractDungeon.player.hoveredCard == null && isHovered) {
-            if (InputHelper.justClickedLeft) {
+        if (!AbstractDungeon.player.isDraggingCard && AbstractDungeon.player.hoveredCard == null && isHovered)
+        {
+            if (InputHelper.justClickedLeft)
+            {
                 this.Drag_Press()
-            } else if (InputHelper.isMouseDown) {
+            }
+            else if (InputHelper.isMouseDown)
+            {
                 this.Drag_Hold()
-            } else if (InputHelper.justReleasedClickLeft) {
+            }
+            else if (InputHelper.justReleasedClickLeft)
+            {
                 this.Drag_Release()
             }
         }
@@ -183,7 +208,8 @@ abstract class Minion protected constructor(petCore: AbstractCreature, drawScale
 
     abstract override fun takeTurn()
 
-    override fun rollMove() {
+    override fun rollMove()
+    {
         this.getMove(AbstractDungeon.aiRng.random(99))
     }
 
@@ -195,10 +221,12 @@ abstract class Minion protected constructor(petCore: AbstractCreature, drawScale
 
     abstract override fun getMove(i: Int)
 
-    companion object {
+    companion object
+    {
         const val HEALTH_DIV: Int = 10
         const val DEFAULT_DRAW_SCALE: Float = 3f
-        fun isCreatureHovered(creature: AbstractCreature): Boolean {
+        fun isCreatureHovered(creature: AbstractCreature): Boolean
+        {
             return creature.hb.hovered || creature.healthHb.hovered
         }
     }

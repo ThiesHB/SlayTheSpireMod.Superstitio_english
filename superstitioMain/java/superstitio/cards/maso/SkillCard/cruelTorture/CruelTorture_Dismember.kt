@@ -15,35 +15,42 @@ import superstitioapi.hangUpCard.Card_TriggerHangCardManually
 import superstitioapi.hangUpCard.HangUpCardGroup
 
 //凌迟
-class CruelTorture_Dismember : MasoCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET), Card_TriggerHangCardManually {
-    init {
+class CruelTorture_Dismember : MasoCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET), Card_TriggerHangCardManually
+{
+    init
+    {
         this.setupMagicNumber(MAGIC)
         this.setupBlock(BLOCK, UPGRADE_BLOCK, RemoveDelayHpLoseBlock())
         CardModifierManager.addModifier(this, CruelTortureTag())
         CardModifierManager.addModifier(this, RetainMod())
     }
 
-    override fun use(player: AbstractPlayer?, monster: AbstractMonster?) {
+    override fun use(player: AbstractPlayer?, monster: AbstractMonster?)
+    {
         HangUpCardGroup.forEachHangUpCard { orb: CardOrb ->
             addToBot(LoseHPAction(AbstractDungeon.player, AbstractDungeon.player, this.magicNumber))
             addToBot_gainBlock()
         }.addToBotAsAbstractAction()
     }
 
-    override fun upgradeAuto() {
+    override fun upgradeAuto()
+    {
     }
 
-    override fun forceFilterCardOrbToHoveredMode(orb: CardOrb): Boolean {
+    override fun forceFilterCardOrbToHoveredMode(orb: CardOrb): Boolean
+    {
         orb.targetType = CardOrb.HangOnTarget.Self
         orb.actionType = CardOrb.HangEffectType.Good
         return true
     }
 
-    override fun forceChangeOrbCounterShown(orb: CardOrb): Int {
+    override fun forceChangeOrbCounterShown(orb: CardOrb): Int
+    {
         return 0
     }
 
-    companion object {
+    companion object
+    {
         val ID: String = DataManager.MakeTextID(CruelTorture_Dismember::class.java)
 
         val CARD_TYPE: CardType = CardType.SKILL

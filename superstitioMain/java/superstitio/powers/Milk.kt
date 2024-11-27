@@ -8,12 +8,15 @@ import superstitio.DataManager
 import superstitioapi.actions.SuperFastAddTempHPAction
 import superstitioapi.utils.setDescriptionArgs
 
-class Milk(owner: AbstractCreature, amount: Int) : AbstractSuperstitioPower(POWER_ID, owner, amount) {
-    override fun updateDescriptionArgs() {
+class Milk(owner: AbstractCreature, amount: Int) : AbstractSuperstitioPower(POWER_ID, owner, amount)
+{
+    override fun updateDescriptionArgs()
+    {
         this.setDescriptionArgs(amount, REMOVE_EACH_TIME)
     }
 
-    override fun onAttack(info: DamageInfo, damageAmount: Int, target: AbstractCreature) {
+    override fun onAttack(info: DamageInfo, damageAmount: Int, target: AbstractCreature)
+    {
         if (info.type != DamageType.NORMAL) return
         //        if (damageAmount <= 0) return;
         this.flash()
@@ -23,7 +26,8 @@ class Milk(owner: AbstractCreature, amount: Int) : AbstractSuperstitioPower(POWE
         //        addToBot_reducePowerToOwner(Milk.POWER_ID, this.amount / 2);
     }
 
-    companion object {
+    companion object
+    {
         val POWER_ID: String = DataManager.MakeTextID(Milk::class.java)
         const val REMOVE_EACH_TIME: Int = 1
     }

@@ -6,7 +6,8 @@ import superstitioapi.renderManager.characterSelectScreenRender.RenderInCharacte
 /**
  * 绑定在角色身上
  */
-interface CharacterWithCardPool : PlayerInitPostDungeonInitialize, RenderInCharacterSelect {
+interface CharacterWithCardPool : PlayerInitPostDungeonInitialize, RenderInCharacterSelect
+{
     val cardPools: List<BaseCardPool?>?
 
     //

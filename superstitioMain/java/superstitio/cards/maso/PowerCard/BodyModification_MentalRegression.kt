@@ -15,36 +15,45 @@ import superstitio.powers.Milk
 import superstitioapi.utils.setDescriptionArgs
 
 @AutoAdd.Ignore
-class BodyModification_MentalRegression : MasoCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET) {
-    init {
+class BodyModification_MentalRegression : MasoCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET)
+{
+    init
+    {
         this.setupMagicNumber(MAGIC, UPGRADE_MAGIC)
         CardModifierManager.addModifier(this, BodyModificationTag())
     }
 
-    override fun use(player: AbstractPlayer?, monster: AbstractMonster?) {
+    override fun use(player: AbstractPlayer?, monster: AbstractMonster?)
+    {
         addToBot_applyPower(BodyModification_MentalRegressionPower(this.magicNumber))
     }
 
-    override fun upgradeAuto() {
+    override fun upgradeAuto()
+    {
     }
 
-    class BodyModification_MentalRegressionPower(amount: Int) : EasyBuildAbstractPowerForPowerCard(amount) {
-        override fun onAttacked(info: DamageInfo, damageAmount: Int): Int {
+    class BodyModification_MentalRegressionPower(amount: Int) : EasyBuildAbstractPowerForPowerCard(amount)
+    {
+        override fun onAttacked(info: DamageInfo, damageAmount: Int): Int
+        {
             if (info.type != DamageType.NORMAL) return damageAmount
             addToBot_applyPower(Milk(owner, this.amount))
             return damageAmount
         }
 
-        override fun updateDescriptionArgs() {
+        override fun updateDescriptionArgs()
+        {
             setDescriptionArgs(this.amount)
         }
 
-        override fun makePowerCard(): SuperstitioCard {
+        override fun makePowerCard(): SuperstitioCard
+        {
             return BodyModification_MentalRegression()
         }
     }
 
-    companion object {
+    companion object
+    {
         val ID: String = DataManager.MakeTextID(BodyModification_MentalRegression::class.java)
 
         val CARD_TYPE: CardType = CardType.POWER

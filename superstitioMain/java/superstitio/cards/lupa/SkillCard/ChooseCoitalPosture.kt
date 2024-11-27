@@ -16,8 +16,10 @@ import superstitioapi.utils.ListUtility
 import java.util.stream.Collectors
 
 //随机生成一张Fuck/Job卡
-class ChooseCoitalPosture : LupaCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET) {
-    override fun use(player: AbstractPlayer?, monster: AbstractMonster?) {
+class ChooseCoitalPosture : LupaCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET)
+{
+    override fun use(player: AbstractPlayer?, monster: AbstractMonster?)
+    {
         val card = randomFuckJobCard.makeCopy()
         //        if (!CardModifierManager.hasModifier(card, ExhaustMod.ID))
         card.setCostForTurn(0)
@@ -25,11 +27,13 @@ class ChooseCoitalPosture : LupaCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARG
         ActionUtility.addToBot_makeTempCardInBattle(card, ActionUtility.BattleCardPlace.Hand, upgraded)
     }
 
-    override fun upgradeAuto() {
+    override fun upgradeAuto()
+    {
         upgradeBaseCost(COST_UPGRADED_NEW)
     }
 
-    companion object {
+    companion object
+    {
         val ID: String = DataManager.MakeTextID(ChooseCoitalPosture::class.java)
 
         val CARD_TYPE: CardType = CardType.SKILL

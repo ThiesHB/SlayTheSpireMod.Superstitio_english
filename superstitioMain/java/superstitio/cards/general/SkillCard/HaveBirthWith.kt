@@ -13,14 +13,17 @@ import superstitioapi.utils.ActionUtility
 import superstitioapi.utils.CardUtility
 
 //@AutoAdd.Ignore
-class HaveBirthWith : GeneralCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET) {
-    init {
+class HaveBirthWith : GeneralCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET)
+{
+    init
+    {
         this.setupBlock(BLOCK, UPGRADE_BLOCK, PregnantBlock_newMonster().removeAutoBind())
         this.cardsToPreview = GiveBirth()
         //this.exhaust = true;
     }
 
-    private fun ForPlayer(player: AbstractPlayer) {
+    private fun ForPlayer(player: AbstractPlayer)
+    {
         addToBot_gainCustomBlock(
             PregnantBlock_newMonster(
                 ChibiKindMonster(), ChibiKindMonster.MinionChibi(ChibiKindMonster())
@@ -28,22 +31,26 @@ class HaveBirthWith : GeneralCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET)
         )
     }
 
-    private fun ForMonster(monster: AbstractMonster?) {
+    private fun ForMonster(monster: AbstractMonster?)
+    {
         addToBot_gainCustomBlock(PregnantBlock_newMonster(monster))
     }
 
-    override fun use(player: AbstractPlayer?, monster: AbstractMonster?) {
+    override fun use(player: AbstractPlayer?, monster: AbstractMonster?)
+    {
         val target = CardUtility.getSelfOrEnemyTarget(this, monster)
         if (target is AbstractPlayer) ForPlayer(AbstractDungeon.player)
         else ForMonster(target as AbstractMonster)
         ActionUtility.addToBot_makeTempCardInBattle(GiveBirth(), ActionUtility.BattleCardPlace.Discard, upgraded)
     }
 
-    override fun upgradeAuto() {
+    override fun upgradeAuto()
+    {
         upgradeCardsToPreview()
     }
 
-    companion object {
+    companion object
+    {
         val ID: String = DataManager.MakeTextID(HaveBirthWith::class.java)
 
         val CARD_TYPE: CardType = CardType.SKILL

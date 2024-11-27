@@ -12,14 +12,18 @@ import superstitio.powers.SexualHeat.Orgasm
 import superstitioapi.SuperstitioApiSetup
 import superstitioapi.actions.AutoDoneInstantAction
 
-class Job_LegPit : LupaCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET), FuckJob_Card {
-    init {
+class Job_LegPit : LupaCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET), FuckJob_Card
+{
+    init
+    {
         FuckJob_Card.initFuckJobCard(this)
         this.setupDamage(DAMAGE, UPGRADE_DAMAGE)
     }
 
-    override fun use(player: AbstractPlayer?, monster: AbstractMonster?) {
-        for (i in 0 until Attack_Num) {
+    override fun use(player: AbstractPlayer?, monster: AbstractMonster?)
+    {
+        for (i in 0 until Attack_Num)
+        {
             addToBot_dealDamage(monster!!, SuperstitioApiSetup.DamageEffect.HeartMultiInOne)
             AutoDoneInstantAction.addToBotAbstract {
                 if (monster.lastDamageTaken > 0 && SexualHeat.isInOrgasm(AbstractDungeon.player))
@@ -28,18 +32,22 @@ class Job_LegPit : LupaCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET), Fuck
         }
     }
 
-    override fun triggerOnGlowCheck() {
+    override fun triggerOnGlowCheck()
+    {
         this.glowColor = BLUE_BORDER_GLOW_COLOR.cpy()
-        if (Orgasm.isPlayerInOrgasm()) {
+        if (Orgasm.isPlayerInOrgasm())
+        {
             this.glowColor = Color.PINK.cpy()
         }
     }
 
 
-    override fun upgradeAuto() {
+    override fun upgradeAuto()
+    {
     }
 
-    companion object {
+    companion object
+    {
         val ID: String = DataManager.MakeTextID(Job_LegPit::class.java)
 
         val CARD_TYPE: CardType = CardType.ATTACK

@@ -12,30 +12,37 @@ import superstitio.relics.interFace.Countup
 import superstitioapi.utils.ActionUtility
 import superstitioapi.utils.setDescriptionArgs
 
-class CumOnShoes : SuperstitioRelic(ID, RELIC_TIER, LANDING_SOUND), Countup {
-    override fun atBattleStart() {
+class CumOnShoes : SuperstitioRelic(ID, RELIC_TIER, LANDING_SOUND), Countup
+{
+    override fun atBattleStart()
+    {
         setCounter(Countup.Zero)
     }
 
-    override fun updateDescriptionArgs() {
+    override fun updateDescriptionArgs()
+    {
         setDescriptionArgs(Companion.MaxNum)
     }
 
-    override fun onPlayCard(card: AbstractCard, m: AbstractMonster?) {
+    override fun onPlayCard(card: AbstractCard, m: AbstractMonster?)
+    {
         if (card is FuckJob_Card) CountAdd()
     }
 
-    override fun onCountMax() {
+    override fun onCountMax()
+    {
         this.flash()
         this.addToBot(RelicAboveCreatureAction(AbstractDungeon.player, this))
         ActionUtility.addToBot_applyPower(DexterityPower(AbstractDungeon.player, 1))
     }
 
-    override fun getMaxNum(): Int {
+    override fun getMaxNum(): Int
+    {
         return MaxNum
     }
 
-    companion object {
+    companion object
+    {
         val ID: String = DataManager.MakeTextID(CumOnShoes::class.java)
 
         // 遗物类型

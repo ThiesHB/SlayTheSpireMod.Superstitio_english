@@ -13,13 +13,16 @@ import superstitioapi.hangUpCard.CardOrb_WaitCardTrigger
 import superstitioapi.utils.CardUtility
 import superstitioapi.utils.setDescriptionArgs
 
-class RideDildoBike : GeneralCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET) {
-    init {
+class RideDildoBike : GeneralCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET)
+{
+    init
+    {
         //抽卡数量
         this.setupMagicNumber(MAGIC, UPGRADE_MAGIC)
     }
 
-    private fun HangUpSpecificCard(card: AbstractCard) {
+    private fun HangUpSpecificCard(card: AbstractCard)
+    {
         val copyCard = card.makeStatEquivalentCopy()
         //        copyCard.exhaust = true;
         val showUpCard = card.makeStatEquivalentCopy()
@@ -40,7 +43,8 @@ class RideDildoBike : GeneralCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET)
         }
     }
 
-    override fun use(player: AbstractPlayer?, monster: AbstractMonster?) {
+    override fun use(player: AbstractPlayer?, monster: AbstractMonster?)
+    {
         ChoseCardFromHandCardSelectScreen { card: AbstractCard ->
             HangUpSpecificCard(card)
             addToBot_drawCards()
@@ -52,14 +56,17 @@ class RideDildoBike : GeneralCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET)
             .addToBot()
     }
 
-    override fun updateDescriptionArgs() {
+    override fun updateDescriptionArgs()
+    {
         setDescriptionArgs(WAIT_TIME)
     }
 
-    override fun upgradeAuto() {
+    override fun upgradeAuto()
+    {
     }
 
-    companion object {
+    companion object
+    {
         val ID: String = DataManager.MakeTextID(RideDildoBike::class.java)
 
         val CARD_TYPE: CardType = CardType.SKILL

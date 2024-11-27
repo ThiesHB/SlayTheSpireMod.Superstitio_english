@@ -21,15 +21,19 @@ import java.util.function.Supplier
 @NoNeedImg
 class OutsideSemen(owner: AbstractCreature, amount: Int) :
     AbstractSuperstitioPower(POWER_ID, owner, amount, if (owner.isPlayer) PowerType.BUFF else PowerType.DEBUFF, false),
-    SemenPower, InvisiblePower_InvisibleTips, InvisiblePower_InvisibleIconAndAmount, HasBarRenderOnCreature_SemenPower {
-    init {
+    SemenPower, InvisiblePower_InvisibleTips, InvisiblePower_InvisibleIconAndAmount, HasBarRenderOnCreature_SemenPower
+{
+    init
+    {
         updateDescription()
     }
 
-    override fun renderAmount(sb: SpriteBatch, x: Float, y: Float, c: Color) {
+    override fun renderAmount(sb: SpriteBatch, x: Float, y: Float, c: Color)
+    {
     }
 
-    override fun onRemove() {
+    override fun onRemove()
+    {
         InBattleDataManager.getBarRenderManager()?.let { barRenderManager: BarRenderManager ->
             barRenderManager.removeChunk(
                 this
@@ -37,21 +41,25 @@ class OutsideSemen(owner: AbstractCreature, amount: Int) :
         }
     }
 
-    override fun updateDescriptionArgs() {
+    override fun updateDescriptionArgs()
+    {
         setDescriptionArgs(this.amount, getTotalValue())
     }
 
-    override fun setupBarOriginColor(): Color {
+    override fun setupBarOriginColor(): Color
+    {
         return ImgUtility.mixColor(HasBarRenderOnCreature_SemenPower.semenColor(), Color.GRAY, 0.1f, 0.9f)
     }
 
-    override fun makeNewBarRenderOnCreature(): BiFunction<Supplier<Hitbox>, HasBarRenderOnCreature, out RenderOnThing> {
+    override fun makeNewBarRenderOnCreature(): BiFunction<Supplier<Hitbox>, HasBarRenderOnCreature, out RenderOnThing>
+    {
         return BiFunction(HasBarRenderOnCreature_SemenPower.Companion::makeNewBar_BodySemen)
     }
 
     override fun getSemenValue(): Int = semenValue
 
-    companion object {
+    companion object
+    {
         val POWER_ID: String = DataManager.MakeTextID(OutsideSemen::class.java)
         const val semenValue: Int = 2
     }

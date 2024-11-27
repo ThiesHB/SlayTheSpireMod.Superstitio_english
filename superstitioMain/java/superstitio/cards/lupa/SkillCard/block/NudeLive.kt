@@ -10,22 +10,27 @@ import superstitio.cardModifier.modifiers.block.SexBlock
 import superstitio.cards.lupa.LupaCard
 import superstitio.delayHpLose.PreventHpLimit_Turns
 
-class NudeLive : LupaCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET) {
-    init {
+class NudeLive : LupaCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET)
+{
+    init
+    {
         this.setupBlock(BLOCK, UPGRADE_BLOCK, SexBlock())
         this.setupMagicNumber(MAGIC, UPGRADE_MAGIC)
         CardModifierManager.addModifier(this, ExhaustMod())
     }
 
-    override fun use(player: AbstractPlayer?, monster: AbstractMonster?) {
+    override fun use(player: AbstractPlayer?, monster: AbstractMonster?)
+    {
         addToBot_applyPower(PreventHpLimit_Turns(AbstractDungeon.player, this.magicNumber))
         addToBot_gainBlock()
     }
 
-    override fun upgradeAuto() {
+    override fun upgradeAuto()
+    {
     }
 
-    companion object {
+    companion object
+    {
         val ID: String = DataManager.MakeTextID(NudeLive::class.java)
 
         val CARD_TYPE: CardType = CardType.SKILL

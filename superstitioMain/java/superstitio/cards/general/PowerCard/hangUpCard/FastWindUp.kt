@@ -14,39 +14,49 @@ import superstitioapi.hangUpCard.CardOrb
 import superstitioapi.hangUpCard.HangUpCardGroup
 import superstitioapi.utils.setDescriptionArgs
 
-class FastWindUp : GeneralCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET) {
-    init {
+class FastWindUp : GeneralCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET)
+{
+    init
+    {
         this.setupMagicNumber(MAGIC)
     }
 
-    override fun use(player: AbstractPlayer?, monster: AbstractMonster?) {
+    override fun use(player: AbstractPlayer?, monster: AbstractMonster?)
+    {
         addToBot_applyPower(FastWindUpPower(AbstractDungeon.player, this.magicNumber))
     }
 
-    override fun upgradeAuto() {
+    override fun upgradeAuto()
+    {
         upgradeBaseCost(COST_UPGRADED_NEW)
     }
 
     class FastWindUpPower(owner: AbstractCreature, amount: Int) : AbstractSuperstitioPower(POWER_ID, owner, amount),
-        OnOrgasm_onOrgasm {
-        override fun onOrgasm(SexualHeatPower: SexualHeat) {
-            for (i in 0 until this.amount) {
+        OnOrgasm_onOrgasm
+    {
+        override fun onOrgasm(SexualHeatPower: SexualHeat)
+        {
+            for (i in 0 until this.amount)
+            {
                 this.flash()
                 HangUpCardGroup.forEachHangUpCard { orb: CardOrb -> orb.forceAcceptAction(FastWindUp()) }
                     .addToBotAsAbstractAction()
             }
         }
 
-        override fun updateDescriptionArgs() {
+        override fun updateDescriptionArgs()
+        {
             setDescriptionArgs(this.amount)
         }
 
-        companion object {
+        companion object
+        {
             val POWER_ID: String = DataManager.MakeTextID(FastWindUpPower::class.java)
         }
     }
 
-    companion object {
+    companion object
+    {
         val ID: String = DataManager.MakeTextID(FastWindUp::class.java)
 
         val CARD_TYPE: CardType = CardType.POWER

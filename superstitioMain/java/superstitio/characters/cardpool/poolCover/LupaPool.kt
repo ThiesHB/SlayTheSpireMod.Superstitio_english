@@ -4,18 +4,22 @@ import com.megacrit.cardcrawl.cards.AbstractCard
 import superstitio.DataManager
 import superstitio.cards.CardOwnerPlayerManager
 import superstitio.cards.lupa.PowerCard.defend.DrinkSemenBeer
-import java.util.function.*
+import java.util.function.Predicate
 
-class LupaPool : AbstractCover(ID, DrinkSemenBeer()) {
-    override fun getAddedCard(): Predicate<AbstractCard> {
+class LupaPool : AbstractCover(ID, DrinkSemenBeer())
+{
+    override fun getAddedCard(): Predicate<AbstractCard>
+    {
         return Predicate(CardOwnerPlayerManager::isOnlyLupaCard)
     }
 
-    override fun getBanedCard(): Predicate<AbstractCard>? {
+    override fun getBanedCard(): Predicate<AbstractCard>?
+    {
         return null
     }
 
-    companion object {
+    companion object
+    {
         val ID: String = DataManager.MakeTextID(LupaPool::class.java)
     }
 }

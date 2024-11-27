@@ -72,7 +72,8 @@
     "DESCRIPTION": "造成 !D! 点 *伤害 两次。 NL superstitiomod:缠绵 打出攻击牌 !M! 次： NL 获得 %d 力量 。 superstitiomod:自动释放 。",
     "FLAVOR": "用手就能做好的事情却要用其他的部位。该说是你们需求太高了，还是我的两只手应付不过来了？",
     "EXTENDED_DESCRIPTION": [
-      "手","superstitiomod:缠绵 打出攻击牌 superstitioApi:!HANGING_TIME! 次： NL 获得 %d 力量 。 superstitiomod:自动释放 。"
+      "手",
+      "superstitiomod:缠绵 打出攻击牌 superstitioApi:!HANGING_TIME! 次： NL 获得 %d 力量 。 superstitiomod:自动释放 。"
     ]
   },
   "SuperstitioMod:Job_LegPit": {
@@ -153,7 +154,8 @@
     "DESCRIPTION": "获得 !M! 点 superstitiomod:快感 。 NL superstitiomod:欲求 打出任何牌 %d 次： NL 抽 %d 张牌。 NL superstitiomod:自动释放 。",
     "FLAVOR": "何以解忧？聊以自慰。",
     "EXTENDED_DESCRIPTION": [
-      "抽牌","superstitiomod:欲求 打出任何牌 superstitioApi:!HANGING_TIME! 次： NL 抽 %d 张牌。 NL superstitiomod:自动释放 。"
+      "抽牌",
+      "superstitiomod:欲求 打出任何牌 superstitioApi:!HANGING_TIME! 次： NL 抽 %d 张牌。 NL superstitiomod:自动释放 。"
     ],
     "ADD_KEYWORDS_ID": [
       "SuperstitioMod:Orgasm"
@@ -165,7 +167,8 @@
     "DESCRIPTION": "选择一张手牌，失去其当前费用 !M! 倍的血量，强制打出。 NL superstitiomod:欲求 打出任何牌 %d 次： NL 抽 %d 张牌。",
     "FLAVOR": "再深一点会更好。",
     "EXTENDED_DESCRIPTION": [
-      "强制打出。","superstitiomod:欲求 打出任何牌 superstitioApi:!HANGING_TIME! 次： NL 抽 %d 张牌。"
+      "强制打出。",
+      "superstitiomod:欲求 打出任何牌 superstitioApi:!HANGING_TIME! 次： NL 抽 %d 张牌。"
     ]
   },
   "SuperstitioMod:DrySemen": {

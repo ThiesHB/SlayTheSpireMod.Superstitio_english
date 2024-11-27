@@ -11,8 +11,10 @@ import superstitio.DataManager
 import superstitioapi.cards.DamageActionMaker
 
 class PregnantBlock_sealPower(private val sealPower: MutableList<AbstractPower>, val sealCreature: AbstractCreature?) :
-    PregnantBlock(ID) {
-    override fun onThisBlockDamaged(info: DamageInfo, lostAmount: Int) {
+    PregnantBlock(ID)
+{
+    override fun onThisBlockDamaged(info: DamageInfo, lostAmount: Int)
+    {
         super.onThisBlockDamaged(info, lostAmount)
         if (sealCreature == null || sealCreature.isDeadOrEscaped) return
         if (info.type != DamageType.NORMAL) return
@@ -22,7 +24,8 @@ class PregnantBlock_sealPower(private val sealPower: MutableList<AbstractPower>,
         super.onAttacked(info, lostAmount)
     }
 
-    override fun getDescription(): String? {
+    override fun getDescription(): String?
+    {
         if (sealCreature == null) return super.getDescription()
         if (sealCreature is AbstractPlayer) return super.getDescription() + blockStrings!!.getEXTENDED_DESCRIPTION(0) + blockStrings.getEXTENDED_DESCRIPTION(
             1
@@ -30,19 +33,23 @@ class PregnantBlock_sealPower(private val sealPower: MutableList<AbstractPower>,
         return super.getDescription() + blockStrings!!.getEXTENDED_DESCRIPTION(0) + sealCreature.name
     }
 
-    override fun makeCopy(): AbstractBlockModifier {
+    override fun makeCopy(): AbstractBlockModifier
+    {
         return PregnantBlock_sealPower(this.sealPower, this.sealCreature)
     }
 
-    override fun removeUnNaturally(info: DamageInfo?, remainingDamage: Int): Int {
+    override fun removeUnNaturally(info: DamageInfo?, remainingDamage: Int): Int
+    {
         if (sealCreature == null || sealCreature.isDeadOrEscaped) return super.removeUnNaturally(info, remainingDamage)
-        for (power in sealPower) {
+        for (power in sealPower)
+        {
             addToBot(ApplyPowerAction(this.owner, this.owner, power))
         }
         return super.removeUnNaturally(info, remainingDamage)
     }
 
-    companion object {
+    companion object
+    {
         val ID: String = DataManager.MakeTextID(PregnantBlock_sealPower::class.java)
         const val THORNS_RATE: Int = 2
     }

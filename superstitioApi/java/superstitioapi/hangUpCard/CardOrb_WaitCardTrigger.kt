@@ -13,26 +13,32 @@ class CardOrb_WaitCardTrigger(
     cardGroupReturnAfterEvoke: CardGroup?,
     waitTime: CardUtility.CostSmart,
     action_thisOrb_triggerCard: BiConsumer<CardOrb_CardTrigger, AbstractCard>
-) : CardOrb_CardTrigger(card, cardGroupReturnAfterEvoke, waitTime, action_thisOrb_triggerCard), ICardOrb_WaitTime {
-    private fun State_WhenHoverCard_JustGlow() {
+) : CardOrb_CardTrigger(card, cardGroupReturnAfterEvoke, waitTime, action_thisOrb_triggerCard), ICardOrb_WaitTime
+{
+    private fun State_WhenHoverCard_JustGlow()
+    {
         fakeCard.targetDrawScale = DRAW_SCALE_SMALL_BIGGER
         fakeCard.glowColor = ReduceWaitTime
     }
 
-    override fun makeCopy(): AbstractOrb {
+    override fun makeCopy(): AbstractOrb
+    {
         return CardOrb_WaitCardTrigger(originCard, cardGroupReturnAfterEvoke, orbCounter, action)
     }
 
-    override fun checkAndSetTheHoverType(): VoidSupplier {
+    override fun checkAndSetTheHoverType(): VoidSupplier
+    {
         if (this.orbCounter > 1) return VoidSupplier(this::State_WhenHoverCard_JustGlow)
         return super.checkAndSetTheHoverType()
     }
 
-    override fun onProperCardUsed_checkIfShouldApplyAction(card: AbstractCard?): Boolean {
+    override fun onProperCardUsed_checkIfShouldApplyAction(card: AbstractCard?): Boolean
+    {
         return orbCounter <= 0
     }
 
-    companion object {
+    companion object
+    {
         protected val ReduceWaitTime: Color = Color.GOLDENROD.cpy()
     }
 }

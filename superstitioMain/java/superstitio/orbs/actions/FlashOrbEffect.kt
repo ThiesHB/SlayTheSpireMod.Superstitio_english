@@ -8,13 +8,15 @@ import com.megacrit.cardcrawl.core.Settings
 import com.megacrit.cardcrawl.helpers.ImageMaster
 import com.megacrit.cardcrawl.vfx.AbstractGameEffect
 
-class FlashOrbEffect(x: Float, y: Float) : AbstractGameEffect() {
+class FlashOrbEffect(x: Float, y: Float) : AbstractGameEffect()
+{
     private val img: AtlasRegion
     private var x: Float
     private var y: Float
     var scale: Float = 0.0f
 
-    init {
+    init
+    {
         this.scale = Settings.scale
         this.x = x
         this.y = y
@@ -28,7 +30,8 @@ class FlashOrbEffect(x: Float, y: Float) : AbstractGameEffect() {
         this.renderBehind = true
     }
 
-    override fun update() {
+    override fun update()
+    {
         super.update()
         this.scale = Interpolation.exp5In.apply(
             Settings.scale * 2.0f,
@@ -37,7 +40,8 @@ class FlashOrbEffect(x: Float, y: Float) : AbstractGameEffect() {
         )
     }
 
-    override fun render(sb: SpriteBatch) {
+    override fun render(sb: SpriteBatch)
+    {
         sb.setBlendFunction(770, 1)
         sb.color = color
         sb.draw(
@@ -50,6 +54,7 @@ class FlashOrbEffect(x: Float, y: Float) : AbstractGameEffect() {
         sb.setBlendFunction(770, 771)
     }
 
-    override fun dispose() {
+    override fun dispose()
+    {
     }
 }

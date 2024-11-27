@@ -23,26 +23,32 @@ import superstitioapi.utils.CardUtility
 import superstitioapi.utils.setDescriptionArgs
 
 class Guillotine : MasoCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET), FuckJob_Card, GoSomewhereElseAfterUse,
-    IsNotLupaCard {
-    init {
+    IsNotLupaCard
+{
+    init
+    {
         FuckJob_Card.initFuckJobCard(this)
         //        this.setupDamage(DAMAGE, UPGRADE_DAMAGE);
 //        this.setupBlock(BLOCK, UPGRADE_BLOCK, new RemoveDelayHpLoseBlock());
         this.setupMagicNumber(MAGIC, UPGRADE_MAGIC)
     }
 
-    override fun use(player: AbstractPlayer?, monster: AbstractMonster?) {
+    override fun use(player: AbstractPlayer?, monster: AbstractMonster?)
+    {
         addToBot_applyPower(GuillotinePower())
     }
 
-    override fun upgradeAuto() {
+    override fun upgradeAuto()
+    {
     }
 
-    override fun updateDescriptionArgs() {
+    override fun updateDescriptionArgs()
+    {
         setDescriptionArgs(HeatNeedAdd, DAMAGE_PERCENT)
     }
 
-    override fun afterInterruptMoveToCardGroup(cardGroup: CardGroup) {
+    override fun afterInterruptMoveToCardGroup(cardGroup: CardGroup)
+    {
         CardOrb_OnOrgasm_WaitTime(this, cardGroup, CardUtility.CostSmart(this.magicNumber)) { orb: CardOrb_OnOrgasm ->
             orb.StartHitCreature(AbstractDungeon.player)
             DamageActionMaker.maker(99999, AbstractDungeon.player)
@@ -55,33 +61,41 @@ class Guillotine : MasoCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET), Fuck
             .addToBot_HangCard()
     }
 
-    class GuillotinePower : EasyBuildAbstractPowerForPowerCard(-1), SexualHeatNeedModifier, NonStackablePower {
-        override fun getDescriptionStrings(): String {
+    class GuillotinePower : EasyBuildAbstractPowerForPowerCard(-1), SexualHeatNeedModifier, NonStackablePower
+    {
+        override fun getDescriptionStrings(): String
+        {
             return powerCard.cardStrings.getEXTENDED_DESCRIPTION(0)
         }
 
-        override fun reduceSexualHeatNeeded(): Int {
+        override fun reduceSexualHeatNeeded(): Int
+        {
             return -HeatNeedAdd
         }
 
-        override fun atDamageGive(damage: Float, type: DamageType): Float {
+        override fun atDamageGive(damage: Float, type: DamageType): Float
+        {
             return super.atDamageGive(damage, type) * (1 + DAMAGE_PERCENT.toFloat() / 100)
         }
 
-        override fun atEndOfTurn(isPlayer: Boolean) {
+        override fun atEndOfTurn(isPlayer: Boolean)
+        {
             addToBot_removeSpecificPower(this)
         }
 
-        override fun updateDescriptionArgs() {
+        override fun updateDescriptionArgs()
+        {
             setDescriptionArgs(HeatNeedAdd, DAMAGE_PERCENT)
         }
 
-        override fun makePowerCard(): SuperstitioCard {
+        override fun makePowerCard(): SuperstitioCard
+        {
             return Guillotine()
         }
     }
 
-    companion object {
+    companion object
+    {
         val ID: String = DataManager.MakeTextID(Guillotine::class.java)
 
         val CARD_TYPE: CardType = CardType.SKILL

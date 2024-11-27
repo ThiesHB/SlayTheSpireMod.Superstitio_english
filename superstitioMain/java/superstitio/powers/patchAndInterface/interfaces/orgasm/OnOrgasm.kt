@@ -13,61 +13,73 @@ import superstitioapi.relicToBlight.InfoBlight
 import superstitioapi.utils.CardUtility
 import java.util.stream.Collectors
 
-interface OnOrgasm {
+interface OnOrgasm
+{
     /**
      * 检测高潮时的钩子
      */
-    fun onCheckOrgasm(SexualHeatPower: SexualHeat) {
+    fun onCheckOrgasm(SexualHeatPower: SexualHeat)
+    {
     }
 
     /**
      * 高潮时的优先处理
      */
-    fun onOrgasmFirst(SexualHeatPower: SexualHeat) {
+    fun onOrgasmFirst(SexualHeatPower: SexualHeat)
+    {
     }
 
     /**
      * 高潮时的处理
      */
-    fun onOrgasm(SexualHeatPower: SexualHeat) {
+    fun onOrgasm(SexualHeatPower: SexualHeat)
+    {
     }
 
     /**
      * 连续高潮时的额外处理
      */
-    fun onContinuallyOrgasm(SexualHeatPower: SexualHeat) {
+    fun onContinuallyOrgasm(SexualHeatPower: SexualHeat)
+    {
     }
 
     /**
      * 高潮结束后的处理
      */
-    fun onEndOrgasm(SexualHeatPower: SexualHeat) {
+    fun onEndOrgasm(SexualHeatPower: SexualHeat)
+    {
     }
 
 
     /**
      * 调用时已经判断高潮成立，如果返回true则禁止本次高潮
      */
-    fun preventOrgasm(SexualHeatPower: SexualHeat): Boolean {
+    fun preventOrgasm(SexualHeatPower: SexualHeat): Boolean
+    {
         return false
     }
 
     /**
      * 潮吹之前
      */
-    fun onSquirt(SexualHeatPower: SexualHeat, card: AbstractCard) {
+    fun onSquirt(SexualHeatPower: SexualHeat, card: AbstractCard)
+    {
     }
 
-    fun onSuccessfullyPreventOrgasm(SexualHeatPower: SexualHeat) {
+    fun onSuccessfullyPreventOrgasm(SexualHeatPower: SexualHeat)
+    {
     }
 
-    companion object {
-        fun AllOnOrgasm(owner: AbstractCreature): Sequence<OnOrgasm> {
+    companion object
+    {
+        fun AllOnOrgasm(owner: AbstractCreature): Sequence<OnOrgasm>
+        {
             val onOrgasms =
                 owner.powers
                     .filter(OnOrgasm::class.java::isInstance)
                     .map { power: AbstractPower -> power as OnOrgasm }.toMutableList()
-            if (owner.isPlayer) {
+            if (owner.isPlayer)
+            {
                 onOrgasms.addAll(
                     InfoBlight.getAllRelics(AbstractRelic::class.java)
                         .filter(OnOrgasm::class.java::isInstance)

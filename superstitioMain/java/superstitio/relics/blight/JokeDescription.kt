@@ -8,23 +8,29 @@ import superstitioapi.relicToBlight.InfoBlight
 import superstitioapi.relicToBlight.InfoBlight.BecomeInfoBlight
 
 @Seen
-class JokeDescription : SuperstitioRelic(ID, RELIC_TIER, LANDING_SOUND), BecomeInfoBlight {
-    override fun updateDescriptionArgs() {
+class JokeDescription : SuperstitioRelic(ID, RELIC_TIER, LANDING_SOUND), BecomeInfoBlight
+{
+    override fun updateDescriptionArgs()
+    {
     }
 
-    override fun obtain() {
+    override fun obtain()
+    {
         InfoBlight.obtain(this)
     }
 
-    override fun instantObtain(p: AbstractPlayer, slot: Int, callOnEquip: Boolean) {
+    override fun instantObtain(p: AbstractPlayer, slot: Int, callOnEquip: Boolean)
+    {
         InfoBlight.instanceObtain(this, callOnEquip)
     }
 
-    override fun instantObtain() {
+    override fun instantObtain()
+    {
         InfoBlight.instanceObtain(this, true)
     }
 
-    companion object {
+    companion object
+    {
         val ID: String = DataManager.MakeTextID(JokeDescription::class.java)
 
         // 遗物类型

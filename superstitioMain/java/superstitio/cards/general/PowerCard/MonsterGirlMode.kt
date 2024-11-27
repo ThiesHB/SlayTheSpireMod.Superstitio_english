@@ -12,12 +12,15 @@ import superstitio.cards.general.PowerCard.monsterGirl.FishGirlMode
 import superstitio.cards.general.PowerCard.monsterGirl.KakaaGirlMode
 import superstitio.cards.general.PowerCard.monsterGirl.SlimeGirlMode
 
-class MonsterGirlMode : GeneralCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET) {
-    init {
+class MonsterGirlMode : GeneralCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET)
+{
+    init
+    {
         CardModifierManager.addModifier(this, EtherealMod())
     }
 
-    override fun use(player: AbstractPlayer?, monster: AbstractMonster?) {
+    override fun use(player: AbstractPlayer?, monster: AbstractMonster?)
+    {
         val stanceChoices = ArrayList<AbstractCard>()
         stanceChoices.add(FishGirlMode())
         stanceChoices.add(KakaaGirlMode())
@@ -30,11 +33,13 @@ class MonsterGirlMode : GeneralCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGE
         this.addToBot(ChooseOneAction(stanceChoices))
     }
 
-    override fun upgradeAuto() {
+    override fun upgradeAuto()
+    {
         CardModifierManager.removeModifiersById(this, EtherealMod.ID, false)
     }
 
-    companion object {
+    companion object
+    {
         val ID: String = DataManager.MakeTextID(MonsterGirlMode::class.java)
 
         val CARD_TYPE: CardType = CardType.POWER

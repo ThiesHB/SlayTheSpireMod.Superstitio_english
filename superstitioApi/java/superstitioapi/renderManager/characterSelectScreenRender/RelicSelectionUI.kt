@@ -24,7 +24,8 @@ class RelicSelectionUI(
     private val relics: List<AbstractRelic>,
     private val optionTitle: String,
     private val optionTip: PowerTip
-) : WithLROptionsArrow {
+) : WithLROptionsArrow
+{
     private val textWidth: Float
     override val leftArrowButton: LeftArrowButton
     override val rightArrowButton: RightArrowButton
@@ -41,7 +42,8 @@ class RelicSelectionUI(
         optionTip
     )
 
-    init {
+    init
+    {
         this.textWidth = max(
             FontHelper.getWidth(titleFont, optionTitle, 1.0f).toDouble(),
             RELIC_HITBOX_SIZE.toDouble()
@@ -67,7 +69,8 @@ class RelicSelectionUI(
         this.selectIndex = 0
     }
 
-    fun setRefreshAfterSelect(refreshAfterSelect: Consumer<AbstractRelic>?): RelicSelectionUI {
+    fun setRefreshAfterSelect(refreshAfterSelect: Consumer<AbstractRelic>?): RelicSelectionUI
+    {
         this.refreshAfterSelect = refreshAfterSelect
         return this
     }
@@ -76,23 +79,28 @@ class RelicSelectionUI(
         get() = textWidth + leftArrowButton.width + rightArrowButton.width
 
     val selectRelic: AbstractRelic
-        get() {
+        get()
+        {
             if (selectIndex >= 0 && selectIndex < relics.size) return relics[selectIndex]
             return Circlet()
         }
 
-    fun setSelectRelic(selcetRelicId: String) {
+    fun setSelectRelic(selcetRelicId: String)
+    {
         val abstractRelics = this.relics
-        for (i in abstractRelics.indices) {
+        for (i in abstractRelics.indices)
+        {
             val relic = abstractRelics[i]
-            if (selcetRelicId == relic.relicId) {
+            if (selcetRelicId == relic.relicId)
+            {
                 this.selectIndex = i
                 break
             }
         }
     }
 
-    override fun refreshAfterPageChange() {
+    override fun refreshAfterPageChange()
+    {
         if (refreshAfterSelect == null) return
         refreshAfterSelect!!.accept(selectRelic)
     }
@@ -100,13 +108,16 @@ class RelicSelectionUI(
     override val isLoop: Boolean
         get() = true
 
-    override fun render(sb: SpriteBatch) {
+    override fun render(sb: SpriteBatch)
+    {
         val relic = selectRelic
 
-        if (relicHitbox.hovered) {
+        if (relicHitbox.hovered)
+        {
             TipsUtility.renderTipsWithMouse(relic.tips)
         }
-        if (textHitbox.hovered) {
+        if (textHitbox.hovered)
+        {
             TipsUtility.renderTipsWithMouse(ArrayList(listOf(optionTip)))
         }
 
@@ -133,12 +144,17 @@ class RelicSelectionUI(
         textHitbox.render(sb)
     }
 
-    override fun update() {
-        if (relicHitbox.hovered || textHitbox.hovered) {
-            if (InputHelper.justClickedLeft) {
+    override fun update()
+    {
+        if (relicHitbox.hovered || textHitbox.hovered)
+        {
+            if (InputHelper.justClickedLeft)
+            {
                 CardCrawlGame.sound.play("UI_CLICK_1")
                 this.pageUp()
-            } else if (InputHelper.justClickedRight) {
+            }
+            else if (InputHelper.justClickedRight)
+            {
                 CardCrawlGame.sound.play("UI_CLICK_1")
                 this.pageDown()
             }
@@ -151,7 +167,8 @@ class RelicSelectionUI(
     override val maxSelectIndex: Int
         get() = relics.size - 1
 
-    companion object {
+    companion object
+    {
         val RELIC_Y_OFFSET: Float = -60.0f * Settings.scale
         val RELIC_HITBOX_SIZE: Float = 80.0f * Settings.scale
         val TEXT_COLOR: Color = Color.GOLDENROD.cpy()

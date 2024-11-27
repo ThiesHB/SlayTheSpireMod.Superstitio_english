@@ -6,20 +6,24 @@ import com.megacrit.cardcrawl.powers.AbstractPower
 import java.util.function.BiFunction
 import java.util.function.Supplier
 
-interface HasBarRenderOnCreature_Power : HasBarRenderOnCreature {
+interface HasBarRenderOnCreature_Power : HasBarRenderOnCreature
+{
     val self: AbstractPower
         get() = this as AbstractPower
 
     override fun makeNewBarRenderOnCreature():
-            BiFunction<Supplier<Hitbox>, HasBarRenderOnCreature, out RenderOnThing> {
+            BiFunction<Supplier<Hitbox>, HasBarRenderOnCreature, out RenderOnThing>
+    {
         return BiFunction<Supplier<Hitbox>, HasBarRenderOnCreature, RenderOnThing>(::BarRenderOnThing)
     }
 
-    override fun uuidOfSelf(): String {
+    override fun uuidOfSelf(): String
+    {
         return self.ID
     }
 
-    override fun uuidPointTo(): String {
+    override fun uuidPointTo(): String
+    {
         if (self.owner is AbstractPlayer)
             return super.uuidPointTo() + ":player:" + self.owner.name
         return super.uuidPointTo() + ":" + self.owner.name

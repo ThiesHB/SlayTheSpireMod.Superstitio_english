@@ -18,24 +18,30 @@ class AllCardCostModifier_PerCard(
     holder: HasAllCardCostModifyEffect
 ) : AllCardCostModifier(
     POWER_ID, owner, decreasedCost, useTimes, holder
-) {
-    init {
+)
+{
+    init
+    {
         amount = useTimes
     }
 
-    fun isCostDecreased(card: AbstractCard): Boolean {
+    fun isCostDecreased(card: AbstractCard): Boolean
+    {
         return InBattleDataManager.costMap.containsKey(card.uuid) && getOriginCost(card) < card.costForTurn && !card.freeToPlay()
     }
 
-    override fun updateDescriptionArgs() {
+    override fun updateDescriptionArgs()
+    {
         setDescriptionArgs(decreasedCost, amount, (if (!isActive) powerStrings.DESCRIPTIONS[1] else ""))
     }
 
-    override fun getDescriptionStrings(): String {
+    override fun getDescriptionStrings(): String
+    {
         return powerStrings.DESCRIPTIONS[0]
     }
 
-    override fun onPlayCard(card: AbstractCard, m: AbstractMonster?) {
+    override fun onPlayCard(card: AbstractCard, m: AbstractMonster?)
+    {
         if (!isActive) return
         if (!isCostDecreased(card)) return
         AutoDoneInstantAction.addToBotAbstract(VoidSupplier {
@@ -46,7 +52,8 @@ class AllCardCostModifier_PerCard(
         })
     }
 
-    companion object {
+    companion object
+    {
         val POWER_ID: String = DataUtility.MakeTextID(AllCardCostModifier_PerCard::class.java)
         var powerStrings: PowerStrings = getPowerStrings(POWER_ID)
     }

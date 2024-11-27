@@ -1,5 +1,6 @@
 package superstitio.powers.sexualHeatNeedModifier
 
-interface SexualHeatNeedModifier {
+interface SexualHeatNeedModifier
+{
     fun reduceSexualHeatNeeded(): Int
 }

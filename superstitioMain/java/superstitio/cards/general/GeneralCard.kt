@@ -8,7 +8,8 @@ import superstitio.cards.SuperstitioCard
 abstract class GeneralCard @JvmOverloads constructor(
     id: String, cardType: CardType, cost: Int, cardRarity: CardRarity, cardTarget: CardTarget, cardColor: CardColor,
     imgSubFolder: String = CardTypeToString(cardType)
-) : SuperstitioCard(id, cardType, cost, cardRarity, cardTarget, cardColor, imgSubFolder), IsMasoCard, IsLupaCard {
+) : SuperstitioCard(id, cardType, cost, cardRarity, cardTarget, cardColor, imgSubFolder), IsMasoCard, IsLupaCard
+{
     /**
      * 当需要自定义卡牌存储的二级目录名时
      */

@@ -6,19 +6,23 @@ import com.evacipated.cardcrawl.modthespire.lib.SpirePostfixPatch
 import com.megacrit.cardcrawl.screens.charSelect.CharacterOption
 import superstitioapi.utils.ToolBox
 
-interface RenderInCharacterSelect {
+interface RenderInCharacterSelect
+{
     //    RelicSelectionUI Relic_Selection_UI = new RelicSelectionUI();
     fun renderInCharacterSelectScreen(characterOption: CharacterOption, sb: SpriteBatch)
 
     fun updateInCharacterSelectScreen(characterOption: CharacterOption)
 
     //    void refreshOptionChange(final CharacterOption characterOption);
-    companion object {
+    companion object
+    {
         @SpirePatch2(clz = CharacterOption::class, method = "renderRelics")
-        object RenderPatch {
+        object RenderPatch
+        {
             @SpirePostfixPatch
-        @JvmStatic
-            fun patch(__instance: CharacterOption, sb: SpriteBatch) {
+            @JvmStatic
+            fun patch(__instance: CharacterOption, sb: SpriteBatch)
+            {
                 if (!__instance.selected) return
                 ToolBox.doIfIsInstance(
                     __instance.c,
@@ -31,10 +35,12 @@ interface RenderInCharacterSelect {
         }
 
         @SpirePatch2(clz = CharacterOption::class, method = "update")
-        object UpdatePatch {
+        object UpdatePatch
+        {
             @SpirePostfixPatch
-        @JvmStatic
-            fun patch(__instance: CharacterOption) {
+            @JvmStatic
+            fun patch(__instance: CharacterOption)
+            {
                 if (!__instance.selected) return
                 ToolBox.doIfIsInstance(
                     __instance.c,

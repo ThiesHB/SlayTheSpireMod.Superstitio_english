@@ -11,12 +11,15 @@ import superstitioapi.actions.AutoDoneInstantAction
 import superstitioapi.actions.ChoseCardFromHandCardSelectScreen
 import kotlin.math.max
 
-class MeasureDick : LupaCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET) {
-    init {
+class MeasureDick : LupaCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET)
+{
+    init
+    {
         this.setupMagicNumber(MAGIC, UPGRADE_MAGIC)
     }
 
-    override fun use(player: AbstractPlayer?, monster: AbstractMonster?) {
+    override fun use(player: AbstractPlayer?, monster: AbstractMonster?)
+    {
         ChoseCardFromHandCardSelectScreen { targetCard: AbstractCard ->
             AutoDoneInstantAction.addToBotAbstract {
                 addToTop(
@@ -34,10 +37,12 @@ class MeasureDick : LupaCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET) {
             .addToBot()
     }
 
-    override fun upgradeAuto() {
+    override fun upgradeAuto()
+    {
     }
 
-    companion object {
+    companion object
+    {
         val ID: String = DataManager.MakeTextID(MeasureDick::class.java)
 
         val CARD_TYPE: CardType = CardType.SKILL

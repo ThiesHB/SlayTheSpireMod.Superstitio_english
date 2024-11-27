@@ -12,7 +12,8 @@ import superstitioapi.powers.barIndepend.BarRenderUpdateMessage.ToolTip
 import superstitioapi.utils.TipsUtility
 import java.util.function.Supplier
 
-abstract class RenderOnThing(protected val hitboxBondTo: Supplier<Hitbox>, power: HasBarRenderOnCreature) {
+abstract class RenderOnThing(protected val hitboxBondTo: Supplier<Hitbox>, power: HasBarRenderOnCreature)
+{
     //    public static final float HITBOX_HEIGHT = ;
     //    protected static final float BG_OFFSET_Y = -31.0f * Settings.scale;
     protected val amountChunkWithUuid: MutableMap<String, AmountChunk> = HashMap()
@@ -25,47 +26,56 @@ abstract class RenderOnThing(protected val hitboxBondTo: Supplier<Hitbox>, power
     protected var sortedChunkList: List<AmountChunk> = java.util.ArrayList()
     private var rawBarText: String? = "%d/%d"
 
-    init {
+    init
+    {
         updateHitBoxPlace(this.hitbox)
 
         this.HeightOffset = power.Height()
         this.barTextColor = Color(1.0f, 1.0f, 1.0f, 1.0f)
     }
 
-    open fun removeChunk(hasBarRenderOnCreature: HasBarRenderOnCreature) {
+    open fun removeChunk(hasBarRenderOnCreature: HasBarRenderOnCreature)
+    {
         amountChunkWithUuid.remove(hasBarRenderOnCreature.uuidOfSelf())
         reMakeSortedChunkList()
     }
 
-    open fun updateHitBoxPlace(hitbox: Hitbox) {
+    open fun updateHitBoxPlace(hitbox: Hitbox)
+    {
         hitbox.move(
             hitboxBondTo.get().cX,
             HeightOffset + hitboxBondTo.get().cY + hitboxBondTo.get().height / 2
         )
     }
 
-    fun isUuidInThis(uuid_chunk: String?): Boolean {
+    fun isUuidInThis(uuid_chunk: String?): Boolean
+    {
         return amountChunkWithUuid.containsKey(uuid_chunk)
     }
 
-    open fun render(sb: SpriteBatch) {
+    open fun render(sb: SpriteBatch)
+    {
         renderBarTextWithColorAlphaChange(sb, xDrawStart, yDrawStart)
-        if (Settings.isDebug || Settings.isInfo) {
+        if (Settings.isDebug || Settings.isInfo)
+        {
             renderDebug(sb)
         }
     }
 
-    open fun update() {
+    open fun update()
+    {
         updateHitBoxPlace(this.hitbox)
         hitbox.update()
-        for (amountChunk in amountChunkWithUuid.values) {
+        for (amountChunk in amountChunkWithUuid.values)
+        {
             amountChunk.update()
         }
         update_showTips(this.hitbox)
         updateHbHoverFade()
     }
 
-    fun renderTip(tips: MutableList<PowerTip>) {
+    fun renderTip(tips: MutableList<PowerTip>)
+    {
         TipsUtility.renderTipsWithMouse(tips)
     }
 
@@ -74,9 +84,11 @@ abstract class RenderOnThing(protected val hitboxBondTo: Supplier<Hitbox>, power
      *
      * @param message 消息
      */
-    open fun tryApplyMessage(message: BarRenderUpdateMessage) {
+    open fun tryApplyMessage(message: BarRenderUpdateMessage)
+    {
         if (uuid_self != message.uuidOfBar) return
-        if (!amountChunkWithUuid.containsKey(message.uuidOfPower)) {
+        if (!amountChunkWithUuid.containsKey(message.uuidOfPower))
+        {
             addNewAmountChunk(message)
             return
         }
@@ -90,12 +102,15 @@ abstract class RenderOnThing(protected val hitboxBondTo: Supplier<Hitbox>, power
     protected val maxBarAmount: Int
         get() = amountChunkWithUuid.values.maxOfOrNull(AmountChunk::maxAmount) ?: 10
 
-    protected open fun renderDebug(sb: SpriteBatch?) {
+    protected open fun renderDebug(sb: SpriteBatch?)
+    {
         hitbox.render(sb)
     }
 
-    protected open fun update_showTips(hitbox: Hitbox?) {
-        if (hitbox!!.hovered) {
+    protected open fun update_showTips(hitbox: Hitbox?)
+    {
+        if (hitbox!!.hovered)
+        {
             renderTip(AllTips())
         }
         this.fontScale = MathHelper.scaleLerpSnap(this.fontScale, 0.7f)
@@ -109,7 +124,8 @@ abstract class RenderOnThing(protected val hitboxBondTo: Supplier<Hitbox>, power
      * @param x getXDrawStart
      * @param y getYDrawStart
      */
-    protected open fun renderBarTextWithColorAlphaChange(sb: SpriteBatch?, x: Float, y: Float) {
+    protected open fun renderBarTextWithColorAlphaChange(sb: SpriteBatch?, x: Float, y: Float)
+    {
         val tmp = barTextColor.a
         barTextColor.a *= this.healthHideTimer
         renderBarText(sb, x, y)
@@ -120,28 +136,36 @@ abstract class RenderOnThing(protected val hitboxBondTo: Supplier<Hitbox>, power
      * @param x getXDrawStart
      * @param y getYDrawStart
      */
-    protected open fun renderBarText(sb: SpriteBatch?, x: Float, y: Float) {
+    protected open fun renderBarText(sb: SpriteBatch?, x: Float, y: Float)
+    {
         FontHelper.renderFontCentered(
             sb, FontHelper.healthInfoFont, makeBarText(), hitbox.cX, y + TEXT_OFFSET_Y,
             this.barTextColor
         )
     }
 
-    protected open fun updateHbHoverFade() {
-        if (hitbox.hovered) {
+    protected open fun updateHbHoverFade()
+    {
+        if (hitbox.hovered)
+        {
             this.healthHideTimer -= Gdx.graphics.deltaTime * HIDE_SPEED
-            if (this.healthHideTimer < HEALTH_HIDE_TIMER_MIN) {
+            if (this.healthHideTimer < HEALTH_HIDE_TIMER_MIN)
+            {
                 this.healthHideTimer = HEALTH_HIDE_TIMER_MIN
             }
-        } else {
+        }
+        else
+        {
             this.healthHideTimer += Gdx.graphics.deltaTime * HIDE_SPEED
-            if (this.healthHideTimer > 1.0f) {
+            if (this.healthHideTimer > 1.0f)
+            {
                 this.healthHideTimer = 1.0f
             }
         }
     }
 
-    protected fun reMakeSortedChunkList() {
+    protected fun reMakeSortedChunkList()
+    {
         val orderedList: MutableList<AmountChunk> = java.util.ArrayList()
         amountChunkWithUuid.values.stream().sorted(AmountChunk::compareTo)
             .forEachOrdered(orderedList::add)
@@ -153,16 +177,19 @@ abstract class RenderOnThing(protected val hitboxBondTo: Supplier<Hitbox>, power
     protected val nextOrder: Int
         get() = (amountChunkWithUuid.values.maxOfOrNull(AmountChunk::order) ?: -1) + 1
 
-    private fun addNewAmountChunk(message: BarRenderUpdateMessage) {
+    private fun addNewAmountChunk(message: BarRenderUpdateMessage)
+    {
         amountChunkWithUuid[message.uuidOfPower] = makeNewAmountChunk(message)!!.applyNoPositionMessage(message)
     }
 
-    protected fun AllTips(): MutableList<PowerTip> {
+    protected fun AllTips(): MutableList<PowerTip>
+    {
         return amountChunkWithUuid.values.filter { amountChunk: AmountChunk -> amountChunk.tip != null }
             .mapNotNull(AmountChunk::tip).toMutableList()
     }
 
-    protected fun makeBarText(): String? {
+    protected fun makeBarText(): String?
+    {
         val hasTwoDs = rawBarText!!.contains("%d") && rawBarText!!.indexOf("%d") != rawBarText!!.lastIndexOf("%d")
         val hasD = rawBarText!!.contains("%d")
         if (hasTwoDs) return String.format(
@@ -174,13 +201,15 @@ abstract class RenderOnThing(protected val hitboxBondTo: Supplier<Hitbox>, power
         return rawBarText
     }
 
-    protected fun getTotalAmount_InFrontOf(sumToIndex_InFrontOf: Int): Int {
+    protected fun getTotalAmount_InFrontOf(sumToIndex_InFrontOf: Int): Int
+    {
         if (sumToIndex_InFrontOf <= 0) return 0
         return getChunkOrdered(sumToIndex_InFrontOf - 1).stream().mapToInt(AmountChunk::nowAmount)
             .sum()
     }
 
-    protected fun getChunkOrdered(index: Int): List<AmountChunk> {
+    protected fun getChunkOrdered(index: Int): List<AmountChunk>
+    {
         reMakeSortedChunkList()
         if (sortedChunkList.size <= 1) return sortedChunkList
         if (index <= 0) return listOf(sortedChunkList[0])
@@ -190,7 +219,8 @@ abstract class RenderOnThing(protected val hitboxBondTo: Supplier<Hitbox>, power
     protected val totalAmount: Int
         get() = amountChunkWithUuid.values.stream().mapToInt(AmountChunk::nowAmount).sum()
 
-    protected abstract class AmountChunk(val order: Int) : Comparable<AmountChunk> {
+    protected abstract class AmountChunk(val order: Int) : Comparable<AmountChunk>
+    {
         var tip: PowerTip? = null
         var maxAmount: Int = 0
         var nowAmount: Int = 0
@@ -200,29 +230,34 @@ abstract class RenderOnThing(protected val hitboxBondTo: Supplier<Hitbox>, power
 
         abstract fun update()
 
-        open fun setTip(tip: ToolTip): AmountChunk {
+        open fun setTip(tip: ToolTip): AmountChunk
+        {
             this.tip = PowerTip(tip.name, tip.description)
             return this
         }
 
-        open fun setMaxAmount(maxAmount: Int): AmountChunk {
+        open fun setMaxAmount(maxAmount: Int): AmountChunk
+        {
             this.maxAmount = maxAmount
             return this
         }
 
-        open fun setNowAmount(nowAmount: Int): AmountChunk {
+        open fun setNowAmount(nowAmount: Int): AmountChunk
+        {
             this.nowAmount = nowAmount
             return this
         }
 
         abstract fun applyNoPositionMessage(message: BarRenderUpdateMessage): AmountChunk
 
-        override fun compareTo(other: AmountChunk): Int {
+        override fun compareTo(other: AmountChunk): Int
+        {
             return this.order.compareTo(other.order)
         }
     }
 
-    companion object {
+    companion object
+    {
         const val HIDE_SPEED: Float = 4.0f
         const val HEALTH_HIDE_TIMER_MIN: Float = 0.2f
         val BAR_OFFSET_Y: Float = 28.0f * Settings.scale

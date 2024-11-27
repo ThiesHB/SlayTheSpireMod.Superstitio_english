@@ -4,18 +4,22 @@ import com.megacrit.cardcrawl.cards.AbstractCard
 import superstitio.DataManager
 import superstitio.cards.CardOwnerPlayerManager
 import superstitio.cards.maso.SkillCard.CutWrist
-import java.util.function.*
+import java.util.function.Predicate
 
-class MasoPool : AbstractCover(ID, CutWrist()) {
-    override fun getAddedCard(): Predicate<AbstractCard> {
+class MasoPool : AbstractCover(ID, CutWrist())
+{
+    override fun getAddedCard(): Predicate<AbstractCard>
+    {
         return Predicate(CardOwnerPlayerManager::isOnlyMasoCard)
     }
 
-    override fun getBanedCard(): Predicate<AbstractCard>? {
+    override fun getBanedCard(): Predicate<AbstractCard>?
+    {
         return null
     }
 
-    companion object {
+    companion object
+    {
         val ID: String = DataManager.MakeTextID(MasoPool::class.java)
     }
 }

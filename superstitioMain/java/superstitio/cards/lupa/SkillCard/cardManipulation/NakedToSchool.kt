@@ -16,12 +16,15 @@ import superstitio.cards.lupa.LupaCard
 import superstitioapi.actions.AutoDoneInstantAction
 import superstitioapi.actions.ChoseCardFromGridSelectWindowAction
 
-class NakedToSchool : LupaCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET) {
-    init {
+class NakedToSchool : LupaCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET)
+{
+    init
+    {
         this.setupMagicNumber(MAGIC, UPGRADE_MAGIC)
     }
 
-    override fun use(player: AbstractPlayer?, monster: AbstractMonster?) {
+    override fun use(player: AbstractPlayer?, monster: AbstractMonster?)
+    {
         ChoseCardFromGridSelectWindowAction(AbstractDungeon.player.discardPile) { card: AbstractCard? ->
             val targetX = MathUtils.random(Settings.WIDTH.toFloat() * 0.1f, Settings.WIDTH.toFloat() * 0.9f)
             val targetY = MathUtils.random(Settings.HEIGHT.toFloat() * 0.8f, Settings.HEIGHT.toFloat() * 0.2f)
@@ -45,10 +48,12 @@ class NakedToSchool : LupaCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET) {
             .addToBot()
     }
 
-    override fun upgradeAuto() {
+    override fun upgradeAuto()
+    {
     }
 
-    companion object {
+    companion object
+    {
         val ID: String = DataManager.MakeTextID(NakedToSchool::class.java)
 
         val CARD_TYPE: CardType = CardType.SKILL

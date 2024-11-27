@@ -14,33 +14,44 @@ import superstitioapi.hangUpCard.CardOrb
 import superstitioapi.utils.ActionUtility.VoidSupplier
 
 @SpirePatch2(clz = UseCardAction::class, method = "update")
-object GoSomewhereElseAfterUsePatch {
+object GoSomewhereElseAfterUsePatch
+{
     @SpireInstrumentPatch
-        @JvmStatic
-    fun Instrument(): ExprEditor {
-        return object : ExprEditor() {
+    @JvmStatic
+    fun Instrument(): ExprEditor
+    {
+        return object : ExprEditor()
+        {
             @Throws(CannotCompileException::class)
-            override fun edit(m: MethodCall) {
-                if (m.className == CardGroup::class.qualifiedName && m.methodName == "moveToDiscardPile") {
+            override fun edit(m: MethodCall)
+            {
+                if (m.className == CardGroup::class.qualifiedName && m.methodName == "moveToDiscardPile")
+                {
                     m.replace(
                         "if (" + GoSomewhereElseAfterUsePatch::class.qualifiedName + ".Do($1,"
                                 + AbstractDungeon::class.qualifiedName +
                                 ".player.discardPile)) " +
                                 "{\$_ = \$proceed($$);}"
                     )
-                } else if (m.className == CardGroup::class.qualifiedName && m.methodName == "moveToExhaustPile") {
+                }
+                else if (m.className == CardGroup::class.qualifiedName && m.methodName == "moveToExhaustPile")
+                {
                     m.replace(
                         "if (" + GoSomewhereElseAfterUsePatch::class.qualifiedName + ".Do($1,"
                                 + AbstractDungeon::class.qualifiedName + ".player.exhaustPile))" +
                                 " {\$_ = \$proceed($$);}"
                     )
-                } else if (m.className == CardGroup::class.qualifiedName && m.methodName == "moveToDeck") {
+                }
+                else if (m.className == CardGroup::class.qualifiedName && m.methodName == "moveToDeck")
+                {
                     m.replace(
                         "if (" + GoSomewhereElseAfterUsePatch::class.qualifiedName + ".Do($1,"
                                 + AbstractDungeon::class.qualifiedName + ".player.drawPile))" +
                                 " {\$_ = \$proceed($$);}"
                     )
-                } else if (m.className == CardGroup::class.qualifiedName && m.methodName == "moveToHand") {
+                }
+                else if (m.className == CardGroup::class.qualifiedName && m.methodName == "moveToHand")
+                {
                     m.replace(
                         "if (" + GoSomewhereElseAfterUsePatch::class.qualifiedName + ".Do($1,"
                                 + AbstractDungeon::class.qualifiedName + ".player.hand)) " +
@@ -52,7 +63,8 @@ object GoSomewhereElseAfterUsePatch {
     }
 
     @JvmStatic
-    fun Do(card: AbstractCard, cardGroup: CardGroup): Boolean {
+    fun Do(card: AbstractCard, cardGroup: CardGroup): Boolean
+    {
         if (card !is GoSomewhereElseAfterUse) return true
         if (card.purgeOnUse) return true
         card.targetDrawScale = CardOrb.DRAW_SCALE_SMALL

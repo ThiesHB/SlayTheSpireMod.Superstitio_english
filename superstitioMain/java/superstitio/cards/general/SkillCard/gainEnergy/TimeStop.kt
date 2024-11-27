@@ -22,33 +22,41 @@ import superstitio.powers.DelaySexualHeat
 import superstitio.powers.SexualHeat
 import superstitioapi.utils.setDescriptionArgs
 
-class TimeStop : GeneralCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET) {
-    init {
+class TimeStop : GeneralCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET)
+{
+    init
+    {
         setupMagicNumber(MAGIC)
     }
 
-    override fun use(player: AbstractPlayer?, monster: AbstractMonster?) {
+    override fun use(player: AbstractPlayer?, monster: AbstractMonster?)
+    {
         addToBot_applyPower(TimeStopPower(AbstractDungeon.player, this.magicNumber))
         addToBot_applyPower(NoDrawPower(player))
     }
 
-    override fun upgradeAuto() {
+    override fun upgradeAuto()
+    {
         this.upgradeBaseCost(COST_UPGRADED_NEW)
     }
 
     @NoNeedImg
     class TimeStopPower(owner: AbstractCreature, amount: Int) : AbstractSuperstitioPower(POWER_ID, owner, amount),
-        BetterOnApplyPowerPower {
-        init {
+        BetterOnApplyPowerPower
+    {
+        init
+        {
             this.loadRegion("time")
         }
 
-        override fun updateDescriptionArgs() {
+        override fun updateDescriptionArgs()
+        {
             setDescriptionArgs(amount, sexualReturnRate)
         }
 
 
-        override fun atEndOfRound() {
+        override fun atEndOfRound()
+        {
             super.atEndOfRound()
             //if (!isPlayer) return;
             addToBot_AutoRemoveOne(this)
@@ -58,8 +66,10 @@ class TimeStop : GeneralCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET) {
             power: AbstractPower,
             creature: AbstractCreature,
             creature1: AbstractCreature
-        ): Boolean {
-            if (power is SexualHeat && power.amount > 0) {
+        ): Boolean
+        {
+            if (power is SexualHeat && power.amount > 0)
+            {
                 this.flash()
                 this.addToBot(
                     ApplyPowerAction(
@@ -74,19 +84,23 @@ class TimeStop : GeneralCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET) {
         }
 
 
-        companion object {
+        companion object
+        {
             val POWER_ID: String = DataManager.MakeTextID(TimeStopPower::class.java)
             const val sexualReturnRate: Int = 2
 
             @SpirePatch2(clz = AbstractCreature::class, method = "applyEndOfTurnTriggers")
-            object TimeStopEndTurnPatch {
+            object TimeStopEndTurnPatch
+            {
                 @SpirePrefixPatch
                 @JvmStatic
-                fun Prefix(__instance: AbstractCreature): SpireReturn<Void> {
+                fun Prefix(__instance: AbstractCreature): SpireReturn<Void>
+                {
                     val timeStopPower =
                         __instance.powers.stream().filter { power: AbstractPower? -> power is TimeStopPower }
                             .map { power: AbstractPower -> power as TimeStopPower }.findAny()
-                    if (timeStopPower.isPresent) {
+                    if (timeStopPower.isPresent)
+                    {
                         val noDraw = __instance.getPower(NoDrawPower.POWER_ID)
                         if (noDraw != null) timeStopPower.get().addToBot_AutoRemoveOne(noDraw)
                         return SpireReturn.Return()
@@ -96,14 +110,19 @@ class TimeStop : GeneralCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET) {
             }
 
             @SpirePatch2(clz = MonsterGroup::class, method = "applyEndOfTurnPowers")
-            object TimeStopEndRoundPatch {
+            object TimeStopEndRoundPatch
+            {
                 @SpireInstrumentPatch
                 @JvmStatic
-                fun Instrument(): ExprEditor {
-                    return object : ExprEditor() {
+                fun Instrument(): ExprEditor
+                {
+                    return object : ExprEditor()
+                    {
                         @Throws(CannotCompileException::class)
-                        override fun edit(m: MethodCall) {
-                            if (m.className == AbstractPower::class.qualifiedName && m.methodName == "atEndOfRound") {
+                        override fun edit(m: MethodCall)
+                        {
+                            if (m.className == AbstractPower::class.qualifiedName && m.methodName == "atEndOfRound")
+                            {
                                 m.replace(
                                     String.format(
                                         "if (!%s.shouldEscapeEndOfRound($0)){\$_ = \$proceed($$);}",
@@ -115,8 +134,10 @@ class TimeStop : GeneralCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET) {
                     }
                 }
             }
+
             @JvmStatic
-            fun shouldEscapeEndOfRound(power: AbstractPower?): Boolean {
+            fun shouldEscapeEndOfRound(power: AbstractPower?): Boolean
+            {
                 if (power == null) return false
                 if (power is TimeStopPower) return false
                 if (power.owner == null) return false
@@ -130,7 +151,8 @@ class TimeStop : GeneralCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET) {
         }
     }
 
-    companion object {
+    companion object
+    {
         val ID: String = DataManager.MakeTextID(TimeStop::class.java)
 
         val CARD_TYPE: CardType = CardType.SKILL

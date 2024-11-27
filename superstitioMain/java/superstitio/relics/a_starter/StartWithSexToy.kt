@@ -10,11 +10,14 @@ import superstitioapi.utils.ActionUtility
 import superstitioapi.utils.setDescriptionArgs
 
 @Seen
-class StartWithSexToy : SuperstitioRelic(ID, RELIC_TIER, LANDING_SOUND) {
-    override fun atBattleStart() {
+class StartWithSexToy : SuperstitioRelic(ID, RELIC_TIER, LANDING_SOUND)
+{
+    override fun atBattleStart()
+    {
         this.flash()
         this.addToBot(RelicAboveCreatureAction(AbstractDungeon.player, this))
-        for (i in 0 until SexToyNum) {
+        for (i in 0 until SexToyNum)
+        {
             ActionUtility.addToBot_applyPower(
                 SexToy(
                     AbstractDungeon.player,
@@ -25,11 +28,13 @@ class StartWithSexToy : SuperstitioRelic(ID, RELIC_TIER, LANDING_SOUND) {
         }
     }
 
-    override fun updateDescriptionArgs() {
+    override fun updateDescriptionArgs()
+    {
         setDescriptionArgs(SexToyNum)
     }
 
-    companion object {
+    companion object
+    {
         val ID: String = DataManager.MakeTextID(StartWithSexToy::class.java)
 
         // 遗物类型

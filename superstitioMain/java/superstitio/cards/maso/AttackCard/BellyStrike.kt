@@ -13,15 +13,18 @@ import superstitio.cards.maso.MasoCard
 import superstitioapi.actions.AutoDoneInstantAction
 import superstitioapi.utils.CardUtility
 
-class BellyStrike : MasoCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET) {
-    init {
+class BellyStrike : MasoCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET)
+{
+    init
+    {
         this.setupDamage(DAMAGE, UPGRADE_DAMAGE)
         tags.add(CardTags.STRIKE)
         this.setupMagicNumber(MAGIC)
     }
 
 
-    override fun use(player: AbstractPlayer?, monster: AbstractMonster?) {
+    override fun use(player: AbstractPlayer?, monster: AbstractMonster?)
+    {
         val target = CardUtility.getSelfOrEnemyTarget(this, monster)
         addToBot_applyPower(LoseStrengthPower(target, this.magicNumber))
         if (target is AbstractPlayer) addToBot_dealDamage(target, this.damage / 2, AttackEffect.BLUNT_HEAVY)
@@ -29,7 +32,8 @@ class BellyStrike : MasoCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET) {
         addToBot_applyPower(StrengthPower(target, this.magicNumber))
         if (!target.isPlayer) return
         AutoDoneInstantAction.addToBotAbstract {
-            if (AbstractDungeon.player.lastDamageTaken > 0) {
+            if (AbstractDungeon.player.lastDamageTaken > 0)
+            {
                 val strength = AbstractDungeon.player.getPower(StrengthPower.POWER_ID)
                 addToBot_applyPower(StrengthPower(AbstractDungeon.player, strength.amount))
             }
@@ -37,9 +41,11 @@ class BellyStrike : MasoCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET) {
     }
 
 
-    override fun update() {
+    override fun update()
+    {
         super.update()
-        if (AbstractDungeon.player != null && AbstractDungeon.player.hoveredCard === this) {
+        if (AbstractDungeon.player != null && AbstractDungeon.player.hoveredCard === this)
+        {
             calculateCardDamageForSelfOrEnemyTargeting()
             initializeDescription()
         }
@@ -52,19 +58,23 @@ class BellyStrike : MasoCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET) {
     //        applyPowers();
     //        initializeDescription();
     //    }
-    override fun calculateCardDamageForSelfOrEnemyTargeting(): AbstractCreature? {
+    override fun calculateCardDamageForSelfOrEnemyTargeting(): AbstractCreature?
+    {
         val target = super.calculateCardDamageForSelfOrEnemyTargeting()
-        if (target is AbstractPlayer) {
+        if (target is AbstractPlayer)
+        {
             this.damage /= 2
             this.isDamageModified = true
         }
         return target
     }
 
-    override fun upgradeAuto() {
+    override fun upgradeAuto()
+    {
     }
 
-    companion object {
+    companion object
+    {
         val ID: String = DataManager.MakeTextID(BellyStrike::class.java)
 
         val CARD_TYPE: CardType = CardType.ATTACK

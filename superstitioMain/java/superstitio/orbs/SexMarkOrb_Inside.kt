@@ -12,40 +12,49 @@ import com.megacrit.cardcrawl.vfx.combat.LightningOrbPassiveEffect
 import superstitio.DataManager
 
 class SexMarkOrb_Inside @JvmOverloads constructor(sexMarkName: String = "") :
-    SexMarkOrb(ORB_ID, AOEDamageRate, sexMarkName) {
+    SexMarkOrb(ORB_ID, AOEDamageRate, sexMarkName)
+{
     private var vfxTimer = 1.0f
 
-    init {
+    init
+    {
         this.img = ImageMaster.ORB_LIGHTNING
 
         this.angle = MathUtils.random(360.0f)
         this.channelAnimTimer = 0.5f
     }
 
-    override fun attack(): Int {
+    override fun attack(): Int
+    {
         return this.evokeAmount
     }
 
-    override fun block(): Int {
+    override fun block(): Int
+    {
         return 0
     }
 
-    override fun makeCopy(): AbstractOrb {
+    override fun makeCopy(): AbstractOrb
+    {
         return SexMarkOrb_Inside()
     }
 
-    override fun triggerEvokeAnimation() {
+    override fun triggerEvokeAnimation()
+    {
         CardCrawlGame.sound.play("ORB_LIGHTNING_EVOKE", 0.1f)
         AbstractDungeon.effectsQueue.add(LightningOrbActivateEffect(this.cX, this.cY))
     }
 
-    override fun updateAnimation() {
+    override fun updateAnimation()
+    {
         super.updateAnimation()
         this.angle += Gdx.graphics.deltaTime * 180.0f
         this.vfxTimer -= Gdx.graphics.deltaTime
-        if (this.vfxTimer < 0.0f) {
+        if (this.vfxTimer < 0.0f)
+        {
             AbstractDungeon.effectList.add(LightningOrbPassiveEffect(this.cX, this.cY))
-            if (MathUtils.randomBoolean()) {
+            if (MathUtils.randomBoolean())
+            {
                 AbstractDungeon.effectList.add(LightningOrbPassiveEffect(this.cX, this.cY))
             }
 
@@ -53,7 +62,8 @@ class SexMarkOrb_Inside @JvmOverloads constructor(sexMarkName: String = "") :
         }
     }
 
-    override fun render(sb: SpriteBatch) {
+    override fun render(sb: SpriteBatch)
+    {
         shineColor.a = c.a / 2.0f
         sb.color = shineColor
         sb.setBlendFunction(770, 1)
@@ -117,11 +127,13 @@ class SexMarkOrb_Inside @JvmOverloads constructor(sexMarkName: String = "") :
         hb.render(sb)
     }
 
-    override fun playChannelSFX() {
+    override fun playChannelSFX()
+    {
         CardCrawlGame.sound.play("ORB_LIGHTNING_CHANNEL", 0.1f)
     }
 
-    companion object {
+    companion object
+    {
         val ORB_ID: String = DataManager.MakeTextID(SexMarkOrb_Inside::class.java)
         private const val AOEDamageRate = 4
         private const val PI_DIV_16 = 0.19634955f

@@ -1,5 +1,6 @@
 package superstitioapi.player
 
-interface PlayerInitPostDungeonInitialize {
+interface PlayerInitPostDungeonInitialize
+{
     fun initPostDungeonInitialize()
 }

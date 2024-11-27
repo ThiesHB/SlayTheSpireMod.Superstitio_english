@@ -21,31 +21,40 @@ import superstitioapi.utils.CardUtility
 import superstitioapi.utils.CreatureUtility
 import superstitioapi.utils.setDescriptionArgs
 
-class HumanCentipede : MasoCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET) {
-    init {
+class HumanCentipede : MasoCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET)
+{
+    init
+    {
         this.setupMagicNumber(MAGIC, UPGRADE_MAGIC)
         DamageModifierManager.addModifier(this, SexDamage())
         CardModifierManager.addModifier(this, EtherealMod())
     }
 
-    override fun use(player: AbstractPlayer?, monster: AbstractMonster?) {
+    override fun use(player: AbstractPlayer?, monster: AbstractMonster?)
+    {
         val target = CardUtility.getSelfOrEnemyTarget(this, monster)
         addToBot_applyPower(HumanCentipedePower(target, this.magicNumber))
     }
 
-    override fun upgradeAuto() {
+    override fun upgradeAuto()
+    {
     }
 
     class HumanCentipedePower(owner: AbstractCreature, amount: Int) :
-        EasyBuildAbstractPowerForPowerCard(owner = owner, amount = amount) {
-        override fun getDescriptionStrings(): String {
+        EasyBuildAbstractPowerForPowerCard(owner = owner, amount = amount)
+    {
+        override fun getDescriptionStrings(): String
+        {
             return powerCard.cardStrings.getEXTENDED_DESCRIPTION(0)
         }
 
-        override fun onAttacked(info: DamageInfo, damageAmount: Int): Int {
-            if (damageAmount > 0 && info.type == DamageType.NORMAL) {
+        override fun onAttacked(info: DamageInfo, damageAmount: Int): Int
+        {
+            if (damageAmount > 0 && info.type == DamageType.NORMAL)
+            {
                 val map: MutableMap<AbstractCreature, Int> = HashMap()
-                for (monster in CreatureUtility.getAllAliveMonsters()) {
+                for (monster in CreatureUtility.getAllAliveMonsters())
+                {
                     map[monster] = amount
                 }
                 map[AbstractDungeon.player] = amount
@@ -60,16 +69,19 @@ class HumanCentipede : MasoCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET) {
             return super.onAttacked(info, damageAmount)
         }
 
-        override fun updateDescriptionArgs() {
+        override fun updateDescriptionArgs()
+        {
             setDescriptionArgs(this.amount)
         }
 
-        override fun makePowerCard(): SuperstitioCard {
+        override fun makePowerCard(): SuperstitioCard
+        {
             return HumanCentipede()
         }
     }
 
-    companion object {
+    companion object
+    {
         val ID: String = DataManager.MakeTextID(HumanCentipede::class.java)
 
         val CARD_TYPE: CardType = CardType.SKILL

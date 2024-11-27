@@ -17,22 +17,29 @@ import superstitio.powers.lupaOnly.OutsideSemen
 /**
  * 抵消敌人的攻击，转换为精液
  */
-class ExposeSelf : LupaCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET) {
-    init {
+class ExposeSelf : LupaCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET)
+{
+    init
+    {
         this.setupBlock(BLOCK, UPGRADE_BLOCK, RemoveDelayHpLoseBlock())
     }
 
-    override fun use(player: AbstractPlayer?, monster: AbstractMonster?) {
+    override fun use(player: AbstractPlayer?, monster: AbstractMonster?)
+    {
         addToBot_gainBlock()
         addToBot_applyPower(ExposeSelfPower(AbstractDungeon.player, 1))
     }
 
-    override fun upgradeAuto() {
+    override fun upgradeAuto()
+    {
     }
 
-    class ExposeSelfPower(owner: AbstractCreature, amount: Int) : AbstractSuperstitioPower(POWER_ID, owner, amount) {
-        override fun onAttacked(info: DamageInfo, damageAmount: Int): Int {
-            if (info.type == DamageType.NORMAL) {
+    class ExposeSelfPower(owner: AbstractCreature, amount: Int) : AbstractSuperstitioPower(POWER_ID, owner, amount)
+    {
+        override fun onAttacked(info: DamageInfo, damageAmount: Int): Int
+        {
+            if (info.type == DamageType.NORMAL)
+            {
                 this.flash()
                 this.addToBot(
                     ApplyPowerAction(
@@ -45,19 +52,23 @@ class ExposeSelf : LupaCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET) {
             return super.onAttacked(info, damageAmount)
         }
 
-        override fun atStartOfTurn() {
+        override fun atStartOfTurn()
+        {
             addToBot_AutoRemoveOne(this)
         }
 
-        override fun updateDescriptionArgs() {
+        override fun updateDescriptionArgs()
+        {
         }
 
-        companion object {
+        companion object
+        {
             val POWER_ID: String = DataManager.MakeTextID(ExposeSelfPower::class.java)
         }
     }
 
-    companion object {
+    companion object
+    {
         val ID: String = DataManager.MakeTextID(ExposeSelf::class.java)
 
         val CARD_TYPE: CardType = CardType.SKILL

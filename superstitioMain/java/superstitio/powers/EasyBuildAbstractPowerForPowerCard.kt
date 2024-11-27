@@ -11,10 +11,12 @@ abstract class EasyBuildAbstractPowerForPowerCard @JvmOverloads constructor(
     amount: Int,
     shouldUpdateDesc: Boolean = true,
     owner: AbstractCreature = AbstractDungeon.player,
-) : AbstractSuperstitioPower() {
+) : AbstractSuperstitioPower()
+{
     protected val powerCard: SuperstitioCard
 
-    init {
+    init
+    {
         this.powerCard = makePowerCard()
         SetupPower(
             powerCard.cardID,
@@ -29,14 +31,16 @@ abstract class EasyBuildAbstractPowerForPowerCard @JvmOverloads constructor(
             updateDescription()
     }
 
-    fun upgradeCardInThis(shouldUpgrade: Boolean): EasyBuildAbstractPowerForPowerCard {
+    fun upgradeCardInThis(shouldUpgrade: Boolean): EasyBuildAbstractPowerForPowerCard
+    {
         if (shouldUpgrade) powerCard.upgrade()
         return this
     }
 
     protected abstract fun makePowerCard(): SuperstitioCard
 
-    protected open fun getDesc(): String {
+    protected open fun getDesc(): String
+    {
         val desc =
             if (powerCard.cardStrings.getDESCRIPTION().contains("%s") || powerCard.cardStrings.getDESCRIPTION()
                     .contains(
@@ -47,7 +51,8 @@ abstract class EasyBuildAbstractPowerForPowerCard @JvmOverloads constructor(
         return desc
     }
 
-    override fun getDescriptionStrings(): String {
+    override fun getDescriptionStrings(): String
+    {
         if (powerStrings.getDESCRIPTIONS().isNotEmpty() && powerStrings.getDESCRIPTION(
                 0
             ) != LocalizedStrings.createMockStringArray(1)[0]

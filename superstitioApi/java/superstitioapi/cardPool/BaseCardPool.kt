@@ -23,7 +23,8 @@ abstract class BaseCardPool(
     var target_y: Float,
     private val addedCard: Predicate<AbstractCard>?,
     private val banedCard: Predicate<AbstractCard>?
-) : IUIElement {
+) : IUIElement
+{
     private val glowList = ArrayList<SafeCardGlowBorder>()
     var isSelect: Boolean = true
     private var glowTimer = 0.0f
@@ -52,7 +53,8 @@ abstract class BaseCardPool(
         Predicate<AbstractCard>(banedCardList::contains)
     )
 
-    init {
+    init
+    {
         poolCover.drawScale = COVER_DRAW_SCALE
         poolCover.transparency = 1.0f
         poolCover.current_x = this.target_x
@@ -67,7 +69,8 @@ abstract class BaseCardPool(
     val id: String
         get() = poolCover.cardID
 
-    fun transportTo(x: Float, y: Float) {
+    fun transportTo(x: Float, y: Float)
+    {
         this.target_x = x
         this.target_y = y
         poolCover.current_x = this.target_x
@@ -76,12 +79,14 @@ abstract class BaseCardPool(
         poolCover.target_y = this.target_y
     }
 
-    fun moveTo(x: Float, y: Float) {
+    fun moveTo(x: Float, y: Float)
+    {
         this.target_x = x
         this.target_y = y
     }
 
-    fun getAddedCard(): Predicate<AbstractCard?> {
+    fun getAddedCard(): Predicate<AbstractCard?>
+    {
         if (addedCard == null || !isSelect)
             return Predicate { card: AbstractCard? -> false }
         return Predicate { card: AbstractCard? ->
@@ -91,7 +96,8 @@ abstract class BaseCardPool(
         }
     }
 
-    fun getBanedCard(): Predicate<AbstractCard?> {
+    fun getBanedCard(): Predicate<AbstractCard?>
+    {
         if (banedCard == null || !isSelect)
             return Predicate { card: AbstractCard? -> false }
         return Predicate { card: AbstractCard? ->
@@ -102,38 +108,47 @@ abstract class BaseCardPool(
     }
 
     //    public HashSet<>
-    protected fun clickThisPool() {
+    protected fun clickThisPool()
+    {
         this.isSelect = !this.isSelect
     }
 
-    private fun updateGlow() {
-        if (this.isGlowing) {
+    private fun updateGlow()
+    {
+        if (this.isGlowing)
+        {
             this.glowTimer -= Gdx.graphics.deltaTime
-            if (this.glowTimer < 0.0f) {
+            if (this.glowTimer < 0.0f)
+            {
                 glowList.add(SafeCardGlowBorder(this.poolCover, poolCover.glowColor))
                 this.glowTimer = 0.3f
             }
         }
 
         val i = glowList.iterator()
-        while (i.hasNext()) {
+        while (i.hasNext())
+        {
             val e = i.next()
             e.update()
-            if (e.isDone) {
+            if (e.isDone)
+            {
                 i.remove()
             }
         }
     }
 
-    private fun renderGlow(sb: SpriteBatch) {
-        if (!Settings.hideCards) {
+    private fun renderGlow(sb: SpriteBatch)
+    {
+        if (!Settings.hideCards)
+        {
             ReflectionHacks.privateMethod(AbstractCard::class.java, "renderMainBorder", SpriteBatch::class.java)
                 .invoke<Any>(
                     this.poolCover, sb
                 )
 
             //            this.poolCover.renderMainBorder(sb);
-            for (safeCardGlowBorder in this.glowList) {
+            for (safeCardGlowBorder in this.glowList)
+            {
                 (safeCardGlowBorder as AbstractGameEffect).render(sb)
             }
 
@@ -141,10 +156,14 @@ abstract class BaseCardPool(
         }
     }
 
-    override fun render(sb: SpriteBatch) {
-        if (poolCover.hb.hovered) {
+    override fun render(sb: SpriteBatch)
+    {
+        if (poolCover.hb.hovered)
+        {
             sb.color = Color.WHITE
-        } else {
+        }
+        else
+        {
             sb.color = Color.LIGHT_GRAY
         }
         updateGlow()
@@ -157,29 +176,38 @@ abstract class BaseCardPool(
         FontHelper.cardTitleFont.data.setScale(1.0f)
     }
 
-    override fun update() {
+    override fun update()
+    {
         poolCover.target_x = this.target_x
         poolCover.target_y = this.target_y
 
         poolCover.update()
         poolCover.updateHoverLogic()
-        if (poolCover.hb.hovered) {
+        if (poolCover.hb.hovered)
+        {
             poolCover.targetDrawScale = COVER_DRAW_SCALE * COVER_DRAW_HOVER_SCALE_RATE
-        } else {
+        }
+        else
+        {
             poolCover.targetDrawScale = COVER_DRAW_SCALE
         }
 
         //        this.poolCover.drawScale = COVER_DRAW_SCALE;
 //        this.poolCover.targetDrawScale = COVER_DRAW_SCALE;
-        if (poolCover.hb.hovered && InputHelper.justClickedLeft) {
+        if (poolCover.hb.hovered && InputHelper.justClickedLeft)
+        {
             CardCrawlGame.sound.play("UI_CLICK_1")
             clickThisPool()
         }
-        if (isSelect) {
+        if (isSelect)
+        {
             this.isGlowing = true
-        } else {
+        }
+        else
+        {
             this.isGlowing = false
-            for (safeCardGlowBorder in this.glowList) {
+            for (safeCardGlowBorder in this.glowList)
+            {
                 safeCardGlowBorder.duration /= 5.0f
             }
         }
@@ -188,15 +216,18 @@ abstract class BaseCardPool(
         FontHelper.cardTitleFont.data.setScale(1.0f)
     }
 
-    override fun renderLayer(): Int {
+    override fun renderLayer(): Int
+    {
         return 0
     }
 
-    override fun updateOrder(): Int {
+    override fun updateOrder(): Int
+    {
         return 0
     }
 
-    interface IsCardPoolCover {
+    interface IsCardPoolCover
+    {
         val self: AbstractCard
             get() = this as AbstractCard
 
@@ -208,15 +239,18 @@ abstract class BaseCardPool(
     class SafeCardGlowBorder @JvmOverloads constructor(
         private val card: AbstractCard,
         gColor: Color = Color.valueOf("30c8dcff")
-    ) : AbstractGameEffect() {
+    ) : AbstractGameEffect()
+    {
         private var img: AtlasRegion? = null
         var scale = 0f
 
-        init {
-            when (card.type) {
-                CardType.POWER -> this.img = ImageMaster.CARD_POWER_BG_SILHOUETTE
+        init
+        {
+            when (card.type)
+            {
+                CardType.POWER  -> this.img = ImageMaster.CARD_POWER_BG_SILHOUETTE
                 CardType.ATTACK -> this.img = ImageMaster.CARD_ATTACK_BG_SILHOUETTE
-                else -> this.img = ImageMaster.CARD_SKILL_BG_SILHOUETTE
+                else            -> this.img = ImageMaster.CARD_SKILL_BG_SILHOUETTE
             }
             this.duration = 1.2f
             //            if (AbstractDungeon.getCurrRoom().phase == AbstractRoom.RoomPhase.COMBAT) {
@@ -227,7 +261,8 @@ abstract class BaseCardPool(
 //            }
         }
 
-        override fun update() {
+        override fun update()
+        {
             this.scale = (1.0f + Interpolation.pow2Out.apply(
                 0.03f,
                 0.11f,
@@ -235,13 +270,15 @@ abstract class BaseCardPool(
             )) * card.drawScale * Settings.scale
             color.a = this.duration / 2.0f
             this.duration -= Gdx.graphics.deltaTime
-            if (this.duration < 0.0f) {
+            if (this.duration < 0.0f)
+            {
                 this.isDone = true
                 this.duration = 0.0f
             }
         }
 
-        override fun render(sb: SpriteBatch) {
+        override fun render(sb: SpriteBatch)
+        {
             sb.color = color
             sb.draw(
                 this.img,
@@ -255,11 +292,13 @@ abstract class BaseCardPool(
             )
         }
 
-        override fun dispose() {
+        override fun dispose()
+        {
         }
     }
 
-    companion object {
+    companion object
+    {
         const val COVER_DRAW_SCALE: Float = 0.5f
         const val COVER_DRAW_HOVER_SCALE_RATE: Float = 1.25f
         val HB_W_CARD: Float = 300.0f * Settings.scale

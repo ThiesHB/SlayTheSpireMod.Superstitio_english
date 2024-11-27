@@ -7,7 +7,8 @@ import com.google.gson.annotations.SerializedName
 import com.megacrit.cardcrawl.saveAndContinue.SaveFile
 
 @SpirePatch2(clz = SaveFile::class, method = "<class>")
-object SuperstitioApiModSaves {
+object SuperstitioApiModSaves
+{
     @SerializedName("superstitioapimod:mod_blight")
     @JvmField
     var modBlightSaves: SpireField<ArrayListOfJsonElement?> = SpireField<ArrayListOfJsonElement?> { null }

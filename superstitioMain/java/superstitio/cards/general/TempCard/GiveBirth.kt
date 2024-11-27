@@ -14,48 +14,60 @@ import superstitio.cardModifier.modifiers.block.PregnantBlock
 import superstitio.cards.general.AbstractTempCard
 import superstitioapi.actions.AutoDoneInstantAction
 
-class GiveBirth() : AbstractTempCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET) {
+class GiveBirth() : AbstractTempCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET)
+{
     var sealPower: MutableList<AbstractPower> = ArrayList()
     var sealMonster: AbstractCreature? = null
 
-    init {
+    init
+    {
         this.exhaust = true
         this.setupBlock(BLOCK, UPGRADE_PLUS_BLOCK)
     }
 
-    constructor(sealPower: MutableList<AbstractPower>, sealMonster: AbstractCreature?) : this() {
+    constructor(sealPower: MutableList<AbstractPower>, sealMonster: AbstractCreature?) : this()
+    {
         this.sealPower = sealPower
-        if (sealMonster != null) {
+        if (sealMonster != null)
+        {
             this.sealMonster = sealMonster
             this.name = this.originalName + ": " + sealMonster.name
         }
     }
 
-    override fun use(player: AbstractPlayer?, monster: AbstractMonster?) {
+    override fun use(player: AbstractPlayer?, monster: AbstractMonster?)
+    {
         //this.gainBlock();
         this.addToBot(AddTemporaryHPAction(AbstractDungeon.player, AbstractDungeon.player, this.block))
-        for (blockInstance in BlockModifierManager.blockInstances(AbstractDungeon.player)) {
+        for (blockInstance in BlockModifierManager.blockInstances(AbstractDungeon.player))
+        {
             if (blockInstance.blockTypes.stream()
                     .anyMatch { blockModifier: AbstractBlockModifier? -> blockModifier is PregnantBlock }
-            ) {
+            )
+            {
                 AutoDoneInstantAction.addToBotAbstract { BlockModifierManager.removeSpecificBlockType(blockInstance) }
             }
         }
     }
 
-    override fun upgradeAuto() {
+    override fun upgradeAuto()
+    {
     }
 
-    override fun makeCopy(): AbstractCard {
+    override fun makeCopy(): AbstractCard
+    {
         val newCard = super.makeCopy() as GiveBirth?
-        if (newCard != null) {
+        if (newCard != null)
+        {
             newCard.sealMonster = this.sealMonster
             newCard.sealPower = this.sealPower
             return newCard
-        } else return super.makeCopy()
+        }
+        else return super.makeCopy()
     }
 
-    companion object {
+    companion object
+    {
         val ID: String = DataManager.MakeTextID(GiveBirth::class.java)
 
         val CARD_TYPE: CardType = CardType.SKILL

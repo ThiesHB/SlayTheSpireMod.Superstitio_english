@@ -18,7 +18,8 @@ import kotlin.math.atan2
 import kotlin.math.sqrt
 
 open class BarRenderOnThing_Ring(hitbox: Supplier<Hitbox>, power: HasBarRenderOnCreature) :
-    BarRenderOnThing(hitbox, power) {
+    BarRenderOnThing(hitbox, power)
+{
     var initDegree: Float
     var barAverageRadius_renormalization: Float
     var barHalfThick_renormalization: Float
@@ -26,7 +27,8 @@ open class BarRenderOnThing_Ring(hitbox: Supplier<Hitbox>, power: HasBarRenderOn
     var barEndDegree: Float
 
     //    protected ShaderProgram shader;
-    init {
+    init
+    {
         this.barLength = BAR_DEGREE
         this.initDegree = INIT_DEGREE
         this.barSize = BAR_SIZE
@@ -43,7 +45,8 @@ open class BarRenderOnThing_Ring(hitbox: Supplier<Hitbox>, power: HasBarRenderOn
         //        shader = RingShader.ringShader_useHalfPic;
     }
 
-    private fun setUpShader(sb: SpriteBatch, startLength: Float, length: Float) {
+    private fun setUpShader(sb: SpriteBatch, startLength: Float, length: Float)
+    {
         RingShader.setUp_ringShader_useHalfPic(
             sb,
             barAverageRadius_renormalization,
@@ -53,10 +56,12 @@ open class BarRenderOnThing_Ring(hitbox: Supplier<Hitbox>, power: HasBarRenderOn
         )
     }
 
-    override fun render(sb: SpriteBatch) {
+    override fun render(sb: SpriteBatch)
+    {
         renderBar(sb)
         renderBarText(sb, xDrawStart, yDrawStart)
-        if (Settings.isDebug || Settings.isInfo) {
+        if (Settings.isDebug || Settings.isInfo)
+        {
             renderDebug(sb)
         }
     }
@@ -67,14 +72,16 @@ open class BarRenderOnThing_Ring(hitbox: Supplier<Hitbox>, power: HasBarRenderOn
     override val xDrawStart: Float
         get() = hitbox.cX - barSize / 2.0f
 
-    override fun renderBar(sb: SpriteBatch) {
+    override fun renderBar(sb: SpriteBatch)
+    {
         ShaderUtility.originShader = sb.shader
         this.renderAmountBarBackGround(sb, xDrawStart, yDrawStart)
         amountChunkWithUuid.values.forEach(Consumer { amountChunk: AmountChunk -> amountChunk.render(sb) })
         sb.shader = ShaderUtility.originShader
     }
 
-    override fun drawBarMinEnd(sb: SpriteBatch, x: Float, y: Float, startLength: Float, length: Float) {
+    override fun drawBarMinEnd(sb: SpriteBatch, x: Float, y: Float, startLength: Float, length: Float)
+    {
         if (length >= 360.0f) return
         setUpShader(
             sb,
@@ -84,7 +91,8 @@ open class BarRenderOnThing_Ring(hitbox: Supplier<Hitbox>, power: HasBarRenderOn
         sb.draw(ImageMaster.HEALTH_BAR_L, x, y, barSize, barSize)
     }
 
-    override fun drawBarMiddle(sb: SpriteBatch, x: Float, y: Float, startLength: Float, length: Float) {
+    override fun drawBarMiddle(sb: SpriteBatch, x: Float, y: Float, startLength: Float, length: Float)
+    {
         setUpShader(
             sb,
             initDegree + startLength,
@@ -93,7 +101,8 @@ open class BarRenderOnThing_Ring(hitbox: Supplier<Hitbox>, power: HasBarRenderOn
         sb.draw(ImageMaster.HEALTH_BAR_B, x, y, barSize, barSize)
     }
 
-    override fun drawBarMaxEnd(sb: SpriteBatch, x: Float, y: Float, startLength: Float, length: Float) {
+    override fun drawBarMaxEnd(sb: SpriteBatch, x: Float, y: Float, startLength: Float, length: Float)
+    {
         if (length >= 360.0f) return
         setUpShader(
             sb,
@@ -103,7 +112,8 @@ open class BarRenderOnThing_Ring(hitbox: Supplier<Hitbox>, power: HasBarRenderOn
         sb.draw(ImageMaster.HEALTH_BAR_R, x, y, barSize, barSize)
     }
 
-    override fun drawBarShadow(sb: SpriteBatch, x: Float, y: Float, startLength: Float, length: Float) {
+    override fun drawBarShadow(sb: SpriteBatch, x: Float, y: Float, startLength: Float, length: Float)
+    {
         setUpShader(
             sb,
             initDegree + startLength - barEndDegree,
@@ -124,7 +134,8 @@ open class BarRenderOnThing_Ring(hitbox: Supplier<Hitbox>, power: HasBarRenderOn
         sb.draw(ImageMaster.HB_SHADOW_R, x, y, barSize, barSize)
     }
 
-    override fun makeNewAmountChunk(message: BarRenderUpdateMessage): AmountChunk? {
+    override fun makeNewAmountChunk(message: BarRenderUpdateMessage): AmountChunk?
+    {
         val amountChunk = super.makeNewAmountChunk(message)
         if (amountChunk !is BarAmountChunk) return amountChunk
         val ringHitBox = RingHitBox(this)
@@ -136,30 +147,37 @@ open class BarRenderOnThing_Ring(hitbox: Supplier<Hitbox>, power: HasBarRenderOn
         return amountChunk
     }
 
-    override fun chunkHitBoxReSize(amountChunk: BarAmountChunk) {
-        if (amountChunk.hitbox !is RingHitBox) {
+    override fun chunkHitBoxReSize(amountChunk: BarAmountChunk)
+    {
+        if (amountChunk.hitbox !is RingHitBox)
+        {
             super.chunkHitBoxReSize(amountChunk)
             return
         }
         val ringHitBox = amountChunk.hitbox as RingHitBox
 
-        when (amountChunk.orderType) {
-            OrderType.Min -> {
+        when (amountChunk.orderType)
+        {
+            OrderType.Min     ->
+            {
                 ringHitBox.startDegree = initDegree + amountChunk.startLength - this.barEndDegree
                 ringHitBox.lengthDegree = this.barEndDegree + amountChunk.length
             }
 
-            OrderType.Middle -> {
+            OrderType.Middle  ->
+            {
                 ringHitBox.startDegree = initDegree + amountChunk.startLength
                 ringHitBox.lengthDegree = amountChunk.length
             }
 
-            OrderType.Max -> {
+            OrderType.Max     ->
+            {
                 ringHitBox.startDegree = initDegree + amountChunk.startLength
                 ringHitBox.lengthDegree = this.barEndDegree + amountChunk.length
             }
 
-            OrderType.OnlyOne -> {
+            OrderType.OnlyOne ->
+            {
                 ringHitBox.startDegree = initDegree + amountChunk.startLength - this.barEndDegree
                 ringHitBox.lengthDegree = this.barEndDegree * 2 + amountChunk.length
             }
@@ -172,7 +190,8 @@ open class BarRenderOnThing_Ring(hitbox: Supplier<Hitbox>, power: HasBarRenderOn
     }
 
     class RingHitBox(var averageRadius: Float, var halfThick: Float, var startDegree: Float, var lengthDegree: Float) :
-        Hitbox(2 * (averageRadius + halfThick), 2 * (averageRadius + halfThick)) {
+        Hitbox(2 * (averageRadius + halfThick), 2 * (averageRadius + halfThick))
+    {
         constructor(ring: BarRenderOnThing_Ring) : this(
             ring.barSize * ring.barAverageRadius_renormalization,
             ring.barSize * ring.barHalfThick_renormalization,
@@ -180,7 +199,8 @@ open class BarRenderOnThing_Ring(hitbox: Supplier<Hitbox>, power: HasBarRenderOn
             ring.barEndDegree * 2 + ring.barLength
         )
 
-        private fun isHovered(x: Float, y: Float): Boolean {
+        private fun isHovered(x: Float, y: Float): Boolean
+        {
             val mx = InputHelper.mX - this.cX
             val my = InputHelper.mY - this.cY
             var theta = (MathUtils.radiansToDegrees * atan2(my.toDouble(), -mx.toDouble())).toFloat()
@@ -195,28 +215,38 @@ open class BarRenderOnThing_Ring(hitbox: Supplier<Hitbox>, power: HasBarRenderOn
                     && (averageRadius - halfThick < radius) && (radius < averageRadius + halfThick))
         }
 
-        override fun update(x: Float, y: Float) {
+        override fun update(x: Float, y: Float)
+        {
             if (AbstractDungeon.isFadingOut) return
             this.translate(x, y)
-            if (this.justHovered) {
+            if (this.justHovered)
+            {
                 this.justHovered = false
             }
 
-            if (this.hovered) {
+            if (this.hovered)
+            {
                 this.hovered = isHovered(x, y)
-            } else {
+            }
+            else
+            {
                 this.hovered = isHovered(x, y)
-                if (this.hovered) {
+                if (this.hovered)
+                {
                     this.justHovered = true
                 }
             }
         }
 
-        override fun render(sb: SpriteBatch) {
+        override fun render(sb: SpriteBatch)
+        {
             if (!Settings.isDebug && !Settings.isInfo) return
-            if (this.clickStarted) {
+            if (this.clickStarted)
+            {
                 sb.color = Color.CHARTREUSE
-            } else {
+            }
+            else
+            {
                 sb.color = Color.RED
             }
 
@@ -238,7 +268,8 @@ open class BarRenderOnThing_Ring(hitbox: Supplier<Hitbox>, power: HasBarRenderOn
         }
     }
 
-    companion object {
+    companion object
+    {
         protected val BAR_SIZE: Float = BAR_DIAMETER * 6.0f
         protected val BAR_THICK: Float = BAR_DIAMETER * 1.2f
         protected val BAR_HALF_THICK_RENORMALIZATION: Float = BAR_THICK / 2.0f / BAR_SIZE

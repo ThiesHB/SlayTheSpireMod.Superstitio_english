@@ -27,13 +27,16 @@ import kotlin.math.min
 @Seen
 class Sensitive : SuperstitioRelic(ID, RELIC_TIER, LANDING_SOUND),
     HasAllCardCostModifyEffect, BecomeInfoBlight,
-    OnOrgasm_onOrgasmFirst, OnOrgasm_onEndOrgasm {
+    OnOrgasm_onOrgasmFirst, OnOrgasm_onEndOrgasm
+{
     private val hpLose = 0
-    override fun onEndOrgasm(SexualHeatPower: SexualHeat) {
+    override fun onEndOrgasm(SexualHeatPower: SexualHeat)
+    {
         AutoDoneInstantAction.addToBotAbstract { AllCardCostModifier.RemoveAllByHolder(this) }
     }
 
-    override fun IDAsHolder(): String {
+    override fun IDAsHolder(): String
+    {
         return ID
     }
 
@@ -41,13 +44,15 @@ class Sensitive : SuperstitioRelic(ID, RELIC_TIER, LANDING_SOUND),
         get() = AllCardCostModifier.getAllByHolder(this).firstOrNull { it?.isActive ?: false }
 
 
-    override fun onOrgasmFirst(SexualHeatPower: SexualHeat) {
+    override fun onOrgasmFirst(SexualHeatPower: SexualHeat)
+    {
         val decreaseCost = min(
             SexualHeat.getOrgasmTimesInTurn().toDouble(),
             AbstractDungeon.player.energy.energyMaster.toDouble()
         ).toInt()
         AutoDoneInstantAction.addToBotAbstract {
-            try {
+            try
+            {
                 AllCardCostModifier.addTo_Bot_EditAmount_Top_FirstByHolder(
                     this@Sensitive, decreaseCost, { power: AllCardCostModifier? ->
                         if (power != null)
@@ -60,24 +65,34 @@ class Sensitive : SuperstitioRelic(ID, RELIC_TIER, LANDING_SOUND),
                         HasAllCardCostModifyEffect::class.java
                     )
                 )
-            } catch (e: NoSuchMethodException) {
+            }
+            catch (e: NoSuchMethodException)
+            {
                 Logger.error(e)
-            } catch (e: InvocationTargetException) {
+            }
+            catch (e: InvocationTargetException)
+            {
                 Logger.error(e)
-            } catch (e: InstantiationException) {
+            }
+            catch (e: InstantiationException)
+            {
                 Logger.error(e)
-            } catch (e: IllegalAccessException) {
+            }
+            catch (e: IllegalAccessException)
+            {
                 Logger.error(e)
             }
         }
     }
 
 
-    override fun updateDescriptionArgs() {
+    override fun updateDescriptionArgs()
+    {
         setDescriptionArgs(SexualHeatRate)
     }
 
-    override fun onPlayCard(card: AbstractCard, m: AbstractMonster?) {
+    override fun onPlayCard(card: AbstractCard, m: AbstractMonster?)
+    {
         if (card.isInAutoplay) return
         var amount = 0
         if (card.costForTurn >= 1) amount += card.costForTurn
@@ -90,19 +105,23 @@ class Sensitive : SuperstitioRelic(ID, RELIC_TIER, LANDING_SOUND),
         )
     }
 
-    override fun obtain() {
+    override fun obtain()
+    {
         InfoBlight.obtain(this)
     }
 
-    override fun instantObtain(p: AbstractPlayer, slot: Int, callOnEquip: Boolean) {
+    override fun instantObtain(p: AbstractPlayer, slot: Int, callOnEquip: Boolean)
+    {
         InfoBlight.instanceObtain(this, callOnEquip)
     }
 
-    override fun instantObtain() {
+    override fun instantObtain()
+    {
         InfoBlight.instanceObtain(this, true)
     }
 
-    companion object {
+    companion object
+    {
         val ID: String = DataManager.MakeTextID(Sensitive::class.java)
 
         // 遗物类型

@@ -9,17 +9,21 @@ import superstitio.relics.SuperstitioRelic
 import superstitioapi.utils.ActionUtility
 
 @Seen
-class VulnerableTogetherRelic : SuperstitioRelic(ID, RELIC_TIER, LANDING_SOUND) {
-    override fun atBattleStart() {
+class VulnerableTogetherRelic : SuperstitioRelic(ID, RELIC_TIER, LANDING_SOUND)
+{
+    override fun atBattleStart()
+    {
         this.flash()
         ActionUtility.addToBot(RelicAboveCreatureAction(AbstractDungeon.player, this))
         ActionUtility.addToBot_makeTempCardInBattle(VulnerableTogether(), ActionUtility.BattleCardPlace.Hand)
     }
 
-    override fun updateDescriptionArgs() {
+    override fun updateDescriptionArgs()
+    {
     }
 
-    companion object {
+    companion object
+    {
         val ID: String = DataManager.MakeTextID(VulnerableTogetherRelic::class.java)
 
         // 遗物类型

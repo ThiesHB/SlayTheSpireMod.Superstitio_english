@@ -32,25 +32,31 @@ abstract class OrbGroup @JvmOverloads constructor(
     hitbox: Hitbox,
     initMaxOrbs: Int,
     customEmptyOrb: AbstractOrb = EmptyOrbSlot()
-) : RenderInBattle, OnPowersModifiedSubscriber, OnPlayerTurnStartSubscriber, AtEndOfPlayerTurnPreCardSubscriber {
+) : RenderInBattle, OnPowersModifiedSubscriber, OnPlayerTurnStartSubscriber, AtEndOfPlayerTurnPreCardSubscriber
+{
     var CustomEmptyOrb: AbstractOrb = customEmptyOrb
     var orbs: MutableList<AbstractOrb?> = ArrayList()
     var hitbox: Hitbox = Hitbox(hitbox.x, hitbox.y, hitbox.width, hitbox.height)
     private var _maxOrbs = 0
 
-    init {
+    init
+    {
         this.increaseMaxOrbs(initMaxOrbs)
         RenderInBattle.Register(RenderInBattle.RenderType.Normal, this)
     }
 
-    fun <T> forEachOrbInThisOrbGroup(consumer: BiConsumer<AbstractOrb?, T>, arg: T) {
-        for (orb in this.orbs) {
+    fun <T> forEachOrbInThisOrbGroup(consumer: BiConsumer<AbstractOrb?, T>, arg: T)
+    {
+        for (orb in this.orbs)
+        {
             consumer.accept(orb, arg)
         }
     }
 
-    fun forEachOrbInThisOrbGroup(consumer: Consumer<AbstractOrb?>) {
-        for (orb in this.orbs) {
+    fun forEachOrbInThisOrbGroup(consumer: Consumer<AbstractOrb?>)
+    {
+        for (orb in this.orbs)
+        {
             consumer.accept(orb)
         }
     }
@@ -58,10 +64,13 @@ abstract class OrbGroup @JvmOverloads constructor(
     fun <TArg, TOrb : AbstractOrb?> forEachOrbInThisOrbGroup(
         OrbClass: Class<TOrb>,
         consumer: BiConsumer<TOrb?, TArg>, arg: TArg
-    ) {
-        for (orb in this.orbs) {
-            if (OrbClass.isInstance(orb)) {
-                consumer.accept(OrbClass.cast(orb),arg)
+    )
+    {
+        for (orb in this.orbs)
+        {
+            if (OrbClass.isInstance(orb))
+            {
+                consumer.accept(OrbClass.cast(orb), arg)
             }
         }
     }
@@ -69,16 +78,20 @@ abstract class OrbGroup @JvmOverloads constructor(
     fun <TOrb : AbstractOrb?> forEachOrbInThisOrbGroup(
         OrbClass: Class<TOrb>,
         consumer: Consumer<TOrb?>
-    ) {
-        for (orb in this.orbs) {
-            if (OrbClass.isInstance(orb)) {
+    )
+    {
+        for (orb in this.orbs)
+        {
+            if (OrbClass.isInstance(orb))
+            {
                 consumer.accept(OrbClass.cast(orb))
             }
         }
     }
 
 
-    fun EnhanceOrb(orb: AbstractOrb, amount: Int) {
+    fun EnhanceOrb(orb: AbstractOrb, amount: Int)
+    {
         if (this.isEmptySlot(orb) || orb is Plasma) return
         val passive = ReflectionHacks.getPrivate<Int>(orb, AbstractOrb::class.java, "basePassiveAmount")
         val evoke = ReflectionHacks.getPrivate<Int>(orb, AbstractOrb::class.java, "baseEvokeAmount")
@@ -92,15 +105,19 @@ abstract class OrbGroup @JvmOverloads constructor(
     val newCustomEmptyOrb: AbstractOrb
         get() = CustomEmptyOrb.makeCopy()
 
-    fun isEmptySlot(orb: AbstractOrb?): Boolean {
+    fun isEmptySlot(orb: AbstractOrb?): Boolean
+    {
         return orb!!.ID == CustomEmptyOrb.ID
     }
 
-    open fun findFirstEmptyOrb(): Int {
+    open fun findFirstEmptyOrb(): Int
+    {
         var index = -1
-        for (i in orbs.indices) {
+        for (i in orbs.indices)
+        {
             val o = orbs[i]
-            if (isEmptySlot(o)) {
+            if (isEmptySlot(o))
+            {
                 index = i
                 break
             }
@@ -111,9 +128,11 @@ abstract class OrbGroup @JvmOverloads constructor(
     /**
      * 塞入球
      */
-    fun channelOrb(orb: AbstractOrb) {
+    fun channelOrb(orb: AbstractOrb)
+    {
         if (GetMaxOrbs() <= 0) return
-        if (hasNoEmptySlot()) {
+        if (hasNoEmptySlot())
+        {
             AbstractDungeon.actionManager.addToTop(ChannelOnOrbGroupAction(this, orb))
             AbstractDungeon.actionManager.addToTop(EvokeFirstOnMonsterAction(this, 1))
             AbstractDungeon.actionManager.addToTop(AnimationOrbOnMonsterAction(this, 1))
@@ -125,14 +144,16 @@ abstract class OrbGroup @JvmOverloads constructor(
     /**
      * 激发球
      */
-    fun evokeFirstOrb() {
+    fun evokeFirstOrb()
+    {
         evokeOrb(0)
     }
 
     /**
      * 激发指定球，填补空缺
      */
-    fun evokeOrb(slotIndex: Int) {
+    fun evokeOrb(slotIndex: Int)
+    {
         if (hasNoOrb()) return
         val orbEvoked = orbs[slotIndex]
         orbEvoked!!.onEvoke()
@@ -143,7 +164,8 @@ abstract class OrbGroup @JvmOverloads constructor(
             )
         })
         val newSize = orbs.size - 1
-        for (i in slotIndex until newSize) {
+        for (i in slotIndex until newSize)
+        {
             Collections.swap(orbs, i + 1, i)
         }
         orbs[newSize] = newCustomEmptyOrb
@@ -154,7 +176,8 @@ abstract class OrbGroup @JvmOverloads constructor(
     /**
      * 激发球，不填补空缺
      */
-    fun evokeOrbAndNotFill(slotIndex: Int) {
+    fun evokeOrbAndNotFill(slotIndex: Int)
+    {
         if (hasNoOrb()) return
         val orbEvoked = orbs[slotIndex]
         orbEvoked!!.onEvoke()
@@ -170,16 +193,19 @@ abstract class OrbGroup @JvmOverloads constructor(
     }
 
     //设置球的位置的函数
-    protected open fun makeSlotPlace(slotIndex: Int): Vector2 {
+    protected open fun makeSlotPlace(slotIndex: Int): Vector2
+    {
         var orbPlace: Vector2
         orbPlace = makeSlotPlaceAsRound(hitbox.width / 2.0f, slotIndex)
-        if (GetMaxOrbs() == 1) {
+        if (GetMaxOrbs() == 1)
+        {
             orbPlace = makeSlotPlaceAsSingle(hitbox.width / 2.0f)
         }
         return orbPlace
     }
 
-    protected fun addNewOrb(orb: AbstractOrb) {
+    protected fun addNewOrb(orb: AbstractOrb)
+    {
         val index = findFirstEmptyOrb()
         val target = orbs[index]
         orb.cX = target!!.cX
@@ -207,90 +233,109 @@ abstract class OrbGroup @JvmOverloads constructor(
     //    }
     protected abstract fun onOrbEvoke(evokedOrb: AbstractOrb?)
 
-    private fun makeSlotPlaceAsSingle(height: Float): Vector2 {
+    private fun makeSlotPlaceAsSingle(height: Float): Vector2
+    {
         return Vector2(0f, height + hitbox.height / 2.0f)
     }
 
-    private fun hasNoOrb(): Boolean {
+    private fun hasNoOrb(): Boolean
+    {
         return orbs.isEmpty() || orbs.stream().allMatch(this::isEmptySlot)
     }
 
     //设置球的位置的函数，自动移动球的位置
-    fun letOrbToSlotPlace(orb: AbstractOrb?, slotIndex: Int) {
+    fun letOrbToSlotPlace(orb: AbstractOrb?, slotIndex: Int)
+    {
         val orbPlace = makeSlotPlace(slotIndex)
         orb!!.tX = orbPlace.x + hitbox.cX
         orb.tY = orbPlace.y + hitbox.cY
         orb.hb.move(orb.tX, orb.tY)
     }
 
-    fun letEachOrbToSlotPlaces() {
+    fun letEachOrbToSlotPlaces()
+    {
         val bound = orbs.size
-        for (i in 0 until bound) {
+        for (i in 0 until bound)
+        {
             letOrbToSlotPlace(orbs[i], i)
         }
     }
 
-    fun hasNoEmptySlot(): Boolean {
+    fun hasNoEmptySlot(): Boolean
+    {
         return !hasEmptySlot()
     }
 
-    fun hasEmptySlot(): Boolean {
+    fun hasEmptySlot(): Boolean
+    {
         return orbs.stream().anyMatch(this::isEmptySlot)
     }
 
-    fun hasOrb(): Boolean {
+    fun hasOrb(): Boolean
+    {
         return orbs.stream().anyMatch { orb: AbstractOrb? -> !isEmptySlot(orb) }
     }
 
-    fun increaseMaxOrbs(amount: Int) {
+    fun increaseMaxOrbs(amount: Int)
+    {
         _maxOrbs += amount
 
-        for (i in 0 until amount) {
+        for (i in 0 until amount)
+        {
             orbs.add(newCustomEmptyOrb)
         }
 
         letEachOrbToSlotPlaces()
     }
 
-    fun decreaseMaxOrbs(amount: Int) {
+    fun decreaseMaxOrbs(amount: Int)
+    {
         if (this._maxOrbs <= 0) return
         _maxOrbs -= amount
         if (this._maxOrbs < 0) this._maxOrbs = 0
 
-        if (orbs.isNotEmpty()) {
+        if (orbs.isNotEmpty())
+        {
             orbs.removeAt(orbs.size - 1)
         }
 
         letEachOrbToSlotPlaces()
     }
 
-    fun triggerEvokeAnimation(index: Int) {
-        if (GetMaxOrbs() <= 0) {
+    fun triggerEvokeAnimation(index: Int)
+    {
+        if (GetMaxOrbs() <= 0)
+        {
             return
         }
-        if (orbs.isNotEmpty()) {
+        if (orbs.isNotEmpty())
+        {
             orbs[index]!!.triggerEvokeAnimation()
         }
     }
 
-    fun GetMaxOrbs(): Int {
+    fun GetMaxOrbs(): Int
+    {
         return this._maxOrbs
     }
 
-    protected fun makeSlotPlaceAsSpiral(startRadius: Float, slotIndex: Int): Vector2 {
+    protected fun makeSlotPlaceAsSpiral(startRadius: Float, slotIndex: Int): Vector2
+    {
         val eachAddRadius = 3.0f
         val distanceToOrbGroupCenter = startRadius + slotIndex * eachAddRadius * Settings.scale //螺线
         val fullAngle = 100.0f + GetMaxOrbs() * 12.0f
         return makeSlotPlacePolar(slotIndex, distanceToOrbGroupCenter, fullAngle)
     }
 
-    protected fun makeSlotPlaceAsRound(radius: Float, slotIndex: Int): Vector2 {
+    protected fun makeSlotPlaceAsRound(radius: Float, slotIndex: Int): Vector2
+    {
         val distanceToOrbGroupCenter = radius + GetMaxOrbs() * 10.0f * Settings.scale //圆
         val fullAngle = 60.0f + GetMaxOrbs() * 12.0f
         return makeSlotPlacePolar(slotIndex, distanceToOrbGroupCenter, fullAngle)
     }
 
-    protected fun makeSlotPlaceLine(totalLength: Float, slotIndex: Int): Vector2 {
+    protected fun makeSlotPlaceLine(totalLength: Float, slotIndex: Int): Vector2
+    {
         val offsetX = OffsetPercentageBySlotIndex_TwoEnd(slotIndex.toFloat()) * totalLength
         val vector2 = Vector2()
         vector2.x = offsetX
@@ -298,7 +343,8 @@ abstract class OrbGroup @JvmOverloads constructor(
         return vector2
     }
 
-    protected fun makeSlotPlacePolar(slotIndex: Int, distanceToOrbGroupCenter: Float, fullAngle: Float): Vector2 {
+    protected fun makeSlotPlacePolar(slotIndex: Int, distanceToOrbGroupCenter: Float, fullAngle: Float): Vector2
+    {
         var slotAngle = fullAngle
         val offsetAngle = slotAngle / 2.0f
         slotAngle *= slotIndex / (GetMaxOrbs() - 1.0f)
@@ -309,31 +355,37 @@ abstract class OrbGroup @JvmOverloads constructor(
         return vector2
     }
 
-    protected fun OffsetPercentageBySlotIndex_TwoEnd(slotIndex: Float): Float {
+    protected fun OffsetPercentageBySlotIndex_TwoEnd(slotIndex: Float): Float
+    {
         val maxOrbs = GetMaxOrbs().toFloat()
         return ((slotIndex + 1) / (maxOrbs + 1) - 0.5f)
     }
 
-    protected fun OffsetPercentageBySlotIndex_Cycle(slotIndex: Float): Float {
+    protected fun OffsetPercentageBySlotIndex_Cycle(slotIndex: Float): Float
+    {
         val maxOrbs = GetMaxOrbs().toFloat()
         return (slotIndex) / (maxOrbs)
     }
 
-    override fun receiveOnPlayerTurnStart() {
+    override fun receiveOnPlayerTurnStart()
+    {
         this.forEachOrbInThisOrbGroup { obj: AbstractOrb? -> obj!!.onStartOfTurn() }
     }
 
-    override fun receivePowersModified() {
+    override fun receivePowersModified()
+    {
         this.forEachOrbInThisOrbGroup { obj: AbstractOrb? -> obj!!.updateDescription() }
     }
 
 
-    override fun render(sb: SpriteBatch) {
+    override fun render(sb: SpriteBatch)
+    {
         if (ActionUtility.isNotInBattle) return
         this.forEachOrbInThisOrbGroup({ obj: AbstractOrb?, spriteBatch: SpriteBatch? -> obj!!.render(spriteBatch) }, sb)
     }
 
-    override fun update() {
+    override fun update()
+    {
         if (ActionUtility.isNotInBattle) return
         this.forEachOrbInThisOrbGroup { orb: AbstractOrb? ->
             orb!!.update()
@@ -341,14 +393,17 @@ abstract class OrbGroup @JvmOverloads constructor(
         }
     }
 
-    override fun receiveAtEndOfPlayerTurnPreCard() {
+    override fun receiveAtEndOfPlayerTurnPreCard()
+    {
         this.forEachOrbInThisOrbGroup { obj: AbstractOrb? -> obj!!.onEndOfTurn() }
     }
 
-    companion object {
+    companion object
+    {
         private val TEXT = arrayOf("  A  ")
         private const val MAX_MAX_ORB = 10
-        fun <T : AbstractOrb?> makeOrbCopy(orb: T, clazz: Class<T>): T {
+        fun <T : AbstractOrb?> makeOrbCopy(orb: T, clazz: Class<T>): T
+        {
             val tmp = orb!!.makeCopy()
             val passive = ReflectionHacks.getPrivate<Int>(orb, AbstractOrb::class.java, "basePassiveAmount")
             val evoke = ReflectionHacks.getPrivate<Int>(orb, AbstractOrb::class.java, "baseEvokeAmount")
@@ -357,7 +412,8 @@ abstract class OrbGroup @JvmOverloads constructor(
             return clazz.cast(tmp)
         }
 
-        fun monsters(): MutableList<AbstractMonster> {
+        fun monsters(): MutableList<AbstractMonster>
+        {
             return AbstractDungeon.getMonsters().monsters
         }
     }

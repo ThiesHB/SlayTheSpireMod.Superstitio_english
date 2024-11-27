@@ -10,29 +10,36 @@ import superstitioapi.SuperstitioApiSetup
 import superstitioapi.utils.CreatureUtility
 import superstitioapi.utils.setDescriptionArgs
 
-class Fuck_Nipple : MasoCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET), FuckJob_Card {
-    init {
+class Fuck_Nipple : MasoCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET), FuckJob_Card
+{
+    init
+    {
         FuckJob_Card.initFuckJobCard(this)
         this.setupDamage(DAMAGE, UPGRADE_DAMAGE)
         this.setupMagicNumber(MAGIC)
     }
 
-    override fun use(player: AbstractPlayer?, monster: AbstractMonster?) {
-        for (i in 0 until DAMAGE_TIME) {
+    override fun use(player: AbstractPlayer?, monster: AbstractMonster?)
+    {
+        for (i in 0 until DAMAGE_TIME)
+        {
             val randomMonster = CreatureUtility.getRandomMonsterSafe()
             addToBot_dealDamage(randomMonster, SuperstitioApiSetup.DamageEffect.HeartMultiInOne)
             addToBot_applyPower(Milk(randomMonster, this.magicNumber))
         }
     }
 
-    override fun updateDescriptionArgs() {
+    override fun updateDescriptionArgs()
+    {
         setDescriptionArgs(DAMAGE_TIME)
     }
 
-    override fun upgradeAuto() {
+    override fun upgradeAuto()
+    {
     }
 
-    companion object {
+    companion object
+    {
         val ID: String = DataManager.MakeTextID(Fuck_Nipple::class.java)
 
         val CARD_TYPE: CardType = CardType.ATTACK

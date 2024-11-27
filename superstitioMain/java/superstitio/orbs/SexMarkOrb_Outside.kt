@@ -12,30 +12,37 @@ import com.megacrit.cardcrawl.vfx.combat.FrostOrbPassiveEffect
 import superstitio.DataManager
 
 class SexMarkOrb_Outside @JvmOverloads constructor(sexMarkName: String = "") :
-    SexMarkOrb(ORB_ID, TemporaryHPRate, sexMarkName) {
+    SexMarkOrb(ORB_ID, TemporaryHPRate, sexMarkName)
+{
     private val hFlip1 = MathUtils.randomBoolean()
     private val hFlip2 = MathUtils.randomBoolean()
     private var vfxTimer = 1.0f
 
-    override fun attack(): Int {
+    override fun attack(): Int
+    {
         return 0
     }
 
-    override fun block(): Int {
+    override fun block(): Int
+    {
         return this.evokeAmount
     }
 
-    override fun makeCopy(): AbstractOrb {
+    override fun makeCopy(): AbstractOrb
+    {
         return SexMarkOrb_Outside()
     }
 
-    override fun updateAnimation() {
+    override fun updateAnimation()
+    {
         super.updateAnimation()
         this.angle += Gdx.graphics.deltaTime * 180.0f
         this.vfxTimer -= Gdx.graphics.deltaTime
-        if (this.vfxTimer < 0.0f) {
+        if (this.vfxTimer < 0.0f)
+        {
             AbstractDungeon.effectList.add(FrostOrbPassiveEffect(this.cX, this.cY))
-            if (MathUtils.randomBoolean()) {
+            if (MathUtils.randomBoolean())
+            {
                 AbstractDungeon.effectList.add(FrostOrbPassiveEffect(this.cX, this.cY))
             }
 
@@ -45,12 +52,14 @@ class SexMarkOrb_Outside @JvmOverloads constructor(sexMarkName: String = "") :
         }
     }
 
-    override fun triggerEvokeAnimation() {
+    override fun triggerEvokeAnimation()
+    {
         CardCrawlGame.sound.play("ORB_FROST_EVOKE", 0.1f)
         AbstractDungeon.effectsQueue.add(FrostOrbActivateEffect(this.cX, this.cY))
     }
 
-    override fun render(sb: SpriteBatch) {
+    override fun render(sb: SpriteBatch)
+    {
         sb.color = c
         sb.draw(
             ImageMaster.FROST_ORB_RIGHT,
@@ -110,11 +119,13 @@ class SexMarkOrb_Outside @JvmOverloads constructor(sexMarkName: String = "") :
         hb.render(sb)
     }
 
-    override fun playChannelSFX() {
+    override fun playChannelSFX()
+    {
         CardCrawlGame.sound.play("ORB_FROST_CHANNEL", 0.1f)
     }
 
-    companion object {
+    companion object
+    {
         val ORB_ID: String = DataManager.MakeTextID(SexMarkOrb_Outside::class.java)
         private const val TemporaryHPRate = 2
     }

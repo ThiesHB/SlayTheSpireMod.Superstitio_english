@@ -95,7 +95,7 @@
         "DESCRIPTION": "下回合开始时，受到伤害。"
       },
       {
-        "ID" : "SuperstitioMod:CardForSexualDamage",
+        "ID": "SuperstitioMod:CardForSexualDamage",
         "PROPER_NAME": "能提供爱欲的方式",
         "NAMES": [
           "能提供爱欲的方式"

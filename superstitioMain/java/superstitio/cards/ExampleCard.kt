@@ -8,20 +8,25 @@ import superstitio.cardModifier.modifiers.block.SexBlock
 import superstitio.cards.lupa.LupaCard
 
 @AutoAdd.Ignore
-class ExampleCard : LupaCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET) {
-    init {
+class ExampleCard : LupaCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET)
+{
+    init
+    {
         this.setupDamage(DAMAGE, UPGRADE_DAMAGE)
         this.setupBlock(BLOCK, UPGRADE_BLOCK, SexBlock())
         this.setupMagicNumber(MAGIC, UPGRADE_BLOCK)
     }
 
-    override fun use(player: AbstractPlayer?, monster: AbstractMonster?) {
+    override fun use(player: AbstractPlayer?, monster: AbstractMonster?)
+    {
     }
 
-    override fun upgradeAuto() {
+    override fun upgradeAuto()
+    {
     }
 
-    companion object {
+    companion object
+    {
         val ID: String = DataManager.MakeTextID(ExampleCard::class.java)
 
         val CARD_TYPE: CardType = CardType.SKILL

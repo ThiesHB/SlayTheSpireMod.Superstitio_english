@@ -6,17 +6,21 @@ import com.megacrit.cardcrawl.dungeons.AbstractDungeon
 import com.megacrit.cardcrawl.monsters.AbstractMonster
 import superstitio.DataManager
 import superstitio.cards.general.GeneralCard
-import superstitio.powers.*
+import superstitio.powers.Overdraft
+import superstitio.powers.SexualHeat
 import superstitioapi.actions.XCostAction
 
-class ForceOrgasm : GeneralCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET) {
-    init {
+class ForceOrgasm : GeneralCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET)
+{
+    init
+    {
         this.setupMagicNumber(MAGIC, UPGRADE_MAGIC)
         this.exhaust = true
         //        ExhaustiveVariable.setBaseValue(this, 2);
     }
 
-    override fun use(player: AbstractPlayer?, monster: AbstractMonster?) {
+    override fun use(player: AbstractPlayer?, monster: AbstractMonster?)
+    {
         val magicNumber = this.magicNumber
         addToBot(XCostAction(this, AbstractGameAction.ActionType.ENERGY) { effect: Int ->
             SexualHeat.addToBot_addSexualHeat(AbstractDungeon.player, effect * magicNumber)
@@ -24,10 +28,12 @@ class ForceOrgasm : GeneralCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET) {
         })
     }
 
-    override fun upgradeAuto() {
+    override fun upgradeAuto()
+    {
     }
 
-    companion object {
+    companion object
+    {
         val ID: String = DataManager.MakeTextID(ForceOrgasm::class.java)
 
         val CARD_TYPE: CardType = CardType.SKILL

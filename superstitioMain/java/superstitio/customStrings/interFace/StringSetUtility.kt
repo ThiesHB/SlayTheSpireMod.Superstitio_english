@@ -3,20 +3,25 @@ package superstitio.customStrings.interFace
 import superstitio.Logger
 import superstitio.SuperstitioConfig
 
-object StringSetUtility {
-    fun shouldReturnSFWVersion(sfwSting: String?): Boolean {
+object StringSetUtility
+{
+    fun shouldReturnSFWVersion(sfwSting: String?): Boolean
+    {
         return SuperstitioConfig.isEnableSFW() && !sfwSting.isNullOrEmpty()
     }
 
-    fun shouldReturnSFWVersion(): Boolean {
+    fun shouldReturnSFWVersion(): Boolean
+    {
         return SuperstitioConfig.isEnableSFW()
     }
 
-    fun shouldReturnSFWVersion(sfwStings: Array<String>?): Boolean {
+    fun shouldReturnSFWVersion(sfwStings: Array<String>?): Boolean
+    {
         return SuperstitioConfig.isEnableSFW() && !sfwStings.isNullOrEmpty()
     }
 
-    fun shouldReturnSFWVersion(sfwStings: Map<String, String>?): Boolean {
+    fun shouldReturnSFWVersion(sfwStings: Map<String, String>?): Boolean
+    {
         return SuperstitioConfig.isEnableSFW() && !sfwStings.isNullOrEmpty()
     }
 
@@ -36,19 +41,28 @@ object StringSetUtility {
         keyName: String,
         stringTMap: Map<String, T>,
         tClass: Class<T>
-    ): T {
-        if (stringTMap.containsKey(keyName)) {
+    ): T
+    {
+        if (stringTMap.containsKey(keyName))
+        {
             return stringTMap[keyName]!!
-        } else {
+        }
+        else
+        {
             Logger.debug(tClass.simpleName + ": " + keyName + " not found")
-            try {
+            try
+            {
                 val customStringsWithSFW = tClass.newInstance()
                 customStringsWithSFW.initialSelfBlack()
                 customStringsWithSFW.initial()
                 return customStringsWithSFW
-            } catch (e: InstantiationException) {
+            }
+            catch (e: InstantiationException)
+            {
                 throw RuntimeException(e)
-            } catch (e: IllegalAccessException) {
+            }
+            catch (e: IllegalAccessException)
+            {
                 throw RuntimeException(e)
             }
         }

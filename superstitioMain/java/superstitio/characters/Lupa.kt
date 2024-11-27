@@ -4,8 +4,9 @@ import com.megacrit.cardcrawl.cards.AbstractCard
 import com.megacrit.cardcrawl.cards.AbstractCard.CardColor
 import com.megacrit.cardcrawl.characters.AbstractPlayer
 import com.megacrit.cardcrawl.screens.CharSelectInfo
-import superstitio.*
+import superstitio.DataManager
 import superstitio.DataManager.SPTT_DATA.LupaEnums
+import superstitio.Logger
 import superstitio.cards.CardOwnerPlayerManager
 import superstitio.cards.general.BaseCard.Kiss
 import superstitio.cards.lupa.BaseCard.DrySemen
@@ -20,9 +21,11 @@ import superstitioapi.player.PlayerInitPostDungeonInitialize
 import superstitioapi.relicToBlight.InfoBlight
 
 // 继承CustomPlayer类
-class Lupa(name: String) : BaseCharacter(ID, name, LupaEnums.LUPA_Character), PlayerInitPostDungeonInitialize {
+class Lupa(name: String) : BaseCharacter(ID, name, LupaEnums.LUPA_Character), PlayerInitPostDungeonInitialize
+{
     // 初始遗物
-    override fun getStartingRelics(): ArrayList<String> {
+    override fun getStartingRelics(): ArrayList<String>
+    {
         val retVal = ArrayList<String>()
         retVal.add(StartWithSexToy.ID)
         //        retVal.add(JokeDescription.ID);
@@ -32,7 +35,8 @@ class Lupa(name: String) : BaseCharacter(ID, name, LupaEnums.LUPA_Character), Pl
         return retVal
     }
 
-    override fun getLoadout(): CharSelectInfo {
+    override fun getLoadout(): CharSelectInfo
+    {
         return CharSelectInfo(
             characterStrings!!.NAMES[0],  // 人物名字
             characterStrings.TEXT[0],  // 人物介绍
@@ -48,45 +52,55 @@ class Lupa(name: String) : BaseCharacter(ID, name, LupaEnums.LUPA_Character), Pl
         )
     }
 
-    override fun getStartingDeck(): ArrayList<String> {
+    override fun getStartingDeck(): ArrayList<String>
+    {
         Logger.run("Begin loading starter Deck Strings")
         return LupaStartDeck()
     }
 
     // 你的卡牌颜色（这个枚举在最下方创建）
-    override fun getCardColor(): CardColor {
+    override fun getCardColor(): CardColor
+    {
         return LupaEnums.LUPA_CARD
     }
 
-    override fun newInstance(): AbstractPlayer {
+    override fun newInstance(): AbstractPlayer
+    {
         return Lupa(this.name)
     }
 
-    override fun getAscensionMaxHPLoss(): Int {
+    override fun getAscensionMaxHPLoss(): Int
+    {
         return 5
     }
 
-    override fun initPostDungeonInitialize() {
+    override fun initPostDungeonInitialize()
+    {
         InfoBlight.addAsInfoBlight(JokeDescription())
         InfoBlight.addAsInfoBlight(DevaBody_Lupa())
         InfoBlight.addAsInfoBlight(Sensitive())
         InfoBlight.addAsInfoBlight(SemenMagician())
     }
 
-    override fun isCardCanAdd(card: AbstractCard?): Boolean {
+    override fun isCardCanAdd(card: AbstractCard?): Boolean
+    {
         return CardOwnerPlayerManager.isLupaCard(card)
     }
 
-    companion object {
+    companion object
+    {
         val ID: String = DataManager.MakeTextID(Lupa::class.java.simpleName)
         val characterInfo: CharacterSelectInfo = CharacterSelectInfo(65, 65, 99)
 
-        fun LupaStartDeck(): ArrayList<String> {
+        fun LupaStartDeck(): ArrayList<String>
+        {
             val startingDeck = ArrayList<String>()
-            for (x in 0..4) {
+            for (x in 0..4)
+            {
                 startingDeck.add(Kiss.ID)
             }
-            for (x in 0..3) {
+            for (x in 0..3)
+            {
                 startingDeck.add(Invite_Lupa.ID)
             }
             startingDeck.add(Masturbate.ID)

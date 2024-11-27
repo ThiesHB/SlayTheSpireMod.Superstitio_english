@@ -11,16 +11,20 @@ import superstitio.relics.SuperstitioRelic
 import superstitio.relics.interFace.Countdown
 import superstitioapi.utils.setDescriptionArgs
 
-class EjaculationMaster : SuperstitioRelic(ID, RELIC_TIER, LANDING_SOUND), OnOrgasm_onSquirt, Countdown {
-    override fun atBattleStart() {
+class EjaculationMaster : SuperstitioRelic(ID, RELIC_TIER, LANDING_SOUND), OnOrgasm_onSquirt, Countdown
+{
+    override fun atBattleStart()
+    {
         setCounter(Countdown.Zero)
     }
 
-    override fun updateDescriptionArgs() {
+    override fun updateDescriptionArgs()
+    {
         setDescriptionArgs(Companion.StarterNum, DrawAmount)
     }
 
-    override fun onCountZero() {
+    override fun onCountZero()
+    {
         this.flash()
         this.addToBot(RelicAboveCreatureAction(AbstractDungeon.player, this))
         this.addToBot(DrawCardAction(DrawAmount))
@@ -28,11 +32,13 @@ class EjaculationMaster : SuperstitioRelic(ID, RELIC_TIER, LANDING_SOUND), OnOrg
 
     override fun getStarterNum(): Int = StarterNum
 
-    override fun onSquirt(SexualHeatPower: SexualHeat, card: AbstractCard) {
+    override fun onSquirt(SexualHeatPower: SexualHeat, card: AbstractCard)
+    {
         CountReduce()
     }
 
-    companion object {
+    companion object
+    {
         val ID: String = DataManager.MakeTextID(EjaculationMaster::class.java)
 
         // 遗物类型

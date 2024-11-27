@@ -5,20 +5,24 @@ import com.evacipated.cardcrawl.mod.stslib.blockmods.AbstractBlockModifier
 import superstitio.DataManager
 import superstitio.cardModifier.modifiers.AbstractLupaBlock
 
-class DelayRemoveDelayHpLoseBlock : AbstractLupaBlock(ID) {
+class DelayRemoveDelayHpLoseBlock : AbstractLupaBlock(ID)
+{
     //    @Override
     //    public float onModifyBlock(float block, AbstractCard card) {
     //        return super.onModifyBlock(block, card);
     //    }
-    override fun makeCopy(): AbstractBlockModifier {
+    override fun makeCopy(): AbstractBlockModifier
+    {
         return DelayRemoveDelayHpLoseBlock()
     }
 
-    override fun blockImageColor(): Color {
+    override fun blockImageColor(): Color
+    {
         return Color.PINK.cpy()
     }
 
-    companion object {
+    companion object
+    {
         val ID: String = DataManager.MakeTextID(DelayRemoveDelayHpLoseBlock::class.java)
     }
 }

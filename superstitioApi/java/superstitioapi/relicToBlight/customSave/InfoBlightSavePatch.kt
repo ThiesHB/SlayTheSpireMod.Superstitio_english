@@ -9,14 +9,17 @@ import com.megacrit.cardcrawl.dungeons.AbstractDungeon
 import superstitioapi.relicToBlight.BlightWithRelic
 
 @SpirePatch2(clz = CardCrawlGame::class, method = "loadPlayerSave")
-object InfoBlightSavePatch {
+object InfoBlightSavePatch
+{
     @SpirePostfixPatch
     @JvmStatic
-    fun Postfix(__instance: CardCrawlGame?, p: AbstractPlayer?) {
+    fun Postfix(__instance: CardCrawlGame?, p: AbstractPlayer?)
+    {
         val blighSave =
             SuperstitioApiModSaves.modBlightSaves.get(CardCrawlGame.saveFile)
         val blights = AbstractDungeon.player.blights
-        for (i in blights.indices) {
+        for (i in blights.indices)
+        {
             val blight = blights[i] as? BlightWithRelic ?: continue
             val relic = blight.relic
             if (relic !is CustomSavableRaw) continue

@@ -6,20 +6,25 @@ import superstitio.DataManager
 import superstitio.cardModifier.modifiers.block.WhenLostDrawCardBlock
 import superstitio.cards.maso.MasoCard
 
-class HeavyCuffs : MasoCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET) {
-    init {
+class HeavyCuffs : MasoCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET)
+{
+    init
+    {
         this.setupMagicNumber(MAGIC, UPGRADE_MAGIC)
         this.setupBlock(BLOCK, UPGRADE_BLOCK, WhenLostDrawCardBlock(this.magicNumber))
     }
 
-    override fun use(player: AbstractPlayer?, monster: AbstractMonster?) {
+    override fun use(player: AbstractPlayer?, monster: AbstractMonster?)
+    {
         addToBot_gainBlock()
     }
 
-    override fun upgradeAuto() {
+    override fun upgradeAuto()
+    {
     }
 
-    companion object {
+    companion object
+    {
         val ID: String = DataManager.MakeTextID(HeavyCuffs::class.java)
 
         val CARD_TYPE: CardType = CardType.SKILL

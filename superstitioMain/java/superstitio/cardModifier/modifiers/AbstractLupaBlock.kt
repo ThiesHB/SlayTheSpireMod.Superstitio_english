@@ -8,21 +8,25 @@ import superstitio.customStrings.stringsSet.ModifierStringsSet
 import superstitioapi.utils.UpdateDescriptionAdvanced
 import superstitioapi.utils.getFormattedDescription
 
-abstract class AbstractLupaBlock(id: String) : AbstractBlockModifier(), UpdateDescriptionAdvanced {
+abstract class AbstractLupaBlock(id: String) : AbstractBlockModifier(), UpdateDescriptionAdvanced
+{
     val blockStrings: ModifierStringsSet?
     var tooltip: TooltipInfo? = null
 
-    init {
+    init
+    {
         this.blockStrings = getBlockStringsWithSFW(id)
         this.automaticBindingForCards = true
     }
 
-    fun removeAutoBind(): AbstractLupaBlock {
+    fun removeAutoBind(): AbstractLupaBlock
+    {
         this.automaticBindingForCards = false
         return this
     }
 
-    override fun getName(): String {
+    override fun getName(): String
+    {
         return blockStrings!!.getNAME()
     }
 
@@ -31,8 +35,10 @@ abstract class AbstractLupaBlock(id: String) : AbstractBlockModifier(), UpdateDe
     /**
      * 卡牌的描述
      */
-    override fun getCustomTooltips(): ArrayList<TooltipInfo>? {
-        if (tooltip == null) {
+    override fun getCustomTooltips(): ArrayList<TooltipInfo>?
+    {
+        if (tooltip == null)
+        {
             tooltip = TooltipInfo(blockStrings!!.getBasicInfo(), description)
         }
         val tooltipInfos = ArrayList<TooltipInfo>()
@@ -43,14 +49,17 @@ abstract class AbstractLupaBlock(id: String) : AbstractBlockModifier(), UpdateDe
     /**
      * 鼠标放到格挡上的描述
      */
-    override fun getDescription(): String? {
+    override fun getDescription(): String?
+    {
         return getFormattedDescription()
     }
 
-    override fun updateDescriptionArgs() {
+    override fun updateDescriptionArgs()
+    {
     }
 
-    override fun getDescriptionStrings(): String {
+    override fun getDescriptionStrings(): String
+    {
         return blockStrings!!.getDESCRIPTION()
     }
 
@@ -58,16 +67,20 @@ abstract class AbstractLupaBlock(id: String) : AbstractBlockModifier(), UpdateDe
     /**
      * 显示在卡牌的类型旁边的那玩意
      */
-    override fun getCardDescriptor(): String {
+    override fun getCardDescriptor(): String
+    {
         return blockStrings!!.getNAME()
     }
 
-    override fun isInherent(): Boolean {
+    override fun isInherent(): Boolean
+    {
         return true
     }
 
-    companion object {
-        fun getBlockStringsWithSFW(cardName: String): ModifierStringsSet {
+    companion object
+    {
+        fun getBlockStringsWithSFW(cardName: String): ModifierStringsSet
+        {
             return StringSetUtility.getCustomStringsWithSFW(
                 cardName,
                 DataManager.modifiers,

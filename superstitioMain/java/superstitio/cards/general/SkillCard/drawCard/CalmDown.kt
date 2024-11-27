@@ -8,12 +8,15 @@ import superstitioapi.hangUpCard.CardOrb
 import superstitioapi.hangUpCard.Card_TriggerHangCardManually
 import superstitioapi.hangUpCard.HangUpCardGroup
 
-class CalmDown : GeneralCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET), Card_TriggerHangCardManually {
-    init {
+class CalmDown : GeneralCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET), Card_TriggerHangCardManually
+{
+    init
+    {
         this.setupMagicNumber(MAGIC, UPGRADE_MAGIC)
     }
 
-    override fun use(player: AbstractPlayer?, monster: AbstractMonster?) {
+    override fun use(player: AbstractPlayer?, monster: AbstractMonster?)
+    {
         HangUpCardGroup.forEachHangUpCard { _: HangUpCardGroup, cardOrb: CardOrb ->
             if (cardOrb.ifShouldRemove()) return@forEachHangUpCard
             cardOrb.setTriggerDiscardIfMoveToDiscard()
@@ -23,20 +26,24 @@ class CalmDown : GeneralCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET), Car
         if (this.magicNumber >= 1) addToBot_drawCards(this.magicNumber)
     }
 
-    override fun upgradeAuto() {
+    override fun upgradeAuto()
+    {
     }
 
-    override fun forceFilterCardOrbToHoveredMode(orb: CardOrb): Boolean {
+    override fun forceFilterCardOrbToHoveredMode(orb: CardOrb): Boolean
+    {
         orb.targetType = CardOrb.HangOnTarget.None
         orb.actionType = CardOrb.HangEffectType.Bad
         return true
     }
 
-    override fun forceChangeOrbCounterShown(orb: CardOrb): Int {
+    override fun forceChangeOrbCounterShown(orb: CardOrb): Int
+    {
         return 0
     }
 
-    companion object {
+    companion object
+    {
         val ID: String = DataManager.MakeTextID(CalmDown::class.java)
 
         val CARD_TYPE: CardType = CardType.SKILL

@@ -28,12 +28,15 @@ abstract class MasoCard
 @JvmOverloads constructor(
     id: String, cardType: CardType, cost: Int, cardRarity: CardRarity, cardTarget: CardTarget,
     imgSubFolder: String = CardTypeToString(cardType)
-) : SuperstitioCard(id, cardType, cost, cardRarity, cardTarget, MasoEnums.MASO_CARD, imgSubFolder), IsMasoCard {
+) : SuperstitioCard(id, cardType, cost, cardRarity, cardTarget, MasoEnums.MASO_CARD, imgSubFolder), IsMasoCard
+{
     private val isDelayRemoveDelayHpLoseBlock = false
     private val isRemoveDelayHpLoseBlock = false
 
-    override fun addToBot_gainCustomBlock(amount: Int, blockModifier: AbstractBlockModifier) {
-        if (blockModifier is DelayRemoveDelayHpLoseBlock) {
+    override fun addToBot_gainCustomBlock(amount: Int, blockModifier: AbstractBlockModifier)
+    {
+        if (blockModifier is DelayRemoveDelayHpLoseBlock)
+        {
             addToBot_applyPower(DelayRemoveDelayHpLosePower(AbstractDungeon.player, amount))
             AbstractDungeon.effectList.add(
                 FlashAtkImgEffect(
@@ -43,7 +46,8 @@ abstract class MasoCard
             )
             return
         }
-        if (blockModifier is RemoveDelayHpLoseBlock) {
+        if (blockModifier is RemoveDelayHpLoseBlock)
+        {
             DelayHpLosePower.addToBot_removePower(amount, AbstractDungeon.player, true)
             AbstractDungeon.effectList.add(
                 FlashAtkImgEffect(

@@ -13,35 +13,44 @@ import superstitio.powers.EasyBuildAbstractPowerForPowerCard
 import superstitio.powers.Milk
 import superstitioapi.utils.setDescriptionArgs
 
-class BodyModification_SuperHugeBreast : MasoCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET) {
-    init {
+class BodyModification_SuperHugeBreast : MasoCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET)
+{
+    init
+    {
         this.setupMagicNumber(MAGIC, UPGRADE_MAGIC)
         CardModifierManager.addModifier(this, BodyModificationTag())
     }
 
-    override fun use(player: AbstractPlayer?, monster: AbstractMonster?) {
+    override fun use(player: AbstractPlayer?, monster: AbstractMonster?)
+    {
         addToBot_applyPower(BodyModification_SuperHugeBreastPower(this.magicNumber))
     }
 
-    override fun upgradeAuto() {
+    override fun upgradeAuto()
+    {
     }
 
-    class BodyModification_SuperHugeBreastPower(amount: Int) : EasyBuildAbstractPowerForPowerCard(amount) {
-        override fun wasHPLost(info: DamageInfo, damageAmount: Int) {
+    class BodyModification_SuperHugeBreastPower(amount: Int) : EasyBuildAbstractPowerForPowerCard(amount)
+    {
+        override fun wasHPLost(info: DamageInfo, damageAmount: Int)
+        {
             if (info.type != DamageType.NORMAL) return
             addToBot_applyPower(Milk(owner, this.amount))
         }
 
-        override fun updateDescriptionArgs() {
+        override fun updateDescriptionArgs()
+        {
             setDescriptionArgs(this.amount)
         }
 
-        override fun makePowerCard(): SuperstitioCard {
+        override fun makePowerCard(): SuperstitioCard
+        {
             return BodyModification_SuperHugeBreast()
         }
     }
 
-    companion object {
+    companion object
+    {
         val ID: String = DataManager.MakeTextID(BodyModification_SuperHugeBreast::class.java)
 
         val CARD_TYPE: CardType = CardType.POWER

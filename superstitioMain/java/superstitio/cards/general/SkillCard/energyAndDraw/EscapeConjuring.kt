@@ -14,13 +14,16 @@ import superstitio.DataManager
 import superstitio.cards.general.GeneralCard
 import superstitio.powers.SexualHeat
 
-class EscapeConjuring : GeneralCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET) {
-    init {
+class EscapeConjuring : GeneralCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET)
+{
+    init
+    {
         CardModifierManager.addModifier(this, ExhaustMod())
         this.setupMagicNumber(MAGIC, UPGRADE_MAGIC)
     }
 
-    override fun use(player: AbstractPlayer?, monster: AbstractMonster?) {
+    override fun use(player: AbstractPlayer?, monster: AbstractMonster?)
+    {
         val discardCard = AbstractDungeon.player.hand.group.stream()
             .filter { card: AbstractCard -> card.costForTurn != 0 && !card.freeToPlay() }.count().toInt()
         val statusCardNum = AbstractDungeon.player.hand.group.stream()
@@ -40,11 +43,13 @@ class EscapeConjuring : GeneralCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGE
         addToBot_drawCards(statusCardNum)
     }
 
-    override fun upgradeAuto() {
+    override fun upgradeAuto()
+    {
         CardModifierManager.removeModifiersById(this, ExhaustMod.ID, false)
     }
 
-    companion object {
+    companion object
+    {
         val ID: String = DataManager.MakeTextID(EscapeConjuring::class.java)
 
         val CARD_TYPE: CardType = CardType.SKILL

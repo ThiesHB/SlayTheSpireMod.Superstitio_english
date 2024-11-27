@@ -28,8 +28,10 @@ class ChibiKindMonster : CustomMonster(
     NAME, ID, AbstractDungeon.player.maxHealth, 0f, 0f, 250.0f, 250.0f, ListUtility.getRandomFromList(
         CHIBI_CHARACTER, Random()
     )
-) {
-    init {
+)
+{
+    init
+    {
         this.setHp(AbstractDungeon.player.maxHealth)
         this.animX = 0.0f
         this.animY = 0.0f
@@ -38,7 +40,8 @@ class ChibiKindMonster : CustomMonster(
         this.dialogY = 50.0f * Settings.scale
         damage.add(DamageInfo(this, 6))
 
-        if (img != null) {
+        if (img != null)
+        {
             this.hb_w = img.width * Settings.scale
             this.hb_h = img.height * Settings.xScale
             this.hb = Hitbox(this.hb_w, this.hb_h)
@@ -49,22 +52,27 @@ class ChibiKindMonster : CustomMonster(
     }
 
     @SpireOverride
-    protected fun updateIntentTip() {
+    protected fun updateIntentTip()
+    {
         val intentTip = ReflectionHacks.getPrivate<PowerTip>(this, AbstractMonster::class.java, "intentTip")
-        when (this.nextMove) {
-            1.toByte() -> {
+        when (this.nextMove)
+        {
+            1.toByte() ->
+            {
                 intentTip.header = DIALOG[0]
                 intentTip.body = DIALOG[1]
                 intentTip.img = ImageMaster.INTENT_ATK_TIP_1
             }
 
-            2.toByte() -> {
+            2.toByte() ->
+            {
                 intentTip.header = DIALOG[2]
                 intentTip.body = DIALOG[3]
                 intentTip.img = ImageMaster.INTENT_DEFEND
             }
 
-            else -> {
+            else       ->
+            {
                 intentTip.header = "NOT SET"
                 intentTip.body = "NOT SET"
                 intentTip.img = ImageMaster.INTENT_UNKNOWN
@@ -72,7 +80,8 @@ class ChibiKindMonster : CustomMonster(
         }
     }
 
-    private fun playStrike(): Boolean {
+    private fun playStrike(): Boolean
+    {
         val strike = CardUtility.AllCardInBattle_ButWithoutCardInUse()
             .filter { card: AbstractCard -> !willPlayCards.contains(card) }
             .firstOrNull { card: AbstractCard -> card.hasTag(AbstractCard.CardTags.STARTER_STRIKE) }
@@ -92,7 +101,8 @@ class ChibiKindMonster : CustomMonster(
         return strike != null
     }
 
-    private fun playDefend(): Boolean {
+    private fun playDefend(): Boolean
+    {
         val defend = CardUtility.AllCardInBattle_ButWithoutCardInUse()
             .filter { card: AbstractCard -> !willPlayCards.contains(card) }
             .firstOrNull { card: AbstractCard -> card.hasTag(AbstractCard.CardTags.STARTER_DEFEND) }
@@ -114,12 +124,16 @@ class ChibiKindMonster : CustomMonster(
         return defend != null
     }
 
-    override fun takeTurn() {
+    override fun takeTurn()
+    {
         this.flashIntent()
-        when (this.intent) {
-            ATTACK -> playStrike()
+        when (this.intent)
+        {
+            ATTACK        -> playStrike()
             Intent.DEFEND -> playDefend()
-            else -> {}
+            else          ->
+            {
+            }
         }
         addToBot(RollMoveAction(this))
         //        addToBotAbstract(() ->
@@ -127,29 +141,38 @@ class ChibiKindMonster : CustomMonster(
         //        );
     }
 
-    override fun getMove(num: Int) {
-        if (num < 50) {
+    override fun getMove(num: Int)
+    {
+        if (num < 50)
+        {
             this.setMove(STRIKE, 1.toByte(), ATTACK, 6)
-        } else {
+        }
+        else
+        {
             this.setMove(DEFEND, 2.toByte(), Intent.DEFEND)
         }
     }
 
-    class MinionChibi(private val petCoreChibi: ChibiKindMonster) : MinionMonster(petCoreChibi, CHIBI_DRAW_SCALE) {
-        init {
+    class MinionChibi(private val petCoreChibi: ChibiKindMonster) : MinionMonster(petCoreChibi, CHIBI_DRAW_SCALE)
+    {
+        init
+        {
             this.flipHorizontal = false
         }
 
-        override fun takeTurn() {
+        override fun takeTurn()
+        {
             petCoreChibi.takeTurn()
         }
 
-        companion object {
+        companion object
+        {
             private const val CHIBI_DRAW_SCALE = 2.0f
         }
     }
 
-    companion object {
+    companion object
+    {
         val ID: String = DataManager.MakeTextID(ChibiKindMonster::class.java)
         val CHIBI_CHARACTER: Array<String> = arrayOf(
             DataManager.makeImgFilesPath_Character("chibiCharacter0"),

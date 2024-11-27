@@ -15,42 +15,53 @@ import com.megacrit.cardcrawl.ui.panels.EnergyPanel
 import superstitioapi.DataUtility
 import java.util.stream.Collectors
 
-object CardUtility {
+object CardUtility
+{
 
-    open class CostSmart {
-        constructor(cost: Int) {
-            this.costType = when (cost) {
-                -2 -> CostType.NaN
-                -1 -> CostType.XCost
+    open class CostSmart
+    {
+        constructor(cost: Int)
+        {
+            this.costType = when (cost)
+            {
+                -2   -> CostType.NaN
+                -1   -> CostType.XCost
                 else -> CostType.Int
             }
             this._cost = cost
         }
 
-        constructor(costType: CostType) {
+        constructor(costType: CostType)
+        {
             this.costType = costType
-            this._cost = when (costType) {
+            this._cost = when (costType)
+            {
                 CostType.XCost -> -1
-                CostType.NaN -> -2
-                else -> throw IllegalArgumentException("Unsupported cost type: $costType")
+                CostType.NaN   -> -2
+                else           -> throw IllegalArgumentException("Unsupported cost type: $costType")
             }
         }
 
-        sealed class CostType {
+        sealed class CostType
+        {
             data object NaN : CostType()
             data object Int : CostType()
             data object XCost : CostType()
-            companion object {
-                fun values(): Array<CostType> {
+            companion object
+            {
+                fun values(): Array<CostType>
+                {
                     return arrayOf(NaN, Int, XCost)
                 }
 
-                fun valueOf(value: String): CostType {
-                    return when (value) {
-                        "NaN" -> NaN
-                        "Int" -> Int
+                fun valueOf(value: String): CostType
+                {
+                    return when (value)
+                    {
+                        "NaN"   -> NaN
+                        "Int"   -> Int
                         "XCost" -> XCost
-                        else -> throw IllegalArgumentException("No object superstitioapi.utils.CardUtility.CostSmart.cost.$value")
+                        else    -> throw IllegalArgumentException("No object superstitioapi.utils.CardUtility.CostSmart.cost.$value")
                     }
                 }
             }
@@ -60,11 +71,13 @@ object CardUtility {
         var _cost: Int
         open var cost: Int
             get() = _cost
-            set(value) {
-                _cost = when (costType) {
-                    CostType.Int -> value
+            set(value)
+            {
+                _cost = when (costType)
+                {
+                    CostType.Int   -> value
                     CostType.XCost -> -1
-                    CostType.NaN -> -2
+                    CostType.NaN   -> -2
                 }
             }
 
@@ -73,34 +86,41 @@ object CardUtility {
 //
 //        }
 
-        fun isInt(): Boolean {
+        fun isInt(): Boolean
+        {
             return costType == CostType.Int
         }
 
-        fun toInt(): Int? {
-            return when (costType) {
+        fun toInt(): Int?
+        {
+            return when (costType)
+            {
                 CostType.Int -> cost
-                else -> null
+                else         -> null
             }
         }
 
         fun toInt(transform: (Int) -> Int): Int = transform(this.cost)
 
-        override fun toString(): String {
+        override fun toString(): String
+        {
             return cost.toString()
         }
 
-        operator fun compareTo(int: Int): Int {
+        operator fun compareTo(int: Int): Int
+        {
             return cost.compareTo(int)
         }
 
-        operator fun dec(): CostSmart {
+        operator fun dec(): CostSmart
+        {
             if (this.costType == CostType.Int)
                 this.cost--
             return this
         }
 
-        override fun equals(other: Any?): Boolean {
+        override fun equals(other: Any?): Boolean
+        {
             if (other == null) return false
             if (other is Int) return this.cost == other
             if (other is CostType) return this.costType == other
@@ -108,19 +128,22 @@ object CardUtility {
             return false
         }
 
-        override fun hashCode(): Int {
+        override fun hashCode(): Int
+        {
             var result = costType.hashCode()
             result = 31 * result + _cost
             return result
         }
 
-        operator fun inc(): CardUtility.CostSmart {
+        operator fun inc(): CardUtility.CostSmart
+        {
             if (this.costType == CostType.Int)
                 this.cost++
             return this
         }
 
-        operator fun timesAssign(magicNumber: Int) {
+        operator fun timesAssign(magicNumber: Int)
+        {
             if (this.costType == CostType.Int)
                 this.cost *= magicNumber
         }
@@ -134,15 +157,18 @@ object CardUtility {
      * @param Vanilla 当为true时， IsCardColorThisMod()被短路
      * @return 输入为true ture时，输出为满足两个条件之一的结果。输入为1true1false时，输出由true项决定。输入为false false时，输出两者都不满足的结果。
      */
-    fun getRandomStatusCard(ThisMod: Boolean, Vanilla: Boolean): AbstractCard {
+    fun getRandomStatusCard(ThisMod: Boolean, Vanilla: Boolean): AbstractCard
+    {
         val list = getCardsListForMod(ThisMod, Vanilla).stream()
             .filter { card: AbstractCard -> card.type == CardType.STATUS }
             .collect(Collectors.toList())
         return ListUtility.getRandomFromList(list, AbstractDungeon.cardRandomRng).makeCopy()
     }
 
-    fun getSelfOrEnemyTarget(card: AbstractCard, monster: AbstractMonster?): AbstractCreature {
-        if (card.target != SelfOrEnemyTargeting.SELF_OR_ENEMY) {
+    fun getSelfOrEnemyTarget(card: AbstractCard, monster: AbstractMonster?): AbstractCreature
+    {
+        if (card.target != SelfOrEnemyTargeting.SELF_OR_ENEMY)
+        {
             return CreatureUtility.getRandomMonsterSafe()
         }
         val target = SelfOrEnemyTargeting.getTarget(card)
@@ -151,7 +177,8 @@ object CardUtility {
         return AbstractDungeon.player
     }
 
-    fun getCardsListForMod(ThisMod: Boolean, Vanilla: Boolean): List<AbstractCard> {
+    fun getCardsListForMod(ThisMod: Boolean, Vanilla: Boolean): List<AbstractCard>
+    {
         val list = CardLibrary.cards.values.stream()
             .filter { card: AbstractCard ->
                 if (ThisMod && Vanilla) return@filter IsCardColorVanilla(card) || IsCardColorThisMod(card)
@@ -163,16 +190,19 @@ object CardUtility {
         return list
     }
 
-    fun IsCardColorVanilla(card: AbstractCard): Boolean {
+    fun IsCardColorVanilla(card: AbstractCard): Boolean
+    {
         return card.javaClass.getPackage().name.contains("com.megacrit.cardcrawl")
         //        return !card.cardID.contains(":");
     }
 
-    fun IsCardColorThisMod(card: AbstractCard): Boolean {
+    fun IsCardColorThisMod(card: AbstractCard): Boolean
+    {
         return !card.cardID.contains(DataUtility.MakeTextID(""))
     }
 
-    fun AllCardInBattle(): MutableList<AbstractCard> {
+    fun AllCardInBattle(): MutableList<AbstractCard>
+    {
         val cards = ArrayList<AbstractCard>()
         cards.add(AbstractDungeon.player.cardInUse)
         cards.addAll(AbstractDungeon.player.hand.group)
@@ -181,7 +211,8 @@ object CardUtility {
         return cards
     }
 
-    fun AllCardGroupInBattle(): Array<CardGroup> {
+    fun AllCardGroupInBattle(): Array<CardGroup>
+    {
         return arrayOf(
             AbstractDungeon.player.hand,
             AbstractDungeon.player.drawPile,
@@ -190,7 +221,8 @@ object CardUtility {
         )
     }
 
-    fun AllCardInBattle_ButWithoutCardInUse(): MutableList<AbstractCard> {
+    fun AllCardInBattle_ButWithoutCardInUse(): MutableList<AbstractCard>
+    {
         val cards = ArrayList<AbstractCard>()
         cards.addAll(AbstractDungeon.player.hand.group)
         cards.addAll(AbstractDungeon.player.discardPile.group)
@@ -211,29 +243,35 @@ object CardUtility {
     //        card.initializeDescription();
     //        return card;
     //    }
-    fun flashIfInHand(card: AbstractCard) {
+    fun flashIfInHand(card: AbstractCard)
+    {
         if (AbstractDungeon.player.hand.contains(card)) card.flash()
     }
 
-    fun getColorFormCard(card: AbstractCard): Color {
-        return when (card.target) {
-            CardTarget.ENEMY, CardTarget.ALL_ENEMY -> AgressiveColor.cpy()
-            CardTarget.SELF -> HospitableColor.cpy()
+    fun getColorFormCard(card: AbstractCard): Color
+    {
+        return when (card.target)
+        {
+            CardTarget.ENEMY, CardTarget.ALL_ENEMY                     -> AgressiveColor.cpy()
+            CardTarget.SELF                                            -> HospitableColor.cpy()
             CardTarget.NONE, CardTarget.ALL, CardTarget.SELF_AND_ENEMY -> Color.PURPLE.cpy()
-            else -> Color.PURPLE.cpy()
+            else                                                       -> Color.PURPLE.cpy()
         }
     }
 
-    fun getColorFormCard(target: CardTarget?): Color {
-        return when (target) {
-            CardTarget.ENEMY, CardTarget.ALL_ENEMY -> AgressiveColor.cpy()
-            CardTarget.SELF -> HospitableColor.cpy()
+    fun getColorFormCard(target: CardTarget?): Color
+    {
+        return when (target)
+        {
+            CardTarget.ENEMY, CardTarget.ALL_ENEMY                     -> AgressiveColor.cpy()
+            CardTarget.SELF                                            -> HospitableColor.cpy()
             CardTarget.NONE, CardTarget.ALL, CardTarget.SELF_AND_ENEMY -> Color.PURPLE.cpy()
-            else -> Color.PURPLE.cpy()
+            else                                                       -> Color.PURPLE.cpy()
         }
     }
 
-    fun canUseWithoutEnvironment(card: AbstractCard): Boolean {
+    fun canUseWithoutEnvironment(card: AbstractCard): Boolean
+    {
         if (card.canUse(AbstractDungeon.player, null)) return true
         //不是因为能量不够或者对象不对而无法打出
 //            if (!(card.cardPlayable(null) && hasEnoughEnergyOrTurnEnd(card))) return;
@@ -241,17 +279,22 @@ object CardUtility {
         return !(hasEnoughEnergyOrTurnEnd(card))
     }
 
-    private fun hasEnoughEnergyOrTurnEnd(card: AbstractCard): Boolean {
-        if (AbstractDungeon.actionManager.turnHasEnded) {
+    private fun hasEnoughEnergyOrTurnEnd(card: AbstractCard): Boolean
+    {
+        if (AbstractDungeon.actionManager.turnHasEnded)
+        {
             return false
         }
         return EnergyPanel.totalCount >= card.costForTurn || card.freeToPlay() || card.isInAutoplay
     }
 
-    fun moveToHandOrDiscardWhenMaxHand(cardHolder: CardGroup, originCard: AbstractCard?) {
-        if (AbstractDungeon.player.hand.size() >= BaseMod.MAX_HAND_SIZE) {
+    fun moveToHandOrDiscardWhenMaxHand(cardHolder: CardGroup, originCard: AbstractCard?)
+    {
+        if (AbstractDungeon.player.hand.size() >= BaseMod.MAX_HAND_SIZE)
+        {
             AbstractDungeon.player.createHandIsFullDialog()
             cardHolder.moveToDiscardPile(originCard)
-        } else cardHolder.moveToHand(originCard)
+        }
+        else cardHolder.moveToHand(originCard)
     }
 }

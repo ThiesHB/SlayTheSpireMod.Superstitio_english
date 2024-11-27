@@ -11,14 +11,18 @@ import superstitio.cards.general.TempCard.SexToy
 import superstitio.powers.*
 import superstitioapi.actions.AutoDoneInstantAction
 
-class ForcePutSexToy : GeneralCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET) {
-    init {
+class ForcePutSexToy : GeneralCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET)
+{
+    init
+    {
         this.setupMagicNumber(MAGIC, UPGRADE_MAGIC)
         //        this.setupDamage(DAMAGE, UPGRADE_DAMAGE);
     }
 
-    override fun use(player: AbstractPlayer?, monster: AbstractMonster?) {
-        for (i in 0 until magicNumber) {
+    override fun use(player: AbstractPlayer?, monster: AbstractMonster?)
+    {
+        for (i in 0 until magicNumber)
+        {
             addToBot_applyPower(SexToy(AbstractDungeon.player, 1, SexToy.Companion.getRandomSexToyName()))
         }
         addToBot(LoseHPAction(AbstractDungeon.player, AbstractDungeon.player, this.magicNumber))
@@ -30,10 +34,12 @@ class ForcePutSexToy : GeneralCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET
         }
     }
 
-    override fun upgradeAuto() {
+    override fun upgradeAuto()
+    {
     }
 
-    companion object {
+    companion object
+    {
         val ID: String = DataManager.MakeTextID(ForcePutSexToy::class.java)
 
         val CARD_TYPE: CardType = CardType.SKILL

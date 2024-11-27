@@ -7,20 +7,25 @@ import superstitio.DataManager
 import superstitio.cards.general.GeneralCard
 
 //透支
-class Overdraft : GeneralCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET) {
-    init {
+class Overdraft : GeneralCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET)
+{
+    init
+    {
         this.setupMagicNumber(MAGIC, UPGRADE_MAGIC)
     }
 
-    override fun use(player: AbstractPlayer?, monster: AbstractMonster?) {
+    override fun use(player: AbstractPlayer?, monster: AbstractMonster?)
+    {
         addToBot_drawCards(MAGIC)
         addToBot_applyPower(superstitio.powers.Overdraft(AbstractDungeon.player, ExhaustNum))
     }
 
-    override fun upgradeAuto() {
+    override fun upgradeAuto()
+    {
     }
 
-    companion object {
+    companion object
+    {
         val ID: String = DataManager.MakeTextID(Overdraft::class.java)
 
         val CARD_TYPE: CardType = CardType.SKILL

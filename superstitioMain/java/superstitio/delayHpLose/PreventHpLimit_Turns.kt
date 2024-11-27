@@ -7,19 +7,24 @@ import superstitio.powers.AbstractSuperstitioPower
 import superstitioapi.utils.setDescriptionArgs
 
 class PreventHpLimit_Turns(owner: AbstractCreature, amount: Int) : AbstractSuperstitioPower(POWER_ID, owner, amount),
-    IPreventHpLimit {
-    override fun updateDescriptionArgs() {
+    IPreventHpLimit
+{
+    override fun updateDescriptionArgs()
+    {
         this.setDescriptionArgs(amount)
     }
 
-    override fun atEndOfRound() {
+    override fun atEndOfRound()
+    {
         addToBot_AutoRemoveOne(this)
     }
 
-    override fun onPreventHpLimit() {
+    override fun onPreventHpLimit()
+    {
     }
 
-    companion object {
+    companion object
+    {
         val POWER_ID: String = DataManager.MakeTextID(PreventHpLimit_Turns::class.java)
     }
 }

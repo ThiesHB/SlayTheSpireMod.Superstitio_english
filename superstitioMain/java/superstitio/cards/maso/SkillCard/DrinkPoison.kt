@@ -15,13 +15,16 @@ import superstitio.powers.SexualHeat.Orgasm
 import superstitioapi.utils.ActionUtility
 import java.util.function.ToIntFunction
 
-class DrinkPoison : MasoCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET) {
-    init {
+class DrinkPoison : MasoCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET)
+{
+    init
+    {
         this.setupMagicNumber(MAGIC)
         CardModifierManager.addModifier(this, ExhaustMod())
     }
 
-    override fun use(player: AbstractPlayer?, monster: AbstractMonster?) {
+    override fun use(player: AbstractPlayer?, monster: AbstractMonster?)
+    {
         val totalDelayHpLose: Int =
             DelayHpLosePower.findAll(AbstractDungeon.player, DelayHpLosePower::class.java)
                 .mapToInt(ToIntFunction(DelayHpLosePower::amount)).sum()
@@ -35,15 +38,19 @@ class DrinkPoison : MasoCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET) {
         )
     }
 
-    override fun triggerOnGlowCheck() {
+    override fun triggerOnGlowCheck()
+    {
         this.glowColor = BLUE_BORDER_GLOW_COLOR.cpy()
-        if (Orgasm.isPlayerInOrgasm()) {
+        if (Orgasm.isPlayerInOrgasm())
+        {
             this.glowColor = Color.PINK.cpy()
         }
     }
 
-    override fun initializeDescription() {
-        if (!ActionUtility.isNotInBattle) {
+    override fun initializeDescription()
+    {
+        if (!ActionUtility.isNotInBattle)
+        {
             val totalDelayHpLose: Int = DelayHpLosePower.findAll(
                 AbstractDungeon.player,
                 DelayHpLosePower::class.java
@@ -55,16 +62,19 @@ class DrinkPoison : MasoCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET) {
         super.initializeDescription()
     }
 
-    override fun applyPowers() {
+    override fun applyPowers()
+    {
         super.applyPowers()
         initializeDescription()
     }
 
-    override fun upgradeAuto() {
+    override fun upgradeAuto()
+    {
         CardModifierManager.addModifier(this, RetainMod())
     }
 
-    companion object {
+    companion object
+    {
         val ID: String = DataManager.MakeTextID(DrinkPoison::class.java)
 
         val CARD_TYPE: CardType = CardType.SKILL

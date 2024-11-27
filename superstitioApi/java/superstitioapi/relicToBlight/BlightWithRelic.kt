@@ -45,13 +45,15 @@ import com.megacrit.cardcrawl.relics.AbstractRelic
  * 荒疫需要手动添加哦
  */
 abstract class BlightWithRelic(var relic: AbstractRelic) :
-    AbstractBlight(relic.relicId, "BlightWithRelic", "Only a Relic carrier, do not spawn.", "maze.png", true) {
+    AbstractBlight(relic.relicId, "BlightWithRelic", "Only a Relic carrier, do not spawn.", "maze.png", true)
+{
     private var isInit = false
 
     //    protected static String getIdWithRelic(AbstractRelic relic) {
     //        return "blight_" + relic.relicId;
     //    }
-    private fun initRelic() {
+    private fun initRelic()
+    {
         relic.isDone = this.isDone
         relic.isObtained = this.isObtained
         relic.currentX = this.currentX
@@ -61,8 +63,10 @@ abstract class BlightWithRelic(var relic: AbstractRelic) :
         relic.hb.move(this.currentX, this.currentY)
     }
 
-    override fun update() {
-        if (!isInit) {
+    override fun update()
+    {
+        if (!isInit)
+        {
             initRelic()
             //给紫音写的patch
             isInit = !Loader.isModLoadedOrSideloaded("VUPShionMod")
@@ -71,9 +75,12 @@ abstract class BlightWithRelic(var relic: AbstractRelic) :
         if (AbstractDungeon.isScreenUp) return
 
         //翻页时不显示，不更新碰撞箱，Relic本来就有这个功能所以不写
-        if (AbstractDungeon.player != null && AbstractDungeon.player.blights.indexOf(this) / AbstractRelic.MAX_RELICS_PER_PAGE == AbstractRelic.relicPage) {
+        if (AbstractDungeon.player != null && AbstractDungeon.player.blights.indexOf(this) / AbstractRelic.MAX_RELICS_PER_PAGE == AbstractRelic.relicPage)
+        {
             hb.update()
-        } else {
+        }
+        else
+        {
             hb.hovered = false
         }
 
@@ -81,15 +88,18 @@ abstract class BlightWithRelic(var relic: AbstractRelic) :
         relic.update()
     }
 
-    override fun renderTip(sb: SpriteBatch) {
+    override fun renderTip(sb: SpriteBatch)
+    {
         relic.renderTip(sb)
     }
 
-    override fun renderInTopPanel(sb: SpriteBatch) {
+    override fun renderInTopPanel(sb: SpriteBatch)
+    {
         relic.renderInTopPanel(sb)
     }
 
-    override fun render(sb: SpriteBatch) {
+    override fun render(sb: SpriteBatch)
+    {
         relic.render(sb)
     }
 }

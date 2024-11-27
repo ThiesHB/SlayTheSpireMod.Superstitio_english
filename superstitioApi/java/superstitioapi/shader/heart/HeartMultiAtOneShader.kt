@@ -13,25 +13,30 @@ import superstitioapi.shader.ShaderUtility
 import java.util.function.Supplier
 import kotlin.math.max
 
-object HeartMultiAtOneShader {
+object HeartMultiAtOneShader
+{
     val heartMultiAtOne: ShaderProgram =
         ShaderUtility.initShader(ShaderUtility.DEFAULT_VERTEX_GLSL, "heart_multiAtOne.glsl")
 
-    fun setUp_heartMultiAtOne(sb: SpriteBatch, anim_timer: Float, whRate: Float) {
+    fun setUp_heartMultiAtOne(sb: SpriteBatch, anim_timer: Float, whRate: Float)
+    {
         sb.shader = heartMultiAtOne
         sb.shader.setUniformf("u_time", anim_timer)
         sb.shader.setUniformf("u_whRate", whRate)
         //        sb.getShader().setUniformf("u_endtime", endTime);
     }
 
-    class RenderHeartMultiAtOne(private val hitboxBondTo: Supplier<Hitbox>) : RenderInBattle {
+    class RenderHeartMultiAtOne(private val hitboxBondTo: Supplier<Hitbox>) : RenderInBattle
+    {
         private var anim_timer = -2.0f
 
-        override fun shouldRemove(): Boolean {
+        override fun shouldRemove(): Boolean
+        {
             return this.anim_timer >= END_TIME
         }
 
-        override fun render(sb: SpriteBatch) {
+        override fun render(sb: SpriteBatch)
+        {
             ShaderUtility.originShader = sb.shader
 
             setUp_heartMultiAtOne(sb, anim_timer, 1.0f)
@@ -45,13 +50,16 @@ object HeartMultiAtOneShader {
             sb.shader = ShaderUtility.originShader
         }
 
-        override fun update() {
+        override fun update()
+        {
             this.anim_timer += Gdx.graphics.deltaTime * 4.0f
         }
 
-        companion object {
+        companion object
+        {
             const val END_TIME: Float = 2.5f
-            fun addToBot_addHeartMultiAtOneEffect(hitboxBondTo: Supplier<Hitbox>) {
+            fun addToBot_addHeartMultiAtOneEffect(hitboxBondTo: Supplier<Hitbox>)
+            {
                 if (!ShaderUtility.canUseShader) return
                 RenderInBattle.Register(
                     RenderInBattle.RenderType.Normal,
@@ -61,26 +69,31 @@ object HeartMultiAtOneShader {
         }
     }
 
-    class HeartMultiAtOneEffect(hitboxForInit: Hitbox) : AbstractGameEffect() {
+    class HeartMultiAtOneEffect(hitboxForInit: Hitbox) : AbstractGameEffect()
+    {
         private val cX = hitboxForInit.cX
         private val cY = hitboxForInit.cY
         private val size = max(hitboxForInit.width.toDouble(), hitboxForInit.height.toDouble()).toFloat()
         private var anim_time: Float
 
-        init {
+        init
+        {
             this.anim_time = START_TIME
             this.color = Color.WHITE.cpy()
         }
 
-        fun addToEffectsQueue() {
+        fun addToEffectsQueue()
+        {
             AbstractDungeon.effectsQueue.add(this)
         }
 
-        fun addToEffectList() {
+        fun addToEffectList()
+        {
             AbstractDungeon.effectList.add(this)
         }
 
-        override fun render(spriteBatch: SpriteBatch) {
+        override fun render(spriteBatch: SpriteBatch)
+        {
             ShaderUtility.originShader = spriteBatch.shader
             spriteBatch.color = color
             setUp_heartMultiAtOne(spriteBatch, anim_time, 1.0f)
@@ -93,14 +106,17 @@ object HeartMultiAtOneShader {
             spriteBatch.shader = ShaderUtility.originShader
         }
 
-        override fun update() {
+        override fun update()
+        {
             this.anim_time += Gdx.graphics.deltaTime * 3.0f
-            if (this.anim_time > END_TIME) {
+            if (this.anim_time > END_TIME)
+            {
                 this.isDone = true
                 this.anim_time = 0.0f
             }
 
-            if (this.anim_time > START_VANISH_TIME) {
+            if (this.anim_time > START_VANISH_TIME)
+            {
                 color.a = Interpolation.pow2In.apply(
                     1.0f,
                     0.0f,
@@ -109,10 +125,12 @@ object HeartMultiAtOneShader {
             }
         }
 
-        override fun dispose() {
+        override fun dispose()
+        {
         }
 
-        companion object {
+        companion object
+        {
             const val END_TIME: Float = 1.0f
             const val START_TIME: Float = -2.0f
             const val START_VANISH_TIME: Float = -1.5f

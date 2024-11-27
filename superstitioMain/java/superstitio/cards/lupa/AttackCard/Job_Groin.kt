@@ -10,8 +10,10 @@ import superstitio.cards.lupa.LupaCard
 import superstitioapi.SuperstitioApiSetup
 
 //腹股沟
-class Job_Groin : LupaCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET), FuckJob_Card {
-    init {
+class Job_Groin : LupaCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET), FuckJob_Card
+{
+    init
+    {
         FuckJob_Card.initFuckJobCard(this)
         this.setupDamage(DAMAGE, UPGRADE_DAMAGE)
         this.setupMagicNumber(MAGIC)
@@ -22,7 +24,8 @@ class Job_Groin : LupaCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET), FuckJ
         get() = if (this.upgraded) DAMAGE + UPGRADE_DAMAGE
         else DAMAGE
 
-    private fun updateDamage() {
+    private fun updateDamage()
+    {
         val totalCost = AbstractDungeon.player.hand.group.stream()
             .filter { card: AbstractCard -> card.costForTurn >= 1 }
             .mapToInt(AbstractCard::costForTurn).sum()
@@ -33,30 +36,36 @@ class Job_Groin : LupaCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET), FuckJ
         this.baseDamage = (this.originDamage - damageDown).toInt()
     }
 
-    override fun upgradeAuto() {
+    override fun upgradeAuto()
+    {
     }
 
-    override fun use(player: AbstractPlayer?, monster: AbstractMonster?) {
+    override fun use(player: AbstractPlayer?, monster: AbstractMonster?)
+    {
         updateDamage()
         addToBot_dealDamage(monster, SuperstitioApiSetup.DamageEffect.HeartMultiInOne)
     }
 
-    override fun applyPowers() {
+    override fun applyPowers()
+    {
         super.applyPowers()
         updateDamage()
     }
 
-    override fun onMoveToDiscard() {
+    override fun onMoveToDiscard()
+    {
         this.initializeDescription()
     }
 
-    override fun calculateCardDamage(monster: AbstractMonster?) {
+    override fun calculateCardDamage(monster: AbstractMonster?)
+    {
         updateDamage()
         super.calculateCardDamage(monster)
         this.initializeDescription()
     }
 
-    companion object {
+    companion object
+    {
         val ID: String = DataManager.MakeTextID(Job_Groin::class.java)
 
         val CARD_TYPE: CardType = CardType.ATTACK

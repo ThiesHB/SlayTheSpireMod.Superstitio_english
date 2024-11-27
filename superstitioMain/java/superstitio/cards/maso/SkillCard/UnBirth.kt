@@ -19,34 +19,40 @@ import superstitioapi.utils.ActionUtility
 import superstitioapi.utils.CardUtility
 
 //TODO 增加一个按照怪物体型获得格挡的效果
-class UnBirth : MasoCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET) {
-    init {
+class UnBirth : MasoCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET)
+{
+    init
+    {
         this.setupBlock(BLOCK, UPGRADE_BLOCK, PregnantBlock_sealPower(ArrayList(), null).removeAutoBind())
         this.cardsToPreview = GiveBirth()
         //this.exhaust = true;
     }
 
-    private fun ForPlayer(player: AbstractPlayer) {
+    private fun ForPlayer(player: AbstractPlayer)
+    {
         val sealPower = doSealPowers(player.powers)
         addToBot_gainCustomBlock(PregnantBlock_sealPower(sealPower, player))
         this.exhaust = true
         ActionUtility.addToBot_makeTempCardInBattle(SelfReference(), ActionUtility.BattleCardPlace.Hand, upgraded)
     }
 
-    private fun ForMonsterBrokenSpaceStructure(monster: AbstractMonster) {
+    private fun ForMonsterBrokenSpaceStructure(monster: AbstractMonster)
+    {
         val sealPower = doSealPowers(monster.powers)
         addToBot_gainCustomBlock(PregnantBlock_sealPower(sealPower, monster))
         this.exhaust = true
         ActionUtility.addToBot_makeTempCardInBattle(SelfReference(), ActionUtility.BattleCardPlace.Hand, upgraded)
     }
 
-    private fun ForMonster(monster: AbstractMonster) {
+    private fun ForMonster(monster: AbstractMonster)
+    {
         val sealPower = doSealPowers(monster.powers)
         addToBot_gainCustomBlock(PregnantBlock_sealPower(sealPower, monster))
         ActionUtility.addToBot_makeTempCardInBattle(GiveBirth(), ActionUtility.BattleCardPlace.Discard, upgraded)
     }
 
-    override fun use(player: AbstractPlayer?, monster: AbstractMonster?) {
+    override fun use(player: AbstractPlayer?, monster: AbstractMonster?)
+    {
         val target = CardUtility.getSelfOrEnemyTarget(this, monster)
         if (target is AbstractPlayer) ForPlayer(AbstractDungeon.player)
         else if (BlockModifierManager.blockInstances(target).stream()
@@ -59,29 +65,35 @@ class UnBirth : MasoCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET) {
         else ForMonster(target as AbstractMonster)
     }
 
-    override fun upgradeAuto() {
+    override fun upgradeAuto()
+    {
         upgradeCardsToPreview()
     }
 
-    internal sealed class MonsterBodyType {
+    internal sealed class MonsterBodyType
+    {
         data object Tiny : MonsterBodyType()
         data object Small : MonsterBodyType()
         data object Middle : MonsterBodyType()
         data object Big : MonsterBodyType()
         data object VeryBig : MonsterBodyType()
-        companion object {
-            fun values(): Array<MonsterBodyType> {
+        companion object
+        {
+            fun values(): Array<MonsterBodyType>
+            {
                 return arrayOf(Tiny, Small, Middle, Big, VeryBig)
             }
 
-            fun valueOf(value: String): MonsterBodyType {
-                return when (value) {
-                    "Tiny" -> Tiny
-                    "Small" -> Small
-                    "Middle" -> Middle
-                    "Big" -> Big
+            fun valueOf(value: String): MonsterBodyType
+            {
+                return when (value)
+                {
+                    "Tiny"    -> Tiny
+                    "Small"   -> Small
+                    "Middle"  -> Middle
+                    "Big"     -> Big
                     "VeryBig" -> VeryBig
-                    else -> throw IllegalArgumentException("No object superstitio.cards.maso.SkillCard.UnBirth.MonsterBodyType.$value")
+                    else      -> throw IllegalArgumentException("No object superstitio.cards.maso.SkillCard.UnBirth.MonsterBodyType.$value")
                 }
             }
         }
@@ -93,7 +105,8 @@ class UnBirth : MasoCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET) {
     //
     //    }
 
-    companion object {
+    companion object
+    {
         val ID: String = DataManager.MakeTextID(UnBirth::class.java)
 
         val CARD_TYPE: CardType = CardType.SKILL
@@ -106,10 +119,12 @@ class UnBirth : MasoCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET) {
         private const val BLOCK = 8
         private const val UPGRADE_BLOCK = 3
 
-        private fun doSealPowers(monster: MutableList<AbstractPower>): MutableList<AbstractPower> {
+        private fun doSealPowers(monster: MutableList<AbstractPower>): MutableList<AbstractPower>
+        {
             val sealPower = ArrayList<AbstractPower>()
             monster.forEach { power: AbstractPower ->
-                if (power is WeakPower || power is VulnerablePower || power is FrailPower || power is ArtifactPower) {
+                if (power is WeakPower || power is VulnerablePower || power is FrailPower || power is ArtifactPower)
+                {
                     if (power is InvisiblePower) return@forEach
                     power.owner = AbstractDungeon.player
                     power.amount *= 2

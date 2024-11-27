@@ -13,12 +13,15 @@ import superstitioapi.hangUpCard.CardOrb_CardTrigger
 import superstitioapi.hangUpCard.CardOrb_WaitCardTrigger
 import superstitioapi.utils.CardUtility
 
-class ReadyToSex : GeneralCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET) {
-    init {
+class ReadyToSex : GeneralCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET)
+{
+    init
+    {
         this.setupMagicNumber(MAGIC, UPGRADE_MAGIC)
     }
 
-    private fun HangUpSpecificCard(card: AbstractCard) {
+    private fun HangUpSpecificCard(card: AbstractCard)
+    {
         val copyCard = card.makeStatEquivalentCopy()
         copyCard.exhaust = true
         val showUpCard = card.makeStatEquivalentCopy()
@@ -39,17 +42,20 @@ class ReadyToSex : GeneralCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET) {
         }
     }
 
-    override fun use(player: AbstractPlayer?, monster: AbstractMonster?) {
+    override fun use(player: AbstractPlayer?, monster: AbstractMonster?)
+    {
         ChoseCardFromHandCardSelectScreen(this::HangUpSpecificCard)
             .setWindowText(String.format(cardStrings.getEXTENDED_DESCRIPTION(0), CHOSE_CARD))
             .setChoiceAmount(CHOSE_CARD)
             .addToBot()
     }
 
-    override fun upgradeAuto() {
+    override fun upgradeAuto()
+    {
     }
 
-    companion object {
+    companion object
+    {
         val ID: String = DataManager.MakeTextID(ReadyToSex::class.java)
 
         val CARD_TYPE: CardType = CardType.SKILL

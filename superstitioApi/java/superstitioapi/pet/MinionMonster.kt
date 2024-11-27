@@ -20,9 +20,12 @@ import java.util.stream.Collectors
 import kotlin.math.max
 
 open class MinionMonster protected constructor(petCore: AbstractMonster, drawScale: Float) :
-    Minion(petCore, drawScale) {
-    init {
-        for (d in petCoreMonster.damage) {
+    Minion(petCore, drawScale)
+{
+    init
+    {
+        for (d in petCoreMonster.damage)
+        {
             d.base /= DAMAGE_SCALE.toInt()
             d.output = d.base
         }
@@ -35,24 +38,29 @@ open class MinionMonster protected constructor(petCore: AbstractMonster, drawSca
         get() = if (petCore is AbstractMonster) petCore
         else DefaultMonster
 
-    override fun createIntent() {
+    override fun createIntent()
+    {
         petCoreMonster.createIntent()
     }
 
-    override fun init() {
+    override fun init()
+    {
         super.init()
         petCoreMonster.refreshIntentHbLocation()
         petCoreMonster.init()
     }
 
-    override fun applyPowers() {
-        for (dmg in petCoreMonster.damage) {
+    override fun applyPowers()
+    {
+        for (dmg in petCoreMonster.damage)
+        {
             dmg.applyPowers(this, CreatureUtility.getRandomMonsterWithoutRngSafe())
         }
 
         val monsterMove = ReflectionHacks.getPrivate<EnemyMoveInfo>(petCoreMonster, AbstractMonster::class.java, "move")
 
-        if (monsterMove.baseDamage > -1) {
+        if (monsterMove.baseDamage > -1)
+        {
             ReflectionHacks.privateMethod(AbstractMonster::class.java, "calculateDamage", Int::class.javaPrimitiveType)
                 .invoke<Any>(petCoreMonster, monsterMove.baseDamage)
         }
@@ -68,25 +76,31 @@ open class MinionMonster protected constructor(petCore: AbstractMonster, drawSca
             petCoreMonster
         )
 
-    override fun renderTip(sb: SpriteBatch) {
+    override fun renderTip(sb: SpriteBatch)
+    {
         petCoreMonster.renderTip(sb)
     }
 
-    override fun updateHitBox() {
+    override fun updateHitBox()
+    {
         super.updateHitBox()
         petCoreMonster.intentHb.update()
     }
 
-    override fun takeTurn() {
-        if (petCoreMonster == null) {
+    override fun takeTurn()
+    {
+        if (petCoreMonster == null)
+        {
             Logger.warning("no symbol monster for minion " + this.name)
             return
         }
         var intentMultiAmt =
             ReflectionHacks.getPrivate<Int>(petCoreMonster, AbstractMonster::class.java, "intentMultiAmt")
         if (intentMultiAmt == null) intentMultiAmt = 1
-        when (petCoreMonster.intent) {
-            Intent.ATTACK, Intent.ATTACK_BUFF, Intent.ATTACK_DEBUFF, Intent.ATTACK_DEFEND -> {
+        when (petCoreMonster.intent)
+        {
+            Intent.ATTACK, Intent.ATTACK_BUFF, Intent.ATTACK_DEBUFF, Intent.ATTACK_DEFEND                                                                     ->
+            {
                 AbstractDungeon.actionManager.addToBottom(AnimateSlowAttackAction(this))
                 val monsters =
                     AbstractDungeon.getMonsters().monsters.stream()
@@ -94,7 +108,8 @@ open class MinionMonster protected constructor(petCore: AbstractMonster, drawSca
                         .filter { monster1: AbstractMonster -> !monster1.isDeadOrEscaped }
                         .collect(Collectors.toList())
                 var i = 0
-                while (i < max(1.0, intentMultiAmt.toDouble())) {
+                while (i < max(1.0, intentMultiAmt.toDouble()))
+                {
                     AbstractDungeon.actionManager.addToBottom(
                         DamageAction(
                             ListUtility.getRandomFromList(monsters, AbstractDungeon.cardRandomRng),
@@ -108,40 +123,46 @@ open class MinionMonster protected constructor(petCore: AbstractMonster, drawSca
                 AbstractDungeon.actionManager.addToBottom(RollMoveAction(this))
             }
 
-            Intent.DEBUFF, Intent.DEFEND_DEBUFF, Intent.STRONG_DEBUFF -> AbstractDungeon.actionManager.addToBottom(
+            Intent.DEBUFF, Intent.DEFEND_DEBUFF, Intent.STRONG_DEBUFF                                                                                         -> AbstractDungeon.actionManager.addToBottom(
                 RollMoveAction(
                     this
                 )
             )
 
             Intent.DEBUG, Intent.DEFEND_BUFF, Intent.DEFEND, Intent.BUFF, Intent.ESCAPE, Intent.MAGIC, Intent.NONE, Intent.SLEEP, Intent.STUN, Intent.UNKNOWN -> petCoreMonster.takeTurn()
-            else -> petCoreMonster.takeTurn()
+            else                                                                                                                                              -> petCoreMonster.takeTurn()
         }
     }
 
-    override fun updatePowers() {
+    override fun updatePowers()
+    {
         petCoreMonster.updatePowers()
     }
 
-    override fun usePreBattleAction() {
+    override fun usePreBattleAction()
+    {
         petCoreMonster.usePreBattleAction()
     }
 
-    override fun useUniversalPreBattleAction() {
+    override fun useUniversalPreBattleAction()
+    {
         petCoreMonster.useUniversalPreBattleAction()
     }
 
-    override fun setupImg(): Texture {
+    override fun setupImg(): Texture
+    {
 //        Texture img = ;
 //        setPrivate(petCore, AbstractMonster.class, "img", null);
         return ReflectionHacks.getPrivate(petCoreMonster, AbstractMonster::class.java, "img")
     }
 
-    override fun updatePetCore() {
+    override fun updatePetCore()
+    {
         petCoreMonster.update()
     }
 
-    override fun getMove(i: Int) {
+    override fun getMove(i: Int)
+    {
         ReflectionHacks.privateMethod(AbstractMonster::class.java, "getMove", Int::class.javaPrimitiveType).invoke<Any>(
             petCoreMonster, i
         )
@@ -152,11 +173,13 @@ open class MinionMonster protected constructor(petCore: AbstractMonster, drawSca
         )
     }
 
-    companion object {
+    companion object
+    {
         const val DAMAGE_SCALE: Float = 3f
         private val DefaultMonster: AbstractMonster = ApologySlime()
 
-        fun isMonsterHovered(monster: AbstractMonster): Boolean {
+        fun isMonsterHovered(monster: AbstractMonster): Boolean
+        {
             return monster.hb.hovered || monster.intentHb.hovered || monster.healthHb.hovered
         }
     }

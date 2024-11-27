@@ -2,7 +2,8 @@ package superstitioapi.cardModifier
 
 import com.evacipated.cardcrawl.mod.stslib.blockmods.BlockInstance
 
-interface RenderAsBlockPower {
+interface RenderAsBlockPower
+{
     fun getBlockInstance(): BlockInstance
 
     var _blockInstance: BlockInstance?

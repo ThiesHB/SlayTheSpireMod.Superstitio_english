@@ -11,26 +11,33 @@ import superstitioapi.cardPool.BaseCardPool.IsCardPoolCover
 
 @AutoAdd.Ignore
 abstract class AbstractCover(id: String, symbol: CustomCard) :
-    GeneralCard(id, symbol.type, -2, symbol.rarity, symbol.target), IsCardPoolCover {
-    init {
+    GeneralCard(id, symbol.type, -2, symbol.rarity, symbol.target), IsCardPoolCover
+{
+    init
+    {
         this.textureImg = symbol.textureImg
-        if (textureImg != null) {
+        if (textureImg != null)
+        {
             this.loadCardImage(textureImg)
         }
     }
 
     override val self: AbstractCard
-        get() {
+        get()
+        {
             return this
         }
 
-    override fun upgradeAuto() {
+    override fun upgradeAuto()
+    {
     }
 
-    override fun use(player: AbstractPlayer?, monster: AbstractMonster?) {
+    override fun use(player: AbstractPlayer?, monster: AbstractMonster?)
+    {
     }
 
-    companion object {
+    companion object
+    {
         val ID: String = DataManager.MakeTextID(AbstractCover::class.java)
     }
 }

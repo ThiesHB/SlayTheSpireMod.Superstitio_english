@@ -26,11 +26,13 @@ class GangBang @JvmOverloads constructor(
     scoreRate: Double = 0.15
 ) : AbstractTempCard(
     ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET
-), GoSomewhereElseAfterUse {
+), GoSomewhereElseAfterUse
+{
     /**
      * @param score 1-5
      */
-    init {
+    init
+    {
         this.originalName = cardStrings.getEXTENDED_DESCRIPTION(score) + cardStrings.getNAME()
         this.name = this.originalName
         this.setupDamage((attackAmount * (1 + (score - 1) * scoreRate)).toInt(), SexDamage())
@@ -49,24 +51,33 @@ class GangBang @JvmOverloads constructor(
         this.initializeDescription()
     }
 
-    override fun use(player: AbstractPlayer?, monster: AbstractMonster?) {
+    override fun use(player: AbstractPlayer?, monster: AbstractMonster?)
+    {
         this.dontTriggerOnUseCard = true
     }
 
-    override fun canUpgrade(): Boolean {
+    override fun canUpgrade(): Boolean
+    {
         return false
     }
 
-    override fun upgradeAuto() {
+    override fun upgradeAuto()
+    {
     }
 
-    override fun updateDescriptionArgs() {
+    override fun updateDescriptionArgs()
+    {
         setDescriptionArgs(TURN_TAKE)
     }
 
-    override fun afterInterruptMoveToCardGroup(cardGroup: CardGroup) {
+    override fun afterInterruptMoveToCardGroup(cardGroup: CardGroup)
+    {
         val self = this
-        CardOrb_AtEndOfTurnEachTime(this, cardGroup, CardUtility.CostSmart(TURN_TAKE)) { cardOrbAtEndOfTurn: CardOrb_AtEndOfTurnEachTime ->
+        CardOrb_AtEndOfTurnEachTime(
+            this,
+            cardGroup,
+            CardUtility.CostSmart(TURN_TAKE)
+        ) { cardOrbAtEndOfTurn: CardOrb_AtEndOfTurnEachTime ->
             cardOrbAtEndOfTurn.StartHitCreature(CreatureUtility.getRandomMonsterWithoutRngSafe())
             self.addToBot_gainCustomBlock(self.block, DrySemenBlock())
             self.addToBot_dealDamageToAllEnemies(SuperstitioApiSetup.DamageEffect.HeartMultiInOne)
@@ -76,7 +87,8 @@ class GangBang @JvmOverloads constructor(
             .addToBot_HangCard()
     }
 
-    companion object {
+    companion object
+    {
         val ID: String = DataManager.MakeTextID(GangBang::class.java)
 
         val CARD_TYPE: CardType = CardType.STATUS

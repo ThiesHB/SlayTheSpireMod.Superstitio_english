@@ -11,15 +11,19 @@ import superstitio.powers.patchAndInterface.interfaces.orgasm.OnOrgasm_onOrgasm
 import superstitio.relics.SuperstitioRelic
 import superstitioapi.utils.setDescriptionArgs
 
-class NippleRings : SuperstitioRelic(ID, RELIC_TIER, LANDING_SOUND), OnOrgasm_onOrgasm {
-    override fun atBattleStart() {
+class NippleRings : SuperstitioRelic(ID, RELIC_TIER, LANDING_SOUND), OnOrgasm_onOrgasm
+{
+    override fun atBattleStart()
+    {
     }
 
-    override fun updateDescriptionArgs() {
+    override fun updateDescriptionArgs()
+    {
         setDescriptionArgs(Amount)
     }
 
-    override fun onOrgasm(SexualHeatPower: SexualHeat) {
+    override fun onOrgasm(SexualHeatPower: SexualHeat)
+    {
         this.flash()
         this.addToBot(RelicAboveCreatureAction(AbstractDungeon.player, this))
         this.addToTop(
@@ -38,7 +42,8 @@ class NippleRings : SuperstitioRelic(ID, RELIC_TIER, LANDING_SOUND), OnOrgasm_on
         )
     }
 
-    companion object {
+    companion object
+    {
         val ID: String = DataManager.MakeTextID(NippleRings::class.java)
 
         // 遗物类型

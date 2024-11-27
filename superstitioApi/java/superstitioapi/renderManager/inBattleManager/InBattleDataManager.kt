@@ -10,11 +10,14 @@ import superstitioapi.utils.ActionUtility.VoidSupplier
 import java.util.*
 import java.util.function.Consumer
 
-object InBattleDataManager {
+object InBattleDataManager
+{
     var costMap: HashMap<UUID, Int> = HashMap()
     var subscribeManageGroups: MutableList<ISubscriber> = ArrayList()
+
     @JvmStatic
-    fun InitializeAtStartOfBattle() {
+    fun InitializeAtStartOfBattle()
+    {
         ResetAll()
         AutoDoneInstantAction.addToTopAbstract(VoidSupplier {
             Subscribe(HangUpCardGroup(AbstractDungeon.player.hb))
@@ -24,15 +27,20 @@ object InBattleDataManager {
     }
 
     @JvmStatic
-    fun ClearOnEndOfBattle() {
+    fun ClearOnEndOfBattle()
+    {
         ResetAll()
     }
+
     @JvmStatic
-    fun <T : ISubscriber> ApplyAll(subscriberConsumer: Consumer<T>?, tClass: Class<T>) {
+    fun <T : ISubscriber> ApplyAll(subscriberConsumer: Consumer<T>?, tClass: Class<T>)
+    {
         subscribeManageGroups.filterIsInstance(tClass).forEach(subscriberConsumer)
     }
+
     @JvmStatic
-    fun InitializeAtStartOfTurn() {
+    fun InitializeAtStartOfTurn()
+    {
     }
 
     //    public static <T extends ISubscriber> void ApplyAllForPower(Consumer<T> subscriberConsumer, Class<T> tClass) {
@@ -42,16 +50,19 @@ object InBattleDataManager {
     //                .forEach(subscriberConsumer);
     //    }
     @SafeVarargs
-    fun <T : ISubscriber> Subscribe(vararg objectToAdd: T) {
+    fun <T : ISubscriber> Subscribe(vararg objectToAdd: T)
+    {
         subscribeManageGroups.addAll(objectToAdd)
     }
 
     @SafeVarargs
-    fun <T : ISubscriber> UnSubscribe(vararg objectToAdd: T) {
+    fun <T : ISubscriber> UnSubscribe(vararg objectToAdd: T)
+    {
         subscribeManageGroups.removeAll(objectToAdd.toSet())
     }
 
-    fun getHangUpCardOrbGroup(): HangUpCardGroup? {
+    fun getHangUpCardOrbGroup(): HangUpCardGroup?
+    {
         return subscribeManageGroups
             .filterIsInstance<HangUpCardGroup>()
             .firstOrNull()
@@ -65,7 +76,8 @@ object InBattleDataManager {
         .filterIsInstance<PetManager>()
         .firstOrNull()
 
-    private fun ResetAll() {
+    private fun ResetAll()
+    {
         RenderInBattle.clearAll()
         costMap = HashMap()
         subscribeManageGroups.clear()

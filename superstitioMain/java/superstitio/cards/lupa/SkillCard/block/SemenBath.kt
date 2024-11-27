@@ -14,23 +14,28 @@ import superstitio.powers.lupaOnly.FloorSemen
 import superstitio.powers.lupaOnly.InsideSemen
 import superstitio.powers.lupaOnly.OutsideSemen
 
-class SemenBath : LupaCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET) {
-    init {
+class SemenBath : LupaCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET)
+{
+    init
+    {
         this.setupBlock(BLOCK, UPGRADE_BLOCK, RemoveDelayHpLoseBlock())
         CardModifierManager.addModifier(this, RetainMod())
     }
 
-    override fun use(player: AbstractPlayer?, monster: AbstractMonster?) {
+    override fun use(player: AbstractPlayer?, monster: AbstractMonster?)
+    {
         DelayHpLosePower.addToBot_removePower(this.block * totalSemenValue, AbstractDungeon.player, true)
         getPower(FloorSemen.POWER_ID)?.let(this::addToBot_removeSpecificPower)
         getPower(OutsideSemen.POWER_ID)?.let(this::addToBot_removeSpecificPower)
         getPower(InsideSemen.POWER_ID)?.let(this::addToBot_removeSpecificPower)
     }
 
-    override fun upgradeAuto() {
+    override fun upgradeAuto()
+    {
     }
 
-    companion object {
+    companion object
+    {
         val ID: String = DataManager.MakeTextID(SemenBath::class.java)
 
         val CARD_TYPE: CardType = CardType.SKILL
@@ -43,7 +48,8 @@ class SemenBath : LupaCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET) {
         private const val BLOCK = 3
         private const val UPGRADE_BLOCK = 1
 
-        private fun getPower(powerID: String): AbstractPower? {
+        private fun getPower(powerID: String): AbstractPower?
+        {
             val power = AbstractDungeon.player.getPower(powerID)
             return power
         }

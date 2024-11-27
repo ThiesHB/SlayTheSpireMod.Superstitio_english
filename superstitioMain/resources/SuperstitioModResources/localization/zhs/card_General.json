@@ -216,7 +216,8 @@
     "FLAVOR": "",
     "FLAVOR_SFW": "而非吕布骑狗。",
     "EXTENDED_DESCRIPTION": [
-      "送入助兴序列并抽一张牌，最多选择%d张牌。","superstitiomod:欲求 打出任何牌 superstitioApi:!HANGING_TIME! 次： NL 回到手牌。 NL superstitiomod:自动释放 。"
+      "送入助兴序列并抽一张牌，最多选择%d张牌。",
+      "superstitiomod:欲求 打出任何牌 superstitioApi:!HANGING_TIME! 次： NL 回到手牌。 NL superstitiomod:自动释放 。"
     ]
   }
 }

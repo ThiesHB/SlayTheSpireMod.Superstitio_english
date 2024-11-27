@@ -10,13 +10,16 @@ import superstitio.DataManager
 import superstitio.cards.general.GeneralCard
 import superstitioapi.actions.AutoDoneInstantAction
 
-class Tease : GeneralCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET) {
-    init {
+class Tease : GeneralCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET)
+{
+    init
+    {
         this.setupMagicNumber(MAGIC, UPGRADE_MAGIC)
         this.exhaust = true
     }
 
-    override fun use(player: AbstractPlayer?, monster: AbstractMonster?) {
+    override fun use(player: AbstractPlayer?, monster: AbstractMonster?)
+    {
         val a = (monster!!.maxHealth * MAGIC / 100f).toInt()
         AutoDoneInstantAction.addToBotAbstract { monster.decreaseMaxHealth(a) }
         addToBot_applyPower(FrailPower(monster, 1, false))
@@ -25,10 +28,12 @@ class Tease : GeneralCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET) {
         addToBot_applyPower(BarricadePower(monster))
     }
 
-    override fun upgradeAuto() {
+    override fun upgradeAuto()
+    {
     }
 
-    companion object {
+    companion object
+    {
         val ID: String = DataManager.MakeTextID(Tease::class.java)
 
         val CARD_TYPE: CardType = CardType.SKILL

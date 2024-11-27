@@ -10,10 +10,12 @@ import superstitioapi.cards.DamageActionMaker
 import superstitioapi.utils.CreatureUtility
 
 @AutoAdd.Ignore
-class NullCard : GeneralCard {
+class NullCard : GeneralCard
+{
     private val number: Int
 
-    constructor() : super(ID, DEFAULT_TYPE, COST, DEFAULT_RARITY, CARD_TARGET) {
+    constructor() : super(ID, DEFAULT_TYPE, COST, DEFAULT_RARITY, CARD_TARGET)
+    {
         this.number = 0
     }
 
@@ -29,25 +31,31 @@ class NullCard : GeneralCard {
         COST,
         cardRarity,
         CARD_TARGET
-    ) {
+    )
+    {
         this.cardID = ID + cardType + cardRarity + Number
         this.number = Number
     }
 
-    override fun makeCopy(): AbstractCard {
+    override fun makeCopy(): AbstractCard
+    {
         return NullCard(this.type, this.rarity, this.number)
     }
 
-    override fun use(player: AbstractPlayer?, monster: AbstractMonster?) {
-        for (abstractMonster in CreatureUtility.getAllAliveMonsters()) {
+    override fun use(player: AbstractPlayer?, monster: AbstractMonster?)
+    {
+        for (abstractMonster in CreatureUtility.getAllAliveMonsters())
+        {
             DamageActionMaker.maker(114514, abstractMonster).addToBot()
         }
     }
 
-    override fun upgradeAuto() {
+    override fun upgradeAuto()
+    {
     }
 
-    companion object {
+    companion object
+    {
         val ID: String = DataManager.MakeTextID(NullCard::class.java)
 
         val DEFAULT_TYPE: CardType = CardType.SKILL
@@ -57,9 +65,11 @@ class NullCard : GeneralCard {
         val CARD_TARGET: CardTarget = CardTarget.SELF
 
         private const val COST = 0
-        fun makeNullCardPool(): List<AbstractCard> {
+        fun makeNullCardPool(): List<AbstractCard>
+        {
             val cards: MutableList<AbstractCard> = ArrayList()
-            for (i in 0..7) {
+            for (i in 0..7)
+            {
                 cards.add(NullCard(CardType.ATTACK, CardRarity.COMMON, i))
                 cards.add(NullCard(CardType.ATTACK, CardRarity.UNCOMMON, i))
                 cards.add(NullCard(CardType.ATTACK, CardRarity.RARE, i))
@@ -73,7 +83,8 @@ class NullCard : GeneralCard {
             return cards
         }
 
-        fun needMakeNullCardToFill(cardList: List<AbstractCard>?): Boolean {
+        fun needMakeNullCardToFill(cardList: List<AbstractCard>?): Boolean
+        {
             if (cardList == null || cardList.size < 20) return true
             if (cardList.stream()
                     .noneMatch { card: AbstractCard -> card.type == CardType.ATTACK && card.rarity == CardRarity.COMMON }

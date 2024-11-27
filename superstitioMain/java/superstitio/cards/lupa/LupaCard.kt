@@ -16,7 +16,8 @@ import java.util.stream.Collectors
 abstract class LupaCard @JvmOverloads constructor(
     id: String, cardType: CardType, cost: Int, cardRarity: CardRarity, cardTarget: CardTarget, cardColor: CardColor,
     imgSubFolder: String = CardTypeToString(cardType)
-) : SuperstitioCard(id, cardType, cost, cardRarity, cardTarget, cardColor, imgSubFolder), IsLupaCard {
+) : SuperstitioCard(id, cardType, cost, cardRarity, cardTarget, cardColor, imgSubFolder), IsLupaCard
+{
     /**
      * 当需要自定义卡牌存储的二级目录名时
      */
@@ -39,7 +40,8 @@ abstract class LupaCard @JvmOverloads constructor(
         imgSubFolder: String = CardTypeToString(cardType)
     ) : this(id, cardType, cost, cardRarity, cardTarget, LupaEnums.LUPA_CARD, imgSubFolder)
 
-    protected fun sortedSemenList(): List<SemenPower> {
+    protected fun sortedSemenList(): List<SemenPower>
+    {
         val collect = AbstractDungeon.player.powers.stream()
             .filter { power: AbstractPower -> power is SemenPower }
             .map { power: AbstractPower -> power as SemenPower }
@@ -49,7 +51,8 @@ abstract class LupaCard @JvmOverloads constructor(
         return collect
     }
 
-    protected fun sortedSemenList(maxValue: Int): List<SemenPower> {
+    protected fun sortedSemenList(maxValue: Int): List<SemenPower>
+    {
         val collect = AbstractDungeon.player.powers.stream()
             .filter { power: AbstractPower -> power is SemenPower }
             .map { power: AbstractPower -> power as SemenPower }
@@ -60,10 +63,14 @@ abstract class LupaCard @JvmOverloads constructor(
         return collect
     }
 
-    protected fun addToBot_useSemenAndAutoRemove(valueNeed: Int) {
-        if (!hasEnoughSemen(valueNeed)) {
-            for (power in AbstractDungeon.player.powers) {
-                if (power is InsideSemen || power is OutsideSemen || power is FloorSemen) {
+    protected fun addToBot_useSemenAndAutoRemove(valueNeed: Int)
+    {
+        if (!hasEnoughSemen(valueNeed))
+        {
+            for (power in AbstractDungeon.player.powers)
+            {
+                if (power is InsideSemen || power is OutsideSemen || power is FloorSemen)
+                {
                     addToBot_removeSpecificPower(power)
                 }
             }
@@ -74,9 +81,11 @@ abstract class LupaCard @JvmOverloads constructor(
         val semenPowers = sortedSemenList()
         val smartCheapUse = sortedSemenList(valueNeed)
         if (semenPowers == null || semenPowers.isEmpty()) return
-        val semenPower = if (smartCheapUse == null || smartCheapUse.isEmpty()) {
+        val semenPower = if (smartCheapUse == null || smartCheapUse.isEmpty())
+        {
             semenPowers[0]
-        } else smartCheapUse[0]
+        }
+        else smartCheapUse[0]
 
         //        if (semenPower.getTotalValue() >= valueNeedRemain) {
 //            semenPower.addToBot_UseValue(valueNeedRemain);
@@ -89,12 +98,14 @@ abstract class LupaCard @JvmOverloads constructor(
         AutoDoneInstantAction.addToBotAbstract { addToBot_useSemenAndAutoRemove(finalValueNeedRemain) }
     }
 
-    protected fun hasEnoughSemen(amount: Int): Boolean {
+    protected fun hasEnoughSemen(amount: Int): Boolean
+    {
         return amount <= totalSemenValue
     }
 
     protected val totalSemenValue: Int
-        get() {
+        get()
+        {
             val insideSemenValue: Int = (AbstractDungeon.player.powers
                 .filterIsInstance<InsideSemen>().map(AbstractPower::amount)
                 .firstOrNull() ?: 0) * FuckJob_Card.InsideSemenRate

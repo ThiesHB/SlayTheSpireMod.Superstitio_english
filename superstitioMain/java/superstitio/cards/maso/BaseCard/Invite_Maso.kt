@@ -6,12 +6,15 @@ import superstitio.cards.CardOwnerPlayerManager.IsMasoCard
 import superstitio.cards.general.BaseCard.Invite
 import superstitio.delayHpLose.DelayRemoveDelayHpLoseBlock
 
-class Invite_Maso : Invite(ID), IsMasoCard {
-    override fun makeNewBlockType(): AbstractBlockModifier {
+class Invite_Maso : Invite(ID), IsMasoCard
+{
+    override fun makeNewBlockType(): AbstractBlockModifier
+    {
         return DelayRemoveDelayHpLoseBlock()
     }
 
-    companion object {
+    companion object
+    {
         val ID: String = DataManager.MakeTextID(Invite::class.java.simpleName, Invite_Maso::class.java)
     }
 }

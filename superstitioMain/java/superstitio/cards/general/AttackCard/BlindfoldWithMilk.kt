@@ -8,13 +8,16 @@ import superstitio.powers.Milk
 import superstitioapi.SuperstitioApiSetup
 import superstitioapi.actions.AutoDoneInstantAction
 
-class BlindfoldWithMilk : GeneralCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET) {
-    init {
+class BlindfoldWithMilk : GeneralCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET)
+{
+    init
+    {
         this.setupDamage(DAMAGE, UPGRADE_DAMAGE)
         this.setupMagicNumber(MAGIC)
     }
 
-    override fun use(player: AbstractPlayer?, monster: AbstractMonster?) {
+    override fun use(player: AbstractPlayer?, monster: AbstractMonster?)
+    {
         addToBot_dealDamage(monster!!, SuperstitioApiSetup.DamageEffect.HeartMultiInOne)
         if (monster.isDeadOrEscaped) return
         AutoDoneInstantAction.addToBotAbstract {
@@ -24,10 +27,12 @@ class BlindfoldWithMilk : GeneralCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TAR
         addToBot_applyPower(Milk(monster, magicNumber))
     }
 
-    override fun upgradeAuto() {
+    override fun upgradeAuto()
+    {
     }
 
-    companion object {
+    companion object
+    {
         val ID: String = DataManager.MakeTextID(BlindfoldWithMilk::class.java)
 
         val CARD_TYPE: CardType = CardType.ATTACK

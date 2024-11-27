@@ -10,12 +10,15 @@ import com.megacrit.cardcrawl.helpers.Hitbox
 import com.megacrit.cardcrawl.helpers.ImageMaster
 import com.megacrit.cardcrawl.helpers.input.InputHelper
 
-interface WithUDOptionsArrow {
+interface WithUDOptionsArrow
+{
     /**
      * 向左箭头点击时调用
      */
-    fun pageDown() {
-        if (this.selectIndex > 0) {
+    fun pageDown()
+    {
+        if (this.selectIndex > 0)
+        {
             this.selectIndex = this.selectIndex - 1
         }
         refreshAfterPageChange()
@@ -24,8 +27,10 @@ interface WithUDOptionsArrow {
     /**
      * 向右箭头点击时调用
      */
-    fun pageUp() {
-        if (this.selectIndex < this.maxSelectIndex) {
+    fun pageUp()
+    {
+        if (this.selectIndex < this.maxSelectIndex)
+        {
             this.selectIndex = this.selectIndex + 1
         }
         refreshAfterPageChange()
@@ -41,20 +46,26 @@ interface WithUDOptionsArrow {
 
     val maxSelectIndex: Int
 
-    fun renderArrow(sb: SpriteBatch) {
-        if (this.selectIndex != 0) {
+    fun renderArrow(sb: SpriteBatch)
+    {
+        if (this.selectIndex != 0)
+        {
             upArrowButton.render(sb)
         }
-        if (this.selectIndex < this.maxSelectIndex) {
+        if (this.selectIndex < this.maxSelectIndex)
+        {
             downArrowButton.render(sb)
         }
     }
 
-    fun updateArrow() {
-        if (this.selectIndex != 0) {
+    fun updateArrow()
+    {
+        if (this.selectIndex != 0)
+        {
             upArrowButton.update()
         }
-        if (this.selectIndex < this.maxSelectIndex) {
+        if (this.selectIndex < this.maxSelectIndex)
+        {
             downArrowButton.update()
         }
     }
@@ -67,22 +78,28 @@ interface WithUDOptionsArrow {
      * 点击时调用pageDown()
      */
     class UpArrowButton(private var x: Float, private var y: Float, private val owner: WithUDOptionsArrow) :
-        IUIElement {
+        IUIElement
+    {
         private val arrow: Texture = ImageMaster.CF_LEFT_ARROW
         private val width = Settings.scale * arrow.width / 2.0f
         private val height = Settings.scale * arrow.height / 2.0f
         private val hitbox = Hitbox(x, y, this.width, this.height)
 
-        fun move(newX: Float, newY: Float) {
+        fun move(newX: Float, newY: Float)
+        {
             this.x = newX - this.width / 2.0f
             this.y = newY - this.height / 2.0f
             hitbox.move(newX, newY)
         }
 
-        override fun render(sb: SpriteBatch) {
-            if (hitbox.hovered) {
+        override fun render(sb: SpriteBatch)
+        {
+            if (hitbox.hovered)
+            {
                 sb.color = Color.WHITE
-            } else {
+            }
+            else
+            {
                 sb.color = Color.LIGHT_GRAY
             }
             val halfW = arrow.width / 2.0f
@@ -98,19 +115,23 @@ interface WithUDOptionsArrow {
             hitbox.render(sb)
         }
 
-        override fun update() {
+        override fun update()
+        {
             hitbox.update()
-            if (hitbox.hovered && InputHelper.justClickedLeft) {
+            if (hitbox.hovered && InputHelper.justClickedLeft)
+            {
                 CardCrawlGame.sound.play("UI_CLICK_1")
                 owner.pageDown()
             }
         }
 
-        override fun renderLayer(): Int {
+        override fun renderLayer(): Int
+        {
             return 0
         }
 
-        override fun updateOrder(): Int {
+        override fun updateOrder(): Int
+        {
             return 0
         }
     }
@@ -119,22 +140,28 @@ interface WithUDOptionsArrow {
      * 点击时调用pageUp()
      */
     class DownArrowButton(private var x: Float, private var y: Float, private val owner: WithUDOptionsArrow) :
-        IUIElement {
+        IUIElement
+    {
         private val arrow: Texture = ImageMaster.CF_RIGHT_ARROW
         private val width = Settings.scale * arrow.width / 2.0f
         private val height = Settings.scale * arrow.height / 2.0f
         private val hitbox = Hitbox(x, y, this.width, this.height)
 
-        fun move(newX: Float, newY: Float) {
+        fun move(newX: Float, newY: Float)
+        {
             this.x = newX - this.width / 2.0f
             this.y = newY - this.height / 2.0f
             hitbox.move(newX, newY)
         }
 
-        override fun render(sb: SpriteBatch) {
-            if (hitbox.hovered) {
+        override fun render(sb: SpriteBatch)
+        {
+            if (hitbox.hovered)
+            {
                 sb.color = Color.WHITE
-            } else {
+            }
+            else
+            {
                 sb.color = Color.LIGHT_GRAY
             }
             val halfW = arrow.width / 2.0f
@@ -150,19 +177,23 @@ interface WithUDOptionsArrow {
             hitbox.render(sb)
         }
 
-        override fun update() {
+        override fun update()
+        {
             hitbox.update()
-            if (hitbox.hovered && InputHelper.justClickedLeft) {
+            if (hitbox.hovered && InputHelper.justClickedLeft)
+            {
                 CardCrawlGame.sound.play("UI_CLICK_1")
                 owner.pageUp()
             }
         }
 
-        override fun renderLayer(): Int {
+        override fun renderLayer(): Int
+        {
             return 0
         }
 
-        override fun updateOrder(): Int {
+        override fun updateOrder(): Int
+        {
             return 0
         }
     }

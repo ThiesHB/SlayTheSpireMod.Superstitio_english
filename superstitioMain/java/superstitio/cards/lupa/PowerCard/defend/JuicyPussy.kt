@@ -13,34 +13,43 @@ import superstitio.powers.SexualHeat
 import superstitio.powers.patchAndInterface.interfaces.orgasm.OnOrgasm_onSquirt
 import superstitioapi.utils.setDescriptionArgs
 
-class JuicyPussy : LupaCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET) {
-    init {
+class JuicyPussy : LupaCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET)
+{
+    init
+    {
         this.setupMagicNumber(MAGIC, UPGRADE_MAGIC)
     }
 
-    override fun use(player: AbstractPlayer?, monster: AbstractMonster?) {
+    override fun use(player: AbstractPlayer?, monster: AbstractMonster?)
+    {
         addToBot_applyPower(JuicyPussyPower(this.magicNumber))
     }
 
-    override fun upgradeAuto() {
+    override fun upgradeAuto()
+    {
     }
 
-    class JuicyPussyPower(amount: Int) : EasyBuildAbstractPowerForPowerCard(amount), OnOrgasm_onSquirt {
-        override fun updateDescriptionArgs() {
+    class JuicyPussyPower(amount: Int) : EasyBuildAbstractPowerForPowerCard(amount), OnOrgasm_onSquirt
+    {
+        override fun updateDescriptionArgs()
+        {
             setDescriptionArgs(amount)
         }
 
-        override fun onSquirt(SexualHeatPower: SexualHeat, card: AbstractCard) {
+        override fun onSquirt(SexualHeatPower: SexualHeat, card: AbstractCard)
+        {
             this.flash()
             DelayHpLosePower.addToBot_removePower(amount, AbstractDungeon.player, true)
         }
 
-        override fun makePowerCard(): SuperstitioCard {
+        override fun makePowerCard(): SuperstitioCard
+        {
             return JuicyPussy()
         }
     }
 
-    companion object {
+    companion object
+    {
         val ID: String = DataManager.MakeTextID(JuicyPussy::class.java)
 
         val CARD_TYPE: CardType = CardType.POWER

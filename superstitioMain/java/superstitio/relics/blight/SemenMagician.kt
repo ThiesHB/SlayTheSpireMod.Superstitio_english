@@ -21,27 +21,34 @@ import superstitioapi.relicToBlight.InfoBlight.BecomeInfoBlight
 import superstitioapi.utils.ActionUtility
 
 @Seen
-class SemenMagician : SuperstitioRelic(ID, RELIC_TIER, LANDING_SOUND), BecomeInfoBlight {
-    override fun updateDescriptionArgs() {
+class SemenMagician : SuperstitioRelic(ID, RELIC_TIER, LANDING_SOUND), BecomeInfoBlight
+{
+    override fun updateDescriptionArgs()
+    {
     }
 
-    override fun onPlayCard(card: AbstractCard, m: AbstractMonster?) {
+    override fun onPlayCard(card: AbstractCard, m: AbstractMonster?)
+    {
         if (card.type == CardType.ATTACK) addToBot_AddSemen(card)
     }
 
-    override fun obtain() {
+    override fun obtain()
+    {
         InfoBlight.obtain(this)
     }
 
-    override fun instantObtain(p: AbstractPlayer, slot: Int, callOnEquip: Boolean) {
+    override fun instantObtain(p: AbstractPlayer, slot: Int, callOnEquip: Boolean)
+    {
         InfoBlight.instanceObtain(this, callOnEquip)
     }
 
-    override fun instantObtain() {
+    override fun instantObtain()
+    {
         InfoBlight.instanceObtain(this, true)
     }
 
-    companion object {
+    companion object
+    {
         val ID: String = DataManager.MakeTextID(SemenMagician::class.java)
 
         // 遗物类型
@@ -50,20 +57,25 @@ class SemenMagician : SuperstitioRelic(ID, RELIC_TIER, LANDING_SOUND), BecomeInf
         // 点击音效
         private val LANDING_SOUND = LandingSound.FLAT
 
-        private fun addToBot_AddSemen(card: AbstractCard) {
+        private fun addToBot_AddSemen(card: AbstractCard)
+        {
             var shouldApply = true
-            for (power in AbstractDungeon.player.powers) {
-                if (power is OnAddSemenPower) {
+            for (power in AbstractDungeon.player.powers)
+            {
+                if (power is OnAddSemenPower)
+                {
                     if (!power.onAddSemen_shouldApply(getSemenType(card))) shouldApply =
                         false
                 }
             }
-            if (shouldApply) {
+            if (shouldApply)
+            {
                 ActionUtility.addToTop_applyPower(getSemenType(card))
             }
         }
 
-        private fun getSemenType(card: AbstractCard): AbstractPower? {
+        private fun getSemenType(card: AbstractCard): AbstractPower?
+        {
             if (card.type != CardType.ATTACK) return null
             if (!(card is FuckJob_Card && card is SuperstitioCard)) return FloorSemen(AbstractDungeon.player, 1)
             else if (card.hasTag(CardTagsType.InsideEjaculation)) return InsideSemen(AbstractDungeon.player, 1)

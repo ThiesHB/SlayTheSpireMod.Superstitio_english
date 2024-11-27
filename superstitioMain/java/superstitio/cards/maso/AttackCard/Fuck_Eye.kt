@@ -22,12 +22,15 @@ import superstitioapi.utils.ActionUtility
 import superstitioapi.utils.CardUtility
 
 class Fuck_Eye(blank: Boolean) : MasoCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET), FuckJob_Card,
-    GoSomewhereElseAfterUse, IsNotLupaCard {
-    constructor() : this(false) {
+    GoSomewhereElseAfterUse, IsNotLupaCard
+{
+    constructor() : this(false)
+    {
         this.cardsToPreview = Fuck_Ear(false)
     }
 
-    init {
+    init
+    {
         FuckJob_Card.initFuckJobCard(this)
         this.setupDamage(DAMAGE, UPGRADE_DAMAGE)
         //        this.setupBlock(BLOCK, UPGRADE_BLOCK, new RemoveDelayHpLoseBlock());
@@ -35,7 +38,8 @@ class Fuck_Eye(blank: Boolean) : MasoCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD
         CardModifierManager.addModifier(this, ExhaustMod())
     }
 
-    override fun use(player: AbstractPlayer?, monster: AbstractMonster?) {
+    override fun use(player: AbstractPlayer?, monster: AbstractMonster?)
+    {
         addToBot_dealDamage(monster, SuperstitioApiSetup.DamageEffect.HeartMultiInOne)
         addToBot_dealDamage(monster, SuperstitioApiSetup.DamageEffect.HeartMultiInOne)
         addToBot_dealDamage(AbstractDungeon.player, AttackEffect.BLUNT_LIGHT)
@@ -43,12 +47,18 @@ class Fuck_Eye(blank: Boolean) : MasoCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD
         addToBot_applyPower(WeakPower(AbstractDungeon.player, 1, false))
     }
 
-    override fun upgradeAuto() {
+    override fun upgradeAuto()
+    {
         upgradeCardsToPreview()
     }
 
-    override fun afterInterruptMoveToCardGroup(cardGroup: CardGroup) {
-        CardOrb_WaitCardTrigger(this, cardGroup, CardUtility.CostSmart(this.magicNumber)) { orb: CardOrb_CardTrigger, card: AbstractCard? ->
+    override fun afterInterruptMoveToCardGroup(cardGroup: CardGroup)
+    {
+        CardOrb_WaitCardTrigger(
+            this,
+            cardGroup,
+            CardUtility.CostSmart(this.magicNumber)
+        ) { orb: CardOrb_CardTrigger, card: AbstractCard? ->
             orb.StartHitCreature(AbstractDungeon.player)
             //            addToBot_gainCustomBlock(new RemoveDelayHpLoseBlock());
             ActionUtility.addToBot_makeTempCardInBattle(Fuck_Ear(), ActionUtility.BattleCardPlace.Hand, this.upgraded)
@@ -58,7 +68,8 @@ class Fuck_Eye(blank: Boolean) : MasoCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD
             .addToBot_HangCard()
     }
 
-    companion object {
+    companion object
+    {
         val ID: String = DataManager.MakeTextID(Fuck_Eye::class.java)
 
         val CARD_TYPE: CardType = CardType.ATTACK

@@ -8,37 +8,46 @@ import superstitio.powers.SexualHeat.Orgasm
 import superstitioapi.renderManager.inBattleManager.InBattleDataManager
 import superstitioapi.utils.CreatureUtility
 
-object InBattleDataManager {
+object InBattleDataManager
+{
     //    public static boolean InOrgasm = false;
     var OrgasmTimesInTurn: Int = 0
 
     var NailExtractionPlayedInTurn: Int = 0
 
     var OrgasmTimesTotal: Int = 0
+
     @JvmStatic
-    fun InitializeAtStartOfBattle() {
+    fun InitializeAtStartOfBattle()
+    {
         ResetAll()
         if (AbstractDungeon.player is BaseCharacter) SexualHeat.addToBot_addSexualHeat(
             AbstractDungeon.player,
             0
         )
     }
+
     @JvmStatic
-    fun ClearOnEndOfBattle() {
+    fun ClearOnEndOfBattle()
+    {
         ResetAll()
     }
 
-    fun getSexMarkOrbGroup(): SexMarkOrbGroup? {
+    fun getSexMarkOrbGroup(): SexMarkOrbGroup?
+    {
         return InBattleDataManager.subscribeManageGroups
             .filterIsInstance<SexMarkOrbGroup>().firstOrNull()
     }
+
     @JvmStatic
-    fun InitializeAtStartOfTurn() {
+    fun InitializeAtStartOfTurn()
+    {
         OrgasmTimesInTurn = 0
         NailExtractionPlayedInTurn = 0
     }
 
-    private fun ResetAll() {
+    private fun ResetAll()
+    {
         CreatureUtility.forPlayerAndEachMonsters(Orgasm::endOrgasm)
 
         OrgasmTimesInTurn = 0

@@ -22,8 +22,10 @@ import java.util.function.Consumer
 /**
  * 在Register之后就可以自动绘制和更新
  */
-interface RenderInBattle {
-    fun shouldRemove(): Boolean {
+interface RenderInBattle
+{
+    fun shouldRemove(): Boolean
+    {
         return false
     }
 
@@ -31,10 +33,12 @@ interface RenderInBattle {
 
     fun update()
 
-    fun updateAnimation() {
+    fun updateAnimation()
+    {
     }
 
-    sealed class RenderType {
+    sealed class RenderType
+    {
 
         /**
          * 比姿态还靠前一点点
@@ -55,35 +59,43 @@ interface RenderInBattle {
          * 最高层
          */
         data object AbovePanel : RenderType()  //Top
-        companion object {
-            fun values(): Array<RenderType> {
+        companion object
+        {
+            fun values(): Array<RenderType>
+            {
                 return arrayOf(Stance, Panel, Normal, AbovePanel)
             }
 
-            fun valueOf(value: String): RenderType {
-                return when (value) {
-                    "Stance" -> Stance
-                    "Panel" -> Panel
-                    "Normal" -> Normal
+            fun valueOf(value: String): RenderType
+            {
+                return when (value)
+                {
+                    "Stance"     -> Stance
+                    "Panel"      -> Panel
+                    "Normal"     -> Normal
                     "AbovePanel" -> AbovePanel
-                    else -> throw IllegalArgumentException("No object superstitioapi.renderManager.inBattleManager.RenderInBattle.RenderType.$value")
+                    else         -> throw IllegalArgumentException("No object superstitioapi.renderManager.inBattleManager.RenderInBattle.RenderType.$value")
                 }
             }
 
-            fun nameOf(renderType: RenderType): String {
-                return when (renderType) {
-                    Stance -> "Stance"
-                    Panel -> "Panel"
-                    Normal -> "Normal"
+            fun nameOf(renderType: RenderType): String
+            {
+                return when (renderType)
+                {
+                    Stance     -> "Stance"
+                    Panel      -> "Panel"
+                    Normal     -> "Normal"
                     AbovePanel -> "AbovePanel"
-                    else -> throw IllegalArgumentException("No object superstitioapi.renderManager.inBattleManager.RenderInBattle.RenderType.$renderType")
+                    else       -> throw IllegalArgumentException("No object superstitioapi.renderManager.inBattleManager.RenderInBattle.RenderType.$renderType")
                 }
             }
         }
     }
 
-    companion object {
-        fun clearAll() {
+    companion object
+    {
+        fun clearAll()
+        {
             RENDER_IN_BATTLES.clear()
             RENDER_IN_BATTLES_STANCE.clear()
             RENDER_IN_BATTLES_PANEL.clear()
@@ -91,29 +103,34 @@ interface RenderInBattle {
             ShouldRemove.clear()
         }
 
-        fun Register(renderType: RenderType, vararg renderThings: RenderInBattle) {
+        fun Register(renderType: RenderType, vararg renderThings: RenderInBattle)
+        {
             Collections.addAll(getRenderGroup(renderType), *renderThings)
             Logger.info("register " + renderThings.contentToString() + " to " + RenderType.nameOf(renderType))
         }
 
-        fun getRenderGroup(renderType: RenderType?): MutableList<RenderInBattle> {
-            return when (renderType) {
-                RenderType.Panel -> RENDER_IN_BATTLES_PANEL
+        fun getRenderGroup(renderType: RenderType?): MutableList<RenderInBattle>
+        {
+            return when (renderType)
+            {
+                RenderType.Panel      -> RENDER_IN_BATTLES_PANEL
                 RenderType.AbovePanel -> RENDER_IN_BATTLES_ABOVE_PANEL
-                RenderType.Stance -> RENDER_IN_BATTLES_STANCE
-                RenderType.Normal -> RENDER_IN_BATTLES
-                else -> RENDER_IN_BATTLES
+                RenderType.Stance     -> RENDER_IN_BATTLES_STANCE
+                RenderType.Normal     -> RENDER_IN_BATTLES
+                else                  -> RENDER_IN_BATTLES
             }
         }
 
-        fun forEachRenderInBattle(consumer: Consumer<RenderInBattle>?) {
+        fun forEachRenderInBattle(consumer: Consumer<RenderInBattle>?)
+        {
             RENDER_IN_BATTLES_STANCE.forEach(consumer)
             RENDER_IN_BATTLES.forEach(consumer)
             RENDER_IN_BATTLES_PANEL.forEach(consumer)
             RENDER_IN_BATTLES_ABOVE_PANEL.forEach(consumer)
         }
 
-        fun forEachRenderInBattleGroup(consumer: Consumer<MutableList<RenderInBattle>>) {
+        fun forEachRenderInBattleGroup(consumer: Consumer<MutableList<RenderInBattle>>)
+        {
             consumer.accept(RENDER_IN_BATTLES_STANCE)
             consumer.accept(RENDER_IN_BATTLES)
             consumer.accept(RENDER_IN_BATTLES_PANEL)
@@ -126,18 +143,22 @@ interface RenderInBattle {
         val RENDER_IN_BATTLES_ABOVE_PANEL: MutableList<RenderInBattle> = ArrayList()
         val ShouldRemove: MutableList<RenderInBattle> = ArrayList()
 
-        object RenderInBattlePatch {
+        object RenderInBattlePatch
+        {
             @SpirePatch2(clz = AbstractRoom::class, method = "update")
-            object UpdatePatch {
+            object UpdatePatch
+            {
                 @SpirePostfixPatch
                 @JvmStatic
-                fun Postfix(__instance: AbstractRoom?) {
+                fun Postfix(__instance: AbstractRoom?)
+                {
                     if (AbstractDungeon.isScreenUp) return
                     if (ActionUtility.isNotInBattle) return
                     forEachRenderInBattle(RenderInBattle::update)
                     forEachRenderInBattle(RenderInBattle::updateAnimation)
                     forEachRenderInBattle { renderInBattle: RenderInBattle ->
-                        if (renderInBattle.shouldRemove() && !ShouldRemove.contains(renderInBattle)) {
+                        if (renderInBattle.shouldRemove() && !ShouldRemove.contains(renderInBattle))
+                        {
                             ShouldRemove.add(renderInBattle)
                             AutoDoneInstantAction.addToBotAbstract(
                                 VoidSupplier {
@@ -155,10 +176,12 @@ interface RenderInBattle {
             }
 
             @SpirePatch2(clz = AbstractStance::class, method = "render", paramtypez = [SpriteBatch::class])
-            object StanceRenderPatch1 {
+            object StanceRenderPatch1
+            {
                 @SpirePrefixPatch
                 @JvmStatic
-                fun Prefix(__instance: AbstractStance?, sb: SpriteBatch) {
+                fun Prefix(__instance: AbstractStance?, sb: SpriteBatch)
+                {
                     if (ActionUtility.isNotInBattle) return
                     sb.color = Color.WHITE
                     RENDER_IN_BATTLES_STANCE.forEach(Consumer { renderInBattle: RenderInBattle ->
@@ -170,10 +193,12 @@ interface RenderInBattle {
             }
 
             @SpirePatch2(clz = NeutralStance::class, method = "render", paramtypez = [SpriteBatch::class])
-            object StanceRenderPatch2 {
+            object StanceRenderPatch2
+            {
                 @SpirePrefixPatch
                 @JvmStatic
-                fun Prefix(__instance: NeutralStance?, sb: SpriteBatch) {
+                fun Prefix(__instance: NeutralStance?, sb: SpriteBatch)
+                {
                     if (ActionUtility.isNotInBattle) return
                     sb.color = Color.WHITE
                     RENDER_IN_BATTLES_STANCE.forEach(Consumer { renderInBattle: RenderInBattle ->
@@ -186,10 +211,12 @@ interface RenderInBattle {
 
 
             @SpirePatch2(clz = AbstractRoom::class, method = "render", paramtypez = [SpriteBatch::class])
-            object InGameRenderPatch {
+            object InGameRenderPatch
+            {
                 @SpireInsertPatch(rloc = 16)
                 @JvmStatic
-                fun Insert(__instance: AbstractRoom?, sb: SpriteBatch) {
+                fun Insert(__instance: AbstractRoom?, sb: SpriteBatch)
+                {
                     if (ActionUtility.isNotInBattle) return
                     sb.color = Color.WHITE
                     RENDER_IN_BATTLES.forEach(Consumer { renderInBattle: RenderInBattle -> renderInBattle.render(sb) })
@@ -197,10 +224,12 @@ interface RenderInBattle {
             }
 
             @SpirePatch2(clz = OverlayMenu::class, method = "render", paramtypez = [SpriteBatch::class])
-            object OverlayMenuRenderPatch {
+            object OverlayMenuRenderPatch
+            {
                 @SpirePrefixPatch
                 @JvmStatic
-                fun Prefix(__instance: OverlayMenu?, sb: SpriteBatch) {
+                fun Prefix(__instance: OverlayMenu?, sb: SpriteBatch)
+                {
                     if (Settings.hideLowerElements) return
                     if (ActionUtility.isNotInBattle) return
                     sb.color = Color.WHITE
@@ -213,10 +242,12 @@ interface RenderInBattle {
             }
 
             @SpirePatch2(clz = AbstractRoom::class, method = "renderAboveTopPanel", paramtypez = [SpriteBatch::class])
-            object RenderAboveTopPanelPatch {
+            object RenderAboveTopPanelPatch
+            {
                 @SpirePostfixPatch
                 @JvmStatic
-                fun Postfix(__instance: AbstractRoom?, sb: SpriteBatch) {
+                fun Postfix(__instance: AbstractRoom?, sb: SpriteBatch)
+                {
                     if (AbstractDungeon.isScreenUp) return
                     if (ActionUtility.isNotInBattle) return
                     sb.color = Color.WHITE

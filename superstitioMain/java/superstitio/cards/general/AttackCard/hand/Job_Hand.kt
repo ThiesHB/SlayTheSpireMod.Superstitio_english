@@ -17,23 +17,32 @@ import superstitioapi.utils.CardUtility
 import superstitioapi.utils.setDescriptionArgs
 import java.util.function.Predicate
 
-class Job_Hand : GeneralCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET), FuckJob_Card, GoSomewhereElseAfterUse {
-    init {
+class Job_Hand : GeneralCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET), FuckJob_Card, GoSomewhereElseAfterUse
+{
+    init
+    {
         FuckJob_Card.initFuckJobCard(this)
         this.setupDamage(DAMAGE, UPGRADE_DAMAGE)
         this.setupMagicNumber(MAGIC, UPGRADE_MAGIC)
     }
 
-    override fun use(player: AbstractPlayer?, monster: AbstractMonster?) {
+    override fun use(player: AbstractPlayer?, monster: AbstractMonster?)
+    {
         addToBot_dealDamage(monster, SuperstitioApiSetup.DamageEffect.HeartMultiInOne)
         addToBot_dealDamage(monster, SuperstitioApiSetup.DamageEffect.HeartMultiInOne)
     }
 
-    override fun upgradeAuto() {
+    override fun upgradeAuto()
+    {
     }
 
-    override fun afterInterruptMoveToCardGroup(cardGroup: CardGroup) {
-        CardOrb_EachCardTrigger(this, cardGroup, CardUtility.CostSmart(this.magicNumber)) { orb: CardOrb_CardTrigger, card: AbstractCard? ->
+    override fun afterInterruptMoveToCardGroup(cardGroup: CardGroup)
+    {
+        CardOrb_EachCardTrigger(
+            this,
+            cardGroup,
+            CardUtility.CostSmart(this.magicNumber)
+        ) { orb: CardOrb_CardTrigger, card: AbstractCard? ->
             orb.StartHitCreature(AbstractDungeon.player)
             addToBot_applyPower(StrengthPower(AbstractDungeon.player, STRENGTH_GET))
         }
@@ -44,11 +53,13 @@ class Job_Hand : GeneralCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET), Fuc
             .addToBot_HangCard()
     }
 
-    override fun updateDescriptionArgs() {
+    override fun updateDescriptionArgs()
+    {
         setDescriptionArgs(STRENGTH_GET)
     }
 
-    companion object {
+    companion object
+    {
         val ID: String = DataManager.MakeTextID(Job_Hand::class.java)
 
         val CARD_TYPE: CardType = CardType.ATTACK

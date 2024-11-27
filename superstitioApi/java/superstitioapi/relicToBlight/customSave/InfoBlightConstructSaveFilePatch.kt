@@ -9,15 +9,19 @@ import com.megacrit.cardcrawl.saveAndContinue.SaveFile.SaveType
 import superstitioapi.relicToBlight.BlightWithRelic
 
 @SpirePatch2(clz = SaveFile::class, method = "<ctor>", paramtypez = [SaveType::class])
-object InfoBlightConstructSaveFilePatch {
+object InfoBlightConstructSaveFilePatch
+{
     @SpirePostfixPatch
     @JvmStatic
-    fun Prefix(__instance: SaveFile?, type: SaveType?) {
+    fun Prefix(__instance: SaveFile?, type: SaveType?)
+    {
         val blightSaves = SuperstitioApiModSaves.ArrayListOfJsonElement()
-        for (blight in AbstractDungeon.player.blights) {
+        for (blight in AbstractDungeon.player.blights)
+        {
             if (blight is BlightWithRelic && blight.relic is CustomSavableRaw)
                 blightSaves.add((blight.relic as CustomSavableRaw).onSaveRaw())
-            else {
+            else
+            {
                 blightSaves.add(null)
             }
         }

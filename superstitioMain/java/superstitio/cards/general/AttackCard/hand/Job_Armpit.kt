@@ -17,24 +17,32 @@ import superstitioapi.utils.CreatureUtility
 import java.util.function.Predicate
 
 class Job_Armpit @JvmOverloads constructor(hasCardToPreview: Boolean = true) :
-    GeneralCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET), FuckJob_Card, GoSomewhereElseAfterUse {
-    init {
+    GeneralCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET), FuckJob_Card, GoSomewhereElseAfterUse
+{
+    init
+    {
         FuckJob_Card.initFuckJobCard(this)
         this.setupDamage(DAMAGE, UPGRADE_DAMAGE)
         this.setupMagicNumber(MAGIC)
         if (hasCardToPreview) this.cardsToPreview = Job_Armpit(false)
     }
 
-    override fun use(player: AbstractPlayer?, monster: AbstractMonster?) {
+    override fun use(player: AbstractPlayer?, monster: AbstractMonster?)
+    {
     }
 
-    override fun upgradeAuto() {
+    override fun upgradeAuto()
+    {
         upgradeCardsToPreview()
     }
 
-    override fun afterInterruptMoveToCardGroup(cardGroup: CardGroup) {
-        CardOrb_WaitCardTrigger(this, cardGroup, CardUtility.CostSmart(this.magicNumber)) {
-            orb: CardOrb_CardTrigger, card: AbstractCard? ->
+    override fun afterInterruptMoveToCardGroup(cardGroup: CardGroup)
+    {
+        CardOrb_WaitCardTrigger(
+            this,
+            cardGroup,
+            CardUtility.CostSmart(this.magicNumber)
+        ) { orb: CardOrb_CardTrigger, card: AbstractCard? ->
             val creature = CreatureUtility.getMonsterOrRandomMonster(orb.lastTarget)
             orb.StartHitCreature(creature)
             DamageActionMaker.maker(orb.originCard.damage, creature)
@@ -46,8 +54,11 @@ class Job_Armpit @JvmOverloads constructor(hasCardToPreview: Boolean = true) :
             .addToBot_HangCard()
         val copyCard = this.makeCopy()
         if (upgraded) copyCard.upgrade()
-        CardOrb_WaitCardTrigger(copyCard, cardGroup, CardUtility.CostSmart(this.magicNumber)) {
-            orb: CardOrb_CardTrigger, card: AbstractCard? ->
+        CardOrb_WaitCardTrigger(
+            copyCard,
+            cardGroup,
+            CardUtility.CostSmart(this.magicNumber)
+        ) { orb: CardOrb_CardTrigger, card: AbstractCard? ->
             val creature = CreatureUtility.getMonsterOrRandomMonster(orb.lastTarget)
             orb.StartHitCreature(creature)
             DamageActionMaker.maker(orb.originCard.damage, creature)
@@ -59,7 +70,8 @@ class Job_Armpit @JvmOverloads constructor(hasCardToPreview: Boolean = true) :
             .addToBot_HangCard()
     }
 
-    companion object {
+    companion object
+    {
         val ID: String = DataManager.MakeTextID(Job_Armpit::class.java)
 
         val CARD_TYPE: CardType = CardType.ATTACK

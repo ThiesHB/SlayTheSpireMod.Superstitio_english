@@ -16,25 +16,30 @@ import superstitioapi.utils.setDescriptionArgs
 
 class DelayDamage(owner: AbstractCreature, amount: Int, private val damageAmount: Int) : AbstractSuperstitioPower(
     POWER_ID, owner, amount
-), HealthBarRenderPower {
+), HealthBarRenderPower
+{
     private var giver: AbstractCreature = AbstractDungeon.player
     private var damageModifier: AbstractDamageModifier? = null
 
-    fun setupGiver(giver: AbstractCreature): DelayDamage {
+    fun setupGiver(giver: AbstractCreature): DelayDamage
+    {
         this.giver = giver
         return this
     }
 
-    fun setupDamageModifier(damageModifier: AbstractDamageModifier?): DelayDamage {
+    fun setupDamageModifier(damageModifier: AbstractDamageModifier?): DelayDamage
+    {
         this.damageModifier = damageModifier
         return this
     }
 
-    override fun atEndOfRound() {
+    override fun atEndOfRound()
+    {
         addToBot_AutoRemoveOne(this)
     }
 
-    override fun onRemove() {
+    override fun onRemove()
+    {
         if (damageModifier != null) addToBot(
             DamageAction(
                 this.owner, BindingHelper.makeInfo(
@@ -46,25 +51,30 @@ class DelayDamage(owner: AbstractCreature, amount: Int, private val damageAmount
         addToBot(DamageAction(this.owner, DamageInfo(giver, this.damageAmount, DamageType.NORMAL)))
     }
 
-    override fun updateDescriptionArgs() {
+    override fun updateDescriptionArgs()
+    {
         setDescriptionArgs(this.amount)
     }
 
-    override fun getHealthBarAmount(): Int {
+    override fun getHealthBarAmount(): Int
+    {
         return this.damageAmount
     }
 
-    override fun renderAmount(sb: SpriteBatch, x: Float, y: Float, c: Color) {
+    override fun renderAmount(sb: SpriteBatch, x: Float, y: Float, c: Color)
+    {
         super.renderAmount(sb, x, y, c)
         renderAmount2(sb, x, y, c, this.damageAmount)
         //        AbstractDungeon.actionManager.currentAction.target
     }
 
-    override fun getColor(): Color {
+    override fun getColor(): Color
+    {
         return BarColor
     }
 
-    companion object {
+    companion object
+    {
         val POWER_ID: String = DataManager.MakeTextID(DelayDamage::class.java)
         private val BarColor: Color = Color.ORANGE.cpy()
     }

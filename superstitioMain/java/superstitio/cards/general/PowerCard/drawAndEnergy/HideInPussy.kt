@@ -11,21 +11,27 @@ import superstitio.powers.EasyBuildAbstractPowerForPowerCard
 import superstitioapi.actions.ChoseCardFromHandCardSelectScreen
 import superstitioapi.utils.setDescriptionArgs
 
-class HideInPussy : GeneralCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET) {
-    init {
+class HideInPussy : GeneralCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET)
+{
+    init
+    {
         this.setupMagicNumber(MAGIC)
     }
 
-    override fun use(player: AbstractPlayer?, monster: AbstractMonster?) {
+    override fun use(player: AbstractPlayer?, monster: AbstractMonster?)
+    {
         addToBot_applyPower(HideInPussyPower(this.magicNumber))
     }
 
-    override fun upgradeAuto() {
+    override fun upgradeAuto()
+    {
         upgradeBaseCost(COST_UPGRADED_NEW)
     }
 
-    class HideInPussyPower(amount: Int) : EasyBuildAbstractPowerForPowerCard(amount) {
-        override fun atEndOfTurn(isPlayer: Boolean) {
+    class HideInPussyPower(amount: Int) : EasyBuildAbstractPowerForPowerCard(amount)
+    {
+        override fun atEndOfTurn(isPlayer: Boolean)
+        {
             if (!isPlayer || AbstractDungeon.player.hand.isEmpty) return
             ChoseCardFromHandCardSelectScreen { card: AbstractCard ->
                 card.freeToPlayOnce = true
@@ -38,16 +44,19 @@ class HideInPussy : GeneralCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET) {
                 .addToBot()
         }
 
-        override fun updateDescriptionArgs() {
+        override fun updateDescriptionArgs()
+        {
             setDescriptionArgs(amount)
         }
 
-        override fun makePowerCard(): SuperstitioCard {
+        override fun makePowerCard(): SuperstitioCard
+        {
             return HideInPussy()
         }
     }
 
-    companion object {
+    companion object
+    {
         val ID: String = DataManager.MakeTextID(HideInPussy::class.java)
 
         val CARD_TYPE: CardType = CardType.POWER

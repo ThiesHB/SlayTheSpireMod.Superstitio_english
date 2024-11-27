@@ -27,7 +27,8 @@ import kotlin.math.abs
 import kotlin.math.max
 
 abstract class CardOrb(card: AbstractCard, cardGroupReturnAfterEvoke: CardGroup?, OrbCounter: CardUtility.CostSmart) :
-    AbstractOrb() {
+    AbstractOrb()
+{
     val thisCardGroup: CardGroup = CardGroup(CardGroupType.UNSPECIFIED)
     val targetTypeOrigin: HangOnTarget
     val actionTypeOrigin: HangEffectType
@@ -48,7 +49,8 @@ abstract class CardOrb(card: AbstractCard, cardGroupReturnAfterEvoke: CardGroup?
 
     private var stopShowOriginCard = false
 
-    init {
+    init
+    {
         this.ID = ORB_ID
         this.name = ""
         this.orbCounter = OrbCounter
@@ -77,7 +79,8 @@ abstract class CardOrb(card: AbstractCard, cardGroupReturnAfterEvoke: CardGroup?
         this.updateDescription()
     }
 
-    fun setCardRawDescriptionWillShow(cardRawDescriptionWillShow: String, vararg args: Any?): CardOrb {
+    fun setCardRawDescriptionWillShow(cardRawDescriptionWillShow: String, vararg args: Any?): CardOrb
+    {
         if (args.isNotEmpty())
             this.cardRawDescriptionWillShow = String.format(cardRawDescriptionWillShow, *args)
         else this.cardRawDescriptionWillShow = cardRawDescriptionWillShow
@@ -85,7 +88,8 @@ abstract class CardOrb(card: AbstractCard, cardGroupReturnAfterEvoke: CardGroup?
         return this
     }
 
-    fun setTriggerDiscardIfMoveToDiscard(): CardOrb {
+    fun setTriggerDiscardIfMoveToDiscard(): CardOrb
+    {
         this.setAfterEvokeConsumer { orb: CardOrb ->
             if (orb.orbCounter <= 0) return@setAfterEvokeConsumer
             if (orb.cardGroupReturnAfterEvoke !== AbstractDungeon.player.discardPile) return@setAfterEvokeConsumer
@@ -95,7 +99,8 @@ abstract class CardOrb(card: AbstractCard, cardGroupReturnAfterEvoke: CardGroup?
         return this
     }
 
-    fun addToBot_HangCard() {
+    fun addToBot_HangCard()
+    {
         HangUpCardGroup.addToBot_AddCardOrbToOrbGroup(this)
         AutoDoneInstantAction.addToBotAbstract(AbstractDungeon::onModifyPower)
     }
@@ -103,48 +108,57 @@ abstract class CardOrb(card: AbstractCard, cardGroupReturnAfterEvoke: CardGroup?
     /**
      * 这个函数是被addToBot调用的
      */
-    fun onRemove() {
+    fun onRemove()
+    {
         if (isRemoved) return
         this.isRemoved = true
-        if (cardGroupReturnAfterEvoke != null && cardHolder.contains(originCard)) {
+        if (cardGroupReturnAfterEvoke != null && cardHolder.contains(originCard))
+        {
             originCard.current_x = fakeCard.current_x
             originCard.current_y = fakeCard.current_y
             originCard.drawScale = fakeCard.drawScale
-            when (cardGroupReturnAfterEvoke!!.type) {
-                CardGroupType.DRAW_PILE -> cardHolder.moveToDeck(originCard, true)
-                CardGroupType.HAND -> CardUtility.moveToHandOrDiscardWhenMaxHand(cardHolder, originCard)
-                CardGroupType.EXHAUST_PILE -> {
+            when (cardGroupReturnAfterEvoke!!.type)
+            {
+                CardGroupType.DRAW_PILE    -> cardHolder.moveToDeck(originCard, true)
+                CardGroupType.HAND         -> CardUtility.moveToHandOrDiscardWhenMaxHand(cardHolder, originCard)
+                CardGroupType.EXHAUST_PILE ->
+                {
                     AbstractDungeon.effectList.add(ExhaustCardEffect(fakeCard))
                     cardHolder.moveToExhaustPile(originCard)
                 }
 
                 CardGroupType.DISCARD_PILE -> cardHolder.moveToDiscardPile(originCard)
-                else -> cardHolder.moveToDiscardPile(originCard)
+                else                       -> cardHolder.moveToDiscardPile(originCard)
             }
-        } else AbstractDungeon.effectList.add(ExhaustCardEffect(fakeCard))
+        }
+        else AbstractDungeon.effectList.add(ExhaustCardEffect(fakeCard))
         onRemoveCard()
         if (afterEvokeConsumer != null)
             afterEvokeConsumer!!.accept(this)
     }
 
-    fun setDesc(description: String?): CardOrb {
+    fun setDesc(description: String?): CardOrb
+    {
         this.description = description
         fakeCard.rawDescription = description
         fakeCard.initializeDescription()
         return this
     }
 
-    fun checkShouldRemove() {
+    fun checkShouldRemove()
+    {
         if (shouldRemove) return
         this.shouldRemove = this.orbCounter <= 0 && checkShouldStopMoving()
     }
 
-    fun tryMoveTo(vector2: Vector2) {
+    fun tryMoveTo(vector2: Vector2)
+    {
         fakeCard.target_x = vector2.x
         fakeCard.target_y = vector2.y
     }
 
-    fun setShowCard(showCard: AbstractCard): CardOrb {
+    fun setShowCard(showCard: AbstractCard): CardOrb
+    {
         setUpShownCard(showCard)
         return this
     }
@@ -162,12 +176,14 @@ abstract class CardOrb(card: AbstractCard, cardGroupReturnAfterEvoke: CardGroup?
     //        this.cardsToPreview.drawScale = tmpScale;
     //        this.cardsToPreview.render(sb);
     //    }
-    fun setTargetType(cardTarget: CardTarget?): CardOrb {
+    fun setTargetType(cardTarget: CardTarget?): CardOrb
+    {
         setHoverTypeFromCard(cardTarget)
         return this
     }
 
-    fun StartHitCreature(target: AbstractCreature) {
+    fun StartHitCreature(target: AbstractCreature)
+    {
         this.movingType = FunctionReturnSelfType(this::State_Moving)
         val creature = CreatureUtility.getTargetOrRandomMonster(target)
         this.tryMoveTo(
@@ -181,65 +197,81 @@ abstract class CardOrb(card: AbstractCard, cardGroupReturnAfterEvoke: CardGroup?
 
     abstract fun forceAcceptAction(card: AbstractCard)
 
-    fun setShouldRemove() {
+    fun setShouldRemove()
+    {
         this.shouldRemove = true
     }
 
-    fun ifShouldRemove(): Boolean {
+    fun ifShouldRemove(): Boolean
+    {
         return this.shouldRemove
     }
 
-    fun setAfterEvokeConsumer(afterEvokeConsumer: Consumer<CardOrb>?): CardOrb {
+    fun setAfterEvokeConsumer(afterEvokeConsumer: Consumer<CardOrb>?): CardOrb
+    {
         this.afterEvokeConsumer = afterEvokeConsumer
         return this
     }
 
-    protected fun setHoverTypeFromCard(cardTarget: CardTarget?) {
-        when (cardTarget) {
-            CardTarget.ENEMY, CardTarget.ALL_ENEMY -> {
+    protected fun setHoverTypeFromCard(cardTarget: CardTarget?)
+    {
+        when (cardTarget)
+        {
+            CardTarget.ENEMY, CardTarget.ALL_ENEMY                     ->
+            {
                 targetType = HangOnTarget.Enemy
                 actionType = HangEffectType.Bad
             }
 
-            CardTarget.SELF -> {
+            CardTarget.SELF                                            ->
+            {
                 targetType = HangOnTarget.Self
                 actionType = HangEffectType.Good
             }
 
-            CardTarget.NONE, CardTarget.ALL, CardTarget.SELF_AND_ENEMY -> {
+            CardTarget.NONE, CardTarget.ALL, CardTarget.SELF_AND_ENEMY ->
+            {
                 targetType = HangOnTarget.None
                 actionType = HangEffectType.Special
             }
 
-            else -> {
+            else                                                       ->
+            {
                 targetType = HangOnTarget.None
                 actionType = HangEffectType.Special
             }
         }
     }
 
-    protected open fun checkAndSetTheHoverType(): VoidSupplier {
-        return when (targetType) {
+    protected open fun checkAndSetTheHoverType(): VoidSupplier
+    {
+        return when (targetType)
+        {
             HangOnTarget.Enemy -> VoidSupplier(this::State_WhenHoverCard_OnMonster)
-            HangOnTarget.Self -> VoidSupplier(this::State_WhenHoverCard_OnSelf)
-            HangOnTarget.None -> VoidSupplier(this::State_WhenHoverCard_OnNothing)
-            else -> VoidSupplier(this::State_WhenHoverCard_OnNothing)
+            HangOnTarget.Self  -> VoidSupplier(this::State_WhenHoverCard_OnSelf)
+            HangOnTarget.None  -> VoidSupplier(this::State_WhenHoverCard_OnNothing)
+            else               -> VoidSupplier(this::State_WhenHoverCard_OnNothing)
         }
     }
 
     protected abstract fun onRemoveCard()
 
-    protected fun checkShouldStopMoving(): Boolean {
+    protected fun checkShouldStopMoving(): Boolean
+    {
         return abs((fakeCard.current_y - fakeCard.target_y).toDouble()) < 0.01f && abs((fakeCard.current_x - fakeCard.target_x).toDouble()) < 0.01f
     }
 
-    protected fun updateAnimationIdle() {
-        if (isCardHoveredInCardGroup && isCardHovered) {
+    protected fun updateAnimationIdle()
+    {
+        if (isCardHoveredInCardGroup && isCardHovered)
+        {
             fakeCard.target_x = this.cX
             fakeCard.target_y = this.cY + YOffsetWhenHovered()
             fakeCard.targetDrawScale = DRAW_SCALE_BIG
             //            this.drawOrder = DrawOrder.top;
-        } else {
+        }
+        else
+        {
             fakeCard.target_x = this.cX
             fakeCard.target_y = this.cY + YOffsetWhenHovered()
             fakeCard.targetDrawScale = DRAW_SCALE_SMALL
@@ -247,13 +279,16 @@ abstract class CardOrb(card: AbstractCard, cardGroupReturnAfterEvoke: CardGroup?
         }
     }
 
-    fun updateOrbAmount() {
-        fun setPassiveAmount(amount: Int) {
+    fun updateOrbAmount()
+    {
+        fun setPassiveAmount(amount: Int)
+        {
             super.passiveAmount = amount
             super.basePassiveAmount = amount
         }
 
-        fun setEvokeAmount(amount: Int) {
+        fun setEvokeAmount(amount: Int)
+        {
 
             super.evokeAmount = amount
             super.baseEvokeAmount = amount
@@ -263,18 +298,21 @@ abstract class CardOrb(card: AbstractCard, cardGroupReturnAfterEvoke: CardGroup?
     }
 
 
-    protected fun YOffsetBoBing(): Float {
+    protected fun YOffsetBoBing(): Float
+    {
         return ANIMATION_Y_SCALE * bobEffect.y * fakeCard.drawScale * DRAW_SCALE_BIG / DRAW_SCALE_SMALL
     }
 
     protected val isCardHoveredInCardGroup: Boolean
-        get() {
+        get()
+        {
             val isHovered = AtomicBoolean(false)
             HangUpCardGroup.forHangUpCardGroup { hangUpCardGroup: HangUpCardGroup? ->
                 if (hangUpCardGroup!!.isCardHovered(
                         this
                     )
-                ) {
+                )
+                {
                     isHovered.set(true)
                 }
             }.get()
@@ -284,46 +322,55 @@ abstract class CardOrb(card: AbstractCard, cardGroupReturnAfterEvoke: CardGroup?
     val isCardHovered: Boolean
         get() = fakeCard.hb.hovered
 
-    protected fun YOffsetWhenHovered(): Float {
+    protected fun YOffsetWhenHovered(): Float
+    {
         return -fakeCard.hb.height * (fakeCard.drawScale) / DRAW_SCALE_BIG / 2
     }
 
-    protected fun showEvokeNum() {
+    protected fun showEvokeNum()
+    {
         super.evokeAmount = max(0, super.evokeAmount)
         fakeCard.costForTurn = super.evokeAmount
         fakeCard.isCostModified = true
         fakeCard.beginGlowing()
     }
 
-    protected fun showPassiveNum() {
+    protected fun showPassiveNum()
+    {
         super.passiveAmount = max(0, super.evokeAmount)
         fakeCard.stopGlowing()
         fakeCard.costForTurn = super.passiveAmount
         fakeCard.isCostModified = false
     }
 
-    protected fun State_Moving(): FunctionReturnSelfType {
+    protected fun State_Moving(): FunctionReturnSelfType
+    {
         showPassiveNum()
         fakeCard.targetDrawScale = DRAW_SCALE_MIDDLE
-        if (checkShouldStopMoving()) {
+        if (checkShouldStopMoving())
+        {
             return FunctionReturnSelfType(this::State_Idle)
         }
         return FunctionReturnSelfType(this::State_Moving)
     }
 
-    protected fun State_WhenHoverCard_OnMonster() {
+    protected fun State_WhenHoverCard_OnMonster()
+    {
         updateIfFocusOnMonster()
     }
 
-    protected fun State_WhenHoverCard_OnSelf() {
+    protected fun State_WhenHoverCard_OnSelf()
+    {
         updateIfFocusOnSelf()
     }
 
-    protected fun State_WhenHoverCard_OnNothing() {
+    protected fun State_WhenHoverCard_OnNothing()
+    {
         updateIfFocusOnNothing()
     }
 
-    protected fun updateIfFocusOnMonster() {
+    protected fun updateIfFocusOnMonster()
+    {
         val target: AbstractMonster = hoveredMonster ?: return
         if (!CreatureUtility.isAlive(target)) return
         this.lastTarget = target
@@ -335,7 +382,8 @@ abstract class CardOrb(card: AbstractCard, cardGroupReturnAfterEvoke: CardGroup?
         )
     }
 
-    protected fun updateIfFocusOnSelf() {
+    protected fun updateIfFocusOnSelf()
+    {
         if (!CreatureUtility.isAlive(AbstractDungeon.player)) return
         this.lastTarget = AbstractDungeon.player
         this.tryMoveTo(
@@ -346,22 +394,26 @@ abstract class CardOrb(card: AbstractCard, cardGroupReturnAfterEvoke: CardGroup?
         )
     }
 
-    protected fun updateIfFocusOnNothing() {
+    protected fun updateIfFocusOnNothing()
+    {
         this.tryMoveTo(Vector2(this.cX, this.cY + YOffsetWhenHovered() + YOffsetWhenHovered()))
     }
 
-    protected fun State_Idle(): FunctionReturnSelfType {
+    protected fun State_Idle(): FunctionReturnSelfType
+    {
         this.targetType = targetTypeOrigin
         this.actionType = actionTypeOrigin
         showPassiveNum()
         updateAnimationIdle()
-        if (ifHoveredRightCard()) {
+        if (ifHoveredRightCard())
+        {
             return FunctionReturnSelfType(this::State_WhenHoverCard)
         }
         return FunctionReturnSelfType(this::State_Idle)
     }
 
-    protected fun State_WhenHoverCard(): FunctionReturnSelfType {
+    protected fun State_WhenHoverCard(): FunctionReturnSelfType
+    {
         showEvokeNum()
         val hoveredCard = AbstractDungeon.player.hoveredCard
         if (hoveredCard is Card_TriggerHangCardManually) fakeCard.costForTurn =
@@ -370,40 +422,47 @@ abstract class CardOrb(card: AbstractCard, cardGroupReturnAfterEvoke: CardGroup?
             )
         fakeCard.targetDrawScale = DRAW_SCALE_MIDDLE
         checkAndSetTheHoverType().get()
-        if (!ifHoveredRightCard()) {
+        if (!ifHoveredRightCard())
+        {
             return FunctionReturnSelfType(this::State_Idle)
         }
         return FunctionReturnSelfType(this::State_WhenHoverCard)
     }
 
-    protected fun ifHoveredRightCard(): Boolean {
+    protected fun ifHoveredRightCard(): Boolean
+    {
         val hoveredCard = AbstractDungeon.player.hoveredCard ?: return false
         if (!(ReflectionHacks.getPrivate<Any>(
                 AbstractDungeon.player,
                 AbstractPlayer::class.java,
                 "isHoveringCard"
             ) as Boolean)
-        ) {
+        )
+        {
             return false
         }
         return TestIfCardIsRight_hover(hoveredCard)
     }
 
-    protected open fun TestIfCardIsRight_hover(hoveredCard: AbstractCard?): Boolean {
+    protected open fun TestIfCardIsRight_hover(hoveredCard: AbstractCard?): Boolean
+    {
         if (hoveredCard == null) return false
-        if (hoveredCard is Card_TriggerHangCardManually) {
+        if (hoveredCard is Card_TriggerHangCardManually)
+        {
             return (hoveredCard as Card_TriggerHangCardManually).forceFilterCardOrbToHoveredMode(this)
         }
         return false
     }
 
-    private fun tryUpdateOrbCounterInCard(cardRawDescriptionWillShow: String?, NewOrbCounter: CardUtility.CostSmart) {
+    private fun tryUpdateOrbCounterInCard(cardRawDescriptionWillShow: String?, NewOrbCounter: CardUtility.CostSmart)
+    {
         if (cardRawDescriptionWillShow.isNullOrEmpty()) return
         fakeCard.rawDescription =
             cardRawDescriptionWillShow.replace("superstitioApi:!HANGING_TIME!", NewOrbCounter.toString())
     }
 
-    private fun setUpShownCard(card: AbstractCard) {
+    private fun setUpShownCard(card: AbstractCard)
+    {
         this.fakeCard.drawScale = card.drawScale
         this.fakeCard.transparency = 1.0f
         this.fakeCard.current_x = card.current_x
@@ -415,18 +474,25 @@ abstract class CardOrb(card: AbstractCard, cardGroupReturnAfterEvoke: CardGroup?
         this.fakeCard.costForTurn = -2
     }
 
-    override fun onStartOfTurn() {
+    override fun onStartOfTurn()
+    {
     }
 
-    override fun onEvoke() {
+    override fun onEvoke()
+    {
     }
 
-    override fun render(spriteBatch: SpriteBatch) {
-        if (!stopShowOriginCard) {
-            if (originCard.drawScale != originCard.targetDrawScale) {
+    override fun render(spriteBatch: SpriteBatch)
+    {
+        if (!stopShowOriginCard)
+        {
+            if (originCard.drawScale != originCard.targetDrawScale)
+            {
                 originCard.render(spriteBatch)
                 return
-            } else {
+            }
+            else
+            {
                 stopShowOriginCard = true
             }
         }
@@ -434,21 +500,27 @@ abstract class CardOrb(card: AbstractCard, cardGroupReturnAfterEvoke: CardGroup?
         val offset = YOffsetBoBing()
         fakeCard.current_y += offset
         fakeCard.render(spriteBatch)
-        if (fakeCard.hb.hovered) {
+        if (fakeCard.hb.hovered)
+        {
             fakeCard.renderCardTip(spriteBatch)
         }
         fakeCard.current_y -= offset
     }
 
-    override fun update() {
-        if (!stopShowOriginCard) {
-            if (originCard.drawScale != originCard.targetDrawScale) {
+    override fun update()
+    {
+        if (!stopShowOriginCard)
+        {
+            if (originCard.drawScale != originCard.targetDrawScale)
+            {
                 originCard.target_x = this.cX
                 originCard.target_y = this.cY + YOffsetWhenHovered()
                 originCard.targetDrawScale = DRAW_SCALE_SMALL
                 originCard.current_y += YOffsetBoBing()
                 originCard.update()
-            } else {
+            }
+            else
+            {
                 stopShowOriginCard = true
             }
         }
@@ -461,13 +533,15 @@ abstract class CardOrb(card: AbstractCard, cardGroupReturnAfterEvoke: CardGroup?
         updateOrbAmount()
     }
 
-    override fun updateDescription() {
+    override fun updateDescription()
+    {
         fakeCard.applyPowers()
         fakeCard.calculateDamageDisplay(hoveredMonsterSafe)
         fakeCard.initializeDescription()
         this.tryUpdateOrbCounterInCard(this.cardRawDescriptionWillShow, orbCounter)
 
-        if (fakeCard.cardsToPreview != null) {
+        if (fakeCard.cardsToPreview != null)
+        {
             fakeCard.cardsToPreview.applyPowers()
             fakeCard.cardsToPreview.initializeDescription()
             fakeCard.cardsToPreview.calculateDamageDisplay(hoveredMonsterSafe)
@@ -478,13 +552,16 @@ abstract class CardOrb(card: AbstractCard, cardGroupReturnAfterEvoke: CardGroup?
 
     }
 
-    override fun playChannelSFX() {
+    override fun playChannelSFX()
+    {
     }
 
-    override fun applyFocus() {
+    override fun applyFocus()
+    {
     }
 
-    sealed class HangEffectType(color: Color) {
+    sealed class HangEffectType(color: Color)
+    {
 
         val color: Color = color.cpy()
 
@@ -500,44 +577,54 @@ abstract class CardOrb(card: AbstractCard, cardGroupReturnAfterEvoke: CardGroup?
             )
         )
 
-        companion object {
-            fun values(): Array<HangEffectType> {
+        companion object
+        {
+            fun values(): Array<HangEffectType>
+            {
                 return arrayOf(Good, Bad, Special, None)
             }
 
-            fun valueOf(value: String): HangEffectType {
-                return when (value) {
-                    "Good" -> Good
-                    "Bad" -> Bad
+            fun valueOf(value: String): HangEffectType
+            {
+                return when (value)
+                {
+                    "Good"    -> Good
+                    "Bad"     -> Bad
                     "Special" -> Special
-                    "None" -> None
-                    else -> throw IllegalArgumentException("No object superstitioapi.hangUpCard.CardOrb.HangEffectType.$value")
+                    "None"    -> None
+                    else      -> throw IllegalArgumentException("No object superstitioapi.hangUpCard.CardOrb.HangEffectType.$value")
                 }
             }
         }
     }
 
-    sealed class HangOnTarget {
+    sealed class HangOnTarget
+    {
         data object Enemy : HangOnTarget()
         data object Self : HangOnTarget()
         data object None : HangOnTarget()
-        companion object {
-            fun values(): Array<HangOnTarget> {
+        companion object
+        {
+            fun values(): Array<HangOnTarget>
+            {
                 return arrayOf(Enemy, Self, None)
             }
 
-            fun valueOf(value: String): HangOnTarget {
-                return when (value) {
+            fun valueOf(value: String): HangOnTarget
+            {
+                return when (value)
+                {
                     "Enemy" -> Enemy
-                    "Self" -> Self
-                    "None" -> None
-                    else -> throw IllegalArgumentException("No object superstitioapi.hangUpCard.CardOrb.HangOnTarget.$value")
+                    "Self"  -> Self
+                    "None"  -> None
+                    else    -> throw IllegalArgumentException("No object superstitioapi.hangUpCard.CardOrb.HangOnTarget.$value")
                 }
             }
         }
     }
 
-    companion object {
+    companion object
+    {
         val ORB_ID: String = DataUtility.MakeTextID(CardOrb::class.java)
         const val ANIMATION_Y_SCALE: Float = 1.0f
         const val DRAW_SCALE_BIG: Float = 0.9f
@@ -556,7 +643,8 @@ abstract class CardOrb(card: AbstractCard, cardGroupReturnAfterEvoke: CardGroup?
             )
 
         val hoveredMonster: AbstractMonster?
-            get() {
+            get()
+            {
                 val hoveredMonster: AbstractMonster? = ReflectionHacks.getPrivate<AbstractMonster>(
                     AbstractDungeon.player,
                     AbstractPlayer::class.java,

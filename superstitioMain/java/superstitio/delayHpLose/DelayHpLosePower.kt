@@ -33,10 +33,12 @@ abstract class DelayHpLosePower(id: String, owner: AbstractCreature, amount: Int
     HealthBarRenderPower, DecreaseHealthBarNumberPower,
     InvisiblePower_InvisibleIconAndAmount, InvisiblePower_InvisibleTips,
     InvisiblePower_InvisibleApplyPowerEffect, InvisiblePower_InvisibleRemovePowerEffect,
-    OnPostApplyThisPower<DelayHpLosePower> {
+    OnPostApplyThisPower<DelayHpLosePower>
+{
     protected var isRemovedForApplyDamage: Boolean = false
 
-    init {
+    init
+    {
         this.updateDescription()
     }
 
@@ -47,7 +49,8 @@ abstract class DelayHpLosePower(id: String, owner: AbstractCreature, amount: Int
      */
     protected abstract fun addToBot_removeDelayHpLoss(amount: Int, removeOther: Boolean): Int
 
-    protected fun playRemoveEffect() {
+    protected fun playRemoveEffect()
+    {
         AbstractDungeon.effectList.add(
             PowerBuffEffect(
                 owner.hb.cX - owner.animX,
@@ -57,11 +60,13 @@ abstract class DelayHpLosePower(id: String, owner: AbstractCreature, amount: Int
         )
     }
 
-    protected fun pureName(): String {
+    protected fun pureName(): String
+    {
         return name.replace("#r", "")
     }
 
-    protected fun addToBot_applyDamage() {
+    protected fun addToBot_applyDamage()
+    {
         this.isRemovedForApplyDamage = true
         val self: AbstractPower = this
         AutoDoneInstantAction.addToBotAbstract {
@@ -70,7 +75,8 @@ abstract class DelayHpLosePower(id: String, owner: AbstractCreature, amount: Int
         addToBot_removeSpecificPower(this)
     }
 
-    protected fun immediate_applyDamage(self: AbstractPower) {
+    protected fun immediate_applyDamage(self: AbstractPower)
+    {
         if (self.amount <= 0) return
         PowerUtility.BubbleMessage(self, true, pureName())
         CardCrawlGame.sound.play("POWER_TIME_WARP", 0.05f)
@@ -84,46 +90,57 @@ abstract class DelayHpLosePower(id: String, owner: AbstractCreature, amount: Int
             .setEffect(AttackEffect.LIGHTNING)
             .setDamageType(CanOnlyDamageDamageType.UnBlockAbleDamageType)
 
-    override fun InitializePostApplyThisPower(addedPower: DelayHpLosePower) {
+    override fun InitializePostApplyThisPower(addedPower: DelayHpLosePower)
+    {
 //        TipsManager.tryShowTip(DELAY_HP_LOSE_TIP);
     }
 
-    override fun renderAmount(sb: SpriteBatch, x: Float, y: Float, c: Color) {
+    override fun renderAmount(sb: SpriteBatch, x: Float, y: Float, c: Color)
+    {
     }
 
-    override fun reducePower(reduceAmount: Int) {
+    override fun reducePower(reduceAmount: Int)
+    {
         super.reducePower(reduceAmount)
         if (!isRemovedForApplyDamage) playRemoveEffect()
     }
 
-    override fun onRemove() {
+    override fun onRemove()
+    {
         super.onRemove()
         if (!isRemovedForApplyDamage) playRemoveEffect()
     }
 
-    override fun updateDescriptionArgs() {
+    override fun updateDescriptionArgs()
+    {
         setDescriptionArgs(this.amount)
     }
 
-    override fun getHealthBarAmount(): Int {
+    override fun getHealthBarAmount(): Int
+    {
         return this.amount
     }
 
-    override fun getColor(): Color {
+    override fun getColor(): Color
+    {
         return OriginColor
     }
 
-    override fun getDecreaseAmount(): Int {
+    override fun getDecreaseAmount(): Int
+    {
         return this.amount
     }
 
-    override fun setDecreaseAmount(value: Int) {
+    override fun setDecreaseAmount(value: Int)
+    {
         this.amount = value
     }
 
-    companion object {
+    companion object
+    {
         private val OriginColor = Color(1.0f, 0.85f, 0.90f, 1.0f)
-        fun <T : DelayHpLosePower?> findAll(target: AbstractCreature, tClass: Class<T>): Stream<T> {
+        fun <T : DelayHpLosePower?> findAll(target: AbstractCreature, tClass: Class<T>): Stream<T>
+        {
             return target.powers.stream()
                 .filter(tClass::isInstance)
                 .map(tClass::cast)
@@ -139,14 +156,17 @@ abstract class DelayHpLosePower(id: String, owner: AbstractCreature, amount: Int
         fun <T : DelayHpLosePower?> addToBot_removePower(
             powerClass: Class<T>, amount: Int, owner: AbstractCreature,
             removeOther: Boolean
-        ) {
+        )
+        {
             if (amount <= 0) return
             var lastAmount = 0
-            if (Modifier.isAbstract(powerClass.modifiers)) {
+            if (Modifier.isAbstract(powerClass.modifiers))
+            {
                 Logger.warning("class " + powerClass.simpleName + " is abstract, pls check usages of DelayHpLosePower.addToBot_removePower()")
             }
             val hasRemovedClass = ArrayList<Class<out DelayHpLosePower>>()
-            for (power in owner.powers) {
+            for (power in owner.powers)
+            {
                 if (!(powerClass.isInstance(power))) continue
                 val delayHpLosePower = (power as DelayHpLosePower)
                 lastAmount = delayHpLosePower.addToBot_removeDelayHpLoss(amount, removeOther)
@@ -156,7 +176,8 @@ abstract class DelayHpLosePower(id: String, owner: AbstractCreature, amount: Int
             if (lastAmount <= 0) return
             if (!removeOther) return
 
-            for (power in owner.powers) {
+            for (power in owner.powers)
+            {
                 if (power !is DelayHpLosePower) continue
                 if (hasRemovedClass.stream()
                         .anyMatch { tClass: Class<out DelayHpLosePower> -> tClass.isInstance(power) }
@@ -168,11 +189,13 @@ abstract class DelayHpLosePower(id: String, owner: AbstractCreature, amount: Int
             }
         }
 
-        fun addToBot_removePower(amount: Int, owner: AbstractCreature, removeOther: Boolean) {
+        fun addToBot_removePower(amount: Int, owner: AbstractCreature, removeOther: Boolean)
+        {
             if (amount <= 0) return
             var lastAmount = amount
             val hasRemovedClass = ArrayList<Class<out DelayHpLosePower>>()
-            for (power in owner.powers) {
+            for (power in owner.powers)
+            {
                 if (power !is DelayHpLosePower) continue
                 if (hasRemovedClass.stream()
                         .anyMatch { tClass: Class<out DelayHpLosePower> -> tClass.isInstance(power) }

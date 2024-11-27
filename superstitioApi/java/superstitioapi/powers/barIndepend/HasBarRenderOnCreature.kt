@@ -6,7 +6,8 @@ import superstitioapi.powers.barIndepend.BarRenderUpdateMessage.ToolTip
 import java.util.function.BiFunction
 import java.util.function.Supplier
 
-interface HasBarRenderOnCreature {
+interface HasBarRenderOnCreature
+{
     /**
      * 根据uuid来识别目标是否相同。如果不相同，会分批次渲染在进度条上。
      */
@@ -20,11 +21,13 @@ interface HasBarRenderOnCreature {
     /**
      * 根据uuid来识别进度条是否相同。如果不相同，会新建一个进度条。
      */
-    fun uuidPointTo(): String {
+    fun uuidPointTo(): String
+    {
         return this.uuidOfSelf()
     }
 
-    fun makeMessage(): BarRenderUpdateMessage {
+    fun makeMessage(): BarRenderUpdateMessage
+    {
         return BarRenderUpdateMessage(this.uuidOfSelf(), this.uuidPointTo())
             .setNewAmount(getAmountForDraw())
             .setMaxAmount(maxBarAmount())
@@ -37,15 +40,18 @@ interface HasBarRenderOnCreature {
 
     fun Height(): Float
 
-    fun setupBarBgColor(): Color? {
+    fun setupBarBgColor(): Color?
+    {
         return Color(0f, 0f, 0f, 0.3f)
     }
 
-    fun setupBarShadowColor(): Color? {
+    fun setupBarShadowColor(): Color?
+    {
         return Color(0f, 0f, 0f, 0.3f)
     }
 
-    fun setupBarTextColor(): Color? {
+    fun setupBarTextColor(): Color?
+    {
         return Color(1.0f, 1.0f, 1.0f, 1.0f)
     }
 
@@ -59,7 +65,8 @@ interface HasBarRenderOnCreature {
 
     val description: String
 
-    fun makeBarText(): String? {
+    fun makeBarText(): String?
+    {
         return "%d/%d"
     }
 }

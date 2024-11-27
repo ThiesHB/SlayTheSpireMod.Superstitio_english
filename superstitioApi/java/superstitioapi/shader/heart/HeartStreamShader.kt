@@ -10,7 +10,6 @@ import com.megacrit.cardcrawl.vfx.AbstractGameEffect
 import superstitioapi.renderManager.inBattleManager.RenderInBattle
 import superstitioapi.shader.ShaderUtility
 import superstitioapi.utils.ActionUtility.VoidSupplier
-import java.util.*
 import java.util.function.Consumer
 import java.util.function.Supplier
 import kotlin.math.ceil
@@ -18,7 +17,8 @@ import kotlin.math.max
 import kotlin.math.min
 import kotlin.math.pow
 
-object HeartStreamShader {
+object HeartStreamShader
+{
     val heartStream: ShaderProgram = ShaderUtility.initShader(ShaderUtility.DEFAULT_VERTEX_GLSL, "heartStream.glsl")
 
     fun setUp_heartStream(
@@ -26,7 +26,8 @@ object HeartStreamShader {
         density: Float, startTime: Float, speed: Float,
         tileTimes: Vector2?, anim_timer: Float,
         whRate: Float, offset: Vector2?, spawnRemoveTimer: Float
-    ) {
+    )
+    {
         sb.shader = heartStream
         sb.shader.setUniformf("u_density", density)
         sb.shader.setUniformf("u_startTime", startTime)
@@ -41,19 +42,23 @@ object HeartStreamShader {
     class RenderHeartStreamEffectGameEnd(
         level: Int, //        private final int maxLevel;
         private val hitboxBondTo: Supplier<Hitbox>
-    ) : AbstractGameEffect() {
+    ) : AbstractGameEffect()
+    {
         private val heartStreamSubRenders = ArrayList<HeartStreamSubRender>()
         private val level = level.toFloat()
 
-        init {
+        init
+        {
             initSubRender()
         }
 
-        private fun initSubRender() {
+        private fun initSubRender()
+        {
             if (heartStreamSubRenders.size >= level) return
             val newIndex = min(MAX_LEVEL.toDouble(), ceil(level.toDouble()))
                 .toInt()
-            for (i in heartStreamSubRenders.size until newIndex) {
+            for (i in heartStreamSubRenders.size until newIndex)
+            {
                 heartStreamSubRenders.add(
                     HeartStreamSubRender(
                         0.1f + 0.1f * i,
@@ -65,7 +70,8 @@ object HeartStreamShader {
         }
 
 
-        override fun render(sb: SpriteBatch) {
+        override fun render(sb: SpriteBatch)
+        {
             ShaderUtility.originShader = sb.shader
             val density: Float = (1.0f / level.pow(0.5f)).toFloat()
             heartStreamSubRenders.forEach(Consumer { heartStreamSubRender: HeartStreamSubRender ->
@@ -77,10 +83,12 @@ object HeartStreamShader {
             sb.shader = ShaderUtility.originShader
         }
 
-        override fun dispose() {
+        override fun dispose()
+        {
         }
 
-        override fun update() {
+        override fun update()
+        {
 //            if (level != levelTarget)
 //                level = MathHelper.uiLerpSnap(this.level, this.levelTarget);
             heartStreamSubRenders.forEach(Consumer(HeartStreamSubRender::update))
@@ -90,15 +98,18 @@ object HeartStreamShader {
             private val startTime: Float,
             private val speed: Float,
             private val tileTimes: Vector2
-        ) {
+        )
+        {
             private var anim_timer = 0.0f
 
-            fun update() {
+            fun update()
+            {
                 anim_timer += Gdx.graphics.deltaTime
                 if (anim_timer <= 0) anim_timer = 0f
             }
 
-            fun drawHeartStream(sb: SpriteBatch, density: Float, offset: Vector2) {
+            fun drawHeartStream(sb: SpriteBatch, density: Float, offset: Vector2)
+            {
                 val spawnRemoveTimer = (min(
                     ALPHA_TIME.toDouble(),
                     max(anim_timer.toDouble(), 0.0)
@@ -119,12 +130,14 @@ object HeartStreamShader {
                 sb.draw(ShaderUtility.NOISE_TEXTURE, 0f, 0f, width, height)
             }
 
-            companion object {
+            companion object
+            {
                 const val ALPHA_TIME: Float = 2.0f
             }
         }
 
-        companion object {
+        companion object
+        {
             private const val MAX_LEVEL = 8
         }
     }
@@ -134,22 +147,26 @@ object HeartStreamShader {
         private val customShouldRemove: Supplier<Boolean>,
         private val hitboxBondTo: Supplier<Hitbox>,
         levelTarget: Float = 0.0f
-    ) : RenderInBattle {
+    ) : RenderInBattle
+    {
         private val heartStreamSubRenders = ArrayList<HeartStreamSubRender>()
         private var forceRemove = false
         private var level = 3.0f
         private var levelTarget: Float
 
-        init {
+        init
+        {
             this.levelTarget = levelTarget + 3.5f
             checkLevelUp()
         }
 
-        private fun checkLevelUp() {
+        private fun checkLevelUp()
+        {
 //            levelTarget += 1.0f;
             if (heartStreamSubRenders.size >= maxLevel) return
             val newIndex = min(maxLevel.toDouble(), ceil(level.toDouble())).toInt()
-            for (i in heartStreamSubRenders.size until newIndex) {
+            for (i in heartStreamSubRenders.size until newIndex)
+            {
                 heartStreamSubRenders.add(
                     HeartStreamSubRender(
                         this,
@@ -161,11 +178,13 @@ object HeartStreamShader {
             }
         }
 
-        private fun startEndRenderMode(): Boolean {
+        private fun startEndRenderMode(): Boolean
+        {
             return customShouldRemove.get() || forceRemove
         }
 
-        override fun render(sb: SpriteBatch) {
+        override fun render(sb: SpriteBatch)
+        {
             ShaderUtility.originShader = sb.shader
             val density: Float = (1.0f / level.pow(0.5f)).toFloat()
             heartStreamSubRenders.forEach(Consumer { heartStreamSubRender: HeartStreamSubRender ->
@@ -177,12 +196,14 @@ object HeartStreamShader {
             sb.shader = ShaderUtility.originShader
         }
 
-        override fun shouldRemove(): Boolean {
+        override fun shouldRemove(): Boolean
+        {
             return startEndRenderMode() && heartStreamSubRenders.stream()
                 .allMatch { heartStreamSubRender: HeartStreamSubRender -> heartStreamSubRender.anim_timer < 0.0f }
         }
 
-        override fun update() {
+        override fun update()
+        {
             if (level != levelTarget) level = MathHelper.uiLerpSnap(this.level, this.levelTarget)
             heartStreamSubRenders.forEach(Consumer(HeartStreamSubRender::update))
         }
@@ -192,13 +213,17 @@ object HeartStreamShader {
             private val startTime: Float,
             private val speed: Float,
             private val tileTimes: Vector2
-        ) {
+        )
+        {
             var anim_timer = 0.0f
 
-            fun update() {
-                if (!owner.startEndRenderMode()) {
+            fun update()
+            {
+                if (!owner.startEndRenderMode())
+                {
                     anim_timer += Gdx.graphics.deltaTime
-                    if (anim_timer >= 20.0f) {
+                    if (anim_timer >= 20.0f)
+                    {
                         anim_timer = ALPHA_TIME
                     }
                     return
@@ -207,7 +232,8 @@ object HeartStreamShader {
                 anim_timer -= Gdx.graphics.deltaTime
             }
 
-            fun drawHeartStream(sb: SpriteBatch, density: Float, offset: Vector2) {
+            fun drawHeartStream(sb: SpriteBatch, density: Float, offset: Vector2)
+            {
                 val spawnRemoveTimer = (min(
                     ALPHA_TIME.toDouble(),
                     max(anim_timer.toDouble(), 0.0)
@@ -228,16 +254,19 @@ object HeartStreamShader {
                 sb.draw(ShaderUtility.NOISE_TEXTURE, 0f, 0f, width, height)
             }
 
-            companion object {
+            companion object
+            {
                 const val ALPHA_TIME: Float = 2.0f
             }
         }
 
-        companion object {
+        companion object
+        {
             fun action_addHeartStreamEffect(
                 maxLevel: Int, customShouldRemove: Supplier<Boolean>,
                 hitboxBondTo: Supplier<Hitbox>
-            ): VoidSupplier {
+            ): VoidSupplier
+            {
                 if (!ShaderUtility.canUseShader) return VoidSupplier.Empty
                 val renderHeartStream = renderHeartStream
                 return renderHeartStream?.let { stream: RenderHeartStream ->
@@ -256,7 +285,8 @@ object HeartStreamShader {
             fun action_addHeartStreamEffectAndSetLevel(
                 maxLevel: Int, customShouldRemove: Supplier<Boolean>,
                 hitboxBondTo: Supplier<Hitbox>, setLevel: Int
-            ): VoidSupplier {
+            ): VoidSupplier
+            {
                 if (!ShaderUtility.canUseShader) return VoidSupplier.Empty
                 val renderHeartStream = renderHeartStream
                     ?: return VoidSupplier {
@@ -273,7 +303,8 @@ object HeartStreamShader {
                 }
             }
 
-            fun action_setStopRender(): VoidSupplier {
+            fun action_setStopRender(): VoidSupplier
+            {
                 return VoidSupplier {
                     renderHeartStream.let { renderHeartStream: RenderHeartStream? ->
                         renderHeartStream?.forceRemove = true

@@ -14,19 +14,23 @@ import superstitio.delayHpLose.RemoveDelayHpLoseBlock
 import superstitioapi.SuperstitioApiSetup
 import superstitioapi.utils.ActionUtility
 
-class Fuck_Ear(blank: Boolean) : AbstractTempCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET), FuckJob_Card {
-    constructor() : this(false) {
+class Fuck_Ear(blank: Boolean) : AbstractTempCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET), FuckJob_Card
+{
+    constructor() : this(false)
+    {
         this.cardsToPreview = Fuck_Eye(false)
     }
 
-    init {
+    init
+    {
         FuckJob_Card.initFuckJobCard(this)
         this.setupDamage(DAMAGE, UPGRADE_DAMAGE)
         CardModifierManager.addModifier(this, ExhaustMod())
         this.setupBlock(BLOCK, UPGRADE_BLOCK, RemoveDelayHpLoseBlock())
     }
 
-    override fun use(player: AbstractPlayer?, monster: AbstractMonster?) {
+    override fun use(player: AbstractPlayer?, monster: AbstractMonster?)
+    {
         addToBot_dealDamage(monster, SuperstitioApiSetup.DamageEffect.HeartMultiInOne)
         addToBot_dealDamage(monster, SuperstitioApiSetup.DamageEffect.HeartMultiInOne)
         addToBot_gainBlock()
@@ -39,11 +43,13 @@ class Fuck_Ear(blank: Boolean) : AbstractTempCard(ID, CARD_TYPE, COST, CARD_RARI
     //        if (!CardModifierManager.hasModifier(this, RetainMod.ID))
     //            CardModifierManager.addModifier(this, new RetainMod());
     //    }
-    override fun upgradeAuto() {
+    override fun upgradeAuto()
+    {
         upgradeCardsToPreview()
     }
 
-    companion object {
+    companion object
+    {
         val ID: String = DataManager.MakeTextID(Fuck_Ear::class.java)
 
         val CARD_TYPE: CardType = CardType.ATTACK

@@ -15,21 +15,26 @@ class InTurnSexualHeatNeededModifier(owner: AbstractCreature, amount: Int) : Abs
     POWER_ID, owner, amount, if (owner is AbstractPlayer
     ) if (amount < 0) PowerType.DEBUFF else PowerType.BUFF
     else if (amount < 0) PowerType.BUFF else PowerType.DEBUFF
-), SexualHeatNeedModifier, OnPostApplyThisPower<InTurnSexualHeatNeededModifier> {
-    init {
+), SexualHeatNeedModifier, OnPostApplyThisPower<InTurnSexualHeatNeededModifier>
+{
+    init
+    {
         //大于0会降低高潮需求，小于0会提高高潮需求
         this.canGoNegative = true
     }
 
-    override fun atEndOfTurn(isPlayer: Boolean) {
+    override fun atEndOfTurn(isPlayer: Boolean)
+    {
         this.addToBot(RemoveSpecificPowerAction(this.owner, this.owner, POWER_ID))
     }
 
-    override fun updateDescriptionArgs() {
+    override fun updateDescriptionArgs()
+    {
         setDescriptionArgs(abs(amount.toDouble()))
     }
 
-    override fun getDescriptionStrings(): String {
+    override fun getDescriptionStrings(): String
+    {
         return powerStrings.getDESCRIPTION(if (this.amount < 0) 1 else 0)
     }
 
@@ -37,7 +42,8 @@ class InTurnSexualHeatNeededModifier(owner: AbstractCreature, amount: Int) : Abs
     //    public void onCheckOrgasm(SexualHeat SexualHeatPower) {
     //        SexualHeatPower.setHeatRequired(SexualHeat.HEAT_REQUIREDOrigin - this.amount);
     //    }
-    override fun InitializePostApplyThisPower(addedPower: InTurnSexualHeatNeededModifier) {
+    override fun InitializePostApplyThisPower(addedPower: InTurnSexualHeatNeededModifier)
+    {
 //        AutoDoneInstantAction.addToBotAbstract(() ->
 //                SexualHeat.getActiveSexualHeat(owner)
 //                        .ifPresent(SexualHeatPower -> SexualHeatPower.setHeatRequired(SexualHeat.HEAT_REQUIREDOrigin - this.amount)));
@@ -49,11 +55,13 @@ class InTurnSexualHeatNeededModifier(owner: AbstractCreature, amount: Int) : Abs
         }
     }
 
-    override fun reduceSexualHeatNeeded(): Int {
+    override fun reduceSexualHeatNeeded(): Int
+    {
         return this.amount
     }
 
-    companion object {
+    companion object
+    {
         val POWER_ID: String = DataManager.MakeTextID(InTurnSexualHeatNeededModifier::class.java)
     }
 }

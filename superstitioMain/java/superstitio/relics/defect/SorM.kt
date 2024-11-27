@@ -22,13 +22,15 @@ import superstitioapi.utils.ActionUtility
 @AutoAdd.Ignore
 class SorM //Default();
 //updateDesAndImg();
-    : SuperstitioRelic(ID, RELIC_TIER, LANDING_SOUND), ClickableRelic, CustomSavable<Int>, BetterOnLoseHpRelic {
+    : SuperstitioRelic(ID, RELIC_TIER, LANDING_SOUND), ClickableRelic, CustomSavable<Int>, BetterOnLoseHpRelic
+{
     private var ClickTime = 0
     private var MasochismMode = false
     private var SadismMode = false
 
 
-    private fun Default() {
+    private fun Default()
+    {
         MasochismMode = true
         SadismMode = false
     }
@@ -37,7 +39,8 @@ class SorM //Default();
     //    public void updateDescription(AbstractPlayer.PlayerClass c) {
     //        updateDesAndImg();
     //    }
-    private fun updateDesAndImg() {
+    private fun updateDesAndImg()
+    {
         this.description = this.updatedDescription
         tips.clear()
         tips.add(PowerTip(this.name, this.description))
@@ -45,18 +48,22 @@ class SorM //Default();
         if (!MasochismMode && !SadismMode) Default()
     }
 
-    private fun AddSexualHeat(amount: Int) {
+    private fun AddSexualHeat(amount: Int)
+    {
         SexualHeat.addToBot_addSexualHeat(AbstractDungeon.player, amount)
     }
 
-    override fun atBattleStart() {
+    override fun atBattleStart()
+    {
         updateDesAndImg()
     }
 
-    override fun onLoseHp(damageAmount: Int) {
+    override fun onLoseHp(damageAmount: Int)
+    {
     }
 
-    override fun betterOnLoseHp(damageInfo: DamageInfo, i: Int): Int {
+    override fun betterOnLoseHp(damageInfo: DamageInfo, i: Int): Int
+    {
         if (ActionUtility.isNotInBattle) return i
         if (!MasochismMode) return i
         if (i < MasochismModeDamageNeed) return i
@@ -66,7 +73,8 @@ class SorM //Default();
         return i
     }
 
-    override fun onAttack(info: DamageInfo, damageAmount: Int, target: AbstractCreature) {
+    override fun onAttack(info: DamageInfo, damageAmount: Int, target: AbstractCreature)
+    {
         if (!SadismMode) return
         if (damageAmount < SadismModeDamageNeed) return
         AddSexualHeat(SadismModeSexualHeatRate)
@@ -74,10 +82,12 @@ class SorM //Default();
         this.flash()
     }
 
-    override fun updateDescriptionArgs() {
+    override fun updateDescriptionArgs()
+    {
     }
 
-    override fun getDescriptionStrings(): String {
+    override fun getDescriptionStrings(): String
+    {
         if (MasochismMode && SadismMode) return String.format(
             DESCRIPTIONS[3], MasochismModeDamageNeed, MasochismModeSexualHeatRate, SadismModeDamageNeed,
             MasochismModeSexualHeatRate
@@ -90,10 +100,12 @@ class SorM //Default();
         )
     }
 
-    override fun onRightClick() {
+    override fun onRightClick()
+    {
         if (!ActionUtility.isNotInBattle) return
         this.flash()
-        if (ClickTime >= 99) {
+        if (ClickTime >= 99)
+        {
             MasochismMode = true
             SadismMode = true
             return
@@ -104,39 +116,47 @@ class SorM //Default();
         updateDesAndImg()
     }
 
-    override fun onSave(): Int {
+    override fun onSave(): Int
+    {
         if (MasochismMode && SadismMode) return 30000 + ClickTime
         if (MasochismMode) return 10000 + ClickTime
         if (SadismMode) return 20000 + ClickTime
         return 0
     }
 
-    override fun onLoad(integer: Int) {
+    override fun onLoad(integer: Int)
+    {
         this.ClickTime = integer % 10000
-        when (integer - this.ClickTime) {
-            30000 -> {
+        when (integer - this.ClickTime)
+        {
+            30000 ->
+            {
                 MasochismMode = true
                 SadismMode = true
             }
 
-            10000 -> {
+            10000 ->
+            {
                 MasochismMode = true
                 SadismMode = false
             }
 
-            20000 -> {
+            20000 ->
+            {
                 MasochismMode = false
                 SadismMode = true
             }
 
-            else -> {
+            else  ->
+            {
                 MasochismMode = false
                 SadismMode = false
             }
         }
     }
 
-    companion object {
+    companion object
+    {
         val ID: String = DataManager.MakeTextID(SorM::class.java)
 
         // 遗物类型

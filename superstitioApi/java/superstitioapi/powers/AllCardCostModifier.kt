@@ -31,28 +31,33 @@ abstract class AllCardCostModifier(
     useAmount: Int,
     private val holder: HasAllCardCostModifyEffect
 ) : SuperstitioApiPower(id, owner, useAmount, if (owner.isPlayer) PowerType.BUFF else PowerType.DEBUFF),
-    NonStackablePower, OnPostApplyThisPower<AllCardCostModifier> {
+    NonStackablePower, OnPostApplyThisPower<AllCardCostModifier>
+{
     var order: Int = 0
     var isActive: Boolean = false
         private set
     private var checkTimer = CHECK_TIME
 
-    fun ifIsTheMinOrder(): Boolean {
+    fun ifIsTheMinOrder(): Boolean
+    {
         return all.none { power: AllCardCostModifier -> power.amount != 0 && power.order > this.order }
     }
 
     /**
      * 可以随意使用
      */
-    fun tryUseEffect() {
+    fun tryUseEffect()
+    {
         if (!this.isActive) return
         if (this.amount == 0) return
         CheaperAllCards()
     }
 
-    fun removeSelf() {
+    fun removeSelf()
+    {
         Logger.debug("remove CostModifier")
-        if (this.isActive && this.amount != 0) {
+        if (this.isActive && this.amount != 0)
+        {
             CostToOriginAllCards()
         }
         this.addToBot(RemoveSpecificPowerAction(this.owner, this.owner, this))
@@ -61,18 +66,21 @@ abstract class AllCardCostModifier(
         addToBot_TryActivateLowestOrder()
     }
 
-    fun getOriginCost(card: AbstractCard?): Int {
+    fun getOriginCost(card: AbstractCard?): Int
+    {
         if (card == null) return 0
         if (InBattleDataManager.costMap[card.uuid] == null) return card.cost
         return InBattleDataManager.costMap[card.uuid]!!
     }
 
-    protected fun CostToOriginAllCards() {
+    protected fun CostToOriginAllCards()
+    {
         CardUtility.AllCardInBattle().forEach(Consumer(this::CostToOriginOneCard))
         InBattleDataManager.costMap.clear()
     }
 
-    private fun activateEffect() {
+    private fun activateEffect()
+    {
         Logger.debug("add CostModifier")
         this.setActive()
         tryUseEffect()
@@ -82,11 +90,13 @@ abstract class AllCardCostModifier(
     /**
      * 无可用性检测
      */
-    private fun CheaperAllCards() {
+    private fun CheaperAllCards()
+    {
         CardUtility.AllCardInBattle().forEach(Consumer(this::CheaperOneCard))
     }
 
-    private fun CheaperOneCard(card: AbstractCard?) {
+    private fun CheaperOneCard(card: AbstractCard?)
+    {
         if (card == null) return
         if (card.costForTurn <= 0) return
         if (InBattleDataManager.costMap.keys.stream()
@@ -99,7 +109,8 @@ abstract class AllCardCostModifier(
         CardUtility.flashIfInHand(card)
     }
 
-    private fun CostToOriginOneCard(card: AbstractCard?) {
+    private fun CostToOriginOneCard(card: AbstractCard?)
+    {
         if (card == null) return
         if (getOriginCost(card) < card.costForTurn) return
         if (!InBattleDataManager.costMap.containsKey(card.uuid)) return
@@ -109,46 +120,56 @@ abstract class AllCardCostModifier(
         card.isCostModifiedForTurn = false
     }
 
-    private fun setActive() {
+    private fun setActive()
+    {
         this.isActive = true
     }
 
-    override fun renderAmount(sb: SpriteBatch, x: Float, y: Float, c: Color) {
+    override fun renderAmount(sb: SpriteBatch, x: Float, y: Float, c: Color)
+    {
         super.renderAmount(sb, x, y, c)
         renderAmount2(sb, x, y, c, decreasedCost)
     }
 
-    override fun onApplyPower(power: AbstractPower, target: AbstractCreature, source: AbstractCreature) {
+    override fun onApplyPower(power: AbstractPower, target: AbstractCreature, source: AbstractCreature)
+    {
         super.onApplyPower(power, target, source)
     }
 
-    override fun update(slot: Int) {
+    override fun update(slot: Int)
+    {
         super.update(slot)
         checkTimer -= Gdx.graphics.deltaTime
-        if (checkTimer <= 0.0f) {
+        if (checkTimer <= 0.0f)
+        {
             tryUseEffect()
             checkTimer = CHECK_TIME
         }
     }
 
-    override fun onCardDraw(card: AbstractCard) {
+    override fun onCardDraw(card: AbstractCard)
+    {
         if (!this.isActive) return
 
         this.CheaperOneCard(card)
     }
 
-    override fun InitializePostApplyThisPower(addedPower: AllCardCostModifier) {
+    override fun InitializePostApplyThisPower(addedPower: AllCardCostModifier)
+    {
         this.order = all.minOfOrNull { it.order } ?: 0
         addToBot_TryActivateLowestOrder()
     }
 
-    companion object {
+    companion object
+    {
         private const val CHECK_TIME = 1.0f
-        fun RemoveAllByHolder(aimHolder: HasAllCardCostModifyEffect) {
+        fun RemoveAllByHolder(aimHolder: HasAllCardCostModifyEffect)
+        {
             getAllByHolder(aimHolder).forEach { obj: AllCardCostModifier? -> obj!!.removeSelf() }
         }
 
-        fun getAllByHolder(aimHolder: HasAllCardCostModifyEffect): Collection<AllCardCostModifier> {
+        fun getAllByHolder(aimHolder: HasAllCardCostModifyEffect): Collection<AllCardCostModifier>
+        {
             return all.filter { power: AllCardCostModifier -> power.holder.IDAsHolder() == aimHolder.IDAsHolder() }
         }
 
@@ -160,7 +181,8 @@ abstract class AllCardCostModifier(
         val activateOne: AllCardCostModifier?
             get() = all.firstOrNull { obj: AllCardCostModifier? -> obj!!.isActive }
 
-        fun addToBot_TryActivateLowestOrder() {
+        fun addToBot_TryActivateLowestOrder()
+        {
             AutoDoneInstantAction.addToBotAbstract {
                 all.firstOrNull { obj: AllCardCostModifier? -> obj?.ifIsTheMinOrder() == true }?.activateEffect()
             }
@@ -173,7 +195,8 @@ abstract class AllCardCostModifier(
             decreasedCost: Int,
             canUseAmount: Int,
             powerType: Constructor<T>
-        ) {
+        )
+        {
             ActionUtility.addToTop_applyPower(
                 powerType.newInstance(
                     AbstractDungeon.player,
@@ -191,7 +214,8 @@ abstract class AllCardCostModifier(
             decreasedCost: Int,
             canUseAmount: Int,
             powerType: Constructor<T>
-        ) {
+        )
+        {
             addTo_Bot_EditAmount_Top_FirstByHolder(
                 holder,
                 decreasedCost,
@@ -206,9 +230,11 @@ abstract class AllCardCostModifier(
             decreasedCost: Int,
             canUseAmountAdder: Function<AllCardCostModifier?, Int>,
             powerType: Constructor<T>
-        ) {
+        )
+        {
             val allCardCostModifier = getAllByHolder(holder).firstOrNull()
-            if (allCardCostModifier == null) {
+            if (allCardCostModifier == null)
+            {
                 addToTop_AddNew(holder, decreasedCost, canUseAmountAdder.apply(null), powerType)
                 return
             }
@@ -222,7 +248,8 @@ abstract class AllCardCostModifier(
             }
         }
 
-        fun <T : AllCardCostModifier?> CombineAllByHolder(aimHolder: HasAllCardCostModifyEffect, tClass: Class<T>) {
+        fun <T : AllCardCostModifier?> CombineAllByHolder(aimHolder: HasAllCardCostModifyEffect, tClass: Class<T>)
+        {
             val cardCostModifier =
                 getAllByHolder(aimHolder).filter { power: AllCardCostModifier -> power.amount >= 0 }
                     .filter { power: AllCardCostModifier -> power.javaClass == tClass }

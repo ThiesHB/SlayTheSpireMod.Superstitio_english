@@ -3,6 +3,7 @@ package superstitio
 import basemod.AutoAdd
 
 @AutoAdd.Ignore
-class SuperstitioImg {
+class SuperstitioImg
+{
     annotation class NoNeedImg
 }

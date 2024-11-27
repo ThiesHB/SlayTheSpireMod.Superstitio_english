@@ -1,8 +1,9 @@
 package superstitioapi.powers.interfaces
 
-interface DecreaseHealthBarNumberPower {
+interface DecreaseHealthBarNumberPower
+{
     fun getDecreaseAmount(): Int
-    fun setDecreaseAmount(value:Int)
+    fun setDecreaseAmount(value: Int)
 
     fun showDecreaseAmount(): Boolean
 }

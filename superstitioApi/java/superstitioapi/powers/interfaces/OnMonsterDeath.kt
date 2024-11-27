@@ -9,15 +9,18 @@ import com.megacrit.cardcrawl.monsters.AbstractMonster
 /**
  * 可用于power
  */
-object OnMonsterDeath {
-    interface OnMonsterDeathPower {
+object OnMonsterDeath
+{
+    interface OnMonsterDeathPower
+    {
         /**
          * @return 返回true则不死亡
          */
         fun ifStopOwnerDeathWhenOwnerIsMonster(): Boolean
     }
 
-    interface OnMonsterDeathRelic {
+    interface OnMonsterDeathRelic
+    {
         /**
          * @return 返回true则不死亡
          */
@@ -25,22 +28,30 @@ object OnMonsterDeath {
     }
 
     @SpirePatch2(clz = AbstractMonster::class, method = "die", paramtypez = [Boolean::class])
-    object OnMonsterDeathPatch {
+    object OnMonsterDeathPatch
+    {
         @SpirePrefixPatch
         @JvmStatic
-        fun Prefix(__instance: AbstractMonster, triggerRelics: Boolean): SpireReturn<Void> {
+        fun Prefix(__instance: AbstractMonster, triggerRelics: Boolean): SpireReturn<Void>
+        {
             if (__instance.isDying) return SpireReturn.Continue()
             if (!triggerRelics) return SpireReturn.Continue()
-            for (power in __instance.powers) {
-                if (power is OnMonsterDeathPower) {
-                    if ((power as OnMonsterDeathPower).ifStopOwnerDeathWhenOwnerIsMonster()) {
+            for (power in __instance.powers)
+            {
+                if (power is OnMonsterDeathPower)
+                {
+                    if ((power as OnMonsterDeathPower).ifStopOwnerDeathWhenOwnerIsMonster())
+                    {
                         return SpireReturn.Return()
                     }
                 }
             }
-            for (relic in AbstractDungeon.player.relics) {
-                if (relic is OnMonsterDeathRelic) {
-                    if ((relic as OnMonsterDeathRelic).ifStopMonsterDeath(__instance)) {
+            for (relic in AbstractDungeon.player.relics)
+            {
+                if (relic is OnMonsterDeathRelic)
+                {
+                    if ((relic as OnMonsterDeathRelic).ifStopMonsterDeath(__instance))
+                    {
                         return SpireReturn.Return()
                     }
                 }

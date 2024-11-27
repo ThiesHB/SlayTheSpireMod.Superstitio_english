@@ -24,14 +24,17 @@ import superstitioapi.utils.setDescriptionArgs
 import java.util.*
 import java.util.stream.Collectors
 
-class BodyModification_CutOff : MasoCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET) {
-    init {
+class BodyModification_CutOff : MasoCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET)
+{
+    init
+    {
         this.setupMagicNumber(MAGIC, UPGRADE_MAGIC)
         this.setupBlock(BLOCK, UPGRADE_BLOCK, RemoveDelayHpLoseBlock())
         CardModifierManager.addModifier(this, BodyModificationTag())
     }
 
-    override fun use(player: AbstractPlayer?, monster: AbstractMonster?) {
+    override fun use(player: AbstractPlayer?, monster: AbstractMonster?)
+    {
         val bodyParts = ArrayList<AbstractCard>()
         if (!AbstractDungeon.player.hasPower(LostBodyPart_Arm.POWER_ID)) bodyParts.add(
             BodyModification_CutOff_Chose(LostBodyPart_Arm())
@@ -54,29 +57,36 @@ class BodyModification_CutOff : MasoCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_
         this.addToBot(ChooseOneAction(bodyParts))
     }
 
-    override fun upgradeAuto() {
+    override fun upgradeAuto()
+    {
     }
 
-    class BodyModification_CutOffPower(amount: Int) : EasyBuildAbstractPowerForPowerCard(amount) {
-        override fun atDamageFinalGive(damage: Float, type: DamageType): Float {
+    class BodyModification_CutOffPower(amount: Int) : EasyBuildAbstractPowerForPowerCard(amount)
+    {
+        override fun atDamageFinalGive(damage: Float, type: DamageType): Float
+        {
             return super.atDamageFinalGive(damage + damage * this.amount / PERCENTAGE, type)
         }
 
-        override fun atDamageFinalGive(damage: Float, type: DamageType, card: AbstractCard): Float {
+        override fun atDamageFinalGive(damage: Float, type: DamageType, card: AbstractCard): Float
+        {
             return super.atDamageFinalGive(damage, type, card)
         }
 
-        override fun updateDescriptionArgs() {
+        override fun updateDescriptionArgs()
+        {
             setDescriptionArgs(amount)
         }
 
         override fun getDesc(): String = powerCard.cardStrings.getEXTENDED_DESCRIPTION(0)
 
-        override fun makePowerCard(): SuperstitioCard {
+        override fun makePowerCard(): SuperstitioCard
+        {
             return BodyModification_CutOff()
         }
 
-        companion object {
+        companion object
+        {
             const val PERCENTAGE: Int = 100
         }
     }
@@ -85,12 +95,15 @@ class BodyModification_CutOff : MasoCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_
     class BodyModification_CutOff_Chose @JvmOverloads constructor(private val lostBodyPart: LostBodyPart? = null) :
         AbstractTempCard(
             ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET
-        ), HasMultiCardsToPreview {
+        ), HasMultiCardsToPreview
+    {
         override val multiCardsToPreview: MutableList<AbstractCard> = ArrayList()
         override var cardsToPreviewTimer = 0.0f
 
-        init {
-            if (lostBodyPart != null) {
+        init
+        {
+            if (lostBodyPart != null)
+            {
                 this.name = lostBodyPart.name
                 this.rawDescription = lostBodyPart.description
                 CardUtility.AllCardInBattle().forEach { card: AbstractCard ->
@@ -107,28 +120,34 @@ class BodyModification_CutOff : MasoCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_
             }
         }
 
-        override fun update() {
+        override fun update()
+        {
             super<AbstractTempCard>.update()
             super<HasMultiCardsToPreview>.update()
         }
 
-        override fun use(player: AbstractPlayer?, monster: AbstractMonster?) {
+        override fun use(player: AbstractPlayer?, monster: AbstractMonster?)
+        {
             this.onChoseThisOption()
         }
 
-        override fun onChoseThisOption() {
+        override fun onChoseThisOption()
+        {
             if (lostBodyPart != null)
                 addToBot_applyPower(lostBodyPart)
         }
 
-        override fun upgradeAuto() {
+        override fun upgradeAuto()
+        {
         }
 
-        override fun setCardsToPreview(cardsToPreview: AbstractCard) {
+        override fun setCardsToPreview(cardsToPreview: AbstractCard)
+        {
             this.cardsToPreview = cardsToPreview
         }
 
-        companion object {
+        companion object
+        {
             val ID: String = DataManager.MakeTextID(BodyModification_CutOff_Chose::class.java)
 
             val CARD_TYPE: CardType = CardType.POWER
@@ -141,7 +160,8 @@ class BodyModification_CutOff : MasoCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_
         }
     }
 
-    companion object {
+    companion object
+    {
         val ID: String = DataManager.MakeTextID(BodyModification_CutOff::class.java)
 
         val CARD_TYPE: CardType = CardType.POWER

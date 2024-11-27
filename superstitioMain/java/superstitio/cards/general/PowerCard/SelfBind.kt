@@ -7,20 +7,25 @@ import com.megacrit.cardcrawl.powers.StrengthPower
 import superstitio.DataManager
 import superstitio.cards.general.GeneralCard
 
-class SelfBind : GeneralCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET) {
-    init {
+class SelfBind : GeneralCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET)
+{
+    init
+    {
         this.setupMagicNumber(MAGIC, UPGRADE_MAGIC)
     }
 
-    override fun use(player: AbstractPlayer?, monster: AbstractMonster?) {
+    override fun use(player: AbstractPlayer?, monster: AbstractMonster?)
+    {
         addToBot_applyPower(StrengthPower(player, this.magicNumber))
         addToBot_applyPower(DexterityPower(player, -DECREASENum))
     }
 
-    override fun upgradeAuto() {
+    override fun upgradeAuto()
+    {
     }
 
-    companion object {
+    companion object
+    {
         val ID: String = DataManager.MakeTextID(SelfBind::class.java)
 
         val CARD_TYPE: CardType = CardType.POWER

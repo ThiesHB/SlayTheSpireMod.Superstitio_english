@@ -6,25 +6,31 @@ import com.megacrit.cardcrawl.monsters.AbstractMonster
 import superstitio.DataManager
 import superstitio.cards.lupa.LupaCard
 
-class SemenMagic : LupaCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET) {
-    init {
+class SemenMagic : LupaCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET)
+{
+    init
+    {
         this.setupDamage(DAMAGE, UPGRADE_DAMAGE)
         this.setupMagicNumber(MAGIC)
     }
 
-    override fun use(player: AbstractPlayer?, monster: AbstractMonster?) {
+    override fun use(player: AbstractPlayer?, monster: AbstractMonster?)
+    {
         if (!hasEnoughSemen(this.magicNumber)) return
         addToBot_dealDamage(monster, AttackEffect.LIGHTNING)
     }
 
-    override fun canUse(p: AbstractPlayer?, m: AbstractMonster?): Boolean {
+    override fun canUse(p: AbstractPlayer?, m: AbstractMonster?): Boolean
+    {
         return super.canUse(p, m) && hasEnoughSemen(this.magicNumber)
     }
 
-    override fun upgradeAuto() {
+    override fun upgradeAuto()
+    {
     }
 
-    companion object {
+    companion object
+    {
         val ID: String = DataManager.MakeTextID(SemenMagic::class.java)
 
         val CARD_TYPE: CardType = CardType.ATTACK

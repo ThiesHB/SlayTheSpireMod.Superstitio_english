@@ -13,20 +13,24 @@ import kotlin.math.max
 abstract class DelayHpLosePower_ApplyAtEndOfRound(private val OriginId: String, owner: AbstractCreature, amount: Int) :
     DelayHpLosePower(
         OriginId, owner, amount
-    ) {
+    )
+{
     private var Turn: Int
     private var atEnemyTurn = false
 
-    init {
+    init
+    {
         this.Turn = TURN_INIT
         this.updateUniqueID()
     }
 
-    fun updateUniqueID() {
+    fun updateUniqueID()
+    {
         this.ID = this.OriginId + this.Turn
     }
 
-    private fun addToBot_removeEachTurnPower(amount: Int, turnShouldRemove: Int): Int {
+    private fun addToBot_removeEachTurnPower(amount: Int, turnShouldRemove: Int): Int
+    {
         val targetPower = owner.powers.firstOrNull { power: AbstractPower? ->
             (power is DelayHpLosePower_ApplyAtEndOfRound && power.Turn == turnShouldRemove)
         }
@@ -36,11 +40,13 @@ abstract class DelayHpLosePower_ApplyAtEndOfRound(private val OriginId: String, 
         return max((amount - targetPower.amount).toDouble(), 0.0).toInt()
     }
 
-    override fun checkShouldInvisibleTips(): Boolean {
+    override fun checkShouldInvisibleTips(): Boolean
+    {
         return this.Turn > 0
     }
 
-    override fun updateDescriptionArgs() {
+    override fun updateDescriptionArgs()
+    {
         setDescriptionArgs(
             this.amount,
             findAll(
@@ -53,7 +59,8 @@ abstract class DelayHpLosePower_ApplyAtEndOfRound(private val OriginId: String, 
         )
     }
 
-    override fun InitializePostApplyThisPower(addedPower: DelayHpLosePower) {
+    override fun InitializePostApplyThisPower(addedPower: DelayHpLosePower)
+    {
         AutoDoneInstantAction.addToBotAbstract {
             findAll(this.owner, DelayHpLosePower::class.java).forEach(
                 Consumer(DelayHpLosePower::updateDescription)
@@ -69,8 +76,10 @@ abstract class DelayHpLosePower_ApplyAtEndOfRound(private val OriginId: String, 
     //        Turn--;
     //        atEnemyTurn = false;
     //    }
-    override fun atEndOfRound() {
-        if (Turn <= 0) {
+    override fun atEndOfRound()
+    {
+        if (Turn <= 0)
+        {
             addToBot_applyDamage()
             AutoDoneInstantAction.addToBotAbstract {
                 findAll(this.owner, DelayHpLosePower::class.java).forEach(
@@ -83,38 +92,45 @@ abstract class DelayHpLosePower_ApplyAtEndOfRound(private val OriginId: String, 
         this.updateDescription()
     }
 
-    override fun showDecreaseAmount(): Boolean {
+    override fun showDecreaseAmount(): Boolean
+    {
         return this.Turn <= 0
     }
 
-    override fun updateDescription() {
+    override fun updateDescription()
+    {
         this.updateUniqueID()
         super.updateDescription()
     }
 
-    override fun atEndOfTurn(isPlayer: Boolean) {
+    override fun atEndOfTurn(isPlayer: Boolean)
+    {
         atEnemyTurn = true
     }
 
-    override fun getColor(): Color {
+    override fun getColor(): Color
+    {
         if (Turn <= 0) return if (atEnemyTurn) ReadyToRemoveColor else ForAWhileColor
         return OriginColor
     }
 
-    override fun addToBot_removeDelayHpLoss(amount: Int, removeOther: Boolean): Int {
+    override fun addToBot_removeDelayHpLoss(amount: Int, removeOther: Boolean): Int
+    {
         if (!removeOther) return addToBot_removeEachTurnPower(amount, TURN_READY)
         var lastAmount = amount
         val maxTurn = owner.powers
             .filterIsInstance<DelayHpLosePower_ApplyAtEndOfRound>()
             .maxOfOrNull(DelayHpLosePower_ApplyAtEndOfRound::Turn) ?: 0
-        for (i in TURN_READY until maxTurn + 1) {
+        for (i in TURN_READY until maxTurn + 1)
+        {
             lastAmount = addToBot_removeEachTurnPower(lastAmount, i)
             if (lastAmount <= 0) break
         }
         return lastAmount
     }
 
-    companion object {
+    companion object
+    {
         private val ReadyToRemoveColor = Color(1.0f, 0.5f, 0.0f, 1.0f)
         private val ForAWhileColor = Color(0.9412f, 0.4627f, 0.5451f, 1.0f)
         private val OriginColor = Color(1.0f, 0.85f, 0.90f, 1.0f)

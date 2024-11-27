@@ -11,27 +11,33 @@ import java.util.function.Consumer
 class CardOrb_AtStartOfTurnEachTime(
     card: AbstractCard, cardGroupReturnAfterEvoke: CardGroup?, OrbCounter: CardUtility.CostSmart,
     val action: Consumer<CardOrb_AtStartOfTurnEachTime>
-) : CardOrb(card, cardGroupReturnAfterEvoke, OrbCounter), ICardOrb_EachTime {
-    protected fun actionAccept() {
+) : CardOrb(card, cardGroupReturnAfterEvoke, OrbCounter), ICardOrb_EachTime
+{
+    protected fun actionAccept()
+    {
         AutoDoneInstantAction.addToBotAbstract(VoidSupplier { action.accept(this) })
     }
 
-    override fun onStartOfTurn() {
+    override fun onStartOfTurn()
+    {
         orbCounter--
         if (orbCounter < 0) return
         actionAccept()
     }
 
-    override fun makeCopy(): AbstractOrb {
+    override fun makeCopy(): AbstractOrb
+    {
         return CardOrb_AtStartOfTurnEachTime(originCard, cardGroupReturnAfterEvoke, orbCounter, action)
     }
 
-    override fun forceAcceptAction(card: AbstractCard) {
+    override fun forceAcceptAction(card: AbstractCard)
+    {
         orbCounter--
         if (orbCounter < 0) return
         actionAccept()
     }
 
-    override fun onRemoveCard() {
+    override fun onRemoveCard()
+    {
     }
 }

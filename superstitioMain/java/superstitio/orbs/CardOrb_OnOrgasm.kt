@@ -14,20 +14,24 @@ abstract class CardOrb_OnOrgasm(
     cardGroupReturnAfterEvoke: CardGroup?,
     OrbCounter: CardUtility.CostSmart,
     protected val action: Consumer<CardOrb_OnOrgasm>
-) : CardOrb(card, cardGroupReturnAfterEvoke, OrbCounter), OnOrgasm_onOrgasm {
+) : CardOrb(card, cardGroupReturnAfterEvoke, OrbCounter), OnOrgasm_onOrgasm
+{
     var evokeOnEndOfTurn: Boolean = false
 
-    fun setDiscardOnEndOfTurn(): CardOrb_OnOrgasm {
+    fun setDiscardOnEndOfTurn(): CardOrb_OnOrgasm
+    {
         this.evokeOnEndOfTurn = true
         this.setTriggerDiscardIfMoveToDiscard()
         return this
     }
 
-    protected fun actionAccept() {
+    protected fun actionAccept()
+    {
         AutoDoneInstantAction.addToBotAbstract { action.accept(this) }
     }
 
-    override fun onEndOfTurn() {
+    override fun onEndOfTurn()
+    {
         if (!evokeOnEndOfTurn) return
         //        InBattleDataManager.getHangUpCardOrbGroup().ifPresent(group -> group.evokeOrb(this));
         setShouldRemove()
@@ -37,6 +41,7 @@ abstract class CardOrb_OnOrgasm(
 
     abstract override fun forceAcceptAction(card: AbstractCard)
 
-    override fun onRemoveCard() {
+    override fun onRemoveCard()
+    {
     }
 }

@@ -4,18 +4,21 @@ import com.megacrit.cardcrawl.characters.AbstractPlayer
 import com.megacrit.cardcrawl.monsters.AbstractMonster
 import superstitio.DataManager
 import superstitio.cards.general.GeneralCard
-import superstitio.cards.general.TempCard.*
+import superstitio.cards.general.TempCard.SexToy
 import superstitioapi.utils.ActionUtility
 
-class AddSexToy : GeneralCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET) {
+class AddSexToy : GeneralCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET)
+{
     //    private static final int UPGRADE_MAGIC = 1;
-    init {
+    init
+    {
         this.setupMagicNumber(MAGIC)
         this.exhaust = true
         this.cardsToPreview = SexToy()
     }
 
-    override fun use(player: AbstractPlayer?, monster: AbstractMonster?) {
+    override fun use(player: AbstractPlayer?, monster: AbstractMonster?)
+    {
         ActionUtility.addToBot_makeTempCardInBattle(
             SexToy(),
             ActionUtility.BattleCardPlace.Hand,
@@ -24,12 +27,14 @@ class AddSexToy : GeneralCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET) {
         )
     }
 
-    override fun upgradeAuto() {
+    override fun upgradeAuto()
+    {
 //        upgradeMagicNumber(UPGRADE_MAGIC);
         upgradeCardsToPreview()
     }
 
-    companion object {
+    companion object
+    {
         val ID: String = DataManager.MakeTextID(AddSexToy::class.java)
 
         val CARD_TYPE: CardType = CardType.SKILL

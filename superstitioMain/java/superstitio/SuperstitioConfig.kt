@@ -12,7 +12,8 @@ import com.megacrit.cardcrawl.helpers.FontHelper
 import com.megacrit.cardcrawl.helpers.ImageMaster
 import java.util.*
 
-object SuperstitioConfig {
+object SuperstitioConfig
+{
     private const val ENABLE_SFW_STRING = "enableSFW"
     private const val ENABLE_GURO_CHARACTER_STRING = "enableGuroCharacter"
     private const val ENABLE_PERFORMANCE_MODE = "enablePerformanceMode"
@@ -31,13 +32,15 @@ object SuperstitioConfig {
         private set
 
     @JvmStatic
-    fun loadConfig() {
+    fun loadConfig()
+    {
         theDefaultSettings.setProperty(ENABLE_SFW_STRING, "TRUE")
         theDefaultSettings.setProperty(ENABLE_GURO_CHARACTER_STRING, "FALSE")
         theDefaultSettings.setProperty(ENABLE_PERFORMANCE_MODE, "FALSE")
         theDefaultSettings.setProperty(ENABLE_ONLY_SHOW_CARD_NOT_GENERAL, "FALSE")
         theDefaultSettings.setProperty(isForcePlayGuroCharacter_STRING, "FALSE")
-        try {
+        try
+        {
             config = SpireConfig(
                 DataManager.getModID(),
                 DataManager.getModID() + "Config",
@@ -49,13 +52,16 @@ object SuperstitioConfig {
             isEnablePerformanceMode = config!!.getBool(ENABLE_PERFORMANCE_MODE)
             isEnableOnlyShowCardNotGeneral = config!!.getBool(ENABLE_ONLY_SHOW_CARD_NOT_GENERAL)
             isForcePlayGuroCharacter = config!!.getBool(isForcePlayGuroCharacter_STRING)
-        } catch (e: Exception) {
+        }
+        catch (e: Exception)
+        {
             Logger.error(e)
         }
     }
 
     @JvmStatic
-    fun setUpModOptions() {
+    fun setUpModOptions()
+    {
         Logger.run("Loading badge image and mod options")
         val badgeTexture = ImageMaster.loadImage(DataManager.makeImgFilesPath_UI("ModIcon"))
         setUpPanel()
@@ -70,21 +76,25 @@ object SuperstitioConfig {
     }
 
     @JvmStatic
-    fun isEnableSFW(): Boolean {
+    fun isEnableSFW(): Boolean
+    {
         if (SuperstitioModSetup.SEAL_MANUAL_SFW) return true
         return enableSFW
     }
 
-    fun isEnableGuroCharacter(): Boolean {
+    fun isEnableGuroCharacter(): Boolean
+    {
         return enableSFW || enableGuroCharacter
     }
 
-    fun setEnableGuroCharacter(value: Boolean) {
+    fun setEnableGuroCharacter(value: Boolean)
+    {
         enableGuroCharacter = value
         setConfigBool(ENABLE_GURO_CHARACTER_STRING, value)
     }
 
-    private fun setUpPanel() {
+    private fun setUpPanel()
+    {
         val settingXPos = 350.0f
         var settingYPos = 750.0f
         val lineSpacing = 50.0f
@@ -119,13 +129,16 @@ object SuperstitioConfig {
             { button: ModToggleButton ->
                 enableGuroCharacter = button.enabled
                 setEnableGuroCharacter(enableGuroCharacter)
-            }) {
-            override fun render(sb: SpriteBatch?) {
+            })
+        {
+            override fun render(sb: SpriteBatch?)
+            {
                 if (isEnableSFW()) return
                 super.render(sb)
             }
 
-            override fun update() {
+            override fun update()
+            {
                 if (isEnableSFW()) return
                 super.update()
             }
@@ -144,13 +157,16 @@ object SuperstitioConfig {
             { button: ModToggleButton ->
                 isForcePlayGuroCharacter = button.enabled
                 setConfigBool(isForcePlayGuroCharacter_STRING, isForcePlayGuroCharacter)
-            }) {
-            override fun render(sb: SpriteBatch?) {
+            })
+        {
+            override fun render(sb: SpriteBatch?)
+            {
                 if (isEnableSFW() || isEnableGuroCharacter()) return
                 super.render(sb)
             }
 
-            override fun update() {
+            override fun update()
+            {
                 if (isEnableSFW() || isEnableGuroCharacter()) return
                 super.update()
             }
@@ -191,11 +207,15 @@ object SuperstitioConfig {
         )
     }
 
-    private fun setConfigBool(enablePerformanceMode: String, enablePerformanceMode1: Boolean) {
-        try {
+    private fun setConfigBool(enablePerformanceMode: String, enablePerformanceMode1: Boolean)
+    {
+        try
+        {
             config!!.setBool(enablePerformanceMode, enablePerformanceMode1)
             config!!.save()
-        } catch (e: Exception) {
+        }
+        catch (e: Exception)
+        {
             Logger.error(e)
         }
     }

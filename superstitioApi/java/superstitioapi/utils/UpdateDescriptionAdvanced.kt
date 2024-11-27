@@ -5,7 +5,8 @@ package superstitioapi.utils
  * 使用方法：在updateDescriptionArgs中放入setDescriptionArgs函数即可使用
  * 使用前需要覆盖自身的updateDescription以接入，否则不会生效
  */
-interface UpdateDescriptionAdvanced {
+interface UpdateDescriptionAdvanced
+{
     fun updateDescriptionArgs()
 
     fun getDescriptionStrings(): String
@@ -15,13 +16,18 @@ interface UpdateDescriptionAdvanced {
 //    fun updateDescription()
 }
 
-fun UpdateDescriptionAdvanced.getFormattedDescription(): String {
+fun UpdateDescriptionAdvanced.getFormattedDescription(): String
+{
     this.updateDescriptionArgs()
     var string = getDescriptionStrings()
-    if (descriptionArgs != null) {
-        string = if (descriptionArgs!!.isNotEmpty()) {
+    if (descriptionArgs != null)
+    {
+        string = if (descriptionArgs!!.isNotEmpty())
+        {
             String.format(string, *descriptionArgs!!)
-        } else {
+        }
+        else
+        {
             String.format(string)
         }
     }
@@ -29,6 +35,7 @@ fun UpdateDescriptionAdvanced.getFormattedDescription(): String {
     return string
 }
 
-fun UpdateDescriptionAdvanced.setDescriptionArgs(vararg args: Any) {
+fun UpdateDescriptionAdvanced.setDescriptionArgs(vararg args: Any)
+{
     descriptionArgs = args
 }

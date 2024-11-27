@@ -13,54 +13,69 @@ import superstitio.powers.AbstractSuperstitioPower
 import superstitio.powers.EasyBuildAbstractPowerForPowerCard
 import superstitioapi.utils.setDescriptionArgs
 
-class SlimeGirlMode : AbstractTempCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET) {
-    init {
+class SlimeGirlMode : AbstractTempCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET)
+{
+    init
+    {
         this.setupMagicNumber(MAGIC)
     }
 
-    override fun use(player: AbstractPlayer?, monster: AbstractMonster?) {
+    override fun use(player: AbstractPlayer?, monster: AbstractMonster?)
+    {
         this.onChoseThisOption()
     }
 
-    override fun onChoseThisOption() {
+    override fun onChoseThisOption()
+    {
         addToBot_applyPower(SlimeGirlModePower(this.magicNumber))
     }
 
-    override fun upgradeAuto() {
+    override fun upgradeAuto()
+    {
     }
 
-    class SlimeGirlModePower(amount: Int) : EasyBuildAbstractPowerForPowerCard(amount) {
-        override fun atStartOfTurn() {
+    class SlimeGirlModePower(amount: Int) : EasyBuildAbstractPowerForPowerCard(amount)
+    {
+        override fun atStartOfTurn()
+        {
             addToBot_applyPower(PlayerFlightPower(AbstractDungeon.player, this.amount))
         }
 
-        override fun updateDescriptionArgs() {
+        override fun updateDescriptionArgs()
+        {
             setDescriptionArgs(amount)
         }
 
-        override fun makePowerCard(): SuperstitioCard {
+        override fun makePowerCard(): SuperstitioCard
+        {
             return SlimeGirlMode()
         }
     }
 
-    class PlayerFlightPower(owner: AbstractPlayer, amount: Int) : AbstractSuperstitioPower(POWER_ID, owner, amount) {
-        private fun calculateDamageTakenAmount(damage: Float, type: DamageType): Float {
+    class PlayerFlightPower(owner: AbstractPlayer, amount: Int) : AbstractSuperstitioPower(POWER_ID, owner, amount)
+    {
+        private fun calculateDamageTakenAmount(damage: Float, type: DamageType): Float
+        {
             if (type == DamageType.NORMAL) return damage / 2.0f
             return damage
         }
 
-        override fun atDamageFinalReceive(damage: Float, type: DamageType): Float {
+        override fun atDamageFinalReceive(damage: Float, type: DamageType): Float
+        {
             return this.calculateDamageTakenAmount(damage, type)
         }
 
-        override fun atStartOfTurn() {
+        override fun atStartOfTurn()
+        {
             //Nothing Happened
         }
 
-        override fun onAttacked(info: DamageInfo, damageAmount: Int): Int {
+        override fun onAttacked(info: DamageInfo, damageAmount: Int): Int
+        {
             val willLive =
                 this.calculateDamageTakenAmount(damageAmount.toFloat(), info.type) < owner.currentHealth.toFloat()
-            if (info.owner != null && info.type == DamageType.NORMAL && damageAmount > 0 && willLive) {
+            if (info.owner != null && info.type == DamageType.NORMAL && damageAmount > 0 && willLive)
+            {
                 this.flash()
                 this.addToBot(ReducePowerAction(this.owner, this.owner, this.ID, 1))
             }
@@ -68,24 +83,28 @@ class SlimeGirlMode : AbstractTempCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TA
             return damageAmount
         }
 
-        override fun onRemove() {
+        override fun onRemove()
+        {
             //Nothing Happened
         }
 
         //        public void playApplyPowerSfx() {
         //            CardCrawlGame.sound.play("POWER_FLIGHT", 0.05F);
         //        }
-        override fun updateDescriptionArgs() {
+        override fun updateDescriptionArgs()
+        {
             setDescriptionArgs(this.amount)
         }
 
 
-        companion object {
+        companion object
+        {
             val POWER_ID: String = DataManager.MakeTextID(PlayerFlightPower::class.java)
         }
     }
 
-    companion object {
+    companion object
+    {
         val ID: String = DataManager.MakeTextID(SlimeGirlMode::class.java)
 
         val CARD_TYPE: CardType = CardType.POWER

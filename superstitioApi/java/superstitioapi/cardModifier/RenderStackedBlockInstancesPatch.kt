@@ -27,7 +27,8 @@ import kotlin.math.min
  * 此类用于修改游戏中的渲染逻辑，以更准确地显示堆叠的格挡效果。
  * 它修改了如何显示生物的格挡数量，确保所有格挡修饰符都被考虑在内。
  */
-object RenderStackedBlockInstancesPatch {
+object RenderStackedBlockInstancesPatch
+{
     // 常量定义，用于确定格挡图标的位置和大小
     internal val BLOCK_ICON_X: Float = ReflectionHacks.getPrivateStatic(AbstractCreature::class.java, "BLOCK_ICON_X")
     internal val BLOCK_ICON_Y: Float = ReflectionHacks.getPrivateStatic(AbstractCreature::class.java, "BLOCK_ICON_Y")
@@ -42,11 +43,13 @@ object RenderStackedBlockInstancesPatch {
      * @param creature 给定的生物
      * @return 包含BlockStackDividedElement的列表，每个元素代表一个格挡实例
      */
-    private fun makeAllBlockModifierIntoDrawElement(creature: AbstractCreature): List<BlockStackDividedElement> {
+    private fun makeAllBlockModifierIntoDrawElement(creature: AbstractCreature): List<BlockStackDividedElement>
+    {
         // 获取所有格挡实例并创建对应的绘制元素
         val instances: List<BlockInstance?> = getAllBlockInstances(creature)
         val list: MutableList<BlockStackDividedElement> = ArrayList()
-        for (blockInstance in instances) {
+        for (blockInstance in instances)
+        {
             val blockElement = BlockStackDividedElement(creature, blockInstance)
             list.add(blockElement)
         }
@@ -60,7 +63,8 @@ object RenderStackedBlockInstancesPatch {
      * @param creature 目标生物
      * @return 包含所有格挡效果的BlockInstance列表
      */
-    private fun getAllBlockInstances(creature: AbstractCreature): MutableList<BlockInstance> {
+    private fun getAllBlockInstances(creature: AbstractCreature): MutableList<BlockInstance>
+    {
         // 合并生物的格挡实例和可以渲染为格挡效果的Power
         val blockInstances = BlockModifierManager.blockInstances(creature)
         val newBlockInstances = ArrayList<BlockInstance>()
@@ -80,7 +84,8 @@ object RenderStackedBlockInstancesPatch {
      * @param x        开始渲染的x坐标
      * @param y        开始渲染的y坐标
      */
-    private fun DrawBlocks(creature: AbstractCreature, sb: SpriteBatch, x: Float, y: Float) {
+    private fun DrawBlocks(creature: AbstractCreature, sb: SpriteBatch, x: Float, y: Float)
+    {
         // 获取渲染格挡所需的设置和颜色
         val blockOffset = ReflectionHacks.getPrivate<Float>(creature, AbstractCreature::class.java, "blockOffset")
         val blockScale = ReflectionHacks.getPrivate<Float>(creature, AbstractCreature::class.java, "blockScale")
@@ -95,7 +100,8 @@ object RenderStackedBlockInstancesPatch {
         if (elements == null || elements.isEmpty() || allBlocks.size != elements.size || !elements.stream()
                 .map { element: BlockStackDividedElement? -> element!!.blockInstance }
                 .allMatch(allBlocks::contains)
-        ) {
+        )
+        {
             elements = makeAllBlockModifierIntoDrawElement(creature)
         }
 
@@ -103,7 +109,8 @@ object RenderStackedBlockInstancesPatch {
 
         // 遍历并渲染每个格挡元素
         var offsetY = 0
-        for (element in elements) {
+        for (element in elements)
+        {
             element.move(x + BLOCK_ICON_X - 32.0f, y + BLOCK_ICON_Y - 32.0f + blockOffset + offsetY)
             element.update()
             element.renderBlockIcon(sb, blockScale, blockOutlineColor, blockTextColor)
@@ -116,19 +123,23 @@ object RenderStackedBlockInstancesPatch {
 
     class BlockStackDividedElement //            this.tips.addAll(Arrays.asList(tips));
         (private val owner: AbstractCreature, val blockInstance: BlockInstance?) :
-        ClickableUIElement(blankTex, 0.0f, 0.0f, baseWidth, baseHeight) {
+        ClickableUIElement(blankTex, 0.0f, 0.0f, baseWidth, baseHeight)
+    {
         private val tip: PowerTip? = null
         private var HoveredTimer = HOVERED_TIMER_INIT
 
-        fun move(x: Float, y: Float) {
+        fun move(x: Float, y: Float)
+        {
             this.move(x, y, 0.0f)
         }
 
-        fun setHitboxHeight(height: Float) {
+        fun setHitboxHeight(height: Float)
+        {
             hitbox.resize(baseWidth, baseHeight + height)
         }
 
-        fun renderBlockIcon(sb: SpriteBatch, blockScale: Float, blockOutlineColor: Color?, blockTextColor: Color?) {
+        fun renderBlockIcon(sb: SpriteBatch, blockScale: Float, blockOutlineColor: Color?, blockTextColor: Color?)
+        {
             this.render(sb)
 
             val IconColor = if (blockInstance!!.blockColor != null) blockInstance.blockColor else blockOutlineColor!!
@@ -136,7 +147,8 @@ object RenderStackedBlockInstancesPatch {
 
             val tmpIcon = IconColor.a
             val tmpText = TextColor.a
-            if (hitbox.hovered) {
+            if (hitbox.hovered)
+            {
                 IconColor.a *= HoveredTimer
                 TextColor.a *= HoveredTimer
             }
@@ -165,7 +177,8 @@ object RenderStackedBlockInstancesPatch {
             )
         }
 
-        private fun move(x: Float, y: Float, d: Float) {
+        private fun move(x: Float, y: Float, d: Float)
+        {
             this.setX(x - d * Settings.scale)
             this.setY(y - d * Settings.scale)
         }
@@ -173,8 +186,10 @@ object RenderStackedBlockInstancesPatch {
         private val blockAmount: Int
             get() = blockInstance!!.blockAmount
 
-        override fun onHover() {
-            if (HoveredTimer >= HOVERED_TIMER_MIN) {
+        override fun onHover()
+        {
+            if (HoveredTimer >= HOVERED_TIMER_MIN)
+            {
                 HoveredTimer -= Gdx.graphics.deltaTime
             }
             val tips = ArrayList<PowerTip>()
@@ -187,17 +202,20 @@ object RenderStackedBlockInstancesPatch {
             )
         }
 
-        override fun onUnhover() {
+        override fun onUnhover()
+        {
             if (HoveredTimer < HOVERED_TIMER_INIT) HoveredTimer = min(
                 (HoveredTimer + Gdx.graphics.deltaTime).toDouble(),
                 HOVERED_TIMER_INIT.toDouble()
             ).toFloat()
         }
 
-        override fun onClick() {
+        override fun onClick()
+        {
         }
 
-        companion object {
+        companion object
+        {
             const val HOVERED_TIMER_INIT: Float = 1.0f
             const val HOVERED_TIMER_MIN: Float = 0.2f
             private val baseHeight = 64.0f * Settings.scale
@@ -206,32 +224,38 @@ object RenderStackedBlockInstancesPatch {
     }
 
     @SpirePatch2(clz = AbstractCreature::class, method = "<class>")
-    object BlockStackElementField {
+    object BlockStackElementField
+    {
         @JvmField
         var element: SpireField<List<BlockStackDividedElement>?> = SpireField<List<BlockStackDividedElement>?> { null }
+
         @JvmField
         var forceDrawBlock: SpireField<Boolean> = SpireField<Boolean> { false }
     }
 
     @SpirePatch(clz = RenderStackedIcons::class, method = "pls")
-    object BlockStackPatchStslib {
+    object BlockStackPatchStslib
+    {
         @SpirePrefixPatch
         @JvmStatic
         fun Prefix(
             __instance: AbstractCreature, sb: SpriteBatch, x: Float, y: Float, ___BLOCK_ICON_X: Float,
             ___BLOCK_ICON_Y: Float, ___blockOffset: Float, ___blockTextColor: Color?, ___blockOutlineColor: Color?,
             ___blockScale: Float
-        ): SpireReturn<Void> {
+        ): SpireReturn<Void>
+        {
             DrawBlocks(__instance, sb, x, y)
             return SpireReturn.Return()
         }
     }
 
     @SpirePatch2(clz = AbstractCreature::class, method = "renderBlockIconAndValue")
-    object BlockStackPatchVanilla {
+    object BlockStackPatchVanilla
+    {
         @SpirePrefixPatch
         @JvmStatic
-        fun Prefix(__instance: AbstractCreature, sb: SpriteBatch?, x: Float, y: Float): SpireReturn<Void> {
+        fun Prefix(__instance: AbstractCreature, sb: SpriteBatch?, x: Float, y: Float): SpireReturn<Void>
+        {
             if (getAllBlockInstances(__instance).stream()
                     .allMatch { obj: BlockInstance? -> obj!!.defaultBlock() }
             ) return SpireReturn.Continue()
@@ -240,13 +264,17 @@ object RenderStackedBlockInstancesPatch {
     }
 
     @SpirePatch2(clz = AbstractCreature::class, method = "renderHealth")
-    object BlockStackForceShowPatch {
+    object BlockStackForceShowPatch
+    {
         @SpireInstrumentPatch
         @JvmStatic
-        fun Instrument(): ExprEditor {
-            return object : ExprEditor() {
+        fun Instrument(): ExprEditor
+        {
+            return object : ExprEditor()
+            {
                 @Throws(CannotCompileException::class)
-                override fun edit(m: FieldAccess) {
+                override fun edit(m: FieldAccess)
+                {
                     if (m.fieldName != "currentBlock" || !m.isReader) return
                     m.replace("{\$_ = " + BlockStackForceShowPatch::class.qualifiedName + ".GetBlockStack( $0 ) ;}")
                 }
@@ -254,11 +282,13 @@ object RenderStackedBlockInstancesPatch {
         }
 
         @JvmStatic
-        fun GetBlockStack(creature: AbstractCreature): Int {
+        fun GetBlockStack(creature: AbstractCreature): Int
+        {
             if (!BlockStackElementField.forceDrawBlock[creature]) return creature.currentBlock
             val totalBlock = getAllBlockInstances(creature).stream()
                 .mapToInt { obj: BlockInstance? -> obj!!.blockAmount }.sum()
-            if (totalBlock <= 0) {
+            if (totalBlock <= 0)
+            {
                 BlockStackElementField.forceDrawBlock[creature] = false
                 return creature.currentBlock
             }

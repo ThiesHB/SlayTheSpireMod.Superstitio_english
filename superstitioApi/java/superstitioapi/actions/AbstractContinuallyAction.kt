@@ -4,8 +4,10 @@ import com.megacrit.cardcrawl.actions.AbstractGameAction
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon
 import superstitioapi.utils.ActionUtility
 
-abstract class AbstractContinuallyAction(actionType: ActionType?, duration: Float) : AbstractGameAction() {
-    init {
+abstract class AbstractContinuallyAction(actionType: ActionType?, duration: Float) : AbstractGameAction()
+{
+    init
+    {
         this.actionType = actionType
         this.startDuration = duration
         this.duration = duration
@@ -35,20 +37,25 @@ abstract class AbstractContinuallyAction(actionType: ActionType?, duration: Floa
      */
     protected abstract fun EndAction()
 
-    fun addToBot() {
+    fun addToBot()
+    {
         AbstractDungeon.actionManager.addToBottom(this)
     }
 
-    fun addToTop() {
+    fun addToTop()
+    {
         AbstractDungeon.actionManager.addToTop(this)
     }
 
-    override fun update() {
-        if (isDoneCheck) {
+    override fun update()
+    {
+        if (isDoneCheck)
+        {
             this.isDone = true
             return
         }
-        if (ActionUtility.isNotInBattle) {
+        if (ActionUtility.isNotInBattle)
+        {
             this.isDone = true
             return
         }

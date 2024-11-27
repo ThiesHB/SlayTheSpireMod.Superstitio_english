@@ -11,24 +11,29 @@ import superstitioapi.SuperstitioApiSetup
 import superstitioapi.actions.AutoDoneInstantAction
 
 
-class Fuck_Anal : GeneralCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET), FuckJob_Card {
-    init {
+class Fuck_Anal : GeneralCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET), FuckJob_Card
+{
+    init
+    {
         FuckJob_Card.initFuckJobCard(this)
         this.setupDamage(DAMAGE, UPGRADE_DAMAGE)
         this.setupMagicNumber(MAGIC, UPGRADE_MAGIC)
     }
 
-    override fun upgradeAuto() {
+    override fun upgradeAuto()
+    {
     }
 
-    override fun use(player: AbstractPlayer?, monster: AbstractMonster?) {
+    override fun use(player: AbstractPlayer?, monster: AbstractMonster?)
+    {
         addToBot_dealDamage(monster!!, SuperstitioApiSetup.DamageEffect.HeartMultiInOne)
         AutoDoneInstantAction.addToBotAbstract {
             monster.powers.filterIsInstance<SexualDamage>()
                 .firstOrNull()
                 ?.let { sexualDamage: SexualDamage ->
                     addToBot_applyPower(
-                        SexualDamage(monster,
+                        SexualDamage(
+                            monster,
                             (sexualDamage.amount * DAMAGE_RATE * this.magicNumber).toInt(),
                             AbstractDungeon.player
                         )
@@ -37,7 +42,8 @@ class Fuck_Anal : GeneralCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET), Fu
         }
     }
 
-    companion object {
+    companion object
+    {
         val ID: String = DataManager.MakeTextID(Fuck_Anal::class.java)
 
         val CARD_TYPE: CardType = CardType.ATTACK

@@ -17,72 +17,91 @@ class SuperstitioModSubscriber : PostExhaustSubscriber, StartGameSubscriber, Rel
     PostPowerApplySubscriber, PostCreateStartingDeckSubscriber, PostCreateStartingRelicsSubscriber,
     PostBattleSubscriber, PostDungeonInitializeSubscriber, OnStartBattleSubscriber, OnPlayerTurnStartSubscriber,
     OnCardUseSubscriber, OnPowersModifiedSubscriber, PostDrawSubscriber, PostEnergyRechargeSubscriber,
-    PreMonsterTurnSubscriber {
-    init {
+    PreMonsterTurnSubscriber
+{
+    init
+    {
         BaseMod.subscribe(this)
         Logger.run("Done $this subscribing")
     }
 
-    override fun receivePostExhaust(abstractCard: AbstractCard?) {
+    override fun receivePostExhaust(abstractCard: AbstractCard?)
+    {
     }
 
-    override fun receiveStartGame() {
+    override fun receiveStartGame()
+    {
         //        if (player instanceof BaseCharacter) {
 //            if (!player.hasRelic(JokeDescription.ID))
 //                RelicLibrary.getRelic(JokeDescription.ID).makeCopy().instantObtain(player, player.relics.size(), false);
 //        }
     }
 
-    override fun receiveCardUsed(abstractCard: AbstractCard?) {
+    override fun receiveCardUsed(abstractCard: AbstractCard?)
+    {
     }
 
-    override fun receivePowersModified() {
+    override fun receivePowersModified()
+    {
     }
 
-    override fun receivePostBattle(abstractRoom: AbstractRoom?) {
+    override fun receivePostBattle(abstractRoom: AbstractRoom?)
+    {
         InBattleDataManager.ClearOnEndOfBattle()
     }
 
-    override fun receivePostDraw(abstractCard: AbstractCard?) {
+    override fun receivePostDraw(abstractCard: AbstractCard?)
+    {
     }
 
-    override fun receivePostDungeonInitialize() {
+    override fun receivePostDungeonInitialize()
+    {
     }
 
-    override fun receivePostEnergyRecharge() {
+    override fun receivePostEnergyRecharge()
+    {
     }
 
     override fun receivePostPowerApplySubscriber(
         abstractPower: AbstractPower?, target: AbstractCreature?, source: AbstractCreature?
-    ) {
+    )
+    {
     }
 
-    override fun receiveRelicGet(abstractRelic: AbstractRelic?) {
+    override fun receiveRelicGet(abstractRelic: AbstractRelic?)
+    {
     }
 
-    override fun receiveOnBattleStart(abstractRoom: AbstractRoom?) {
+    override fun receiveOnBattleStart(abstractRoom: AbstractRoom?)
+    {
         InBattleDataManager.InitializeAtStartOfBattle()
     }
 
-    override fun receiveOnPlayerTurnStart() {
+    override fun receiveOnPlayerTurnStart()
+    {
         InBattleDataManager.InitializeAtStartOfTurn()
     }
 
-    override fun receivePreMonsterTurn(abstractMonster: AbstractMonster?): Boolean {
+    override fun receivePreMonsterTurn(abstractMonster: AbstractMonster?): Boolean
+    {
         return true
     }
 
-    override fun receivePostCreateStartingDeck(playerClass: PlayerClass?, cardGroup: CardGroup?) {
+    override fun receivePostCreateStartingDeck(playerClass: PlayerClass?, cardGroup: CardGroup?)
+    {
     }
 
-    override fun receivePostCreateStartingRelics(playerClass: PlayerClass?, arrayList: ArrayList<String>?) {
+    override fun receivePostCreateStartingRelics(playerClass: PlayerClass?, arrayList: ArrayList<String>?)
+    {
     }
 
-    companion object {
+    companion object
+    {
         var hasHadInMonsterTurn: Boolean = false
 
         @JvmStatic
-        fun initialize() {
+        fun initialize()
+        {
             val mod = SuperstitioModSubscriber()
         }
     }

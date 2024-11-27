@@ -11,21 +11,26 @@ import superstitio.relics.SuperstitioRelic
 import superstitio.relics.interFace.Countup
 import superstitioapi.utils.setDescriptionArgs
 
-class Prostitution : SuperstitioRelic(ID, RELIC_TIER, LANDING_SOUND), Countup {
-    override fun atBattleStart() {
+class Prostitution : SuperstitioRelic(ID, RELIC_TIER, LANDING_SOUND), Countup
+{
+    override fun atBattleStart()
+    {
         setCounter(Countup.Zero)
     }
 
-    override fun onUseCard(targetCard: AbstractCard?, useCardAction: UseCardAction?) {
+    override fun onUseCard(targetCard: AbstractCard?, useCardAction: UseCardAction?)
+    {
         if (targetCard is FuckJob_Card)
             CountAdd()
     }
 
-    override fun updateDescriptionArgs() {
+    override fun updateDescriptionArgs()
+    {
         setDescriptionArgs(MaxNum, CashAmount)
     }
 
-    override fun onCountMax() {
+    override fun onCountMax()
+    {
         this.flash()
         AbstractDungeon.effectList.add(RainingGoldEffect(CashAmount * 2, true))
         this.addToBot(RelicAboveCreatureAction(AbstractDungeon.player, this))
@@ -34,7 +39,8 @@ class Prostitution : SuperstitioRelic(ID, RELIC_TIER, LANDING_SOUND), Countup {
 
     override fun getMaxNum(): Int = MaxNum
 
-    companion object {
+    companion object
+    {
         val ID: String = DataManager.MakeTextID(Prostitution::class.java)
 
         // 遗物类型

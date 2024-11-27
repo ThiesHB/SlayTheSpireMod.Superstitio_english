@@ -16,59 +16,75 @@ import superstitio.powers.EasyBuildAbstractPowerForPowerCard
 import superstitioapi.utils.setDescriptionArgs
 
 //造成攻击伤害或失去生命时，获得 !M! 临时力量
-class SadismForm : MasoCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET) {
-    init {
+class SadismForm : MasoCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET)
+{
+    init
+    {
         this.setupMagicNumber(MAGIC, UPGRADE_MAGIC)
     }
 
-    override fun use(player: AbstractPlayer?, monster: AbstractMonster?) {
+    override fun use(player: AbstractPlayer?, monster: AbstractMonster?)
+    {
         addToBot_applyPower(SadismFormPower(this.magicNumber))
     }
 
-    override fun upgradeAuto() {
+    override fun upgradeAuto()
+    {
     }
 
-    class SadismFormPower(amount: Int) : EasyBuildAbstractPowerForPowerCard(amount) {
-        override fun updateDescriptionArgs() {
+    class SadismFormPower(amount: Int) : EasyBuildAbstractPowerForPowerCard(amount)
+    {
+        override fun updateDescriptionArgs()
+        {
             setDescriptionArgs(this.amount)
         }
 
-        override fun wasHPLost(info: DamageInfo, damageAmount: Int) {
+        override fun wasHPLost(info: DamageInfo, damageAmount: Int)
+        {
             if (info.type == CanOnlyDamageDamageType.UnBlockAbleDamageType) return
-            if (damageAmount > 0) {
+            if (damageAmount > 0)
+            {
                 addToBot_applyPower(GetTempStrengthNextTurn(this.owner, this.amount))
             }
         }
 
-        override fun onAttack(info: DamageInfo, damageAmount: Int, target: AbstractCreature) {
-            if (damageAmount > 0 && info.type == DamageType.NORMAL) {
+        override fun onAttack(info: DamageInfo, damageAmount: Int, target: AbstractCreature)
+        {
+            if (damageAmount > 0 && info.type == DamageType.NORMAL)
+            {
                 addToBot_applyPower(GetTempStrengthNextTurn(this.owner, this.amount))
             }
         }
 
-        override fun makePowerCard(): SuperstitioCard {
+        override fun makePowerCard(): SuperstitioCard
+        {
             return SadismForm()
         }
     }
 
     class GetTempStrengthNextTurn(owner: AbstractCreature, amount: Int) :
-        AbstractSuperstitioPower(POWER_ID, owner, amount) {
-        override fun updateDescriptionArgs() {
+        AbstractSuperstitioPower(POWER_ID, owner, amount)
+    {
+        override fun updateDescriptionArgs()
+        {
             setDescriptionArgs(this.amount)
         }
 
-        override fun atStartOfTurn() {
+        override fun atStartOfTurn()
+        {
             addToBot_applyPower(StrengthPower(this.owner, this.amount))
             //            addToBot_applyPower(new LoseStrengthPower(this.owner, this.amount));
             addToBot_removeSpecificPower(this)
         }
 
-        companion object {
+        companion object
+        {
             val POWER_ID: String = DataManager.MakeTextID(GetTempStrengthNextTurn::class.java)
         }
     }
 
-    companion object {
+    companion object
+    {
         val ID: String = DataManager.MakeTextID(SadismForm::class.java)
 
         val CARD_TYPE: CardType = CardType.POWER

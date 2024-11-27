@@ -12,24 +12,29 @@ import superstitio.cards.general.AbstractTempCard
 import superstitioapi.utils.CreatureUtility
 import java.util.*
 
-class VulnerableTogether : AbstractTempCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET) {
-    init {
+class VulnerableTogether : AbstractTempCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET)
+{
+    init
+    {
         this.setupMagicNumber(MAGIC, UPGRADE_MAGIC)
         CardModifierManager.addModifier(this, ExhaustMod())
         CardModifierManager.addModifier(this, RetainMod())
     }
 
-    override fun use(player: AbstractPlayer?, monster: AbstractMonster?) {
+    override fun use(player: AbstractPlayer?, monster: AbstractMonster?)
+    {
         addToBot_applyPower(VulnerablePower(AbstractDungeon.player, this.magicNumber, false))
         Arrays.stream(CreatureUtility.getAllAliveMonsters()).forEach { creature: AbstractMonster? ->
             addToBot_applyPower(VulnerablePower(creature, this.magicNumber, false))
         }
     }
 
-    override fun upgradeAuto() {
+    override fun upgradeAuto()
+    {
     }
 
-    companion object {
+    companion object
+    {
         val ID: String = DataManager.MakeTextID(VulnerableTogether::class.java)
 
         val CARD_TYPE: CardType = CardType.SKILL

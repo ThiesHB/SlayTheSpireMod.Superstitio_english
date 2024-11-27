@@ -9,7 +9,8 @@ import superstitio.customStrings.interFace.*
 import superstitio.customStrings.stringsSet.ModifierStringsSet.ModifierStrings
 import java.util.stream.Collectors
 
-class ModifierStringsSet : HasTextID, HasOriginAndSFWVersion<ModifierStrings> {
+class ModifierStringsSet : HasTextID, HasOriginAndSFWVersion<ModifierStrings>
+{
     override val SfwVersion: ModifierStrings = ModifierStrings()
     override val OriginVersion: ModifierStrings = ModifierStrings()
     private var NAME: String? = null
@@ -22,15 +23,18 @@ class ModifierStringsSet : HasTextID, HasOriginAndSFWVersion<ModifierStrings> {
     private var EXTENDED_DESCRIPTION_SFW: Array<String>? = null
     override var textID: String? = null
 
-    fun getNAME(): String {
+    fun getNAME(): String
+    {
         return getFromRightVersion { strings: ModifierStrings? -> strings!!.NAME }
     }
 
-    fun getDESCRIPTION(): String {
+    fun getDESCRIPTION(): String
+    {
         return getFromRightVersion { strings: ModifierStrings? -> strings!!.DESCRIPTION }
     }
 
-    fun getBasicInfo(): String {
+    fun getBasicInfo(): String
+    {
         if (textID!!.endsWith("Block")) return CardCrawlGame.languagePack.getUIString(
             DataManager.MakeTextID(
                 "BlockModifier"
@@ -44,18 +48,21 @@ class ModifierStringsSet : HasTextID, HasOriginAndSFWVersion<ModifierStrings> {
         return basicInfo_Pure
     }
 
-    fun getEXTENDED_DESCRIPTION(index: Int): String {
+    fun getEXTENDED_DESCRIPTION(index: Int): String
+    {
         val EXTENDED_DESCRIPTION =
             getArrayFromRightVersion { strings: ModifierStrings? -> strings!!.EXTENDED_DESCRIPTION }
         if (index < EXTENDED_DESCRIPTION.size) return EXTENDED_DESCRIPTION[index]
-        else {
+        else
+        {
             Logger.warning("Can't find the index " + index + " in the EXTENDED_DESCRIPTION array of" + this.NAME)
             return ""
         }
         //        return getArrayFromRightVersion(strings -> strings.EXTENDED_DESCRIPTION);
     }
 
-    fun ToKeyWord(): Keyword {
+    fun ToKeyWord(): Keyword
+    {
         val keyword = Keyword()
         keyword.PROPER_NAME = this.getBasicInfo()
         keyword.NAMES = arrayOf(this.getNAME(), this.basicInfo_Pure)
@@ -66,39 +73,45 @@ class ModifierStringsSet : HasTextID, HasOriginAndSFWVersion<ModifierStrings> {
     private val basicInfo_Pure: String
         get() = getFromRightVersion { strings: ModifierStrings? -> strings!!.BASIC_INFO }
 
-    private fun toModifierNameReplaceRule(): WordReplace {
+    private fun toModifierNameReplaceRule(): WordReplace
+    {
         return WordReplace(this.NAME, this.NAME_SFW)
     }
 
-    override fun initialSelfBlack() {
+    override fun initialSelfBlack()
+    {
         this.NAME = "[MISSING_TITLE]"
         this.DESCRIPTION = "[MISSING_DESCRIPTION]"
         this.BASIC_INFO = "[MISSING_DESCRIPTION+]"
         this.EXTENDED_DESCRIPTION = LocalizedStrings.createMockStringArray(10)
     }
 
-    override fun initialOrigin(origin: ModifierStrings) {
+    override fun initialOrigin(origin: ModifierStrings)
+    {
         origin.NAME = NAME
         origin.BASIC_INFO = BASIC_INFO
         origin.DESCRIPTION = DESCRIPTION
         origin.EXTENDED_DESCRIPTION = EXTENDED_DESCRIPTION
     }
 
-    override fun initialSFW(sfw: ModifierStrings) {
+    override fun initialSFW(sfw: ModifierStrings)
+    {
         sfw.NAME = NAME_SFW
         sfw.BASIC_INFO = BASIC_INFO_SFW
         sfw.DESCRIPTION = DESCRIPTION_SFW
         sfw.EXTENDED_DESCRIPTION = EXTENDED_DESCRIPTION_SFW
     }
 
-    override fun getRightVersion(): ModifierStrings {
+    override fun getRightVersion(): ModifierStrings
+    {
         if (StringSetUtility.shouldReturnSFWVersion(SfwVersion.NAME)) return SfwVersion
         return OriginVersion
     }
 
     override fun getSubClass() = ModifierStrings::class.java
 
-    override fun setupSFWStringByWordReplace(replaceRules: List<WordReplace>) {
+    override fun setupSFWStringByWordReplace(replaceRules: List<WordReplace>)
+    {
         if (SfwVersion.NAME.isNullOrEmpty())
             SfwVersion.NAME =
                 WordReplace.replaceWord(OriginVersion.NAME, replaceRules)
@@ -122,7 +135,8 @@ class ModifierStringsSet : HasTextID, HasOriginAndSFWVersion<ModifierStrings> {
             this.EXTENDED_DESCRIPTION_SFW = SfwVersion.EXTENDED_DESCRIPTION
     }
 
-    override fun makeCopy(): HasDifferentVersionStringSet<ModifierStrings> {
+    override fun makeCopy(): HasDifferentVersionStringSet<ModifierStrings>
+    {
         val clone = ModifierStringsSet()
         clone.NAME = this.NAME
         clone.DESCRIPTION = this.DESCRIPTION
@@ -135,9 +149,11 @@ class ModifierStringsSet : HasTextID, HasOriginAndSFWVersion<ModifierStrings> {
         return clone
     }
 
-    override fun makeSFWCopy(): HasDifferentVersionStringSet<ModifierStrings> {
+    override fun makeSFWCopy(): HasDifferentVersionStringSet<ModifierStrings>
+    {
         val clone: HasDifferentVersionStringSet<ModifierStrings> = this.makeCopy()
-        if (clone is ModifierStringsSet) {
+        if (clone is ModifierStringsSet)
+        {
             clone.NAME = null
             clone.DESCRIPTION = null
             clone.BASIC_INFO = null
@@ -146,20 +162,24 @@ class ModifierStringsSet : HasTextID, HasOriginAndSFWVersion<ModifierStrings> {
         return clone
     }
 
-    class ModifierStrings {
+    class ModifierStrings
+    {
         var NAME: String? = null
         var BASIC_INFO: String? = null
         var DESCRIPTION: String? = null
         var EXTENDED_DESCRIPTION: Array<String>? = null
     }
 
-    companion object {
-        fun makeModifierNameReplaceRules(cards: List<ModifierStringsSet>): List<WordReplace> {
+    companion object
+    {
+        fun makeModifierNameReplaceRules(cards: List<ModifierStringsSet>): List<WordReplace>
+        {
             return cards.stream().map(ModifierStringsSet::toModifierNameReplaceRule)
                 .collect(Collectors.toList())
         }
 
-        fun MakeKeyWords(): Array<Keyword> {
+        fun MakeKeyWords(): Array<Keyword>
+        {
             return DataManager.modifiers.values
                 .map(ModifierStringsSet::ToKeyWord).toTypedArray()
         }

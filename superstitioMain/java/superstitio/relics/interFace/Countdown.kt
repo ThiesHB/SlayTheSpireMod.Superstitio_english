@@ -1,22 +1,27 @@
 package superstitio.relics.interFace
 
-interface Countdown {
-    fun setCounter(value:Int)
+interface Countdown
+{
+    fun setCounter(value: Int)
     fun getCounter(): Int
 
-    fun tryGetCounter(): Int {
-        if (getCounter() == DefaultCounterOfRelic) {
+    fun tryGetCounter(): Int
+    {
+        if (getCounter() == DefaultCounterOfRelic)
+        {
             setCounter(getStarterNum())
         }
         return getCounter()
     }
 
-    fun CountReduce() {
-        setCounter( tryGetCounter() - 1)
+    fun CountReduce()
+    {
+        setCounter(tryGetCounter() - 1)
         CountCheck()
     }
 
-    fun CountCheck() {
+    fun CountCheck()
+    {
         if (tryGetCounter() != Zero) return
         onCountZero()
         if (ShouldRepeat())
@@ -25,13 +30,15 @@ interface Countdown {
 
     fun onCountZero()
 
-    fun ShouldRepeat(): Boolean {
+    fun ShouldRepeat(): Boolean
+    {
         return true
     }
 
     fun getStarterNum(): Int
 
-    companion object {
+    companion object
+    {
         const val Zero: Int = 0
         const val DefaultCounterOfRelic: Int = -1
     }

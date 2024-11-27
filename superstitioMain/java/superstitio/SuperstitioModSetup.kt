@@ -33,10 +33,12 @@ import java.util.function.Consumer
 
 @SpireInitializer
 class SuperstitioModSetup : EditStringsSubscriber, EditRelicsSubscriber, EditCardsSubscriber, EditKeywordsSubscriber,
-    EditCharactersSubscriber, AddAudioSubscriber, PostInitializeSubscriber {
+    EditCharactersSubscriber, AddAudioSubscriber, PostInitializeSubscriber
+{
     var data: DataManager
 
-    init {
+    init
+    {
         BaseMod.subscribe(this)
         SuperstitioConfig.loadConfig()
 
@@ -90,7 +92,8 @@ class SuperstitioModSetup : EditStringsSubscriber, EditRelicsSubscriber, EditCar
         Logger.run("Adding mod settings")
     }
 
-    override fun receiveEditCharacters() {
+    override fun receiveEditCharacters()
+    {
         //添加角色到MOD中
         BaseMod.addCharacter(
             Maso(CardCrawlGame.playerName),
@@ -106,7 +109,8 @@ class SuperstitioModSetup : EditStringsSubscriber, EditRelicsSubscriber, EditCar
         )
     }
 
-    override fun receiveEditCards() {
+    override fun receiveEditCards()
+    {
         //将卡牌添加
         AutoAdd(MOD_NAME.lowercase(Locale.getDefault()))
             .packageFilter(SuperstitioCard::class.java)
@@ -114,14 +118,17 @@ class SuperstitioModSetup : EditStringsSubscriber, EditRelicsSubscriber, EditCar
             .cards()
     }
 
-    override fun receiveAddAudio() {
+    override fun receiveAddAudio()
+    {
     }
 
-    override fun receiveEditRelics() {
+    override fun receiveEditRelics()
+    {
         AutoAdd(MOD_NAME.lowercase(Locale.getDefault()))
             .packageFilter(SuperstitioRelic::class.java)
             .any(CustomRelic::class.java) { info: AutoAdd.Info, relic: CustomRelic ->
-                if (relic is BecomeInfoBlight) {
+                if (relic is BecomeInfoBlight)
+                {
                     InfoBlight.initInfoBlight(relic)
                     UnlockTracker.relicSeenPref.putInteger(relic.relicId, 1)
                     UnlockTracker.relicSeenPref.flush()
@@ -130,15 +137,18 @@ class SuperstitioModSetup : EditStringsSubscriber, EditRelicsSubscriber, EditCar
                 }
                 if (relic is SelfRelic) BaseMod.addRelicToCustomPool(relic, (relic as SelfRelic).relicOwner)
                 else BaseMod.addRelic(relic, RelicType.SHARED)
-                if (info.seen) {
+                if (info.seen)
+                {
                     UnlockTracker.markRelicAsSeen(relic.relicId)
                 }
             }
     }
 
-    override fun receiveEditStrings() {
+    override fun receiveEditStrings()
+    {
         Logger.run("Beginning to edit strings for mod with ID: " + DataManager.Companion.getModID())
-        if (!SEAL_MANUAL_SFW) {
+        if (!SEAL_MANUAL_SFW)
+        {
             StringsSetManager.loadAllStrings()
             BaseMod.loadCustomStringsFile(
                 CharacterStrings::class.java,
@@ -172,10 +182,13 @@ class SuperstitioModSetup : EditStringsSubscriber, EditRelicsSubscriber, EditCar
                     Settings.language, "monsters"
                 )
             )
-            if (SuperstitioConfig.isEnableSFW()) {
+            if (SuperstitioConfig.isEnableSFW())
+            {
                 makeSFWWordForOriginStrings()
             }
-        } else {
+        }
+        else
+        {
             ShaderUtility.canUseShader = false
             DataManager.loadCustomStringsFile(
                 "sfw/" + "cards" + "_sfw",
@@ -231,11 +244,15 @@ class SuperstitioModSetup : EditStringsSubscriber, EditRelicsSubscriber, EditCar
         Logger.run("Done editing strings")
     }
 
-    override fun receiveEditKeywords() {
-        if (!SEAL_MANUAL_SFW) {
+    override fun receiveEditKeywords()
+    {
+        if (!SEAL_MANUAL_SFW)
+        {
             StringsSetManager.makeKeyWords()
             DataManager.makeAllSFWLocalizationForCoder()
-        } else {
+        }
+        else
+        {
             val keywordsSFW: MutableList<SuperstitioKeyWord?> = ArrayList<SuperstitioKeyWord?>(
                 Arrays.asList(
                     *DataManager.makeJsonStringFromFile(
@@ -249,7 +266,8 @@ class SuperstitioModSetup : EditStringsSubscriber, EditRelicsSubscriber, EditCar
                 Consumer<Map<String, HasDifferentVersionStringSet<*>>>
                 { data: Map<String, HasDifferentVersionStringSet<*>> ->
                     data.forEach { (_: String, stringSet: HasDifferentVersionStringSet<*>) ->
-                        if (stringSet is WillMakeSuperstitioKeyWords) {
+                        if (stringSet is WillMakeSuperstitioKeyWords)
+                        {
                             stringSet.getWillMakeKEYWORDS().toList()?.let(keywordsSFW::addAll)
                         }
                     }
@@ -260,23 +278,28 @@ class SuperstitioModSetup : EditStringsSubscriber, EditRelicsSubscriber, EditCar
         }
     }
 
-    override fun receivePostInitialize() {
+    override fun receivePostInitialize()
+    {
         SuperstitioConfig.setUpModOptions()
     }
 
-    companion object {
+    companion object
+    {
         const val MOD_NAME: String = "Superstitio"
 
         /**
          * 人工启用sfw模式
          */
         const val SEAL_MANUAL_SFW: Boolean = false
+
         @JvmStatic
-        fun initialize() {
+        fun initialize()
+        {
             val mod = SuperstitioModSetup()
         }
 
-        private fun makeSFWWordForOriginStrings() {
+        private fun makeSFWWordForOriginStrings()
+        {
             val relicsStrings = ReflectionHacks.getPrivateStatic<Map<String, RelicStrings>>(
                 LocalizedStrings::class.java, "relics"
             )
@@ -286,7 +309,8 @@ class SuperstitioModSetup : EditStringsSubscriber, EditRelicsSubscriber, EditCar
                 if (s.contains(DataManager.Companion.getModID().lowercase(Locale.getDefault())) || s.contains(
                         DataManager.Companion.getModID()
                     )
-                ) {
+                )
+                {
                     Strings.FLAVOR = ""
                     wordReplaces.forEach(Consumer { wordReplace: WordReplace ->
                         DataManager.replaceStringsInObj(

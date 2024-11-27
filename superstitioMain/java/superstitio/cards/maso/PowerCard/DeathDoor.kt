@@ -15,24 +15,31 @@ import superstitio.powers.AbstractSuperstitioPower
 import superstitio.powers.EasyBuildAbstractPowerForPowerCard
 import superstitioapi.utils.setDescriptionArgs
 
-class DeathDoor : MasoCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET) {
-    init {
+class DeathDoor : MasoCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET)
+{
+    init
+    {
         this.setupMagicNumber(MAGIC, UPGRADE_MAGIC)
     }
 
-    override fun use(player: AbstractPlayer?, monster: AbstractMonster?) {
+    override fun use(player: AbstractPlayer?, monster: AbstractMonster?)
+    {
         addToBot_applyPower(DeathDoorPower(this.magicNumber))
     }
 
-    override fun upgradeAuto() {
+    override fun upgradeAuto()
+    {
     }
 
-    class DeathDoorPower(amount: Int) : EasyBuildAbstractPowerForPowerCard(amount), OnPlayerDeathPower {
-        override fun updateDescriptionArgs() {
+    class DeathDoorPower(amount: Int) : EasyBuildAbstractPowerForPowerCard(amount), OnPlayerDeathPower
+    {
+        override fun updateDescriptionArgs()
+        {
             setDescriptionArgs(this.amount)
         }
 
-        override fun onPlayerDeath(abstractPlayer: AbstractPlayer, damageInfo: DamageInfo): Boolean {
+        override fun onPlayerDeath(abstractPlayer: AbstractPlayer, damageInfo: DamageInfo): Boolean
+        {
             if (this.amount == 0) return true
             this.flash()
             addToBot(HealAction(this.owner, this.owner, 1))
@@ -41,28 +48,34 @@ class DeathDoor : MasoCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET) {
             return false
         }
 
-        override fun makePowerCard(): SuperstitioCard {
+        override fun makePowerCard(): SuperstitioCard
+        {
             return DeathDoor()
         }
     }
 
-    class AtDeathDoor(owner: AbstractCreature) : AbstractSuperstitioPower(POWER_ID, owner, -1) {
-        override fun updateDescriptionArgs() {
+    class AtDeathDoor(owner: AbstractCreature) : AbstractSuperstitioPower(POWER_ID, owner, -1)
+    {
+        override fun updateDescriptionArgs()
+        {
         }
 
-        override fun onAttackedToChangeDamage(info: DamageInfo, damageAmount: Int): Int {
+        override fun onAttackedToChangeDamage(info: DamageInfo, damageAmount: Int): Int
+        {
             this.flash()
             if (info.type == DamageType.HP_LOSS) return 0
             if (info.type == DamageType.THORNS) return 0
             return super.onAttackedToChangeDamage(info, damageAmount)
         }
 
-        companion object {
+        companion object
+        {
             val POWER_ID: String = DataManager.MakeTextID(AtDeathDoor::class.java)
         }
     }
 
-    companion object {
+    companion object
+    {
         val ID: String = DataManager.MakeTextID(DeathDoor::class.java)
 
         val CARD_TYPE: CardType = CardType.POWER

@@ -15,16 +15,19 @@ import superstitioapi.utils.setDescriptionArgs
 class DelayRemoveDelayHpLosePower(owner: AbstractCreature, amount: Int) :
     AbstractSuperstitioPower(POWER_ID, owner, amount),
     RenderAsBlockPower, InvisiblePower,
-    OnPostApplyThisPower<DelayRemoveDelayHpLosePower> {
+    OnPostApplyThisPower<DelayRemoveDelayHpLosePower>
+{
     override var _blockInstance: BlockInstance? = null
 
-    private fun makeBlockInstance(): BlockInstance {
+    private fun makeBlockInstance(): BlockInstance
+    {
         val block = ArrayList<AbstractBlockModifier>()
         block.add(DelayRemoveDelayHpLoseBlock())
         return BlockInstance(owner, amount, block)
     }
 
-    override fun atStartOfTurnPostDraw() {
+    override fun atStartOfTurnPostDraw()
+    {
         DelayHpLosePower.addToBot_removePower(
             DelayHpLosePower::class.java,
             amount,
@@ -34,23 +37,28 @@ class DelayRemoveDelayHpLosePower(owner: AbstractCreature, amount: Int) :
         addToBot_removeSpecificPower(this)
     }
 
-    override fun updateDescriptionArgs() {
+    override fun updateDescriptionArgs()
+    {
         setDescriptionArgs(this.amount)
     }
 
-    override fun getBlockInstance(): BlockInstance {
-        if (_blockInstance == null) {
+    override fun getBlockInstance(): BlockInstance
+    {
+        if (_blockInstance == null)
+        {
             this._blockInstance = makeBlockInstance()
         }
         return _blockInstance!!
     }
 
-    override fun InitializePostApplyThisPower(addedPower: DelayRemoveDelayHpLosePower) {
+    override fun InitializePostApplyThisPower(addedPower: DelayRemoveDelayHpLosePower)
+    {
         this._blockInstance = makeBlockInstance()
         RenderStackedBlockInstancesPatch.BlockStackElementField.forceDrawBlock[owner] = true
     }
 
-    companion object {
+    companion object
+    {
         val POWER_ID: String = DataManager.MakeTextID(DelayRemoveDelayHpLosePower::class.java)
     }
 }

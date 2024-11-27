@@ -12,12 +12,15 @@ class CardOrb_EachCardTrigger  //    private int triggerTime;
     cardGroupReturnAfterEvoke: CardGroup?,
     triggerTime: CardUtility.CostSmart,
     action_thisOrb_triggerCard: BiConsumer<CardOrb_CardTrigger, AbstractCard>
-) : CardOrb_CardTrigger(card, cardGroupReturnAfterEvoke, triggerTime, action_thisOrb_triggerCard), ICardOrb_EachTime {
-    override fun makeCopy(): AbstractOrb {
+) : CardOrb_CardTrigger(card, cardGroupReturnAfterEvoke, triggerTime, action_thisOrb_triggerCard), ICardOrb_EachTime
+{
+    override fun makeCopy(): AbstractOrb
+    {
         return CardOrb_EachCardTrigger(originCard, cardGroupReturnAfterEvoke, orbCounter, action)
     }
 
-    override fun onProperCardUsed_checkIfShouldApplyAction(card: AbstractCard?): Boolean {
+    override fun onProperCardUsed_checkIfShouldApplyAction(card: AbstractCard?): Boolean
+    {
         return true
     }
 }

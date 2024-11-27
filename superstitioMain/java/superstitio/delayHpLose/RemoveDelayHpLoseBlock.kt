@@ -6,8 +6,10 @@ import com.megacrit.cardcrawl.cards.DamageInfo
 import superstitio.DataManager
 import superstitio.cardModifier.modifiers.AbstractLupaBlock
 
-class RemoveDelayHpLoseBlock : AbstractLupaBlock(ID) {
-    override fun onThisBlockDamaged(info: DamageInfo, lostAmount: Int) {
+class RemoveDelayHpLoseBlock : AbstractLupaBlock(ID)
+{
+    override fun onThisBlockDamaged(info: DamageInfo, lostAmount: Int)
+    {
     }
 
     //    @Override
@@ -24,15 +26,18 @@ class RemoveDelayHpLoseBlock : AbstractLupaBlock(ID) {
     //                    (SpireField<TriPredicate<AbstractPlayer, DamageInfo, Integer>>) new SpireField(() -> null);
     //        }
     //    }
-    override fun makeCopy(): AbstractBlockModifier {
+    override fun makeCopy(): AbstractBlockModifier
+    {
         return RemoveDelayHpLoseBlock()
     }
 
-    override fun blockImageColor(): Color {
+    override fun blockImageColor(): Color
+    {
         return Color.PINK.cpy()
     }
 
-    companion object {
+    companion object
+    {
         val ID: String = DataManager.MakeTextID(RemoveDelayHpLoseBlock::class.java)
     }
 }

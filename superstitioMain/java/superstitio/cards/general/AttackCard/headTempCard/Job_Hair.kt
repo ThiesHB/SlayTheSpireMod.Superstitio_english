@@ -19,19 +19,23 @@ import superstitioapi.utils.ActionUtility
 import superstitioapi.utils.CardUtility
 
 class Job_Hair private constructor(damage: Int, upgradeDamage: Int) :
-    GeneralCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET), FuckJob_Card, GoSomewhereElseAfterUse {
-    constructor() : this(DAMAGE, UPGRADE_DAMAGE) {
+    GeneralCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET), FuckJob_Card, GoSomewhereElseAfterUse
+{
+    constructor() : this(DAMAGE, UPGRADE_DAMAGE)
+    {
         this.cardsToPreview = this.makeCardCopyWithDamageDecrease()
     }
 
-    init {
+    init
+    {
         FuckJob_Card.initFuckJobCard(this)
         this.setupDamage(damage, upgradeDamage)
         CardModifierManager.addModifier(this, EtherealMod())
         this.setupMagicNumber(MAGIC)
     }
 
-    private fun makeCardCopyWithDamageDecrease(): Job_Hair {
+    private fun makeCardCopyWithDamageDecrease(): Job_Hair
+    {
         val card = Job_Hair(DAMAGE, UPGRADE_DAMAGE)
         card.freeToPlayOnce = true
         CardModifierManager.addModifier(card, ExhaustMod())
@@ -39,17 +43,24 @@ class Job_Hair private constructor(damage: Int, upgradeDamage: Int) :
         return card
     }
 
-    override fun use(player: AbstractPlayer?, monster: AbstractMonster?) {
+    override fun use(player: AbstractPlayer?, monster: AbstractMonster?)
+    {
         addToBot_dealDamage(monster, SuperstitioApiSetup.DamageEffect.HeartMultiInOne)
     }
 
-    override fun upgradeAuto() {
+    override fun upgradeAuto()
+    {
         upgradeCardsToPreview()
     }
 
-    override fun afterInterruptMoveToCardGroup(cardGroup: CardGroup) {
+    override fun afterInterruptMoveToCardGroup(cardGroup: CardGroup)
+    {
         val job_hair = this.makeCardCopyWithDamageDecrease()
-        CardOrb_WaitCardTrigger(this, cardGroup, CardUtility.CostSmart(this.magicNumber)) { orb: CardOrb_CardTrigger, card: AbstractCard? ->
+        CardOrb_WaitCardTrigger(
+            this,
+            cardGroup,
+            CardUtility.CostSmart(this.magicNumber)
+        ) { orb: CardOrb_CardTrigger, card: AbstractCard? ->
             orb.StartHitCreature(AbstractDungeon.player)
             ActionUtility.addToBot_makeTempCardInBattle(job_hair, ActionUtility.BattleCardPlace.Hand, this.upgraded)
         }
@@ -59,7 +70,8 @@ class Job_Hair private constructor(damage: Int, upgradeDamage: Int) :
             .addToBot_HangCard()
     }
 
-    companion object {
+    companion object
+    {
         val ID: String = DataManager.MakeTextID(Job_Hair::class.java)
 
         val CARD_TYPE: CardType = CardType.ATTACK

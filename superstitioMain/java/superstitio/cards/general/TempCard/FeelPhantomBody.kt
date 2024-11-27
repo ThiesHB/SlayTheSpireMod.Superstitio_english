@@ -14,34 +14,41 @@ import superstitioapi.utils.ActionUtility
 import superstitioapi.utils.CreatureUtility
 
 class FeelPhantomBody @JvmOverloads constructor(private val sealCard: AbstractCard? = null) :
-    AbstractTempCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET) {
-    init {
+    AbstractTempCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET)
+{
+    init
+    {
         this.cardsToPreview = sealCard
         this.setupMagicNumber(MAGIC, UPGRADE_MAGIC)
         CardModifierManager.addModifier(this, ExhaustMod())
     }
 
-    override fun makeCopy(): AbstractCard {
+    override fun makeCopy(): AbstractCard
+    {
         if (sealCard != null) return FeelPhantomBody(sealCard)
         return super.makeCopy()
     }
 
-    override fun use(player: AbstractPlayer?, monster: AbstractMonster?) {
+    override fun use(player: AbstractPlayer?, monster: AbstractMonster?)
+    {
         addToBot_drawCards()
         addToBot(LoseHPAction(CreatureUtility.getRandomMonsterSafe(), AbstractDungeon.player, this.magicNumber))
     }
 
-    override fun triggerOnEndOfPlayerTurn() {
+    override fun triggerOnEndOfPlayerTurn()
+    {
         super.triggerOnEndOfPlayerTurn()
         addToTop(ExhaustSpecificCardAction(this, AbstractDungeon.player.hand))
         if (sealCard == null) return
         ActionUtility.addToTop_makeTempCardInBattle(sealCard, ActionUtility.BattleCardPlace.Hand, 1, sealCard.upgraded)
     }
 
-    override fun upgradeAuto() {
+    override fun upgradeAuto()
+    {
     }
 
-    companion object {
+    companion object
+    {
         val ID: String = DataManager.MakeTextID(FeelPhantomBody::class.java)
 
         val CARD_TYPE: CardType = CardType.STATUS
