@@ -1,6 +1,9 @@
 package superstitio
 
-import basemod.*
+import basemod.BaseMod
+import basemod.ModLabeledToggleButton
+import basemod.ModPanel
+import basemod.ModToggleButton
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
 import com.evacipated.cardcrawl.modthespire.lib.SpireConfig
 import com.megacrit.cardcrawl.core.CardCrawlGame
@@ -8,7 +11,6 @@ import com.megacrit.cardcrawl.core.Settings
 import com.megacrit.cardcrawl.helpers.FontHelper
 import com.megacrit.cardcrawl.helpers.ImageMaster
 import java.util.*
-import java.util.function.Consumer
 
 object SuperstitioConfig {
     private const val ENABLE_SFW_STRING = "enableSFW"
@@ -51,6 +53,7 @@ object SuperstitioConfig {
             Logger.error(e)
         }
     }
+
     @JvmStatic
     fun setUpModOptions() {
         Logger.run("Loading badge image and mod options")
@@ -65,6 +68,7 @@ object SuperstitioConfig {
             settingsPanel
         )
     }
+
     @JvmStatic
     fun isEnableSFW(): Boolean {
         if (SuperstitioModSetup.SEAL_MANUAL_SFW) return true
@@ -87,18 +91,19 @@ object SuperstitioConfig {
         val UIStrings = CardCrawlGame.languagePack.getUIString(DataManager.MakeTextID("OptionsMenu"))
         val SettingText = UIStrings.TEXT
 
-        settingsPanel.addUIElement(ModLabeledToggleButton(SettingText[0],
-            settingXPos,
-            settingYPos,
-            Settings.CREAM_COLOR,
-            FontHelper.charDescFont,
-            enableSFW,
-            settingsPanel,
-            { label: ModLabel? -> },
-            { button: ModToggleButton ->
-                enableSFW = button.enabled
-                setConfigBool(ENABLE_SFW_STRING, enableSFW)
-            })
+        settingsPanel.addUIElement(
+            ModLabeledToggleButton(SettingText[0],
+                settingXPos,
+                settingYPos,
+                Settings.CREAM_COLOR,
+                FontHelper.charDescFont,
+                enableSFW,
+                settingsPanel,
+                { },
+                { button: ModToggleButton ->
+                    enableSFW = button.enabled
+                    setConfigBool(ENABLE_SFW_STRING, enableSFW)
+                })
         )
 
         settingYPos -= 5 * lineSpacing
@@ -110,8 +115,8 @@ object SuperstitioConfig {
             FontHelper.charDescFont,
             enableGuroCharacter,
             settingsPanel,
-            Consumer { label: ModLabel? -> },
-            Consumer { button: ModToggleButton ->
+            { },
+            { button: ModToggleButton ->
                 enableGuroCharacter = button.enabled
                 setEnableGuroCharacter(enableGuroCharacter)
             }) {
@@ -135,8 +140,8 @@ object SuperstitioConfig {
             FontHelper.charDescFont,
             isForcePlayGuroCharacter,
             settingsPanel,
-            Consumer { label: ModLabel? -> },
-            Consumer { button: ModToggleButton ->
+            { },
+            { button: ModToggleButton ->
                 isForcePlayGuroCharacter = button.enabled
                 setConfigBool(isForcePlayGuroCharacter_STRING, isForcePlayGuroCharacter)
             }) {
@@ -161,7 +166,7 @@ object SuperstitioConfig {
                 FontHelper.charDescFont,
                 isEnableOnlyShowCardNotGeneral,
                 settingsPanel,
-                { label: ModLabel? -> },
+                { },
                 { button: ModToggleButton ->
                     isEnableOnlyShowCardNotGeneral = button.enabled
                     setConfigBool(ENABLE_ONLY_SHOW_CARD_NOT_GENERAL, isEnableOnlyShowCardNotGeneral)
@@ -178,7 +183,7 @@ object SuperstitioConfig {
                 FontHelper.charDescFont,
                 isEnablePerformanceMode,
                 settingsPanel,
-                { label: ModLabel? -> },
+                { },
                 { button: ModToggleButton ->
                     isEnablePerformanceMode = button.enabled
                     setConfigBool(ENABLE_PERFORMANCE_MODE, isEnablePerformanceMode)

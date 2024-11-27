@@ -9,11 +9,11 @@
   "SuperstitioMod:Ahegao": {
     "NAME": "阿嘿颜",
     "NAME_SFW": "连砍带顺劈",
-    "DESCRIPTION": "superstitiomod:缠绵 打出攻击牌 !M! 次： NL 造成 !D! 点 伤害。",
+    "DESCRIPTION": "superstitiomod:缠绵 打出攻击牌 ： NL 造成 !D! 点 伤害。",
     "FLAVOR": "想要保持专业的微笑，但是控制不住。",
     "FLAVOR_SFW": "把普通攻击变成全体二连击。",
     "EXTENDED_DESCRIPTION": [
-      "superstitiomod:缠绵 打出攻击牌 superstitioApi:!HANGING_TIME! 次： NL 造成 !D! 点 伤害。"
+      "superstitiomod:缠绵 打出攻击牌 ： NL 造成 !D! 点 伤害。"
     ]
   },
   "SuperstitioMod:CountSign": {

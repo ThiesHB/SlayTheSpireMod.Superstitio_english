@@ -147,6 +147,7 @@ class DataManager {
             val SEX_COLOR: Color = Color(250.0f / 255.0f, 20.0f / 255.0f, 147.0f / 255.0f, 1.0f)
             val BG_ATTACK_SEMEN: String = makeImgFilesPath_UI("bg_attack_semen")
             val BG_ATTACK_512_SEMEN: String = makeImgFilesPath_UI("bg_attack_512_semen")
+
             @JvmStatic
             fun initialize() {
                 SPTT_DATA()
@@ -338,9 +339,7 @@ class DataManager {
             val jsonString = Gdx.files.internal(makeLocalizationPath(Settings.language, fileName))
                 .readString(StandardCharsets.UTF_8.toString())
             val typeToken =
-                GetTypeOfMapByAComplexFunctionBecauseTheMotherfuckerGenericProgrammingWayTheFuckingJavaUse(tSetClass).orElse(
-                    null
-                )
+                GetTypeOfMapByAComplexFunctionBecauseTheMotherfuckerGenericProgrammingWayTheFuckingJavaUse(tSetClass)
             val gson = Gson()
             val map = gson.fromJson<Map<String, T>>(jsonString, typeToken)
             map.forEach { (id: String, strings: T) ->
@@ -557,22 +556,22 @@ class DataManager {
 
         private fun <T> GetTypeOfMapByAComplexFunctionBecauseTheMotherfuckerGenericProgrammingWayTheFuckingJavaUse(
             tClass: Class<T>
-        ): Optional<ParameterizedType> {
+        ): ParameterizedType? {
             val var0 = DataManager::class.java.declaredFields
 
             for (f in var0) {
                 val type = f.genericType as? ParameterizedType ?: continue
                 val typeArgs = type.actualTypeArguments
-                if (typeArgs.size == 2 && typeArgs[0] == String::class.java && typeArgs[1] == tClass) return Optional.of(
-                    `$Gson$Types`.newParameterizedTypeWithOwner(
+                if (typeArgs.size == 2 && typeArgs[0] == String::class.java && typeArgs[1] == tClass)
+                    return `$Gson$Types`.newParameterizedTypeWithOwner(
                         null,
                         MutableMap::class.java,
                         String::class.java,
                         typeArgs[1]
                     )
-                )
+
             }
-            return Optional.empty()
+            return null
         }
     }
 }
