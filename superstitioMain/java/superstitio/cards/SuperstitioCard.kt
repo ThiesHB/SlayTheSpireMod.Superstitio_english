@@ -422,6 +422,8 @@ abstract class SuperstitioCard(
         this.drawScale = temp
     }
 
+    val addedToolTips: ArrayList<TooltipInfo> = ArrayList()
+
     override fun getCustomTooltips(): ArrayList<TooltipInfo>
     {
         val list: ArrayList<TooltipInfo> = ArrayList()
@@ -433,6 +435,14 @@ abstract class SuperstitioCard(
         return list
     }
 
+    val addedToolTipsTop: ArrayList<TooltipInfo> = ArrayList()
+    override fun getCustomTooltipsTop(): ArrayList<TooltipInfo>
+    {
+        val list: ArrayList<TooltipInfo> = ArrayList()
+        list.addAll(addedToolTipsTop)
+        return list
+    }
+
     override fun makeStatEquivalentCopy(): AbstractCard
     {
         val card = super.makeStatEquivalentCopy() as SuperstitioCard
@@ -441,16 +451,6 @@ abstract class SuperstitioCard(
         card.addedToolTipsTop.clear()
         card.addedToolTipsTop.addAll(this.addedToolTipsTop)
         return card
-    }
-
-    val addedToolTips: ArrayList<TooltipInfo> = ArrayList()
-    val addedToolTipsTop: ArrayList<TooltipInfo> = ArrayList()
-
-    override fun getCustomTooltipsTop(): ArrayList<TooltipInfo>
-    {
-        val list: ArrayList<TooltipInfo> = ArrayList()
-        list.addAll(addedToolTips)
-        return list
     }
 
     companion object
