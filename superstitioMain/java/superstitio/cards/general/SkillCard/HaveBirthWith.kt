@@ -1,39 +1,62 @@
 package superstitio.cards.general.SkillCard
 
+import basemod.helpers.TooltipInfo
 import com.evacipated.cardcrawl.mod.stslib.cards.targeting.SelfOrEnemyTargeting
+import com.megacrit.cardcrawl.cards.AbstractCard
+import com.megacrit.cardcrawl.cards.CardGroup
 import com.megacrit.cardcrawl.characters.AbstractPlayer
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon
 import com.megacrit.cardcrawl.monsters.AbstractMonster
+import com.megacrit.cardcrawl.orbs.AbstractOrb
 import superstitio.DataManager
-import superstitio.cardModifier.modifiers.block.PregnantBlock_newMonster
 import superstitio.cards.general.GeneralCard
 import superstitio.cards.general.TempCard.GiveBirth
 import superstitio.monster.ChibiKindMonster
+import superstitioapi.hangUpCard.CardOrb_BlockDamageWhenOverCount
+import superstitioapi.pet.Minion
+import superstitioapi.pet.PetManager
 import superstitioapi.utils.ActionUtility
 import superstitioapi.utils.CardUtility
+import superstitioapi.utils.CostSmart
 
 //@AutoAdd.Ignore
 class HaveBirthWith : GeneralCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET)
 {
     init
     {
-        this.setupBlock(BLOCK, UPGRADE_BLOCK, PregnantBlock_newMonster().removeAutoBind())
+        this.setupBlock(BLOCK, UPGRADE_BLOCK)
         this.cardsToPreview = GiveBirth()
-        //this.exhaust = true;
     }
 
     private fun ForPlayer(player: AbstractPlayer)
     {
-        addToBot_gainCustomBlock(
-            PregnantBlock_newMonster(
-                ChibiKindMonster(), ChibiKindMonster.MinionChibi(ChibiKindMonster())
-            )
-        )
+        addToTop_HangUpOrb(ChibiKindMonster(), ChibiKindMonster.MinionChibi(ChibiKindMonster()))
     }
 
-    private fun ForMonster(monster: AbstractMonster?)
+    private fun ForMonster(monster: AbstractMonster)
     {
-        addToBot_gainCustomBlock(PregnantBlock_newMonster(monster))
+        addToTop_HangUpOrb(monster)
+    }
+
+    private fun addToTop_HangUpOrb(father: AbstractMonster, sealCreature: Minion? = null)
+    {
+        val copyCard = this.makeStatEquivalentCopy() as HaveBirthWith
+        copyCard.exhaust = true
+        copyCard.purgeOnUse = true
+
+        if (father !is ChibiKindMonster)
+            copyCard.addedToolTipsTop.add(TooltipInfo(cardStrings.getEXTENDED_DESCRIPTION(1), father.name))
+        else
+            copyCard.addedToolTipsTop.add(
+                TooltipInfo(
+                    cardStrings.getEXTENDED_DESCRIPTION(1),
+                    cardStrings.getEXTENDED_DESCRIPTION(2)
+                )
+            )
+
+        CardOrb_HaveBirth(copyCard, null, CostSmart(this.block), father, sealCreature)
+            .setCardRawDescriptionWillShow(cardStrings.getEXTENDED_DESCRIPTION(0))
+            .addToBot_HangCard()
     }
 
     override fun use(player: AbstractPlayer?, monster: AbstractMonster?)
@@ -49,6 +72,26 @@ class HaveBirthWith : GeneralCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET)
     override fun upgradeAuto()
     {
         upgradeCardsToPreview()
+    }
+
+    class CardOrb_HaveBirth @JvmOverloads constructor(
+        card: AbstractCard,
+        cardGroupReturnAfterEvoke: CardGroup?,
+        OrbCounter: CostSmart,
+        private val father: AbstractMonster,
+        private val sealCreature: Minion? = null
+    ) :
+        CardOrb_BlockDamageWhenOverCount(card, cardGroupReturnAfterEvoke, OrbCounter, actionOnNaturalRemove = {
+            if (sealCreature == null)
+                PetManager.spawnMinion(father.javaClass)
+            else
+                PetManager.spawnMonster(sealCreature)
+        }), GiveBirth.IPregnantCardOrb
+    {
+        override fun makeCopy(): AbstractOrb
+        {
+            return CardOrb_HaveBirth(originCard, cardGroupReturnAfterEvoke, orbCounter, father, sealCreature)
+        }
     }
 
     companion object

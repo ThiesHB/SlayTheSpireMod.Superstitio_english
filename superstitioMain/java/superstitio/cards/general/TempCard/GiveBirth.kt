@@ -1,8 +1,6 @@
 package superstitio.cards.general.TempCard
 
 import com.evacipated.cardcrawl.mod.stslib.actions.tempHp.AddTemporaryHPAction
-import com.evacipated.cardcrawl.mod.stslib.blockmods.AbstractBlockModifier
-import com.evacipated.cardcrawl.mod.stslib.blockmods.BlockModifierManager
 import com.megacrit.cardcrawl.cards.AbstractCard
 import com.megacrit.cardcrawl.characters.AbstractPlayer
 import com.megacrit.cardcrawl.core.AbstractCreature
@@ -10,12 +8,13 @@ import com.megacrit.cardcrawl.dungeons.AbstractDungeon
 import com.megacrit.cardcrawl.monsters.AbstractMonster
 import com.megacrit.cardcrawl.powers.AbstractPower
 import superstitio.DataManager
-import superstitio.cardModifier.modifiers.block.PregnantBlock
 import superstitio.cards.general.AbstractTempCard
-import superstitioapi.actions.AutoDoneInstantAction
 import superstitioapi.cards.addExhaustMod
+import superstitioapi.hangUpCard.CardOrb
+import superstitioapi.hangUpCard.Card_TriggerHangCardManually
+import superstitioapi.hangUpCard.HangUpCardGroup
 
-class GiveBirth() : AbstractTempCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET)
+class GiveBirth() : AbstractTempCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET), Card_TriggerHangCardManually
 {
     var sealPower: MutableList<AbstractPower> = ArrayList()
     var sealMonster: AbstractCreature? = null
@@ -36,19 +35,36 @@ class GiveBirth() : AbstractTempCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARG
         }
     }
 
+    interface IPregnantCardOrb
+
     override fun use(player: AbstractPlayer?, monster: AbstractMonster?)
     {
-        //this.gainBlock();
         this.addToBot(AddTemporaryHPAction(AbstractDungeon.player, AbstractDungeon.player, this.block))
-        for (blockInstance in BlockModifierManager.blockInstances(AbstractDungeon.player))
-        {
-            if (blockInstance.blockTypes.stream()
-                    .anyMatch { blockModifier: AbstractBlockModifier? -> blockModifier is PregnantBlock }
-            )
-            {
-                AutoDoneInstantAction.addToBotAbstract { BlockModifierManager.removeSpecificBlockType(blockInstance) }
-            }
-        }
+        HangUpCardGroup.forEachHangUpCard { _: HangUpCardGroup, cardOrb: CardOrb ->
+            if (cardOrb !is IPregnantCardOrb)
+                return@forEachHangUpCard
+            if (cardOrb.ifShouldRemove())
+                return@forEachHangUpCard
+            cardOrb.setTriggerDiscardIfMoveToDiscard()
+            cardOrb.setShouldRemove()
+        }.addToBotAsAbstractAction()
+    }
+
+    override fun forceFilterCardOrbToHoveredMode(orb: CardOrb): Boolean
+    {
+        if (orb !is IPregnantCardOrb)
+            return false
+        orb.targetType = CardOrb.HangOnTarget.None
+        orb.actionType = CardOrb.HangEffectType.Bad
+        return true
+    }
+
+    override fun forceChangeOrbCounterShown(orb: CardOrb): Int
+    {
+        return if (orb is IPregnantCardOrb)
+            0
+        else
+            orb.orbCounter.toInt()
     }
 
     override fun upgradeAuto()
@@ -57,14 +73,15 @@ class GiveBirth() : AbstractTempCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARG
 
     override fun makeCopy(): AbstractCard
     {
-        val newCard = super.makeCopy() as GiveBirth?
+        val newCard = super.makeCopy() as? GiveBirth?
         if (newCard != null)
         {
             newCard.sealMonster = this.sealMonster
             newCard.sealPower = this.sealPower
             return newCard
         }
-        else return super.makeCopy()
+        else
+            return super.makeCopy()
     }
 
     companion object

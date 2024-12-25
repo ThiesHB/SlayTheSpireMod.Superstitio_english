@@ -7,7 +7,7 @@ import superstitio.cardModifier.modifiers.AbstractLupaBlock
 
 class SexBlock : AbstractLupaBlock(ID)
 {
-    override fun onThisBlockDamaged(info: DamageInfo, lostAmount: Int)
+    override fun onThisBlockDamaged(info: DamageInfo?, lostAmount: Int)
     {
     }
 

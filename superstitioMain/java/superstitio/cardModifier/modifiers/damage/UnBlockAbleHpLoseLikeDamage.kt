@@ -37,7 +37,7 @@ class UnBlockAbleHpLoseLikeDamage : AbstractLupaDamage(ID)
     {
         val ID: String = DataManager.MakeTextID(UnBlockAbleHpLoseLikeDamage::class.java)
 
-        fun damageInfo(instigator: Any?, amount: Int): DamageInfo
+        fun DamageInfo(instigator: Any?, amount: Int): DamageInfo?
         {
             return BindingHelper.makeInfo(
                 DamageModContainer(instigator, UnBlockAbleHpLoseLikeDamage()), null, amount,

@@ -20,9 +20,7 @@ import superstitioapi.utils.ActionUtility
  * M：每受到超过MasochismModeRate的伤害获得一点快感。
  */
 @AutoAdd.Ignore
-class SorM //Default();
-//updateDesAndImg();
-    : SuperstitioRelic(ID, RELIC_TIER, LANDING_SOUND), ClickableRelic, CustomSavable<Int>, BetterOnLoseHpRelic
+class SorM : SuperstitioRelic(ID, RELIC_TIER, LANDING_SOUND), ClickableRelic, CustomSavable<Int>, BetterOnLoseHpRelic
 {
     private var ClickTime = 0
     private var MasochismMode = false
@@ -62,18 +60,18 @@ class SorM //Default();
     {
     }
 
-    override fun betterOnLoseHp(damageInfo: DamageInfo, i: Int): Int
+    override fun betterOnLoseHp(DamageInfo: DamageInfo?, i: Int): Int
     {
         if (ActionUtility.isNotInBattle) return i
         if (!MasochismMode) return i
         if (i < MasochismModeDamageNeed) return i
-        if (damageInfo.type == CanOnlyDamageDamageType.UnBlockAbleDamageType) return i
+        if (DamageInfo?.type == CanOnlyDamageDamageType.UnBlockAbleDamageType) return i
         AddSexualHeat(i / MasochismModeDamageNeed * MasochismModeSexualHeatRate)
         this.flash()
         return i
     }
 
-    override fun onAttack(info: DamageInfo, damageAmount: Int, target: AbstractCreature)
+    override fun onAttack(info: DamageInfo?, damageAmount: Int, target: AbstractCreature)
     {
         if (!SadismMode) return
         if (damageAmount < SadismModeDamageNeed) return

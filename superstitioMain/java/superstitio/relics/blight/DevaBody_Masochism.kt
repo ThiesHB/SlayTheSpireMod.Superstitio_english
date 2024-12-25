@@ -58,8 +58,8 @@ class DevaBody_Masochism : SuperstitioRelic(ID, RELIC_TIER, LANDING_SOUND), Beco
         fun SetPlayerImmunity()
         {
             IsImmunityFields.checkShouldImmunity[AbstractDungeon.player] =
-                TriPredicate { player: AbstractPlayer?, damageInfo: DamageInfo?, damageAmount: Int ->
-                    if (damageInfo!!.type == CanOnlyDamageDamageType.UnBlockAbleDamageType)
+                TriPredicate { player: AbstractPlayer?, DamageInfo: DamageInfo?, damageAmount: Int ->
+                    if (DamageInfo!!.type == CanOnlyDamageDamageType.UnBlockAbleDamageType)
                     {
                         return@TriPredicate false
                     }

@@ -188,7 +188,7 @@ open class DamageEnemiesAction protected constructor(
             return this
         }
 
-        fun setNewDamageInfoMaker(newDamageInfoMaker: Function<Int, DamageInfo?>): Builder
+        fun setnewDamageInfoMaker(newDamageInfoMaker: Function<Int, DamageInfo?>): Builder
         {
             this.newDamageInfoMaker = newDamageInfoMaker
             return this

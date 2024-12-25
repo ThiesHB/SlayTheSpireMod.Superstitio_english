@@ -212,9 +212,19 @@
   "SuperstitioMod:HaveBirthWith": {
     "NAME": "孕育",
     "NAME_SFW": "呼神护卫",
-    "DESCRIPTION": "在弃牌堆中添加一张 *分娩 。 NL 获得 !B! superstitiomod:妊娠 ： NL superstitiomod:顺产： 生成和目标对应的 superstitiomod:宝宝 。",
+    "DESCRIPTION": "在弃牌堆中添加一张 *分娩 。 NL 获得 !B! superstitiomod:妊娠 ： NL superstitiomod:顺产 ： 生成和目标对应的 superstitiomod:宝宝 。",
     "FLAVOR": "",
-    "FLAVOR_SFW": "是鸟？是飞机？是我的守护神哒！"
+    "FLAVOR_SFW": "是鸟？是飞机？是我的守护神哒！",
+    "EXTENDED_DESCRIPTION": [
+      "受到大于 superstitioApi:!HANGING_TIME! 的攻击伤害时，阻挡伤害并移除。 NL 其他情况下移除则生成和目标对应的 superstitiomod:宝宝 。",
+      "父本：",
+      "孤雌生殖。"
+    ],
+    "EXTENDED_DESCRIPTION_SFW": [
+      "受到大于 superstitioApi:!HANGING_TIME! 的攻击伤害时，阻挡伤害并移除。 NL 其他情况下移除则生成和目标对应的 superstitiomod:宝宝 。",
+      "召唤对象：",
+      "分身。"
+    ]
   },
   "SuperstitioMod:RideDildoBike": {
     "NAME": "骑行奸",

@@ -114,9 +114,11 @@ abstract class CardOrb(card: AbstractCard, cardGroupReturnAfterEvoke: CardGroup?
 
     fun setTriggerDiscardIfMoveToDiscard(): CardOrb
     {
-        this.setAfterEvokeConsumer { orb: CardOrb ->
+        this.setAfterEvokeConsumer {
+            orb: CardOrb ->
             if (orb.orbCounter.isZero()) return@setAfterEvokeConsumer
-            if (orb.cardGroupReturnAfterEvoke !== AbstractDungeon.player.discardPile) return@setAfterEvokeConsumer
+            if (orb.cardGroupReturnAfterEvoke !== AbstractDungeon.player.discardPile)
+                return@setAfterEvokeConsumer
             orb.originCard.triggerOnManualDiscard()
             GameActionManager.incrementDiscard(false)
         }

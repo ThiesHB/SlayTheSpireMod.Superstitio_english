@@ -39,7 +39,7 @@ class DeathDoor : MasoCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET)
             setDescriptionArgs(this.amount)
         }
 
-        override fun onPlayerDeath(abstractPlayer: AbstractPlayer, damageInfo: DamageInfo): Boolean
+        override fun onPlayerDeath(abstractPlayer: AbstractPlayer, DamageInfo: DamageInfo?): Boolean
         {
             if (this.amount == 0) return true
             this.flash()

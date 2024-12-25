@@ -149,7 +149,7 @@ abstract class Minion protected constructor(petCore: AbstractCreature, drawScale
         petCore.showHealthBar()
     }
 
-    override fun damage(info: DamageInfo)
+    override fun damage(info: DamageInfo?)
     {
         super.damage(info)
         petCore.damage(info)

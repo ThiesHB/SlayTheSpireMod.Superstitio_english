@@ -36,7 +36,7 @@ class DamageAllEnemiesAction protected constructor(
 )
 {
     /**
-     * [Builder.newDamageInfoMaker]: 默认值为新建一个标准DamageInfo
+     * [Builder.newDamageInfoMaker]: 默认值为新建一个标准DamageInfo?
      * [Builder.newAttackEffectMaker]: 默认值为新建一个标准FlashAtkImgEffect
      */
     class Builder(private val multiDamages: IntArray) : DamageEnemiesAction.Builder(

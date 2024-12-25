@@ -10,6 +10,7 @@ import com.megacrit.cardcrawl.characters.AbstractPlayer
 import com.megacrit.cardcrawl.core.AbstractCreature
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon
 import com.megacrit.cardcrawl.monsters.AbstractMonster
+import com.megacrit.cardcrawl.orbs.AbstractOrb
 import com.megacrit.cardcrawl.powers.*
 import superstitio.DataManager
 import superstitio.cards.general.TempCard.GiveBirth
@@ -60,7 +61,7 @@ class UnBirth : MasoCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET)
         val target = CardUtility.getSelfOrEnemyTarget(this, monster)
         if (target is AbstractPlayer)
             ForPlayer(AbstractDungeon.player)
-        else if (HangUpCardGroup.forEachHangUpCard_Any { (it as CardOrb_SealPower).sealCreature === target })
+        else if (HangUpCardGroup.forEachHangUpCard_Any { (it as? CardOrb_SealPower)?.sealCreature === target })
             ForMonsterBrokenSpaceStructure(target as AbstractMonster)
         else
             ForMonster(target as AbstractMonster)
@@ -102,18 +103,21 @@ class UnBirth : MasoCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET)
         card: AbstractCard,
         cardGroupReturnAfterEvoke: CardGroup?,
         OrbCounter: CostSmart,
-        sealPower: List<AbstractPower>, val sealCreature: AbstractCreature?
+        private val sealPower: List<AbstractPower>, val sealCreature: AbstractCreature?
     ) :
-        CardOrb_BlockDamageWhenOverCount(card, cardGroupReturnAfterEvoke, OrbCounter, {
+        CardOrb_BlockDamageWhenOverCount(card, cardGroupReturnAfterEvoke, OrbCounter, actionOnDamagedRemove = {
             if (sealCreature != null && !sealCreature.isDeadOrEscaped)
                 for (power in sealPower)
                 {
                     ActionUtility.addToBot(ApplyPowerAction(AbstractDungeon.player, AbstractDungeon.player, power))
                 }
-        }, {})
+        }), GiveBirth.IPregnantCardOrb
     {
-
+        override fun makeCopy(): AbstractOrb
+        {
+            return CardOrb_SealPower(originCard, cardGroupReturnAfterEvoke, orbCounter, sealPower, sealCreature)
         }
+    }
 
 
     internal sealed class MonsterBodyType

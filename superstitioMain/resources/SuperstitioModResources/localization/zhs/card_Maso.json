@@ -29,7 +29,7 @@
   "SuperstitioMod:MasoCard:NailExtraction": {
     "NAME": "拔指甲",
     "NAME_SFW": "以牙还牙",
-    "DESCRIPTION": "失去 %d 生命， NL 抽 %d 张牌， NL 往抽牌堆中添加 %d 张 *拔指甲 。 NL 本回合只能打出 %d 张。 NL （已使用 !M! 张）",
+    "DESCRIPTION": "失去 %d 生命，抽 %d 张牌， NL 往抽牌堆中添加 %d 张 *拔指甲 。 NL 本回合只能打出 %d 张。 NL （已使用 !M! 张）",
     "UPGRADE_DESCRIPTION": "对自身造成 %d 点伤害， NL 抽 %d 张牌， NL 往抽牌堆中添加 %d 张 *拔指甲 。 NL 本回合只能打出 %d 张。 NL （已使用 !M! 张）",
     "FLAVOR": "拔下来马上又会马上长回去，想往里面插根针都来不及。",
     "FLAVOR_SFW": ""

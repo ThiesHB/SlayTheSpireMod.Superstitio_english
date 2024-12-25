@@ -45,7 +45,7 @@ object DelayHpLosePatch
     }
 
     @JvmStatic
-    fun isImmunity(abstractPlayer: AbstractPlayer, info: DamageInfo, damageAmount: Int): Boolean
+    fun isImmunity(abstractPlayer: AbstractPlayer, info: DamageInfo?, damageAmount: Int): Boolean
     {
         if (ActionUtility.isNotInBattle) return false
         val predicate =

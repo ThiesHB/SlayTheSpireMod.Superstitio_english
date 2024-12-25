@@ -73,12 +73,6 @@
     "DESCRIPTION": "给予 *敌我双方 !M! 层 易伤 。",
     "FLAVOR": ""
   },
-  "SuperstitioMod:HaveBirthWith_Test": {
-    "NAME": "生宝宝",
-    "NAME_SFW": "召唤宝宝",
-    "DESCRIPTION": "还在测试阶段的卡，用于体验召唤系统。",
-    "FLAVOR": ""
-  },
   "SuperstitioMod:NullCard": {
     "NAME": "空白卡",
     "DESCRIPTION": "打出后，对所有敌人造成114514点伤害。 NL *看到 *这张卡 *说明 *你的 *战斗奖励卡池 *没有包含 *足够数量的 *卡牌。",

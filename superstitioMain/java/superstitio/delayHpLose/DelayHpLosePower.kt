@@ -81,7 +81,7 @@ abstract class DelayHpLosePower(id: String, owner: AbstractCreature, amount: Int
         if (self.amount <= 0) return
         PowerUtility.BubbleMessage(self, true, pureName())
         CardCrawlGame.sound.play("POWER_TIME_WARP", 0.05f)
-        AbstractDungeon.player.damage(UnBlockAbleIgnoresTempHPDamage.damageInfo(this, self.amount))
+        AbstractDungeon.player.damage(UnBlockAbleIgnoresTempHPDamage.DamageInfo(this, self.amount))
         self.amount = 0
     }
 
@@ -180,12 +180,10 @@ abstract class DelayHpLosePower(id: String, owner: AbstractCreature, amount: Int
             for (power in owner.powers)
             {
                 if (power !is DelayHpLosePower) continue
-                if (hasRemovedClass.stream()
-                        .anyMatch { tClass: Class<out DelayHpLosePower> -> tClass.isInstance(power) }
-                ) continue
-                val delayHpLosePower = power
-                lastAmount = delayHpLosePower.addToBot_removeDelayHpLoss(lastAmount, removeOther)
-                hasRemovedClass.add(delayHpLosePower.javaClass)
+                if (hasRemovedClass.any { tClass: Class<out DelayHpLosePower> -> tClass.isInstance(power) })
+                    continue
+                lastAmount = power.addToBot_removeDelayHpLoss(lastAmount, removeOther)
+                hasRemovedClass.add(power.javaClass)
                 if (lastAmount <= 0) break
             }
         }
@@ -198,12 +196,10 @@ abstract class DelayHpLosePower(id: String, owner: AbstractCreature, amount: Int
             for (power in owner.powers)
             {
                 if (power !is DelayHpLosePower) continue
-                if (hasRemovedClass.stream()
-                        .anyMatch { tClass: Class<out DelayHpLosePower> -> tClass.isInstance(power) }
-                ) continue
-                val delayHpLosePower = power
-                lastAmount = delayHpLosePower.addToBot_removeDelayHpLoss(lastAmount, removeOther)
-                hasRemovedClass.add(delayHpLosePower.javaClass)
+                if (hasRemovedClass.any { tClass: Class<out DelayHpLosePower> -> tClass.isInstance(power) })
+                    continue
+                lastAmount = power.addToBot_removeDelayHpLoss(lastAmount, removeOther)
+                hasRemovedClass.add(power.javaClass)
                 if (!removeOther) break
                 if (lastAmount <= 0) break
             }

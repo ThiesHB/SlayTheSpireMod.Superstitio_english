@@ -8,7 +8,7 @@ import superstitio.cardModifier.modifiers.AbstractLupaBlock
 
 class DrySemenBlock : AbstractLupaBlock(ID)
 {
-    override fun onThisBlockDamaged(info: DamageInfo, lostAmount: Int)
+    override fun onThisBlockDamaged(info: DamageInfo?, lostAmount: Int)
     {
     }
 

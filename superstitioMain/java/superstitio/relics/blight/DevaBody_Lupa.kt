@@ -58,8 +58,8 @@ class DevaBody_Lupa : SuperstitioRelic(ID, RELIC_TIER, LANDING_SOUND), BecomeInf
         fun SetPlayerImmunity()
         {
             IsImmunityFields.checkShouldImmunity[AbstractDungeon.player] =
-                TriPredicate { _: AbstractPlayer?, damageInfo: DamageInfo?, damageAmount: Int ->
-                    if (damageInfo!!.type == CanOnlyDamageDamageType.UnBlockAbleDamageType)
+                TriPredicate { _: AbstractPlayer?, DamageInfo: DamageInfo?, damageAmount: Int ->
+                    if (DamageInfo!!.type == CanOnlyDamageDamageType.UnBlockAbleDamageType)
                     {
                         return@TriPredicate false
                     }

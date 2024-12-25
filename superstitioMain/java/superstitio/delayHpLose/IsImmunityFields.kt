@@ -10,6 +10,6 @@ import superstitioapi.powers.interfaces.TriPredicate
 object IsImmunityFields
 {
     @JvmField
-    var checkShouldImmunity: SpireField<TriPredicate<AbstractPlayer, DamageInfo, Int>?> =
-        SpireField<TriPredicate<AbstractPlayer, DamageInfo, Int>?> { null }
+    var checkShouldImmunity: SpireField<TriPredicate<AbstractPlayer, DamageInfo?, Int>?> =
+        SpireField<TriPredicate<AbstractPlayer, DamageInfo?, Int>?> { null }
 }

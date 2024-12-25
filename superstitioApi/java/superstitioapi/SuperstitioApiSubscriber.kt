@@ -206,7 +206,7 @@ class SuperstitioApiSubscriber : PostExhaustSubscriber, StartGameSubscriber, Rel
 //    {
 //        fun receiveAtLastHp()
 //
-//        @SpirePatch(clz = AbstractPlayer::class, method = "damage", paramtypez = [DamageInfo::class])
+//        @SpirePatch(clz = AbstractPlayer::class, method = "damage", paramtypez = [DamageInfo?::class])
 //        object OnPlayerDamagedHook
 //        {
 //            @SpireInsertPatch(localvars = ["damageAmount"], locator = LocatorPre::class)

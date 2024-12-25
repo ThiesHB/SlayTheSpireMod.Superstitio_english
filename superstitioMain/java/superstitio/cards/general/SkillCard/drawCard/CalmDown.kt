@@ -18,12 +18,14 @@ class CalmDown : GeneralCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET), Car
     override fun use(player: AbstractPlayer?, monster: AbstractMonster?)
     {
         HangUpCardGroup.forEachHangUpCard { _: HangUpCardGroup, cardOrb: CardOrb ->
-            if (cardOrb.ifShouldRemove()) return@forEachHangUpCard
+            if (cardOrb.ifShouldRemove())
+                return@forEachHangUpCard
             cardOrb.setTriggerDiscardIfMoveToDiscard()
             cardOrb.setShouldRemove()
             addToBot_drawCards()
         }.addToBotAsAbstractAction()
-        if (this.magicNumber >= 1) addToBot_drawCards(this.magicNumber)
+        if (this.magicNumber >= 1)
+            addToBot_drawCards(this.magicNumber)
     }
 
     override fun upgradeAuto()

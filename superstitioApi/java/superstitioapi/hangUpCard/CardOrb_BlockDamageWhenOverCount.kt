@@ -3,7 +3,6 @@ package superstitioapi.hangUpCard
 import com.megacrit.cardcrawl.cards.AbstractCard
 import com.megacrit.cardcrawl.cards.CardGroup
 import com.megacrit.cardcrawl.cards.DamageInfo
-import com.megacrit.cardcrawl.orbs.AbstractOrb
 import superstitioapi.actions.AutoDoneInstantAction
 import superstitioapi.hangUpCard.CardOrb_BlockDamageWhenOverCount.Power_BlockDamageWhenOverCount
 import superstitioapi.utils.CostSmart
@@ -15,27 +14,19 @@ import kotlin.math.max
 /**
  * 受到攻击伤害时，超出阈值再处理
  */
-open class CardOrb_BlockDamageWhenOverCount(
+
+abstract class CardOrb_BlockDamageWhenOverCount @JvmOverloads constructor(
     card: AbstractCard,
     cardGroupReturnAfterEvoke: CardGroup?,
     OrbCounter: CostSmart,
-    private val actionOnDamagedRemove: () -> Unit,
-    private val actionOnNaturalRemove: () -> Unit
+    private val actionOnDamagedRemove: () -> Unit = {},
+    private val actionOnNaturalRemove: () -> Unit = {}
 ) : CardOrb_OnAttackedToChangeDamage<Power_BlockDamageWhenOverCount>(
     card, cardGroupReturnAfterEvoke, OrbCounter, Power_BlockDamageWhenOverCount(
         OrbCounter.toInt(), CardOrb_BlockDamageWhenOverCount::class.java.simpleName
     )
 )
 {
-//    override fun onPlayerDamaged(amount: Int, info: DamageInfo?): Int
-//    {
-//
-//        if (amount < this.orbCounter.toInt())
-//            return amount
-//        this.orbCounter = CostSmart.Zero
-//        return amount - this.orbCounter.toInt()
-//    }
-
     override fun addToBot_HangCard()
     {
         HangUpCardGroup.addToBot_AddCardOrbToOrbGroup(this)
@@ -72,17 +63,6 @@ open class CardOrb_BlockDamageWhenOverCount(
             this.onNaturalRemove()
         this.power.amount = 0
         this.power.addToBot_removeSelf()
-    }
-
-    override fun makeCopy(): AbstractOrb
-    {
-        return CardOrb_BlockDamageWhenOverCount(
-            this.originCard,
-            this.cardGroupReturnAfterEvoke,
-            this.orbCounter,
-            this.actionOnDamagedRemove,
-            this.actionOnNaturalRemove
-        )
     }
 
     class Power_BlockDamageWhenOverCount(amountForCardOrb: Int, id: String) :

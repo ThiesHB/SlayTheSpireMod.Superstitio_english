@@ -9,7 +9,7 @@ import superstitio.cardModifier.modifiers.AbstractLupaDamage
 
 class SelfDamage : AbstractLupaDamage(ID)
 {
-    override fun onAttackToChangeDamage(info: DamageInfo, damageAmount: Int, target: AbstractCreature): Int
+    override fun onAttackToChangeDamage(info: DamageInfo?, damageAmount: Int, target: AbstractCreature): Int
     {
         if (target is AbstractPlayer) return super.onAttackToChangeDamage(info, damageAmount, target) / 2
         return super.onAttackToChangeDamage(info, damageAmount, target)

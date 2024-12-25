@@ -42,7 +42,7 @@ class UnBlockAbleIgnoresTempHPDamage : AbstractLupaDamage(ID)
     {
         val ID: String = DataManager.MakeTextID(UnBlockAbleIgnoresTempHPDamage::class.java)
 
-        fun damageInfo(instigator: Any?, amount: Int): DamageInfo
+        fun DamageInfo(instigator: Any?, amount: Int): DamageInfo?
         {
             return BindingHelper.makeInfo(
                 DamageModContainer(instigator, UnBlockAbleIgnoresTempHPDamage()), null, amount,
