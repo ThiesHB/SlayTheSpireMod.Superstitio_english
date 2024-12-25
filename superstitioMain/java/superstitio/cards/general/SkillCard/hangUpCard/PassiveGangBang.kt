@@ -6,9 +6,7 @@ import com.megacrit.cardcrawl.monsters.AbstractMonster
 import superstitio.DataManager
 import superstitio.cards.general.GeneralCard
 import superstitio.delayHpLose.RemoveDelayHpLoseBlock
-import superstitioapi.hangUpCard.CardOrb
-import superstitioapi.hangUpCard.Card_TriggerHangCardManually
-import superstitioapi.hangUpCard.HangUpCardGroup
+import superstitioapi.hangUpCard.*
 
 class PassiveGangBang : GeneralCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET), Card_TriggerHangCardManually
 {
@@ -25,7 +23,8 @@ class PassiveGangBang : GeneralCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGE
         for (i in 0 until this.magicNumber)
         {
             HangUpCardGroup.forEachHangUpCard { orb: CardOrb ->
-                orb.forceAcceptAction(self)
+                if (orb is ICardOrb_WaitTime || orb is ICardOrb_EachTime)
+                    orb.forceAcceptAction(self)
             }.addToBotAsAbstractAction()
         }
     }
@@ -36,12 +35,15 @@ class PassiveGangBang : GeneralCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGE
 
     override fun forceFilterCardOrbToHoveredMode(orb: CardOrb): Boolean
     {
-        return true
+        return orb is ICardOrb_WaitTime || orb is ICardOrb_EachTime
     }
 
     override fun forceChangeOrbCounterShown(orb: CardOrb): Int
     {
-        return orb.orbCounter.toInt { it - this.magicNumber }
+        return if (orb is ICardOrb_WaitTime || orb is ICardOrb_EachTime)
+            orb.orbCounter.toInt { it - this.magicNumber }
+        else
+            orb.orbCounter.toInt()
     }
 
     companion object

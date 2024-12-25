@@ -26,31 +26,6 @@
     "DESCRIPTION": "在下回合开始时，回味一些刺激的事情，从而移除 #r新生腐朽 。",
     "DESCRIPTION_SFW": "在下回合开始时，移除 #r新生腐朽 。"
   },
-  "SuperstitioMod:PregnantBlock_sealPower": {
-    "NAME": "妊娠-回归",
-    "NAME_SFW": "仪式-吞噬",
-    "BASIC_INFO": "妊娠大肚-回归",
-    "BASIC_INFO_SFW": "仪式护盾-吞噬",
-    "DESCRIPTION": "回合结束时不消失，阻挡伤害。 NL 受到攻击伤害而失去本格挡时，对 #y封印效果 的 所有者 造成相当于失去数值的伤害。 NL #y流产 ： NL 将被 #y封印 的效果翻倍，然后重新给予自身这些效果。",
-    "EXTENDED_DESCRIPTION": [
-      "内容物：",
-      "递归。"
-    ]
-  },
-  "SuperstitioMod:PregnantBlock_newMonster": {
-    "NAME": "妊娠-孕育",
-    "NAME_SFW": "仪式-召唤",
-    "BASIC_INFO": "妊娠大肚-孕育",
-    "DESCRIPTION": "回合结束时不消失，阻挡伤害。 NL #y顺产 ： NL 生成 #y宝宝 。",
-    "EXTENDED_DESCRIPTION": [
-      "父本：",
-      "孤雌生殖。"
-    ],
-    "EXTENDED_DESCRIPTION_SFW": [
-      "召唤对象：",
-      "分身。"
-    ]
-  },
   "SuperstitioMod:WhenLostDrawCardBlock": {
     "NAME": "沉重镣铐",
     "NAME_SFW": "沉重镣铐",

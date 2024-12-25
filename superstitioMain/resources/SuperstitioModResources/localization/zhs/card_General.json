@@ -32,7 +32,7 @@
   "SuperstitioMod:FastWindUp": {
     "NAME": "快速收尾",
     "NAME_SFW": "漆黑噤默之页",
-    "DESCRIPTION": "当你 superstitiomod:高潮 时， *满足 所有 superstitiomod:助兴序列 中的卡牌 !M! 次。",
+    "DESCRIPTION": "当你 superstitiomod:高潮 时， superstitiomod:强制满足 !M! 次。",
     "FLAVOR": "一起来，快点，我要收工了。",
     "FLAVOR_SFW": "一码，归一码。"
   },
@@ -73,7 +73,7 @@
     "DESCRIPTION": "目标失去所有的 superstitiomod:通用负面效果 和 人工制品 。 NL 在弃牌堆中添加一张 *分娩 。 NL 获得 superstitiomod:妊娠 !B! : NL superstitiomod:流产 时，自身获得目标失去效果的两倍。",
     "FLAVOR": "我会包容你的一切：你的欲望、你的梦想、你的爱…… NL 请把你的一切交给我。",
     "EXTENDED_DESCRIPTION": [
-      "受到大于 superstitioApi:!HANGING_TIME! 的攻击伤害时，阻挡伤害并 superstitiomod:流产 。",
+      "superstitiomod:妊娠状态 。 NL 受到大于 superstitioApi:!HANGING_TIME! 的攻击伤害时，阻挡伤害并 *流产 。",
       "流产时，自身获得：",
       "、",
       "内容物：",
@@ -159,7 +159,7 @@
   "SuperstitioMod:PassiveGangBang": {
     "NAME": "躺平任肏",
     "NAME_SFW": "超级无敌我爱你",
-    "DESCRIPTION": "superstitiomod:并行 。 NL 移除 !B! 点 *腐朽 。 NL *满足 所有 superstitiomod:助兴序列 中的 卡牌 !M! 次。",
+    "DESCRIPTION": "superstitiomod:并行 。 NL 移除 !B! 点 *腐朽 。 NL superstitiomod:强制满足 !M! 次。",
     "FLAVOR": "请便，我今天不想动。",
     "FLAVOR_SFW": "强化冲击第十二级境界！"
   },
@@ -216,7 +216,7 @@
     "FLAVOR": "",
     "FLAVOR_SFW": "是鸟？是飞机？是我的守护神哒！",
     "EXTENDED_DESCRIPTION": [
-      "受到大于 superstitioApi:!HANGING_TIME! 的攻击伤害时，阻挡伤害并移除。 NL 其他情况下移除则生成和目标对应的 superstitiomod:宝宝 。",
+      "superstitiomod:妊娠状态 。 NL 受到大于 superstitioApi:!HANGING_TIME! 的攻击伤害时，阻挡伤害并移除。 NL 其他情况下移除则生成和目标对应的 superstitiomod:宝宝 。",
       "父本：",
       "孤雌生殖。"
     ],

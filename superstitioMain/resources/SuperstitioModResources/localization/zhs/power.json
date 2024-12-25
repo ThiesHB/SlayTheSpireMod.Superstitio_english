@@ -107,7 +107,7 @@
   "SuperstitioMod:FastWindUpPower": {
     "NAME": "快速收尾",
     "DESCRIPTIONS": [
-      "当你 #y高潮 时，满足所有 #y助兴 的卡牌 #b%d 次。"
+      "当你 #y高潮 时， #y强制满足 #b%d 次。"
     ]
   },
   "SuperstitioMod:DelayRemoveDelayHpLosePower": {

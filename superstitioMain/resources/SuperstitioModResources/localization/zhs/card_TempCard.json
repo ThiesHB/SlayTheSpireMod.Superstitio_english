@@ -16,7 +16,7 @@
   "SuperstitioMod:GiveBirth": {
     "NAME": "分娩",
     "NAME_SFW": "仪式启动",
-    "DESCRIPTION": "失去 所有的 superstitiomod:妊娠 。 NL 获得 !B! 临时生命 。",
+    "DESCRIPTION": "失去 所有的 superstitiomod:妊娠状态 。 NL 获得 !B! 临时生命 。",
     "FLAVOR": "重获新生吧。"
   },
   "SuperstitioMod:SexToy": {

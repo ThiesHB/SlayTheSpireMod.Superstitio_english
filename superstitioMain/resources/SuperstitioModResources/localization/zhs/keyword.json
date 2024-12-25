@@ -132,20 +132,6 @@
     "DESCRIPTION": "#b你摧毁了时空结构，你这个小坏蛋！ NL #y自动打出 。 NL 无法逃脱 。 NL 将这张牌放入你的抽牌堆。"
   },
   {
-    "PROPER_NAME": "流产",
-    "NAMES": [
-      "流产"
-    ],
-    "DESCRIPTION": "#y妊娠状态 被攻击伤害破坏后，会触发 #y流产 效果。"
-  },
-  {
-    "PROPER_NAME": "顺产",
-    "NAMES": [
-      "顺产"
-    ],
-    "DESCRIPTION": "#y妊娠状态 被非攻击伤害解除后，会触发 #y顺产 效果。"
-  },
-  {
     "PROPER_NAME": "宝宝",
     "NAMES": [
       "宝宝"
