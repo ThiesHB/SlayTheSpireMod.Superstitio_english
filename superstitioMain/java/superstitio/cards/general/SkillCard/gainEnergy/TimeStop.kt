@@ -20,6 +20,7 @@ import superstitio.cards.general.SkillCard.gainEnergy.TimeStop.TimeStopPower
 import superstitio.powers.AbstractSuperstitioPower
 import superstitio.powers.DelaySexualHeat
 import superstitio.powers.SexualHeat
+import superstitioapi.utils.addToBot_AutoRemoveOne
 import superstitioapi.utils.setDescriptionArgs
 
 class TimeStop : GeneralCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET)

@@ -1,7 +1,5 @@
 package superstitio.cards.general.TempCard
 
-import basemod.cardmods.ExhaustMod
-import basemod.helpers.CardModifierManager
 import com.megacrit.cardcrawl.characters.AbstractPlayer
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon
 import com.megacrit.cardcrawl.monsters.AbstractMonster
@@ -12,6 +10,7 @@ import superstitio.cards.general.FuckJob_Card
 import superstitio.cards.maso.AttackCard.Fuck_Eye
 import superstitio.delayHpLose.RemoveDelayHpLoseBlock
 import superstitioapi.SuperstitioApiSetup
+import superstitioapi.cards.addExhaustMod
 import superstitioapi.utils.ActionUtility
 
 class Fuck_Ear(blank: Boolean) : AbstractTempCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET), FuckJob_Card
@@ -25,7 +24,7 @@ class Fuck_Ear(blank: Boolean) : AbstractTempCard(ID, CARD_TYPE, COST, CARD_RARI
     {
         FuckJob_Card.initFuckJobCard(this)
         this.setupDamage(DAMAGE, UPGRADE_DAMAGE)
-        CardModifierManager.addModifier(this, ExhaustMod())
+        this.addExhaustMod()
         this.setupBlock(BLOCK, UPGRADE_BLOCK, RemoveDelayHpLoseBlock())
     }
 
@@ -38,11 +37,6 @@ class Fuck_Ear(blank: Boolean) : AbstractTempCard(ID, CARD_TYPE, COST, CARD_RARI
         addToBot_applyPower(FrailPower(AbstractDungeon.player, 1, false))
     }
 
-    //    @Override
-    //    public void triggerWhenDrawn() {
-    //        if (!CardModifierManager.hasModifier(this, RetainMod.ID))
-    //            CardModifierManager.addModifier(this, new RetainMod());
-    //    }
     override fun upgradeAuto()
     {
         upgradeCardsToPreview()

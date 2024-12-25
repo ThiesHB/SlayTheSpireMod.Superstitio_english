@@ -27,10 +27,15 @@ import superstitio.powers.sexualHeatNeedModifier.SexualHeatNeedModifier
 import superstitioapi.actions.AutoDoneInstantAction
 import superstitioapi.powers.barIndepend.*
 import superstitioapi.powers.interfaces.OnPostApplyThisPower
+import superstitioapi.powers.interfaces.invisible.InvisiblePower_InvisibleApplyPowerEffect
+import superstitioapi.powers.interfaces.invisible.InvisiblePower_InvisibleIconAndAmount
+import superstitioapi.powers.interfaces.invisible.InvisiblePower_InvisibleRemovePowerEffect
+import superstitioapi.powers.interfaces.invisible.InvisiblePower_InvisibleTips
 import superstitioapi.shader.ShaderUtility
 import superstitioapi.shader.heart.HeartStreamShader.RenderHeartStream
 import superstitioapi.utils.ActionUtility.VoidSupplier
 import superstitioapi.utils.PowerUtility
+import superstitioapi.utils.addToBot_applyPower
 import superstitioapi.utils.setDescriptionArgs
 import java.util.function.BiFunction
 import java.util.function.Consumer
@@ -41,8 +46,8 @@ import kotlin.math.max
 class SexualHeat protected constructor(owner: AbstractCreature, private var heatAmount: Int) : AbstractSuperstitioPower(
     POWER_ID, owner, -1, if (owner.isPlayer) PowerType.BUFF else PowerType.DEBUFF, false
 ), OnPostApplyThisPower<SexualHeat>, HasBarRenderOnCreature_Power,
-//    InvisiblePower_InvisibleTips, InvisiblePower_InvisibleIconAndAmount, InvisiblePower_InvisibleApplyPowerEffect,
-//    InvisiblePower_InvisibleRemovePowerEffect,
+    InvisiblePower_InvisibleTips, InvisiblePower_InvisibleIconAndAmount, InvisiblePower_InvisibleApplyPowerEffect,
+    InvisiblePower_InvisibleRemovePowerEffect,
     OnOrgasm_onSuccessfullyPreventOrgasm, OnOrgasm_onOrgasm,
     OnOrgasm_onEndOrgasm, OnOrgasm_onSquirt, OnOrgasm_onContinuallyOrgasm
 {

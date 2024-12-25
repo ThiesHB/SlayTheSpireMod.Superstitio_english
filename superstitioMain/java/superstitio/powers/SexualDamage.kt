@@ -14,6 +14,7 @@ import superstitioapi.actions.DamageEnemiesAction
 import superstitioapi.powers.interfaces.OnPostApplyThisPower
 import superstitioapi.renderManager.inBattleManager.InBattleDataManager
 import superstitioapi.utils.PowerUtility
+import superstitioapi.utils.addToBot_removeSelf
 import superstitioapi.utils.setDescriptionArgs
 
 class SexualDamage //        ReflectionHacks.setPrivate(this, "greenColor", Color.PINK.cpy());
@@ -55,7 +56,7 @@ class SexualDamage //        ReflectionHacks.setPrivate(this, "greenColor", Colo
             .setAttackEffectType(AttackEffect.POISON)
             .setAfterDamageConsumer { PowerUtility.RemovePower(this.owner, this) }
             .addToTop()
-        addToBot_removeSpecificPower(this)
+        addToBot_removeSelf()
     }
 
     override fun InitializePostApplyThisPower(addedPower: SexualDamage)

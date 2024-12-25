@@ -10,7 +10,7 @@ import superstitioapi.actions.AutoDoneInstantAction
 import superstitioapi.actions.ChoseCardFromHandCardSelectScreen
 import superstitioapi.hangUpCard.CardOrb_CardTrigger
 import superstitioapi.hangUpCard.CardOrb_WaitCardTrigger
-import superstitioapi.utils.CardUtility
+import superstitioapi.utils.CostSmart
 import superstitioapi.utils.setDescriptionArgs
 
 class RideDildoBike : GeneralCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET)
@@ -32,7 +32,7 @@ class RideDildoBike : GeneralCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET)
             CardOrb_WaitCardTrigger(
                 card,
                 AbstractDungeon.player.discardPile,
-                CardUtility.CostSmart(WAIT_TIME)
+                CostSmart(WAIT_TIME)
             ) { orb: CardOrb_CardTrigger, usedcard: AbstractCard? ->
                 AutoDoneInstantAction.addToBotAbstract { orb.cardHolder.moveToHand(card) }
             }

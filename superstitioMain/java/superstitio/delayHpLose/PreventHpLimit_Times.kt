@@ -5,6 +5,7 @@ import com.megacrit.cardcrawl.core.AbstractCreature
 import superstitio.DataManager
 import superstitio.delayHpLose.DelayHpLosePower_ApplyOnAttacked.IPreventHpLimit
 import superstitio.powers.AbstractSuperstitioPower
+import superstitioapi.utils.addToBot_removeSelf
 import superstitioapi.utils.setDescriptionArgs
 
 class PreventHpLimit_Times(owner: AbstractCreature, amount: Int) : AbstractSuperstitioPower(POWER_ID, owner, amount),
@@ -22,7 +23,7 @@ class PreventHpLimit_Times(owner: AbstractCreature, amount: Int) : AbstractSuper
 
     override fun atEndOfRound()
     {
-        addToBot_removeSpecificPower(this)
+        addToBot_removeSelf()
     }
 
     companion object

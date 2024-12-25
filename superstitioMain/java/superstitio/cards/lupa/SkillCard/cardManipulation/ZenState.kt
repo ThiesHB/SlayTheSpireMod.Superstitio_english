@@ -12,6 +12,7 @@ import superstitio.cards.lupa.LupaCard
 import superstitio.delayHpLose.RemoveDelayHpLoseBlock
 import superstitioapi.actions.AutoDoneInstantAction
 import superstitioapi.actions.ChoseCardFromHandCardSelectScreen
+import superstitioapi.cards.addExhaustMod
 import superstitioapi.utils.CardUtility
 import java.util.function.Predicate
 
@@ -27,7 +28,7 @@ class ZenState : LupaCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET)
     {
         AutoDoneInstantAction.addToBotAbstract {
             card.superFlash()
-            CardModifierManager.addModifier(card, ExhaustMod())
+            card.addExhaustMod()
         }
     }
 

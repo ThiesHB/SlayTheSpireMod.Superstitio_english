@@ -262,16 +262,14 @@ class SuperstitioModSetup : EditStringsSubscriber, EditRelicsSubscriber, EditCar
                 )
             )
 
-            DataManager.forEachData(
-                Consumer<Map<String, HasDifferentVersionStringSet<*>>>
-                { data: Map<String, HasDifferentVersionStringSet<*>> ->
-                    data.forEach { (_: String, stringSet: HasDifferentVersionStringSet<*>) ->
-                        if (stringSet is WillMakeSuperstitioKeyWords)
-                        {
-                            stringSet.getWillMakeKEYWORDS().toList()?.let(keywordsSFW::addAll)
-                        }
+            DataManager.forEachData { data: Map<String, HasDifferentVersionStringSet<*>> ->
+                data.forEach { (_: String, stringSet: HasDifferentVersionStringSet<*>) ->
+                    if (stringSet is WillMakeSuperstitioKeyWords)
+                    {
+                        stringSet.getWillMakeKEYWORDS().toList()?.let(keywordsSFW::addAll)
                     }
-                })
+                }
+            }
 
             keywordsSFW.forEach(Consumer { obj: SuperstitioKeyWord? -> obj!!.registerKeywordFormFile() })
             keywordsSFW.forEach(Consumer { obj: SuperstitioKeyWord? -> obj!!.addToGame() })

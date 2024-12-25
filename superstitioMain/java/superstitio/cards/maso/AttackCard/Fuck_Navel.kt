@@ -1,7 +1,5 @@
 package superstitio.cards.maso.AttackCard
 
-import basemod.cardmods.RetainMod
-import basemod.helpers.CardModifierManager
 import com.megacrit.cardcrawl.cards.DamageInfo.DamageType
 import com.megacrit.cardcrawl.characters.AbstractPlayer
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon
@@ -16,6 +14,7 @@ import superstitio.powers.patchAndInterface.interfaces.orgasm.OnOrgasm_onOrgasm
 import superstitioapi.SuperstitioApiSetup
 import superstitioapi.actions.DamageAllEnemiesAction
 import superstitioapi.cards.DamageActionMaker
+import superstitioapi.cards.addRetainMod
 
 class Fuck_Navel : MasoCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET), FuckJob_Card, OnOrgasm_onOrgasm,
     IsNotLupaCard
@@ -27,7 +26,7 @@ class Fuck_Navel : MasoCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET), Fuck
         this.setupDamage(DAMAGE, UPGRADE_DAMAGE)
         this.setupMagicNumber(MAGIC, UPGRADE_MAGIC)
         this.isMultiDamage = true
-        CardModifierManager.addModifier(this, RetainMod())
+        this.addRetainMod()
         //        this.orgasmTimes = 0;
     }
 

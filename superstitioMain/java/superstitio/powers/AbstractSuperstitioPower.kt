@@ -3,8 +3,6 @@ package superstitio.powers
 import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
 import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion
-import com.megacrit.cardcrawl.actions.common.ReducePowerAction
-import com.megacrit.cardcrawl.actions.common.RemoveSpecificPowerAction
 import com.megacrit.cardcrawl.core.AbstractCreature
 import com.megacrit.cardcrawl.core.Settings
 import com.megacrit.cardcrawl.helpers.*
@@ -12,7 +10,6 @@ import com.megacrit.cardcrawl.powers.AbstractPower
 import superstitio.DataManager
 import superstitio.customStrings.interFace.StringSetUtility
 import superstitio.customStrings.stringsSet.PowerStringsSet
-import superstitioapi.utils.ActionUtility
 import superstitioapi.utils.UpdateDescriptionAdvanced
 
 abstract class AbstractSuperstitioPower : AbstractPower, UpdateDescriptionAdvanced
@@ -33,26 +30,6 @@ abstract class AbstractSuperstitioPower : AbstractPower, UpdateDescriptionAdvanc
     )
     {
         SetupPower(id, getPowerStringsWithSFW(id), owner, amount, powerType, needUpdateDescription)
-    }
-
-    fun addToBot_applyPower(power: AbstractPower)
-    {
-        ActionUtility.addToBot_applyPower(power, this.owner)
-    }
-
-    fun addToBot_reducePowerToOwner(powerID: String, amount: Int)
-    {
-        ActionUtility.addToBot_reducePower(powerID, amount, this.owner, this.owner)
-    }
-
-    fun addToTop_reducePowerToOwner(powerID: String, amount: Int)
-    {
-        ActionUtility.addToTop_reducePower(powerID, amount, this.owner, this.owner)
-    }
-
-    fun addToBot_removeSpecificPower(power: AbstractPower)
-    {
-        ActionUtility.addToBot_removeSpecificPower(power, power.owner)
     }
 
     protected fun SetupPower(
@@ -102,32 +79,6 @@ abstract class AbstractSuperstitioPower : AbstractPower, UpdateDescriptionAdvanc
         }
 
         this.fontScale = MathHelper.scaleLerpSnap(this.fontScale, 0.7f)
-    }
-
-    protected fun addToBot_AutoRemoveOne(power: AbstractPower?)
-    {
-        this.flash()
-        if (this.amount == 0)
-        {
-            this.addToBot(RemoveSpecificPowerAction(this.owner, this.owner, power))
-        }
-        else
-        {
-            this.addToBot(ReducePowerAction(this.owner, this.owner, power, 1))
-        }
-    }
-
-    protected fun addToTop_AutoRemoveOne(power: AbstractPower?)
-    {
-        this.flash()
-        if (this.amount == 0)
-        {
-            this.addToTop(RemoveSpecificPowerAction(this.owner, this.owner, power))
-        }
-        else
-        {
-            this.addToTop(ReducePowerAction(this.owner, this.owner, power, 1))
-        }
     }
 
     private fun makeImgPath(id: String, size: IconSize): String
@@ -208,3 +159,4 @@ abstract class AbstractSuperstitioPower : AbstractPower, UpdateDescriptionAdvanc
         }
     }
 }
+

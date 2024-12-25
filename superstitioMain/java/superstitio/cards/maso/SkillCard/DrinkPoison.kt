@@ -1,8 +1,5 @@
 package superstitio.cards.maso.SkillCard
 
-import basemod.cardmods.ExhaustMod
-import basemod.cardmods.RetainMod
-import basemod.helpers.CardModifierManager
 import com.badlogic.gdx.graphics.Color
 import com.megacrit.cardcrawl.characters.AbstractPlayer
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon
@@ -12,6 +9,8 @@ import superstitio.DataManager
 import superstitio.cards.maso.MasoCard
 import superstitio.delayHpLose.DelayHpLosePower
 import superstitio.powers.SexualHeat.Orgasm
+import superstitioapi.cards.addExhaustMod
+import superstitioapi.cards.addRetainMod
 import superstitioapi.utils.ActionUtility
 import java.util.function.ToIntFunction
 
@@ -20,7 +19,7 @@ class DrinkPoison : MasoCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET)
     init
     {
         this.setupMagicNumber(MAGIC)
-        CardModifierManager.addModifier(this, ExhaustMod())
+        this.addExhaustMod()
     }
 
     override fun use(player: AbstractPlayer?, monster: AbstractMonster?)
@@ -70,7 +69,7 @@ class DrinkPoison : MasoCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET)
 
     override fun upgradeAuto()
     {
-        CardModifierManager.addModifier(this, RetainMod())
+        this.addRetainMod()
     }
 
     companion object

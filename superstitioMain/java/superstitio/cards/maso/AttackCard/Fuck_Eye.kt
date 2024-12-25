@@ -1,7 +1,5 @@
 package superstitio.cards.maso.AttackCard
 
-import basemod.cardmods.ExhaustMod
-import basemod.helpers.CardModifierManager
 import com.megacrit.cardcrawl.actions.AbstractGameAction.AttackEffect
 import com.megacrit.cardcrawl.cards.AbstractCard
 import com.megacrit.cardcrawl.cards.CardGroup
@@ -15,11 +13,12 @@ import superstitio.cards.general.FuckJob_Card
 import superstitio.cards.general.TempCard.Fuck_Ear
 import superstitio.cards.maso.MasoCard
 import superstitioapi.SuperstitioApiSetup
+import superstitioapi.cards.addExhaustMod
 import superstitioapi.cards.patch.GoSomewhereElseAfterUse
 import superstitioapi.hangUpCard.CardOrb_CardTrigger
 import superstitioapi.hangUpCard.CardOrb_WaitCardTrigger
 import superstitioapi.utils.ActionUtility
-import superstitioapi.utils.CardUtility
+import superstitioapi.utils.CostSmart
 
 class Fuck_Eye(blank: Boolean) : MasoCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET), FuckJob_Card,
     GoSomewhereElseAfterUse, IsNotLupaCard
@@ -35,7 +34,7 @@ class Fuck_Eye(blank: Boolean) : MasoCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD
         this.setupDamage(DAMAGE, UPGRADE_DAMAGE)
         //        this.setupBlock(BLOCK, UPGRADE_BLOCK, new RemoveDelayHpLoseBlock());
         this.setupMagicNumber(MAGIC)
-        CardModifierManager.addModifier(this, ExhaustMod())
+        this.addExhaustMod()
     }
 
     override fun use(player: AbstractPlayer?, monster: AbstractMonster?)
@@ -57,7 +56,7 @@ class Fuck_Eye(blank: Boolean) : MasoCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD
         CardOrb_WaitCardTrigger(
             this,
             cardGroup,
-            CardUtility.CostSmart(this.magicNumber)
+            CostSmart(this.magicNumber)
         ) { orb: CardOrb_CardTrigger, card: AbstractCard? ->
             orb.StartHitCreature(AbstractDungeon.player)
             //            addToBot_gainCustomBlock(new RemoveDelayHpLoseBlock());

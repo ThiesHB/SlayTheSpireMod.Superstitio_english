@@ -20,13 +20,13 @@ import superstitioapi.actions.AutoDoneInstantAction
 import superstitioapi.utils.ActionUtility.FunctionReturnSelfType
 import superstitioapi.utils.ActionUtility.VoidSupplier
 import superstitioapi.utils.CardUtility
+import superstitioapi.utils.CostSmart
 import superstitioapi.utils.CreatureUtility
 import java.util.concurrent.atomic.AtomicBoolean
 import java.util.function.Consumer
 import kotlin.math.abs
-import kotlin.math.max
 
-abstract class CardOrb(card: AbstractCard, cardGroupReturnAfterEvoke: CardGroup?, OrbCounter: CardUtility.CostSmart) :
+abstract class CardOrb(card: AbstractCard, cardGroupReturnAfterEvoke: CardGroup?, OrbCounter: CostSmart) :
     AbstractOrb()
 {
     val thisCardGroup: CardGroup = CardGroup(CardGroupType.UNSPECIFIED)
@@ -39,7 +39,32 @@ abstract class CardOrb(card: AbstractCard, cardGroupReturnAfterEvoke: CardGroup?
     var actionType: HangEffectType = HangEffectType.None
     var movingType: FunctionReturnSelfType?
     var lastTarget: AbstractCreature? = null
-    var orbCounter: CardUtility.CostSmart
+    open fun afterOrbCounterChange(field: CostSmart)
+    {
+        fun setPassiveAmount(amount: Int)
+        {
+            super.passiveAmount = amount
+            super.basePassiveAmount = amount
+        }
+
+        fun setEvokeAmount(amount: Int)
+        {
+
+            super.evokeAmount = amount
+            super.baseEvokeAmount = amount
+        }
+        setEvokeAmount(field.toInt { it - 1 })
+        setPassiveAmount(field.toInt())
+        tryUpdateOrbCounterInCard(this.cardRawDescriptionWillShow, field)
+    }
+
+    var orbCounter: CostSmart = OrbCounter
+        set(value)
+        {
+            field = value
+            afterOrbCounterChange(field)
+        }
+
     protected val fakeCard: AbstractCard
     protected var isNewMovingModeSetup: Boolean = false
     private var cardRawDescriptionWillShow: String? = null
@@ -53,7 +78,6 @@ abstract class CardOrb(card: AbstractCard, cardGroupReturnAfterEvoke: CardGroup?
     {
         this.ID = ORB_ID
         this.name = ""
-        this.orbCounter = OrbCounter
         super.basePassiveAmount = 0
         super.passiveAmount = 0
         super.baseEvokeAmount = 0
@@ -91,7 +115,7 @@ abstract class CardOrb(card: AbstractCard, cardGroupReturnAfterEvoke: CardGroup?
     fun setTriggerDiscardIfMoveToDiscard(): CardOrb
     {
         this.setAfterEvokeConsumer { orb: CardOrb ->
-            if (orb.orbCounter <= 0) return@setAfterEvokeConsumer
+            if (orb.orbCounter.isZero()) return@setAfterEvokeConsumer
             if (orb.cardGroupReturnAfterEvoke !== AbstractDungeon.player.discardPile) return@setAfterEvokeConsumer
             orb.originCard.triggerOnManualDiscard()
             GameActionManager.incrementDiscard(false)
@@ -99,7 +123,7 @@ abstract class CardOrb(card: AbstractCard, cardGroupReturnAfterEvoke: CardGroup?
         return this
     }
 
-    fun addToBot_HangCard()
+    open fun addToBot_HangCard()
     {
         HangUpCardGroup.addToBot_AddCardOrbToOrbGroup(this)
         AutoDoneInstantAction.addToBotAbstract(AbstractDungeon::onModifyPower)
@@ -148,7 +172,7 @@ abstract class CardOrb(card: AbstractCard, cardGroupReturnAfterEvoke: CardGroup?
     fun checkShouldRemove()
     {
         if (shouldRemove) return
-        this.shouldRemove = this.orbCounter <= 0 && checkShouldStopMoving()
+        this.shouldRemove = this.orbCounter.isZero() && checkShouldStopMoving()
     }
 
     fun tryMoveTo(vector2: Vector2)
@@ -180,6 +204,26 @@ abstract class CardOrb(card: AbstractCard, cardGroupReturnAfterEvoke: CardGroup?
     {
         setHoverTypeFromCard(cardTarget)
         return this
+    }
+
+    private var isZeroActionAccepted: Boolean = false
+        get()
+        {
+            if (!this.orbCounter.isZero())
+                return false
+            return field
+        }
+
+    protected fun tryCheckZeroAndAcceptAction(action: VoidSupplier)
+    {
+        fun trySetZeroActionAccepted()
+        {
+            if (this.orbCounter.isZero())
+                isZeroActionAccepted = true
+        }
+        if (isZeroActionAccepted) return
+        action.addToBotAsAbstractAction()
+        trySetZeroActionAccepted()
     }
 
     fun StartHitCreature(target: AbstractCreature)
@@ -279,23 +323,10 @@ abstract class CardOrb(card: AbstractCard, cardGroupReturnAfterEvoke: CardGroup?
         }
     }
 
-    fun updateOrbAmount()
-    {
-        fun setPassiveAmount(amount: Int)
-        {
-            super.passiveAmount = amount
-            super.basePassiveAmount = amount
-        }
-
-        fun setEvokeAmount(amount: Int)
-        {
-
-            super.evokeAmount = amount
-            super.baseEvokeAmount = amount
-        }
-        setEvokeAmount(orbCounter.toInt { it - 1 })
-        setPassiveAmount(orbCounter.toInt { it })
-    }
+//    fun updateOrbAmount()
+//    {
+//
+//    }
 
 
     protected fun YOffsetBoBing(): Float
@@ -329,17 +360,17 @@ abstract class CardOrb(card: AbstractCard, cardGroupReturnAfterEvoke: CardGroup?
 
     protected fun showEvokeNum()
     {
-        super.evokeAmount = max(0, super.evokeAmount)
-        fakeCard.costForTurn = super.evokeAmount
+//        super.evokeAmount = max(0, super.evokeAmount)
+        fakeCard.costForTurn = this.orbCounter.toInt { it - 1 }
         fakeCard.isCostModified = true
         fakeCard.beginGlowing()
     }
 
     protected fun showPassiveNum()
     {
-        super.passiveAmount = max(0, super.evokeAmount)
+//        super.passiveAmount = max(0, super.passiveAmount)
         fakeCard.stopGlowing()
-        fakeCard.costForTurn = super.passiveAmount
+        fakeCard.costForTurn = this.orbCounter.toInt()
         fakeCard.isCostModified = false
     }
 
@@ -454,7 +485,7 @@ abstract class CardOrb(card: AbstractCard, cardGroupReturnAfterEvoke: CardGroup?
         return false
     }
 
-    private fun tryUpdateOrbCounterInCard(cardRawDescriptionWillShow: String?, NewOrbCounter: CardUtility.CostSmart)
+    private fun tryUpdateOrbCounterInCard(cardRawDescriptionWillShow: String?, NewOrbCounter: CostSmart)
     {
         if (cardRawDescriptionWillShow.isNullOrEmpty()) return
         fakeCard.rawDescription =
@@ -471,7 +502,8 @@ abstract class CardOrb(card: AbstractCard, cardGroupReturnAfterEvoke: CardGroup?
         this.fakeCard.targetDrawScale = DRAW_SCALE_SMALL
         this.fakeCard.isCostModified = false
 
-        this.fakeCard.costForTurn = -2
+        this.fakeCard.cost = this.orbCounter.toInt()
+        this.fakeCard.costForTurn = this.fakeCard.cost
     }
 
     override fun onStartOfTurn()
@@ -530,7 +562,11 @@ abstract class CardOrb(card: AbstractCard, cardGroupReturnAfterEvoke: CardGroup?
         fakeCard.updateHoverLogic()
         this.movingType = movingType!!.get()
         fakeCard.glowColor = actionType.color
-        updateOrbAmount()
+//        updateOrbAmount()
+    }
+
+    open fun onPowerModified()
+    {
     }
 
     override fun updateDescription()
@@ -549,7 +585,6 @@ abstract class CardOrb(card: AbstractCard, cardGroupReturnAfterEvoke: CardGroup?
         originCard.applyPowers()
         originCard.calculateDamageDisplay(hoveredMonsterSafe)
         originCard.initializeDescription()
-
     }
 
     override fun playChannelSFX()

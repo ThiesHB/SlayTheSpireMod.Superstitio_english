@@ -52,12 +52,12 @@ class Fuck_Vaginal : GeneralCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET),
     {
         if (orb is ICardOrb_WaitTime && orb is CardOrb_CardTrigger)
         {
-            if ((orb as CardOrb_CardTrigger).cardMatcher.test(this))
+            if (orb.cardMatcher.test(this))
             {
                 return orb.orbCounter.toInt { it - 1 }
             }
         }
-        return orb.orbCounter.toInt { it }
+        return orb.orbCounter.toInt()
     }
 
     companion object

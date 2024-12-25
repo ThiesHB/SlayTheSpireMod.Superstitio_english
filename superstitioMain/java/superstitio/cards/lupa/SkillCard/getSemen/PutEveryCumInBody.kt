@@ -10,13 +10,14 @@ import superstitio.cards.lupa.LupaCard
 import superstitio.powers.SexualHeat
 import superstitio.powers.lupaOnly.InsideSemen
 import superstitio.powers.lupaOnly.SemenPower
+import superstitioapi.cards.addExhaustMod
 
 //强制塞入
 class PutEveryCumInBody : LupaCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET)
 {
     init
     {
-        CardModifierManager.addModifier(this, ExhaustMod())
+        this.addExhaustMod()
     }
 
     override fun upgradeAuto()

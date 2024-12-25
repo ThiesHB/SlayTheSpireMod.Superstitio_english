@@ -13,7 +13,7 @@ import superstitioapi.SuperstitioApiSetup
 import superstitioapi.cards.patch.GoSomewhereElseAfterUse
 import superstitioapi.hangUpCard.CardOrb_CardTrigger
 import superstitioapi.hangUpCard.CardOrb_EachCardTrigger
-import superstitioapi.utils.CardUtility
+import superstitioapi.utils.CostSmart
 import java.util.function.Predicate
 
 class Job_Blow : LupaCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET), FuckJob_Card, GoSomewhereElseAfterUse
@@ -39,7 +39,7 @@ class Job_Blow : LupaCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET), FuckJo
         CardOrb_EachCardTrigger(
             this,
             cardGroup,
-            CardUtility.CostSmart(this.magicNumber)
+            CostSmart(this.magicNumber)
         ) { orb: CardOrb_CardTrigger, card: AbstractCard? ->
             orb.StartHitCreature(AbstractDungeon.player)
             SexualHeat.addToBot_addSexualHeat(AbstractDungeon.player, HEAT_GIVE)

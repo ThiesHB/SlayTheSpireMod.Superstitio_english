@@ -46,11 +46,6 @@ abstract class SuperstitioApiPower(
         ActionUtility.addToBot_reducePower(powerID, amount, this.owner, this.owner)
     }
 
-    fun addToBot_removeSpecificPower(power: AbstractPower)
-    {
-        ActionUtility.addToBot_removeSpecificPower(power, power.owner)
-    }
-
     protected fun SetupPower(
         id: String, powerStrings: PowerStrings, owner: AbstractCreature, amount: Int, powerType: PowerType,
         needUpdateDescription: Boolean

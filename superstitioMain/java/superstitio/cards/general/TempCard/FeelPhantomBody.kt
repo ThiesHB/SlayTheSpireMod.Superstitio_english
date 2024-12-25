@@ -1,7 +1,5 @@
 package superstitio.cards.general.TempCard
 
-import basemod.cardmods.ExhaustMod
-import basemod.helpers.CardModifierManager
 import com.megacrit.cardcrawl.actions.common.ExhaustSpecificCardAction
 import com.megacrit.cardcrawl.actions.common.LoseHPAction
 import com.megacrit.cardcrawl.cards.AbstractCard
@@ -10,6 +8,7 @@ import com.megacrit.cardcrawl.dungeons.AbstractDungeon
 import com.megacrit.cardcrawl.monsters.AbstractMonster
 import superstitio.DataManager
 import superstitio.cards.general.AbstractTempCard
+import superstitioapi.cards.addExhaustMod
 import superstitioapi.utils.ActionUtility
 import superstitioapi.utils.CreatureUtility
 
@@ -20,7 +19,7 @@ class FeelPhantomBody @JvmOverloads constructor(private val sealCard: AbstractCa
     {
         this.cardsToPreview = sealCard
         this.setupMagicNumber(MAGIC, UPGRADE_MAGIC)
-        CardModifierManager.addModifier(this, ExhaustMod())
+        this.addExhaustMod()
     }
 
     override fun makeCopy(): AbstractCard

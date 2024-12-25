@@ -11,7 +11,7 @@ import superstitio.powers.SexualHeat
 import superstitioapi.cards.patch.GoSomewhereElseAfterUse
 import superstitioapi.hangUpCard.CardOrb_CardTrigger
 import superstitioapi.hangUpCard.CardOrb_WaitCardTrigger
-import superstitioapi.utils.CardUtility
+import superstitioapi.utils.CostSmart
 import superstitioapi.utils.PowerUtility
 import superstitioapi.utils.setDescriptionArgs
 
@@ -37,7 +37,7 @@ class Masturbate : LupaCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET, "base
         CardOrb_WaitCardTrigger(
             this,
             cardGroup,
-            CardUtility.CostSmart(WAIT)
+            CostSmart(WAIT)
         ) { orb: CardOrb_CardTrigger, playedCard: AbstractCard? ->
             orb.StartHitCreature(AbstractDungeon.player)
             addToBot_drawCards(DRAWCard)

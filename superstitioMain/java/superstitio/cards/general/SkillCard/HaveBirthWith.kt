@@ -39,8 +39,10 @@ class HaveBirthWith : GeneralCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET)
     override fun use(player: AbstractPlayer?, monster: AbstractMonster?)
     {
         val target = CardUtility.getSelfOrEnemyTarget(this, monster)
-        if (target is AbstractPlayer) ForPlayer(AbstractDungeon.player)
-        else ForMonster(target as AbstractMonster)
+        if (target is AbstractPlayer)
+            ForPlayer(AbstractDungeon.player)
+        else
+            ForMonster(target as AbstractMonster)
         ActionUtility.addToBot_makeTempCardInBattle(GiveBirth(), ActionUtility.BattleCardPlace.Discard, upgraded)
     }
 

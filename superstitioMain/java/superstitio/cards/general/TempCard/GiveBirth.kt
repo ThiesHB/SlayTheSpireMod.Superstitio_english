@@ -13,6 +13,7 @@ import superstitio.DataManager
 import superstitio.cardModifier.modifiers.block.PregnantBlock
 import superstitio.cards.general.AbstractTempCard
 import superstitioapi.actions.AutoDoneInstantAction
+import superstitioapi.cards.addExhaustMod
 
 class GiveBirth() : AbstractTempCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET)
 {
@@ -21,7 +22,7 @@ class GiveBirth() : AbstractTempCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARG
 
     init
     {
-        this.exhaust = true
+        this.addExhaustMod()
         this.setupBlock(BLOCK, UPGRADE_PLUS_BLOCK)
     }
 

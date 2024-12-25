@@ -1,7 +1,5 @@
 package superstitio.cards.maso.SkillCard
 
-import basemod.cardmods.RetainMod
-import basemod.helpers.CardModifierManager
 import com.megacrit.cardcrawl.actions.common.LoseHPAction
 import com.megacrit.cardcrawl.characters.AbstractPlayer
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon
@@ -9,6 +7,7 @@ import com.megacrit.cardcrawl.monsters.AbstractMonster
 import superstitio.DataManager
 import superstitio.cards.maso.MasoCard
 import superstitio.delayHpLose.RemoveDelayHpLoseBlock
+import superstitioapi.cards.addRetainMod
 
 class CutWrist : MasoCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET)
 {
@@ -16,7 +15,7 @@ class CutWrist : MasoCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET)
     {
         this.setupMagicNumber(MAGIC)
         this.setupBlock(BLOCK, UPGRADE_BLOCK, RemoveDelayHpLoseBlock())
-        CardModifierManager.addModifier(this, RetainMod())
+        this.addRetainMod()
     }
 
     override fun use(player: AbstractPlayer?, monster: AbstractMonster?)

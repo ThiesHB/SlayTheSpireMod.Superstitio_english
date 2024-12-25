@@ -5,13 +5,13 @@ import com.megacrit.cardcrawl.cards.CardGroup
 import com.megacrit.cardcrawl.orbs.AbstractOrb
 import superstitio.powers.SexualHeat
 import superstitioapi.hangUpCard.ICardOrb_EachTime
-import superstitioapi.utils.CardUtility
+import superstitioapi.utils.CostSmart
 import java.util.function.Consumer
 
 class CardOrb_OnOrgasm_EachTime(
     card: AbstractCard,
     cardGroupReturnAfterEvoke: CardGroup?,
-    OrbCounter: CardUtility.CostSmart,
+    OrbCounter: CostSmart,
     action_thisCard: Consumer<CardOrb_OnOrgasm>
 ) : CardOrb_OnOrgasm(card, cardGroupReturnAfterEvoke, OrbCounter, action_thisCard), ICardOrb_EachTime
 {
@@ -23,14 +23,12 @@ class CardOrb_OnOrgasm_EachTime(
     override fun onOrgasm(SexualHeatPower: SexualHeat)
     {
         orbCounter--
-        if (orbCounter < 0) return
-        actionAccept()
+        tryAcceptAction()
     }
 
     override fun forceAcceptAction(card: AbstractCard)
     {
         orbCounter--
-        if (orbCounter < 0) return
-        actionAccept()
+        tryAcceptAction()
     }
 }

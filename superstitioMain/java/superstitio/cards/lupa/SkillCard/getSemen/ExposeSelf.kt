@@ -13,6 +13,7 @@ import superstitio.cards.lupa.SkillCard.getSemen.ExposeSelf.ExposeSelfPower
 import superstitio.delayHpLose.RemoveDelayHpLoseBlock
 import superstitio.powers.AbstractSuperstitioPower
 import superstitio.powers.lupaOnly.OutsideSemen
+import superstitioapi.utils.addToBot_AutoRemoveOne
 
 /**
  * 抵消敌人的攻击，转换为精液

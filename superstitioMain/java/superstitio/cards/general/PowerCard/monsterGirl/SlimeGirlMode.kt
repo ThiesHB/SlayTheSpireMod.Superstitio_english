@@ -11,6 +11,7 @@ import superstitio.cards.SuperstitioCard
 import superstitio.cards.general.AbstractTempCard
 import superstitio.powers.AbstractSuperstitioPower
 import superstitio.powers.EasyBuildAbstractPowerForPowerCard
+import superstitioapi.utils.addToBot_applyPower
 import superstitioapi.utils.setDescriptionArgs
 
 class SlimeGirlMode : AbstractTempCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET)

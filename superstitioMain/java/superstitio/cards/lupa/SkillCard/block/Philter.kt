@@ -12,8 +12,8 @@ import com.megacrit.cardcrawl.monsters.AbstractMonster
 import superstitio.DataManager
 import superstitio.SuperstitioImg.NoNeedImg
 import superstitio.cards.lupa.LupaCard
-import superstitio.cards.lupa.SkillCard.block.Philter.SexPlateArmorPower
 import superstitio.powers.AbstractSuperstitioPower
+import superstitioapi.utils.addToBot_reducePowerToOwner
 import superstitioapi.utils.setDescriptionArgs
 
 //春药

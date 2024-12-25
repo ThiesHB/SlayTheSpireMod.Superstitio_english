@@ -19,10 +19,7 @@ import superstitioapi.actions.ChoseCardFromHandCardSelectScreen
 import superstitioapi.cards.patch.GoSomewhereElseAfterUse
 import superstitioapi.hangUpCard.CardOrb_CardTrigger
 import superstitioapi.hangUpCard.CardOrb_WaitCardTrigger
-import superstitioapi.utils.ActionUtility
-import superstitioapi.utils.CardUtility
-import superstitioapi.utils.PowerUtility
-import superstitioapi.utils.setDescriptionArgs
+import superstitioapi.utils.*
 import java.util.function.Consumer
 
 class FistIn : MasoCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET, "base"), GoSomewhereElseAfterUse
@@ -86,7 +83,7 @@ class FistIn : MasoCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET, "base"), 
         CardOrb_WaitCardTrigger(
             this,
             cardGroup,
-            CardUtility.CostSmart(WAIT)
+            CostSmart(WAIT)
         ) { orb: CardOrb_CardTrigger, playedCard: AbstractCard ->
             orb.StartHitCreature(AbstractDungeon.player)
             addToBot_drawCards(DRAWCard)

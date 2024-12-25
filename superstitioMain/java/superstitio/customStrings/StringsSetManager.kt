@@ -153,11 +153,11 @@ object StringsSetManager
     {
         val wordReplaces = makeWordReplaceRule()
 
-        DataManager.cards.forEach(BiConsumer<String?, CardStringsWillMakeFlavorSet> { string: String?, card: CardStringsWillMakeFlavorSet ->
+        DataManager.cards.forEach { string: String?, card: CardStringsWillMakeFlavorSet ->
             card.setupSFWStringByWordReplace(
                 wordReplaces
             )
-        })
+        }
         DataManager.powers.forEach((BiConsumer<String?, PowerStringsSet> { string: String?, power: PowerStringsSet ->
             power.setupSFWStringByWordReplace(
                 wordReplaces

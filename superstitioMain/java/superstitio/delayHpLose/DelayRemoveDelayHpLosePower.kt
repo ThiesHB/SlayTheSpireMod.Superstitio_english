@@ -10,6 +10,7 @@ import superstitio.powers.AbstractSuperstitioPower
 import superstitioapi.cardModifier.RenderAsBlockPower
 import superstitioapi.cardModifier.RenderStackedBlockInstancesPatch
 import superstitioapi.powers.interfaces.OnPostApplyThisPower
+import superstitioapi.utils.addToBot_removeSelf
 import superstitioapi.utils.setDescriptionArgs
 
 class DelayRemoveDelayHpLosePower(owner: AbstractCreature, amount: Int) :
@@ -34,7 +35,7 @@ class DelayRemoveDelayHpLosePower(owner: AbstractCreature, amount: Int) :
             AbstractDungeon.player,
             true
         )
-        addToBot_removeSpecificPower(this)
+        addToBot_removeSelf()
     }
 
     override fun updateDescriptionArgs()

@@ -11,7 +11,7 @@ import superstitioapi.actions.AutoDoneInstantAction
 import superstitioapi.actions.ChoseCardFromHandCardSelectScreen
 import superstitioapi.hangUpCard.CardOrb_CardTrigger
 import superstitioapi.hangUpCard.CardOrb_WaitCardTrigger
-import superstitioapi.utils.CardUtility
+import superstitioapi.utils.CostSmart
 
 class ReadyToSex : GeneralCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET)
 {
@@ -31,7 +31,7 @@ class ReadyToSex : GeneralCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET)
             CardOrb_WaitCardTrigger(
                 card,
                 AbstractDungeon.player.discardPile,
-                CardUtility.CostSmart(magicNumber)
+                CostSmart(magicNumber)
             ) { orb: CardOrb_CardTrigger?, usedcard: AbstractCard? ->
                 addToBot(NewQueueCardAction(copyCard, true, false, true))
             }

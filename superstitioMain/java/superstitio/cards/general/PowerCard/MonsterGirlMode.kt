@@ -11,12 +11,13 @@ import superstitio.cards.general.GeneralCard
 import superstitio.cards.general.PowerCard.monsterGirl.FishGirlMode
 import superstitio.cards.general.PowerCard.monsterGirl.KakaaGirlMode
 import superstitio.cards.general.PowerCard.monsterGirl.SlimeGirlMode
+import superstitioapi.cards.addEtherealMod
 
 class MonsterGirlMode : GeneralCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET)
 {
     init
     {
-        CardModifierManager.addModifier(this, EtherealMod())
+        this.addEtherealMod()
     }
 
     override fun use(player: AbstractPlayer?, monster: AbstractMonster?)

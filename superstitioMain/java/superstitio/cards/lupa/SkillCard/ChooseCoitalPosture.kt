@@ -1,7 +1,5 @@
 package superstitio.cards.lupa.SkillCard
 
-import basemod.cardmods.ExhaustMod
-import basemod.helpers.CardModifierManager
 import com.megacrit.cardcrawl.cards.AbstractCard
 import com.megacrit.cardcrawl.characters.AbstractPlayer
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon
@@ -11,6 +9,7 @@ import superstitio.DataManager
 import superstitio.cards.CardOwnerPlayerManager
 import superstitio.cards.general.FuckJob_Card
 import superstitio.cards.lupa.LupaCard
+import superstitioapi.cards.addExhaustMod
 import superstitioapi.utils.ActionUtility
 import superstitioapi.utils.ListUtility
 import java.util.stream.Collectors
@@ -23,7 +22,7 @@ class ChooseCoitalPosture : LupaCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARG
         val card = randomFuckJobCard.makeCopy()
         //        if (!CardModifierManager.hasModifier(card, ExhaustMod.ID))
         card.setCostForTurn(0)
-        CardModifierManager.addModifier(card, ExhaustMod())
+        card.addExhaustMod()
         ActionUtility.addToBot_makeTempCardInBattle(card, ActionUtility.BattleCardPlace.Hand, upgraded)
     }
 

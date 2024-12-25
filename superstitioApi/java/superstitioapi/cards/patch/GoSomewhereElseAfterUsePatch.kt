@@ -69,10 +69,10 @@ object GoSomewhereElseAfterUsePatch
         if (card.purgeOnUse) return true
         card.targetDrawScale = CardOrb.DRAW_SCALE_SMALL
         AbstractDungeon.player.limbo.addToTop(card)
-        AutoDoneInstantAction.addToBotAbstract(VoidSupplier {
+        AutoDoneInstantAction.addToBotAbstract {
             (card as GoSomewhereElseAfterUse).afterInterruptMoveToCardGroup(cardGroup)
-        })
-        AutoDoneInstantAction.addToBotAbstract(VoidSupplier { AbstractDungeon.player.limbo.removeCard(card) })
+        }
+        AutoDoneInstantAction.addToBotAbstract { AbstractDungeon.player.limbo.removeCard(card) }
         return false
     }
 }

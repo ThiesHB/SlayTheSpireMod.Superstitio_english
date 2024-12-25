@@ -5,6 +5,8 @@ import com.megacrit.cardcrawl.cards.AbstractCard
 import com.megacrit.cardcrawl.core.AbstractCreature
 import com.megacrit.cardcrawl.monsters.AbstractMonster
 import superstitio.DataManager
+import superstitioapi.utils.addToTop_AutoRemoveOne
+import superstitioapi.utils.addToTop_reducePowerToOwner
 import superstitioapi.utils.setDescriptionArgs
 
 //减半并且抽一张卡

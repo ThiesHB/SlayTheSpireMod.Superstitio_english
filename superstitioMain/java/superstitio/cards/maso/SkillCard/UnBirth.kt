@@ -1,29 +1,33 @@
 package superstitio.cards.maso.SkillCard
 
-import com.evacipated.cardcrawl.mod.stslib.blockmods.AbstractBlockModifier
-import com.evacipated.cardcrawl.mod.stslib.blockmods.BlockInstance
-import com.evacipated.cardcrawl.mod.stslib.blockmods.BlockModifierManager
+import basemod.helpers.TooltipInfo
 import com.evacipated.cardcrawl.mod.stslib.cards.targeting.SelfOrEnemyTargeting
 import com.evacipated.cardcrawl.mod.stslib.powers.interfaces.InvisiblePower
+import com.megacrit.cardcrawl.actions.common.ApplyPowerAction
+import com.megacrit.cardcrawl.cards.AbstractCard
+import com.megacrit.cardcrawl.cards.CardGroup
 import com.megacrit.cardcrawl.characters.AbstractPlayer
+import com.megacrit.cardcrawl.core.AbstractCreature
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon
 import com.megacrit.cardcrawl.monsters.AbstractMonster
 import com.megacrit.cardcrawl.powers.*
 import superstitio.DataManager
-import superstitio.cardModifier.modifiers.block.PregnantBlock_sealPower
 import superstitio.cards.general.TempCard.GiveBirth
 import superstitio.cards.general.TempCard.SelfReference
 import superstitio.cards.maso.MasoCard
 import superstitioapi.actions.AutoDoneInstantAction
+import superstitioapi.hangUpCard.CardOrb_BlockDamageWhenOverCount
+import superstitioapi.hangUpCard.HangUpCardGroup
 import superstitioapi.utils.ActionUtility
 import superstitioapi.utils.CardUtility
+import superstitioapi.utils.CostSmart
 
 //TODO 增加一个按照怪物体型获得格挡的效果
 class UnBirth : MasoCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET)
 {
     init
     {
-        this.setupBlock(BLOCK, UPGRADE_BLOCK, PregnantBlock_sealPower(ArrayList(), null).removeAutoBind())
+        this.setupBlock(BLOCK, UPGRADE_BLOCK)
         this.cardsToPreview = GiveBirth()
         //this.exhaust = true;
     }
@@ -31,7 +35,7 @@ class UnBirth : MasoCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET)
     private fun ForPlayer(player: AbstractPlayer)
     {
         val sealPower = doSealPowers(player.powers)
-        addToBot_gainCustomBlock(PregnantBlock_sealPower(sealPower, player))
+        addToTop_HangUpOrb(sealPower, player)
         this.exhaust = true
         ActionUtility.addToBot_makeTempCardInBattle(SelfReference(), ActionUtility.BattleCardPlace.Hand, upgraded)
     }
@@ -39,7 +43,7 @@ class UnBirth : MasoCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET)
     private fun ForMonsterBrokenSpaceStructure(monster: AbstractMonster)
     {
         val sealPower = doSealPowers(monster.powers)
-        addToBot_gainCustomBlock(PregnantBlock_sealPower(sealPower, monster))
+        addToTop_HangUpOrb(sealPower, monster)
         this.exhaust = true
         ActionUtility.addToBot_makeTempCardInBattle(SelfReference(), ActionUtility.BattleCardPlace.Hand, upgraded)
     }
@@ -47,28 +51,70 @@ class UnBirth : MasoCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET)
     private fun ForMonster(monster: AbstractMonster)
     {
         val sealPower = doSealPowers(monster.powers)
-        addToBot_gainCustomBlock(PregnantBlock_sealPower(sealPower, monster))
+        addToTop_HangUpOrb(sealPower, monster)
         ActionUtility.addToBot_makeTempCardInBattle(GiveBirth(), ActionUtility.BattleCardPlace.Discard, upgraded)
     }
 
     override fun use(player: AbstractPlayer?, monster: AbstractMonster?)
     {
         val target = CardUtility.getSelfOrEnemyTarget(this, monster)
-        if (target is AbstractPlayer) ForPlayer(AbstractDungeon.player)
-        else if (BlockModifierManager.blockInstances(target).stream()
-                .anyMatch { blockInstance: BlockInstance ->
-                    blockInstance.blockTypes.stream()
-                        .filter { blockModifier: AbstractBlockModifier? -> blockModifier is PregnantBlock_sealPower }
-                        .anyMatch { blockModifier: AbstractBlockModifier -> (blockModifier as PregnantBlock_sealPower).sealCreature === monster }
-                }
-        ) ForMonsterBrokenSpaceStructure(target as AbstractMonster)
-        else ForMonster(target as AbstractMonster)
+        if (target is AbstractPlayer)
+            ForPlayer(AbstractDungeon.player)
+        else if (HangUpCardGroup.forEachHangUpCard_Any { (it as CardOrb_SealPower).sealCreature === target })
+            ForMonsterBrokenSpaceStructure(target as AbstractMonster)
+        else
+            ForMonster(target as AbstractMonster)
     }
 
     override fun upgradeAuto()
     {
         upgradeCardsToPreview()
     }
+
+    private fun addToTop_HangUpOrb(sealPower: List<AbstractPower>, sealCreature: AbstractCreature)
+    {
+        val powerNames =
+            sealPower.joinToString(cardStrings.getEXTENDED_DESCRIPTION(2)) { it.amount.toString() + it.name }
+        val copyCard = this.makeStatEquivalentCopy() as UnBirth
+        copyCard.exhaust = true
+        copyCard.purgeOnUse = true
+
+        if (sealCreature is AbstractPlayer)
+            copyCard.addedToolTipsTop.add(
+                TooltipInfo(
+                    cardStrings.getEXTENDED_DESCRIPTION(3),
+                    cardStrings.getEXTENDED_DESCRIPTION(4)
+                )
+            )
+        else
+            copyCard.addedToolTipsTop.add(TooltipInfo(cardStrings.getEXTENDED_DESCRIPTION(3), sealCreature.name))
+
+        if (powerNames.isNotEmpty())
+            copyCard.addedToolTipsTop.add(TooltipInfo(cardStrings.getEXTENDED_DESCRIPTION(1), powerNames))
+
+
+        CardOrb_SealPower(copyCard, null, CostSmart(this.block), sealPower, sealCreature)
+            .setCardRawDescriptionWillShow(cardStrings.getEXTENDED_DESCRIPTION(0))
+            .addToBot_HangCard()
+    }
+
+    class CardOrb_SealPower(
+        card: AbstractCard,
+        cardGroupReturnAfterEvoke: CardGroup?,
+        OrbCounter: CostSmart,
+        sealPower: List<AbstractPower>, val sealCreature: AbstractCreature?
+    ) :
+        CardOrb_BlockDamageWhenOverCount(card, cardGroupReturnAfterEvoke, OrbCounter, {
+            if (sealCreature != null && !sealCreature.isDeadOrEscaped)
+                for (power in sealPower)
+                {
+                    ActionUtility.addToBot(ApplyPowerAction(AbstractDungeon.player, AbstractDungeon.player, power))
+                }
+        }, {})
+    {
+
+        }
+
 
     internal sealed class MonsterBodyType
     {
@@ -97,13 +143,7 @@ class UnBirth : MasoCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET)
                 }
             }
         }
-    } //    MonsterBodyType getMonsterBodyType(AbstractCreature creature){
-    //        if (creature.maxHealth < 10)
-    //            return MonsterBodyType.Tiny;
-    //        if (creature.maxHealth < 20)
-    //            return MonsterBodyType.Middle
-    //
-    //    }
+    }
 
     companion object
     {

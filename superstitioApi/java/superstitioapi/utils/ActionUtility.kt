@@ -71,10 +71,10 @@ object ActionUtility
         val gameAction = getMakeTempCardAction(card, battleCardPlace, amount)
         addToBot(gameAction)
 
-        AutoDoneInstantAction.addToBotAbstract(VoidSupplier {
+        AutoDoneInstantAction.addToBotAbstract {
             val power: AllCardCostModifier? = AllCardCostModifier.activateOne
             power?.let { obj: AllCardCostModifier? -> obj!!.tryUseEffect() }
-        })
+        }
     }
 
     fun addToTop_makeTempCardInBattle(
@@ -84,10 +84,10 @@ object ActionUtility
     {
         if (upgrade) card.upgrade()
         val gameAction = getMakeTempCardAction(card, battleCardPlace, amount)
-        AutoDoneInstantAction.addToTopAbstract(VoidSupplier {
+        AutoDoneInstantAction.addToTopAbstract {
             val power: AllCardCostModifier? = AllCardCostModifier.activateOne
             power?.let { obj: AllCardCostModifier? -> obj!!.tryUseEffect() }
-        })
+        }
         addToTop(gameAction)
     }
 
@@ -219,4 +219,11 @@ object ActionUtility
     {
         fun get(): FunctionReturnSelfType?
     }
+}
+fun AbstractGameAction.addToBot(){
+    ActionUtility.addToBot(this)
+}
+
+fun AbstractGameAction.addToTop(){
+    ActionUtility.addToTop(this)
 }

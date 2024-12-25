@@ -13,12 +13,13 @@ import com.megacrit.cardcrawl.powers.AbstractPower.PowerType
 import superstitio.DataManager
 import superstitio.cards.general.GeneralCard
 import superstitio.powers.SexualHeat
+import superstitioapi.cards.addExhaustMod
 
 class EscapeConjuring : GeneralCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET)
 {
     init
     {
-        CardModifierManager.addModifier(this, ExhaustMod())
+        this.addExhaustMod()
         this.setupMagicNumber(MAGIC, UPGRADE_MAGIC)
     }
 

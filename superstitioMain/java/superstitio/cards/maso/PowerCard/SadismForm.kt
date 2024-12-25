@@ -10,9 +10,10 @@ import superstitio.DataManager
 import superstitio.DataManager.CanOnlyDamageDamageType
 import superstitio.cards.SuperstitioCard
 import superstitio.cards.maso.MasoCard
-import superstitio.cards.maso.PowerCard.SadismForm.GetTempStrengthNextTurn
 import superstitio.powers.AbstractSuperstitioPower
 import superstitio.powers.EasyBuildAbstractPowerForPowerCard
+import superstitioapi.utils.addToBot_applyPower
+import superstitioapi.utils.addToBot_removeSelf
 import superstitioapi.utils.setDescriptionArgs
 
 //造成攻击伤害或失去生命时，获得 !M! 临时力量
@@ -74,7 +75,7 @@ class SadismForm : MasoCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET)
         {
             addToBot_applyPower(StrengthPower(this.owner, this.amount))
             //            addToBot_applyPower(new LoseStrengthPower(this.owner, this.amount));
-            addToBot_removeSpecificPower(this)
+            addToBot_removeSelf()
         }
 
         companion object

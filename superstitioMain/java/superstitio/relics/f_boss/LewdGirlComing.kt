@@ -10,6 +10,8 @@ import superstitio.relics.SuperstitioRelic
 import superstitio.relics.f_boss.LewdGirlComing.RatherThanDeath
 import superstitioapi.powers.interfaces.OnMonsterDeath.OnMonsterDeathPower
 import superstitioapi.utils.CreatureUtility
+import superstitioapi.utils.addToBot_AutoRemoveOne
+import superstitioapi.utils.addToTop_AutoRemoveOne
 import superstitioapi.utils.setDescriptionArgs
 
 class LewdGirlComing  //    private static final int DrawAmount = 1;

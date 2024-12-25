@@ -13,7 +13,7 @@ import superstitioapi.SuperstitioApiSetup
 import superstitioapi.cards.patch.GoSomewhereElseAfterUse
 import superstitioapi.hangUpCard.CardOrb_CardTrigger
 import superstitioapi.hangUpCard.CardOrb_EachCardTrigger
-import superstitioapi.utils.CardUtility
+import superstitioapi.utils.CostSmart
 import superstitioapi.utils.setDescriptionArgs
 import java.util.function.Predicate
 
@@ -41,7 +41,7 @@ class Job_Hand : GeneralCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET), Fuc
         CardOrb_EachCardTrigger(
             this,
             cardGroup,
-            CardUtility.CostSmart(this.magicNumber)
+            CostSmart(this.magicNumber)
         ) { orb: CardOrb_CardTrigger, card: AbstractCard? ->
             orb.StartHitCreature(AbstractDungeon.player)
             addToBot_applyPower(StrengthPower(AbstractDungeon.player, STRENGTH_GET))

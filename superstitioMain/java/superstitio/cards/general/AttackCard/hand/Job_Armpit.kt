@@ -12,7 +12,7 @@ import superstitioapi.cards.DamageActionMaker
 import superstitioapi.cards.patch.GoSomewhereElseAfterUse
 import superstitioapi.hangUpCard.CardOrb_CardTrigger
 import superstitioapi.hangUpCard.CardOrb_WaitCardTrigger
-import superstitioapi.utils.CardUtility
+import superstitioapi.utils.CostSmart
 import superstitioapi.utils.CreatureUtility
 import java.util.function.Predicate
 
@@ -41,7 +41,7 @@ class Job_Armpit @JvmOverloads constructor(hasCardToPreview: Boolean = true) :
         CardOrb_WaitCardTrigger(
             this,
             cardGroup,
-            CardUtility.CostSmart(this.magicNumber)
+            CostSmart(this.magicNumber)
         ) { orb: CardOrb_CardTrigger, card: AbstractCard? ->
             val creature = CreatureUtility.getMonsterOrRandomMonster(orb.lastTarget)
             orb.StartHitCreature(creature)
@@ -57,7 +57,7 @@ class Job_Armpit @JvmOverloads constructor(hasCardToPreview: Boolean = true) :
         CardOrb_WaitCardTrigger(
             copyCard,
             cardGroup,
-            CardUtility.CostSmart(this.magicNumber)
+            CostSmart(this.magicNumber)
         ) { orb: CardOrb_CardTrigger, card: AbstractCard? ->
             val creature = CreatureUtility.getMonsterOrRandomMonster(orb.lastTarget)
             orb.StartHitCreature(creature)

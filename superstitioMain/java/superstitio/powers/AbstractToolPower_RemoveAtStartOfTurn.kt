@@ -5,6 +5,7 @@ import com.evacipated.cardcrawl.mod.stslib.powers.interfaces.NonStackablePower
 import com.megacrit.cardcrawl.core.AbstractCreature
 import superstitio.DataManager
 import superstitioapi.actions.AutoDoneInstantAction
+import superstitioapi.utils.addToBot_removeSelf
 
 abstract class AbstractToolPower_RemoveAtStartOfTurn(owner: AbstractCreature) :
     AbstractSuperstitioPower(POWER_ID, owner, -1), NonStackablePower, InvisiblePower
@@ -18,7 +19,7 @@ abstract class AbstractToolPower_RemoveAtStartOfTurn(owner: AbstractCreature) :
     override fun atStartOfTurn()
     {
         AutoDoneInstantAction.addToBotAbstract(this::atStartOfTurnAction)
-        this.addToBot_removeSpecificPower(this)
+        this.addToBot_removeSelf()
     }
 
     companion object

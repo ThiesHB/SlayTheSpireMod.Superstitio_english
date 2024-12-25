@@ -9,7 +9,6 @@ import superstitio.delayHpLose.RemoveDelayHpLoseBlock
 import superstitioapi.hangUpCard.CardOrb
 import superstitioapi.hangUpCard.Card_TriggerHangCardManually
 import superstitioapi.hangUpCard.HangUpCardGroup
-import kotlin.math.max
 
 class PassiveGangBang : GeneralCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET), Card_TriggerHangCardManually
 {
@@ -42,7 +41,7 @@ class PassiveGangBang : GeneralCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGE
 
     override fun forceChangeOrbCounterShown(orb: CardOrb): Int
     {
-        return max(orb.orbCounter.toInt { it - this.magicNumber }, 0)
+        return orb.orbCounter.toInt { it - this.magicNumber }
     }
 
     companion object

@@ -11,9 +11,7 @@ import superstitio.cards.maso.MasoCard
 import superstitio.delayHpLose.DelayRemoveDelayHpLoseBlock
 import superstitio.powers.EasyBuildAbstractPowerForPowerCard
 import superstitio.powers.SexualDamage
-import superstitioapi.utils.CreatureUtility
-import superstitioapi.utils.PowerUtility
-import superstitioapi.utils.setDescriptionArgs
+import superstitioapi.utils.*
 
 class STDRoulette : MasoCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET)
 {
@@ -47,7 +45,7 @@ class STDRoulette : MasoCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET)
 
         override fun atEndOfRound()
         {
-            addToBot_removeSpecificPower(this)
+            addToBot_removeSelf()
         }
 
         override fun wasHPLost(info: DamageInfo, damageAmount: Int)

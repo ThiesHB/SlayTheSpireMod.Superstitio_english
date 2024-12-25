@@ -1,13 +1,12 @@
 package superstitio.cards.maso.SkillCard
 
-import basemod.cardmods.ExhaustMod
-import basemod.cardmods.RetainMod
-import basemod.helpers.CardModifierManager
 import com.megacrit.cardcrawl.characters.AbstractPlayer
 import com.megacrit.cardcrawl.monsters.AbstractMonster
 import superstitio.DataManager
 import superstitio.cards.maso.MasoCard
 import superstitio.delayHpLose.DelayRemoveDelayHpLoseBlock
+import superstitioapi.cards.addExhaustMod
+import superstitioapi.cards.addRetainMod
 
 //恋污，被消耗或丢弃时触发
 class LoveDirty : MasoCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET)
@@ -16,8 +15,8 @@ class LoveDirty : MasoCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET)
     {
         //        this.setupMagicNumber(MAGIC);
         this.setupBlock(BLOCK, UPGRADE_BLOCK, DelayRemoveDelayHpLoseBlock())
-        CardModifierManager.addModifier(this, ExhaustMod())
-        CardModifierManager.addModifier(this, RetainMod())
+        this.addExhaustMod()
+        this.addRetainMod()
     }
 
     private fun Trigger()

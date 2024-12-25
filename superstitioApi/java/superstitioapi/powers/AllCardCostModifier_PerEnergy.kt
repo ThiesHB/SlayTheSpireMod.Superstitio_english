@@ -53,7 +53,7 @@ class AllCardCostModifier_PerEnergy(
     {
         if (!isActive) return
         if (totalCostDecreased(card) == 0) return
-        AutoDoneInstantAction.addToBotAbstract(VoidSupplier {
+        AutoDoneInstantAction.addToBotAbstract {
             this.flash()
             this.amount -= totalCostDecreased(card)
             this.amount = Integer.max(0, amount)
@@ -64,7 +64,7 @@ class AllCardCostModifier_PerEnergy(
                 if (amount == 0) this.removeSelf()
                 else this.tryUseEffect()
             }
-        })
+        }
     }
 
     companion object

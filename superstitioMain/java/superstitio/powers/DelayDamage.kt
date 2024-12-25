@@ -12,6 +12,7 @@ import com.megacrit.cardcrawl.cards.DamageInfo.DamageType
 import com.megacrit.cardcrawl.core.AbstractCreature
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon
 import superstitio.DataManager
+import superstitioapi.utils.addToBot_AutoRemoveOne
 import superstitioapi.utils.setDescriptionArgs
 
 class DelayDamage(owner: AbstractCreature, amount: Int, private val damageAmount: Int) : AbstractSuperstitioPower(

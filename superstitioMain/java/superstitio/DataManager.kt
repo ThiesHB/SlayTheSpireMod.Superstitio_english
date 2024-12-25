@@ -190,6 +190,11 @@ class DataManager
 
     companion object
     {
+        /**
+         * 作为随机数种子之类的
+         */
+        const val MAGIC_NUMBER_0: Int = 19260817
+
         const val CODER_COMPUTERNAME: String = "DESKTOP-VK8L63C"
         const val COMPUTERNAME: String = "COMPUTERNAME"
         const val GURO_VERSION_TIPS: String = "#GuroVersion#"

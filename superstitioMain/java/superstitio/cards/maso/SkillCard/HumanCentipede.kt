@@ -1,7 +1,5 @@
 package superstitio.cards.maso.SkillCard
 
-import basemod.cardmods.EtherealMod
-import basemod.helpers.CardModifierManager
 import com.evacipated.cardcrawl.mod.stslib.cards.targeting.SelfOrEnemyTargeting
 import com.evacipated.cardcrawl.mod.stslib.damagemods.DamageModifierManager
 import com.megacrit.cardcrawl.cards.DamageInfo
@@ -17,6 +15,7 @@ import superstitio.cards.maso.MasoCard
 import superstitio.powers.EasyBuildAbstractPowerForPowerCard
 import superstitioapi.SuperstitioApiSetup
 import superstitioapi.cards.DamageActionMaker
+import superstitioapi.cards.addEtherealMod
 import superstitioapi.utils.CardUtility
 import superstitioapi.utils.CreatureUtility
 import superstitioapi.utils.setDescriptionArgs
@@ -27,7 +26,7 @@ class HumanCentipede : MasoCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET)
     {
         this.setupMagicNumber(MAGIC, UPGRADE_MAGIC)
         DamageModifierManager.addModifier(this, SexDamage())
-        CardModifierManager.addModifier(this, EtherealMod())
+        this.addEtherealMod()
     }
 
     override fun use(player: AbstractPlayer?, monster: AbstractMonster?)

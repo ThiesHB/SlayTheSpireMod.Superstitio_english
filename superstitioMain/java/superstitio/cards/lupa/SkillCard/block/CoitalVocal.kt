@@ -1,20 +1,19 @@
 package superstitio.cards.lupa.SkillCard.block
 
-import basemod.cardmods.RetainMod
-import basemod.helpers.CardModifierManager
 import com.megacrit.cardcrawl.characters.AbstractPlayer
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon
 import com.megacrit.cardcrawl.monsters.AbstractMonster
 import superstitio.DataManager
 import superstitio.cardModifier.modifiers.block.SexBlock
 import superstitio.cards.lupa.LupaCard
+import superstitioapi.cards.addRetainMod
 
 class CoitalVocal : LupaCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET)
 {
     init
     {
         this.setupBlock(BLOCK, UPGRADE_BLOCK, SexBlock())
-        CardModifierManager.addModifier(this, RetainMod())
+        this.addRetainMod()
     }
 
     override fun upgradeAuto()

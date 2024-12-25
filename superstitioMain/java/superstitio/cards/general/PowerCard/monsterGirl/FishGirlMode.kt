@@ -7,6 +7,7 @@ import superstitio.cards.SuperstitioCard
 import superstitio.cards.general.AbstractTempCard
 import superstitio.powers.EasyBuildAbstractPowerForPowerCard
 import superstitio.powers.sexualHeatNeedModifier.ChokeChokerPower
+import superstitioapi.utils.addToBot_applyPower
 import superstitioapi.utils.setDescriptionArgs
 
 class FishGirlMode : AbstractTempCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET)

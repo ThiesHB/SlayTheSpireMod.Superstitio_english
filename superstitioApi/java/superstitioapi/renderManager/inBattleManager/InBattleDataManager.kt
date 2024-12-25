@@ -19,11 +19,11 @@ object InBattleDataManager
     fun InitializeAtStartOfBattle()
     {
         ResetAll()
-        AutoDoneInstantAction.addToTopAbstract(VoidSupplier {
+        AutoDoneInstantAction.addToTopAbstract {
             Subscribe(HangUpCardGroup(AbstractDungeon.player.hb))
             Subscribe(BarRenderManager())
             Subscribe(PetManager())
-        })
+        }
     }
 
     @JvmStatic

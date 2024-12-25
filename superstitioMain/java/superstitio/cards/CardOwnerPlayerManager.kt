@@ -23,7 +23,7 @@ object CardOwnerPlayerManager
         return card is IsLupaCard && card !is IsNotLupaCard
     }
 
-    fun isLupaCard(cardType: Class<*>?): Boolean
+    fun isLupaCard(cardType: Class<*>): Boolean
     {
         return IsLupaCard::class.java.isAssignableFrom(cardType) && !(IsNotLupaCard::class.java.isAssignableFrom(
             cardType

@@ -1,6 +1,5 @@
 package superstitio.cards.maso.SkillCard.cruelTorture
 
-import basemod.cardmods.RetainMod
 import basemod.helpers.CardModifierManager
 import com.megacrit.cardcrawl.actions.common.LoseHPAction
 import com.megacrit.cardcrawl.characters.AbstractPlayer
@@ -10,6 +9,7 @@ import superstitio.DataManager
 import superstitio.cardModifier.modifiers.card.CruelTortureTag
 import superstitio.cards.maso.MasoCard
 import superstitio.delayHpLose.RemoveDelayHpLoseBlock
+import superstitioapi.cards.addRetainMod
 import superstitioapi.hangUpCard.CardOrb
 import superstitioapi.hangUpCard.Card_TriggerHangCardManually
 import superstitioapi.hangUpCard.HangUpCardGroup
@@ -22,7 +22,7 @@ class CruelTorture_Dismember : MasoCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_T
         this.setupMagicNumber(MAGIC)
         this.setupBlock(BLOCK, UPGRADE_BLOCK, RemoveDelayHpLoseBlock())
         CardModifierManager.addModifier(this, CruelTortureTag())
-        CardModifierManager.addModifier(this, RetainMod())
+        this.addRetainMod()
     }
 
     override fun use(player: AbstractPlayer?, monster: AbstractMonster?)

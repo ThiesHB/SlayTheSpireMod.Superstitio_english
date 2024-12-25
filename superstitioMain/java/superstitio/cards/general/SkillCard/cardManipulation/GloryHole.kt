@@ -1,7 +1,5 @@
 package superstitio.cards.general.SkillCard.cardManipulation
 
-import basemod.cardmods.RetainMod
-import basemod.helpers.CardModifierManager
 import com.megacrit.cardcrawl.actions.AbstractGameAction
 import com.megacrit.cardcrawl.actions.common.MakeTempCardInHandAction
 import com.megacrit.cardcrawl.cards.AbstractCard
@@ -12,6 +10,7 @@ import superstitio.DataManager
 import superstitio.cards.general.GeneralCard
 import superstitio.cards.general.TempCard.SelfReference
 import superstitioapi.actions.ChoseCardFromGridSelectWindowAction
+import superstitioapi.cards.addRetainMod
 
 //荣耀洞
 class GloryHole : GeneralCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET)
@@ -45,7 +44,7 @@ class GloryHole : GeneralCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET)
     override fun upgradeAuto()
     {
 //        upgradeBaseCost(COST_UPGRADED_NEW);
-        CardModifierManager.addModifier(this, RetainMod())
+        this.addRetainMod()
     }
 
     companion object

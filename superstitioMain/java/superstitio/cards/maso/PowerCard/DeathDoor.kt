@@ -10,9 +10,10 @@ import com.megacrit.cardcrawl.monsters.AbstractMonster
 import superstitio.DataManager
 import superstitio.cards.SuperstitioCard
 import superstitio.cards.maso.MasoCard
-import superstitio.cards.maso.PowerCard.DeathDoor.AtDeathDoor
 import superstitio.powers.AbstractSuperstitioPower
 import superstitio.powers.EasyBuildAbstractPowerForPowerCard
+import superstitioapi.utils.addToBot_AutoRemoveOne
+import superstitioapi.utils.addToBot_applyPower
 import superstitioapi.utils.setDescriptionArgs
 
 class DeathDoor : MasoCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET)

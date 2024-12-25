@@ -2,21 +2,18 @@ package superstitioapi.hangUpCard
 
 import com.megacrit.cardcrawl.cards.AbstractCard
 import com.megacrit.cardcrawl.cards.CardGroup
-import org.apache.logging.log4j.util.BiConsumer
-import superstitioapi.actions.AutoDoneInstantAction
-import superstitioapi.utils.ActionUtility.VoidSupplier
-import superstitioapi.utils.CardUtility
+import superstitioapi.utils.CostSmart
 import java.util.function.Predicate
 
 abstract class CardOrb_CardTrigger(
     card: AbstractCard,
     cardGroupReturnAfterEvoke: CardGroup?,
-    orbCounter: CardUtility.CostSmart,
-    val action: BiConsumer<CardOrb_CardTrigger, AbstractCard>
-) : CardOrb(card, cardGroupReturnAfterEvoke, orbCounter)
+    orbCounter: CostSmart,
+    val action: (CardOrb_CardTrigger, AbstractCard) -> Unit
+) : CardOrb(card, cardGroupReturnAfterEvoke, orbCounter), ICardOrb_CanEvokeOnEndOfTurn<CardOrb_CardTrigger>
 {
     var cardMatcher: Predicate<AbstractCard> = Predicate { card: AbstractCard? -> true }
-    var evokeOnEndOfTurn: Boolean = false
+    override var evokeOnEndOfTurn: Boolean = false
 
     fun setEvokeOnEndOfTurn(): CardOrb_CardTrigger
     {
@@ -24,19 +21,11 @@ abstract class CardOrb_CardTrigger(
         return this
     }
 
-    fun setDiscardOnEndOfTurn(): CardOrb_CardTrigger
-    {
-        this.evokeOnEndOfTurn = true
-        this.setTriggerDiscardIfMoveToDiscard()
-        return this
-    }
-
     protected abstract fun onProperCardUsed_checkIfShouldApplyAction(card: AbstractCard?): Boolean
 
-    protected fun actionAccept(card: AbstractCard)
+    private fun tryAcceptAction(card: AbstractCard)
     {
-        if (orbCounter < 0) return
-        AutoDoneInstantAction.addToBotAbstract(VoidSupplier { action.accept(this, card) })
+        tryCheckZeroAndAcceptAction { action(this, card) }
     }
 
     private fun TestIfCardIsRight_use(hoveredCard: AbstractCard?): Boolean
@@ -53,10 +42,12 @@ abstract class CardOrb_CardTrigger(
     {
         if (card == null) return
         if (!TestIfCardIsRight_use(card)) return
-        if (orbCounter <= 0) return
         this.fakeCard.calculateCardDamage(null)
         orbCounter--
-        if (onProperCardUsed_checkIfShouldApplyAction(card)) actionAccept(card)
+        if (onProperCardUsed_checkIfShouldApplyAction(card))
+        {
+            tryAcceptAction(card)
+        }
     }
 
     @SafeVarargs
@@ -72,13 +63,13 @@ abstract class CardOrb_CardTrigger(
     override fun forceAcceptAction(card: AbstractCard)
     {
         orbCounter--
-        if (onProperCardUsed_checkIfShouldApplyAction(card)) actionAccept(card)
+        if (onProperCardUsed_checkIfShouldApplyAction(card))
+            tryAcceptAction(card)
     }
 
     override fun onEndOfTurn()
     {
         if (!evokeOnEndOfTurn) return
-        //        InBattleDataManager.getHangUpCardOrbGroup().ifPresent(group -> group.evokeOrb(this));
         setShouldRemove()
     }
 

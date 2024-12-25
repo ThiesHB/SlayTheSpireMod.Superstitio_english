@@ -11,6 +11,7 @@ import superstitio.cards.SuperstitioCard
 import superstitio.cards.maso.MasoCard
 import superstitio.powers.EasyBuildAbstractPowerForPowerCard
 import superstitio.powers.Milk
+import superstitioapi.utils.addToBot_applyPower
 import superstitioapi.utils.setDescriptionArgs
 
 class BodyModification_SuperHugeBreast : MasoCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET)

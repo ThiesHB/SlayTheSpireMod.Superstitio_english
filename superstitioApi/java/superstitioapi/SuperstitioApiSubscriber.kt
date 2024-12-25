@@ -154,6 +154,17 @@ class SuperstitioApiSubscriber : PostExhaustSubscriber, StartGameSubscriber, Rel
         )
     }
 
+//    override fun receiveOnPlayerDamaged(amount: Int, info: DamageInfo?): Int
+//    {
+//        var newAmount = amount
+//        HangUpCardGroup.forEachHangUpCard(
+//            CardOrb_OnAttackedToChangeDamage::class.java
+//        ) { orb: CardOrb_OnAttackedToChangeDamage ->
+//            newAmount = orb.receiveOnPlayerDamaged(newAmount, info)
+//        }
+//        return newAmount
+//    }
+
     override fun receivePreMonsterTurn(abstractMonster: AbstractMonster?): Boolean
     {
 //        if (!hasHadInMonsterTurn)
@@ -190,6 +201,38 @@ class SuperstitioApiSubscriber : PostExhaustSubscriber, StartGameSubscriber, Rel
             }
         }
     }
+
+//    interface AtLastHpSubscriber : ISubscriber
+//    {
+//        fun receiveAtLastHp()
+//
+//        @SpirePatch(clz = AbstractPlayer::class, method = "damage", paramtypez = [DamageInfo::class])
+//        object OnPlayerDamagedHook
+//        {
+//            @SpireInsertPatch(localvars = ["damageAmount"], locator = LocatorPre::class)
+//            @JvmStatic
+//            fun InsertPre(__instance: AbstractPlayer?, info: DamageInfo?, @ByRef damageAmount: IntArray)
+//            {
+//                var damage = BaseMod.publishOnPlayerDamaged(damageAmount[0], info)
+//                if (damage < 0)
+//                {
+//                    damage = 0
+//                }
+//
+//                damageAmount[0] = damage
+//            }
+//
+//            private class LocatorPre private constructor() : SpireInsertLocator()
+//            {
+//                @Throws(Exception::class)
+//                override fun Locate(ctBehavior: CtBehavior): IntArray
+//                {
+//                    val matcher: Matcher = MethodCallMatcher(AbstractRelic::class.java, "onLoseHpLast")
+//                    return LineFinder.findInOrder(ctBehavior, matcher)
+//                }
+//            }
+//        }
+//    }
 
     interface AtManualDiscardSubscriber : ISubscriber
     {
@@ -245,4 +288,6 @@ class SuperstitioApiSubscriber : PostExhaustSubscriber, StartGameSubscriber, Rel
             val mod = SuperstitioApiSubscriber()
         }
     }
+
+
 }

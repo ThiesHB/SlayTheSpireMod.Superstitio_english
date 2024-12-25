@@ -12,6 +12,7 @@ import superstitio.cards.SuperstitioCard
 import superstitio.cards.maso.MasoCard
 import superstitio.powers.EasyBuildAbstractPowerForPowerCard
 import superstitio.powers.Milk
+import superstitioapi.utils.addToBot_applyPower
 import superstitioapi.utils.setDescriptionArgs
 
 @AutoAdd.Ignore

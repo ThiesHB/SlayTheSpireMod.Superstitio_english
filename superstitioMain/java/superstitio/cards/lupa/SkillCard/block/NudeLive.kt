@@ -1,7 +1,5 @@
 package superstitio.cards.lupa.SkillCard.block
 
-import basemod.cardmods.ExhaustMod
-import basemod.helpers.CardModifierManager
 import com.megacrit.cardcrawl.characters.AbstractPlayer
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon
 import com.megacrit.cardcrawl.monsters.AbstractMonster
@@ -9,6 +7,7 @@ import superstitio.DataManager
 import superstitio.cardModifier.modifiers.block.SexBlock
 import superstitio.cards.lupa.LupaCard
 import superstitio.delayHpLose.PreventHpLimit_Turns
+import superstitioapi.cards.addExhaustMod
 
 class NudeLive : LupaCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET)
 {
@@ -16,7 +15,7 @@ class NudeLive : LupaCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET)
     {
         this.setupBlock(BLOCK, UPGRADE_BLOCK, SexBlock())
         this.setupMagicNumber(MAGIC, UPGRADE_MAGIC)
-        CardModifierManager.addModifier(this, ExhaustMod())
+        this.addExhaustMod()
     }
 
     override fun use(player: AbstractPlayer?, monster: AbstractMonster?)

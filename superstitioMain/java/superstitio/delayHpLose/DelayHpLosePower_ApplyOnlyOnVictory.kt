@@ -2,6 +2,7 @@ package superstitio.delayHpLose
 
 import com.megacrit.cardcrawl.core.AbstractCreature
 import superstitio.DataManager
+import superstitioapi.utils.addToBot_reducePowerToOwner
 
 class DelayHpLosePower_ApplyOnlyOnVictory(owner: AbstractCreature, amount: Int) :
     DelayHpLosePower(POWER_ID, owner, amount)

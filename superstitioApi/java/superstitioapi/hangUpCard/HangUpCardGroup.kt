@@ -15,9 +15,6 @@ import superstitioapi.renderManager.inBattleManager.InBattleDataManager
 import superstitioapi.renderManager.inBattleManager.RenderInBattle
 import superstitioapi.utils.ActionUtility
 import superstitioapi.utils.ActionUtility.VoidSupplier
-import java.util.function.BiConsumer
-import java.util.function.Consumer
-import java.util.stream.Stream
 
 class HangUpCardGroup(hitbox: Hitbox) : RenderInBattle, OnCardUseSubscriber, OnPowersModifiedSubscriber,
     OnPlayerTurnStartSubscriber, AtEndOfPlayerTurnPreCardSubscriber
@@ -59,50 +56,47 @@ class HangUpCardGroup(hitbox: Hitbox) : RenderInBattle, OnCardUseSubscriber, OnP
         return false
     }
 
-    private fun <T> forEachOrbInThisOrbGroup(consumer: BiConsumer<CardOrb, T>, arg: T)
+    private fun <T> forEachOrbInThisOrbGroup(consumer: (CardOrb, T) -> Unit, arg: T)
     {
         for (orb in this.cards)
         {
-            consumer.accept(orb, arg)
+            consumer(orb, arg)
         }
     }
 
-    private fun forEachOrbInThisOrbGroup(consumer: Consumer<CardOrb>)
+    private fun forEachOrbInThisOrbGroup(consumer: (CardOrb) -> Unit)
     {
         for (orb in this.cards)
         {
-            consumer.accept(orb)
+            consumer(orb)
         }
     }
 
     private fun <TArg, TOrb : CardOrb> forEachOrbInThisOrbGroup(
-        OrbClass: Class<TOrb>, consumer: BiConsumer<TOrb, TArg>, arg: TArg
+        OrbClass: Class<TOrb>, consumer: (TOrb, TArg) -> Unit, arg: TArg
     )
     {
         for (orb in this.cards)
         {
             if (OrbClass.isInstance(orb))
             {
-                consumer.accept(OrbClass.cast(orb), arg)
+                consumer(OrbClass.cast(orb), arg)
             }
         }
     }
 
     private fun <TOrb : CardOrb> forEachOrbInThisOrbGroup(
-        OrbClass: Class<TOrb>, consumer: Consumer<TOrb>
+        OrbClass: Class<TOrb>, consumer: (TOrb) -> Unit
     )
     {
         for (orb in this.cards)
         {
             if (OrbClass.isInstance(orb))
             {
-                consumer.accept(OrbClass.cast(orb))
+                consumer(OrbClass.cast(orb))
             }
         }
     }
-
-    private val cardOrbStream: Stream<CardOrb>
-        get() = cards.stream()
 
     private fun removeUselessCard()
     {
@@ -111,8 +105,11 @@ class HangUpCardGroup(hitbox: Hitbox) : RenderInBattle, OnCardUseSubscriber, OnP
         this.remove_check_counter = 10
         this.forEachOrbInThisOrbGroup { orb: CardOrb ->
             orb.checkShouldRemove()
-            if (orb.ifShouldRemove() || ActionUtility.isNotInBattle) AutoDoneInstantAction.addToBotAbstract(
-                VoidSupplier { removeCard(orb) })
+            if (orb.ifShouldRemove() || ActionUtility.isNotInBattle) AutoDoneInstantAction.addToBotAbstract {
+                removeCard(
+                    orb
+                )
+            }
         }
     }
 
@@ -173,6 +170,7 @@ class HangUpCardGroup(hitbox: Hitbox) : RenderInBattle, OnCardUseSubscriber, OnP
 
     override fun receivePowersModified()
     {
+        this.forEachOrbInThisOrbGroup(CardOrb::onPowerModified)
         this.forEachOrbInThisOrbGroup(CardOrb::updateDescription)
     }
 
@@ -181,7 +179,7 @@ class HangUpCardGroup(hitbox: Hitbox) : RenderInBattle, OnCardUseSubscriber, OnP
         if (ActionUtility.isNotInBattle) return
         //        getCardOrbStream().filter(orb -> orb.drawOrder == CardOrb.DrawOrder.bottom).forEach(orb -> orb.render(sb));
 //        getCardOrbStream().filter(orb -> orb.drawOrder == CardOrb.DrawOrder.middle).forEach(orb -> orb.render(sb));
-        cardOrbStream.forEach { orb: CardOrb -> orb.render(sb) }
+        cards.forEach { orb: CardOrb -> orb.render(sb) }
         if (hoveredCard != null) hoveredCard!!.render(sb)
     }
 
@@ -248,62 +246,76 @@ class HangUpCardGroup(hitbox: Hitbox) : RenderInBattle, OnCardUseSubscriber, OnP
             return VoidSupplier { InBattleDataManager.getHangUpCardOrbGroup()?.let(cardGroupConsumer) }
         }
 
-        fun <T> forEachHangUpCard(consumer: BiConsumer<CardOrb, T>, arg: T): VoidSupplier
+        fun forHangUpCardGroup_IfExist(cardGroupConsumer: (HangUpCardGroup) -> Boolean): Boolean
+        {
+            return InBattleDataManager.getHangUpCardOrbGroup()?.let(cardGroupConsumer) ?: false
+        }
+
+        fun <T> forEachHangUpCard(consumer: (CardOrb, T) -> Unit, arg: T): VoidSupplier
         {
             return forHangUpCardGroup { hangUpCardGroup: HangUpCardGroup? ->
                 for (orb in hangUpCardGroup!!.cards)
                 {
-                    consumer.accept(orb, arg)
+                    consumer(orb, arg)
                 }
             }
         }
 
-        fun forEachHangUpCard(consumer: BiConsumer<HangUpCardGroup, CardOrb>): VoidSupplier
+        fun forEachHangUpCard_Any(predicate: (CardOrb) -> Boolean): Boolean
+        {
+            return forHangUpCardGroup_IfExist { hangUpCardGroup ->
+                hangUpCardGroup.cards.any {
+                    predicate(it)
+                }
+            }
+        }
+
+        fun forEachHangUpCard(consumer: (HangUpCardGroup, CardOrb) -> Unit): VoidSupplier
         {
             return forHangUpCardGroup { hangUpCardGroup ->
-                hangUpCardGroup.cards.forEach { orb ->
-                    consumer.accept(hangUpCardGroup, orb)
+                hangUpCardGroup.cards.forEach {
+                    consumer(hangUpCardGroup, it)
                 }
             }
         }
 
         fun forEachHangUpCard(consumer: (CardOrb) -> Unit): VoidSupplier
         {
-            return forHangUpCardGroup { hangUpCardGroup ->
-                hangUpCardGroup.cards.forEach(consumer)
+            return forHangUpCardGroup {
+                it.cards.forEach(consumer)
             }
         }
 
         fun <TArg, TOrb : CardOrb> forEachHangUpCard(
-            OrbClass: Class<TOrb>, consumer: BiConsumer<TOrb, TArg>, arg: TArg
+            OrbClass: Class<TOrb>, consumer: (TOrb, TArg) -> Unit, arg: TArg
         ): VoidSupplier
         {
             return forHangUpCardGroup { hangUpCardGroup ->
                 hangUpCardGroup.cards.filterIsInstance(OrbClass).forEach {
-                    consumer.accept(it, arg)
+                    consumer(it, arg)
                 }
             }
         }
 
         fun <TOrb : CardOrb> forEachHangUpCard(
             OrbClass: Class<TOrb>,
-            consumer: BiConsumer<HangUpCardGroup, TOrb>
+            consumer: (HangUpCardGroup, TOrb) -> Unit
         ): VoidSupplier
         {
             return forHangUpCardGroup { hangUpCardGroup ->
                 hangUpCardGroup.cards.filterIsInstance(OrbClass).forEach {
-                    consumer.accept(hangUpCardGroup, it)
+                    consumer(hangUpCardGroup, it)
                 }
             }
         }
 
         fun <TOrb : CardOrb> forEachHangUpCard(
             OrbClass: Class<TOrb>,
-            consumer: Consumer<TOrb>
+            consumer: (TOrb) -> Unit
         ): VoidSupplier
         {
-            return forHangUpCardGroup { hangUpCardGroup ->
-                hangUpCardGroup.cards.filterIsInstance(OrbClass).forEach(consumer)
+            return forHangUpCardGroup {
+                it.cards.filterIsInstance(OrbClass).forEach(consumer)
             }
         }
     }

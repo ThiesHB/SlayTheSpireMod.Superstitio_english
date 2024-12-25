@@ -3,26 +3,22 @@ package superstitioapi.hangUpCard
 import com.megacrit.cardcrawl.cards.AbstractCard
 import com.megacrit.cardcrawl.cards.CardGroup
 import com.megacrit.cardcrawl.orbs.AbstractOrb
-import superstitioapi.actions.AutoDoneInstantAction
-import superstitioapi.utils.ActionUtility.VoidSupplier
-import superstitioapi.utils.CardUtility
-import java.util.function.Consumer
+import superstitioapi.utils.CostSmart
 
 class CardOrb_AtEndOfTurnEachTime(
-    card: AbstractCard, cardGroupReturnAfterEvoke: CardGroup?, OrbCounter: CardUtility.CostSmart,
-    val action: Consumer<CardOrb_AtEndOfTurnEachTime>
+    card: AbstractCard, cardGroupReturnAfterEvoke: CardGroup?, OrbCounter: CostSmart,
+    val action: (CardOrb_AtEndOfTurnEachTime) -> Unit
 ) : CardOrb(card, cardGroupReturnAfterEvoke, OrbCounter), ICardOrb_EachTime
 {
-    protected fun actionAccept()
+    protected fun tryAcceptAction()
     {
-        AutoDoneInstantAction.addToBotAbstract(VoidSupplier { action.accept(this) })
+        tryCheckZeroAndAcceptAction { action(this) }
     }
 
     override fun onEndOfTurn()
     {
         orbCounter--
-        if (orbCounter < 0) return
-        actionAccept()
+        tryAcceptAction()
     }
 
     override fun makeCopy(): AbstractOrb
@@ -33,8 +29,7 @@ class CardOrb_AtEndOfTurnEachTime(
     override fun forceAcceptAction(card: AbstractCard)
     {
         orbCounter--
-        if (orbCounter < 0) return
-        actionAccept()
+        tryAcceptAction()
     }
 
     override fun onRemoveCard()

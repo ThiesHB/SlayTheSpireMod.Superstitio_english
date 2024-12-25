@@ -1,7 +1,5 @@
 package superstitio.cards.colorless
 
-import basemod.cardmods.ExhaustMod
-import basemod.helpers.CardModifierManager
 import com.megacrit.cardcrawl.cards.AbstractCard
 import com.megacrit.cardcrawl.characters.AbstractPlayer
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon
@@ -10,16 +8,17 @@ import superstitio.DataManager
 import superstitio.cards.SuperstitioCard
 import superstitioapi.actions.AutoDoneInstantAction
 import superstitioapi.actions.ChoseCardFromGridSelectWindowAction
+import superstitioapi.cards.addExhaustMod
 import superstitioapi.hangUpCard.CardOrb_CardTrigger
 import superstitioapi.hangUpCard.CardOrb_WaitCardTrigger
-import superstitioapi.utils.CardUtility
+import superstitioapi.utils.CostSmart
 
 class FindCardAndHang : SuperstitioCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET, CardColor.COLORLESS, "special")
 {
     init
     {
         this.setupMagicNumber(MAGIC, UPGRADE_MAGIC)
-        CardModifierManager.addModifier(this, ExhaustMod())
+        this.addExhaustMod()
     }
 
     private fun HangUpSpecificCard(card: AbstractCard)
@@ -33,7 +32,7 @@ class FindCardAndHang : SuperstitioCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_T
             CardOrb_WaitCardTrigger(
                 card,
                 AbstractDungeon.player.hand,
-                CardUtility.CostSmart(magicNumber)
+                CostSmart(magicNumber)
             ) { orb: CardOrb_CardTrigger?, usedcard: AbstractCard? -> }
                 .setShowCard(showUpCard)
                 .setCardRawDescriptionWillShow(cardStrings.getEXTENDED_DESCRIPTION(1))

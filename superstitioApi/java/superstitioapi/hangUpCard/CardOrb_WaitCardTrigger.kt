@@ -4,15 +4,14 @@ import com.badlogic.gdx.graphics.Color
 import com.megacrit.cardcrawl.cards.AbstractCard
 import com.megacrit.cardcrawl.cards.CardGroup
 import com.megacrit.cardcrawl.orbs.AbstractOrb
-import org.apache.logging.log4j.util.BiConsumer
 import superstitioapi.utils.ActionUtility.VoidSupplier
-import superstitioapi.utils.CardUtility
+import superstitioapi.utils.CostSmart
 
 class CardOrb_WaitCardTrigger(
     card: AbstractCard,
     cardGroupReturnAfterEvoke: CardGroup?,
-    waitTime: CardUtility.CostSmart,
-    action_thisOrb_triggerCard: BiConsumer<CardOrb_CardTrigger, AbstractCard>
+    waitTime: CostSmart,
+    action_thisOrb_triggerCard: (CardOrb_CardTrigger, AbstractCard) -> Unit
 ) : CardOrb_CardTrigger(card, cardGroupReturnAfterEvoke, waitTime, action_thisOrb_triggerCard), ICardOrb_WaitTime
 {
     private fun State_WhenHoverCard_JustGlow()
@@ -28,13 +27,14 @@ class CardOrb_WaitCardTrigger(
 
     override fun checkAndSetTheHoverType(): VoidSupplier
     {
-        if (this.orbCounter > 1) return VoidSupplier(this::State_WhenHoverCard_JustGlow)
+        if (!this.orbCounter.isZero())
+            return VoidSupplier(this::State_WhenHoverCard_JustGlow)
         return super.checkAndSetTheHoverType()
     }
 
     override fun onProperCardUsed_checkIfShouldApplyAction(card: AbstractCard?): Boolean
     {
-        return orbCounter <= 0
+        return orbCounter.isZero()
     }
 
     companion object

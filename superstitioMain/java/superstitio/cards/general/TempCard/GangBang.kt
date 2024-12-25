@@ -14,10 +14,7 @@ import superstitio.cards.general.AbstractTempCard
 import superstitioapi.SuperstitioApiSetup
 import superstitioapi.cards.patch.GoSomewhereElseAfterUse
 import superstitioapi.hangUpCard.CardOrb_AtEndOfTurnEachTime
-import superstitioapi.utils.ActionUtility
-import superstitioapi.utils.CardUtility
-import superstitioapi.utils.CreatureUtility
-import superstitioapi.utils.setDescriptionArgs
+import superstitioapi.utils.*
 
 class GangBang @JvmOverloads constructor(
     attackAmount: Int = DAMAGE,
@@ -76,7 +73,7 @@ class GangBang @JvmOverloads constructor(
         CardOrb_AtEndOfTurnEachTime(
             this,
             cardGroup,
-            CardUtility.CostSmart(TURN_TAKE)
+            CostSmart(TURN_TAKE)
         ) { cardOrbAtEndOfTurn: CardOrb_AtEndOfTurnEachTime ->
             cardOrbAtEndOfTurn.StartHitCreature(CreatureUtility.getRandomMonsterWithoutRngSafe())
             self.addToBot_gainCustomBlock(self.block, DrySemenBlock())

@@ -4,6 +4,7 @@ import com.megacrit.cardcrawl.core.AbstractCreature
 import superstitio.DataManager
 import superstitio.delayHpLose.DelayHpLosePower_ApplyOnAttacked.IPreventHpLimit
 import superstitio.powers.AbstractSuperstitioPower
+import superstitioapi.utils.addToBot_AutoRemoveOne
 import superstitioapi.utils.setDescriptionArgs
 
 class PreventHpLimit_Turns(owner: AbstractCreature, amount: Int) : AbstractSuperstitioPower(POWER_ID, owner, amount),

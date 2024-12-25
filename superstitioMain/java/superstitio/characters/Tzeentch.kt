@@ -156,8 +156,7 @@ class Tzeentch(name: String) : BaseCharacter(ID, name, TzeentchEnums.TZEENTCH_Ch
     override fun updateInCharacterSelectScreen(characterOption: CharacterOption)
     {
         updateIsUnableByGuroSetting(
-            CardPoolManager.instance.cardPools.stream().anyMatch(
-                Predicate { baseCardPool: BaseCardPool -> baseCardPool is MasoCardPool && baseCardPool.isSelect })
+            CardPoolManager.instance.cardPools.stream().anyMatch { baseCardPool: BaseCardPool -> baseCardPool is MasoCardPool && baseCardPool.isSelect }
         )
         CardPoolManager.instance.update()
         STARTER_RELIC_Selection_UI.update()

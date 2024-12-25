@@ -26,12 +26,6 @@
     "DESCRIPTION": "在下回合开始时，回味一些刺激的事情，从而移除 #r新生腐朽 。",
     "DESCRIPTION_SFW": "在下回合开始时，移除 #r新生腐朽 。"
   },
-  "SuperstitioMod:PregnantBlock": {
-    "NAME": "妊娠大肚",
-    "NAME_SFW": "仪式护盾",
-    "BASIC_INFO": "妊娠大肚",
-    "DESCRIPTION": "回合结束时不消失，阻挡伤害。"
-  },
   "SuperstitioMod:PregnantBlock_sealPower": {
     "NAME": "妊娠-回归",
     "NAME_SFW": "仪式-吞噬",

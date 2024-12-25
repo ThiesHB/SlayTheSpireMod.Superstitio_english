@@ -44,12 +44,12 @@ class AllCardCostModifier_PerCard(
     {
         if (!isActive) return
         if (!isCostDecreased(card)) return
-        AutoDoneInstantAction.addToBotAbstract(VoidSupplier {
+        AutoDoneInstantAction.addToBotAbstract {
             this.flash()
             amount--
             this.amount = Integer.max(0, amount)
             if (amount == 0) removeSelf()
-        })
+        }
     }
 
     companion object

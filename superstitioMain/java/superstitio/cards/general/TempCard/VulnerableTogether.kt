@@ -1,14 +1,13 @@
 package superstitio.cards.general.TempCard
 
-import basemod.cardmods.ExhaustMod
-import basemod.cardmods.RetainMod
-import basemod.helpers.CardModifierManager
 import com.megacrit.cardcrawl.characters.AbstractPlayer
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon
 import com.megacrit.cardcrawl.monsters.AbstractMonster
 import com.megacrit.cardcrawl.powers.VulnerablePower
 import superstitio.DataManager
 import superstitio.cards.general.AbstractTempCard
+import superstitioapi.cards.addExhaustMod
+import superstitioapi.cards.addRetainMod
 import superstitioapi.utils.CreatureUtility
 import java.util.*
 
@@ -17,8 +16,8 @@ class VulnerableTogether : AbstractTempCard(ID, CARD_TYPE, COST, CARD_RARITY, CA
     init
     {
         this.setupMagicNumber(MAGIC, UPGRADE_MAGIC)
-        CardModifierManager.addModifier(this, ExhaustMod())
-        CardModifierManager.addModifier(this, RetainMod())
+        this.addExhaustMod()
+        this.addRetainMod()
     }
 
     override fun use(player: AbstractPlayer?, monster: AbstractMonster?)

@@ -23,6 +23,7 @@ import superstitioapi.powers.interfaces.OnPostApplyThisPower
 import superstitioapi.powers.interfaces.invisible.InvisiblePower_InvisibleIconAndAmount
 import superstitioapi.powers.interfaces.invisible.InvisiblePower_InvisibleTips
 import superstitioapi.utils.PowerUtility
+import superstitioapi.utils.addToBot_removeSelf
 import superstitioapi.utils.setDescriptionArgs
 
 //排出，然后喝
@@ -88,7 +89,7 @@ class DrinkSemenBeer : LupaCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET)
                     powerCard.cardStrings.getEXTENDED_DESCRIPTION(3)
                 )
             }
-            addToBot_removeSpecificPower(this)
+            addToBot_removeSelf()
         }
 
         override fun renderAmount(sb: SpriteBatch, x: Float, y: Float, c: Color)

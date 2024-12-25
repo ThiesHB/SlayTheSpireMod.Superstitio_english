@@ -1,7 +1,5 @@
 package superstitio.cards.lupa.SkillCard.block
 
-import basemod.cardmods.RetainMod
-import basemod.helpers.CardModifierManager
 import com.megacrit.cardcrawl.characters.AbstractPlayer
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon
 import com.megacrit.cardcrawl.monsters.AbstractMonster
@@ -13,13 +11,14 @@ import superstitio.delayHpLose.RemoveDelayHpLoseBlock
 import superstitio.powers.lupaOnly.FloorSemen
 import superstitio.powers.lupaOnly.InsideSemen
 import superstitio.powers.lupaOnly.OutsideSemen
+import superstitioapi.cards.addRetainMod
 
 class SemenBath : LupaCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET)
 {
     init
     {
         this.setupBlock(BLOCK, UPGRADE_BLOCK, RemoveDelayHpLoseBlock())
-        CardModifierManager.addModifier(this, RetainMod())
+        this.addRetainMod()
     }
 
     override fun use(player: AbstractPlayer?, monster: AbstractMonster?)

@@ -17,6 +17,7 @@ import com.evacipated.cardcrawl.mod.stslib.patches.FlavorText
 import com.megacrit.cardcrawl.actions.AbstractGameAction.AttackEffect
 import com.megacrit.cardcrawl.actions.common.DrawCardAction
 import com.megacrit.cardcrawl.actions.common.GainBlockAction
+import com.megacrit.cardcrawl.cards.AbstractCard
 import com.megacrit.cardcrawl.cards.DamageInfo.DamageType
 import com.megacrit.cardcrawl.characters.AbstractPlayer
 import com.megacrit.cardcrawl.core.AbstractCreature
@@ -424,16 +425,32 @@ abstract class SuperstitioCard(
     override fun getCustomTooltips(): ArrayList<TooltipInfo>
     {
         val list: ArrayList<TooltipInfo> = ArrayList()
-        cardStrings.needAddKeywords?.forEach { superstitioKeyWord ->
+        cardStrings.needAddKeywords.forEach { superstitioKeyWord ->
             val tooltipInfo = TooltipInfo(superstitioKeyWord.findPROPER_NAME(), superstitioKeyWord.findDESCRIPTION())
             list.add(tooltipInfo)
         }
+        list.addAll(addedToolTips)
         return list
     }
 
+    override fun makeStatEquivalentCopy(): AbstractCard
+    {
+        val card = super.makeStatEquivalentCopy() as SuperstitioCard
+        card.addedToolTips.clear()
+        card.addedToolTips.addAll(this.addedToolTips)
+        card.addedToolTipsTop.clear()
+        card.addedToolTipsTop.addAll(this.addedToolTipsTop)
+        return card
+    }
+
+    val addedToolTips: ArrayList<TooltipInfo> = ArrayList()
+    val addedToolTipsTop: ArrayList<TooltipInfo> = ArrayList()
+
     override fun getCustomTooltipsTop(): ArrayList<TooltipInfo>
     {
-        return ArrayList()
+        val list: ArrayList<TooltipInfo> = ArrayList()
+        list.addAll(addedToolTips)
+        return list
     }
 
     companion object

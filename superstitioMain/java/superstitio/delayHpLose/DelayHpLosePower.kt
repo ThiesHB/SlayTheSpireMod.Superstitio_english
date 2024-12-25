@@ -22,6 +22,7 @@ import superstitioapi.powers.interfaces.invisible.InvisiblePower_InvisibleIconAn
 import superstitioapi.powers.interfaces.invisible.InvisiblePower_InvisibleRemovePowerEffect
 import superstitioapi.powers.interfaces.invisible.InvisiblePower_InvisibleTips
 import superstitioapi.utils.PowerUtility
+import superstitioapi.utils.addToBot_removeSelf
 import superstitioapi.utils.setDescriptionArgs
 import java.lang.reflect.Modifier
 import java.util.stream.Stream
@@ -72,7 +73,7 @@ abstract class DelayHpLosePower(id: String, owner: AbstractCreature, amount: Int
         AutoDoneInstantAction.addToBotAbstract {
             immediate_applyDamage(self)
         }
-        addToBot_removeSpecificPower(this)
+        addToBot_removeSelf()
     }
 
     protected fun immediate_applyDamage(self: AbstractPower)

@@ -15,20 +15,20 @@ object SpriteBatchExtensionForBladeGunner
         endDegree: Float
     )
     {
-        var startDegree = startDegree
-        var endDegree = endDegree
+        var _startDegree = startDegree
+        var _endDegree = endDegree
         check(sb.isDrawing) { "SpriteBatch.begin must be called before draw." }
 
-        startDegree = clipDegree(startDegree + 45) - 45
-        endDegree = clipDegree(endDegree - startDegree) + startDegree
+        _startDegree = clipDegree(_startDegree + 45) - 45
+        _endDegree = clipDegree(_endDegree - _startDegree) + _startDegree
 
-        if (startDegree == endDegree)
+        if (_startDegree == _endDegree)
         {
             sb.draw(region, x, y, width, height)
             return
         }
 
-        var currentDegree = startDegree
+        var currentDegree = _startDegree
         var nextDegree = -45f
         var rightTop = false
         do
@@ -42,20 +42,20 @@ object SpriteBatchExtensionForBladeGunner
             if (rightTop)
             {
                 drawProgressRightTop(
-                    sb, region, x, y, width, height, currentDegree, min(nextDegree.toDouble(), endDegree.toDouble())
+                    sb, region, x, y, width, height, currentDegree, min(nextDegree.toDouble(), _endDegree.toDouble())
                         .toFloat()
                 )
             }
             else
             {
                 drawProgressLeftBottom(
-                    sb, region, x, y, width, height, currentDegree, min(nextDegree.toDouble(), endDegree.toDouble())
+                    sb, region, x, y, width, height, currentDegree, min(nextDegree.toDouble(), _endDegree.toDouble())
                         .toFloat()
                 )
             }
             currentDegree = nextDegree
         }
-        while (nextDegree < endDegree)
+        while (nextDegree < _endDegree)
     }
 
     private fun drawProgressRightTop(
@@ -63,10 +63,10 @@ object SpriteBatchExtensionForBladeGunner
         endDegree: Float
     )
     {
-        var startDegree = startDegree
-        var endDegree = endDegree
-        startDegree = clipDegree(startDegree + 45) - 45
-        endDegree = clipDegree(endDegree + 45) - 45
+        var _startDegree = startDegree
+        var _endDegree = endDegree
+        _startDegree = clipDegree(_startDegree + 45) - 45
+        _endDegree = clipDegree(_endDegree + 45) - 45
 
         val vertices = ReflectionHacks.getPrivate<FloatArray>(sb, SpriteBatch::class.java, "vertices")
         val texture = region.texture
@@ -94,34 +94,34 @@ object SpriteBatchExtensionForBladeGunner
         val u3: Float
         val v3: Float
 
-        if (endDegree > 45)
+        if (_endDegree > 45)
         {
             y1 = y + height
-            x1 = cx + (y1 - cy) / MathUtils.cosDeg(90 - endDegree) * MathUtils.sinDeg(90 - endDegree)
+            x1 = cx + (y1 - cy) / MathUtils.cosDeg(90 - _endDegree) * MathUtils.sinDeg(90 - _endDegree)
             v1 = region.v2
-            u1 = cu + (v1 - cv) / MathUtils.cosDeg(90 - endDegree) * MathUtils.sinDeg(90 - endDegree)
+            u1 = cu + (v1 - cv) / MathUtils.cosDeg(90 - _endDegree) * MathUtils.sinDeg(90 - _endDegree)
         }
         else
         {
             x1 = x + width
-            y1 = cy + (x1 - cx) / MathUtils.cosDeg(endDegree) * MathUtils.sinDeg(endDegree)
+            y1 = cy + (x1 - cx) / MathUtils.cosDeg(_endDegree) * MathUtils.sinDeg(_endDegree)
             u1 = region.u2
-            v1 = cv + (u1 - cu) / MathUtils.cosDeg(endDegree) * MathUtils.sinDeg(endDegree)
+            v1 = cv + (u1 - cu) / MathUtils.cosDeg(_endDegree) * MathUtils.sinDeg(_endDegree)
         }
 
-        if (startDegree > 45)
+        if (_startDegree > 45)
         {
             y3 = y + height
-            x3 = cx + (y3 - cy) / MathUtils.cosDeg(90 - startDegree) * MathUtils.sinDeg(90 - startDegree)
+            x3 = cx + (y3 - cy) / MathUtils.cosDeg(90 - _startDegree) * MathUtils.sinDeg(90 - _startDegree)
             v3 = region.v2
-            u3 = cu + (v3 - cv) / MathUtils.cosDeg(90 - startDegree) * MathUtils.sinDeg(90 - startDegree)
+            u3 = cu + (v3 - cv) / MathUtils.cosDeg(90 - _startDegree) * MathUtils.sinDeg(90 - _startDegree)
         }
         else
         {
             x3 = x + width
-            y3 = cy + (x3 - cx) / MathUtils.cosDeg(startDegree) * MathUtils.sinDeg(startDegree)
+            y3 = cy + (x3 - cx) / MathUtils.cosDeg(_startDegree) * MathUtils.sinDeg(_startDegree)
             u3 = region.u2
-            v3 = cv + (u3 - cu) / MathUtils.cosDeg(startDegree) * MathUtils.sinDeg(startDegree)
+            v3 = cv + (u3 - cu) / MathUtils.cosDeg(_startDegree) * MathUtils.sinDeg(_startDegree)
         }
 
         val x2: Float
@@ -129,7 +129,7 @@ object SpriteBatchExtensionForBladeGunner
         val u2: Float
         val v2: Float
 
-        if ((startDegree > 45) == (endDegree > 45))
+        if ((_startDegree > 45) == (_endDegree > 45))
         {
             x2 = x3
             y2 = y3
@@ -174,10 +174,10 @@ object SpriteBatchExtensionForBladeGunner
         endDegree: Float
     )
     {
-        var startDegree = startDegree
-        var endDegree = endDegree
-        startDegree = clipDegree(startDegree + 45) - 45
-        endDegree = clipDegree(endDegree)
+        var _startDegree = startDegree
+        var _endDegree = endDegree
+        _startDegree = clipDegree(_startDegree + 45) - 45
+        _endDegree = clipDegree(_endDegree)
 
         val vertices = ReflectionHacks.getPrivate<FloatArray>(sb, SpriteBatch::class.java, "vertices")
         val texture = region.texture
@@ -205,34 +205,34 @@ object SpriteBatchExtensionForBladeGunner
         val u3: Float
         val v3: Float
 
-        if (endDegree > 225)
+        if (_endDegree > 225)
         {
             y1 = y
-            x1 = cx + (y1 - cy) / MathUtils.cosDeg(270 - endDegree) * MathUtils.sinDeg(270 - endDegree)
+            x1 = cx + (y1 - cy) / MathUtils.cosDeg(270 - _endDegree) * MathUtils.sinDeg(270 - _endDegree)
             v1 = region.v
-            u1 = cu + (v1 - cv) / MathUtils.cosDeg(270 - endDegree) * MathUtils.sinDeg(270 - endDegree)
+            u1 = cu + (v1 - cv) / MathUtils.cosDeg(270 - _endDegree) * MathUtils.sinDeg(270 - _endDegree)
         }
         else
         {
             x1 = x
-            y1 = cy + (x1 - cx) / MathUtils.cosDeg(endDegree - 180) * MathUtils.sinDeg(endDegree - 180)
+            y1 = cy + (x1 - cx) / MathUtils.cosDeg(_endDegree - 180) * MathUtils.sinDeg(_endDegree - 180)
             u1 = region.u
-            v1 = cv + (u1 - cu) / MathUtils.cosDeg(endDegree - 180) * MathUtils.sinDeg(endDegree - 180)
+            v1 = cv + (u1 - cu) / MathUtils.cosDeg(_endDegree - 180) * MathUtils.sinDeg(_endDegree - 180)
         }
 
-        if (startDegree > 225)
+        if (_startDegree > 225)
         {
             y3 = y
-            x3 = cx + (y3 - cy) / MathUtils.cosDeg(270 - startDegree) * MathUtils.sinDeg(270 - startDegree)
+            x3 = cx + (y3 - cy) / MathUtils.cosDeg(270 - _startDegree) * MathUtils.sinDeg(270 - _startDegree)
             v3 = region.v
-            u3 = cu + (v3 - cv) / MathUtils.cosDeg(270 - startDegree) * MathUtils.sinDeg(270 - startDegree)
+            u3 = cu + (v3 - cv) / MathUtils.cosDeg(270 - _startDegree) * MathUtils.sinDeg(270 - _startDegree)
         }
         else
         {
             x3 = x
-            y3 = cy + (x3 - cx) / MathUtils.cosDeg(startDegree - 180) * MathUtils.sinDeg(startDegree - 180)
+            y3 = cy + (x3 - cx) / MathUtils.cosDeg(_startDegree - 180) * MathUtils.sinDeg(_startDegree - 180)
             u3 = region.u
-            v3 = cv + (u3 - cu) / MathUtils.cosDeg(startDegree - 180) * MathUtils.sinDeg(startDegree - 180)
+            v3 = cv + (u3 - cu) / MathUtils.cosDeg(_startDegree - 180) * MathUtils.sinDeg(_startDegree - 180)
         }
 
         val x0: Float
@@ -240,7 +240,7 @@ object SpriteBatchExtensionForBladeGunner
         val u0: Float
         val v0: Float
 
-        if ((startDegree > 225) == (endDegree > 225))
+        if ((_startDegree > 225) == (_endDegree > 225))
         {
             x0 = x3
             y0 = y3
@@ -282,15 +282,15 @@ object SpriteBatchExtensionForBladeGunner
 
     private fun clipDegree(degree: Float): Float
     {
-        var degree = degree
-        if (degree < 0)
+        var _degree = degree
+        if (_degree < 0)
         {
-            degree += (360 * (1 + floor((-degree / 360).toDouble()).toInt())).toFloat()
+            _degree += (360 * (1 + floor((-_degree / 360).toDouble()).toInt())).toFloat()
         }
-        else if (degree >= 360)
+        else if (_degree >= 360)
         {
-            degree = degree % 360
+            _degree = _degree % 360
         }
-        return degree
+        return _degree
     }
 }

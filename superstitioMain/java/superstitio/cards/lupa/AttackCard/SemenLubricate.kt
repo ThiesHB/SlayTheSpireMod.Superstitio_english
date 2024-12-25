@@ -13,6 +13,7 @@ import superstitio.cards.lupa.LupaCard
 import superstitio.powers.EasyBuildAbstractPowerForPowerCard
 import superstitioapi.actions.AutoDoneInstantAction
 import superstitioapi.utils.ActionUtility
+import superstitioapi.utils.addToBot_removeSelf
 
 class SemenLubricate : LupaCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET)
 {
@@ -88,7 +89,7 @@ class SemenLubricate : LupaCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET)
                 AutoDoneInstantAction.addToBotAbstract(semenLubricate!!::continuePlayCard)
                 return
             }
-            addToBot_removeSpecificPower(this)
+            addToBot_removeSelf()
         }
 
         override fun updateDescriptionArgs()

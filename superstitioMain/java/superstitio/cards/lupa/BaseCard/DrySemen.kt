@@ -1,12 +1,11 @@
 package superstitio.cards.lupa.BaseCard
 
-import basemod.cardmods.RetainMod
-import basemod.helpers.CardModifierManager
 import com.megacrit.cardcrawl.characters.AbstractPlayer
 import com.megacrit.cardcrawl.monsters.AbstractMonster
 import superstitio.DataManager
 import superstitio.cardModifier.modifiers.block.DrySemenBlock
 import superstitio.cards.lupa.LupaCard
+import superstitioapi.cards.addRetainMod
 
 class DrySemen : LupaCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET, "base")
 {
@@ -14,7 +13,7 @@ class DrySemen : LupaCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET, "base")
     {
         this.setupBlock(BLOCK, UPGRADE_BLOCK, DrySemenBlock())
         this.setupMagicNumber(MAGIC, UPGRADE_MAGIC)
-        CardModifierManager.addModifier(this, RetainMod())
+        this.addRetainMod()
     }
 
     override fun use(player: AbstractPlayer?, monster: AbstractMonster?)

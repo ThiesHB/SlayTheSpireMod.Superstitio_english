@@ -12,9 +12,8 @@ import superstitioapi.cards.DamageActionMaker
 import superstitioapi.cards.patch.GoSomewhereElseAfterUse
 import superstitioapi.hangUpCard.CardOrb_CardTrigger
 import superstitioapi.hangUpCard.CardOrb_EachCardTrigger
-import superstitioapi.utils.CardUtility
+import superstitioapi.utils.CostSmart
 import superstitioapi.utils.CreatureUtility
-import java.util.function.Predicate
 
 class Ahegao : GeneralCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET), GoSomewhereElseAfterUse
 {
@@ -35,7 +34,7 @@ class Ahegao : GeneralCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET), GoSom
 
     override fun afterInterruptMoveToCardGroup(cardGroup: CardGroup)
     {
-        CardOrb_EachCardTrigger(this, cardGroup, CardUtility.CostSmart(CardUtility.CostSmart.CostType.NaN))
+        CardOrb_EachCardTrigger(this, cardGroup, CostSmart(CostSmart.CostType.NaN))
         { orb: CardOrb_CardTrigger, card: AbstractCard? ->
             val creature = CreatureUtility.getMonsterOrRandomMonster(orb.lastTarget)
             orb.StartHitCreature(creature)
@@ -43,7 +42,7 @@ class Ahegao : GeneralCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET), GoSom
                 .setEffect(SuperstitioApiSetup.DamageEffect.HeartMultiInOne)
                 .addToBot()
         }
-            .setCardPredicate(Predicate { card: AbstractCard -> card.type == CardType.ATTACK })
+            .setCardPredicate({ card: AbstractCard -> card.type == CardType.ATTACK })
             .setCardRawDescriptionWillShow(cardStrings.getEXTENDED_DESCRIPTION(0))
             .addToBot_HangCard()
     }

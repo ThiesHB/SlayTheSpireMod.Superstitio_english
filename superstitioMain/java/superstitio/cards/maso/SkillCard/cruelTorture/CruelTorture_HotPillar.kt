@@ -14,7 +14,7 @@ import superstitio.cards.maso.MasoCard
 import superstitioapi.cards.patch.GoSomewhereElseAfterUse
 import superstitioapi.hangUpCard.CardOrb_AtStartOfTurnEachTime
 import superstitioapi.utils.ActionUtility
-import superstitioapi.utils.CardUtility
+import superstitioapi.utils.CostSmart
 import superstitioapi.utils.setDescriptionArgs
 
 //炮烙
@@ -54,7 +54,7 @@ class CruelTorture_HotPillar : MasoCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_T
         CardOrb_AtStartOfTurnEachTime(
             this,
             cardGroup,
-            CardUtility.CostSmart(CardUtility.CostSmart.CostType.NaN)
+            CostSmart(CostSmart.CostType.NaN)
         ) { cardOrbAtStartOfTurn: CardOrb_AtStartOfTurnEachTime ->
             cardOrbAtStartOfTurn.StartHitCreature(AbstractDungeon.player)
             addTempDexterity(self)

@@ -19,7 +19,8 @@ import superstitio.powers.EasyBuildAbstractPowerForPowerCard
 import superstitio.powers.sexualHeatNeedModifier.SexualHeatNeedModifier
 import superstitioapi.cards.DamageActionMaker
 import superstitioapi.cards.patch.GoSomewhereElseAfterUse
-import superstitioapi.utils.CardUtility
+import superstitioapi.utils.CostSmart
+import superstitioapi.utils.addToBot_removeSelf
 import superstitioapi.utils.setDescriptionArgs
 
 class Guillotine : MasoCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET), FuckJob_Card, GoSomewhereElseAfterUse,
@@ -49,7 +50,7 @@ class Guillotine : MasoCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET), Fuck
 
     override fun afterInterruptMoveToCardGroup(cardGroup: CardGroup)
     {
-        CardOrb_OnOrgasm_WaitTime(this, cardGroup, CardUtility.CostSmart(this.magicNumber)) { orb: CardOrb_OnOrgasm ->
+        CardOrb_OnOrgasm_WaitTime(this, cardGroup, CostSmart(this.magicNumber)) { orb: CardOrb_OnOrgasm ->
             orb.StartHitCreature(AbstractDungeon.player)
             DamageActionMaker.maker(99999, AbstractDungeon.player)
                 .setDamageType(CanOnlyDamageDamageType.NoTriggerLupaAndMasoRelicHpLose)
@@ -80,7 +81,7 @@ class Guillotine : MasoCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET), Fuck
 
         override fun atEndOfTurn(isPlayer: Boolean)
         {
-            addToBot_removeSpecificPower(this)
+            addToBot_removeSelf()
         }
 
         override fun updateDescriptionArgs()

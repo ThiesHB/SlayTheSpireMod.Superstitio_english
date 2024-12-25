@@ -1,8 +1,5 @@
 package superstitio.cards.maso.SkillCard
 
-import basemod.cardmods.EtherealMod
-import basemod.cardmods.ExhaustMod
-import basemod.helpers.CardModifierManager
 import com.megacrit.cardcrawl.actions.AbstractGameAction.AttackEffect
 import com.megacrit.cardcrawl.cards.DamageInfo.DamageType
 import com.megacrit.cardcrawl.characters.AbstractPlayer
@@ -12,6 +9,8 @@ import superstitio.DataManager
 import superstitio.InBattleDataManager
 import superstitio.cards.maso.MasoCard
 import superstitioapi.cards.DamageActionMaker
+import superstitioapi.cards.addEtherealMod
+import superstitioapi.cards.addExhaustMod
 import superstitioapi.utils.ActionUtility
 import superstitioapi.utils.setDescriptionArgs
 
@@ -23,8 +22,8 @@ class NailExtraction @JvmOverloads constructor(isPreview: Boolean = false) :
     {
         if (!isPreview) this.cardsToPreview = NailExtraction(true)
         this.setupMagicNumber(MAGIC)
-        CardModifierManager.addModifier(this, ExhaustMod())
-        CardModifierManager.addModifier(this, EtherealMod())
+        this.addExhaustMod()
+        this.addEtherealMod()
     }
 
     override fun applyPowers()

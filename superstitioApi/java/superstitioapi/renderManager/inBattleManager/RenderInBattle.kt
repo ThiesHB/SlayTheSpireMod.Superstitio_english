@@ -15,7 +15,6 @@ import com.megacrit.cardcrawl.stances.NeutralStance
 import superstitioapi.Logger
 import superstitioapi.actions.AutoDoneInstantAction
 import superstitioapi.utils.ActionUtility
-import superstitioapi.utils.ActionUtility.VoidSupplier
 import java.util.*
 import java.util.function.Consumer
 
@@ -40,27 +39,19 @@ interface RenderInBattle
     sealed class RenderType
     {
 
-        /**
-         * 比姿态还靠前一点点
-         */
-        data object Stance : RenderType()
-
-        /**
-         * 在UI层，但是是优先级最低的UI
-         */
-        data object Panel : RenderType()
-
-        /**
-         * 在战斗中，会被UI等遮盖
-         */
-        data object Normal : RenderType()  //AbstractRoom.render
-
-        /**
-         * 最高层
-         */
-        data object AbovePanel : RenderType()  //Top
         companion object
         {
+            fun nameOf(renderType: RenderType): String
+            {
+                return when (renderType)
+                {
+                    Stance     -> "Stance"
+                    Panel      -> "Panel"
+                    Normal     -> "Normal"
+                    AbovePanel -> "AbovePanel"
+                }
+            }
+
             fun values(): Array<RenderType>
             {
                 return arrayOf(Stance, Panel, Normal, AbovePanel)
@@ -77,19 +68,27 @@ interface RenderInBattle
                     else         -> throw IllegalArgumentException("No object superstitioapi.renderManager.inBattleManager.RenderInBattle.RenderType.$value")
                 }
             }
-
-            fun nameOf(renderType: RenderType): String
-            {
-                return when (renderType)
-                {
-                    Stance     -> "Stance"
-                    Panel      -> "Panel"
-                    Normal     -> "Normal"
-                    AbovePanel -> "AbovePanel"
-                    else       -> throw IllegalArgumentException("No object superstitioapi.renderManager.inBattleManager.RenderInBattle.RenderType.$renderType")
-                }
-            }
         }
+
+        /**
+         * 比姿态还靠前一点点
+         */
+        data object Stance : RenderType()
+
+        /**
+         * 在UI层，但是是优先级最低的UI
+         */
+        data object Panel : RenderType()
+
+        /**
+         * 在战斗中，会被UI等遮盖
+         */
+        data object Normal : RenderType()
+
+        /**
+         * 最高层
+         */
+        data object AbovePanel : RenderType()
     }
 
     companion object
@@ -160,16 +159,13 @@ interface RenderInBattle
                         if (renderInBattle.shouldRemove() && !ShouldRemove.contains(renderInBattle))
                         {
                             ShouldRemove.add(renderInBattle)
-                            AutoDoneInstantAction.addToBotAbstract(
-                                VoidSupplier {
-                                    forEachRenderInBattleGroup(Consumer<MutableList<RenderInBattle>>
-                                    { renderInBattles: MutableList<RenderInBattle> ->
-                                        Logger.info("stopRender$renderInBattle")
-                                        renderInBattles.remove(renderInBattle)
-                                        ShouldRemove.remove(renderInBattle)
-                                    })
+                            AutoDoneInstantAction.addToBotAbstract {
+                                forEachRenderInBattleGroup { renderInBattles: MutableList<RenderInBattle> ->
+                                    Logger.info("stopRender$renderInBattle")
+                                    renderInBattles.remove(renderInBattle)
+                                    ShouldRemove.remove(renderInBattle)
                                 }
-                            )
+                            }
                         }
                     }
                 }
