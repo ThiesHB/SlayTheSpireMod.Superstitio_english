@@ -58,6 +58,7 @@ class Guillotine : MasoCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET), Fuck
                 .addToBot()
         }
             .setDiscardOnEndOfTurn()
+            .setCardRawDescriptionWillShow(cardStrings.getEXTENDED_DESCRIPTION(1))
             .setTargetType(CardTarget.SELF)
             .addToBot_HangCard()
     }

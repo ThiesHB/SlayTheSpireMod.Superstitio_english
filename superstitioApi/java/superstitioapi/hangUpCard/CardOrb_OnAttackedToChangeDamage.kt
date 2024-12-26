@@ -3,7 +3,6 @@ package superstitioapi.hangUpCard
 import com.evacipated.cardcrawl.mod.stslib.powers.interfaces.InvisiblePower
 import com.megacrit.cardcrawl.cards.AbstractCard
 import com.megacrit.cardcrawl.cards.CardGroup
-import com.megacrit.cardcrawl.cards.DamageInfo
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon
 import com.megacrit.cardcrawl.powers.AbstractPower
 import superstitioapi.utils.CostSmart
@@ -27,8 +26,6 @@ abstract class CardOrb_OnAttackedToChangeDamage<PowerType>(
         setShouldRemove()
     }
 
-    abstract override fun forceAcceptAction(card: AbstractCard)
-
     override fun onRemoveCard()
     {
     }
@@ -44,6 +41,7 @@ abstract class CardOrb_OnAttackedToChangeDamage<PowerType>(
             }
 
         override var cardOrb: CardOrb? = null
+        override var order: Int = 0
 
         init
         {

@@ -12,7 +12,7 @@ import superstitio.DataManager
 import superstitio.cards.general.GeneralCard
 import superstitio.cards.general.TempCard.GiveBirth
 import superstitio.monster.ChibiKindMonster
-import superstitioapi.hangUpCard.CardOrb_BlockDamageWhenOverCount
+import superstitioapi.hangUpCard.CardOrb_BlockDamage
 import superstitioapi.pet.Minion
 import superstitioapi.pet.PetManager
 import superstitioapi.utils.ActionUtility
@@ -81,7 +81,7 @@ class HaveBirthWith : GeneralCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET)
         private val father: AbstractMonster,
         private val sealCreature: Minion? = null
     ) :
-        CardOrb_BlockDamageWhenOverCount(card, cardGroupReturnAfterEvoke, OrbCounter, actionOnNaturalRemove = {
+        CardOrb_BlockDamage(card, cardGroupReturnAfterEvoke, OrbCounter, actionOnNaturalRemove = {
             if (sealCreature == null)
                 PetManager.spawnMinion(father.javaClass)
             else

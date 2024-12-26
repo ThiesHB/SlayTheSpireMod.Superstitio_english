@@ -47,6 +47,7 @@ class GiveBirth() : AbstractTempCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARG
                 return@forEachHangUpCard
             cardOrb.setTriggerDiscardIfMoveToDiscard()
             cardOrb.setShouldRemove()
+            this@GiveBirth.addToBot(AddTemporaryHPAction(AbstractDungeon.player, AbstractDungeon.player, this.block))
         }.addToBotAsAbstractAction()
     }
 

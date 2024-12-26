@@ -17,7 +17,7 @@ import superstitio.cards.general.TempCard.GiveBirth
 import superstitio.cards.general.TempCard.SelfReference
 import superstitio.cards.maso.MasoCard
 import superstitioapi.actions.AutoDoneInstantAction
-import superstitioapi.hangUpCard.CardOrb_BlockDamageWhenOverCount
+import superstitioapi.hangUpCard.CardOrb_BlockDamage
 import superstitioapi.hangUpCard.HangUpCardGroup
 import superstitioapi.utils.ActionUtility
 import superstitioapi.utils.CardUtility
@@ -105,7 +105,7 @@ class UnBirth : MasoCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET)
         OrbCounter: CostSmart,
         private val sealPower: List<AbstractPower>, val sealCreature: AbstractCreature?
     ) :
-        CardOrb_BlockDamageWhenOverCount(card, cardGroupReturnAfterEvoke, OrbCounter, actionOnDamagedRemove = {
+        CardOrb_BlockDamage(card, cardGroupReturnAfterEvoke, OrbCounter, actionOnDamagedRemove = {
             if (sealCreature != null && !sealCreature.isDeadOrEscaped)
                 for (power in sealPower)
                 {

@@ -113,7 +113,7 @@
     "FLAVOR": "",
     "FLAVOR_SFW": "",
     "EXTENDED_DESCRIPTION": [
-      "superstitiomod:缠绵 回合开始 ： NL 获得 !M! 点 临时敏捷 。"
+      "superstitiomod:缠绵 。 NL 回合开始时，获得 !M! 点 临时敏捷 。"
     ]
   },
   "SuperstitioMod:MasoCard:CruelTorture_Impale": {
@@ -180,10 +180,11 @@
   "SuperstitioMod:MasoCard:Guillotine": {
     "NAME": "断头台",
     "NAME_SFW": "命悬一线",
-    "DESCRIPTION": "本回合，高潮所需的快感提高 %d ，攻击造成的伤害提高 %d %% 。 NL superstitiomod:缠绵 高潮 !M! 次： NL *立即死亡？ NL superstitiomod:自动释放 。",
+    "DESCRIPTION": "本回合，高潮所需的快感提高 %d ，攻击造成的伤害提高 %d %% 。 NL superstitiomod:欲求 高潮 !M! 次： NL *立即死亡？ NL superstitiomod:自动释放 。",
     "FLAVOR": "",
     "EXTENDED_DESCRIPTION": [
-      "本回合，高潮所需的快感提高 #b%d ，攻击造成的伤害提高 #b%d%% 。"
+      "本回合，高潮所需的快感提高 #b%d ，攻击造成的伤害提高 #b%d%% 。",
+      "superstitiomod:欲求 。 NL 高潮 superstitioApi:!HANGING_TIME! 次后， *立即死亡？ NL superstitiomod:自动释放 。"
     ]
   }
 }

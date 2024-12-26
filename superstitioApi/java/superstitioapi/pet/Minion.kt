@@ -68,7 +68,7 @@ abstract class Minion protected constructor(petCore: AbstractCreature, drawScale
         petCore.healthHb.update()
     }
 
-    protected abstract fun setupImg(): Texture
+    protected abstract fun setupImg(): Texture?
 
     protected abstract fun updatePetCore()
 

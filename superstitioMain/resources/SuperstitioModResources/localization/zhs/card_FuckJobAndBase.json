@@ -6,7 +6,7 @@
     "FLAVOR": "很想试试看被打火机一点点烧掉腋毛的感觉，可惜本小姐没有这种东西。",
     "EXTENDED_DESCRIPTION": [
       "腋下",
-      "superstitiomod:欲求 打出攻击牌 superstitioApi:!HANGING_TIME! 次： NL 造成 !D! 点 *伤害 。 NL 在 superstitiomod:助兴序列 放入一张此牌的复制品。"
+      "superstitiomod:欲求 。 NL 打出 superstitioApi:!HANGING_TIME! 张攻击牌后，造成 !D! 点 *伤害 。"
     ],
     "EXTENDED_DESCRIPTION_SFW": [
       "直升机舱门"
@@ -19,7 +19,7 @@
     "FLAVOR": "听说有一些天人会把自己的牙齿都拔掉，就为了给别人口交时方便。有点可怕。",
     "EXTENDED_DESCRIPTION": [
       "脸",
-      "superstitiomod:缠绵 打出性交牌 superstitioApi:!HANGING_TIME! 次： NL 获得 1 superstitiomod:快感 。"
+      "superstitiomod:缠绵 。 NL 每打出一张性交牌，获得 1 superstitiomod:快感 。"
     ],
     "ADD_KEYWORDS_ID": [
       "SuperstitioMod:Orgasm"
@@ -41,7 +41,7 @@
     "FLAVOR": "最好是射鞋里，个人来说还是比较喜欢黏糊糊地走路。",
     "EXTENDED_DESCRIPTION": [
       "鞋",
-      "superstitiomod:缠绵 打出性交牌 superstitioApi:!HANGING_TIME! 次： NL 抽 %d 张牌。 NL superstitiomod:自动释放 。"
+      "superstitiomod:缠绵 。 NL 每打出一张性交牌，抽 %d 张牌。 NL superstitiomod:自动释放 。"
     ]
   },
   "SuperstitioMod:Job_Groin": {
@@ -59,11 +59,11 @@
   "SuperstitioMod:Job_Hair": {
     "NAME": "发交",
     "NAME_SFW": "辫子神功",
-    "DESCRIPTION": "造成 !D! 点 *伤害 。 NL superstitiomod:欲求 打出任何牌 !M! 次： NL 把 带有 NL 消耗 的 复制加入手牌， NL 其在被打出之前，耗能变为0 。 NL superstitiomod:自动释放 。",
+    "DESCRIPTION": "造成 !D! 点 *伤害 。 NL superstitiomod:欲求 打出任意牌 !M! 次： NL 把 带有 NL 消耗 的 复制加入手牌， NL 其在被打出之前，耗能变为0 。 NL superstitiomod:自动释放 。",
     "FLAVOR": "扯着有点疼，不会把我变成光头吧？",
     "EXTENDED_DESCRIPTION": [
       "头发",
-      "superstitiomod:欲求 打出任何牌 superstitioApi:!HANGING_TIME! 次： NL 把 带有 NL 消耗 的 复制加入手牌， NL 其在被打出之前，耗能变为0 。 NL superstitiomod:自动释放 。"
+      "superstitiomod:欲求 。 NL 打出 superstitioApi:!HANGING_TIME! 张任意牌后， 把 带有 NL 消耗 的 复制加入手牌， NL 其在被打出之前，耗能变为0 。 NL superstitiomod:自动释放 。"
     ]
   },
   "SuperstitioMod:Job_Hand": {
@@ -73,7 +73,7 @@
     "FLAVOR": "用手就能做好的事情却要用其他的部位。该说是你们需求太高了，还是我的两只手应付不过来了？",
     "EXTENDED_DESCRIPTION": [
       "手",
-      "superstitiomod:缠绵 打出攻击牌 superstitioApi:!HANGING_TIME! 次： NL 获得 %d 力量 。 superstitiomod:自动释放 。"
+      "superstitiomod:缠绵 。 NL 每打出一张攻击牌，获得 %d 力量 。 NL superstitiomod:自动释放 。"
     ]
   },
   "SuperstitioMod:Job_LegPit": {
@@ -106,10 +106,10 @@
   "SuperstitioMod:Fuck_Eye": {
     "NAME": "眼交",
     "NAME_SFW": "蛇形拳",
-    "DESCRIPTION": "对自身和目标敌人造成 !D! 点 伤害 两次， 获得 1 层 虚弱 。 NL superstitiomod:欲求 打出任何牌 !M! 次： NL 把 *耳交 加入手牌 。",
+    "DESCRIPTION": "对自身和目标敌人造成 !D! 点 伤害 两次， 获得 1 层 虚弱 。 NL superstitiomod:欲求 打出任意牌 !M! 次： NL 把 *耳交 加入手牌 。",
     "FLAVOR": "也许是脑交。总的来说还是取决于肉棒的主人敢不敢用力吧。",
     "EXTENDED_DESCRIPTION": [
-      "superstitiomod:欲求 打出任何牌 superstitioApi:!HANGING_TIME! 次： NL 把 *耳交 加入手牌 。"
+      "superstitiomod:欲求 。 NL 打出 superstitioApi:!HANGING_TIME! 张任意牌后，把 *耳交 加入手牌 。"
     ]
   },
   "SuperstitioMod:Fuck_Navel": {
@@ -133,7 +133,7 @@
   "SuperstitioMod:Fuck_Vaginal": {
     "NAME": "阴道",
     "NAME_SFW": "燕形拳",
-    "DESCRIPTION": "造成 !D! 点 伤害 ， NL 无消耗触发 superstitiomod:助兴序列 所有拥有 superstitiomod:缠绵 效果的卡牌 !M! 次。",
+    "DESCRIPTION": "造成 !D! 点 伤害 ， NL 无消耗触发 superstitiomod:助兴序列 中所有拥有 superstitiomod:缠绵 效果的卡牌 !M! 次。",
     "FLAVOR": "朴实无华。如果没有其他东西助兴的话就会困得想睡觉。"
   },
   "SuperstitioMod:Invite": {
@@ -151,11 +151,11 @@
   "SuperstitioMod:Masturbate": {
     "NAME": "自慰",
     "NAME_SFW": "准备战斗",
-    "DESCRIPTION": "获得 !M! 点 superstitiomod:快感 。 NL superstitiomod:欲求 打出任何牌 %d 次： NL 抽 %d 张牌。 NL superstitiomod:自动释放 。",
+    "DESCRIPTION": "获得 !M! 点 superstitiomod:快感 。 NL superstitiomod:欲求 打出任意牌 %d 次： NL 抽 %d 张牌。 NL superstitiomod:自动释放 。",
     "FLAVOR": "何以解忧？聊以自慰。",
     "EXTENDED_DESCRIPTION": [
       "抽牌",
-      "superstitiomod:欲求 打出任何牌 superstitioApi:!HANGING_TIME! 次： NL 抽 %d 张牌。 NL superstitiomod:自动释放 。"
+      "superstitiomod:欲求 。 NL 打出 superstitioApi:!HANGING_TIME! 张任意牌后， 抽 %d 张牌。 NL superstitiomod:自动释放 。"
     ],
     "ADD_KEYWORDS_ID": [
       "SuperstitioMod:Orgasm"
@@ -164,11 +164,11 @@
   "SuperstitioMod:FistIn": {
     "NAME": "拳头插入",
     "NAME_SFW": "强制打出",
-    "DESCRIPTION": "选择一张手牌，失去其当前费用 !M! 倍的血量，强制打出。 NL superstitiomod:欲求 打出任何牌 %d 次： NL 抽 %d 张牌。",
+    "DESCRIPTION": "选择一张手牌，失去其当前费用 !M! 倍的血量，强制打出。 NL superstitiomod:欲求 打出任意牌 %d 次： NL 抽 %d 张牌。",
     "FLAVOR": "再深一点会更好。",
     "EXTENDED_DESCRIPTION": [
       "强制打出。",
-      "superstitiomod:欲求 打出任何牌 superstitioApi:!HANGING_TIME! 次： NL 抽 %d 张牌。"
+      "superstitiomod:欲求 。 NL 打出 superstitioApi:!HANGING_TIME! 张任意牌后，抽 %d 张牌。"
     ]
   },
   "SuperstitioMod:DrySemen": {

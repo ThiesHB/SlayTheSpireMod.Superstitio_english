@@ -5,34 +5,51 @@ import kotlin.math.max
 /**
  * 当为Int类型时，不能低于0
  */
-open class CostSmart
+open class CostSmart(protected var costType: CostType, cost: Int)
 {
-    object Zero : CostSmart(0)
+    companion object{
+        fun makeZero(): CostSmart
+        {
+            return CostSmart(0)
+        }
+    }
 
-    constructor(cost: Int)
-    {
-        this.costType = when (cost)
+    constructor(cost: Int) : this(
+        costType = when (cost)
         {
             -2   -> CostType.NaN
             -1   -> CostType.XCost
             else -> CostType.Int
+        },
+        cost = when (cost != -2 && cost != -1 && cost < 0)
+        {
+            true -> 0
+            else -> cost
         }
-        if (this.costType == CostType.Int && cost < 0)
-            this._cost = 0
-        else
-            this._cost = cost
-    }
+    )
 
-    constructor(costType: CostType)
-    {
-        this.costType = costType
-        this._cost = when (costType)
+    constructor(costType: CostType) : this(
+        costType, when (costType)
         {
             CostType.XCost -> -1
             CostType.NaN   -> -2
             else           -> throw IllegalArgumentException("Unsupported cost type: $costType")
         }
-    }
+    )
+
+    private var _costValue: Int = cost
+
+    protected open var cost: Int
+        get() = _costValue
+        protected set(value)
+        {
+            _costValue = when (costType)
+            {
+                CostType.Int   -> max(0, value)
+                CostType.XCost -> -1
+                CostType.NaN   -> -2
+            }
+        }
 
     sealed class CostType
     {
@@ -59,25 +76,6 @@ open class CostSmart
         }
     }
 
-    protected var costType: CostType
-    protected var _cost: Int
-    protected open var cost: Int
-        get() = _cost
-        protected set(value)
-        {
-            _cost = when (costType)
-            {
-                CostType.Int   -> max(0, value)
-                CostType.XCost -> -1
-                CostType.NaN   -> -2
-            }
-        }
-
-
-//        open fun onCostChange() {
-//
-//        }
-
     fun isInt(): Boolean
     {
         return costType == CostType.Int
@@ -98,11 +96,16 @@ open class CostSmart
         return transform(constCost)
     }
 
-    fun changeCost(transform: (Int) -> Int)
+    fun toNewCostSmart(transform: (Int) -> Int): CostSmart
     {
         val constCost = this.cost
-        if (costType != CostType.Int) return
-        this.cost = transform(constCost)
+        if (costType != CostType.Int) return this.makeCopy()
+        return CostSmart(this.costType, transform(constCost))
+    }
+
+    private fun makeCopy(): CostSmart
+    {
+        return CostSmart(this.costType, this.cost)
     }
 
 
@@ -148,7 +151,7 @@ open class CostSmart
     override fun hashCode(): Int
     {
         var result = costType.hashCode()
-        result = 31 * result + _cost
+        result = 31 * result + _costValue
         return result
     }
 

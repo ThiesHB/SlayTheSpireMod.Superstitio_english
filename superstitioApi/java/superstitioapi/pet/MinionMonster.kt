@@ -149,7 +149,7 @@ open class MinionMonster protected constructor(petCore: AbstractMonster, drawSca
         petCoreMonster.useUniversalPreBattleAction()
     }
 
-    override fun setupImg(): Texture
+    override fun setupImg(): Texture?
     {
 //        Texture img = ;
 //        setPrivate(petCore, AbstractMonster.class, "img", null);
