@@ -1,9 +1,9 @@
-package superstitioapi.hangUpCard
+package superstitioapi.hangUpCard.onDamage
 
 import com.megacrit.cardcrawl.cards.AbstractCard
 import com.megacrit.cardcrawl.cards.CardGroup
 import com.megacrit.cardcrawl.cards.DamageInfo
-import superstitioapi.hangUpCard.CardOrb_BlockDamage.Power_BlockDamage
+import superstitioapi.hangUpCard.onDamage.CardOrb_BlockDamage.Power_BlockDamage
 import superstitioapi.utils.CostSmart
 import superstitioapi.utils.addToBot_removeSelf
 

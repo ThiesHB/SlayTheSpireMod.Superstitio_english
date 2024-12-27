@@ -10,15 +10,15 @@ import com.megacrit.cardcrawl.characters.AbstractPlayer
 import com.megacrit.cardcrawl.core.AbstractCreature
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon
 import com.megacrit.cardcrawl.monsters.AbstractMonster
-import com.megacrit.cardcrawl.orbs.AbstractOrb
 import com.megacrit.cardcrawl.powers.*
 import superstitio.DataManager
 import superstitio.cards.general.TempCard.GiveBirth
 import superstitio.cards.general.TempCard.SelfReference
 import superstitio.cards.maso.MasoCard
 import superstitioapi.actions.AutoDoneInstantAction
-import superstitioapi.hangUpCard.CardOrb_BlockDamage
+import superstitioapi.hangUpCard.CardOrb
 import superstitioapi.hangUpCard.HangUpCardGroup
+import superstitioapi.hangUpCard.onDamage.CardOrb_BlockDamage
 import superstitioapi.utils.ActionUtility
 import superstitioapi.utils.CardUtility
 import superstitioapi.utils.CostSmart
@@ -61,7 +61,7 @@ class UnBirth : MasoCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET)
         val target = CardUtility.getSelfOrEnemyTarget(this, monster)
         if (target is AbstractPlayer)
             ForPlayer(AbstractDungeon.player)
-        else if (HangUpCardGroup.forEachHangUpCard_Any { (it as? CardOrb_SealPower)?.sealCreature === target })
+        else if (HangUpCardGroup.forEachHangUpCard_Any { (it as? Card_Orb_SealPower)?.sealCreature === target })
             ForMonsterBrokenSpaceStructure(target as AbstractMonster)
         else
             ForMonster(target as AbstractMonster)
@@ -94,12 +94,12 @@ class UnBirth : MasoCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET)
             copyCard.addedToolTipsTop.add(TooltipInfo(cardStrings.getEXTENDED_DESCRIPTION(1), powerNames))
 
 
-        CardOrb_SealPower(copyCard, null, CostSmart(this.block), sealPower, sealCreature)
+        Card_Orb_SealPower(copyCard, null, CostSmart(this.block), sealPower, sealCreature)
             .setCardRawDescriptionWillShow(cardStrings.getEXTENDED_DESCRIPTION(0))
             .addToBot_HangCard()
     }
 
-    class CardOrb_SealPower(
+    class Card_Orb_SealPower(
         card: AbstractCard,
         cardGroupReturnAfterEvoke: CardGroup?,
         OrbCounter: CostSmart,
@@ -113,9 +113,9 @@ class UnBirth : MasoCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET)
                 }
         }), GiveBirth.IPregnantCardOrb
     {
-        override fun makeCopy(): AbstractOrb
+        override fun makeCopy(): CardOrb
         {
-            return CardOrb_SealPower(originCard, cardGroupReturnAfterEvoke, orbCounter, sealPower, sealCreature)
+            return Card_Orb_SealPower(originCard, cardGroupReturnAfterEvoke, orbCounter, sealPower, sealCreature)
         }
     }
 

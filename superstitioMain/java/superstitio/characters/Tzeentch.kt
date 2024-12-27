@@ -92,9 +92,9 @@ class Tzeentch(name: String) : BaseCharacter(ID, name, TzeentchEnums.TZEENTCH_Ch
     override fun getStartingDeck(): ArrayList<String>
     {
         Logger.run("Begin loading starter Deck Strings")
-        if (Lupa::class.java.isAssignableFrom(getOwnerFromRelic(DEVABODY_RELIC_Selection_UI.selectRelic))) 
+        if (Lupa::class.java.isAssignableFrom(getOwnerFromRelic(DEVABODY_RELIC_Selection_UI.selectRelic)))
             return Lupa.LupaStartDeck()
-        if (Maso::class.java.isAssignableFrom(getOwnerFromRelic(DEVABODY_RELIC_Selection_UI.selectRelic))) 
+        if (Maso::class.java.isAssignableFrom(getOwnerFromRelic(DEVABODY_RELIC_Selection_UI.selectRelic)))
             return Maso.MasoStartDeck()
         return Lupa.LupaStartDeck()
     }
@@ -157,7 +157,8 @@ class Tzeentch(name: String) : BaseCharacter(ID, name, TzeentchEnums.TZEENTCH_Ch
     override fun updateInCharacterSelectScreen(characterOption: CharacterOption)
     {
         updateIsUnableByGuroSetting(
-            CardPoolManager.cardPools.stream().anyMatch { baseCardPool: BaseCardPool -> baseCardPool is MasoCardPool && baseCardPool.isSelect }
+            CardPoolManager.cardPools.stream()
+                .anyMatch { baseCardPool: BaseCardPool -> baseCardPool is MasoCardPool && baseCardPool.isSelect }
         )
         CardPoolManager.update()
         STARTER_RELIC_Selection_UI.update()

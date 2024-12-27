@@ -6,7 +6,6 @@ import superstitioapi.actions.AutoDoneInstantAction
 import superstitioapi.hangUpCard.HangUpCardGroup
 import superstitioapi.pet.PetManager
 import superstitioapi.powers.barIndepend.BarRenderManager
-import superstitioapi.utils.ActionUtility.VoidSupplier
 import java.util.*
 import java.util.function.Consumer
 

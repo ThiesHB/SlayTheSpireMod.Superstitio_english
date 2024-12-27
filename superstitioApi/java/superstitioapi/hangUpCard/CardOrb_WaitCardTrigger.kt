@@ -3,7 +3,6 @@ package superstitioapi.hangUpCard
 import com.badlogic.gdx.graphics.Color
 import com.megacrit.cardcrawl.cards.AbstractCard
 import com.megacrit.cardcrawl.cards.CardGroup
-import com.megacrit.cardcrawl.orbs.AbstractOrb
 import superstitioapi.utils.ActionUtility.VoidSupplier
 import superstitioapi.utils.CostSmart
 
@@ -20,7 +19,7 @@ class CardOrb_WaitCardTrigger(
         fakeCard.glowColor = ReduceWaitTime
     }
 
-    override fun makeCopy(): AbstractOrb
+    override fun makeCopy(): CardOrb
     {
         return CardOrb_WaitCardTrigger(originCard, cardGroupReturnAfterEvoke, orbCounter, action)
     }

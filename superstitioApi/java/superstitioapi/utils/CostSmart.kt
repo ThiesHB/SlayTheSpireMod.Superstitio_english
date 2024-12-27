@@ -7,7 +7,8 @@ import kotlin.math.max
  */
 open class CostSmart(protected var costType: CostType, cost: Int)
 {
-    companion object{
+    companion object
+    {
         fun makeZero(): CostSmart
         {
             return CostSmart(0)

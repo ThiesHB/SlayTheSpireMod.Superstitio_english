@@ -220,10 +220,13 @@ object ActionUtility
         fun get(): FunctionReturnSelfType?
     }
 }
-fun AbstractGameAction.addToBot(){
+
+fun AbstractGameAction.addToBot()
+{
     ActionUtility.addToBot(this)
 }
 
-fun AbstractGameAction.addToTop(){
+fun AbstractGameAction.addToTop()
+{
     ActionUtility.addToTop(this)
 }

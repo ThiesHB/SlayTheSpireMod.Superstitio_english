@@ -1,10 +1,13 @@
-package superstitioapi.hangUpCard
+package superstitioapi.hangUpCard.onDamage
 
 import com.evacipated.cardcrawl.mod.stslib.powers.interfaces.InvisiblePower
 import com.megacrit.cardcrawl.cards.AbstractCard
 import com.megacrit.cardcrawl.cards.CardGroup
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon
 import com.megacrit.cardcrawl.powers.AbstractPower
+import superstitioapi.hangUpCard.CardOrb
+import superstitioapi.hangUpCard.CardOrb_BondToPower
+import superstitioapi.hangUpCard.ICardOrb_CanEvokeOnEndOfTurn
 import superstitioapi.utils.CostSmart
 
 abstract class CardOrb_OnAttackedToChangeDamage<PowerType>(

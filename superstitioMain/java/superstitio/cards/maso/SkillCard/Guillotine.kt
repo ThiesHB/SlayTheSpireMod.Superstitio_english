@@ -13,8 +13,8 @@ import superstitio.cards.CardOwnerPlayerManager.IsNotLupaCard
 import superstitio.cards.SuperstitioCard
 import superstitio.cards.general.FuckJob_Card
 import superstitio.cards.maso.MasoCard
-import superstitio.orbs.CardOrb_OnOrgasm
-import superstitio.orbs.CardOrb_OnOrgasm_WaitTime
+import superstitio.orbs.Card_Orb_OnOrgasm
+import superstitio.orbs.Card_Orb_OnOrgasm_WaitTime
 import superstitio.powers.EasyBuildAbstractPowerForPowerCard
 import superstitio.powers.sexualHeatNeedModifier.SexualHeatNeedModifier
 import superstitioapi.cards.DamageActionMaker
@@ -50,7 +50,7 @@ class Guillotine : MasoCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET), Fuck
 
     override fun afterInterruptMoveToCardGroup(cardGroup: CardGroup)
     {
-        CardOrb_OnOrgasm_WaitTime(this, cardGroup, CostSmart(this.magicNumber)) { orb: CardOrb_OnOrgasm ->
+        Card_Orb_OnOrgasm_WaitTime(this, cardGroup, CostSmart(this.magicNumber)) { orb: Card_Orb_OnOrgasm ->
             orb.StartHitCreature(AbstractDungeon.player)
             DamageActionMaker.maker(99999, AbstractDungeon.player)
                 .setDamageType(CanOnlyDamageDamageType.NoTriggerLupaAndMasoRelicHpLose)

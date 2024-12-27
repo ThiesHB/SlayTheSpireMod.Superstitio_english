@@ -9,12 +9,13 @@ import superstitioapi.hangUpCard.ICardOrb_CanEvokeOnEndOfTurn
 import superstitioapi.utils.CostSmart
 import java.util.function.Consumer
 
-abstract class CardOrb_OnOrgasm(
+abstract class Card_Orb_OnOrgasm(
     card: AbstractCard,
     cardGroupReturnAfterEvoke: CardGroup?,
     OrbCounter: CostSmart,
-    protected val action: Consumer<CardOrb_OnOrgasm>
-) : CardOrb(card, cardGroupReturnAfterEvoke, OrbCounter), OnOrgasm_onOrgasm,ICardOrb_CanEvokeOnEndOfTurn<CardOrb_OnOrgasm>
+    protected val action: Consumer<Card_Orb_OnOrgasm>
+) : CardOrb(card, cardGroupReturnAfterEvoke, OrbCounter), OnOrgasm_onOrgasm,
+    ICardOrb_CanEvokeOnEndOfTurn<Card_Orb_OnOrgasm>
 {
     override var evokeOnEndOfTurn: Boolean = false
 

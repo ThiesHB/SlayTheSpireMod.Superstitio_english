@@ -48,21 +48,27 @@ abstract class AbstractLupaOrb private constructor(
         if (autoUpdateDescription) this.updateDescription()
     }
 
-    var evokeAmount: Int
-        get() = super.evokeAmount
-        set(amount)
-        {
-            super.evokeAmount = amount
-            super.baseEvokeAmount = amount
-        }
+    fun getEvokeAmount(): Int
+    {
+        return super.evokeAmount
+    }
 
-    var passiveAmount: Int
-        get() = super.passiveAmount
-        set(amount)
-        {
-            super.passiveAmount = amount
-            super.basePassiveAmount = amount
-        }
+    fun setEvokeAmount(amount: Int)
+    {
+        super.evokeAmount = amount
+        super.baseEvokeAmount = amount
+    }
+
+    fun getPassiveAmount(): Int
+    {
+        return super.passiveAmount
+    }
+
+    fun setPassiveAmount(amount: Int)
+    {
+        super.passiveAmount = amount
+        super.basePassiveAmount = amount
+    }
 
     abstract override fun applyFocus()
 

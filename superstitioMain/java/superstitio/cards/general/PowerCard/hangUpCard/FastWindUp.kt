@@ -6,7 +6,6 @@ import com.megacrit.cardcrawl.dungeons.AbstractDungeon
 import com.megacrit.cardcrawl.monsters.AbstractMonster
 import superstitio.DataManager
 import superstitio.cards.general.GeneralCard
-import superstitio.cards.general.PowerCard.hangUpCard.FastWindUp.FastWindUpPower
 import superstitio.powers.AbstractSuperstitioPower
 import superstitio.powers.SexualHeat
 import superstitio.powers.patchAndInterface.interfaces.orgasm.OnOrgasm_onOrgasm

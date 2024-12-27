@@ -222,6 +222,7 @@ fun AbstractPower.addToTop_reducePowerToOwner(powerID: String, amount: Int)
 {
     ActionUtility.addToTop_reducePower(powerID, amount, this.owner, this.owner)
 }
+
 fun AbstractPower.addToTop_reducePowerToOwner(power: AbstractPower, amount: Int)
 {
     ActionUtility.addToTop_reducePower(power.ID, amount, this.owner, this.owner)

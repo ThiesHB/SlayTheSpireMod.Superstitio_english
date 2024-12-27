@@ -48,7 +48,7 @@ class Job_Armpit @JvmOverloads constructor(hasCardToPreview: Boolean = true) :
                 .setEffect(SuperstitioApiSetup.DamageEffect.HeartMultiInOne)
                 .setExampleCard(this).addToBot()
         }
-            .setCardPredicate( { it.type == CardType.ATTACK })
+            .setCardPredicate({ it.type == CardType.ATTACK })
             .setCardRawDescriptionWillShow(cardStrings.getEXTENDED_DESCRIPTION(1))
             .addToBot_HangCard()
         val copyCard = this.makeCopy()
@@ -64,7 +64,7 @@ class Job_Armpit @JvmOverloads constructor(hasCardToPreview: Boolean = true) :
                 .setEffect(SuperstitioApiSetup.DamageEffect.HeartMultiInOne)
                 .setExampleCard(this).addToBot()
         }
-            .setCardPredicate( { it.type == CardType.ATTACK })
+            .setCardPredicate({ it.type == CardType.ATTACK })
             .setCardRawDescriptionWillShow(cardStrings.getEXTENDED_DESCRIPTION(1))
             .addToBot_HangCard()
     }

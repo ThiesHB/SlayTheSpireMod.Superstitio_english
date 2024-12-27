@@ -11,9 +11,12 @@ import com.megacrit.cardcrawl.cards.CardGroup
 import com.megacrit.cardcrawl.cards.CardGroup.CardGroupType
 import com.megacrit.cardcrawl.characters.AbstractPlayer
 import com.megacrit.cardcrawl.core.AbstractCreature
+import com.megacrit.cardcrawl.core.Settings
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon
+import com.megacrit.cardcrawl.helpers.Hitbox
+import com.megacrit.cardcrawl.helpers.MathHelper
 import com.megacrit.cardcrawl.monsters.AbstractMonster
-import com.megacrit.cardcrawl.orbs.AbstractOrb
+import com.megacrit.cardcrawl.vfx.BobEffect
 import com.megacrit.cardcrawl.vfx.cardManip.ExhaustCardEffect
 import superstitioapi.DataUtility
 import superstitioapi.actions.AutoDoneInstantAction
@@ -26,8 +29,7 @@ import java.util.concurrent.atomic.AtomicBoolean
 import java.util.function.Consumer
 import kotlin.math.abs
 
-abstract class CardOrb(card: AbstractCard, cardGroupReturnAfterEvoke: CardGroup?, OrbCounter: CostSmart) :
-    AbstractOrb()
+abstract class CardOrb(card: AbstractCard, cardGroupReturnAfterEvoke: CardGroup?, OrbCounter: CostSmart)
 {
     val thisCardGroup: CardGroup = CardGroup(CardGroupType.UNSPECIFIED)
     val targetTypeOrigin: HangOnTarget
@@ -39,24 +41,50 @@ abstract class CardOrb(card: AbstractCard, cardGroupReturnAfterEvoke: CardGroup?
     var actionType: HangEffectType = HangEffectType.None
     var movingType: FunctionReturnSelfType?
     var lastTarget: AbstractCreature? = null
+
+    var ID: String? = null
+    var evokeAmount: Int = 0
+    var passiveAmount: Int = 0
+    var cX: Float = 0.0f
+    var cY: Float = 0.0f
+    var tX: Float = 0f
+    var tY: Float = 0f
+    var hb: Hitbox
+    protected var bobEffect: BobEffect
+
     open fun afterOrbCounterChange(field: CostSmart)
     {
         fun setPassiveAmount(amount: Int)
         {
-            super.passiveAmount = amount
-            super.basePassiveAmount = amount
+            this.passiveAmount = amount
         }
 
         fun setEvokeAmount(amount: Int)
         {
 
-            super.evokeAmount = amount
-            super.baseEvokeAmount = amount
+            this.evokeAmount = amount
         }
         setEvokeAmount(field.toInt { it - 1 })
         setPassiveAmount(field.toInt())
         tryUpdateOrbCounterInCard(this.cardRawDescriptionWillShow, field)
     }
+
+    open fun onStartOfTurn()
+    {
+    }
+
+    open fun onEndOfTurn()
+    {
+    }
+
+    open fun updateAnimation()
+    {
+        bobEffect.update()
+        this.cX = MathHelper.orbLerpSnap(this.cX, AbstractDungeon.player.animX + this.tX)
+        this.cY = MathHelper.orbLerpSnap(this.cY, AbstractDungeon.player.animY + this.tY)
+    }
+
+    abstract fun makeCopy(): CardOrb
 
     var orbCounter: CostSmart = OrbCounter
         set(value)
@@ -76,13 +104,12 @@ abstract class CardOrb(card: AbstractCard, cardGroupReturnAfterEvoke: CardGroup?
 
     init
     {
+        this.hb = Hitbox(96.0f * Settings.scale, 96.0f * Settings.scale)
+        this.bobEffect = BobEffect(3.0f * Settings.scale, 3.0f)
+
         this.ID = ORB_ID
-        this.name = ""
-        super.basePassiveAmount = 0
-        super.passiveAmount = 0
-        super.baseEvokeAmount = 0
-        super.evokeAmount = 0
-        this.description = ""
+        this.passiveAmount = 0
+        this.evokeAmount = 0
 
 
         this.cardGroupReturnAfterEvoke = cardGroupReturnAfterEvoke
@@ -114,8 +141,7 @@ abstract class CardOrb(card: AbstractCard, cardGroupReturnAfterEvoke: CardGroup?
 
     fun setTriggerDiscardIfMoveToDiscard(): CardOrb
     {
-        this.setAfterEvokeConsumer {
-            orb: CardOrb ->
+        this.setAfterEvokeConsumer { orb: CardOrb ->
             if (orb.orbCounter.isZero()) return@setAfterEvokeConsumer
             if (orb.cardGroupReturnAfterEvoke !== AbstractDungeon.player.discardPile)
                 return@setAfterEvokeConsumer
@@ -165,7 +191,6 @@ abstract class CardOrb(card: AbstractCard, cardGroupReturnAfterEvoke: CardGroup?
 
     fun setDesc(description: String?): CardOrb
     {
-        this.description = description
         fakeCard.rawDescription = description
         fakeCard.initializeDescription()
         return this
@@ -508,15 +533,7 @@ abstract class CardOrb(card: AbstractCard, cardGroupReturnAfterEvoke: CardGroup?
         this.fakeCard.costForTurn = this.fakeCard.cost
     }
 
-    override fun onStartOfTurn()
-    {
-    }
-
-    override fun onEvoke()
-    {
-    }
-
-    override fun render(spriteBatch: SpriteBatch)
+    fun render(spriteBatch: SpriteBatch)
     {
         if (!stopShowOriginCard)
         {
@@ -541,7 +558,7 @@ abstract class CardOrb(card: AbstractCard, cardGroupReturnAfterEvoke: CardGroup?
         fakeCard.current_y -= offset
     }
 
-    override fun update()
+    fun update()
     {
         if (!stopShowOriginCard)
         {
@@ -571,7 +588,7 @@ abstract class CardOrb(card: AbstractCard, cardGroupReturnAfterEvoke: CardGroup?
     {
     }
 
-    override fun updateDescription()
+    fun updateDescription()
     {
         fakeCard.applyPowers()
         fakeCard.calculateDamageDisplay(hoveredMonsterSafe)
@@ -587,14 +604,6 @@ abstract class CardOrb(card: AbstractCard, cardGroupReturnAfterEvoke: CardGroup?
         originCard.applyPowers()
         originCard.calculateDamageDisplay(hoveredMonsterSafe)
         originCard.initializeDescription()
-    }
-
-    override fun playChannelSFX()
-    {
-    }
-
-    override fun applyFocus()
-    {
     }
 
     sealed class HangEffectType(color: Color)

@@ -191,9 +191,9 @@ class SexMarkOrbGroup(hitbox: Hitbox, var scoreRate: Double) :
             {
                 return when (value)
                 {
-                    "Inside"  -> Inside
+                    "Inside" -> Inside
                     "OutSide" -> OutSide
-                    else      -> throw IllegalArgumentException("No object superstitio.orbs.orbgroup.SexMarkOrbGroup.SexMarkType.$value")
+                    else -> throw IllegalArgumentException("No object superstitio.orbs.orbgroup.SexMarkOrbGroup.SexMarkType.$value")
                 }
             }
         }

@@ -29,36 +29,36 @@ class PlayAttackMusicEffect(private val attackEffect: AttackEffect) : AbstractGa
         {
             when (effect)
             {
-                AttackEffect.SHIELD -> playBlockSound()
+                AttackEffect.SHIELD                                                                     -> playBlockSound()
                 AttackEffect.SLASH_DIAGONAL, AttackEffect.SLASH_HORIZONTAL, AttackEffect.SLASH_VERTICAL -> CardCrawlGame.sound.play(
                     "ATTACK_FAST"
                 )
 
-                AttackEffect.SLASH_HEAVY -> CardCrawlGame.sound.play(
+                AttackEffect.SLASH_HEAVY                                                                -> CardCrawlGame.sound.play(
                     "ATTACK_HEAVY"
                 )
 
-                AttackEffect.BLUNT_LIGHT -> CardCrawlGame.sound.play(
+                AttackEffect.BLUNT_LIGHT                                                                -> CardCrawlGame.sound.play(
                     "BLUNT_FAST"
                 )
 
-                AttackEffect.BLUNT_HEAVY -> CardCrawlGame.sound.play(
+                AttackEffect.BLUNT_HEAVY                                                                -> CardCrawlGame.sound.play(
                     "BLUNT_HEAVY"
                 )
 
-                AttackEffect.FIRE -> CardCrawlGame.sound.play(
+                AttackEffect.FIRE                                                                       -> CardCrawlGame.sound.play(
                     "ATTACK_FIRE"
                 )
 
-                AttackEffect.POISON -> CardCrawlGame.sound.play(
+                AttackEffect.POISON                                                                     -> CardCrawlGame.sound.play(
                     "ATTACK_POISON"
                 )
 
-                AttackEffect.NONE ->
+                AttackEffect.NONE                                                                       ->
                 {
                 }
 
-                else -> CardCrawlGame.sound.play(
+                else                                                                                    -> CardCrawlGame.sound.play(
                     "ATTACK_FAST"
                 )
             }

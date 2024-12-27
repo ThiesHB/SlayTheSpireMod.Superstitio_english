@@ -62,9 +62,9 @@ class OrbStringsSet : HasOriginAndSFWVersion<OrbStrings>
     override fun setupSFWStringByWordReplace(replaceRules: List<WordReplace>)
     {
         SfwVersion.NAME =
-            updateFieldIfEmpty(SfwVersion.NAME,OriginVersion.NAME, replaceRules)
+            updateFieldIfEmpty(SfwVersion.NAME, OriginVersion.NAME, replaceRules)
         SfwVersion.DESCRIPTION =
-            updateFieldIfEmpty(SfwVersion.DESCRIPTION,OriginVersion.DESCRIPTION, replaceRules)
+            updateFieldIfEmpty(SfwVersion.DESCRIPTION, OriginVersion.DESCRIPTION, replaceRules)
 
         this.NAME_SFW = this.NAME_SFW.takeIfNullOrEmpty(SfwVersion.NAME)
         this.DESCRIPTION_SFW = this.DESCRIPTION_SFW.takeIfNullOrEmpty(SfwVersion.DESCRIPTION)

@@ -7,12 +7,12 @@ import com.megacrit.cardcrawl.cards.CardGroup
 import com.megacrit.cardcrawl.characters.AbstractPlayer
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon
 import com.megacrit.cardcrawl.monsters.AbstractMonster
-import com.megacrit.cardcrawl.orbs.AbstractOrb
 import superstitio.DataManager
 import superstitio.cards.general.GeneralCard
 import superstitio.cards.general.TempCard.GiveBirth
 import superstitio.monster.ChibiKindMonster
-import superstitioapi.hangUpCard.CardOrb_BlockDamage
+import superstitioapi.hangUpCard.CardOrb
+import superstitioapi.hangUpCard.onDamage.CardOrb_BlockDamage
 import superstitioapi.pet.Minion
 import superstitioapi.pet.PetManager
 import superstitioapi.utils.ActionUtility
@@ -54,7 +54,7 @@ class HaveBirthWith : GeneralCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET)
                 )
             )
 
-        CardOrb_HaveBirth(copyCard, null, CostSmart(this.block), father, sealCreature)
+        Card_Orb_HaveBirth(copyCard, null, CostSmart(this.block), father, sealCreature)
             .setCardRawDescriptionWillShow(cardStrings.getEXTENDED_DESCRIPTION(0))
             .addToBot_HangCard()
     }
@@ -74,7 +74,7 @@ class HaveBirthWith : GeneralCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET)
         upgradeCardsToPreview()
     }
 
-    class CardOrb_HaveBirth @JvmOverloads constructor(
+    class Card_Orb_HaveBirth @JvmOverloads constructor(
         card: AbstractCard,
         cardGroupReturnAfterEvoke: CardGroup?,
         OrbCounter: CostSmart,
@@ -88,9 +88,9 @@ class HaveBirthWith : GeneralCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET)
                 PetManager.spawnMonster(sealCreature)
         }), GiveBirth.IPregnantCardOrb
     {
-        override fun makeCopy(): AbstractOrb
+        override fun makeCopy(): CardOrb
         {
-            return CardOrb_HaveBirth(originCard, cardGroupReturnAfterEvoke, orbCounter, father, sealCreature)
+            return Card_Orb_HaveBirth(originCard, cardGroupReturnAfterEvoke, orbCounter, father, sealCreature)
         }
     }
 

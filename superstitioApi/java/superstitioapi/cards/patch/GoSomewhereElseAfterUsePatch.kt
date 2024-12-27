@@ -11,7 +11,6 @@ import javassist.expr.ExprEditor
 import javassist.expr.MethodCall
 import superstitioapi.actions.AutoDoneInstantAction
 import superstitioapi.hangUpCard.CardOrb
-import superstitioapi.utils.ActionUtility.VoidSupplier
 
 @SpirePatch2(clz = UseCardAction::class, method = "update")
 object GoSomewhereElseAfterUsePatch

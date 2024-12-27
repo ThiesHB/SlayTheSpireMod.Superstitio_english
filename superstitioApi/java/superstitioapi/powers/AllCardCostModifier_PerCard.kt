@@ -8,7 +8,6 @@ import superstitioapi.DataUtility
 import superstitioapi.actions.AutoDoneInstantAction
 import superstitioapi.powers.interfaces.HasAllCardCostModifyEffect
 import superstitioapi.renderManager.inBattleManager.InBattleDataManager
-import superstitioapi.utils.ActionUtility.VoidSupplier
 import superstitioapi.utils.setDescriptionArgs
 
 class AllCardCostModifier_PerCard(

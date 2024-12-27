@@ -16,7 +16,6 @@ import superstitioapi.hangUpCard.CardOrb_EachCardTrigger
 import superstitioapi.utils.CostSmart
 import superstitioapi.utils.PowerUtility
 import superstitioapi.utils.setDescriptionArgs
-import java.util.function.Predicate
 
 class Job_Foot : GeneralCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET), FuckJob_Card, GoSomewhereElseAfterUse
 {

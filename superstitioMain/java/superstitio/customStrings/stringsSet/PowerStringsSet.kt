@@ -72,9 +72,9 @@ class PowerStringsSet : HasOriginAndSFWVersion<PowerStrings>, WillMakeSuperstiti
     override fun setupSFWStringByWordReplace(replaceRules: List<WordReplace>)
     {
         SfwVersion.NAME =
-            updateFieldIfEmpty(SfwVersion.NAME,OriginVersion.NAME, replaceRules)
+            updateFieldIfEmpty(SfwVersion.NAME, OriginVersion.NAME, replaceRules)
         SfwVersion.DESCRIPTIONS =
-            updateFieldIfEmpty(SfwVersion.DESCRIPTIONS,OriginVersion.DESCRIPTIONS, replaceRules)
+            updateFieldIfEmpty(SfwVersion.DESCRIPTIONS, OriginVersion.DESCRIPTIONS, replaceRules)
 
         this.NAME_SFW = this.NAME_SFW.takeIfNullOrEmpty(SfwVersion.NAME)
         this.DESCRIPTIONS_SFW = this.DESCRIPTIONS_SFW.takeIfNullOrEmpty(SfwVersion.DESCRIPTIONS)
