@@ -103,9 +103,8 @@ class PetManager : RenderInBattle, AtEndOfPlayerTurnPreCardSubscriber, PostPower
 
         fun spawnMonster(monsterInstance: AbstractMonster): AbstractMonster
         {
-            val monster = monsterInstance
             if (InBattleDataManager.getPetManager() == null)
-                return monster
+                return monsterInstance
             val roomMonsters: MonsterGroup =
                 InBattleDataManager.getPetManager()!!.monsterGroup
             var monsterDX = Settings.WIDTH / 2.0f
@@ -117,24 +116,24 @@ class PetManager : RenderInBattle, AtEndOfPlayerTurnPreCardSubscriber, PostPower
                 monsterDX = lastMonster.drawX
                 monsterDY = lastMonster.drawY
             }
-            if (lastMonster != null) monster.drawX =
-                monsterDX - calculateSmartDistance(lastMonster, monster) * Settings.scale
-            else monster.drawX = monsterDX - 200.0f * Settings.scale
-            monster.drawY = monsterDY
-            if (monster.drawX < 0.0f || monster.drawX > Gdx.graphics.width || monster.drawY < 0.0f || monster.drawY > Gdx.graphics.height)
+            if (lastMonster != null) monsterInstance.drawX =
+                monsterDX - calculateSmartDistance(lastMonster, monsterInstance) * Settings.scale
+            else monsterInstance.drawX = monsterDX - 200.0f * Settings.scale
+            monsterInstance.drawY = monsterDY
+            if (monsterInstance.drawX < 0.0f || monsterInstance.drawX > Gdx.graphics.width || monsterInstance.drawY < 0.0f || monsterInstance.drawY > Gdx.graphics.height)
             {
-                monster.drawX = MathUtils.random(0.0f, Gdx.graphics.width.toFloat())
-                monster.drawY = MathUtils.random(Gdx.graphics.height * 0.15f, Gdx.graphics.height * 0.85f)
+                monsterInstance.drawX = MathUtils.random(0.0f, Gdx.graphics.width.toFloat())
+                monsterInstance.drawY = MathUtils.random(Gdx.graphics.height * 0.15f, Gdx.graphics.height * 0.85f)
             }
-            monster.hb.move(monster.drawX, monster.drawY)
-            monster.init()
-            monster.applyPowers()
-            monster.useUniversalPreBattleAction()
-            monster.showHealthBar()
-            monster.createIntent()
-            monster.usePreBattleAction()
-            roomMonsters.add(monster)
-            return monster
+            monsterInstance.hb.move(monsterInstance.drawX, monsterInstance.drawY)
+            monsterInstance.init()
+            monsterInstance.applyPowers()
+            monsterInstance.useUniversalPreBattleAction()
+            monsterInstance.showHealthBar()
+            monsterInstance.createIntent()
+            monsterInstance.usePreBattleAction()
+            roomMonsters.add(monsterInstance)
+            return monsterInstance
         }
 
         fun spawnMinion(monsterClass: Class<out AbstractMonster>): AbstractMonster

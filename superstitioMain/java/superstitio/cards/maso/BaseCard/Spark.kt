@@ -38,7 +38,7 @@ class Spark : MasoCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET, "base")
     {
         val ID: String = DataManager.MakeTextID(Spark::class.java)
 
-        val CARD_TYPE: CardType = CardType.SKILL
+        val CARD_TYPE: CardType = CardType.ATTACK
 
         val CARD_RARITY: CardRarity = CardRarity.BASIC
 

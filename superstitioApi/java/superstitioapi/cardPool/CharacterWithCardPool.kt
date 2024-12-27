@@ -65,14 +65,14 @@ interface CharacterWithCardPool : PlayerInitPostDungeonInitialize, RenderInChara
     //
     //        private static CharacterWithCardPool_Save onSave() {
     //            HashMap<String, Boolean> cardPoolData = new HashMap<>();
-    //            CardPoolManager.instance.cardPools.forEach(cardPool -> cardPoolData.put(cardPool.getId(), cardPool.getIsSelect()));
+    //            CardPoolManager.cardPools.forEach(cardPool -> cardPoolData.put(cardPool.getId(), cardPool.getIsSelect()));
     //            return new CharacterWithCardPool_Save(cardPoolData);
     //        }
     //
     //        private static void onLoad(CharacterWithCardPool_Save CharacterWithCardPool_Save) {
     //            if (CharacterWithCardPool_Save == null) return;
     //            CharacterWithCardPool_Save.cardPoolId_IsSelect.forEach((cardPoolId, isSelect) -> {
-    //                CardPoolManager.instance.cardPools.forEach(cardPool -> {
+    //                CardPoolManager.cardPools.forEach(cardPool -> {
     //                    if (Objects.equals(cardPool.getId(), cardPoolId))
     //                        cardPool.setIsSelect(isSelect);
     //                });

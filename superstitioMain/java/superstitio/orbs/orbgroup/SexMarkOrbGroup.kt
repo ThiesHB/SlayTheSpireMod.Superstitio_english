@@ -150,9 +150,8 @@ class SexMarkOrbGroup(hitbox: Hitbox, var scoreRate: Double) :
             if (isEmptySlot(orb)) return@forEach
             if (orb is SexMarkOrb)
             {
-                val sexMarkOrb = orb
-                attackAmount.addAndGet(sexMarkOrb.attack())
-                blockAmount.addAndGet(sexMarkOrb.block())
+                attackAmount.addAndGet(orb.attack())
+                blockAmount.addAndGet(orb.block())
             }
         }
         val gangBang = GangBang(attackAmount.get(), blockAmount.get(), ScoreTheGangBang(), scoreRate)

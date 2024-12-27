@@ -5,10 +5,9 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch
 import com.megacrit.cardcrawl.cards.AbstractCard
 import com.megacrit.cardcrawl.core.Settings
 import superstitioapi.cardPool.BaseCardPool
-import java.util.function.Consumer
 import java.util.function.Predicate
 
-class CardPoolManager : IUIElement
+object CardPoolManager : IUIElement
 {
     val cardPools: MutableList<BaseCardPool> = ArrayList()
 
@@ -29,7 +28,7 @@ class CardPoolManager : IUIElement
 
     fun getAddedCard(): Predicate<AbstractCard?>
     {
-        var cardPredicate = Predicate { card: AbstractCard? -> false }
+        var cardPredicate = Predicate<AbstractCard?> { false }
         for (cardPool in cardPools)
         {
             cardPredicate = cardPredicate.or(cardPool.getAddedCard())
@@ -39,7 +38,7 @@ class CardPoolManager : IUIElement
 
     fun getBanedCard(): Predicate<AbstractCard?>
     {
-        var cardPredicate = Predicate { card: AbstractCard? -> false }
+        var cardPredicate = Predicate<AbstractCard?> { false }
         for (cardPool in cardPools)
         {
             cardPredicate = cardPredicate.or(cardPool.getBanedCard())
@@ -49,12 +48,12 @@ class CardPoolManager : IUIElement
 
     override fun render(spriteBatch: SpriteBatch)
     {
-        cardPools.forEach(Consumer { cardPool: BaseCardPool -> cardPool.render(spriteBatch) })
+        cardPools.forEach { cardPool: BaseCardPool -> cardPool.render(spriteBatch) }
     }
 
     override fun update()
     {
-        cardPools.forEach(Consumer(BaseCardPool::update))
+        cardPools.forEach(BaseCardPool::update)
     }
 
     override fun renderLayer(): Int
@@ -65,10 +64,5 @@ class CardPoolManager : IUIElement
     override fun updateOrder(): Int
     {
         return 0
-    }
-
-    companion object
-    {
-        val instance: CardPoolManager = CardPoolManager()
     }
 }

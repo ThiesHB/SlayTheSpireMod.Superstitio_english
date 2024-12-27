@@ -43,7 +43,7 @@ class Fuck_Vaginal : GeneralCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET),
     {
         if (orb is ICardOrb_EachTime) return true
         if (orb is ICardOrb_WaitTime && orb is CardOrb_CardTrigger)
-            return (orb as CardOrb_CardTrigger).cardMatcher.test(this)
+            return orb.cardMatcher.test(this)
         return false
     }
 

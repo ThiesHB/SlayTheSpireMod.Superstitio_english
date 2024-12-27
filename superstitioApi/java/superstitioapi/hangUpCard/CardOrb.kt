@@ -98,7 +98,7 @@ abstract class CardOrb(card: AbstractCard, cardGroupReturnAfterEvoke: CardGroup?
         actionTypeOrigin = actionType
 
         thisCardGroup.addToTop(this.fakeCard)
-        this.movingType = State_Idle()
+        this.movingType = FunctionReturnSelfType { this.State_Idle() }
 
         this.updateDescription()
     }
@@ -482,7 +482,7 @@ abstract class CardOrb(card: AbstractCard, cardGroupReturnAfterEvoke: CardGroup?
         if (hoveredCard == null) return false
         if (hoveredCard is Card_TriggerHangCardManually)
         {
-            return (hoveredCard as Card_TriggerHangCardManually).forceFilterCardOrbToHoveredMode(this)
+            return hoveredCard.forceFilterCardOrbToHoveredMode(this)
         }
         return false
     }

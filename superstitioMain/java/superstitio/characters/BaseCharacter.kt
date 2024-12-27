@@ -36,7 +36,6 @@ import superstitio.cards.general.BaseCard.Kiss
 import superstitio.cards.general.TempCard.NullCard
 import superstitioapi.utils.ActionUtility
 import superstitioapi.utils.TipsUtility
-import java.util.function.BiConsumer
 
 // 继承CustomPlayer类
 abstract class BaseCharacter(ID: String, name: String, playerClass: PlayerClass) :
@@ -95,15 +94,18 @@ abstract class BaseCharacter(ID: String, name: String, playerClass: PlayerClass)
 
     protected fun addCardByCardFilter(originCardPool: MutableList<AbstractCard>)
     {
-        CardLibrary.cards.forEach((BiConsumer { string: String?, card: AbstractCard ->
-            if (UnlockTracker.isCardLocked(string) && !Settings.treatEverythingAsUnlocked()) return@BiConsumer
-            if (card.rarity == CardRarity.BASIC) return@BiConsumer
-            if (originCardPool.contains(card)) return@BiConsumer
+        CardLibrary.cards.forEach { (string: String?, card: AbstractCard) ->
+            if (UnlockTracker.isCardLocked(string) && !Settings.treatEverythingAsUnlocked())
+                return@forEach
+            if (card.rarity == CardRarity.BASIC)
+                return@forEach
+            if (originCardPool.contains(card))
+                return@forEach
             if (isCardCanAdd(card))
             {
                 originCardPool.add(card)
             }
-        }))
+        }
     }
 
     protected abstract fun isCardCanAdd(card: AbstractCard?): Boolean

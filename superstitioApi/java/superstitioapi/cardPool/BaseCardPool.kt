@@ -88,22 +88,23 @@ abstract class BaseCardPool(
     fun getAddedCard(): Predicate<AbstractCard?>
     {
         if (addedCard == null || !isSelect)
-            return Predicate { card: AbstractCard? -> false }
-        return Predicate { card: AbstractCard? ->
-            if (card == null) return@Predicate false
+            return Predicate { false }
+        return Predicate {
+            if (it == null) return@Predicate false
             else
-                return@Predicate addedCard.test(card)
+                return@Predicate addedCard.test(it)
         }
     }
 
     fun getBanedCard(): Predicate<AbstractCard?>
     {
         if (banedCard == null || !isSelect)
-            return Predicate { card: AbstractCard? -> false }
-        return Predicate { card: AbstractCard? ->
-            if (card == null) return@Predicate false
+            return Predicate { false }
+        return Predicate {
+            if (it == null)
+                return@Predicate false
             else
-                return@Predicate banedCard.test(card)
+                return@Predicate banedCard.test(it)
         }
     }
 

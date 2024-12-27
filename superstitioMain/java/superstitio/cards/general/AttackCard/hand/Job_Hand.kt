@@ -15,7 +15,6 @@ import superstitioapi.hangUpCard.CardOrb_CardTrigger
 import superstitioapi.hangUpCard.CardOrb_EachCardTrigger
 import superstitioapi.utils.CostSmart
 import superstitioapi.utils.setDescriptionArgs
-import java.util.function.Predicate
 
 class Job_Hand : GeneralCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET), FuckJob_Card, GoSomewhereElseAfterUse
 {
@@ -47,7 +46,7 @@ class Job_Hand : GeneralCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET), Fuc
             addToBot_applyPower(StrengthPower(AbstractDungeon.player, STRENGTH_GET))
         }
             .setDiscardOnEndOfTurn()
-            .setCardPredicate(Predicate { card: AbstractCard -> card.type == CardType.ATTACK })
+            .setCardPredicate({ it.type == CardType.ATTACK })
             .setTargetType(CardTarget.SELF)
             .setCardRawDescriptionWillShow(cardStrings.getEXTENDED_DESCRIPTION(1), STRENGTH_GET)
             .addToBot_HangCard()

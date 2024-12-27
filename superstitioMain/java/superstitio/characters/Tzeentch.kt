@@ -37,7 +37,6 @@ import java.io.IOException
 import java.io.Serializable
 import java.util.*
 import java.util.function.Consumer
-import java.util.function.Predicate
 import java.util.stream.Collectors
 
 //
@@ -93,8 +92,10 @@ class Tzeentch(name: String) : BaseCharacter(ID, name, TzeentchEnums.TZEENTCH_Ch
     override fun getStartingDeck(): ArrayList<String>
     {
         Logger.run("Begin loading starter Deck Strings")
-        if (Lupa::class.java.isAssignableFrom(getOwnerFromRelic(DEVABODY_RELIC_Selection_UI.selectRelic))) return Lupa.LupaStartDeck()
-        if (Maso::class.java.isAssignableFrom(getOwnerFromRelic(DEVABODY_RELIC_Selection_UI.selectRelic))) return Maso.MasoStartDeck()
+        if (Lupa::class.java.isAssignableFrom(getOwnerFromRelic(DEVABODY_RELIC_Selection_UI.selectRelic))) 
+            return Lupa.LupaStartDeck()
+        if (Maso::class.java.isAssignableFrom(getOwnerFromRelic(DEVABODY_RELIC_Selection_UI.selectRelic))) 
+            return Maso.MasoStartDeck()
         return Lupa.LupaStartDeck()
     }
 
@@ -129,7 +130,7 @@ class Tzeentch(name: String) : BaseCharacter(ID, name, TzeentchEnums.TZEENTCH_Ch
         InfoBlight.addAsInfoBlight(JokeDescription())
         InfoBlight.addAsInfoBlight(DEVABODY_RELIC_Selection_UI.selectRelic)
         InfoBlight.addAsInfoBlight(SEXUAL_HEAT_RELIC_Selection_UI.selectRelic)
-        CardPoolManager.instance.cardPools.forEach(Consumer { baseCardPool: BaseCardPool? ->
+        CardPoolManager.cardPools.forEach(Consumer { baseCardPool: BaseCardPool? ->
             if (baseCardPool is LupaCardPool) InfoBlight.addAsInfoBlight(SemenMagician())
             if (baseCardPool is MasoCardPool) InfoBlight.addAsInfoBlight(EnjoyAilment())
         })
@@ -150,15 +151,15 @@ class Tzeentch(name: String) : BaseCharacter(ID, name, TzeentchEnums.TZEENTCH_Ch
         STARTER_RELIC_Selection_UI.render(sb)
         DEVABODY_RELIC_Selection_UI.render(sb)
         SEXUAL_HEAT_RELIC_Selection_UI.render(sb)
-        CardPoolManager.instance.render(sb)
+        CardPoolManager.render(sb)
     }
 
     override fun updateInCharacterSelectScreen(characterOption: CharacterOption)
     {
         updateIsUnableByGuroSetting(
-            CardPoolManager.instance.cardPools.stream().anyMatch { baseCardPool: BaseCardPool -> baseCardPool is MasoCardPool && baseCardPool.isSelect }
+            CardPoolManager.cardPools.stream().anyMatch { baseCardPool: BaseCardPool -> baseCardPool is MasoCardPool && baseCardPool.isSelect }
         )
-        CardPoolManager.instance.update()
+        CardPoolManager.update()
         STARTER_RELIC_Selection_UI.update()
         DEVABODY_RELIC_Selection_UI.update()
         SEXUAL_HEAT_RELIC_Selection_UI.update()
@@ -185,8 +186,7 @@ class Tzeentch(name: String) : BaseCharacter(ID, name, TzeentchEnums.TZEENTCH_Ch
     //    public static RelicSelect relicSelect;
     override fun isCardCanAdd(card: AbstractCard?): Boolean
     {
-        return CardPoolManager.instance.getAddedCard()
-            .test(card) && !CardPoolManager.instance.getAddedCard().test(card)
+        return CardPoolManager.getAddedCard().test(card) && !CardPoolManager.getBanedCard().test(card)
     }
 
     class TzeentchSave(
@@ -258,7 +258,7 @@ class Tzeentch(name: String) : BaseCharacter(ID, name, TzeentchEnums.TZEENTCH_Ch
             private fun onSave(): TzeentchSave
             {
                 val cardPoolData = HashMap<String, Boolean>()
-                CardPoolManager.instance.cardPools.forEach(Consumer { cardPool: BaseCardPool ->
+                CardPoolManager.cardPools.forEach(Consumer { cardPool: BaseCardPool ->
                     cardPoolData[cardPool.id] = cardPool.isSelect
                 })
 
@@ -277,7 +277,7 @@ class Tzeentch(name: String) : BaseCharacter(ID, name, TzeentchEnums.TZEENTCH_Ch
                 DEVABODY_RELIC_Selection_UI.setSelectRelic(tzeentchSave.devaBodyRelicId)
                 SEXUAL_HEAT_RELIC_Selection_UI.setSelectRelic(tzeentchSave.sexualHeatRelicId)
                 tzeentchSave.cardPoolId_IsSelect.forEach { (cardPoolId: String, isSelect: Boolean) ->
-                    CardPoolManager.instance.cardPools.forEach(
+                    CardPoolManager.cardPools.forEach(
                         Consumer { cardPool: BaseCardPool ->
                             if (cardPool.id == cardPoolId) cardPool.isSelect = isSelect
                         })

@@ -25,12 +25,12 @@ class ModifierStringsSet : HasTextID, HasOriginAndSFWVersion<ModifierStrings>
 
     fun getNAME(): String
     {
-        return getFromRightVersion { strings: ModifierStrings? -> strings!!.NAME }
+        return getFromRightVersion { strings: ModifierStrings? -> strings!!.NAME }!!
     }
 
     fun getDESCRIPTION(): String
     {
-        return getFromRightVersion { strings: ModifierStrings? -> strings!!.DESCRIPTION }
+        return getFromRightVersion { strings: ModifierStrings? -> strings!!.DESCRIPTION }!!
     }
 
     fun getBasicInfo(): String
@@ -39,20 +39,26 @@ class ModifierStringsSet : HasTextID, HasOriginAndSFWVersion<ModifierStrings>
             DataManager.MakeTextID(
                 "BlockModifier"
             )
-        ).TEXT[0] + basicInfo_Pure
+        ).TEXT[0] + getBasicInfo_Pure()
         if (textID!!.endsWith("Damage")) return CardCrawlGame.languagePack.getUIString(
             DataManager.MakeTextID(
                 "DamageModifier"
             )
-        ).TEXT[0] + basicInfo_Pure
-        return basicInfo_Pure
+        ).TEXT[0] + getBasicInfo_Pure()
+        return getBasicInfo_Pure()
+    }
+
+    private fun getBasicInfo_Pure(): String
+    {
+        return getFromRightVersion { strings: ModifierStrings? -> strings!!.BASIC_INFO }!!
     }
 
     fun getEXTENDED_DESCRIPTION(index: Int): String
     {
         val EXTENDED_DESCRIPTION =
             getArrayFromRightVersion { strings: ModifierStrings? -> strings!!.EXTENDED_DESCRIPTION }
-        if (index < EXTENDED_DESCRIPTION.size) return EXTENDED_DESCRIPTION[index]
+        if (index < EXTENDED_DESCRIPTION!!.size)
+            return EXTENDED_DESCRIPTION[index]
         else
         {
             Logger.warning("Can't find the index " + index + " in the EXTENDED_DESCRIPTION array of" + this.NAME)
@@ -65,13 +71,10 @@ class ModifierStringsSet : HasTextID, HasOriginAndSFWVersion<ModifierStrings>
     {
         val keyword = Keyword()
         keyword.PROPER_NAME = this.getBasicInfo()
-        keyword.NAMES = arrayOf(this.getNAME(), this.basicInfo_Pure)
+        keyword.NAMES = arrayOf(this.getNAME(), this.getBasicInfo_Pure())
         keyword.DESCRIPTION = this.getDESCRIPTION()
         return keyword
     }
-
-    private val basicInfo_Pure: String
-        get() = getFromRightVersion { strings: ModifierStrings? -> strings!!.BASIC_INFO }
 
     private fun toModifierNameReplaceRule(): WordReplace
     {
@@ -112,27 +115,19 @@ class ModifierStringsSet : HasTextID, HasOriginAndSFWVersion<ModifierStrings>
 
     override fun setupSFWStringByWordReplace(replaceRules: List<WordReplace>)
     {
-        if (SfwVersion.NAME.isNullOrEmpty())
-            SfwVersion.NAME =
-                WordReplace.replaceWord(OriginVersion.NAME, replaceRules)
-        if (SfwVersion.DESCRIPTION.isNullOrEmpty())
-            SfwVersion.DESCRIPTION =
-                WordReplace.replaceWord(OriginVersion.DESCRIPTION, replaceRules)
-        if (SfwVersion.BASIC_INFO.isNullOrEmpty())
-            SfwVersion.BASIC_INFO =
-                WordReplace.replaceWord(OriginVersion.BASIC_INFO, replaceRules)
-        if (SfwVersion.EXTENDED_DESCRIPTION.isNullOrEmpty())
-            SfwVersion.EXTENDED_DESCRIPTION =
-                WordReplace.replaceWord(OriginVersion.EXTENDED_DESCRIPTION, replaceRules)
+        SfwVersion.NAME =
+            updateFieldIfEmpty(SfwVersion.NAME, OriginVersion.NAME, replaceRules)
+        SfwVersion.BASIC_INFO =
+            updateFieldIfEmpty(SfwVersion.BASIC_INFO, OriginVersion.BASIC_INFO, replaceRules)
+        SfwVersion.DESCRIPTION =
+            updateFieldIfEmpty(SfwVersion.DESCRIPTION, OriginVersion.DESCRIPTION, replaceRules)
+        SfwVersion.EXTENDED_DESCRIPTION =
+            updateFieldIfEmpty(SfwVersion.EXTENDED_DESCRIPTION, OriginVersion.EXTENDED_DESCRIPTION, replaceRules)
 
-        if (this.NAME_SFW.isNullOrEmpty())
-            this.NAME_SFW = SfwVersion.NAME
-        if (this.DESCRIPTION_SFW.isNullOrEmpty())
-            this.DESCRIPTION_SFW = SfwVersion.DESCRIPTION
-        if (this.BASIC_INFO_SFW.isNullOrEmpty())
-            this.BASIC_INFO_SFW = SfwVersion.BASIC_INFO
-        if (this.EXTENDED_DESCRIPTION_SFW.isNullOrEmpty())
-            this.EXTENDED_DESCRIPTION_SFW = SfwVersion.EXTENDED_DESCRIPTION
+        this.NAME_SFW = this.NAME_SFW.takeIfNullOrEmpty(SfwVersion.NAME)
+        this.DESCRIPTION_SFW = this.DESCRIPTION_SFW.takeIfNullOrEmpty(SfwVersion.DESCRIPTION)
+        this.BASIC_INFO_SFW = this.BASIC_INFO_SFW.takeIfNullOrEmpty(SfwVersion.BASIC_INFO)
+        this.EXTENDED_DESCRIPTION_SFW = this.EXTENDED_DESCRIPTION_SFW.takeIfNullOrEmpty(SfwVersion.EXTENDED_DESCRIPTION)
     }
 
     override fun makeCopy(): HasDifferentVersionStringSet<ModifierStrings>

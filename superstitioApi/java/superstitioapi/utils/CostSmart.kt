@@ -92,7 +92,8 @@ open class CostSmart(protected var costType: CostType, cost: Int)
     fun toInt(transform: (Int) -> Int): Int
     {
         val constCost = this.cost
-        if (costType != CostType.Int) return constCost
+        if (costType != CostType.Int)
+            return constCost
         return transform(constCost)
     }
 

@@ -44,7 +44,7 @@ class Job_Blow : LupaCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET), FuckJo
             orb.StartHitCreature(AbstractDungeon.player)
             SexualHeat.addToBot_addSexualHeat(AbstractDungeon.player, HEAT_GIVE)
         }
-            .setCardPredicate(Predicate<AbstractCard> { card: AbstractCard -> card is FuckJob_Card })
+            .setCardPredicate( { it is FuckJob_Card })
             .setTargetType(CardTarget.SELF)
             .setCardRawDescriptionWillShow(cardStrings.getEXTENDED_DESCRIPTION(1))
             .addToBot_HangCard()

@@ -5,10 +5,7 @@ import com.megacrit.cardcrawl.localization.PowerStrings
 import superstitio.Logger
 import superstitio.customStrings.SuperstitioKeyWord
 import superstitio.customStrings.SuperstitioKeyWord.WillMakeSuperstitioKeyWords
-import superstitio.customStrings.interFace.HasDifferentVersionStringSet
-import superstitio.customStrings.interFace.HasOriginAndSFWVersion
-import superstitio.customStrings.interFace.StringSetUtility
-import superstitio.customStrings.interFace.WordReplace
+import superstitio.customStrings.interFace.*
 
 class PowerStringsSet : HasOriginAndSFWVersion<PowerStrings>, WillMakeSuperstitioKeyWords
 {
@@ -22,13 +19,14 @@ class PowerStringsSet : HasOriginAndSFWVersion<PowerStrings>, WillMakeSuperstiti
 
     fun getNAME(): String
     {
-        return getFromRightVersion { strings: PowerStrings? -> strings!!.NAME }
+        return getFromRightVersion { strings: PowerStrings? -> strings!!.NAME }!!
     }
 
     fun getDESCRIPTION(index: Int): String
     {
         val DESCRIPTIONS = getArrayFromRightVersion { strings: PowerStrings? -> strings!!.DESCRIPTIONS }
-        if (index < DESCRIPTIONS.size) return DESCRIPTIONS[index]
+        if (index < DESCRIPTIONS!!.size)
+            return DESCRIPTIONS[index]
         else
         {
             Logger.warning("Can't find the index " + index + " in the EXTENDED_DESCRIPTION array of" + this.NAME)
@@ -39,7 +37,7 @@ class PowerStringsSet : HasOriginAndSFWVersion<PowerStrings>, WillMakeSuperstiti
 
     fun getDESCRIPTIONS(): Array<String>
     {
-        return getArrayFromRightVersion { strings: PowerStrings? -> strings!!.DESCRIPTIONS }
+        return getArrayFromRightVersion { strings: PowerStrings? -> strings!!.DESCRIPTIONS }!!
     }
 
     override fun initialSelfBlack()
@@ -73,18 +71,13 @@ class PowerStringsSet : HasOriginAndSFWVersion<PowerStrings>, WillMakeSuperstiti
 
     override fun setupSFWStringByWordReplace(replaceRules: List<WordReplace>)
     {
-        if (SfwVersion.NAME.isNullOrEmpty()) SfwVersion.NAME = WordReplace.replaceWord(
-            OriginVersion.NAME, replaceRules
-        )
-        if (SfwVersion.DESCRIPTIONS.isNullOrEmpty()) SfwVersion.DESCRIPTIONS =
-            WordReplace.replaceWord(
-                OriginVersion.DESCRIPTIONS, replaceRules
-            )
+        SfwVersion.NAME =
+            updateFieldIfEmpty(SfwVersion.NAME,OriginVersion.NAME, replaceRules)
+        SfwVersion.DESCRIPTIONS =
+            updateFieldIfEmpty(SfwVersion.DESCRIPTIONS,OriginVersion.DESCRIPTIONS, replaceRules)
 
-        if (this.NAME_SFW.isNullOrEmpty()) this.NAME_SFW =
-            SfwVersion.NAME
-        if (this.DESCRIPTIONS_SFW.isNullOrEmpty()) this.DESCRIPTIONS_SFW =
-            SfwVersion.DESCRIPTIONS
+        this.NAME_SFW = this.NAME_SFW.takeIfNullOrEmpty(SfwVersion.NAME)
+        this.DESCRIPTIONS_SFW = this.DESCRIPTIONS_SFW.takeIfNullOrEmpty(SfwVersion.DESCRIPTIONS)
     }
 
     override fun makeSFWCopy(): HasDifferentVersionStringSet<PowerStrings>
@@ -92,10 +85,9 @@ class PowerStringsSet : HasOriginAndSFWVersion<PowerStrings>, WillMakeSuperstiti
         val clone: HasDifferentVersionStringSet<PowerStrings> = this.makeCopy()
         if (clone is PowerStringsSet)
         {
-            val clone1 = clone
-            clone1.NAME = null
-            clone1.DESCRIPTIONS = null
-            clone1.MAKE_KEYWORDS = null
+            clone.NAME = null
+            clone.DESCRIPTIONS = null
+            clone.MAKE_KEYWORDS = null
         }
         return clone
     }

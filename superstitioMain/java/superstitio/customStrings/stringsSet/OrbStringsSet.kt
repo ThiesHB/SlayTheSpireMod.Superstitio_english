@@ -2,10 +2,7 @@ package superstitio.customStrings.stringsSet
 
 import com.megacrit.cardcrawl.localization.LocalizedStrings
 import com.megacrit.cardcrawl.localization.OrbStrings
-import superstitio.customStrings.interFace.HasDifferentVersionStringSet
-import superstitio.customStrings.interFace.HasOriginAndSFWVersion
-import superstitio.customStrings.interFace.StringSetUtility
-import superstitio.customStrings.interFace.WordReplace
+import superstitio.customStrings.interFace.*
 
 class OrbStringsSet : HasOriginAndSFWVersion<OrbStrings>
 {
@@ -18,12 +15,12 @@ class OrbStringsSet : HasOriginAndSFWVersion<OrbStrings>
 
     fun getNAME(): String
     {
-        return getFromRightVersion { strings: OrbStrings? -> strings!!.NAME }
+        return getFromRightVersion { strings: OrbStrings? -> strings!!.NAME }!!
     }
 
     fun getDESCRIPTION(): Array<String>
     {
-        return getArrayFromRightVersion { strings: OrbStrings? -> strings!!.DESCRIPTION }
+        return getArrayFromRightVersion { strings: OrbStrings? -> strings!!.DESCRIPTION }!!
     }
 
     override fun initialSelfBlack()
@@ -64,16 +61,13 @@ class OrbStringsSet : HasOriginAndSFWVersion<OrbStrings>
 
     override fun setupSFWStringByWordReplace(replaceRules: List<WordReplace>)
     {
+        SfwVersion.NAME =
+            updateFieldIfEmpty(SfwVersion.NAME,OriginVersion.NAME, replaceRules)
+        SfwVersion.DESCRIPTION =
+            updateFieldIfEmpty(SfwVersion.DESCRIPTION,OriginVersion.DESCRIPTION, replaceRules)
 
-        if (SfwVersion.NAME.isNullOrEmpty()) SfwVersion.NAME =
-            WordReplace.replaceWord(OriginVersion.NAME, replaceRules)
-        if (SfwVersion.DESCRIPTION.isNullOrEmpty()) SfwVersion.DESCRIPTION =
-            WordReplace.replaceWord(OriginVersion.DESCRIPTION, replaceRules)
-
-        if (this.NAME_SFW.isNullOrEmpty()) this.NAME_SFW =
-            SfwVersion.NAME
-        if (this.DESCRIPTION_SFW.isNullOrEmpty()) this.DESCRIPTION_SFW =
-            SfwVersion.DESCRIPTION
+        this.NAME_SFW = this.NAME_SFW.takeIfNullOrEmpty(SfwVersion.NAME)
+        this.DESCRIPTION_SFW = this.DESCRIPTION_SFW.takeIfNullOrEmpty(SfwVersion.DESCRIPTION)
     }
 
     override fun makeSFWCopy(): HasDifferentVersionStringSet<OrbStrings>

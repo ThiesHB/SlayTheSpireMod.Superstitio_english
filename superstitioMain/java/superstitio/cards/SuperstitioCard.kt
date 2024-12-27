@@ -391,10 +391,8 @@ abstract class SuperstitioCard(
 
     override fun getDescriptionStrings(): String
     {
-        if (this.upgraded && cardStrings.getUPGRADE_DESCRIPTION()
-                .isNotEmpty()
-        )
-            return cardStrings.getUPGRADE_DESCRIPTION()
+        if (this.upgraded && !cardStrings.getUPGRADE_DESCRIPTION().isNullOrEmpty())
+            return cardStrings.getUPGRADE_DESCRIPTION()!!
         return cardStrings.getDESCRIPTION()
     }
 

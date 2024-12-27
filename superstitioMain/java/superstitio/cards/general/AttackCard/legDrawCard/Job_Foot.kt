@@ -60,7 +60,7 @@ class Job_Foot : GeneralCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET), Fuc
             )
         }
             .setDiscardOnEndOfTurn()
-            .setCardPredicate(Predicate<AbstractCard> { card: AbstractCard? -> card is FuckJob_Card })
+            .setCardPredicate({ it is FuckJob_Card })
             .setTargetType(CardTarget.SELF)
             .setCardRawDescriptionWillShow(cardStrings.getEXTENDED_DESCRIPTION(1), DRAW_CARD)
             .addToBot_HangCard()

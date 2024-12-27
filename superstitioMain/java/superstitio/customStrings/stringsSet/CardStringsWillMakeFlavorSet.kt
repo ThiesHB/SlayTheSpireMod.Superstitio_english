@@ -8,10 +8,7 @@ import superstitio.SuperstitioConfig
 import superstitio.customStrings.SuperstitioKeyWord
 import superstitio.customStrings.SuperstitioKeyWord.SetupWithKeyWords
 import superstitio.customStrings.SuperstitioKeyWord.WillMakeSuperstitioKeyWords
-import superstitio.customStrings.interFace.HasDifferentVersionStringSet
-import superstitio.customStrings.interFace.HasOriginAndSFWVersion
-import superstitio.customStrings.interFace.StringSetUtility
-import superstitio.customStrings.interFace.WordReplace
+import superstitio.customStrings.interFace.*
 import java.util.stream.Collectors
 
 class CardStringsWillMakeFlavorSet : HasOriginAndSFWVersion<CardStrings>, WillMakeSuperstitioKeyWords,
@@ -34,15 +31,15 @@ class CardStringsWillMakeFlavorSet : HasOriginAndSFWVersion<CardStrings>, WillMa
 
     fun getNAME(): String
     {
-        return getFromRightVersion(CardStrings::NAME)
+        return getFromRightVersion(CardStrings::NAME)!!
     }
 
     fun getDESCRIPTION(): String
     {
-        return getFromRightVersion(CardStrings::DESCRIPTION)
+        return getFromRightVersion(CardStrings::DESCRIPTION)!!
     }
 
-    fun getUPGRADE_DESCRIPTION(): String
+    fun getUPGRADE_DESCRIPTION(): String?
     {
         return getFromRightVersion(CardStrings::UPGRADE_DESCRIPTION)
     }
@@ -53,7 +50,8 @@ class CardStringsWillMakeFlavorSet : HasOriginAndSFWVersion<CardStrings>, WillMa
     fun getEXTENDED_DESCRIPTION(index: Int): String
     {
         val EXTENDED_DESCRIPTION = getArrayFromRightVersion { strings: CardStrings? -> strings!!.EXTENDED_DESCRIPTION }
-        if (index < EXTENDED_DESCRIPTION.size) return EXTENDED_DESCRIPTION[index]
+        if (index < EXTENDED_DESCRIPTION!!.size)
+            return EXTENDED_DESCRIPTION[index]
         else
         {
             Logger.warning("Can't find the index " + index + " in the EXTENDED_DESCRIPTION array of" + this.NAME)
@@ -83,6 +81,8 @@ class CardStringsWillMakeFlavorSet : HasOriginAndSFWVersion<CardStrings>, WillMa
 
     override fun initialOrigin(origin: CardStrings)
     {
+        if (UPGRADE_DESCRIPTION.isNullOrEmpty())
+            UPGRADE_DESCRIPTION = DESCRIPTION
         origin.NAME = NAME
         origin.DESCRIPTION = DESCRIPTION
         origin.UPGRADE_DESCRIPTION = UPGRADE_DESCRIPTION
@@ -130,41 +130,32 @@ class CardStringsWillMakeFlavorSet : HasOriginAndSFWVersion<CardStrings>, WillMa
         val clone: HasDifferentVersionStringSet<CardStrings> = this.makeCopy()
         if (clone is CardStringsWillMakeFlavorSet)
         {
-            val clone1 = clone
-            clone1.NAME = null
-            clone1.DESCRIPTION = null
-            clone1.UPGRADE_DESCRIPTION = null
-            clone1.EXTENDED_DESCRIPTION = null
-            clone1.FLAVOR = null
-            clone1.MAKE_KEYWORDS = null
+            clone.NAME = null
+            clone.DESCRIPTION = null
+            clone.UPGRADE_DESCRIPTION = null
+            clone.EXTENDED_DESCRIPTION = null
+            clone.FLAVOR = null
+            clone.MAKE_KEYWORDS = null
         }
         return clone
     }
 
+
     override fun setupSFWStringByWordReplace(replaceRules: List<WordReplace>)
     {
-        if (SfwVersion.NAME.isNullOrEmpty())
-            SfwVersion.NAME = WordReplace.replaceWord(OriginVersion.NAME, replaceRules)
-        if (SfwVersion.DESCRIPTION.isNullOrEmpty()) SfwVersion.DESCRIPTION =
-            WordReplace.replaceWord(
-                OriginVersion.DESCRIPTION, replaceRules
-            )
-        if (SfwVersion.UPGRADE_DESCRIPTION.isNullOrEmpty())
-            if (!OriginVersion.UPGRADE_DESCRIPTION.isNullOrEmpty())
-                SfwVersion.UPGRADE_DESCRIPTION =
-                    WordReplace.replaceWord(OriginVersion.UPGRADE_DESCRIPTION, replaceRules)
-        if (SfwVersion.EXTENDED_DESCRIPTION.isNullOrEmpty())
-            SfwVersion.EXTENDED_DESCRIPTION =
-                WordReplace.replaceWord(OriginVersion.EXTENDED_DESCRIPTION, replaceRules)
+        SfwVersion.NAME =
+            updateFieldIfEmpty(SfwVersion.NAME, OriginVersion.NAME, replaceRules)
+        SfwVersion.DESCRIPTION =
+            updateFieldIfEmpty(SfwVersion.DESCRIPTION, OriginVersion.DESCRIPTION, replaceRules)
+        SfwVersion.UPGRADE_DESCRIPTION =
+            updateFieldIfEmpty(SfwVersion.UPGRADE_DESCRIPTION, OriginVersion.UPGRADE_DESCRIPTION, replaceRules)
+        SfwVersion.EXTENDED_DESCRIPTION =
+            updateFieldIfEmpty(SfwVersion.EXTENDED_DESCRIPTION, OriginVersion.EXTENDED_DESCRIPTION, replaceRules)
 
-        if (this.NAME_SFW.isNullOrEmpty()) this.NAME_SFW =
-            SfwVersion.NAME
-        if (this.DESCRIPTION_SFW.isNullOrEmpty()) this.DESCRIPTION_SFW =
-            SfwVersion.DESCRIPTION
-        if (this.UPGRADE_DESCRIPTION_SFW.isNullOrEmpty()) this.UPGRADE_DESCRIPTION_SFW =
-            SfwVersion.UPGRADE_DESCRIPTION
-        if (this.EXTENDED_DESCRIPTION_SFW.isNullOrEmpty()) this.EXTENDED_DESCRIPTION_SFW =
-            SfwVersion.EXTENDED_DESCRIPTION
+        this.NAME_SFW = this.NAME_SFW.takeIfNullOrEmpty(SfwVersion.NAME)
+        this.DESCRIPTION_SFW = this.DESCRIPTION_SFW.takeIfNullOrEmpty(SfwVersion.DESCRIPTION)
+        this.UPGRADE_DESCRIPTION_SFW = this.UPGRADE_DESCRIPTION_SFW.takeIfNullOrEmpty(SfwVersion.UPGRADE_DESCRIPTION)
+        this.EXTENDED_DESCRIPTION_SFW = this.EXTENDED_DESCRIPTION_SFW.takeIfNullOrEmpty(SfwVersion.EXTENDED_DESCRIPTION)
     }
 
 

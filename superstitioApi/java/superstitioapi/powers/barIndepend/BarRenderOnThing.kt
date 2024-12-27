@@ -164,13 +164,15 @@ open class BarRenderOnThing(hitbox: Supplier<Hitbox>, power: HasBarRenderOnCreat
         for (i in sortedChunkList.indices)
         {
             val chunk = sortedChunkList[i] as? BarAmountChunk ?: continue
-            val barAmountChunk = chunk
-            barAmountChunkMoveByIndex(barAmountChunk, getTotalAmount_InFrontOf(i))
+            barAmountChunkMoveByIndex(chunk, getTotalAmount_InFrontOf(i))
 
-            if (i == 0) barAmountChunk.orderType = OrderType.Min
-            else if (i == sortedChunkList.size - 1) barAmountChunk.orderType = OrderType.Max
-            else barAmountChunk.orderType = OrderType.Middle
-            if (sortedChunkList.size == 1) barAmountChunk.orderType = OrderType.OnlyOne
+            when (i)
+            {
+                0                        -> chunk.orderType = OrderType.Min
+                sortedChunkList.size - 1 -> chunk.orderType = OrderType.Max
+                else                     -> chunk.orderType = OrderType.Middle
+            }
+            if (sortedChunkList.size == 1) chunk.orderType = OrderType.OnlyOne
         }
     }
 

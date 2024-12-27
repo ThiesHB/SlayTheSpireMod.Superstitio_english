@@ -20,19 +20,18 @@ class UIStringsSet : HasOriginAndSFWVersion<UIStrings>
 
     fun getTEXT(): Array<String>
     {
-        return getArrayFromRightVersion { strings: UIStrings? -> strings!!.TEXT }
+        return getArrayFromRightVersion { strings: UIStrings? -> strings!!.TEXT }!!
     }
 
     fun getEXTRA_TEXT(): Array<String>
     {
-        return getArrayFromRightVersion { strings: UIStrings? -> strings!!.EXTRA_TEXT }
+        return getArrayFromRightVersion { strings: UIStrings? -> strings!!.EXTRA_TEXT }!!
     }
 
     override fun initialSelfBlack()
     {
         this.TEXT = LocalizedStrings.createMockStringArray(1)
         this.EXTRA_TEXT = LocalizedStrings.createMockStringArray(1)
-        //        this.TEXT_DICT = LocalizedStrings.createMockStringArray(1);
     }
 
     override fun initialOrigin(origin: UIStrings)
@@ -63,18 +62,14 @@ class UIStringsSet : HasOriginAndSFWVersion<UIStrings>
         return clone
     }
 
-    //    public Map<String, String> getUPGRADE_DESCRIPTION() {
-    //        return getMapFromRightVersion(strings -> strings.TEXT_DICT);
-    //    }
     override fun makeSFWCopy(): HasDifferentVersionStringSet<UIStrings>
     {
         val clone: HasDifferentVersionStringSet<UIStrings> = this.makeCopy()
         if (clone is UIStringsSet)
         {
-            val clone1 = clone
-            clone1.TEXT = null
-            clone1.EXTRA_TEXT = null
-            clone1.TEXT_DICT = null
+            clone.TEXT = null
+            clone.EXTRA_TEXT = null
+            clone.TEXT_DICT = null
         }
         return clone
     }

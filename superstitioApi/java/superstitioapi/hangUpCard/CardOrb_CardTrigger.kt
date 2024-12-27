@@ -12,7 +12,7 @@ abstract class CardOrb_CardTrigger(
     val action: (CardOrb_CardTrigger, AbstractCard) -> Unit
 ) : CardOrb(card, cardGroupReturnAfterEvoke, orbCounter), ICardOrb_CanEvokeOnEndOfTurn<CardOrb_CardTrigger>
 {
-    var cardMatcher: Predicate<AbstractCard> = Predicate { card: AbstractCard? -> true }
+    var cardMatcher: Predicate<AbstractCard> = Predicate { true }
     override var evokeOnEndOfTurn: Boolean = false
 
     fun setEvokeOnEndOfTurn(): CardOrb_CardTrigger
@@ -51,11 +51,11 @@ abstract class CardOrb_CardTrigger(
     }
 
     @SafeVarargs
-    fun setCardPredicate(vararg cardMatchers: Predicate<AbstractCard>?): CardOrb_CardTrigger
+    fun setCardPredicate(vararg cardMatchers: Predicate<AbstractCard>): CardOrb_CardTrigger
     {
         for (mather in cardMatchers)
         {
-            this.cardMatcher = cardMatcher.and(mather!!)
+            this.cardMatcher = cardMatcher.and(mather)
         }
         return this
     }
@@ -82,7 +82,7 @@ abstract class CardOrb_CardTrigger(
         if (hoveredCard == null) return false
         if (hoveredCard is Card_TriggerHangCardManually)
         {
-            return (hoveredCard as Card_TriggerHangCardManually).forceFilterCardOrbToHoveredMode(this)
+            return hoveredCard.forceFilterCardOrbToHoveredMode(this)
         }
         return cardMatcher.test(hoveredCard)
     }

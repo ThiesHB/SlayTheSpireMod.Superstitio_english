@@ -19,12 +19,6 @@ class NullCard : GeneralCard
         this.number = 0
     }
 
-    //
-    //    public NullCard(CardType cardType, CardRarity cardRarity) {
-    //        super(ID, cardType, COST, cardRarity, CARD_TARGET);
-    //        this.cardID = ID + cardType + cardRarity;
-    //        this.number = 0;
-    //    }
     constructor(cardType: CardType, cardRarity: CardRarity, Number: Int) : super(
         ID,
         cardType,
@@ -85,34 +79,22 @@ class NullCard : GeneralCard
 
         fun needMakeNullCardToFill(cardList: List<AbstractCard>?): Boolean
         {
-            if (cardList == null || cardList.size < 20) return true
-            if (cardList.stream()
-                    .noneMatch { card: AbstractCard -> card.type == CardType.ATTACK && card.rarity == CardRarity.COMMON }
-            ) return true
-            if (cardList.stream()
-                    .noneMatch { card: AbstractCard -> card.type == CardType.ATTACK && card.rarity == CardRarity.UNCOMMON }
-            ) return true
-            if (cardList.stream()
-                    .noneMatch { card: AbstractCard -> card.type == CardType.ATTACK && card.rarity == CardRarity.RARE }
-            ) return true
-            if (cardList.stream()
-                    .noneMatch { card: AbstractCard -> card.type == CardType.SKILL && card.rarity == CardRarity.COMMON }
-            ) return true
-            if (cardList.stream()
-                    .noneMatch { card: AbstractCard -> card.type == CardType.SKILL && card.rarity == CardRarity.UNCOMMON }
-            ) return true
-            if (cardList.stream()
-                    .noneMatch { card: AbstractCard -> card.type == CardType.SKILL && card.rarity == CardRarity.RARE }
-            ) return true
-            //        if (cardList.stream().noneMatch(card -> card.type == CardType.POWER && card.rarity == CardRarity.COMMON))
-//            return true;
-            if (cardList.stream()
-                    .noneMatch { card: AbstractCard -> card.type == CardType.POWER && card.rarity == CardRarity.UNCOMMON }
-            ) return true
-            if (cardList.stream()
-                    .noneMatch { card: AbstractCard -> card.type == CardType.POWER && card.rarity == CardRarity.RARE }
-            ) return true
-            return false
+            if (cardList == null || cardList.size < 20)
+                return true
+            // 定义需要检查的卡片类型和稀有度组合
+            val requiredCards = setOf(
+                Pair(CardType.ATTACK, CardRarity.COMMON),
+                Pair(CardType.ATTACK, CardRarity.UNCOMMON),
+                Pair(CardType.ATTACK, CardRarity.RARE),
+                Pair(CardType.SKILL, CardRarity.COMMON),
+                Pair(CardType.SKILL, CardRarity.UNCOMMON),
+                Pair(CardType.SKILL, CardRarity.RARE),
+                Pair(CardType.POWER, CardRarity.UNCOMMON),
+                Pair(CardType.POWER, CardRarity.RARE)
+            )
+
+            // 检查是否存在所有所需的卡片类型和稀有度组合
+            return requiredCards.any { (type, rarity) -> cardList.none { it.type == type && it.rarity == rarity } }
         }
     }
 }

@@ -14,7 +14,6 @@ import superstitioapi.hangUpCard.CardOrb_CardTrigger
 import superstitioapi.hangUpCard.CardOrb_WaitCardTrigger
 import superstitioapi.utils.CostSmart
 import superstitioapi.utils.CreatureUtility
-import java.util.function.Predicate
 
 class Job_Armpit @JvmOverloads constructor(hasCardToPreview: Boolean = true) :
     GeneralCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET), FuckJob_Card, GoSomewhereElseAfterUse
@@ -49,7 +48,7 @@ class Job_Armpit @JvmOverloads constructor(hasCardToPreview: Boolean = true) :
                 .setEffect(SuperstitioApiSetup.DamageEffect.HeartMultiInOne)
                 .setExampleCard(this).addToBot()
         }
-            .setCardPredicate(Predicate { card: AbstractCard -> card.type == CardType.ATTACK })
+            .setCardPredicate( { it.type == CardType.ATTACK })
             .setCardRawDescriptionWillShow(cardStrings.getEXTENDED_DESCRIPTION(1))
             .addToBot_HangCard()
         val copyCard = this.makeCopy()
@@ -65,7 +64,7 @@ class Job_Armpit @JvmOverloads constructor(hasCardToPreview: Boolean = true) :
                 .setEffect(SuperstitioApiSetup.DamageEffect.HeartMultiInOne)
                 .setExampleCard(this).addToBot()
         }
-            .setCardPredicate(Predicate { card: AbstractCard -> card.type == CardType.ATTACK })
+            .setCardPredicate( { it.type == CardType.ATTACK })
             .setCardRawDescriptionWillShow(cardStrings.getEXTENDED_DESCRIPTION(1))
             .addToBot_HangCard()
     }

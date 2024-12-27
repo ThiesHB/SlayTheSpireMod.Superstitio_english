@@ -42,7 +42,7 @@ class Ahegao : GeneralCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET), GoSom
                 .setEffect(SuperstitioApiSetup.DamageEffect.HeartMultiInOne)
                 .addToBot()
         }
-            .setCardPredicate({ card: AbstractCard -> card.type == CardType.ATTACK })
+            .setCardPredicate({ it.type == CardType.ATTACK })
             .setCardRawDescriptionWillShow(cardStrings.getEXTENDED_DESCRIPTION(0))
             .addToBot_HangCard()
     }
