@@ -28,13 +28,14 @@ class Fuck_Vaginal : GeneralCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET),
         addToBot_dealDamage(monster, SuperstitioApiSetup.DamageEffect.HeartMultiInOne)
         for (i in 0 until this.magicNumber)
         {
-            HangUpCardGroup.forEachHangUpCard { orb: CardOrb ->
-                if (orb is ICardOrb_EachTime)
+            HangUpCardGroup.forEachHangUpCard {
+                if (it is ICardOrb_EachTime)
                 {
-                    orb.orbCounter++
-                    orb.forceAcceptAction(this)
+                    it.orbCounter++
+                    it.forceAcceptAction(this)
                 }
-                if (orb is ICardOrb_WaitTime) orb.forceAcceptAction(this)
+                if (it is ICardOrb_WaitTime)
+                    it.forceAcceptAction(this)
             }.addToBotAsAbstractAction()
         }
     }

@@ -20,7 +20,6 @@ import superstitioapi.cards.patch.GoSomewhereElseAfterUse
 import superstitioapi.hangUpCard.CardOrb_CardTrigger
 import superstitioapi.hangUpCard.CardOrb_WaitCardTrigger
 import superstitioapi.utils.*
-import java.util.function.Consumer
 
 class FistIn : MasoCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET, "base"), GoSomewhereElseAfterUse
 {
@@ -31,19 +30,12 @@ class FistIn : MasoCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET, "base"), 
 
     private fun tryToUseCard(card: AbstractCard, target: AbstractCreature?)
     {
-        if (card.target == CardTarget.ENEMY && target is AbstractMonster) addToBot(
-            NewQueueCardAction(
-                card,
-                target,
-                false,
-                true
-            )
-        )
+        if (card.target == CardTarget.ENEMY && target is AbstractMonster)
+            addToBot(NewQueueCardAction(card, target, false, true))
         else if (card.target == SelfOrEnemyTargeting.SELF_OR_ENEMY)
-        {
-            addToBot(NewQueueCardAction(card, if (target is AbstractMonster) target else null, false, true))
-        }
-        else addToBot(NewQueueCardAction(card, true, false, true))
+            addToBot(NewQueueCardAction(card, target as? AbstractMonster, false, true))
+        else
+            addToBot(NewQueueCardAction(card, true, false, true))
     }
 
     override fun updateDescriptionArgs()
@@ -54,7 +46,7 @@ class FistIn : MasoCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET, "base"), 
     override fun use(player: AbstractPlayer?, monster: AbstractMonster?)
     {
         val target = CardUtility.getSelfOrEnemyTarget(this, monster)
-        ChoseCardFromHandCardSelectScreen(Consumer { card: AbstractCard ->
+        ChoseCardFromHandCardSelectScreen { card: AbstractCard ->
             if (card is FistIn)
             {
                 ActionUtility.addToBot_makeTempCardInBattle(
@@ -63,16 +55,20 @@ class FistIn : MasoCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET, "base"), 
                     card.upgraded
                 )
                 addToBot(ExhaustSpecificCardAction(card, AbstractDungeon.player.hand))
-                return@Consumer
+                return@ChoseCardFromHandCardSelectScreen
             }
             AutoDoneInstantAction.addToBotAbstract {
-                val costSave = if (card.costForTurn >= 0) card.costForTurn
-                else if (card.costForTurn == -1) EnergyPanel.getCurrentEnergy()
-                else 0
-                addToBot(LoseHPAction(AbstractDungeon.player, AbstractDungeon.player, costSave * magicNumber))
+                val costSave = if (card.costForTurn >= 0)
+                    card.costForTurn
+                else if (card.costForTurn == -1)
+                    EnergyPanel.getCurrentEnergy()
+                else
+                    0
+                if (costSave != 0)
+                    addToBot(LoseHPAction(AbstractDungeon.player, AbstractDungeon.player, costSave * magicNumber))
                 tryToUseCard(card, target)
             }
-        })
+        }
             .setRetainFilter()
             .setWindowText(cardStrings.getEXTENDED_DESCRIPTION(0))
             .addToBot()

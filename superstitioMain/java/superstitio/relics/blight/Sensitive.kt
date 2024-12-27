@@ -18,10 +18,8 @@ import superstitioapi.powers.AllCardCostModifier_PerEnergy
 import superstitioapi.powers.interfaces.HasAllCardCostModifyEffect
 import superstitioapi.relicToBlight.InfoBlight
 import superstitioapi.relicToBlight.InfoBlight.BecomeInfoBlight
-import superstitioapi.utils.ActionUtility.VoidSupplier
 import superstitioapi.utils.setDescriptionArgs
 import java.lang.reflect.InvocationTargetException
-import java.util.function.Consumer
 import kotlin.math.min
 
 @Seen
@@ -41,15 +39,12 @@ class Sensitive : SuperstitioRelic(ID, RELIC_TIER, LANDING_SOUND),
     }
 
     override val activeEffectHold: AllCardCostModifier?
-        get() = AllCardCostModifier.getAllByHolder(this).firstOrNull { it?.isActive ?: false }
+        get() = AllCardCostModifier.getAllByHolder(this).firstOrNull { it.isActive }
 
 
     override fun onOrgasmFirst(SexualHeatPower: SexualHeat)
     {
-        val decreaseCost = min(
-            SexualHeat.getOrgasmTimesInTurn().toDouble(),
-            AbstractDungeon.player.energy.energyMaster.toDouble()
-        ).toInt()
+        val decreaseCost = min(SexualHeat.getOrgasmTimesInTurn(), AbstractDungeon.player.energy.energyMaster)
         AutoDoneInstantAction.addToBotAbstract {
             try
             {
@@ -61,7 +56,9 @@ class Sensitive : SuperstitioRelic(ID, RELIC_TIER, LANDING_SOUND),
                             return@addTo_Bot_EditAmount_Top_FirstByHolder 1
                     },
                     AllCardCostModifier_PerEnergy::class.java.getConstructor(
-                        AbstractCreature::class.java, Int::class.javaPrimitiveType, Int::class.javaPrimitiveType,
+                        AbstractCreature::class.java,
+                        Int::class.javaPrimitiveType,
+                        Int::class.javaPrimitiveType,
                         HasAllCardCostModifyEffect::class.java
                     )
                 )
@@ -101,7 +98,7 @@ class Sensitive : SuperstitioRelic(ID, RELIC_TIER, LANDING_SOUND),
         SexualHeat.useConsumer_addSexualHeat(
             AbstractDungeon.player,
             amount * SexualHeatRate,
-            Consumer<VoidSupplier>(AutoDoneInstantAction.Companion::addToTopAbstract)
+            AutoDoneInstantAction.Companion::addToTopAbstract
         )
     }
 

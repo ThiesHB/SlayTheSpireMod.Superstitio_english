@@ -246,7 +246,7 @@ object DataUtility
         return resourcesFilesPath + "img" + path
     }
 
-    private fun <T> GetTypeOfMapByAComplexFunctionBecauseTheMotherfuckerGenericProgrammingWayTheFuckingJavaUse(
+    fun <T> GetTypeOfMapByAComplexFunctionBecauseTheMotherfuckerGenericProgrammingWayTheFuckingJavaUse(
         tClass: Class<T>
     ): ParameterizedType?
     {

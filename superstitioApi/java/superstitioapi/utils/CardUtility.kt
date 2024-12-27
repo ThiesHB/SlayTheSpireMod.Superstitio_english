@@ -48,15 +48,18 @@ object CardUtility
 
     fun getCardsListForMod(ThisMod: Boolean, Vanilla: Boolean): List<AbstractCard>
     {
-        val list = CardLibrary.cards.values.stream()
-            .filter { card: AbstractCard ->
-                if (ThisMod && Vanilla) return@filter IsCardColorVanilla(card) || IsCardColorThisMod(card)
-                else if (ThisMod) return@filter !IsCardColorVanilla(card) && IsCardColorThisMod(card)
-                else if (Vanilla) return@filter IsCardColorVanilla(card) && !IsCardColorThisMod(card)
-                else return@filter !IsCardColorVanilla(card) && !IsCardColorThisMod(card)
+        return CardLibrary.cards.values.filter {
+            val isVanilla = IsCardColorVanilla(it)
+            val isThisMod = IsCardColorThisMod(it)
+
+            return@filter when
+            {
+                ThisMod && Vanilla -> isVanilla || isThisMod
+                ThisMod            -> !isVanilla && isThisMod
+                Vanilla            -> isVanilla && !isThisMod
+                else               -> !isVanilla && !isThisMod
             }
-            .collect(Collectors.toList())
-        return list
+        }
     }
 
     fun IsCardColorVanilla(card: AbstractCard): Boolean

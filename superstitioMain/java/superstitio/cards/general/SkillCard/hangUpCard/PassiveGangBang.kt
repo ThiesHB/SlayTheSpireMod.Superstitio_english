@@ -22,9 +22,9 @@ class PassiveGangBang : GeneralCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGE
         val self: AbstractCard = this
         for (i in 0 until this.magicNumber)
         {
-            HangUpCardGroup.forEachHangUpCard { orb: CardOrb ->
-                if (orb is ICardOrb_WaitTime || orb is ICardOrb_EachTime)
-                    orb.forceAcceptAction(self)
+            HangUpCardGroup.forEachHangUpCard {
+                if (it is ICardOrb_WaitTime || it is ICardOrb_EachTime)
+                    it.forceAcceptAction(self)
             }.addToBotAsAbstractAction()
         }
     }

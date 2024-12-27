@@ -7,7 +7,6 @@ import com.evacipated.cardcrawl.modthespire.lib.SpireEnum
 import com.evacipated.cardcrawl.modthespire.lib.SpireInitializer
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
-import com.google.gson.internal.`$Gson$Types`
 import com.megacrit.cardcrawl.cards.AbstractCard
 import com.megacrit.cardcrawl.cards.AbstractCard.CardColor
 import com.megacrit.cardcrawl.cards.DamageInfo.DamageType
@@ -42,24 +41,23 @@ import superstitio.powers.lupaOnly.InsideSemen
 import superstitio.powers.lupaOnly.OutsideSemen
 import superstitio.powers.sexualHeatNeedModifier.ChokeChokerPower
 import superstitioapi.DataUtility
+import superstitioapi.DataUtility.GetTypeOfMapByAComplexFunctionBecauseTheMotherfuckerGenericProgrammingWayTheFuckingJavaUse
 import java.io.File
 import java.io.IOException
+import java.lang.reflect.Field
 import java.lang.reflect.InvocationTargetException
-import java.lang.reflect.ParameterizedType
 import java.nio.charset.StandardCharsets
 import java.nio.file.Files
 import java.util.*
 import java.util.function.*
 import java.util.regex.Pattern
-import java.util.stream.Collectors
 
 
 class DataManager
 {
-    var spttData: SPTT_DATA = SPTT_DATA()
+    val spttData: SPTT_DATA = SPTT_DATA()
 
-    @SpireInitializer
-    class SPTT_DATA
+    @SpireInitializer class SPTT_DATA
     {
         // 在卡牌和遗物描述中的能量图标
         var SMALL_ORB: String = makeImgFilesPath_Character("small_orb")
@@ -98,56 +96,43 @@ class DataManager
         // 为原版人物枚举、卡牌颜色枚举扩展的枚举
         object LupaEnums
         {
-            @SpireEnum
-            lateinit var LUPA_Character: PlayerClass
+            @SpireEnum lateinit var LUPA_Character: PlayerClass
 
-            @SpireEnum(name = "SPTT_LUPA_PINK")
-            lateinit var LUPA_CARD: CardColor
+            @SpireEnum(name = "SPTT_LUPA_PINK") lateinit var LUPA_CARD: CardColor
 
-            @SpireEnum(name = "SPTT_LUPA_PINK")
-            lateinit var LUPA_LIBRARY: LibraryType
+            @SpireEnum(name = "SPTT_LUPA_PINK") lateinit var LUPA_LIBRARY: LibraryType
         }
 
         object TzeentchEnums
         {
-            @SpireEnum
-            lateinit var TZEENTCH_Character: PlayerClass
+            @SpireEnum lateinit var TZEENTCH_Character: PlayerClass
         }
 
         object MasoEnums
         {
-            @SpireEnum
-            lateinit var MASO_Character: PlayerClass
+            @SpireEnum lateinit var MASO_Character: PlayerClass
 
-            @SpireEnum(name = "SPTT_MASO_PINK")
-            lateinit var MASO_CARD: CardColor
+            @SpireEnum(name = "SPTT_MASO_PINK") lateinit var MASO_CARD: CardColor
 
-            @SpireEnum(name = "SPTT_MASO_PINK")
-            lateinit var MASO_LIBRARY: LibraryType
+            @SpireEnum(name = "SPTT_MASO_PINK") lateinit var MASO_LIBRARY: LibraryType
         }
 
         object GeneralEnums
         {
-            @SpireEnum
-            lateinit var GENERAL_Virtual_Character: PlayerClass
+            @SpireEnum lateinit var GENERAL_Virtual_Character: PlayerClass
 
-            @SpireEnum(name = "SPTT_GENERAL_PINK")
-            lateinit var GENERAL_CARD: CardColor
+            @SpireEnum(name = "SPTT_GENERAL_PINK") lateinit var GENERAL_CARD: CardColor
 
-            @SpireEnum(name = "SPTT_GENERAL_PINK")
-            lateinit var GENERAL_LIBRARY: LibraryType
+            @SpireEnum(name = "SPTT_GENERAL_PINK") lateinit var GENERAL_LIBRARY: LibraryType
         }
 
         object TempCardEnums
         {
-            @SpireEnum
-            lateinit var TempCard_Virtual_Character: PlayerClass
+            @SpireEnum lateinit var TempCard_Virtual_Character: PlayerClass
 
-            @SpireEnum(name = "SPTT_TEMP_PINK")
-            lateinit var TempCard_CARD: CardColor
+            @SpireEnum(name = "SPTT_TEMP_PINK") lateinit var TempCard_CARD: CardColor
 
-            @SpireEnum(name = "SPTT_TEMP_PINK")
-            lateinit var TempCard_LIBRARY: LibraryType
+            @SpireEnum(name = "SPTT_TEMP_PINK") lateinit var TempCard_LIBRARY: LibraryType
         }
 
         companion object
@@ -156,8 +141,7 @@ class DataManager
             val BG_ATTACK_SEMEN: String = makeImgFilesPath_UI("bg_attack_semen")
             val BG_ATTACK_512_SEMEN: String = makeImgFilesPath_UI("bg_attack_512_semen")
 
-            @JvmStatic
-            fun initialize()
+            @JvmStatic fun initialize()
             {
                 SPTT_DATA()
             }
@@ -166,26 +150,20 @@ class DataManager
 
     object CanOnlyDamageDamageType
     {
-        @SpireEnum
-        lateinit var UnBlockAbleDamageType: DamageType
+        @SpireEnum lateinit var UnBlockAbleDamageType: DamageType
 
-        @SpireEnum
-        lateinit var NoTriggerLupaAndMasoRelicHpLose: DamageType
+        @SpireEnum lateinit var NoTriggerLupaAndMasoRelicHpLose: DamageType
     }
 
     object CardTagsType
     {
-        @SpireEnum
-        lateinit var CruelTorture: AbstractCard.CardTags
+        @SpireEnum lateinit var CruelTorture: AbstractCard.CardTags
 
-        @SpireEnum
-        lateinit var BodyModification: AbstractCard.CardTags
+        @SpireEnum lateinit var BodyModification: AbstractCard.CardTags
 
-        @SpireEnum
-        lateinit var InsideEjaculation: AbstractCard.CardTags
+        @SpireEnum lateinit var InsideEjaculation: AbstractCard.CardTags
 
-        @SpireEnum
-        lateinit var OutsideEjaculation: AbstractCard.CardTags
+        @SpireEnum lateinit var OutsideEjaculation: AbstractCard.CardTags
     }
 
     companion object
@@ -195,7 +173,7 @@ class DataManager
          */
         const val MAGIC_NUMBER_0: Int = 19260817
 
-        const val CODER_COMPUTERNAME: String = "DESKTOP-VK8L63C"
+        const val CODER_COMPUTER_NAME: String = "DESKTOP-VK8L63C"
         const val COMPUTERNAME: String = "COMPUTERNAME"
         const val GURO_VERSION_TIPS: String = "#GuroVersion#"
         var cards: MutableMap<String, CardStringsWillMakeFlavorSet> = HashMap()
@@ -205,13 +183,18 @@ class DataManager
         var uiStrings: MutableMap<String, UIStringsSet> = HashMap()
 
         //    public static Object[] allData = Arrays.stream(new Map[]{cards, powers, modifiers, orbs, uiStrings}).toArray();
-        fun forEachData(consumer: Consumer<Map<String, HasDifferentVersionStringSet<*>>>)
+        fun forEachData(consumer: (Map<String, HasDifferentVersionStringSet<*>>) -> Unit)
         {
-            consumer.accept(cards)
-            consumer.accept(powers)
-            consumer.accept(modifiers)
-            consumer.accept(orbs)
-            consumer.accept(uiStrings)
+            consumer(cards)
+            consumer(powers)
+            consumer(modifiers)
+            consumer(orbs)
+            consumer(uiStrings)
+        }
+
+        fun forEachDataEachValue(consumer: (HasDifferentVersionStringSet<*>) -> Unit)
+        {
+            forEachData { it.values.forEach(consumer) }
         }
 
         fun getModID(): String = SuperstitioModSetup.MOD_NAME + "Mod"
@@ -223,7 +206,7 @@ class DataManager
 
         fun makeFolderTotalString(vararg strings: String): String
         {
-            if (strings.size == 0) return ""
+            if (strings.isEmpty()) return ""
             val totalString = StringBuilder()
             for (string in strings) totalString.append("/").append(string)
             return totalString.toString()
@@ -339,51 +322,51 @@ class DataManager
 
         fun replaceStringsInObj(obj: Any, wordReplace: WordReplace)
         {
+
+            fun replaceOneField(
+                field: Field, obj: Any, wordReplace: WordReplace
+            )
+            {
+                val fieldObj = field[obj]
+                if (fieldObj is String)
+                {
+                    field[obj] = fieldObj.replace(wordReplace.WordOrigin, wordReplace.WordReplace)
+                    return
+                }
+                else if (fieldObj is Array<*> && fieldObj.isArrayOf<String>())
+                {
+                    @Suppress("UNCHECKED_CAST")
+                    val values = fieldObj as? Array<String?>
+                    if (values.isNullOrEmpty())
+                        return
+                    val list = arrayOfNulls<String>(values.size)
+                    for (i in values.indices)
+                    {
+                        list[i] = values[i]?.replace(wordReplace.WordOrigin, wordReplace.WordReplace)
+                    }
+
+                    field[obj] = list
+                    return
+                }
+            }
+
             for (field in obj.javaClass.declaredFields)
             {
                 field.isAccessible = true
                 try
                 {
-                    if (field[obj] is String)
-                    {
-                        var value = field[obj] as String?
-                        if (value == null || !value.contains(wordReplace.WordOrigin)) continue
-                        value = value.replace(wordReplace.WordOrigin, wordReplace.WordReplace)
-                        field[obj] = value
-                    }
-                    else if (field[obj] is Array<*> && (field[obj] as Array<*>).isArrayOf<String>())
-                    {
-                        val values = field[obj] as Array<String?>?
-                        if (values.isNullOrEmpty()) continue
-                        val list = arrayOfNulls<String>(values.size)
-                        var i = 0
-                        val valuesLength = values.size
-                        while (i < valuesLength)
-                        {
-                            var string = values[i]
-                            if (string != null && string.contains(wordReplace.WordOrigin))
-                            {
-                                string = string.replace(wordReplace.WordOrigin, wordReplace.WordReplace)
-                            }
-                            val apply = string
-                            list[i] = apply
-                            i++
-                        }
-
-                        field[obj] = list
-                    }
+                    replaceOneField(field, obj, wordReplace)
                 }
                 catch (e: IllegalAccessException)
                 {
                     Logger.error(e)
                 }
             }
+
         }
 
         fun <T : HasDifferentVersionStringSet<*>> loadCustomStringsFile(
-            fileName: String,
-            target: MutableMap<String, T>,
-            tSetClass: Class<T>
+            fileName: String, target: MutableMap<String, T>, tSetClass: Class<T>
         )
         {
             superstitioapi.Logger.debug("loadJsonStrings: " + tSetClass.typeName)
@@ -395,7 +378,7 @@ class DataManager
             val map = gson.fromJson<Map<String, T>>(jsonString, typeToken)
             map.forEach { (id: String, strings: T) ->
                 strings.initial()
-                if (strings is HasTextID) (strings as HasTextID).textID = id
+                if (strings is HasTextID) strings.textID = id
             }
             target.putAll(map)
         }
@@ -438,18 +421,13 @@ class DataManager
             )
             val copyRelicsStrings: MutableMap<String, RelicStrings> = HashMap()
             relicsStrings.forEach { (s: String, t: RelicStrings) ->
-                if (s.contains(
-                        getModID()
-                    )
-                ) copyRelicsStrings[s] = t
+                if (s.contains(getModID())) copyRelicsStrings[s] = t
             }
             makeSFWLocalization(copyRelicsStrings, "relics")
-            val allKeywords =
-                StringsSetManager.allKeywords.stream().map { obj: SuperstitioKeyWord? -> obj!!.makeCopy() }
-                    .collect(Collectors.toList())
+            val allKeywords = StringsSetManager.allKeywords.map(SuperstitioKeyWord::makeCopy)
             for (keyWord in allKeywords)
             {
-                keyWord!!.NAMES = arrayOf("")
+                keyWord.NAMES = arrayOf("")
                 keyWord.PROPER_NAME = ""
                 keyWord.DESCRIPTION = ""
             }
@@ -462,12 +440,10 @@ class DataManager
             InvocationTargetException::class,
             InstantiationException::class,
             IllegalAccessException::class
-        )
-        fun <T : HasSFWVersion<*>?> leaveOnlySFW(stringSet: T, tClass: Class<T>): T
+        ) fun <T : HasSFWVersion<*>?> leaveOnlySFW(stringSet: T, tClass: Class<T>): T
         {
             val tryCopyStringSet = stringSet!!.makeSFWCopy()
-            val copyStringSet = if (tClass.isInstance(stringSet))
-                tClass.cast(tryCopyStringSet)
+            val copyStringSet = if (tClass.isInstance(stringSet)) tClass.cast(tryCopyStringSet)
             else
             {
                 tClass.getDeclaredConstructor().newInstance()
@@ -512,11 +488,11 @@ class DataManager
                 GameLanguage.ZHS -> ret + "zhs/"
                 else             -> ret + "zhs/"
             }
-            return resourcesFilesPath + ret + filename + ".json"
+            return "$resourcesFilesPath$ret$filename.json"
         }
 
         private val isRunningInCoderComputer: Boolean
-            get() = System.getenv()[COMPUTERNAME] == CODER_COMPUTERNAME
+            get() = System.getenv()[COMPUTERNAME] == CODER_COMPUTER_NAME
 
         private val resourcesFilesPath: String
             get() = getModID() + "Resources/"
@@ -547,51 +523,51 @@ class DataManager
         //生成所有的需要绘制的图片，方便检查
         @Throws(IOException::class)
         private fun makeNeedDrawPicture(
-            defaultFileName: String, PathFinder: BiFunction<String, Array<String>, String>, fileName: String,
-            defaultPath: String, vararg subFolder: String
+            defaultFileName: String,
+            PathFinder: BiFunction<String, Array<String>, String>,
+            fileName: String,
+            defaultPath: String,
+            vararg subFolder: String
         )
         {
             val needDrawFileName: MutableList<String> = ArrayList()
             needDrawFileName.add("needDraw")
             needDrawFileName.addAll(subFolder)
-            if (fileName.contains("32")) return
-            if (fileName.contains("84") && noNeedDrawPower84(fileName)) return
-            if (noNeedImgName(fileName)) return
+            if (fileName.contains("32"))
+                return
+            if (fileName.contains("84") && noNeedDrawPower84(fileName))
+                return
+            if (noNeedImgName(fileName))
+                return
 
-            if (defaultPath.contains("outline")) return
-            if (defaultPath.contains("large")) return
+            if (defaultPath.contains("outline"))
+                return
+            if (defaultPath.contains("large"))
+                return
 
             val PathWithSubFolder = PathFinder.apply("", subFolder.toList().toTypedArray())
             val defaultFileHandle = if (PathWithSubFolder.contains("card"))
-            {
                 Gdx.files.internal(PathFinder.apply(defaultFileName + "_p", arrayOf("")))
-            }
             else if (PathWithSubFolder.contains("orb"))
-            {
                 return
-            }
             else
-            {
                 Gdx.files.internal(defaultPath)
-            }
+
             val needDrawFilePath = if (PathWithSubFolder.contains("card"))
-            {
                 PathFinder.apply(fileName + "_p", needDrawFileName.toTypedArray())
-            }
-            else PathFinder.apply(fileName, needDrawFileName.toTypedArray())
+            else
+                PathFinder.apply(fileName, needDrawFileName.toTypedArray())
+
             val defaultFileCopyTo = File(needDrawFilePath)
             val pattern = Pattern.compile("^(.+/)[^/]+$")
             val matcher = pattern.matcher(needDrawFilePath)
             val totalFolderPath = if (matcher.find())
-            {
                 matcher.group(1)
-            }
             else
-            {
                 needDrawFilePath
-            }
             File(totalFolderPath).mkdirs()
-            if (!defaultFileCopyTo.exists()) Files.copy(defaultFileHandle.read(), defaultFileCopyTo.toPath())
+            if (!defaultFileCopyTo.exists())
+                Files.copy(defaultFileHandle.read(), defaultFileCopyTo.toPath())
         }
 
         private fun noNeedImgName(fileName: String): Boolean
@@ -623,44 +599,27 @@ class DataManager
         //        localizationStrings.putAll(GivenMap);
         //        ReflectionHacks.setPrivateStaticFinal(LocalizedStrings.class, mapName, localizationStrings);
         //    }
+
+
         private fun noNeedDrawPower84(fileName: String): Boolean
         {
             val checkName = fileName.replace("84", "")
-            if (checkName == DataUtility.getIdOnly(SexPlateArmorPower.POWER_ID)) return true
-            if (checkName == DataUtility.getIdOnly(TimeStopPower.POWER_ID)) return true
-            if (checkName == DataUtility.getIdOnly(ChokeChokerPower.POWER_ID)) return true
-            if (checkName == DataUtility.getIdOnly(SexualHeat.POWER_ID)) return true
-            if (checkName == DataUtility.getIdOnly(DelayHpLosePower_ApplyOnlyOnVictory.POWER_ID)) return true
-            if (checkName == DataUtility.getIdOnly(DelayHpLosePower_ApplyOnAttacked.POWER_ID)) return true
-            if (checkName == DataUtility.getIdOnly(DelayHpLosePower_HealOnVictory.POWER_ID)) return true
-            if (checkName == DataUtility.getIdOnly(DelayRemoveDelayHpLosePower.POWER_ID)) return true
-            if (checkName == DataUtility.getIdOnly(FloorSemen.POWER_ID)) return true
-            if (checkName == DataUtility.getIdOnly(InsideSemen.POWER_ID)) return true
-            if (checkName == DataUtility.getIdOnly(OutsideSemen.POWER_ID)) return true
-            if (checkName == DataUtility.getIdOnly(DrinkSemenBeerPower.POWER_ID)) return true
-            return false
-        }
+            val powerIds = setOf(
+                SexPlateArmorPower.POWER_ID,
+                TimeStopPower.POWER_ID,
+                ChokeChokerPower.POWER_ID,
+                SexualHeat.POWER_ID,
+                DelayHpLosePower_ApplyOnlyOnVictory.POWER_ID,
+                DelayHpLosePower_ApplyOnAttacked.POWER_ID,
+                DelayHpLosePower_HealOnVictory.POWER_ID,
+                DelayRemoveDelayHpLosePower.POWER_ID,
+                FloorSemen.POWER_ID,
+                InsideSemen.POWER_ID,
+                OutsideSemen.POWER_ID,
+                DrinkSemenBeerPower.POWER_ID
+            )
 
-        private fun <T> GetTypeOfMapByAComplexFunctionBecauseTheMotherfuckerGenericProgrammingWayTheFuckingJavaUse(
-            tClass: Class<T>
-        ): ParameterizedType?
-        {
-            val var0 = DataManager::class.java.declaredFields
-
-            for (f in var0)
-            {
-                val type = f.genericType as? ParameterizedType ?: continue
-                val typeArgs = type.actualTypeArguments
-                if (typeArgs.size == 2 && typeArgs[0] == String::class.java && typeArgs[1] == tClass)
-                    return `$Gson$Types`.newParameterizedTypeWithOwner(
-                        null,
-                        MutableMap::class.java,
-                        String::class.java,
-                        typeArgs[1]
-                    )
-
-            }
-            return null
+            return powerIds.any { DataUtility.getIdOnly(it) == checkName }
         }
     }
 }

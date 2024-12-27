@@ -3,11 +3,9 @@ package superstitio.customStrings
 import basemod.BaseMod
 import com.evacipated.cardcrawl.mod.stslib.Keyword
 import superstitio.DataManager
-import superstitio.customStrings.interFace.HasDifferentVersionStringSet
 import superstitio.customStrings.interFace.StringSetUtility
 import superstitio.customStrings.interFace.WordReplace
 import java.util.*
-import java.util.function.Consumer
 import java.util.stream.Collectors
 
 class SuperstitioKeyWord
@@ -204,16 +202,11 @@ class SuperstitioKeyWord
                     )
                 )
 
-                DataManager.forEachData { data: Map<String, HasDifferentVersionStringSet<*>> ->
-                    data.forEach { (string: String, stringSet: HasDifferentVersionStringSet<*>) ->
-                        if (stringSet is WillMakeSuperstitioKeyWords)
-                        {
-                            stringSet.getWillMakeKEYWORDS().toList().let(keywordsSFW::addAll)
-                        }
-                    }
+                DataManager.forEachDataEachValue {
+                    (it as? WillMakeSuperstitioKeyWords)?.getWillMakeKEYWORDS()?.toList()?.let(keywordsSFW::addAll)
                 }
 
-                keywordsSFW.forEach(Consumer(SuperstitioKeyWord::registerKeywordFormFile))
+                keywordsSFW.forEach(SuperstitioKeyWord::registerKeywordFormFile)
             }
             return KeywordsFromFile
         }

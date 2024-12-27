@@ -185,17 +185,10 @@ class InfoBlight(relic: AbstractRelic) : BlightWithRelic(relic), BlightOnEnterRo
         </T> */
         fun <T : AbstractRelic> getOneRelic(relicClass: Class<T>): T?
         {
-            for (blight in AbstractDungeon.player.blights)
-            {
-                if (blight is BlightWithRelic)
-                {
-                    if (relicClass.isInstance(blight.relic))
-                    {
-                        return relicClass.cast(blight.relic)
-                    }
-                }
-            }
-            return null
+            return AbstractDungeon.player.blights
+                .filterIsInstance<BlightWithRelic>()
+                .filterIsInstance(relicClass)
+                .firstOrNull()
         }
 
         /**
@@ -209,8 +202,7 @@ class InfoBlight(relic: AbstractRelic) : BlightWithRelic(relic), BlightOnEnterRo
         {
             return AbstractDungeon.player.blights
                 .filterIsInstance<BlightWithRelic>()
-                .filter { relicClass.isInstance(it.relic) }
-                .map { relicClass.cast(it.relic) }
+                .filterIsInstance(relicClass)
         }
 
         /**
@@ -238,8 +230,7 @@ class InfoBlight(relic: AbstractRelic) : BlightWithRelic(relic), BlightOnEnterRo
         fun <T : AbstractRelic> getAllRelicsWithBlightIndex(relicClass: Class<T>): Map<Int, T>
         {
             val list: MutableMap<Int, T> = HashMap()
-            for ((s, blight) in AbstractDungeon.player.blights.withIndex())
-            {
+            AbstractDungeon.player.blights.forEachIndexed { s, blight ->
                 if (blight is BlightWithRelic)
                 {
                     if (relicClass.isInstance(blight.relic))
@@ -253,14 +244,12 @@ class InfoBlight(relic: AbstractRelic) : BlightWithRelic(relic), BlightOnEnterRo
 
         fun addAsInfoBlight(relic: AbstractRelic)
         {
-            if (AbstractDungeon.player == null) return
-            if (AbstractDungeon.player.hasRelic(relic.relicId)) return
+            if (AbstractDungeon.player == null)
+                return
+            if (AbstractDungeon.player.hasRelic(relic.relicId))
+                return
             if (relic is BecomeInfoBlight)
-                relic.instantObtain(
-                    AbstractDungeon.player,
-                    AbstractDungeon.player.blights.size,
-                    false
-                )
+                relic.instantObtain(AbstractDungeon.player, AbstractDungeon.player.blights.size, false)
         }
     }
 }

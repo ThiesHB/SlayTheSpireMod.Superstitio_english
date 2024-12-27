@@ -9,7 +9,6 @@ import superstitio.cards.general.GeneralCard
 import superstitio.powers.AbstractSuperstitioPower
 import superstitio.powers.SexualHeat
 import superstitio.powers.patchAndInterface.interfaces.orgasm.OnOrgasm_onOrgasm
-import superstitioapi.hangUpCard.CardOrb
 import superstitioapi.hangUpCard.HangUpCardGroup
 import superstitioapi.hangUpCard.ICardOrb_EachTime
 import superstitioapi.hangUpCard.ICardOrb_WaitTime
@@ -40,9 +39,9 @@ class FastWindUp : GeneralCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET)
             for (i in 0 until this.amount)
             {
                 this.flash()
-                HangUpCardGroup.forEachHangUpCard { orb: CardOrb ->
-                    if (orb is ICardOrb_WaitTime || orb is ICardOrb_EachTime)
-                        orb.forceAcceptAction(FastWindUp())
+                HangUpCardGroup.forEachHangUpCard {
+                    if (it is ICardOrb_WaitTime || it is ICardOrb_EachTime)
+                        it.forceAcceptAction(FastWindUp())
                 }
                     .addToBotAsAbstractAction()
             }

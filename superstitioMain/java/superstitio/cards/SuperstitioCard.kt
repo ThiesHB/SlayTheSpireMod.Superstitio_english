@@ -524,35 +524,27 @@ abstract class SuperstitioCard(
 
         fun updateSelfOrEnemyTargetingTargetHovered(player: AbstractPlayer, targeting: SelfOrEnemyTargeting)
         {
-            if (player.isInKeyboardMode)
-            {
-                if (!InputActionSet.releaseCard.isJustPressed && !CInputActionSet.cancel.isJustPressed)
-                {
-                    targeting.updateKeyboardTarget()
-                }
-                else
-                {
-                    val cardFromHotkey = player.hoveredCard
-                    player.inSingleTargetMode = false
-                    player.toHover = cardFromHotkey
-                    if (Settings.isControllerMode && AbstractDungeon.actionManager.turnHasEnded)
-                    {
-                        player.toHover = null
-                    }
-
-                    if (cardFromHotkey != null && !player.inspectMode)
-                    {
-                        Gdx.input.setCursorPosition(
-                            cardFromHotkey.hb.cX.toInt(),
-                            (Settings.HEIGHT.toFloat() - AbstractPlayer.HOVER_CARD_Y_POSITION).toInt()
-                        )
-                    }
-                }
-            }
-            else
+            if (!player.isInKeyboardMode)
             {
                 targeting.updateHovered()
+                return
             }
+            if (!(InputActionSet.releaseCard.isJustPressed || CInputActionSet.cancel.isJustPressed))
+            {
+                targeting.updateKeyboardTarget()
+                return
+            }
+            val cardFromHotkey = player.hoveredCard
+            player.inSingleTargetMode = false
+            player.toHover = cardFromHotkey
+            if (Settings.isControllerMode && AbstractDungeon.actionManager.turnHasEnded)
+                player.toHover = null
+
+            if (cardFromHotkey != null && !player.inspectMode)
+                Gdx.input.setCursorPosition(
+                    cardFromHotkey.hb.cX.toInt(),
+                    (Settings.HEIGHT.toFloat() - AbstractPlayer.HOVER_CARD_Y_POSITION).toInt()
+                )
         }
 
         @JvmStatic

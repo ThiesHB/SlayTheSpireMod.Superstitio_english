@@ -20,8 +20,6 @@ import superstitio.characters.Tzeentch
 import superstitio.customStrings.StringsSetManager
 import superstitio.customStrings.SuperstitioKeyWord
 import superstitio.customStrings.SuperstitioKeyWord.WillMakeSuperstitioKeyWords
-import superstitio.customStrings.interFace.HasDifferentVersionStringSet
-import superstitio.customStrings.interFace.WordReplace
 import superstitio.customStrings.stringsSet.*
 import superstitio.relics.SuperstitioRelic
 import superstitio.relics.interFace.SelfRelic
@@ -29,13 +27,12 @@ import superstitioapi.relicToBlight.InfoBlight
 import superstitioapi.relicToBlight.InfoBlight.BecomeInfoBlight
 import superstitioapi.shader.ShaderUtility
 import java.util.*
-import java.util.function.Consumer
 
 @SpireInitializer
 class SuperstitioModSetup : EditStringsSubscriber, EditRelicsSubscriber, EditCardsSubscriber, EditKeywordsSubscriber,
     EditCharactersSubscriber, AddAudioSubscriber, PostInitializeSubscriber
 {
-    var data: DataManager
+    private val data: DataManager
 
     init
     {
@@ -146,7 +143,7 @@ class SuperstitioModSetup : EditStringsSubscriber, EditRelicsSubscriber, EditCar
 
     override fun receiveEditStrings()
     {
-        Logger.run("Beginning to edit strings for mod with ID: " + DataManager.Companion.getModID())
+        Logger.run("Beginning to edit strings for mod with ID: " + DataManager.getModID())
         if (!SEAL_MANUAL_SFW)
         {
             StringsSetManager.loadAllStrings()
@@ -154,7 +151,10 @@ class SuperstitioModSetup : EditStringsSubscriber, EditRelicsSubscriber, EditCar
                 CharacterStrings::class.java,
                 DataManager.makeLocalizationPath(
                     Settings.language,
-                    if (SuperstitioConfig.isEnableSFW()) "character_LupaSFW" else "character_Lupa"
+                    if (SuperstitioConfig.isEnableSFW())
+                        "character_LupaSFW"
+                    else
+                        "character_Lupa"
                 )
             )
             BaseMod.loadCustomStringsFile(
@@ -222,23 +222,20 @@ class SuperstitioModSetup : EditStringsSubscriber, EditRelicsSubscriber, EditCar
                 DataManager.makeLocalizationPath(Settings.language, "sfw/" + "relics" + "_sfw")
             )
             BaseMod.loadCustomStringsFile(
-                CharacterStrings::class.java, DataManager.makeLocalizationPath(
-                    Settings.language, "character_LupaSFW"
-                )
+                CharacterStrings::class.java,
+                DataManager.makeLocalizationPath(Settings.language, "character_LupaSFW")
             )
             BaseMod.loadCustomStringsFile(
-                CharacterStrings::class.java, DataManager.makeLocalizationPath(
-                    Settings.language, "character_General"
-                )
+                CharacterStrings::class.java,
+                DataManager.makeLocalizationPath(Settings.language, "character_General")
             )
             BaseMod.loadCustomStringsFile(
                 UIStrings::class.java,
                 DataManager.makeLocalizationPath(Settings.language, "UIStrings")
             )
             BaseMod.loadCustomStringsFile(
-                MonsterStrings::class.java, DataManager.makeLocalizationPath(
-                    Settings.language, "monsters"
-                )
+                MonsterStrings::class.java,
+                DataManager.makeLocalizationPath(Settings.language, "monsters")
             )
         }
         Logger.run("Done editing strings")
@@ -253,26 +250,20 @@ class SuperstitioModSetup : EditStringsSubscriber, EditRelicsSubscriber, EditCar
         }
         else
         {
-            val keywordsSFW: MutableList<SuperstitioKeyWord?> = ArrayList<SuperstitioKeyWord?>(
-                Arrays.asList(
-                    *DataManager.makeJsonStringFromFile(
-                        "sfw/" + "keywords" + "_sfw",
-                        Array<SuperstitioKeyWord>::class.java
-                    )
+            val keywordsSFW: MutableList<SuperstitioKeyWord> = mutableListOf(
+                *DataManager.makeJsonStringFromFile(
+                    "sfw/" + "keywords" + "_sfw",
+                    Array<SuperstitioKeyWord>::class.java
                 )
             )
 
-            DataManager.forEachData { data: Map<String, HasDifferentVersionStringSet<*>> ->
-                data.forEach { (_: String, stringSet: HasDifferentVersionStringSet<*>) ->
-                    if (stringSet is WillMakeSuperstitioKeyWords)
-                    {
-                        stringSet.getWillMakeKEYWORDS().toList()?.let(keywordsSFW::addAll)
-                    }
-                }
+
+            DataManager.forEachDataEachValue {
+                (it as? WillMakeSuperstitioKeyWords)?.getWillMakeKEYWORDS()?.toList()?.let(keywordsSFW::addAll)
             }
 
-            keywordsSFW.forEach(Consumer { obj: SuperstitioKeyWord? -> obj!!.registerKeywordFormFile() })
-            keywordsSFW.forEach(Consumer { obj: SuperstitioKeyWord? -> obj!!.addToGame() })
+            keywordsSFW.forEach(SuperstitioKeyWord::registerKeywordFormFile)
+            keywordsSFW.forEach(SuperstitioKeyWord::addToGame)
         }
     }
 
@@ -293,7 +284,7 @@ class SuperstitioModSetup : EditStringsSubscriber, EditRelicsSubscriber, EditCar
         @JvmStatic
         fun initialize()
         {
-            val mod = SuperstitioModSetup()
+            SuperstitioModSetup()
         }
 
         private fun makeSFWWordForOriginStrings()
@@ -304,18 +295,12 @@ class SuperstitioModSetup : EditStringsSubscriber, EditRelicsSubscriber, EditCar
 
             val wordReplaces = StringsSetManager.makeWordReplaceRule()
             relicsStrings.forEach { (s: String, Strings: RelicStrings) ->
-                if (s.contains(DataManager.Companion.getModID().lowercase(Locale.getDefault())) || s.contains(
-                        DataManager.Companion.getModID()
-                    )
+                if (s.contains(DataManager.getModID().lowercase(Locale.getDefault()))
+                    || s.contains(DataManager.getModID())
                 )
                 {
                     Strings.FLAVOR = ""
-                    wordReplaces.forEach(Consumer { wordReplace: WordReplace ->
-                        DataManager.replaceStringsInObj(
-                            Strings,
-                            wordReplace
-                        )
-                    })
+                    wordReplaces.forEach { DataManager.replaceStringsInObj(Strings, it) }
                 }
             }
 

@@ -5,7 +5,9 @@ import com.megacrit.cardcrawl.core.AbstractCreature
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon
 import com.megacrit.cardcrawl.monsters.AbstractMonster
 import com.megacrit.cardcrawl.monsters.MonsterGroup
+import com.megacrit.cardcrawl.powers.AbstractPower
 import com.megacrit.cardcrawl.ui.buttons.PeekButton
+import superstitioapi.utils.isDyingOrEscaping
 import java.util.stream.Collectors
 
 class MinionGroup(input: Array<AbstractMonster?>?) : MonsterGroup(input)
@@ -39,10 +41,7 @@ class MinionGroup(input: Array<AbstractMonster?>?) : MonsterGroup(input)
 
     override fun update()
     {
-        for (monster in this.monsters)
-        {
-            monster.update()
-        }
+        this.monsters.forEach(AbstractMonster::update)
         if (AbstractDungeon.screen == AbstractDungeon.CurrentScreen.DEATH)
         {
             this.hoveredCreature = null
@@ -51,9 +50,11 @@ class MinionGroup(input: Array<AbstractMonster?>?) : MonsterGroup(input)
         this.hoveredCreature = null
         for (monster in this.allMinion)
         {
-            if (monster.isDying || monster.isEscaping) continue
+            if (monster.isDyingOrEscaping)
+                continue
             monster.updateHitBox()
-            if (!monster.isHovered) continue
+            if (!monster.isHovered)
+                continue
             if (!AbstractDungeon.player.isDraggingCard)
             {
                 this.hoveredCreature = monster
@@ -61,44 +62,27 @@ class MinionGroup(input: Array<AbstractMonster?>?) : MonsterGroup(input)
             }
         }
         if (this.hoveredCreature == null)
-        {
             AbstractDungeon.player.hoverEnemyWaitTimer = -1.0f
-        }
     }
 
     override fun applyEndOfTurnPowers()
     {
-        for (m in this.petCores)
-        {
-            if (!m.isDying && !m.isEscaping)
-            {
-                m.applyEndOfTurnTriggers()
-            }
-        }
-        for (m in this.petCores)
-        {
-            if (!m.isDying && !m.isEscaping)
-            {
-                for (p2 in m.powers)
-                {
-                    p2.atEndOfRound()
-                }
-            }
-        }
+        this.petCores.filterNot { it.isDyingOrEscaping }
+            .forEach(AbstractCreature::applyEndOfTurnTriggers)
+        this.petCores.filterNot { it.isDyingOrEscaping }
+            .flatMap { it.powers }
+            .forEach(AbstractPower::atEndOfRound)
     }
 
     override fun applyPreTurnLogic()
     {
-        for (m in this.petCores)
-        {
-            if (!m.isDying && !m.isEscaping)
-            {
-                if (!m.hasPower("Barricade"))
-                {
-                    m.loseBlock()
-                }
-                m.applyStartOfTurnPowers()
+        this.petCores.filterNot { it.isDyingOrEscaping }
+            .forEach {
+                if (!it.hasPower("Barricade"))
+                    it.loseBlock()
+                it.applyStartOfTurnPowers()
             }
-        }
     }
 }
+
+

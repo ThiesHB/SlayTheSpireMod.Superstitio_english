@@ -90,7 +90,8 @@ abstract class BaseCardPool(
         if (addedCard == null || !isSelect)
             return Predicate { false }
         return Predicate {
-            if (it == null) return@Predicate false
+            if (it == null)
+                return@Predicate false
             else
                 return@Predicate addedCard.test(it)
         }

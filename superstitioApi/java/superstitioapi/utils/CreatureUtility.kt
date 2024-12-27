@@ -102,3 +102,5 @@ object CreatureUtility
 //        return new ApologySlime();
     }
 }
+val AbstractCreature.isDyingOrEscaping
+    get() = this.isDying || this.isEscaping

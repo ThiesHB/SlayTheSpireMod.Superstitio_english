@@ -19,7 +19,6 @@ import superstitioapi.hangUpCard.HangUpCardGroup
 import superstitioapi.utils.ListUtility
 import superstitioapi.utils.PowerUtility
 import superstitioapi.utils.setDescriptionArgs
-import java.util.stream.IntStream
 import kotlin.math.pow
 
 class BodyModification_Prolapse : MasoCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET)
@@ -38,8 +37,7 @@ class BodyModification_Prolapse : MasoCard(ID, CARD_TYPE, COST, CARD_RARITY, CAR
 
     override fun use(player: AbstractPlayer?, monster: AbstractMonster?)
     {
-        IntStream.range(0, this.magicNumber)
-            .forEach { i: Int -> addToBot_applyPower(BodyModification_ProlapsePower(1, randomName)) }
+        repeat(this.magicNumber) { addToBot_applyPower(BodyModification_ProlapsePower(1, randomName)) }
     }
 
     override fun upgradeAuto()
@@ -69,28 +67,25 @@ class BodyModification_Prolapse : MasoCard(ID, CARD_TYPE, COST, CARD_RARITY, CAR
                 GameActionManager.incrementDiscard(false)
                 return (damageAmount.toDouble() / 2.0.pow(amount)).toInt()
             }
-            else
-            {
-                val cards = ArrayList<CardOrb>()
-                HangUpCardGroup.forEachHangUpCard { cardOrb: CardOrb ->
-                    if (!cardOrb.ifShouldRemove()) cards.add(cardOrb)
-                }.get()
-                if (cards.isEmpty()) return damageAmount
-                val cardOrb = ListUtility.getRandomFromList(cards, AbstractDungeon.cardRandomRng)
-                cardOrb.cardGroupReturnAfterEvoke = AbstractDungeon.player.discardPile
-                cardOrb.setTriggerDiscardIfMoveToDiscard()
-                cardOrb.setShouldRemove()
-                return (damageAmount.toDouble() / 2.0.pow(amount)).toInt()
+            val cards = ArrayList<CardOrb>()
+            HangUpCardGroup.getEachCardOrb().forEach { cardOrb ->
+                if (!cardOrb.ifShouldRemove())
+                    cards.add(cardOrb)
             }
+            if (cards.isEmpty())
+                return damageAmount
+            val cardOrb = ListUtility.getRandomFromList(cards, AbstractDungeon.cardRandomRng)
+            cardOrb.cardGroupReturnAfterEvoke = AbstractDungeon.player.discardPile
+            cardOrb.setTriggerDiscardIfMoveToDiscard()
+            cardOrb.setShouldRemove()
+            return (damageAmount.toDouble() / 2.0.pow(amount)).toInt()
         }
 
         override fun updateDescriptionArgs()
         {
             val strings = arrayOf("")
             prolapseNames.forEach { (name: String?, num: Int) ->
-                strings[0] += String.format(
-                    powerCard.cardStrings.getEXTENDED_DESCRIPTION(1), name, num
-                )
+                strings[0] += String.format(powerCard.cardStrings.getEXTENDED_DESCRIPTION(1), name, num)
             }
             setDescriptionArgs(2.0.pow(amount).toInt(), strings[0])
         }

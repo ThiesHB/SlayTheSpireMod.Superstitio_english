@@ -21,7 +21,7 @@ class OneMoreHour : GeneralCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET), 
     {
         addToBot_gainBlock()
         //        for (int i = 0; i < this.magicNumber; i++) {
-        HangUpCardGroup.forEachHangUpCard { orb: CardOrb -> orb.orbCounter *= this.magicNumber }
+        HangUpCardGroup.forEachHangUpCard { it.orbCounter *= this.magicNumber }
             .addToBotAsAbstractAction()
         //        }
     }

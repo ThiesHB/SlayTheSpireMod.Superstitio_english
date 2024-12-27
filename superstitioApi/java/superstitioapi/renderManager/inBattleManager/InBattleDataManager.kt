@@ -11,8 +11,8 @@ import java.util.function.Consumer
 
 object InBattleDataManager
 {
-    var costMap: HashMap<UUID, Int> = HashMap()
-    var subscribeManageGroups: MutableList<ISubscriber> = ArrayList()
+    val costMap: HashMap<UUID, Int> = HashMap()
+    val subscribeManageGroups: MutableList<ISubscriber> = ArrayList()
 
     @JvmStatic
     fun InitializeAtStartOfBattle()
@@ -78,7 +78,7 @@ object InBattleDataManager
     private fun ResetAll()
     {
         RenderInBattle.clearAll()
-        costMap = HashMap()
+        costMap.clear()
         subscribeManageGroups.clear()
     }
 }

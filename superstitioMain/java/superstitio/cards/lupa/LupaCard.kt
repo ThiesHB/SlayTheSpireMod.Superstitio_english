@@ -11,7 +11,6 @@ import superstitio.powers.lupaOnly.InsideSemen
 import superstitio.powers.lupaOnly.OutsideSemen
 import superstitio.powers.lupaOnly.SemenPower
 import superstitioapi.actions.AutoDoneInstantAction
-import java.util.stream.Collectors
 
 abstract class LupaCard @JvmOverloads constructor(
     id: String, cardType: CardType, cost: Int, cardRarity: CardRarity, cardTarget: CardTarget, cardColor: CardColor,
@@ -42,23 +41,21 @@ abstract class LupaCard @JvmOverloads constructor(
 
     protected fun sortedSemenList(): List<SemenPower>
     {
-        val collect = AbstractDungeon.player.powers.stream()
-            .filter { power: AbstractPower -> power is SemenPower }
-            .map { power: AbstractPower -> power as SemenPower }
-            .sorted(SemenPower::compareTo)
-            .collect(Collectors.toList())
+        val collect = AbstractDungeon.player.powers
+            .filterIsInstance<SemenPower>()
+            .sortedWith(SemenPower::compareTo)
+            .toMutableList()
         collect.reverse()
         return collect
     }
 
     protected fun sortedSemenList(maxValue: Int): List<SemenPower>
     {
-        val collect = AbstractDungeon.player.powers.stream()
-            .filter { power: AbstractPower -> power is SemenPower }
-            .map { power: AbstractPower -> power as SemenPower }
+        val collect = AbstractDungeon.player.powers
+            .filterIsInstance<SemenPower>()
             .filter { semenPower: SemenPower -> semenPower.getSemenValue() <= maxValue }
-            .sorted(SemenPower::compareTo)
-            .collect(Collectors.toList())
+            .sortedWith(SemenPower::compareTo)
+            .toMutableList()
         collect.reverse()
         return collect
     }
@@ -80,12 +77,12 @@ abstract class LupaCard @JvmOverloads constructor(
         var valueNeedRemain = valueNeed
         val semenPowers = sortedSemenList()
         val smartCheapUse = sortedSemenList(valueNeed)
-        if (semenPowers == null || semenPowers.isEmpty()) return
-        val semenPower = if (smartCheapUse == null || smartCheapUse.isEmpty())
-        {
+        if (semenPowers.isEmpty())
+            return
+        val semenPower = if (smartCheapUse.isEmpty())
             semenPowers[0]
-        }
-        else smartCheapUse[0]
+        else
+            smartCheapUse[0]
 
         //        if (semenPower.getTotalValue() >= valueNeedRemain) {
 //            semenPower.addToBot_UseValue(valueNeedRemain);

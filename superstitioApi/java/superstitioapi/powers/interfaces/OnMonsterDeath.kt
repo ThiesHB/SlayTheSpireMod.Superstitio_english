@@ -34,27 +34,19 @@ object OnMonsterDeath
         @JvmStatic
         fun Prefix(__instance: AbstractMonster, triggerRelics: Boolean): SpireReturn<Void>
         {
-            if (__instance.isDying) return SpireReturn.Continue()
-            if (!triggerRelics) return SpireReturn.Continue()
+            if (__instance.isDying)
+                return SpireReturn.Continue()
+            if (!triggerRelics)
+                return SpireReturn.Continue()
             for (power in __instance.powers)
             {
-                if (power is OnMonsterDeathPower)
-                {
-                    if ((power as OnMonsterDeathPower).ifStopOwnerDeathWhenOwnerIsMonster())
-                    {
-                        return SpireReturn.Return()
-                    }
-                }
+                if (power is OnMonsterDeathPower && power.ifStopOwnerDeathWhenOwnerIsMonster())
+                    return SpireReturn.Return()
             }
             for (relic in AbstractDungeon.player.relics)
             {
-                if (relic is OnMonsterDeathRelic)
-                {
-                    if ((relic as OnMonsterDeathRelic).ifStopMonsterDeath(__instance))
-                    {
-                        return SpireReturn.Return()
-                    }
-                }
+                if (relic is OnMonsterDeathRelic && relic.ifStopMonsterDeath(__instance))
+                    return SpireReturn.Return()
             }
             return SpireReturn.Continue()
         }

@@ -6,6 +6,7 @@ import com.megacrit.cardcrawl.monsters.exordium.ApologySlime
 import com.megacrit.cardcrawl.monsters.exordium.SpikeSlime_S
 import superstitioapi.Logger
 import java.lang.Boolean
+import java.lang.Float
 import kotlin.Any
 import kotlin.Exception
 import kotlin.arrayOfNulls
@@ -14,22 +15,15 @@ object CopyAndSpawnMonsterUtility
 {
     fun motherFuckerWhyIShouldUseThisToCopyMonster(amClass: Class<out AbstractMonster?>): AbstractMonster
     {
-        if (amClass == AcidSlime_S::class.java)
+        fun tryMakeMonster(): AbstractMonster
         {
-            return AcidSlime_S(0.0f, 0.0f, 0)
-        }
-        if (amClass == SpikeSlime_S::class.java)
-        {
-            return SpikeSlime_S(0.0f, 0.0f, 0)
-        }
-        if (amClass.name == "monsters.pet.ScapeGoatPet")
-        {
-            return ApologySlime()
-        }
-        val con = amClass.declaredConstructors
-        if (con.size > 0)
-        {
-            val c = con[0]
+            val constructors = amClass.declaredConstructors
+            if (constructors.isEmpty())
+            {
+                Logger.info("Failed to create monster, returning Apology Slime")
+                return ApologySlime()
+            }
+            val c = constructors[0]
             try
             {
                 val paramCt = c.parameterCount
@@ -39,17 +33,11 @@ object CopyAndSpawnMonsterUtility
                 {
                     val param = params[i]
                     if (Integer.TYPE.isAssignableFrom(param))
-                    {
                         paramz[i] = 1
-                    }
                     else if (Boolean.TYPE.isAssignableFrom(param))
-                    {
                         paramz[i] = true
-                    }
-                    else if (java.lang.Float.TYPE.isAssignableFrom(param))
-                    {
+                    else if (Float.TYPE.isAssignableFrom(param))
                         paramz[i] = 0.0f
-                    }
                 }
                 return c.newInstance(*paramz) as AbstractMonster
             }
@@ -60,7 +48,12 @@ object CopyAndSpawnMonsterUtility
                 return ApologySlime()
             }
         }
-        Logger.info("Failed to create monster, returning Apology Slime")
-        return ApologySlime()
+        return when
+        {
+            amClass == AcidSlime_S::class.java          -> AcidSlime_S(0.0f, 0.0f, 0)
+            amClass == SpikeSlime_S::class.java         -> SpikeSlime_S(0.0f, 0.0f, 0)
+            amClass.name == "monsters.pet.ScapeGoatPet" -> ApologySlime()
+            else                                        -> tryMakeMonster()
+        }
     }
 }

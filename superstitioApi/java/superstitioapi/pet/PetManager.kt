@@ -37,29 +37,28 @@ class PetManager : RenderInBattle, AtEndOfPlayerTurnPreCardSubscriber, PostPower
 
     private fun monsterTurn(monster: AbstractMonster)
     {
-        if (!monster.isDeadOrEscaped || monster.halfDead)
+        if (monster.isDeadOrEscaped && !monster.halfDead)
+            return
+        if (monster.intent != Intent.NONE)
         {
-            if (monster.intent != Intent.NONE)
-            {
-                AbstractDungeon.actionManager.addToBottom(ShowMoveNameAction(monster))
-                AbstractDungeon.actionManager.addToBottom(IntentFlashAction(monster))
-            }
-
-            if (!TipTracker.tips["INTENT_TIP"]!! && AbstractDungeon.player.currentBlock == 0 && (monster.intent == Intent.ATTACK || monster.intent == Intent.ATTACK_DEBUFF || monster.intent == Intent.ATTACK_BUFF || monster.intent == Intent.ATTACK_DEFEND))
-            {
-                if (AbstractDungeon.floorNum <= 5)
-                {
-                    ++TipTracker.blockCounter
-                }
-                else
-                {
-                    TipTracker.neverShowAgain("INTENT_TIP")
-                }
-            }
-
-            monster.takeTurn()
-            monster.applyTurnPowers()
+            AbstractDungeon.actionManager.addToBottom(ShowMoveNameAction(monster))
+            AbstractDungeon.actionManager.addToBottom(IntentFlashAction(monster))
         }
+
+        if (!TipTracker.tips["INTENT_TIP"]!! && AbstractDungeon.player.currentBlock == 0 && (monster.intent == Intent.ATTACK || monster.intent == Intent.ATTACK_DEBUFF || monster.intent == Intent.ATTACK_BUFF || monster.intent == Intent.ATTACK_DEFEND))
+        {
+            if (AbstractDungeon.floorNum <= 5)
+            {
+                ++TipTracker.blockCounter
+            }
+            else
+            {
+                TipTracker.neverShowAgain("INTENT_TIP")
+            }
+        }
+
+        monster.takeTurn()
+        monster.applyTurnPowers()
     }
 
     override fun receiveAtEndOfPlayerTurnPreCard()

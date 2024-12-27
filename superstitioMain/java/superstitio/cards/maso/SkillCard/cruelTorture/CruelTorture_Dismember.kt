@@ -27,7 +27,7 @@ class CruelTorture_Dismember : MasoCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_T
 
     override fun use(player: AbstractPlayer?, monster: AbstractMonster?)
     {
-        HangUpCardGroup.forEachHangUpCard { orb: CardOrb ->
+        HangUpCardGroup.forEachHangUpCard {
             addToBot(LoseHPAction(AbstractDungeon.player, AbstractDungeon.player, this.magicNumber))
             addToBot_gainBlock()
         }.addToBotAsAbstractAction()

@@ -20,19 +20,22 @@ object GetCardListSwitchPatch
     @JvmStatic
     fun Postfix(__result: MutableList<AbstractCard>, type: LibraryType): MutableList<AbstractCard>
     {
-        if (BaseMod.isBaseGameCardColor(CardColor.valueOf(type.name))) return __result
-        if (SuperstitioConfig.isEnableOnlyShowCardNotGeneral) return __result
+        if (BaseMod.isBaseGameCardColor(CardColor.valueOf(type.name)))
+            return __result
+        if (SuperstitioConfig.isEnableOnlyShowCardNotGeneral)
+            return __result
         for (card in CardLibrary.cards.values)
         {
-            if (card !is SuperstitioCard) continue
-            if (__result.stream().anyMatch { c: AbstractCard -> c.cardID == card.cardID }) continue
-            if (type == LupaEnums.LUPA_LIBRARY && CardOwnerPlayerManager.isLupaCard(card))
+            if (card !is SuperstitioCard)
+                continue
+            if (__result.any { it.cardID == card.cardID })
+                continue
+            when
             {
-                __result.add(card.makeCopy())
-            }
-            else if (type == MasoEnums.MASO_LIBRARY && CardOwnerPlayerManager.isMasoCard(card))
-            {
-                __result.add(card.makeCopy())
+                type == LupaEnums.LUPA_LIBRARY && CardOwnerPlayerManager.isLupaCard(card) ->
+                    __result.add(card.makeCopy())
+                type == MasoEnums.MASO_LIBRARY && CardOwnerPlayerManager.isMasoCard(card) ->
+                    __result.add(card.makeCopy())
             }
         }
         //        for (AbstractCard card:CardLibrary.cards.values()){

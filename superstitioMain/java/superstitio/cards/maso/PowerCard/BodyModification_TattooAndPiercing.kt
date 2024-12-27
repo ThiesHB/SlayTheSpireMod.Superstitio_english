@@ -20,7 +20,6 @@ import superstitioapi.utils.ListUtility
 import superstitioapi.utils.PowerUtility
 import superstitioapi.utils.setDescriptionArgs
 import java.util.function.Consumer
-import java.util.stream.IntStream
 
 class BodyModification_TattooAndPiercing : MasoCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET)
 {
@@ -32,8 +31,9 @@ class BodyModification_TattooAndPiercing : MasoCard(ID, CARD_TYPE, COST, CARD_RA
 
     override fun use(player: AbstractPlayer?, monster: AbstractMonster?)
     {
-        IntStream.range(0, this.magicNumber)
-            .forEach { i: Int -> addToBot_applyPower(BodyModification_TattooAndPiercingPower(1, randomName)) }
+        repeat(this.magicNumber) {
+            addToBot_applyPower(BodyModification_TattooAndPiercingPower(1, randomName))
+        }
     }
 
     override fun upgradeAuto()

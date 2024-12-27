@@ -17,7 +17,7 @@ class CalmDown : GeneralCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET), Car
 
     override fun use(player: AbstractPlayer?, monster: AbstractMonster?)
     {
-        HangUpCardGroup.forEachHangUpCard { _: HangUpCardGroup, cardOrb: CardOrb ->
+        HangUpCardGroup.forEachHangUpCard { cardOrb: CardOrb ->
             if (cardOrb.ifShouldRemove())
                 return@forEachHangUpCard
             cardOrb.setTriggerDiscardIfMoveToDiscard()

@@ -1,15 +1,10 @@
 package superstitio.customStrings
 
-import com.evacipated.cardcrawl.mod.stslib.Keyword
 import superstitio.DataManager
 import superstitio.SuperstitioModSetup
 import superstitio.customStrings.interFace.WordReplace
 import superstitio.customStrings.stringsSet.*
 import java.util.*
-import java.util.function.BiConsumer
-import java.util.function.Consumer
-import java.util.function.Function
-import java.util.stream.Collectors
 
 object StringsSetManager
 {
@@ -67,37 +62,24 @@ object StringsSetManager
     fun makeWordReplaceRule(): MutableList<WordReplace>
     {
         if (SuperstitioModSetup.SEAL_MANUAL_SFW)
-        {
             return ArrayList()
-        }
         if (!wordReplaceRules.isNullOrEmpty())
-            return wordReplaceRules as MutableList<WordReplace>
+            return wordReplaceRules!!
         val sfwReplaces =
-            Arrays.stream(
-                DataManager.makeJsonStringFromFile(
-                    "SFW_replace",
-                    Array<WordReplace>::class.java
-                )
-            ).collect(Collectors.toList())
-        if (DataManager.cards.isNotEmpty()) sfwReplaces.addAll(
-            CardStringsWillMakeFlavorSet.makeCardNameReplaceRules(
-                ArrayList(DataManager.cards.values)
+            DataManager.makeJsonStringFromFile("SFW_replace", Array<WordReplace>::class.java).toMutableList()
+        if (DataManager.cards.isNotEmpty())
+            sfwReplaces.addAll(
+                CardStringsWillMakeFlavorSet.makeCardNameReplaceRules(ArrayList(DataManager.cards.values))
             )
-        )
-        if (DataManager.modifiers.isNotEmpty()) sfwReplaces.addAll(
-            ModifierStringsSet.makeModifierNameReplaceRules(
-                ArrayList(DataManager.modifiers.values)
+        if (DataManager.modifiers.isNotEmpty())
+            sfwReplaces.addAll(
+                ModifierStringsSet.makeModifierNameReplaceRules(ArrayList(DataManager.modifiers.values))
             )
-        )
         sfwReplaces.addAll(
-            SuperstitioKeyWord.makeKeywordNameReplaceRules(
-                SuperstitioKeyWord.getAndRegisterKeywordsFormFile()
-            )
+            SuperstitioKeyWord.makeKeywordNameReplaceRules(SuperstitioKeyWord.getAndRegisterKeywordsFormFile())
         )
-        wordReplaceRules =
-            sfwReplaces.filter { wordReplace: WordReplace -> !wordReplace.hasNullOrEmpty() }
-                .toMutableList()
-        return wordReplaceRules as MutableList<WordReplace>
+        wordReplaceRules = sfwReplaces.filterNot { it.hasNullOrEmpty() }.toMutableList()
+        return wordReplaceRules!!
     }
 
     @JvmStatic
@@ -112,22 +94,17 @@ object StringsSetManager
     fun makeKeyWords()
     {
         val keywords = allKeywords
-        keywords.forEach(Consumer { keyWord: SuperstitioKeyWord? -> keyWord!!.makeSFWVersion(makeWordReplaceRule()) })
-        keywords.forEach(Consumer { obj: SuperstitioKeyWord? -> obj!!.addToGame() })
+        keywords.forEach { keyWord -> keyWord.makeSFWVersion(makeWordReplaceRule()) }
+        keywords.forEach { obj -> obj.addToGame() }
         return
     }
 
-    val allKeywords: List<SuperstitioKeyWord?>
+    val allKeywords: List<SuperstitioKeyWord>
         get()
         {
-            val keywordsSFW: MutableList<SuperstitioKeyWord?> = ArrayList()
+            val keywordsSFW: MutableList<SuperstitioKeyWord> = ArrayList()
             keywordsSFW.addAll(SuperstitioKeyWord.getAndRegisterKeywordsFormFile())
-            keywordsSFW.addAll(
-                Arrays.stream(ModifierStringsSet.MakeKeyWords())
-                    .map<SuperstitioKeyWord?>(
-                        Function<Keyword, SuperstitioKeyWord?>(SuperstitioKeyWord.Companion::STSLibKeyWordToThisType)
-                    ).collect(Collectors.toList())
-            )
+            keywordsSFW.addAll(ModifierStringsSet.MakeKeyWords().map(SuperstitioKeyWord::STSLibKeyWordToThisType))
             return keywordsSFW
         }
 
@@ -153,23 +130,9 @@ object StringsSetManager
     {
         val wordReplaces = makeWordReplaceRule()
 
-        DataManager.cards.forEach { string: String?, card: CardStringsWillMakeFlavorSet ->
-            card.setupSFWStringByWordReplace(
-                wordReplaces
-            )
-        }
-        DataManager.powers.forEach((BiConsumer<String?, PowerStringsSet> { string: String?, power: PowerStringsSet ->
-            power.setupSFWStringByWordReplace(
-                wordReplaces
-            )
-        }))
-        DataManager.modifiers.forEach((BiConsumer<String?, ModifierStringsSet> { string: String?, modifier: ModifierStringsSet ->
-            modifier.setupSFWStringByWordReplace(
-                wordReplaces
-            )
-        }))
-        DataManager.orbs.forEach((BiConsumer<String?, OrbStringsSet> { string: String?, orb: OrbStringsSet ->
-            orb.setupSFWStringByWordReplace(wordReplaces)
-        }))
+        DataManager.cards.values.forEach { it.setupSFWStringByWordReplace(wordReplaces) }
+        DataManager.powers.values.forEach { it.setupSFWStringByWordReplace(wordReplaces) }
+        DataManager.modifiers.values.forEach { it.setupSFWStringByWordReplace(wordReplaces) }
+        DataManager.orbs.values.forEach { it.setupSFWStringByWordReplace(wordReplaces) }
     }
 }

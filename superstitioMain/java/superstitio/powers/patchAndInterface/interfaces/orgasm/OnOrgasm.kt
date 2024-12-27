@@ -1,17 +1,13 @@
 package superstitio.powers.patchAndInterface.interfaces.orgasm
 
-import com.megacrit.cardcrawl.blights.AbstractBlight
 import com.megacrit.cardcrawl.cards.AbstractCard
 import com.megacrit.cardcrawl.core.AbstractCreature
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon
-import com.megacrit.cardcrawl.powers.AbstractPower
 import com.megacrit.cardcrawl.relics.AbstractRelic
 import superstitio.powers.SexualHeat
-import superstitioapi.hangUpCard.CardOrb
 import superstitioapi.hangUpCard.HangUpCardGroup
 import superstitioapi.relicToBlight.InfoBlight
 import superstitioapi.utils.CardUtility
-import java.util.stream.Collectors
 
 interface OnOrgasm
 {
@@ -75,34 +71,24 @@ interface OnOrgasm
         fun AllOnOrgasm(owner: AbstractCreature): Sequence<OnOrgasm>
         {
             val onOrgasms =
-                owner.powers
-                    .filter(OnOrgasm::class.java::isInstance)
-                    .map { power: AbstractPower -> power as OnOrgasm }.toMutableList()
+                owner.powers.filterIsInstance<OnOrgasm>().toMutableList()
             if (owner.isPlayer)
             {
                 onOrgasms.addAll(
-                    InfoBlight.getAllRelics(AbstractRelic::class.java)
-                        .filter(OnOrgasm::class.java::isInstance)
-                        .map { relic: AbstractRelic -> relic as OnOrgasm }.toList()
+                    InfoBlight.getAllRelics(AbstractRelic::class.java).filterIsInstance<OnOrgasm>()
                 )
                 onOrgasms.addAll(
-                    AbstractDungeon.player.blights.stream()
-                        .filter(OnOrgasm::class.java::isInstance)
-                        .map { relic: AbstractBlight -> relic as OnOrgasm }.collect(Collectors.toList())
+                    AbstractDungeon.player.blights.filterIsInstance<OnOrgasm>()
                 )
                 onOrgasms.addAll(
-                    CardUtility.AllCardInBattle().stream()
-                        .filter(OnOrgasm::class.java::isInstance)
-                        .map { card: AbstractCard -> card as OnOrgasm }.collect(Collectors.toList())
+                    CardUtility.AllCardInBattle().filterIsInstance<OnOrgasm>()
                 )
                 onOrgasms.addAll(
-                    AbstractDungeon.player.relics.stream()
-                        .filter(OnOrgasm::class.java::isInstance)
-                        .map { relic: AbstractRelic -> relic as OnOrgasm }.collect(Collectors.toList())
+                    AbstractDungeon.player.relics.filterIsInstance<OnOrgasm>()
                 )
-                HangUpCardGroup.forEachHangUpCard { card: CardOrb ->
-                    if (card is OnOrgasm) onOrgasms.add(card as OnOrgasm)
-                }.get()
+                onOrgasms.addAll(
+                    HangUpCardGroup.getEachCardOrb().filterIsInstance<OnOrgasm>()
+                )
             }
             return onOrgasms.asSequence()
         }

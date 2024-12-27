@@ -106,23 +106,18 @@ class SuperstitioApiSubscriber : PostExhaustSubscriber, StartGameSubscriber, Rel
         appliedPower: AbstractPower?, target: AbstractCreature?, source: AbstractCreature?
     )
     {
-        if (target == null) return
+        if (target == null)
+            return
         AutoDoneInstantAction.addToTopAbstract {
             if (appliedPower is OnPostApplyThisPower<*>)
                 for (power: AbstractPower in target.powers)
                 {
-                    if (power is OnPostApplyThisPower<out AbstractPower>
-                        && power.ID == appliedPower.ID
-                    )
+                    if (power is OnPostApplyThisPower<out AbstractPower> && power.ID == appliedPower.ID)
                         power.tryInitializePostApplyThisPower(appliedPower)
                 }
         }
         InBattleDataManager.ApplyAll({ sub: PostPowerApplySubscriber ->
-            sub.receivePostPowerApplySubscriber(
-                appliedPower,
-                source,
-                source
-            )
+            sub.receivePostPowerApplySubscriber(appliedPower, source, source)
         }, PostPowerApplySubscriber::class.java)
     }
 

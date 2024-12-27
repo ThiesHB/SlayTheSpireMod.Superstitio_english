@@ -11,7 +11,7 @@ import com.megacrit.cardcrawl.actions.AbstractGameAction.AttackEffect
 import com.megacrit.cardcrawl.cards.AbstractCard
 import com.megacrit.cardcrawl.cards.AbstractCard.CardColor
 import com.megacrit.cardcrawl.cards.AbstractCard.CardRarity
-import com.megacrit.cardcrawl.core.AbstractCreature
+import com.megacrit.cardcrawl.characters.AbstractPlayer
 import com.megacrit.cardcrawl.core.CardCrawlGame
 import com.megacrit.cardcrawl.core.EnergyManager
 import com.megacrit.cardcrawl.core.Settings
@@ -158,37 +158,25 @@ abstract class BaseCharacter(ID: String, name: String, playerClass: PlayerClass)
 
     override fun render(sb: SpriteBatch)
     {
-        stance.render(sb)
-
+        sb.color = Color.WHITE
         if (AbstractDungeon.getCurrRoom() is RestRoom)
         {
-            sb.color = Color.WHITE
             this.renderShoulderImg(sb)
             return
         }
-        if (this.atlas != null &&
-            !(ReflectionHacks.getPrivate<Any>(this, AbstractCreature::class.java, "renderCorpse") as Boolean)
-        )
-        {
-            this.renderPlayerImage(sb)
-        }
+        stance.render(sb)
+        if (this.atlas == null || ReflectionHacks.getPrivate(this, AbstractPlayer::class.java, "renderCorpse"))
+            this.drawImg(sb)
         else
-        {
-            sb.color = Color.WHITE
-            drawImg(sb)
-        }
+            this.renderPlayerImage(sb)
 
         hb.render(sb)
         healthHb.render(sb)
-        if ((ActionUtility.isNotInBattle) || this.isDead) return
+        if (ActionUtility.isNotInBattle || this.isDead)
+            return
         this.renderHealth(sb)
-        if (orbs.isNotEmpty())
-        {
-            for (o in this.orbs)
-            {
-                o.render(sb)
-            }
-        }
+
+        this.orbs.forEach { it.render(sb) }
     }
 
     override fun movePosition(x: Float, y: Float)

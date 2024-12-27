@@ -100,7 +100,7 @@ class MasochismMode : SuperstitioRelic(ID, RELIC_TIER, LANDING_SOUND), BecomeInf
             SexualHeat.useConsumer_addSexualHeat(
                 AbstractDungeon.player,
                 amount,
-                Consumer<VoidSupplier>(AutoDoneInstantAction.Companion::addToTopAbstract)
+                AutoDoneInstantAction.Companion::addToTopAbstract
             )
         }
     }

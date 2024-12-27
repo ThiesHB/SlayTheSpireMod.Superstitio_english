@@ -40,13 +40,13 @@ class GiveBirth() : AbstractTempCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARG
     override fun use(player: AbstractPlayer?, monster: AbstractMonster?)
     {
         this.addToBot(AddTemporaryHPAction(AbstractDungeon.player, AbstractDungeon.player, this.block))
-        HangUpCardGroup.forEachHangUpCard { _: HangUpCardGroup, cardOrb: CardOrb ->
-            if (cardOrb !is IPregnantCardOrb)
+        HangUpCardGroup.forEachHangUpCard {
+            if (it !is IPregnantCardOrb)
                 return@forEachHangUpCard
-            if (cardOrb.ifShouldRemove())
+            if (it.ifShouldRemove())
                 return@forEachHangUpCard
-            cardOrb.setTriggerDiscardIfMoveToDiscard()
-            cardOrb.setShouldRemove()
+            it.setTriggerDiscardIfMoveToDiscard()
+            it.setShouldRemove()
             this@GiveBirth.addToBot(AddTemporaryHPAction(AbstractDungeon.player, AbstractDungeon.player, this.block))
         }.addToBotAsAbstractAction()
     }

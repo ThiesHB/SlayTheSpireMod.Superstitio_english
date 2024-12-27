@@ -235,9 +235,14 @@ class HangUpCardGroup(hitbox: Hitbox) : RenderInBattle, OnCardUseSubscriber, OnP
             return AbstractDungeon.getMonsters().monsters
         }
 
+        fun getEachCardOrb(): List<CardOrb>
+        {
+            return InBattleDataManager.getHangUpCardOrbGroup()?.cards ?: emptyList()
+        }
+
         fun addToBot_AddCardOrbToOrbGroup(orb: CardOrb)
         {
-            forHangUpCardGroup { hangUpCardGroup: HangUpCardGroup -> hangUpCardGroup.hangUpNewCard(orb) }
+            forHangUpCardGroup { it.hangUpNewCard(orb) }
                 .addToBotAsAbstractAction()
         }
 
@@ -251,16 +256,6 @@ class HangUpCardGroup(hitbox: Hitbox) : RenderInBattle, OnCardUseSubscriber, OnP
             return InBattleDataManager.getHangUpCardOrbGroup()?.let(cardGroupConsumer) ?: false
         }
 
-        fun <T> forEachHangUpCard(consumer: (CardOrb, T) -> Unit, arg: T): VoidSupplier
-        {
-            return forHangUpCardGroup { hangUpCardGroup: HangUpCardGroup? ->
-                for (orb in hangUpCardGroup!!.cards)
-                {
-                    consumer(orb, arg)
-                }
-            }
-        }
-
         fun forEachHangUpCard_Any(predicate: (CardOrb) -> Boolean): Boolean
         {
             return forHangUpCardGroup_IfExist { hangUpCardGroup ->
@@ -270,11 +265,19 @@ class HangUpCardGroup(hitbox: Hitbox) : RenderInBattle, OnCardUseSubscriber, OnP
             }
         }
 
-        fun forEachHangUpCard(consumer: (HangUpCardGroup, CardOrb) -> Unit): VoidSupplier
+        fun <T> forEachHangUpCard(consumer: (CardOrb, T) -> Unit, arg: T): VoidSupplier
         {
-            return forHangUpCardGroup { hangUpCardGroup ->
-                hangUpCardGroup.cards.forEach {
-                    consumer(hangUpCardGroup, it)
+            return forHangUpCardGroup {
+                for (orb in it.cards)
+                    consumer(orb, arg)
+            }
+        }
+
+        fun forEachHangUpCardWithGroup(consumer: (HangUpCardGroup, CardOrb) -> Unit): VoidSupplier
+        {
+            return forHangUpCardGroup {
+                it.cards.forEach { orb ->
+                    consumer(it, orb)
                 }
             }
         }
@@ -290,9 +293,9 @@ class HangUpCardGroup(hitbox: Hitbox) : RenderInBattle, OnCardUseSubscriber, OnP
             OrbClass: Class<TOrb>, consumer: (TOrb, TArg) -> Unit, arg: TArg
         ): VoidSupplier
         {
-            return forHangUpCardGroup { hangUpCardGroup ->
-                hangUpCardGroup.cards.filterIsInstance(OrbClass).forEach {
-                    consumer(it, arg)
+            return forHangUpCardGroup {
+                it.cards.filterIsInstance(OrbClass).forEach { orb ->
+                    consumer(orb, arg)
                 }
             }
         }

@@ -9,7 +9,6 @@ import superstitio.DataManager
 import superstitio.cards.general.AbstractTempCard
 import superstitioapi.utils.CardUtility
 import superstitioapi.utils.ListUtility
-import java.util.stream.IntStream
 
 class SexToy : AbstractTempCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET)
 {
@@ -22,8 +21,15 @@ class SexToy : AbstractTempCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET)
     {
         val target = CardUtility.getSelfOrEnemyTarget(this, monster)
         val finalTarget = target
-        IntStream.range(0, this.magicNumber)
-            .forEach { addToBot_applyPower(superstitio.powers.SexToy(finalTarget, 1, getRandomSexToyName())) }
+        repeat(this.magicNumber) {
+            addToBot_applyPower(
+                superstitio.powers.SexToy(
+                    finalTarget,
+                    1,
+                    getRandomSexToyName()
+                )
+            )
+        }
     }
 
     override fun upgradeAuto()

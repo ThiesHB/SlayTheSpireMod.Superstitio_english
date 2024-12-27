@@ -95,14 +95,17 @@ interface FuckJob_Card
     {
         fun getBodyPartType(fuckJob: FuckJob_Card?): BodyPart
         {
-            if (fuckJob is Fuck_Nipple || fuckJob is Job_Breast) return BodyPart.breast
-            if (fuckJob is Job_Foot || fuckJob is Job_LegPit) return BodyPart.leg
-            if (fuckJob is Fuck_Anal || fuckJob is Fuck_Vaginal) return BodyPart.genital
-            if (fuckJob is Job_Armpit || fuckJob is Job_Hand) return BodyPart.hand
-            if (fuckJob is Fuck_Eye || fuckJob is Fuck_Ear || fuckJob is Job_Hair) return BodyPart.head
-            if (fuckJob is Fuck_Throat || fuckJob is Job_Blow) return BodyPart.mouth
-            if (fuckJob is Fuck_Navel || fuckJob is Job_Groin) return BodyPart.torso
-            return BodyPart.unknown
+            return when (fuckJob)
+            {
+                is Fuck_Nipple, is Job_Breast         -> BodyPart.breast
+                is Job_Foot, is Job_LegPit            -> BodyPart.leg
+                is Fuck_Anal, is Fuck_Vaginal         -> BodyPart.genital
+                is Job_Armpit, is Job_Hand            -> BodyPart.hand
+                is Fuck_Eye, is Fuck_Ear, is Job_Hair -> BodyPart.head
+                is Fuck_Throat, is Job_Blow           -> BodyPart.mouth
+                is Fuck_Navel, is Job_Groin           -> BodyPart.torso
+                else                                  -> BodyPart.unknown
+            }
         }
 
         /**

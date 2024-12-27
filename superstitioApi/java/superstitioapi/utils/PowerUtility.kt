@@ -190,21 +190,16 @@ fun AbstractPower.tryCopyPower(newOwner: AbstractCreature): AbstractPower?
             for (i in 0 until paramCount)
             {
                 val param = paramTypes[i]
-                if (AbstractCreature::class.java.isAssignableFrom(param))
+                when
                 {
-                    paramNewInstance[i] = newOwner
-                }
-                else if (Integer.TYPE.isAssignableFrom(param))
-                {
-                    paramNewInstance[i] = 0
-                }
-                else if (String::class.java.isAssignableFrom(param))
-                {
-                    paramNewInstance[i] = ""
-                }
-                else if (java.lang.Boolean.TYPE.isAssignableFrom(param))
-                {
-                    paramNewInstance[i] = true
+                    AbstractCreature::class.java.isAssignableFrom(param) ->
+                        paramNewInstance[i] = newOwner
+                    Integer.TYPE.isAssignableFrom(param)                 ->
+                        paramNewInstance[i] = 0
+                    String::class.java.isAssignableFrom(param)           ->
+                        paramNewInstance[i] = ""
+                    java.lang.Boolean.TYPE.isAssignableFrom(param)       ->
+                        paramNewInstance[i] = true
                 }
             }
             instance = constructors[0].newInstance(*paramNewInstance) as AbstractPower
