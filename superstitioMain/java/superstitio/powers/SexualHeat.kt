@@ -14,7 +14,6 @@ import com.megacrit.cardcrawl.core.Settings
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon
 import com.megacrit.cardcrawl.helpers.Hitbox
 import com.megacrit.cardcrawl.monsters.AbstractMonster
-import com.megacrit.cardcrawl.powers.AbstractPower
 import com.megacrit.cardcrawl.ui.panels.EnergyPanel
 import superstitio.DataManager
 import superstitio.InBattleDataManager
@@ -137,8 +136,8 @@ class SexualHeat protected constructor(owner: AbstractCreature, private var heat
             return
         }
 
-        OnOrgasm.AllOnOrgasm(owner).forEach { power: OnOrgasm ->
-            power.onOrgasmFirst(this)
+        OnOrgasm.AllOnOrgasm(owner).forEach {
+            it.onOrgasmFirst(this)
         }
 
         Orgasm.startOrgasm(owner)
@@ -161,13 +160,12 @@ class SexualHeat protected constructor(owner: AbstractCreature, private var heat
     }
 
     private val heatRequired: Int
-        //    @Override
-        get() = max((HEAT_REQUIREDOrigin -
-                owner.powers.stream().filter { power: AbstractPower? -> power is SexualHeatNeedModifier }
-                    .mapToInt { power: AbstractPower -> (power as SexualHeatNeedModifier).reduceSexualHeatNeeded() }
-                    .sum()).toDouble(), MIN_HEAT_REQUIRE.toDouble()
+        get() = max(
+            HEAT_REQUIREDOrigin -
+                    owner.powers.filterIsInstance<SexualHeatNeedModifier>()
+                        .sumOf(SexualHeatNeedModifier::reduceSexualHeatNeeded),
+            MIN_HEAT_REQUIRE
         )
-            .toInt()
 
     private fun bubbleMessage(isDeBuffVer: Boolean, messageIndex: Int)
     {

@@ -37,7 +37,7 @@ abstract class DelayHpLosePower_ApplyAtEndOfRound(private val OriginId: String, 
         if (targetPower == null)
             return amount
         ActionUtility.addToBot_reducePower(targetPower.ID, amount, this.owner, this.owner)
-        return max((amount - targetPower.amount).toDouble(), 0.0).toInt()
+        return max(amount - targetPower.amount, 0)
     }
 
     override fun checkShouldInvisibleTips(): Boolean

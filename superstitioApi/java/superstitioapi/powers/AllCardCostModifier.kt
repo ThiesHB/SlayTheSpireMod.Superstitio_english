@@ -104,7 +104,7 @@ abstract class AllCardCostModifier(
         ) InBattleDataManager.costMap[card.uuid] = card.costForTurn
         val newCost = getOriginCost(card) - this.amount
         if (card.costForTurn == newCost) return
-        card.setCostForTurn(max(newCost.toDouble(), 0.0).toInt())
+        card.setCostForTurn(max(newCost, 0))
         card.isCostModifiedForTurn = true
         CardUtility.flashIfInHand(card)
     }
@@ -170,7 +170,7 @@ abstract class AllCardCostModifier(
 
         fun getAllByHolder(aimHolder: HasAllCardCostModifyEffect): Collection<AllCardCostModifier>
         {
-            return all.filter { power: AllCardCostModifier -> power.holder.IDAsHolder() == aimHolder.IDAsHolder() }
+            return all.filter { it.holder.IDAsHolder() == aimHolder.IDAsHolder() }
         }
 
         val all: Collection<AllCardCostModifier>
@@ -242,8 +242,7 @@ abstract class AllCardCostModifier(
             AutoDoneInstantAction.addToBotAbstract {
                 finalAllCardCostModifierPower.amount += canUseAmountAdder.apply(finalAllCardCostModifierPower)
                 finalAllCardCostModifierPower.decreasedCost =
-                    min(decreasedCost.toDouble(), finalAllCardCostModifierPower.amount.toDouble())
-                        .toInt()
+                    min(decreasedCost, finalAllCardCostModifierPower.amount)
                 finalAllCardCostModifierPower.updateDescription()
             }
         }

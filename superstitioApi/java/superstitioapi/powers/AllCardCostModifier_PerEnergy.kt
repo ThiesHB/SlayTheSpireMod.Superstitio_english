@@ -37,7 +37,7 @@ class AllCardCostModifier_PerEnergy(
     override fun updateDescriptionArgs()
     {
         setDescriptionArgs(
-            min(decreasedCost.toDouble(), amount.toDouble()),
+            min(decreasedCost, amount),
             amount,
             (if (!isActive) powerStrings.DESCRIPTIONS[1] else "")
         )

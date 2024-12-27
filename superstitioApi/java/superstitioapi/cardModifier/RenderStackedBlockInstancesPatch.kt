@@ -204,10 +204,8 @@ object RenderStackedBlockInstancesPatch
 
         override fun onUnhover()
         {
-            if (HoveredTimer < HOVERED_TIMER_INIT) HoveredTimer = min(
-                (HoveredTimer + Gdx.graphics.deltaTime).toDouble(),
-                HOVERED_TIMER_INIT.toDouble()
-            ).toFloat()
+            if (HoveredTimer < HOVERED_TIMER_INIT)
+                HoveredTimer = min((HoveredTimer + Gdx.graphics.deltaTime), HOVERED_TIMER_INIT)
         }
 
         override fun onClick()

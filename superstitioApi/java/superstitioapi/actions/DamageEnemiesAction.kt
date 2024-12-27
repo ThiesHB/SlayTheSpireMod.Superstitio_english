@@ -230,7 +230,7 @@ open class DamageEnemiesAction protected constructor(
             {
                 val monsters = AbstractDungeon.getCurrRoom().monsters.monsters
                 val targetsDamagesMap: MutableMap<AbstractCreature, Int> = HashMap()
-                for (i in 0 until min(monsters.size.toDouble(), multiDamages.size.toDouble()).toInt())
+                for (i in 0 until min(monsters.size, multiDamages.size))
                 {
                     if (targetMonsters.contains(monsters[i])) targetsDamagesMap[monsters[i]] = multiDamages[i]
                 }

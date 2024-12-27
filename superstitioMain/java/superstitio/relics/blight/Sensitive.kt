@@ -57,8 +57,8 @@ class Sensitive : SuperstitioRelic(ID, RELIC_TIER, LANDING_SOUND),
                     },
                     AllCardCostModifier_PerEnergy::class.java.getConstructor(
                         AbstractCreature::class.java,
-                        Int::class.javaPrimitiveType,
-                        Int::class.javaPrimitiveType,
+                        Int::class.java,
+                        Int::class.java,
                         HasAllCardCostModifyEffect::class.java
                     )
                 )

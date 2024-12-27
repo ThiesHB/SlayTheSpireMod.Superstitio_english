@@ -8,6 +8,7 @@ import com.google.gson.internal.`$Gson$Types`
 import com.megacrit.cardcrawl.core.Settings
 import com.megacrit.cardcrawl.core.Settings.GameLanguage
 import com.megacrit.cardcrawl.localization.LocalizedStrings
+import java.lang.reflect.Field
 import java.lang.reflect.ParameterizedType
 import java.nio.charset.StandardCharsets
 import java.util.function.BiFunction
@@ -247,12 +248,10 @@ object DataUtility
     }
 
     fun <T> GetTypeOfMapByAComplexFunctionBecauseTheMotherfuckerGenericProgrammingWayTheFuckingJavaUse(
-        tClass: Class<T>
+        tClass: Class<T>, declaredFields: Array<out Field>
     ): ParameterizedType?
     {
-        val var0 = DataUtility::class.java.declaredFields
-
-        for (f in var0)
+        for (f in declaredFields)
         {
             val type = f.genericType as? ParameterizedType ?: continue
             val typeArgs = type.actualTypeArguments
@@ -266,6 +265,7 @@ object DataUtility
         }
         return null
     }
+
 }
 
 interface hasUuid

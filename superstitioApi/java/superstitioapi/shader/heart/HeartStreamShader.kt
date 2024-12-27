@@ -55,8 +55,7 @@ object HeartStreamShader
         private fun initSubRender()
         {
             if (heartStreamSubRenders.size >= level) return
-            val newIndex = min(MAX_LEVEL.toDouble(), ceil(level.toDouble()))
-                .toInt()
+            val newIndex = min(MAX_LEVEL, ceil(level).toInt())
             for (i in heartStreamSubRenders.size until newIndex)
             {
                 heartStreamSubRenders.add(
@@ -111,9 +110,9 @@ object HeartStreamShader
             fun drawHeartStream(sb: SpriteBatch, density: Float, offset: Vector2)
             {
                 val spawnRemoveTimer = (min(
-                    ALPHA_TIME.toDouble(),
-                    max(anim_timer.toDouble(), 0.0)
-                ) / ALPHA_TIME).toFloat()
+                    ALPHA_TIME,
+                    max(anim_timer, 0.0f)
+                ) / ALPHA_TIME)
                 val height = Gdx.graphics.height.toFloat()
                 val width = Gdx.graphics.width.toFloat()
                 setUp_heartStream(
@@ -164,7 +163,7 @@ object HeartStreamShader
         {
 //            levelTarget += 1.0f;
             if (heartStreamSubRenders.size >= maxLevel) return
-            val newIndex = min(maxLevel.toDouble(), ceil(level.toDouble())).toInt()
+            val newIndex = min(maxLevel, ceil(level).toInt())
             for (i in heartStreamSubRenders.size until newIndex)
             {
                 heartStreamSubRenders.add(
@@ -235,9 +234,9 @@ object HeartStreamShader
             fun drawHeartStream(sb: SpriteBatch, density: Float, offset: Vector2)
             {
                 val spawnRemoveTimer = (min(
-                    ALPHA_TIME.toDouble(),
-                    max(anim_timer.toDouble(), 0.0)
-                ) / ALPHA_TIME).toFloat()
+                    ALPHA_TIME,
+                    max(anim_timer, 0.0f)
+                ) / ALPHA_TIME)
                 val height = Gdx.graphics.height.toFloat()
                 val width = Gdx.graphics.width.toFloat()
                 setUp_heartStream(

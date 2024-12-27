@@ -42,15 +42,13 @@ object SpriteBatchExtensionForBladeGunner
             if (rightTop)
             {
                 drawProgressRightTop(
-                    sb, region, x, y, width, height, currentDegree, min(nextDegree.toDouble(), _endDegree.toDouble())
-                        .toFloat()
+                    sb, region, x, y, width, height, currentDegree, min(nextDegree, _endDegree)
                 )
             }
             else
             {
                 drawProgressLeftBottom(
-                    sb, region, x, y, width, height, currentDegree, min(nextDegree.toDouble(), _endDegree.toDouble())
-                        .toFloat()
+                    sb, region, x, y, width, height, currentDegree, min(nextDegree, _endDegree)
                 )
             }
             currentDegree = nextDegree
@@ -285,11 +283,11 @@ object SpriteBatchExtensionForBladeGunner
         var _degree = degree
         if (_degree < 0)
         {
-            _degree += (360 * (1 + floor((-_degree / 360).toDouble()).toInt())).toFloat()
+            _degree += 360 * (1 + floor(-_degree / 360))
         }
         else if (_degree >= 360)
         {
-            _degree = _degree % 360
+            _degree %= 360
         }
         return _degree
     }

@@ -329,7 +329,7 @@ abstract class CardOrb(card: AbstractCard, cardGroupReturnAfterEvoke: CardGroup?
 
     protected fun checkShouldStopMoving(): Boolean
     {
-        return abs((fakeCard.current_y - fakeCard.target_y).toDouble()) < 0.01f && abs((fakeCard.current_x - fakeCard.target_x).toDouble()) < 0.01f
+        return abs(fakeCard.current_y - fakeCard.target_y) < 0.01f && abs(fakeCard.current_x - fakeCard.target_x) < 0.01f
     }
 
     protected fun updateAnimationIdle()

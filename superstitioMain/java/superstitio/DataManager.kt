@@ -373,7 +373,10 @@ class DataManager
             val jsonString = Gdx.files.internal(makeLocalizationPath(Settings.language, fileName))
                 .readString(StandardCharsets.UTF_8.toString())
             val typeToken =
-                GetTypeOfMapByAComplexFunctionBecauseTheMotherfuckerGenericProgrammingWayTheFuckingJavaUse(tSetClass)
+                GetTypeOfMapByAComplexFunctionBecauseTheMotherfuckerGenericProgrammingWayTheFuckingJavaUse(
+                    tSetClass,
+                    DataManager::class.java.declaredFields
+                )
             val gson = Gson()
             val map = gson.fromJson<Map<String, T>>(jsonString, typeToken)
             map.forEach { (id: String, strings: T) ->

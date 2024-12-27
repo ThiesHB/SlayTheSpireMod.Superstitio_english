@@ -45,9 +45,9 @@ class RelicSelectionUI(
     init
     {
         this.textWidth = max(
-            FontHelper.getWidth(titleFont, optionTitle, 1.0f).toDouble(),
-            RELIC_HITBOX_SIZE.toDouble()
-        ).toFloat()
+            FontHelper.getWidth(titleFont, optionTitle, 1.0f),
+            RELIC_HITBOX_SIZE
+        )
 
         this.relicHitbox = Hitbox(RELIC_HITBOX_SIZE, RELIC_HITBOX_SIZE)
         relicHitbox.move(this.cX, this.cY + RELIC_Y_OFFSET)
@@ -60,9 +60,9 @@ class RelicSelectionUI(
 
         this.textHitbox = Hitbox(
             textWidth, max(
-                rightArrowButton.height.toDouble(),
-                leftArrowButton.height.toDouble()
-            ).toFloat()
+                rightArrowButton.height,
+                leftArrowButton.height
+            )
         )
         textHitbox.move(this.cX, this.cY)
 

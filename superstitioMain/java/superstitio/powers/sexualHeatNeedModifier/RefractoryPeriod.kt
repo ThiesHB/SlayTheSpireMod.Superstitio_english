@@ -52,7 +52,7 @@ class RefractoryPeriod(owner: AbstractCreature, amount: Int) : AbstractSuperstit
 
     override fun updateDescriptionArgs()
     {
-        setDescriptionArgs(abs(amount.toDouble()))
+        setDescriptionArgs(abs(amount))
     }
 
     override fun getDescriptionStrings(): String

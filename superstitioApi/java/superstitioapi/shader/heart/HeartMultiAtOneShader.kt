@@ -73,7 +73,7 @@ object HeartMultiAtOneShader
     {
         private val cX = hitboxForInit.cX
         private val cY = hitboxForInit.cY
-        private val size = max(hitboxForInit.width.toDouble(), hitboxForInit.height.toDouble()).toFloat()
+        private val size = max(hitboxForInit.width, hitboxForInit.height)
         private var anim_time: Float
 
         init

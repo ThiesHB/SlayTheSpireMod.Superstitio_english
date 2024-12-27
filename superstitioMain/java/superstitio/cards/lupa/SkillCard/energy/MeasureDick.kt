@@ -24,7 +24,7 @@ class MeasureDick : LupaCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET)
             AutoDoneInstantAction.addToBotAbstract {
                 addToTop(
                     GainEnergyAction(
-                        max((targetCard.makeCopy().costForTurn - targetCard.costForTurn).toDouble(), 0.0).toInt()
+                        max((targetCard.makeCopy().costForTurn - targetCard.costForTurn), 0)
                     )
                 )
                 addToTop(DiscardSpecificCardAction(targetCard))

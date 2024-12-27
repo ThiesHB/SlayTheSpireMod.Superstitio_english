@@ -203,8 +203,8 @@ open class BarRenderOnThing_Ring(hitbox: Supplier<Hitbox>, power: HasBarRenderOn
         {
             val mx = InputHelper.mX - this.cX
             val my = InputHelper.mY - this.cY
-            var theta = (MathUtils.radiansToDegrees * atan2(my.toDouble(), -mx.toDouble())).toFloat()
-            val radius = sqrt((mx * mx + my * my).toDouble()).toFloat()
+            var theta = (MathUtils.radiansToDegrees * atan2(my, -mx))
+            val radius = sqrt((mx * mx + my * my))
             theta += 180.0f
             theta = Math.floorMod(theta.toLong(), 360.0.toLong()).toFloat()
             theta -= 180.0f

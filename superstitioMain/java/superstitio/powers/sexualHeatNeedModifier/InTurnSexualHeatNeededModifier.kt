@@ -30,7 +30,7 @@ class InTurnSexualHeatNeededModifier(owner: AbstractCreature, amount: Int) : Abs
 
     override fun updateDescriptionArgs()
     {
-        setDescriptionArgs(abs(amount.toDouble()))
+        setDescriptionArgs(abs(amount))
     }
 
     override fun getDescriptionStrings(): String

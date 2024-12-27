@@ -202,6 +202,7 @@ class InfoBlight(relic: AbstractRelic) : BlightWithRelic(relic), BlightOnEnterRo
         {
             return AbstractDungeon.player.blights
                 .filterIsInstance<BlightWithRelic>()
+                .map { it.relic }
                 .filterIsInstance(relicClass)
         }
 

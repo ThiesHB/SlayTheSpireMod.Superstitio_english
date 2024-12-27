@@ -108,7 +108,7 @@ open class MinionMonster protected constructor(petCore: AbstractMonster, drawSca
                         .filter { monster1: AbstractMonster -> !monster1.isDeadOrEscaped }
                         .collect(Collectors.toList())
                 var i = 0
-                while (i < max(1.0, intentMultiAmt.toDouble()))
+                while (i < max(1, intentMultiAmt))
                 {
                     AbstractDungeon.actionManager.addToBottom(
                         DamageAction(
