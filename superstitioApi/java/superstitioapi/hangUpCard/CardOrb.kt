@@ -49,8 +49,15 @@ abstract class CardOrb(card: AbstractCard, cardGroupReturnAfterEvoke: CardGroup?
     var cY: Float = 0.0f
     var tX: Float = 0f
     var tY: Float = 0f
-    var hb: Hitbox
-    protected var bobEffect: BobEffect
+    var hb: Hitbox = Hitbox(96.0f * Settings.scale, 96.0f * Settings.scale)
+    protected var bobEffect: BobEffect = BobEffect(3.0f * Settings.scale, 3.0f)
+
+    var orbCounter: CostSmart = CostSmart(OrbCounter, ::afterOrbCounterChange)
+        set(value)
+        {
+            field = value
+            afterOrbCounterChange(field)
+        }
 
     open fun afterOrbCounterChange(field: CostSmart)
     {
@@ -86,13 +93,6 @@ abstract class CardOrb(card: AbstractCard, cardGroupReturnAfterEvoke: CardGroup?
 
     abstract fun makeCopy(): CardOrb
 
-    var orbCounter: CostSmart = OrbCounter
-        set(value)
-        {
-            field = value
-            afterOrbCounterChange(field)
-        }
-
     protected val fakeCard: AbstractCard
     protected var isNewMovingModeSetup: Boolean = false
     private var cardRawDescriptionWillShow: String? = null
@@ -104,8 +104,6 @@ abstract class CardOrb(card: AbstractCard, cardGroupReturnAfterEvoke: CardGroup?
 
     init
     {
-        this.hb = Hitbox(96.0f * Settings.scale, 96.0f * Settings.scale)
-        this.bobEffect = BobEffect(3.0f * Settings.scale, 3.0f)
 
         this.ID = ORB_ID
         this.passiveAmount = 0

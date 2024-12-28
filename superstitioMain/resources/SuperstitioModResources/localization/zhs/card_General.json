@@ -166,7 +166,7 @@
   "SuperstitioMod:OneMoreHour": {
     "NAME": "再战一回",
     "NAME_SFW": "前尘忆梦",
-    "DESCRIPTION": "superstitiomod:并行 。 NL 移除 !B! 点 *腐朽 。 NL 所有 superstitiomod:助兴序列 中卡牌的计数变为 !M! 倍。",
+    "DESCRIPTION": "superstitiomod:并行 。 NL 移除 !B! 点 *腐朽 。 NL 所有 superstitiomod:助兴序列 中卡牌的计数 增加 !M! 。",
     "FLAVOR": "拜托啦，别走嘛，我会好好服侍您的。",
     "FLAVOR_SFW": "却道天凉好个秋。"
   },

@@ -21,7 +21,7 @@ class OneMoreHour : GeneralCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET), 
     {
         addToBot_gainBlock()
         //        for (int i = 0; i < this.magicNumber; i++) {
-        HangUpCardGroup.forEachHangUpCard { it.orbCounter *= this.magicNumber }
+        HangUpCardGroup.forEachHangUpCard { it.orbCounter += this.magicNumber }
             .addToBotAsAbstractAction()
         //        }
     }
@@ -55,7 +55,7 @@ class OneMoreHour : GeneralCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET), 
         private const val COST = 1
         private const val BLOCK = 7
         private const val UPGRADE_BLOCK = 3
-        private const val MAGIC = 2
+        private const val MAGIC = 3
         private const val UPGRADE_MAGIC = 1
     }
 }

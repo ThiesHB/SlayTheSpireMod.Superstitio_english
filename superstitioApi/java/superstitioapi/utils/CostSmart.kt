@@ -5,17 +5,14 @@ import kotlin.math.max
 /**
  * 当为Int类型时，不能低于0
  */
-open class CostSmart(protected var costType: CostType, cost: Int)
+open class CostSmart @JvmOverloads constructor(
+    protected var costType: CostType,
+    cost: Int,
+    private val whenCostChangeAction: (CostSmart) -> Unit = {}
+)
 {
-    companion object
-    {
-        fun makeZero(): CostSmart
-        {
-            return CostSmart(0)
-        }
-    }
-
-    constructor(cost: Int) : this(
+    @JvmOverloads
+    constructor(cost: Int, whenCostChangeAction: (CostSmart) -> Unit = {}) : this(
         costType = when (cost)
         {
             -2   -> CostType.NaN
@@ -26,17 +23,34 @@ open class CostSmart(protected var costType: CostType, cost: Int)
         {
             true -> 0
             else -> cost
-        }
+        },
+        whenCostChangeAction = whenCostChangeAction
     )
 
-    constructor(costType: CostType) : this(
+    @JvmOverloads
+    constructor(costType: CostType, whenCostChangeAction: (CostSmart) -> Unit = {}) : this(
         costType, when (costType)
         {
             CostType.XCost -> -1
             CostType.NaN   -> -2
             else           -> throw IllegalArgumentException("Unsupported cost type: $costType")
-        }
+        },
+        whenCostChangeAction = whenCostChangeAction
     )
+
+    @JvmOverloads
+    constructor(costSmart: CostSmart, whenCostChangeAction: (CostSmart) -> Unit = {}) : this(
+        costSmart.costType, costSmart.cost,
+        whenCostChangeAction = whenCostChangeAction
+    )
+
+    companion object
+    {
+        fun makeZero(): CostSmart
+        {
+            return CostSmart(0)
+        }
+    }
 
     private var _costValue: Int = cost
 
@@ -44,12 +58,15 @@ open class CostSmart(protected var costType: CostType, cost: Int)
         get() = _costValue
         protected set(value)
         {
+            if (_costValue == value)
+                return
             _costValue = when (costType)
             {
                 CostType.Int   -> max(0, value)
                 CostType.XCost -> -1
                 CostType.NaN   -> -2
             }
+            whenCostChangeAction(this)
         }
 
     sealed class CostType
@@ -142,11 +159,11 @@ open class CostSmart(protected var costType: CostType, cost: Int)
     {
         if (other == null) return false
         if (other is Int)
-        {
             return this.cost == other
-        }
-        if (other is CostType) return this.costType == other
-        if (other is CostSmart) return this === other
+        if (other is CostType)
+            return this.costType == other
+        if (other is CostSmart)
+            return this === other
         return false
     }
 
@@ -168,5 +185,11 @@ open class CostSmart(protected var costType: CostType, cost: Int)
     {
         if (this.costType == CostType.Int)
             this.cost *= magicNumber
+    }
+
+    operator fun plusAssign(addNumber: Int)
+    {
+        if (this.costType == CostType.Int)
+            this.cost += addNumber
     }
 }
