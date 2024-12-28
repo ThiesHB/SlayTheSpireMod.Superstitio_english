@@ -65,7 +65,7 @@ abstract class CardOrb_BlockDamageWhenOverCount @JvmOverloads constructor(
             this.addToBot_removeSelf()
             cardOrb?.setShouldRemove()
             this.amount = 0
-            this.cardOrb?.orbCounter = CostSmart.makeZero()
+            this.cardOrb?.orbCounter?.changeCost { 0 }
             (cardOrb as? CardOrb_BlockDamageWhenOverCount)?.onDamagedRemove()
             flagOfDamageRemove = true
             return amountReturn

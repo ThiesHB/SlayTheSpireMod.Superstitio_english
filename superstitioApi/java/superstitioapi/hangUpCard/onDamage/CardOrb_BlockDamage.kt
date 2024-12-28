@@ -63,8 +63,7 @@ abstract class CardOrb_BlockDamage @JvmOverloads constructor(
             {
 //                this.addToTop_reducePowerToOwner(this, damageAmount)
                 this.amount -= damageAmount
-                this.cardOrb?.orbCounter =
-                    this.cardOrb?.orbCounter?.toNewCostSmart { it - damageAmount } ?: CostSmart.makeZero()
+                this.cardOrb?.orbCounter?.let { it -= damageAmount }
                 return 0
             }
 
@@ -72,7 +71,7 @@ abstract class CardOrb_BlockDamage @JvmOverloads constructor(
             this.addToBot_removeSelf()
             cardOrb?.setShouldRemove()
             this.amount = 0
-            this.cardOrb?.orbCounter = CostSmart.makeZero()
+            this.cardOrb?.orbCounter?.changeCost { 0 }
             (cardOrb as? CardOrb_BlockDamage)?.onDamagedRemove()
             flagOfDamageRemove = true
             return amountReturn

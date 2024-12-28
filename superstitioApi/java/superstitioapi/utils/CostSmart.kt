@@ -117,9 +117,18 @@ open class CostSmart @JvmOverloads constructor(
 
     fun toNewCostSmart(transform: (Int) -> Int): CostSmart
     {
+        if (costType != CostType.Int)
+            return this.makeCopy()
         val constCost = this.cost
-        if (costType != CostType.Int) return this.makeCopy()
         return CostSmart(this.costType, transform(constCost))
+    }
+
+    fun changeCost(transform: (Int) -> Int)
+    {
+        if (costType != CostType.Int)
+            return
+        val constCost = this.cost
+        this.cost = transform(constCost)
     }
 
     private fun makeCopy(): CostSmart
@@ -148,12 +157,6 @@ open class CostSmart @JvmOverloads constructor(
             this.equals(0)
     }
 
-    operator fun dec(): CostSmart
-    {
-        if (this.costType == CostType.Int)
-            this.cost -= 1
-        return this
-    }
 
     override fun equals(other: Any?): Boolean
     {
@@ -181,15 +184,28 @@ open class CostSmart @JvmOverloads constructor(
         return this
     }
 
-    operator fun timesAssign(magicNumber: Int)
+    operator fun dec(): CostSmart
     {
         if (this.costType == CostType.Int)
-            this.cost *= magicNumber
+            this.cost -= 1
+        return this
     }
 
-    operator fun plusAssign(addNumber: Int)
+    operator fun timesAssign(timesNumber: Int)
     {
         if (this.costType == CostType.Int)
-            this.cost += addNumber
+            this.cost *= timesNumber
+    }
+
+    operator fun plusAssign(plusNumber: Int)
+    {
+        if (this.costType == CostType.Int)
+            this.cost += plusNumber
+    }
+
+    operator fun minusAssign(minusNumber: Int)
+    {
+        if (this.costType == CostType.Int)
+            this.cost -= minusNumber
     }
 }

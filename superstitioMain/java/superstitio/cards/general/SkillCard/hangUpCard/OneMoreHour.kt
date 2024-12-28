@@ -39,7 +39,7 @@ class OneMoreHour : GeneralCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET), 
 
     override fun forceChangeOrbCounterShown(orb: CardOrb): Int
     {
-        return orb.orbCounter.toInt { it * this.magicNumber }
+        return orb.orbCounter.toInt { it + this.magicNumber }
     }
 
     companion object

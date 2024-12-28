@@ -31,7 +31,7 @@ class Fuck_Vaginal : GeneralCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET),
             HangUpCardGroup.forEachHangUpCard {
                 if (it is ICardOrb_EachTime)
                 {
-                    it.orbCounter++
+                    it.orbCounter += 1
                     it.forceAcceptAction(this)
                 }
                 if (it is ICardOrb_WaitTime)

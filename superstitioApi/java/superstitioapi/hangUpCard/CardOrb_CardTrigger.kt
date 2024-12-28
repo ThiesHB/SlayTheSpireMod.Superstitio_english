@@ -43,7 +43,7 @@ abstract class CardOrb_CardTrigger(
         if (card == null) return
         if (!TestIfCardIsRight_use(card)) return
         this.fakeCard.calculateCardDamage(null)
-        orbCounter--
+        orbCounter -= 1
         if (onProperCardUsed_checkIfShouldApplyAction(card))
         {
             tryAcceptAction(card)
@@ -62,7 +62,7 @@ abstract class CardOrb_CardTrigger(
 
     override fun forceAcceptAction(card: AbstractCard)
     {
-        orbCounter--
+        orbCounter -= 1
         if (onProperCardUsed_checkIfShouldApplyAction(card))
             tryAcceptAction(card)
     }

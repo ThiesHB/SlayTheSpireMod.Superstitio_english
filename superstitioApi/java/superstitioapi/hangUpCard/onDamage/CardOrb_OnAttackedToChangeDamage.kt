@@ -25,8 +25,8 @@ abstract class CardOrb_OnAttackedToChangeDamage<PowerType>(
 
     override fun onEndOfTurn()
     {
-        if (!evokeOnEndOfTurn) return
-        setShouldRemove()
+        if (evokeOnEndOfTurn)
+            setShouldRemove()
     }
 
     override fun onRemoveCard()

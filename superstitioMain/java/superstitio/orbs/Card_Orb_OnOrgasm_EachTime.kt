@@ -22,13 +22,13 @@ class Card_Orb_OnOrgasm_EachTime(
 
     override fun onOrgasm(SexualHeatPower: SexualHeat)
     {
-        orbCounter--
+        orbCounter -= 1
         tryAcceptAction()
     }
 
     override fun forceAcceptAction(card: AbstractCard)
     {
-        orbCounter--
+        orbCounter -= 1
         tryAcceptAction()
     }
 }

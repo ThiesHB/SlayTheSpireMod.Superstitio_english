@@ -20,14 +20,14 @@ class Card_Orb_OnOrgasm_WaitTime(
 
     override fun onOrgasm(SexualHeatPower: SexualHeat)
     {
-        orbCounter--
+        orbCounter -= 1
         if (orbCounter.isZero())
             tryAcceptAction()
     }
 
     override fun forceAcceptAction(card: AbstractCard)
     {
-        orbCounter--
+        orbCounter -= 1
         if (orbCounter.isZero())
             tryAcceptAction()
     }

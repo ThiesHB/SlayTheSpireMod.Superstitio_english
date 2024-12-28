@@ -16,7 +16,7 @@ class CardOrb_AtEndOfTurnEachTime(
 
     override fun onEndOfTurn()
     {
-        orbCounter--
+        orbCounter -= 1
         tryAcceptAction()
     }
 
@@ -27,7 +27,7 @@ class CardOrb_AtEndOfTurnEachTime(
 
     override fun forceAcceptAction(card: AbstractCard)
     {
-        orbCounter--
+        orbCounter -= 1
         tryAcceptAction()
     }
 

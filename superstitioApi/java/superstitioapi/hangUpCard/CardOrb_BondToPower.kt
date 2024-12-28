@@ -45,7 +45,7 @@ abstract class CardOrb_BondToPower<PowerType>(
 
     override fun onPowerModified()
     {
-        this.orbCounter = CostSmart(power.amountForCardOrb)
+        this.orbCounter.changeCost { power.amountForCardOrb }
     }
 
     override fun afterOrbCounterChange(field: CostSmart)

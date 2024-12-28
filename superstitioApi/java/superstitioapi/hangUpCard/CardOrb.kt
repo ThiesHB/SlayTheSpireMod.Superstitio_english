@@ -52,12 +52,7 @@ abstract class CardOrb(card: AbstractCard, cardGroupReturnAfterEvoke: CardGroup?
     var hb: Hitbox = Hitbox(96.0f * Settings.scale, 96.0f * Settings.scale)
     protected var bobEffect: BobEffect = BobEffect(3.0f * Settings.scale, 3.0f)
 
-    var orbCounter: CostSmart = CostSmart(OrbCounter, ::afterOrbCounterChange)
-        set(value)
-        {
-            field = value
-            afterOrbCounterChange(field)
-        }
+    val orbCounter: CostSmart = CostSmart(OrbCounter) { this.afterOrbCounterChange(it) }
 
     open fun afterOrbCounterChange(field: CostSmart)
     {
