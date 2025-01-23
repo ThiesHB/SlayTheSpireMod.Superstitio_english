@@ -113,6 +113,7 @@ abstract class BaseCardPool(
     protected fun clickThisPool()
     {
         this.isSelect = !this.isSelect
+        CardPoolManager.CardPoolManagerSave.saveConfig()
     }
 
     private fun updateGlow()

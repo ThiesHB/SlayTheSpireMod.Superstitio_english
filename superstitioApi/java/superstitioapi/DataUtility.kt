@@ -45,8 +45,7 @@ object DataUtility
         return resourcesFilesPath + "shader/" + filename
     }
 
-    val modID: String
-        get() = SuperstitioApiSetup.MOD_NAME + "Mod"
+    fun getModID(): String = SuperstitioApiSetup.MOD_NAME + "Mod"
 
     fun makeImgFilesPath(fileName: String, vararg folderPaths: String): String
     {
@@ -108,12 +107,12 @@ object DataUtility
 
     fun MakeTextID(idText: String): String
     {
-        return modID + ":" + idText
+        return getModID() + ":" + idText
     }
 
     fun MakeTextID(idClass: Class<*>): String
     {
-        return modID + ":" + idClass.simpleName
+        return getModID() + ":" + idClass.simpleName
     }
 
     fun makeImgPath(
@@ -240,7 +239,7 @@ object DataUtility
     }
 
     private val resourcesFilesPath: String
-        get() = modID + "Resources/"
+        get() = getModID() + "Resources/"
 
     private fun getImgFolderPath(path: String): String
     {

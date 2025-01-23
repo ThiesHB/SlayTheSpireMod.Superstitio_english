@@ -6,6 +6,7 @@ import com.megacrit.cardcrawl.cards.AbstractCard
 import com.megacrit.cardcrawl.cards.AbstractCard.CardColor
 import com.megacrit.cardcrawl.characters.AbstractPlayer
 import com.megacrit.cardcrawl.core.CardCrawlGame
+import com.megacrit.cardcrawl.core.EnergyManager
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon
 import com.megacrit.cardcrawl.dungeons.Exordium
 import com.megacrit.cardcrawl.screens.CharSelectInfo
@@ -31,6 +32,17 @@ import superstitioapi.renderManager.characterSelectScreenRender.RenderInCharacte
 class Maso(name: String) : BaseCharacter(ID, name, MasoEnums.MASO_Character), PlayerInitPostDungeonInitialize,
     RenderInCharacterSelect
 {
+    init
+    {
+        // 初始化你的人物，如果你的人物只有一张图，那么第一个参数填写你人物图片的路径。
+        this.initializeClass(
+            MASO_CHARACTER,  // 人物图片
+            BlondHairBlueEyes_CHARACTER_SHOULDER_2, BlondHairBlueEyes_CHARACTER_SHOULDER_1, BlondHairBlueEyes_CORPSE_IMAGE,  // 人物死亡图像
+            this.loadout, 0.0f, 0.0f, 250.0f, 375.0f,  // 人物碰撞箱大小，越大的人物模型这个越大
+            EnergyManager(3) // 初始每回合的能量
+        )
+    }
+
     override fun getAscensionMaxHPLoss(): Int
     {
         return 5

@@ -60,7 +60,7 @@ abstract class BaseCharacter(ID: String, name: String, playerClass: PlayerClass)
         // 初始化你的人物，如果你的人物只有一张图，那么第一个参数填写你人物图片的路径。
         this.initializeClass(
             LUPA_CHARACTER,  // 人物图片
-            LUPA_CHARACTER_SHOULDER_2, LUPA_CHARACTER_SHOULDER_1, LUPA_CORPSE_IMAGE,  // 人物死亡图像
+            BlondHairBlueEyes_CHARACTER_SHOULDER_2, BlondHairBlueEyes_CHARACTER_SHOULDER_1, BlondHairBlueEyes_CORPSE_IMAGE,  // 人物死亡图像
             this.loadout, 0.0f, 0.0f, 250.0f, 375.0f,  // 人物碰撞箱大小，越大的人物模型这个越大
             EnergyManager(3) // 初始每回合的能量
         )
@@ -302,18 +302,22 @@ abstract class BaseCharacter(ID: String, name: String, playerClass: PlayerClass)
     companion object
     {
         // 人物立绘
-        val LUPA_CHARACTER: String = DataManager.makeImgFilesPath_Character("character")
+        val LUPA_CHARACTER: String = DataManager.makeImgFilesPath_Character("character_Lupa")
+        val MASO_CHARACTER: String = DataManager.makeImgFilesPath_Character("character_Maso")
 
         // 火堆的人物立绘（行动前）
-        val LUPA_CHARACTER_SHOULDER_1: String = DataManager.makeImgFilesPath_Character("shoulder1")
+        val BlondHairBlueEyes_CHARACTER_SHOULDER_1: String = DataManager.makeImgFilesPath_Character("shoulder1")
 
         // 火堆的人物立绘（行动后）
-        val LUPA_CHARACTER_SHOULDER_2: String = DataManager.makeImgFilesPath_Character("shoulder2")
+        val BlondHairBlueEyes_CHARACTER_SHOULDER_2: String = DataManager.makeImgFilesPath_Character("shoulder2")
 
         // 人物死亡图像
-        val LUPA_CORPSE_IMAGE: String = DataManager.makeImgFilesPath_Character("corpse")
+        val BlondHairBlueEyes_CORPSE_IMAGE: String = DataManager.makeImgFilesPath_Character("corpse")
+
+
         val GuroText: UIStrings = CardCrawlGame.languagePack.getUIString(DataManager.MakeTextID("GuroText"))
         val GuroTip: PowerTip = PowerTip(GuroText.TEXT[0], GuroText.TEXT[1])
+
         private const val EnergyBall_Path = "EnergyBall_Lupa/"
         private val EnergyBall_VFX_Path: String = DataManager.makeImgFilesPath_UI(EnergyBall_Path + "vfx")
 

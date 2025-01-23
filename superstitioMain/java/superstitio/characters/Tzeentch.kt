@@ -3,9 +3,6 @@ package superstitio.characters
 import basemod.BaseMod
 import basemod.ReflectionHacks
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
-import com.evacipated.cardcrawl.modthespire.lib.SpireConfig
-import com.google.gson.Gson
-import com.google.gson.JsonElement
 import com.megacrit.cardcrawl.cards.AbstractCard
 import com.megacrit.cardcrawl.cards.AbstractCard.CardColor
 import com.megacrit.cardcrawl.characters.AbstractPlayer
@@ -22,35 +19,31 @@ import com.megacrit.cardcrawl.screens.charSelect.CharacterOption
 import superstitio.DataManager
 import superstitio.DataManager.SPTT_DATA.*
 import superstitio.Logger
-import superstitio.characters.cardpool.CardPoolManager
+import superstitio.characters.cardpool.GeneralCardPool
 import superstitio.characters.cardpool.LupaCardPool
 import superstitio.characters.cardpool.MasoCardPool
 import superstitio.relics.a_starter.StartWithSexToy
 import superstitio.relics.a_starter.VulnerableTogetherRelic
 import superstitio.relics.blight.*
+import superstitioapi.OkiWillSave
 import superstitioapi.cardPool.BaseCardPool
-import superstitioapi.player.PlayerInitPostDungeonInitialize
+import superstitioapi.cardPool.CardPoolManager
+import superstitioapi.cardPool.CharacterWithCardPool
 import superstitioapi.relicToBlight.InfoBlight
 import superstitioapi.renderManager.characterSelectScreenRender.RelicSelectionUI
-import superstitioapi.renderManager.characterSelectScreenRender.RenderInCharacterSelect
-import java.io.IOException
-import java.io.Serializable
-import java.util.*
-import java.util.function.Consumer
-import java.util.stream.Collectors
 
 //
 class Tzeentch(name: String) : BaseCharacter(ID, name, TzeentchEnums.TZEENTCH_Character),
-    PlayerInitPostDungeonInitialize, RenderInCharacterSelect
+    CharacterWithCardPool
 {
     private fun refreshInit()
     {
         // 初始化你的人物，如果你的人物只有一张图，那么第一个参数填写你人物图片的路径。
         this.initializeClass(
             LUPA_CHARACTER,  // 人物图片
-            LUPA_CHARACTER_SHOULDER_2,
-            LUPA_CHARACTER_SHOULDER_1,
-            LUPA_CORPSE_IMAGE,  // 人物死亡图像
+            BlondHairBlueEyes_CHARACTER_SHOULDER_2,
+            BlondHairBlueEyes_CHARACTER_SHOULDER_1,
+            BlondHairBlueEyes_CORPSE_IMAGE,  // 人物死亡图像
             loadout,
             0.0f,
             0.0f,
@@ -130,10 +123,10 @@ class Tzeentch(name: String) : BaseCharacter(ID, name, TzeentchEnums.TZEENTCH_Ch
         InfoBlight.addAsInfoBlight(JokeDescription())
         InfoBlight.addAsInfoBlight(DEVABODY_RELIC_Selection_UI.selectRelic)
         InfoBlight.addAsInfoBlight(SEXUAL_HEAT_RELIC_Selection_UI.selectRelic)
-        CardPoolManager.cardPools.forEach(Consumer { baseCardPool: BaseCardPool? ->
+        CardPoolManager.allCardPools.forEach { baseCardPool: BaseCardPool? ->
             if (baseCardPool is LupaCardPool) InfoBlight.addAsInfoBlight(SemenMagician())
             if (baseCardPool is MasoCardPool) InfoBlight.addAsInfoBlight(EnjoyAilment())
-        })
+        }
         if (Maso::class.java.isAssignableFrom(getOwnerFromRelic(DEVABODY_RELIC_Selection_UI.selectRelic)))
         {
             Maso.setUpMaso()
@@ -146,21 +139,23 @@ class Tzeentch(name: String) : BaseCharacter(ID, name, TzeentchEnums.TZEENTCH_Ch
         isCharacterInfoChanged = true
     }
 
+    override val ableCardPools: List<BaseCardPool>
+        get() = listOf(MasoCardPool, LupaCardPool, GeneralCardPool)
+
     override fun renderInCharacterSelectScreen(characterOption: CharacterOption, sb: SpriteBatch)
     {
+        super.renderInCharacterSelectScreen(characterOption, sb)
         STARTER_RELIC_Selection_UI.render(sb)
         DEVABODY_RELIC_Selection_UI.render(sb)
         SEXUAL_HEAT_RELIC_Selection_UI.render(sb)
-        CardPoolManager.render(sb)
     }
 
     override fun updateInCharacterSelectScreen(characterOption: CharacterOption)
     {
+        super.updateInCharacterSelectScreen(characterOption)
         updateIsUnableByGuroSetting(
-            CardPoolManager.cardPools.stream()
-                .anyMatch { baseCardPool: BaseCardPool -> baseCardPool is MasoCardPool && baseCardPool.isSelect }
+            this.ableCardPools.any { baseCardPool: BaseCardPool -> baseCardPool is MasoCardPool && baseCardPool.isSelect }
         )
-        CardPoolManager.update()
         STARTER_RELIC_Selection_UI.update()
         DEVABODY_RELIC_Selection_UI.update()
         SEXUAL_HEAT_RELIC_Selection_UI.update()
@@ -187,102 +182,51 @@ class Tzeentch(name: String) : BaseCharacter(ID, name, TzeentchEnums.TZEENTCH_Ch
     //    public static RelicSelect relicSelect;
     override fun isCardCanAdd(card: AbstractCard?): Boolean
     {
-        return CardPoolManager.getAddedCard().test(card) && !CardPoolManager.getBanedCard().test(card)
+        return CardPoolManager.getAddedCard(this).test(card) && !CardPoolManager.getBanedCard(this).test(card)
     }
 
-    class TzeentchSave(
-        var starterRelicId: String,
-        var devaBodyRelicId: String,
-        var sexualHeatRelicId: String,
-        var cardPoolId_IsSelect: HashMap<String, Boolean>
-    ) : Serializable
+    class TzeentchSave : OkiWillSave()
     {
+        @JvmField
+        var starterRelicId: String = ""
+
+        @JvmField
+        var devaBodyRelicId: String = ""
+
+        @JvmField
+        var sexualHeatRelicId: String = ""
+
+        override fun onSave()
+        {
+            this.starterRelicId = STARTER_RELIC_Selection_UI.selectRelic.relicId
+            this.devaBodyRelicId = DEVABODY_RELIC_Selection_UI.selectRelic.relicId
+            this.sexualHeatRelicId = SEXUAL_HEAT_RELIC_Selection_UI.selectRelic.relicId
+        }
+
+        override fun onLoad(save: OkiWillSave)
+        {
+            if (save !is TzeentchSave) return
+            this.starterRelicId = save.starterRelicId
+            this.devaBodyRelicId = save.devaBodyRelicId
+            this.sexualHeatRelicId = save.sexualHeatRelicId
+
+            STARTER_RELIC_Selection_UI.setSelectRelic(this.starterRelicId)
+            DEVABODY_RELIC_Selection_UI.setSelectRelic(this.devaBodyRelicId)
+            SEXUAL_HEAT_RELIC_Selection_UI.setSelectRelic(this.sexualHeatRelicId)
+        }
+
         companion object
         {
-            private const val TzeentchSave_STRING = "TzeentchSave"
-            var config: SpireConfig? = null
-            var theDefaultSettings: Properties = Properties()
-            var saveFileGson: Gson = Gson()
-            fun loadConfig()
-            {
-                theDefaultSettings.setProperty(TzeentchSave_STRING, "")
-                try
-                {
-                    config = SpireConfig(
-                        DataManager.getModID() + TzeentchSave::class.java.simpleName,
-                        DataManager.getModID() + TzeentchSave::class.java.simpleName + "Config",
-                        theDefaultSettings
-                    )
-                    config!!.load()
-                    val tzeentchString = config!!.getString(TzeentchSave_STRING)
-                    val tzeentchSave = saveFileGson.fromJson(tzeentchString, TzeentchSave::class.java)
-                    onLoad(tzeentchSave)
-                }
-                catch (e: Exception)
-                {
-                    Logger.error(e)
-                }
-            }
-
+            @Transient
+            private val instance: TzeentchSave = TzeentchSave()
             fun saveConfig()
             {
-                val tzeentchString = saveFileGson.toJsonTree(onSave(), TzeentchSave::class.java).toString()
-                config!!.setString(TzeentchSave_STRING, tzeentchString)
-                try
-                {
-                    config!!.save()
-                }
-                catch (e: IOException)
-                {
-                    Logger.error(e)
-                }
+                saveConfig(instance, TzeentchSave::class.java)
             }
 
-            private fun onSaveRaw(): JsonElement
+            fun loadConfig()
             {
-                return saveFileGson.toJsonTree(onSave())
-            }
-
-            private fun onLoadRaw(value: JsonElement?)
-            {
-                if (value != null)
-                {
-                    val parsed = saveFileGson.fromJson(value, TzeentchSave::class.java)
-                    onLoad(parsed)
-                }
-                else
-                {
-                    onLoad(null)
-                }
-            }
-
-            private fun onSave(): TzeentchSave
-            {
-                val cardPoolData = HashMap<String, Boolean>()
-                CardPoolManager.cardPools.forEach(Consumer { cardPool: BaseCardPool ->
-                    cardPoolData[cardPool.id] = cardPool.isSelect
-                })
-
-                return TzeentchSave(
-                    STARTER_RELIC_Selection_UI.selectRelic.relicId,
-                    DEVABODY_RELIC_Selection_UI.selectRelic.relicId,
-                    SEXUAL_HEAT_RELIC_Selection_UI.selectRelic.relicId,
-                    cardPoolData
-                )
-            }
-
-            private fun onLoad(tzeentchSave: TzeentchSave?)
-            {
-                if (tzeentchSave == null) return
-                STARTER_RELIC_Selection_UI.setSelectRelic(tzeentchSave.starterRelicId)
-                DEVABODY_RELIC_Selection_UI.setSelectRelic(tzeentchSave.devaBodyRelicId)
-                SEXUAL_HEAT_RELIC_Selection_UI.setSelectRelic(tzeentchSave.sexualHeatRelicId)
-                tzeentchSave.cardPoolId_IsSelect.forEach { (cardPoolId: String, isSelect: Boolean) ->
-                    CardPoolManager.cardPools.forEach(
-                        Consumer { cardPool: BaseCardPool ->
-                            if (cardPool.id == cardPoolId) cardPool.isSelect = isSelect
-                        })
-                }
+                loadConfig(instance, TzeentchSave::class.java)
             }
         }
     }
@@ -308,8 +252,7 @@ class Tzeentch(name: String) : BaseCharacter(ID, name, TzeentchEnums.TZEENTCH_Ch
             STARTER_RELIC_Selection_UI = RelicSelectionUI(
                 Relic_Selection_X,
                 Relic_Selection_Y,
-                Arrays.stream(arrayOf<AbstractRelic>(StartWithSexToy(), VulnerableTogetherRelic()))
-                    .collect(Collectors.toList()),
+                listOf(StartWithSexToy(), VulnerableTogetherRelic()),
                 PowerTip(TezeentchCharacterStrings.TEXT[2], TezeentchCharacterStrings.TEXT[3])
             )
                 .setRefreshAfterSelect { relic: AbstractRelic ->
@@ -328,8 +271,7 @@ class Tzeentch(name: String) : BaseCharacter(ID, name, TzeentchEnums.TZEENTCH_Ch
             DEVABODY_RELIC_Selection_UI = RelicSelectionUI(
                 Relic_Selection_X + STARTER_RELIC_Selection_UI.totalWidth,
                 Relic_Selection_Y,
-                Arrays.stream(arrayOf<AbstractRelic>(DevaBody_Lupa(), DevaBody_Masochism()))
-                    .collect(Collectors.toList()),
+                listOf(DevaBody_Lupa(), DevaBody_Masochism()),
                 PowerTip(TezeentchCharacterStrings.TEXT[4], TezeentchCharacterStrings.TEXT[5])
             )
                 .setRefreshAfterSelect { relic: AbstractRelic ->
@@ -348,9 +290,9 @@ class Tzeentch(name: String) : BaseCharacter(ID, name, TzeentchEnums.TZEENTCH_Ch
                 }
 
             SEXUAL_HEAT_RELIC_Selection_UI = RelicSelectionUI(
-                Relic_Selection_X + STARTER_RELIC_Selection_UI.totalWidth + DEVABODY_RELIC_Selection_UI.totalWidth,
+                Relic_Selection_X + STARTER_RELIC_Selection_UI.totalWidth * 2,
                 Relic_Selection_Y,
-                Arrays.stream(arrayOf<AbstractRelic>(Sensitive(), MasochismMode())).collect(Collectors.toList()),
+                listOf(Sensitive(), MasochismMode()),
                 PowerTip(TezeentchCharacterStrings.TEXT[6], TezeentchCharacterStrings.TEXT[7])
             )
 
