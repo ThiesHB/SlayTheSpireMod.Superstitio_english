@@ -16,7 +16,7 @@ import superstitioapi.utils.addToBot_applyPower
 import superstitioapi.utils.addToBot_removeSelf
 import superstitioapi.utils.setDescriptionArgs
 
-//造成攻击伤害或失去生命时，获得 !M! 临时力量
+//每当造成攻击伤害或失去生命时，获得 !M! 力量
 class SadismForm : MasoCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET)
 {
     init
@@ -45,7 +45,7 @@ class SadismForm : MasoCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET)
             if (info.type == CanOnlyDamageDamageType.UnBlockAbleDamageType) return
             if (damageAmount > 0)
             {
-                addToBot_applyPower(GetTempStrengthNextTurn(this.owner, this.amount))
+                addToBot_applyPower(GetStrengthNextTurn(this.owner, this.amount))
             }
         }
 
@@ -53,7 +53,7 @@ class SadismForm : MasoCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET)
         {
             if (damageAmount > 0 && info.type == DamageType.NORMAL)
             {
-                addToBot_applyPower(GetTempStrengthNextTurn(this.owner, this.amount))
+                addToBot_applyPower(GetStrengthNextTurn(this.owner, this.amount))
             }
         }
 
@@ -63,7 +63,7 @@ class SadismForm : MasoCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET)
         }
     }
 
-    class GetTempStrengthNextTurn(owner: AbstractCreature, amount: Int) :
+    class GetStrengthNextTurn(owner: AbstractCreature, amount: Int) :
         AbstractSuperstitioPower(POWER_ID, owner, amount)
     {
         override fun updateDescriptionArgs()
@@ -80,7 +80,7 @@ class SadismForm : MasoCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET)
 
         companion object
         {
-            val POWER_ID: String = DataManager.MakeTextID(GetTempStrengthNextTurn::class.java)
+            val POWER_ID: String = DataManager.MakeTextID(GetStrengthNextTurn::class.java)
         }
     }
 

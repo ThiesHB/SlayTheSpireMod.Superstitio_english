@@ -41,8 +41,8 @@ class Tzeentch(name: String) : BaseCharacter(ID, name, TzeentchEnums.TZEENTCH_Ch
         // 初始化你的人物，如果你的人物只有一张图，那么第一个参数填写你人物图片的路径。
         this.initializeClass(
             LUPA_CHARACTER,  // 人物图片
-            BlondHairBlueEyes_CHARACTER_SHOULDER_2,
-            BlondHairBlueEyes_CHARACTER_SHOULDER_1,
+            LUPA_CHARACTER_SHOULDER_2,
+            LUPA_CHARACTER_SHOULDER_1,
             BlondHairBlueEyes_CORPSE_IMAGE,  // 人物死亡图像
             loadout,
             0.0f,
@@ -167,11 +167,13 @@ class Tzeentch(name: String) : BaseCharacter(ID, name, TzeentchEnums.TZEENTCH_Ch
             refreshInit()
             ReflectionHacks.setPrivate(characterOption, CharacterOption::class.java, "hp", characterInfo.makeHpString())
             ReflectionHacks.setPrivate(characterOption, CharacterOption::class.java, "gold", gold)
-            if (Lupa::class.java.isAssignableFrom(getOwnerFromRelic(DEVABODY_RELIC_Selection_UI.selectRelic))) CardCrawlGame.mainMenuScreen.charSelectScreen.bgCharImg =
+            if (Lupa::class.java.isAssignableFrom(getOwnerFromRelic(DEVABODY_RELIC_Selection_UI.selectRelic)))
+                CardCrawlGame.mainMenuScreen.charSelectScreen.bgCharImg =
                 ImageMaster.loadImage(
                     BaseMod.playerPortraitMap[LupaEnums.LUPA_Character]
                 )
-            if (Maso::class.java.isAssignableFrom(getOwnerFromRelic(DEVABODY_RELIC_Selection_UI.selectRelic))) CardCrawlGame.mainMenuScreen.charSelectScreen.bgCharImg =
+            if (Maso::class.java.isAssignableFrom(getOwnerFromRelic(DEVABODY_RELIC_Selection_UI.selectRelic)))
+                CardCrawlGame.mainMenuScreen.charSelectScreen.bgCharImg =
                 ImageMaster.loadImage(
                     BaseMod.playerPortraitMap[MasoEnums.MASO_Character]
                 )

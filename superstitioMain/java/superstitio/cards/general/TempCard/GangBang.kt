@@ -94,7 +94,7 @@ class GangBang @JvmOverloads constructor(
 
         val CARD_TARGET: CardTarget = CardTarget.ALL_ENEMY
 
-        private const val COST = -2
+        private const val COST = 0
         private const val DAMAGE = 3
         private const val BLOCK = 4
         private const val TURN_TAKE = 1

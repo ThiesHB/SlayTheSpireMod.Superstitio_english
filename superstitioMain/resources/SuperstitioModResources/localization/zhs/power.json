@@ -146,10 +146,10 @@
       }
     ]
   },
-  "SuperstitioMod:GetTempStrengthNextTurn": {
-    "NAME": "延迟临时力量",
+  "SuperstitioMod:GetStrengthNextTurn": {
+    "NAME": "延迟力量",
     "DESCRIPTIONS": [
-      "下回合开始时，获得 %d 临时力量。"
+      "下回合开始时，获得 %d 力量。"
     ]
   }
 }

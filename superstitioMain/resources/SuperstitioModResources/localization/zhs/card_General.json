@@ -148,7 +148,7 @@
   "SuperstitioMod:ReadyToSex": {
     "NAME": "性交准备",
     "NAME_SFW": "重新练起",
-    "DESCRIPTION": "选择一张手牌，使其 superstitiomod:欲求 打出任意牌 !M! 次： NL 打出复制后被 *丢弃 。",
+    "DESCRIPTION": "选择一张手牌，将其 superstitiomod:送入助兴序列 并 superstitiomod:欲求 打出任意牌 !M! 次： NL 打出复制后被 *丢弃 。",
     "FLAVOR": "来吧！一起上！我照单全收！",
     "FLAVOR_SFW": "从扎马步开始，重新练起吧！",
     "EXTENDED_DESCRIPTION": [
@@ -229,7 +229,7 @@
   "SuperstitioMod:RideDildoBike": {
     "NAME": "骑行奸",
     "NAME_SFW": "好马配好鞍",
-    "DESCRIPTION": "选择最多 !M! 张手牌，抽对应数量的牌，使选中手牌 superstitiomod:欲求 打出任意牌 %d 次： NL 送入手牌。 NL superstitiomod:自动释放 。",
+    "DESCRIPTION": "选择最多 !M! 张手牌，抽对应数量的牌，将选中手牌 superstitiomod:送入助兴序列 并 superstitiomod:欲求 打出任意牌 %d 次： NL 送入手牌。 NL superstitiomod:自动释放 。",
     "FLAVOR": "",
     "FLAVOR_SFW": "而非吕布骑狗。",
     "EXTENDED_DESCRIPTION": [

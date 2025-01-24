@@ -1,7 +1,7 @@
 ﻿{
   "SuperstitioMod:FindCardAndHang": {
     "NAME": "超级搜寻",
-    "DESCRIPTION": "从抽牌堆中选取最多 10 张牌，使其全部 superstitiomod:欲求 打出任意牌 !M! 次： NL 送入手牌。",
+    "DESCRIPTION": "从抽牌堆中选取最多 10 张牌，将其全部 superstitiomod:送入助兴序列 并 superstitiomod:欲求 打出任意牌 !M! 次： NL 送入手牌。",
     "EXTENDED_DESCRIPTION": [
       "将其送入助兴序列。",
       "superstitiomod:欲求 。 NL 打出 superstitioApi:!HANGING_TIME! 张任意牌后，回到手牌。"
