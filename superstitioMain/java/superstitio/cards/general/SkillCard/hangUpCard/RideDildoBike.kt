@@ -17,7 +17,7 @@ class RideDildoBike : NormalCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET)
 {
     init
     {
-        //抽卡数量
+        //欲求数量
         this.setupMagicNumber(MAGIC, UPGRADE_MAGIC)
     }
 
@@ -32,13 +32,16 @@ class RideDildoBike : NormalCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET)
             CardOrb_WaitCardTrigger(
                 card,
                 AbstractDungeon.player.discardPile,
-                CostSmart(WAIT_TIME)
+                CostSmart(this.magicNumber)
             ) { orb: CardOrb_CardTrigger, usedcard: AbstractCard? ->
-                AutoDoneInstantAction.addToBotAbstract { orb.cardHolder.moveToHand(card) }
+                AutoDoneInstantAction.addToBotAbstract {
+                    orb.cardHolder.moveToHand(card)
+                    card.setCostForTurn(costForTurn - COST_SAVE)
+                }
             }
                 .setDiscardOnEndOfTurn()
                 .setShowCard(showUpCard)
-                .setCardRawDescriptionWillShow(cardStrings.getEXTENDED_DESCRIPTION(1))
+                .setCardRawDescriptionWillShow(String.format(cardStrings.getEXTENDED_DESCRIPTION(1), COST_SAVE))
                 .addToBot_HangCard()
         }
     }
@@ -49,8 +52,8 @@ class RideDildoBike : NormalCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET)
             HangUpSpecificCard(card)
             addToBot_drawCards()
         }
-            .setWindowText(String.format(cardStrings.getEXTENDED_DESCRIPTION(0), this.magicNumber))
-            .setChoiceAmount(this.magicNumber)
+            .setWindowText(String.format(cardStrings.getEXTENDED_DESCRIPTION(0), CAN_HANGUP, COST_SAVE))
+            .setChoiceAmount(CAN_HANGUP)
             .setAnyNumber(true)
             .setCanPickZero(true)
             .addToBot()
@@ -58,7 +61,7 @@ class RideDildoBike : NormalCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET)
 
     override fun updateDescriptionArgs()
     {
-        setDescriptionArgs(WAIT_TIME)
+        setDescriptionArgs(CAN_HANGUP, COST_SAVE)
     }
 
     override fun upgradeAuto()
@@ -76,8 +79,9 @@ class RideDildoBike : NormalCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET)
         val CARD_TARGET: CardTarget = CardTarget.SELF
 
         private const val COST = 1
-        private const val MAGIC = 3
-        private const val UPGRADE_MAGIC = 1
-        private const val WAIT_TIME = 5
+        private const val MAGIC = 5
+        private const val UPGRADE_MAGIC = -2
+        private const val CAN_HANGUP = 2
+        private const val COST_SAVE = 1
     }
 }
