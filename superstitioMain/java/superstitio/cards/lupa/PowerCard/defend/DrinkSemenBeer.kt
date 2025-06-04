@@ -12,9 +12,9 @@ import com.megacrit.cardcrawl.monsters.AbstractMonster
 import com.megacrit.cardcrawl.powers.AbstractPower
 import superstitio.DataManager
 import superstitio.SuperstitioImg.NoNeedImg
+import superstitio.cards.IsLupaCard
 import superstitio.cards.SuperstitioCard
 import superstitio.cards.lupa.LupaCard
-import superstitio.cards.lupa.PowerCard.defend.DrinkSemenBeer.DrinkSemenBeerPower
 import superstitio.powers.EasyBuildAbstractPowerForPowerCard
 import superstitio.powers.lupaOnly.SemenPower
 import superstitioapi.actions.AutoDoneInstantAction
@@ -27,6 +27,7 @@ import superstitioapi.utils.addToBot_removeSelf
 import superstitioapi.utils.setDescriptionArgs
 
 //排出，然后喝
+@IsLupaCard
 class DrinkSemenBeer : LupaCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET)
 {
     init

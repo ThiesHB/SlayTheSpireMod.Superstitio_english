@@ -3,11 +3,11 @@ package superstitio.cards.general.SkillCard.gainEnergy
 import com.megacrit.cardcrawl.characters.AbstractPlayer
 import com.megacrit.cardcrawl.monsters.AbstractMonster
 import superstitio.DataManager
-import superstitio.cards.general.GeneralCard
+import superstitio.cards.NormalCard
 import superstitio.cards.general.TempCard.SexToy
 import superstitioapi.utils.ActionUtility
 
-class AddSexToy : GeneralCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET)
+class AddSexToy : NormalCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET)
 {
     //    private static final int UPGRADE_MAGIC = 1;
     init

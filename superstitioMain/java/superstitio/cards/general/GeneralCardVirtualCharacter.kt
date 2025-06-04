@@ -6,7 +6,7 @@ import com.megacrit.cardcrawl.characters.AbstractPlayer
 import com.megacrit.cardcrawl.cutscenes.CutscenePanel
 import com.megacrit.cardcrawl.screens.CharSelectInfo
 import superstitio.DataManager
-import superstitio.DataManager.SPTT_DATA.GeneralEnums
+import superstitio.DataManager.GeneralEnums
 import superstitio.cards.general.BaseCard.Kiss
 import superstitio.cards.lupa.BaseCard.Masturbate
 import superstitio.characters.BaseCharacter

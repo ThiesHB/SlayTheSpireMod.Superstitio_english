@@ -3,12 +3,12 @@ package superstitio.cards.general.SkillCard.drawCard
 import com.megacrit.cardcrawl.characters.AbstractPlayer
 import com.megacrit.cardcrawl.monsters.AbstractMonster
 import superstitio.DataManager
-import superstitio.cards.general.GeneralCard
+import superstitio.cards.NormalCard
 import superstitioapi.hangUpCard.CardOrb
 import superstitioapi.hangUpCard.Card_TriggerHangCardManually
 import superstitioapi.hangUpCard.HangUpCardGroup
 
-class CalmDown : GeneralCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET), Card_TriggerHangCardManually
+class CalmDown : NormalCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET), Card_TriggerHangCardManually
 {
     init
     {

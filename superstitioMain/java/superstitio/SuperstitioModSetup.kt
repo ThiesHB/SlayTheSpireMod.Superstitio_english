@@ -7,12 +7,14 @@ import basemod.abstracts.CustomRelic
 import basemod.helpers.RelicType
 import basemod.interfaces.*
 import com.evacipated.cardcrawl.modthespire.lib.SpireInitializer
+import com.megacrit.cardcrawl.cards.AbstractCard
 import com.megacrit.cardcrawl.core.CardCrawlGame
 import com.megacrit.cardcrawl.core.Settings
 import com.megacrit.cardcrawl.localization.*
 import com.megacrit.cardcrawl.unlock.UnlockTracker
-import superstitio.DataManager.SPTT_DATA
-import superstitio.DataManager.SPTT_DATA.*
+import superstitio.DataManager.*
+import superstitio.cards.CardOwnerPlayerManager
+import superstitio.cards.SetCardColor
 import superstitio.cards.SuperstitioCard
 import superstitio.characters.Lupa
 import superstitio.characters.Maso
@@ -26,13 +28,14 @@ import superstitio.relics.interFace.SelfRelic
 import superstitioapi.relicToBlight.InfoBlight
 import superstitioapi.relicToBlight.InfoBlight.BecomeInfoBlight
 import superstitioapi.shader.ShaderUtility
+import superstitioapi.utils.CardUtility
 import java.util.*
 
 @SpireInitializer
 class SuperstitioModSetup : EditStringsSubscriber, EditRelicsSubscriber, EditCardsSubscriber, EditKeywordsSubscriber,
     EditCharactersSubscriber, AddAudioSubscriber, PostInitializeSubscriber
 {
-    private val data: DataManager
+//    private val data: DataManager
 
     init
     {
@@ -40,16 +43,16 @@ class SuperstitioModSetup : EditStringsSubscriber, EditRelicsSubscriber, EditCar
         SuperstitioConfig.loadConfig()
 
         // 这里注册颜色
-        data = DataManager()
+//        data = DataManager()
         BaseMod.addColor(
             LupaEnums.LUPA_CARD,
             SPTT_DATA.SEX_COLOR, SPTT_DATA.SEX_COLOR, SPTT_DATA.SEX_COLOR,
             SPTT_DATA.SEX_COLOR, SPTT_DATA.SEX_COLOR, SPTT_DATA.SEX_COLOR,
             SPTT_DATA.SEX_COLOR,
-            data.spttData.BG_ATTACK_512, data.spttData.BG_SKILL_512, data.spttData.BG_POWER_512,
-            data.spttData.ENERGY_ORB,
-            data.spttData.BG_ATTACK_1024, data.spttData.BG_SKILL_1024, data.spttData.BG_POWER_1024,
-            data.spttData.BIG_ORB, data.spttData.SMALL_ORB
+            SPTT_DATA.BG_ATTACK_512, SPTT_DATA.BG_SKILL_512, SPTT_DATA.BG_POWER_512,
+            SPTT_DATA.ENERGY_ORB,
+            SPTT_DATA.BG_ATTACK_1024, SPTT_DATA.BG_SKILL_1024, SPTT_DATA.BG_POWER_1024,
+            SPTT_DATA.BIG_ORB, SPTT_DATA.SMALL_ORB
         )
 
         BaseMod.addColor(
@@ -57,10 +60,10 @@ class SuperstitioModSetup : EditStringsSubscriber, EditRelicsSubscriber, EditCar
             SPTT_DATA.SEX_COLOR, SPTT_DATA.SEX_COLOR, SPTT_DATA.SEX_COLOR,
             SPTT_DATA.SEX_COLOR, SPTT_DATA.SEX_COLOR, SPTT_DATA.SEX_COLOR,
             SPTT_DATA.SEX_COLOR,
-            data.spttData.BG_ATTACK_512, data.spttData.BG_SKILL_512, data.spttData.BG_POWER_512,
-            data.spttData.ENERGY_ORB,
-            data.spttData.BG_ATTACK_1024, data.spttData.BG_SKILL_1024, data.spttData.BG_POWER_1024,
-            data.spttData.BIG_ORB, data.spttData.SMALL_ORB
+            SPTT_DATA.BG_ATTACK_512, SPTT_DATA.BG_SKILL_512, SPTT_DATA.BG_POWER_512,
+            SPTT_DATA.ENERGY_ORB,
+            SPTT_DATA.BG_ATTACK_1024, SPTT_DATA.BG_SKILL_1024, SPTT_DATA.BG_POWER_1024,
+            SPTT_DATA.BIG_ORB, SPTT_DATA.SMALL_ORB
         )
 
         BaseMod.addColor(
@@ -68,10 +71,10 @@ class SuperstitioModSetup : EditStringsSubscriber, EditRelicsSubscriber, EditCar
             SPTT_DATA.SEX_COLOR, SPTT_DATA.SEX_COLOR, SPTT_DATA.SEX_COLOR,
             SPTT_DATA.SEX_COLOR, SPTT_DATA.SEX_COLOR, SPTT_DATA.SEX_COLOR,
             SPTT_DATA.SEX_COLOR,
-            data.spttData.BG_ATTACK_512, data.spttData.BG_SKILL_512, data.spttData.BG_POWER_512,
-            data.spttData.ENERGY_ORB,
-            data.spttData.BG_ATTACK_1024, data.spttData.BG_SKILL_1024, data.spttData.BG_POWER_1024,
-            data.spttData.BIG_ORB, data.spttData.SMALL_ORB
+            SPTT_DATA.BG_ATTACK_512, SPTT_DATA.BG_SKILL_512, SPTT_DATA.BG_POWER_512,
+            SPTT_DATA.ENERGY_ORB,
+            SPTT_DATA.BG_ATTACK_1024, SPTT_DATA.BG_SKILL_1024, SPTT_DATA.BG_POWER_1024,
+            SPTT_DATA.BIG_ORB, SPTT_DATA.SMALL_ORB
         )
 
         BaseMod.addColor(
@@ -79,10 +82,10 @@ class SuperstitioModSetup : EditStringsSubscriber, EditRelicsSubscriber, EditCar
             SPTT_DATA.SEX_COLOR, SPTT_DATA.SEX_COLOR, SPTT_DATA.SEX_COLOR,
             SPTT_DATA.SEX_COLOR, SPTT_DATA.SEX_COLOR, SPTT_DATA.SEX_COLOR,
             SPTT_DATA.SEX_COLOR,
-            data.spttData.BG_ATTACK_512, data.spttData.BG_SKILL_512, data.spttData.BG_POWER_512,
-            data.spttData.ENERGY_ORB,
-            data.spttData.BG_ATTACK_1024, data.spttData.BG_SKILL_1024, data.spttData.BG_POWER_1024,
-            data.spttData.BIG_ORB, data.spttData.SMALL_ORB
+            SPTT_DATA.BG_ATTACK_512, SPTT_DATA.BG_SKILL_512, SPTT_DATA.BG_POWER_512,
+            SPTT_DATA.ENERGY_ORB,
+            SPTT_DATA.BG_ATTACK_1024, SPTT_DATA.BG_SKILL_1024, SPTT_DATA.BG_POWER_1024,
+            SPTT_DATA.BIG_ORB, SPTT_DATA.SMALL_ORB
         )
 
         Logger.run("Done $this subscribing")
@@ -94,15 +97,15 @@ class SuperstitioModSetup : EditStringsSubscriber, EditRelicsSubscriber, EditCar
         //添加角色到MOD中
         BaseMod.addCharacter(
             Maso(CardCrawlGame.playerName),
-            data.spttData.LUPA_CHARACTER_BUTTON, data.spttData.MASO_CHARACTER_PORTRAIT, MasoEnums.MASO_Character
+            SPTT_DATA.LUPA_CHARACTER_BUTTON, SPTT_DATA.MASO_CHARACTER_PORTRAIT, MasoEnums.MASO_Character
         )
         BaseMod.addCharacter(
             Lupa(CardCrawlGame.playerName),
-            data.spttData.LUPA_CHARACTER_BUTTON, data.spttData.LUPA_CHARACTER_PORTRAIT, LupaEnums.LUPA_Character
+            SPTT_DATA.LUPA_CHARACTER_BUTTON, SPTT_DATA.LUPA_CHARACTER_PORTRAIT, LupaEnums.LUPA_Character
         )
         BaseMod.addCharacter(
             Tzeentch(CardCrawlGame.playerName),
-            data.spttData.LUPA_CHARACTER_BUTTON, data.spttData.LUPA_CHARACTER_PORTRAIT, TzeentchEnums.TZEENTCH_Character
+            SPTT_DATA.LUPA_CHARACTER_BUTTON, SPTT_DATA.LUPA_CHARACTER_PORTRAIT, TzeentchEnums.TZEENTCH_Character
         )
     }
 
@@ -112,7 +115,24 @@ class SuperstitioModSetup : EditStringsSubscriber, EditRelicsSubscriber, EditCar
         AutoAdd(MOD_NAME.lowercase(Locale.getDefault()))
             .packageFilter(SuperstitioCard::class.java)
             .setDefaultSeen(true)
-            .cards()
+            .any(AbstractCard::class.java) { info: AutoAdd.Info?, card: AbstractCard? ->
+                BaseMod.addCard(card)
+                if (card == null) return@any
+                if (info == null) return@any
+                if (info.seen)
+                    UnlockTracker.unlockCard(card.cardID)
+
+                if (CardOwnerPlayerManager.isLupaCard(card))
+                {
+                    card.color = LupaEnums.LUPA_CARD
+                }
+                if (CardOwnerPlayerManager.isMasoCard(card))
+                {
+                    card.color = MasoEnums.MASO_CARD
+                }
+                CardUtility.checkAnnotation(card.javaClass, SetCardColor::class.java)?.let { card.color = it.color.ToColorEnums() }
+            }
+
     }
 
     override fun receiveAddAudio()
@@ -157,31 +177,12 @@ class SuperstitioModSetup : EditStringsSubscriber, EditRelicsSubscriber, EditCar
                         "character_Lupa"
                 )
             )
-            BaseMod.loadCustomStringsFile(
-                CharacterStrings::class.java,
-                DataManager.makeLocalizationPath(Settings.language, "character_General")
-            )
-            BaseMod.loadCustomStringsFile(
-                RelicStrings::class.java,
-                DataManager.makeLocalizationPath(Settings.language, "relic_General")
-            )
-            BaseMod.loadCustomStringsFile(
-                RelicStrings::class.java,
-                DataManager.makeLocalizationPath(Settings.language, "relic_Lupa")
-            )
-            BaseMod.loadCustomStringsFile(
-                RelicStrings::class.java,
-                DataManager.makeLocalizationPath(Settings.language, "relic_Maso")
-            )
-            BaseMod.loadCustomStringsFile(
-                UIStrings::class.java,
-                DataManager.makeLocalizationPath(Settings.language, "UIStrings")
-            )
-            BaseMod.loadCustomStringsFile(
-                MonsterStrings::class.java, DataManager.makeLocalizationPath(
-                    Settings.language, "monsters"
-                )
-            )
+            BaseMod.loadCustomStringsFile(CharacterStrings::class.java, DataManager.makeLocalizationPath(Settings.language, "character_General"))
+            BaseMod.loadCustomStringsFile(RelicStrings::class.java, DataManager.makeLocalizationPath(Settings.language, "relic_General"))
+            BaseMod.loadCustomStringsFile(RelicStrings::class.java, DataManager.makeLocalizationPath(Settings.language, "relic_Lupa"))
+            BaseMod.loadCustomStringsFile(RelicStrings::class.java, DataManager.makeLocalizationPath(Settings.language, "relic_Maso"))
+            BaseMod.loadCustomStringsFile(UIStrings::class.java, DataManager.makeLocalizationPath(Settings.language, "UIStrings"))
+            BaseMod.loadCustomStringsFile(MonsterStrings::class.java, DataManager.makeLocalizationPath(Settings.language, "monsters"))
             if (SuperstitioConfig.isEnableSFW())
             {
                 makeSFWWordForOriginStrings()
@@ -190,53 +191,17 @@ class SuperstitioModSetup : EditStringsSubscriber, EditRelicsSubscriber, EditCar
         else
         {
             ShaderUtility.canUseShader = false
-            DataManager.loadCustomStringsFile(
-                "sfw/" + "cards" + "_sfw",
-                DataManager.cards,
-                CardStringsWillMakeFlavorSet::class.java
-            )
-            DataManager.loadCustomStringsFile(
-                "sfw/" + "modifiers" + "_sfw",
-                DataManager.modifiers,
-                ModifierStringsSet::class.java
-            )
-            DataManager.loadCustomStringsFile(
-                "sfw/" + "powers" + "_sfw",
-                DataManager.powers,
-                PowerStringsSet::class.java
-            )
-            DataManager.loadCustomStringsFile(
-                "sfw/" + "orbs" + "_sfw",
-                DataManager.orbs,
-                OrbStringsSet::class.java
-            )
-            DataManager.loadCustomStringsFile(
-                "sfw/" + "ui" + "_sfw",
-                DataManager.uiStrings,
-                UIStringsSet::class.java
-            )
-
+            DataManager.loadCustomStringsFile("sfw/" + "cards" + "_sfw", DataManager.cards, CardStringsWillMakeFlavorSet::class.java)
+            DataManager.loadCustomStringsFile("sfw/" + "modifiers" + "_sfw", DataManager.modifiers, ModifierStringsSet::class.java)
+            DataManager.loadCustomStringsFile("sfw/" + "powers" + "_sfw", DataManager.powers, PowerStringsSet::class.java)
+            DataManager.loadCustomStringsFile("sfw/" + "orbs" + "_sfw", DataManager.orbs, OrbStringsSet::class.java)
+            DataManager.loadCustomStringsFile("sfw/" + "ui" + "_sfw", DataManager.uiStrings, UIStringsSet::class.java)
             StringsSetManager.makeSFWVersion()
-            BaseMod.loadCustomStringsFile(
-                RelicStrings::class.java,
-                DataManager.makeLocalizationPath(Settings.language, "sfw/" + "relics" + "_sfw")
-            )
-            BaseMod.loadCustomStringsFile(
-                CharacterStrings::class.java,
-                DataManager.makeLocalizationPath(Settings.language, "character_LupaSFW")
-            )
-            BaseMod.loadCustomStringsFile(
-                CharacterStrings::class.java,
-                DataManager.makeLocalizationPath(Settings.language, "character_General")
-            )
-            BaseMod.loadCustomStringsFile(
-                UIStrings::class.java,
-                DataManager.makeLocalizationPath(Settings.language, "UIStrings")
-            )
-            BaseMod.loadCustomStringsFile(
-                MonsterStrings::class.java,
-                DataManager.makeLocalizationPath(Settings.language, "monsters")
-            )
+            BaseMod.loadCustomStringsFile(RelicStrings::class.java, DataManager.makeLocalizationPath(Settings.language, "sfw/" + "relics" + "_sfw"))
+            BaseMod.loadCustomStringsFile(CharacterStrings::class.java, DataManager.makeLocalizationPath(Settings.language, "character_LupaSFW"))
+            BaseMod.loadCustomStringsFile(CharacterStrings::class.java, DataManager.makeLocalizationPath(Settings.language, "character_General"))
+            BaseMod.loadCustomStringsFile(UIStrings::class.java, DataManager.makeLocalizationPath(Settings.language, "UIStrings"))
+            BaseMod.loadCustomStringsFile(MonsterStrings::class.java, DataManager.makeLocalizationPath(Settings.language, "monsters"))
         }
         Logger.run("Done editing strings")
     }

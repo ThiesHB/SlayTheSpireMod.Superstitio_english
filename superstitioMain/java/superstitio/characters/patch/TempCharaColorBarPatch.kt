@@ -6,8 +6,8 @@ import com.evacipated.cardcrawl.modthespire.lib.SpirePrefixPatch
 import com.evacipated.cardcrawl.modthespire.lib.SpireReturn
 import com.megacrit.cardcrawl.characters.AbstractPlayer
 import com.megacrit.cardcrawl.core.CardCrawlGame
-import superstitio.DataManager.SPTT_DATA.GeneralEnums
-import superstitio.DataManager.SPTT_DATA.TempCardEnums
+import superstitio.DataManager.GeneralEnums
+import superstitio.DataManager.TempCardEnums
 import superstitio.cards.general.GeneralCardVirtualCharacter
 import superstitio.cards.general.TempCardVirtualCharacter
 

@@ -5,13 +5,15 @@ import com.badlogic.gdx.graphics.Texture
 import com.badlogic.gdx.graphics.glutils.ShaderProgram
 import com.megacrit.cardcrawl.helpers.ImageMaster
 import superstitioapi.DataUtility
+import superstitioapi.DataUtility.DataRootPath.imagesPath
+import superstitioapi.DataUtility.ImgSubPath.uiPath
 import superstitioapi.Logger
 import java.nio.FloatBuffer
 
 object ShaderUtility
 {
     val transColor: FloatBuffer = FloatBuffer.wrap(floatArrayOf(0f, 0f, 0f, 0f))
-    val NOISE_TEXTURE: Texture = ImageMaster.loadImage(DataUtility.makeImgFilesPath_UI("noise"))
+    val NOISE_TEXTURE: Texture = ImageMaster.loadImage(uiPath.resolveFile("noise").pinToAbsolute(imagesPath))
     const val DEFAULT_VERTEX_GLSL: String = "default_vertex.glsl"
 
     @JvmField

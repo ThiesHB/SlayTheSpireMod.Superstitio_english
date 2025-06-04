@@ -6,6 +6,7 @@ import com.megacrit.cardcrawl.dungeons.AbstractDungeon
 import com.megacrit.cardcrawl.monsters.AbstractMonster
 import com.megacrit.cardcrawl.vfx.cardManip.PurgeCardEffect
 import superstitio.DataManager
+import superstitio.cards.IsMasoCard
 import superstitio.cards.SuperstitioCard
 import superstitio.cards.general.TempCard.FeelPhantomBody
 import superstitio.cards.maso.MasoCard
@@ -13,7 +14,7 @@ import superstitio.powers.EasyBuildAbstractPowerForPowerCard
 import superstitioapi.actions.AutoDoneInstantAction
 import superstitioapi.utils.ActionUtility
 import superstitioapi.utils.CardUtility
-
+@IsMasoCard
 class OrgasmWithLostBody : MasoCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET)
 {
     init

@@ -6,6 +6,7 @@ import com.megacrit.cardcrawl.characters.AbstractPlayer
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon
 import com.megacrit.cardcrawl.monsters.AbstractMonster
 import superstitio.DataManager
+import superstitio.cards.IsLupaCard
 import superstitio.cards.general.FuckJob_Card
 import superstitio.cards.lupa.LupaCard
 import superstitio.powers.SexualHeat
@@ -15,6 +16,7 @@ import superstitioapi.hangUpCard.CardOrb_CardTrigger
 import superstitioapi.hangUpCard.CardOrb_EachCardTrigger
 import superstitioapi.utils.CostSmart
 
+@IsLupaCard
 class Job_Blow : LupaCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET), FuckJob_Card, GoSomewhereElseAfterUse
 {
     init

@@ -6,9 +6,9 @@ import com.megacrit.cardcrawl.orbs.AbstractOrb
 import superstitio.DataManager
 import superstitio.customStrings.interFace.StringSetUtility
 import superstitio.customStrings.stringsSet.OrbStringsSet
+import superstitioapi.DataUtility
 import superstitioapi.utils.UpdateDescriptionAdvanced
 import superstitioapi.utils.getFormattedDescription
-import java.util.function.BiFunction
 
 abstract class AbstractLupaOrb private constructor(
     ID: String,
@@ -100,11 +100,7 @@ abstract class AbstractLupaOrb private constructor(
 
         protected fun getImgPath(id: String): String
         {
-            return DataManager.makeImgPath(
-                "default",
-                BiFunction<String, Array<String>, String>(DataManager::makeImgFilesPath_Orb),
-                id
-            )
+            return DataManager.tryGetImgPath(DataUtility.ImgSubPath.orbsPath, id, "default")
         }
     }
 }

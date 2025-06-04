@@ -3,13 +3,13 @@ package superstitio.cards.general.SkillCard.hangUpCard
 import com.megacrit.cardcrawl.characters.AbstractPlayer
 import com.megacrit.cardcrawl.monsters.AbstractMonster
 import superstitio.DataManager
-import superstitio.cards.general.GeneralCard
+import superstitio.cards.NormalCard
 import superstitio.delayHpLose.RemoveDelayHpLoseBlock
 import superstitioapi.hangUpCard.CardOrb
 import superstitioapi.hangUpCard.Card_TriggerHangCardManually
 import superstitioapi.hangUpCard.HangUpCardGroup
 
-class OneMoreHour : GeneralCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET), Card_TriggerHangCardManually
+class OneMoreHour : NormalCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET), Card_TriggerHangCardManually
 {
     init
     {

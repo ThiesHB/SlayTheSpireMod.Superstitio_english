@@ -7,6 +7,7 @@ import com.megacrit.cardcrawl.dungeons.AbstractDungeon
 import com.megacrit.cardcrawl.monsters.AbstractMonster
 import superstitio.DataManager
 import superstitio.InBattleDataManager
+import superstitio.cards.IsMasoCard
 import superstitio.cards.maso.MasoCard
 import superstitioapi.cards.DamageActionMaker
 import superstitioapi.cards.addEtherealMod
@@ -15,6 +16,7 @@ import superstitioapi.utils.ActionUtility
 import superstitioapi.utils.setDescriptionArgs
 
 //拔指甲/趾甲
+@IsMasoCard
 class NailExtraction @JvmOverloads constructor(isPreview: Boolean = false) :
     MasoCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET)
 {

@@ -8,14 +8,15 @@ import com.megacrit.cardcrawl.characters.AbstractPlayer
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon
 import com.megacrit.cardcrawl.monsters.AbstractMonster
 import superstitio.DataManager
+import superstitio.cards.IsLupaCard
 import superstitio.cards.lupa.LupaCard
 import superstitio.delayHpLose.RemoveDelayHpLoseBlock
 import superstitioapi.actions.AutoDoneInstantAction
 import superstitioapi.actions.ChoseCardFromHandCardSelectScreen
 import superstitioapi.cards.addExhaustMod
 import superstitioapi.utils.CardUtility
-import java.util.function.Predicate
 
+@IsLupaCard
 class ZenState : LupaCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET)
 {
     init
@@ -47,8 +48,8 @@ class ZenState : LupaCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET)
             .setWindowText(String.format(cardStrings.getEXTENDED_DESCRIPTION(0), this.magicNumber))
             .setChoiceAmount(this.magicNumber)
             .setRetainFilter(
-                Predicate { card: AbstractCard -> !card.exhaust },
-                Predicate { card: AbstractCard -> !CardModifierManager.hasModifier(card, ExhaustMod.ID) })
+                { card: AbstractCard -> !card.exhaust },
+                { card: AbstractCard -> !CardModifierManager.hasModifier(card, ExhaustMod.ID) })
             .addToBot()
     }
 

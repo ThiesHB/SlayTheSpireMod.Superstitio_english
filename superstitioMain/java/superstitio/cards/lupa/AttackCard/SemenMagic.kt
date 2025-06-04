@@ -4,8 +4,9 @@ import com.megacrit.cardcrawl.actions.AbstractGameAction.AttackEffect
 import com.megacrit.cardcrawl.characters.AbstractPlayer
 import com.megacrit.cardcrawl.monsters.AbstractMonster
 import superstitio.DataManager
+import superstitio.cards.IsLupaCard
 import superstitio.cards.lupa.LupaCard
-
+@IsLupaCard
 class SemenMagic : LupaCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET)
 {
     init

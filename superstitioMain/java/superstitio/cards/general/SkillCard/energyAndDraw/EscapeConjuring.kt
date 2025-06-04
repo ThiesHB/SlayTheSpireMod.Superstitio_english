@@ -11,11 +11,11 @@ import com.megacrit.cardcrawl.monsters.AbstractMonster
 import com.megacrit.cardcrawl.powers.AbstractPower
 import com.megacrit.cardcrawl.powers.AbstractPower.PowerType
 import superstitio.DataManager
-import superstitio.cards.general.GeneralCard
+import superstitio.cards.NormalCard
 import superstitio.powers.SexualHeat
 import superstitioapi.cards.addExhaustMod
 
-class EscapeConjuring : GeneralCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET)
+class EscapeConjuring : NormalCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET)
 {
     init
     {

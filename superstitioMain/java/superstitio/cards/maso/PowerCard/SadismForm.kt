@@ -8,6 +8,7 @@ import com.megacrit.cardcrawl.monsters.AbstractMonster
 import com.megacrit.cardcrawl.powers.StrengthPower
 import superstitio.DataManager
 import superstitio.DataManager.CanOnlyDamageDamageType
+import superstitio.cards.IsMasoCard
 import superstitio.cards.SuperstitioCard
 import superstitio.cards.maso.MasoCard
 import superstitio.powers.AbstractSuperstitioPower
@@ -15,7 +16,7 @@ import superstitio.powers.EasyBuildAbstractPowerForPowerCard
 import superstitioapi.utils.addToBot_applyPower
 import superstitioapi.utils.addToBot_removeSelf
 import superstitioapi.utils.setDescriptionArgs
-
+@IsMasoCard
 //每当造成攻击伤害或失去生命时，获得 !M! 力量
 class SadismForm : MasoCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET)
 {

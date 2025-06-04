@@ -7,6 +7,7 @@ import com.megacrit.cardcrawl.monsters.AbstractMonster
 import superstitio.DataManager
 import superstitio.cardModifier.modifiers.card.InsideEjaculationTag
 import superstitio.cardModifier.modifiers.card.OutsideEjaculationTag
+import superstitio.cards.IsLupaCard
 import superstitio.cards.SuperstitioCard
 import superstitio.cards.general.FuckJob_Card
 import superstitio.cards.general.TempCard.GangBang
@@ -16,7 +17,7 @@ import superstitio.orbs.orbgroup.SexMarkOrbGroup.SexMarkType
 import superstitio.powers.EasyBuildAbstractPowerForPowerCard
 import superstitioapi.renderManager.inBattleManager.InBattleDataManager
 import superstitioapi.utils.setDescriptionArgs
-
+@IsLupaCard
 class GangBangPrepare : LupaCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET)
 {
     init

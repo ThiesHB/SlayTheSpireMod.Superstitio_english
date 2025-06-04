@@ -7,10 +7,10 @@ import com.megacrit.cardcrawl.powers.BarricadePower
 import com.megacrit.cardcrawl.powers.FrailPower
 import com.megacrit.cardcrawl.powers.WeakPower
 import superstitio.DataManager
-import superstitio.cards.general.GeneralCard
+import superstitio.cards.NormalCard
 import superstitioapi.actions.AutoDoneInstantAction
 
-class Tease : GeneralCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET)
+class Tease : NormalCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET)
 {
     init
     {

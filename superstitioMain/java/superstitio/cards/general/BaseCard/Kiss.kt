@@ -3,10 +3,10 @@ package superstitio.cards.general.BaseCard
 import com.megacrit.cardcrawl.characters.AbstractPlayer
 import com.megacrit.cardcrawl.monsters.AbstractMonster
 import superstitio.DataManager
-import superstitio.cards.general.GeneralCard
+import superstitio.cards.NormalCard
 import superstitioapi.SuperstitioApiSetup
 
-class Kiss : GeneralCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET, "base")
+class Kiss : NormalCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET, "base")
 {
     init
     {

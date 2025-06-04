@@ -5,7 +5,7 @@ import com.megacrit.cardcrawl.core.AbstractCreature
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon
 import com.megacrit.cardcrawl.monsters.AbstractMonster
 import superstitio.DataManager
-import superstitio.cards.general.GeneralCard
+import superstitio.cards.NormalCard
 import superstitio.powers.AbstractSuperstitioPower
 import superstitio.powers.SexualHeat
 import superstitio.powers.patchAndInterface.interfaces.orgasm.OnOrgasm_onOrgasm
@@ -14,7 +14,7 @@ import superstitioapi.hangUpCard.ICardOrb_EachTime
 import superstitioapi.hangUpCard.ICardOrb_WaitTime
 import superstitioapi.utils.setDescriptionArgs
 
-class FastWindUp : GeneralCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET)
+class FastWindUp : NormalCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET)
 {
     init
     {

@@ -7,13 +7,13 @@ import com.megacrit.cardcrawl.characters.AbstractPlayer
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon
 import com.megacrit.cardcrawl.monsters.AbstractMonster
 import superstitio.DataManager
-import superstitio.cards.general.GeneralCard
+import superstitio.cards.NormalCard
 import superstitio.cards.general.TempCard.SelfReference
 import superstitioapi.actions.ChoseCardFromGridSelectWindowAction
 import superstitioapi.cards.addRetainMod
 
 //荣耀洞
-class GloryHole : GeneralCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET)
+class GloryHole : NormalCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET)
 {
     //
     //    private static final int COST_UPGRADED_NEW = 2;

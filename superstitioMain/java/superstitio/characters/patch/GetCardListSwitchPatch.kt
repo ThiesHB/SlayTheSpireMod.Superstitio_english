@@ -7,8 +7,8 @@ import com.megacrit.cardcrawl.cards.AbstractCard
 import com.megacrit.cardcrawl.cards.AbstractCard.CardColor
 import com.megacrit.cardcrawl.helpers.CardLibrary
 import com.megacrit.cardcrawl.helpers.CardLibrary.LibraryType
-import superstitio.DataManager.SPTT_DATA.LupaEnums
-import superstitio.DataManager.SPTT_DATA.MasoEnums
+import superstitio.DataManager.LupaEnums
+import superstitio.DataManager.MasoEnums
 import superstitio.SuperstitioConfig
 import superstitio.cards.CardOwnerPlayerManager
 import superstitio.cards.SuperstitioCard

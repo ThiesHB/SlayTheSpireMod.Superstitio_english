@@ -10,6 +10,7 @@ import com.megacrit.cardcrawl.dungeons.AbstractDungeon
 import com.megacrit.cardcrawl.monsters.AbstractMonster
 import superstitio.DataManager
 import superstitio.cardModifier.modifiers.damage.SexDamage
+import superstitio.cards.IsMasoCard
 import superstitio.cards.SuperstitioCard
 import superstitio.cards.maso.MasoCard
 import superstitio.powers.EasyBuildAbstractPowerForPowerCard
@@ -19,7 +20,7 @@ import superstitioapi.cards.addEtherealMod
 import superstitioapi.utils.CardUtility
 import superstitioapi.utils.CreatureUtility
 import superstitioapi.utils.setDescriptionArgs
-
+@IsMasoCard
 class HumanCentipede : MasoCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET)
 {
     init

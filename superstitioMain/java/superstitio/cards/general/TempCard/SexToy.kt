@@ -6,10 +6,12 @@ import com.megacrit.cardcrawl.dungeons.AbstractDungeon
 import com.megacrit.cardcrawl.monsters.AbstractMonster
 import com.megacrit.cardcrawl.random.Random
 import superstitio.DataManager
+import superstitio.SPTT_Color
+import superstitio.cards.SetCardColor
 import superstitio.cards.general.AbstractTempCard
 import superstitioapi.utils.CardUtility
 import superstitioapi.utils.ListUtility
-
+@SetCardColor(SPTT_Color.TempColor)
 class SexToy : AbstractTempCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET)
 {
     init

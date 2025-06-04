@@ -6,7 +6,7 @@ import com.megacrit.cardcrawl.characters.AbstractPlayer
 import com.megacrit.cardcrawl.monsters.AbstractMonster
 import superstitio.DataManager
 import superstitio.cards.general.FuckJob_Card
-import superstitio.cards.general.GeneralCard
+import superstitio.cards.NormalCard
 import superstitioapi.SuperstitioApiSetup
 import superstitioapi.cards.DamageActionMaker
 import superstitioapi.cards.patch.GoSomewhereElseAfterUse
@@ -16,7 +16,7 @@ import superstitioapi.utils.CostSmart
 import superstitioapi.utils.CreatureUtility
 
 class Job_Armpit @JvmOverloads constructor(hasCardToPreview: Boolean = true) :
-    GeneralCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET), FuckJob_Card, GoSomewhereElseAfterUse
+    NormalCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET), FuckJob_Card, GoSomewhereElseAfterUse
 {
     init
     {

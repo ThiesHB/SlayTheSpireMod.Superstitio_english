@@ -5,6 +5,7 @@ import com.megacrit.cardcrawl.dungeons.AbstractDungeon
 import com.megacrit.cardcrawl.monsters.AbstractMonster
 import com.megacrit.cardcrawl.powers.AbstractPower
 import superstitio.DataManager
+import superstitio.cards.IsLupaCard
 import superstitio.cards.lupa.LupaCard
 import superstitio.delayHpLose.DelayHpLosePower
 import superstitio.delayHpLose.RemoveDelayHpLoseBlock
@@ -12,7 +13,7 @@ import superstitio.powers.lupaOnly.FloorSemen
 import superstitio.powers.lupaOnly.InsideSemen
 import superstitio.powers.lupaOnly.OutsideSemen
 import superstitioapi.cards.addRetainMod
-
+@IsLupaCard
 class SemenBath : LupaCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET)
 {
     init

@@ -7,7 +7,7 @@ import com.megacrit.cardcrawl.dungeons.AbstractDungeon
 import com.megacrit.cardcrawl.monsters.AbstractMonster
 import superstitio.DataManager
 import superstitio.cards.general.FuckJob_Card
-import superstitio.cards.general.GeneralCard
+import superstitio.cards.NormalCard
 import superstitioapi.SuperstitioApiSetup
 import superstitioapi.cards.addEtherealMod
 import superstitioapi.cards.addExhaustMod
@@ -18,7 +18,7 @@ import superstitioapi.utils.ActionUtility
 import superstitioapi.utils.CostSmart
 
 class Job_Hair private constructor(damage: Int, upgradeDamage: Int) :
-    GeneralCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET), FuckJob_Card, GoSomewhereElseAfterUse
+    NormalCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET), FuckJob_Card, GoSomewhereElseAfterUse
 {
     constructor() : this(DAMAGE, UPGRADE_DAMAGE)
     {

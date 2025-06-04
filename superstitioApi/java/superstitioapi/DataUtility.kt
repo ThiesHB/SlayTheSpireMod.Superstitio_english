@@ -8,11 +8,10 @@ import com.google.gson.internal.`$Gson$Types`
 import com.megacrit.cardcrawl.core.Settings
 import com.megacrit.cardcrawl.core.Settings.GameLanguage
 import com.megacrit.cardcrawl.localization.LocalizedStrings
+import superstitioapi.utils.pathBuilder.*
 import java.lang.reflect.Field
 import java.lang.reflect.ParameterizedType
 import java.nio.charset.StandardCharsets
-import java.util.function.BiFunction
-import java.util.function.Consumer
 import java.util.regex.Pattern
 import java.util.stream.Collectors
 
@@ -21,89 +20,71 @@ import java.util.stream.Collectors
 object DataUtility
 {
 
-    val isPathExist: MutableMap<String, Boolean> = HashMap()
+    private val isPathExist: MutableMap<String, Boolean> = HashMap()
 
     @JvmStatic
     fun initialize()
     {
     }
 
-    fun makeLocalizationPath(language: GameLanguage?, filename: String): String
+    internal object DataRootPath
     {
-        var ret = "localization/"
-        ret = when (language)
+        private val resourcesFilesPath = AbsoluteScope.create(getModID() + "Resources")
+        val localizationPath = resourcesFilesPath.createScope("localization").withFormat("json")
+        val shaderPath = resourcesFilesPath.createScope("shader").withFormat("glsl")
+        val imagesPath = resourcesFilesPath.createScope("img").withFormat("png")
+    }
+
+    object ImgSubPath
+    {
+        val cardsPath = RelativeScope.create("cards")
+        val uiPath = RelativeScope.create("ui")
+        val characterPath = RelativeScope.create("character")
+        val relicsPath = RelativeScope.create("relics")
+        val relicsOutlinePath = relicsPath.createScope("outline")
+        val relicsLargePath = relicsPath.createScope("large")
+        val orbsPath = RelativeScope.create("orbs")
+        val powersPath = RelativeScope.create("powers")
+        val eventsPath = RelativeScope.create("events")
+    }
+
+    internal fun makeLocalizationPath(language: GameLanguage?, filename: String): String
+    {
+        val ret = when (language)
         {
-            GameLanguage.ZHS -> ret + "zhs/"
-            GameLanguage.ENG -> ret + "eng/"
-            else             -> ret + "eng/"
+            GameLanguage.ZHS -> "zhs"
+            GameLanguage.ZHT -> "zhs"
+            GameLanguage.ENG -> "eng"
+            else             -> "eng"
         }
-        return resourcesFilesPath + ret + filename + ".json"
+        return DataRootPath.localizationPath.createScope(ret).resolveFile(filename)
     }
 
     fun makeShaderPath(filename: String): String
     {
-        return resourcesFilesPath + "shader/" + filename
+        return DataRootPath.shaderPath.resolveFile(filename)
     }
 
     fun getModID(): String = SuperstitioApiSetup.MOD_NAME + "Mod"
 
+    fun makeRelativeImgFilesPath(fileName: String, vararg folderPaths: String): RelativeFilePath
+    {
+        return RelativeScope.create(*folderPaths).resolveFile(fileName)
+    }
+
     fun makeImgFilesPath(fileName: String, vararg folderPaths: String): String
     {
-        return getImgFolderPath(makeFolderTotalString(*folderPaths)) + "/" + fileName + ".png"
+        return DataRootPath.imagesPath.createScope(*folderPaths).resolveFile(fileName)
     }
 
-    fun makeFolderTotalString(vararg strings: String): String
-    {
-        if (strings.size == 0) return ""
-        val totalString = StringBuilder()
-        for (string in strings) totalString.append("/").append(string)
-        return totalString.toString()
-    }
 
-    fun makeImgFilesPath_Card(fileName: String, vararg subFolder: String): String
-    {
-        return makeImgFilesPath(fileName, "cards", makeFolderTotalString(*subFolder))
-    }
-
-    fun makeImgFilesPath_Relic(fileName: String, vararg subFolder: String): String
-    {
-        return makeImgFilesPath(fileName, "relics", makeFolderTotalString(*subFolder))
-    }
-
-    fun makeImgFilesPath_UI(fileName: String, vararg subFolder: String): String
-    {
-        return makeImgFilesPath(fileName, "ui", makeFolderTotalString(*subFolder))
-    }
-
-    fun makeImgFilesPath_Character_Lupa(fileName: String, vararg subFolder: String): String
-    {
-        return makeImgFilesPath(fileName, "character", makeFolderTotalString(*subFolder))
-    }
-
-    fun makeImgFilesPath_RelicOutline(fileName: String, vararg subFolder: String): String
-    {
-        return makeImgFilesPath(fileName, "relics/outline", makeFolderTotalString(*subFolder))
-    }
-
-    fun makeImgFilesPath_RelicLarge(fileName: String, vararg subFolder: String): String
-    {
-        return makeImgFilesPath(fileName, "relics/large", makeFolderTotalString(*subFolder))
-    }
-
-    fun makeImgFilesPath_Orb(fileName: String, vararg subFolder: String): String
-    {
-        return makeImgFilesPath(fileName, "orbs", makeFolderTotalString(*subFolder))
-    }
-
-    fun makeImgFilesPath_Power(fileName: String, vararg subFolder: String): String
-    {
-        return makeImgFilesPath(fileName, "powers", makeFolderTotalString(*subFolder))
-    }
-
-    fun makeImgFilesPath_Event(fileName: String, vararg subFolder: String): String
-    {
-        return makeImgFilesPath(fileName, "events", makeFolderTotalString(*subFolder))
-    }
+//    fun makeFolderTotalString(vararg strings: String): String
+//    {
+//        if (strings.size == 0) return ""
+//        val totalString = StringBuilder()
+//        for (string in strings) totalString.append("/").append(string)
+//        return totalString.toString()
+//    }
 
     fun MakeTextID(idText: String): String
     {
@@ -115,55 +96,62 @@ object DataUtility
         return getModID() + ":" + idClass.simpleName
     }
 
-    fun makeImgPath(
+
+    fun tryGetImgPath(
+        relativeScope: RelativeScope,
+        fileNameMaybeDirty: String, // 含有模组信息的“脏文件名，需要清洗为ID”
         defaultFileName: String,
-        PathFinder: BiFunction<String, Array<String>, String>,
-        fileName: String,
-        vararg subFolder: String
+        absoluteScope: AbsoluteScopeWithFormat,
+        actionWhenNotFound: ActionWhenNotFound? = null
     ): String
     {
-        return makeImgPath({ }, defaultFileName, PathFinder, fileName, *subFolder)
+        return tryGetImgPath(
+            relativeScope.resolveFile(getIdOnly(fileNameMaybeDirty)),
+            relativeScope.resolveFile(getIdOnly(defaultFileName)),
+            absoluteScope,
+            actionWhenNotFound
+        )
     }
 
-    fun makeImgPath(
-        actionIfNoImg: Consumer<String>,
-        defaultFileName: String,
-        PathFinder: BiFunction<String, Array<String>, String>,
-        fileName: String,
-        vararg subFolder: String
+    fun tryGetImgPath(
+        relativeFilePath: RelativeFilePath,
+        defaultPath: RelativeFilePath,
+        absoluteScope: AbsoluteScopeWithFormat,
+        actionWhenNotFound: ActionWhenNotFound? = null
     ): String
     {
-        val path: String?
-        val idOnlyNames = getIdOnly(fileName)
-        path = PathFinder.apply(idOnlyNames, subFolder.toList().toTypedArray())
+        val primaryPath = relativeFilePath.pinToAbsolute(absoluteScope)
 
-        if (isPathExist.containsKey(path))
-        {
-            return if (isPathExist[path]!!) path
-            else makeDefaultPath(defaultFileName, PathFinder)
+        val primaryPathExists = isPathExist.getOrPut(primaryPath) {
+            val exists = Gdx.files.internal(primaryPath).exists()
+            if (!exists)
+            {
+                Logger.warning("Can't find $primaryPath. Use default img instead.")
+                actionWhenNotFound?.invoke(relativeFilePath, defaultPath, absoluteScope)
+            }
+            return@getOrPut exists // 返回存在性结果，存入缓存
         }
-        else if (Gdx.files.internal(path).exists())
+
+        return if (primaryPathExists)
         {
-            isPathExist[path] = true
-            return path
+            primaryPath
         }
         else
         {
-            isPathExist[path] = false
-            Logger.warning("Can't find $path. Use default img instead.")
-            actionIfNoImg.accept(path)
-
-            return makeDefaultPath(defaultFileName, PathFinder)
+            defaultPath.pinToAbsolute(absoluteScope)
         }
     }
 
-    fun makeDefaultPath(
-        defaultFileName: String,
-        PathFinder: BiFunction<String, Array<String>, String>
-    ): String
-    {
-        return PathFinder.apply(defaultFileName, arrayOf(""))
-    }
+//    fun makeImgPath(
+//        defaultFileName: String,
+//        absoluteScope: AbsoluteScopeWithFormat,
+//        relativeScope: RelativeScope,
+//        fileName: String,
+//        vararg subFolder: String
+//    ): String
+//    {
+//        return makeImgPath({ }, defaultFileName, PathFinder, getIdOnly(fileName), *subFolder)
+//    }
 
     /**
      * 只输出后面的id，不携带模组信息
@@ -238,14 +226,6 @@ object DataUtility
         return gson.fromJson(json, objectClass)
     }
 
-    private val resourcesFilesPath: String
-        get() = getModID() + "Resources/"
-
-    private fun getImgFolderPath(path: String): String
-    {
-        return resourcesFilesPath + "img" + path
-    }
-
     fun <T> GetTypeOfMapByAComplexFunctionBecauseTheMotherfuckerGenericProgrammingWayTheFuckingJavaUse(
         tClass: Class<T>, declaredFields: Array<out Field>
     ): ParameterizedType?
@@ -266,6 +246,18 @@ object DataUtility
     }
 
 }
+
+/**
+ * 寻找文件时，如果没有找到，使用的回调函数
+ * @param primaryPath 原本期望的相对地址
+ * @param defaultPath 不得不采纳的默认相对地址
+ * @param absoluteScope 绝对地址
+ */
+typealias ActionWhenNotFound = (
+    primaryPath: RelativeFilePath,
+    defaultPath: RelativeFilePath,
+    absoluteScope: AbsoluteScopeWithFormat
+) -> Unit
 
 interface hasUuid
 {

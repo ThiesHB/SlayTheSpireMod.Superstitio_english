@@ -8,13 +8,14 @@ import com.megacrit.cardcrawl.monsters.AbstractMonster
 import com.megacrit.cardcrawl.powers.AbstractPower
 import superstitio.DataManager
 import superstitio.cardModifier.modifiers.block.SexBlock
+import superstitio.cards.IsLupaCard
 import superstitio.cards.SuperstitioCard
 import superstitio.cards.lupa.LupaCard
 import superstitio.cards.lupa.OnAddSemenPower
 import superstitio.powers.EasyBuildAbstractPowerForPowerCard
 import superstitio.powers.lupaOnly.SemenPower
 import superstitioapi.utils.setDescriptionArgs
-
+@IsLupaCard
 class SemenTattoo : LupaCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET)
 {
     init

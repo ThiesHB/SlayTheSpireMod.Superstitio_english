@@ -5,7 +5,7 @@ import com.megacrit.cardcrawl.characters.AbstractPlayer
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon
 import com.megacrit.cardcrawl.monsters.AbstractMonster
 import superstitio.DataManager
-import superstitio.cards.general.GeneralCard
+import superstitio.cards.NormalCard
 import superstitioapi.actions.AutoDoneInstantAction
 import superstitioapi.actions.ChoseCardFromHandCardSelectScreen
 import superstitioapi.hangUpCard.CardOrb_CardTrigger
@@ -13,7 +13,7 @@ import superstitioapi.hangUpCard.CardOrb_WaitCardTrigger
 import superstitioapi.utils.CostSmart
 import superstitioapi.utils.setDescriptionArgs
 
-class RideDildoBike : GeneralCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET)
+class RideDildoBike : NormalCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET)
 {
     init
     {

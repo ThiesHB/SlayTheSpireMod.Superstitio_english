@@ -11,12 +11,14 @@ import com.megacrit.cardcrawl.dungeons.AbstractDungeon
 import com.megacrit.cardcrawl.monsters.AbstractMonster
 import superstitio.DataManager
 import superstitio.SuperstitioImg.NoNeedImg
+import superstitio.cards.IsLupaCard
 import superstitio.cards.lupa.LupaCard
 import superstitio.powers.AbstractSuperstitioPower
 import superstitioapi.utils.addToBot_reducePowerToOwner
 import superstitioapi.utils.setDescriptionArgs
 
 //春药
+@IsLupaCard
 class Philter : LupaCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET)
 {
     init

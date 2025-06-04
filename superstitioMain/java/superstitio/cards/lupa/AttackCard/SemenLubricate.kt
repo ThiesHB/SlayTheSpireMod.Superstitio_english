@@ -8,13 +8,14 @@ import com.megacrit.cardcrawl.dungeons.AbstractDungeon
 import com.megacrit.cardcrawl.monsters.AbstractMonster
 import superstitio.DataManager
 import superstitio.SuperstitioImg.NoNeedImg
+import superstitio.cards.IsLupaCard
 import superstitio.cards.SuperstitioCard
 import superstitio.cards.lupa.LupaCard
 import superstitio.powers.EasyBuildAbstractPowerForPowerCard
 import superstitioapi.actions.AutoDoneInstantAction
 import superstitioapi.utils.ActionUtility
 import superstitioapi.utils.addToBot_removeSelf
-
+@IsLupaCard
 class SemenLubricate : LupaCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET)
 {
     private var inPlayingCard = false

@@ -7,7 +7,7 @@ import com.megacrit.cardcrawl.dungeons.AbstractDungeon
 import com.megacrit.cardcrawl.monsters.AbstractMonster
 import superstitio.DataManager
 import superstitio.cards.general.FuckJob_Card
-import superstitio.cards.general.GeneralCard
+import superstitio.cards.NormalCard
 import superstitio.cards.lupa.BaseCard.Masturbate
 import superstitioapi.SuperstitioApiSetup
 import superstitioapi.cards.patch.GoSomewhereElseAfterUse
@@ -17,7 +17,7 @@ import superstitioapi.utils.CostSmart
 import superstitioapi.utils.PowerUtility
 import superstitioapi.utils.setDescriptionArgs
 
-class Job_Foot : GeneralCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET), FuckJob_Card, GoSomewhereElseAfterUse
+class Job_Foot : NormalCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET), FuckJob_Card, GoSomewhereElseAfterUse
 {
     init
     {

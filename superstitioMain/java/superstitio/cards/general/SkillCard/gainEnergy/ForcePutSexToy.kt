@@ -6,12 +6,12 @@ import com.megacrit.cardcrawl.dungeons.AbstractDungeon
 import com.megacrit.cardcrawl.monsters.AbstractMonster
 import com.megacrit.cardcrawl.powers.AbstractPower
 import superstitio.DataManager
-import superstitio.cards.general.GeneralCard
+import superstitio.cards.NormalCard
 import superstitio.cards.general.TempCard.SexToy
 import superstitio.powers.*
 import superstitioapi.actions.AutoDoneInstantAction
 
-class ForcePutSexToy : GeneralCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET)
+class ForcePutSexToy : NormalCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET)
 {
     init
     {

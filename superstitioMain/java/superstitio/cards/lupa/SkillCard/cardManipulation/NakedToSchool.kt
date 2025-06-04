@@ -12,10 +12,11 @@ import com.megacrit.cardcrawl.monsters.AbstractMonster
 import com.megacrit.cardcrawl.vfx.UpgradeShineEffect
 import com.megacrit.cardcrawl.vfx.cardManip.ShowCardAndAddToDrawPileEffect
 import superstitio.DataManager
+import superstitio.cards.IsLupaCard
 import superstitio.cards.lupa.LupaCard
 import superstitioapi.actions.AutoDoneInstantAction
 import superstitioapi.actions.ChoseCardFromGridSelectWindowAction
-
+@IsLupaCard
 class NakedToSchool : LupaCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET)
 {
     init

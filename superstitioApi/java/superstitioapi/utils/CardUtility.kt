@@ -18,6 +18,20 @@ import java.util.stream.Collectors
 object CardUtility
 {
 
+    // --- 辅助方法，用于检查注解 ---
+    fun <T : Annotation> hasAnnotation(cardClass: Class<*>, annotationClass: Class<T>): Boolean
+    {
+        return cardClass.isAnnotationPresent(annotationClass)
+    }
+
+    fun <T : Annotation> checkAnnotation(cardClass: Class<*>, annotationClass: Class<T>): T?
+    {
+        return if (cardClass.isAnnotationPresent(annotationClass))
+            cardClass.getAnnotation(annotationClass)
+        else
+            null
+    }
+
     internal val AgressiveColor: Color = Color.RED.cpy()
     internal val HospitableColor: Color = Color.GREEN.cpy()
 

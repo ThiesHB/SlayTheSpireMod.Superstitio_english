@@ -6,6 +6,7 @@ import com.megacrit.cardcrawl.dungeons.AbstractDungeon
 import com.megacrit.cardcrawl.monsters.AbstractMonster
 import com.megacrit.cardcrawl.powers.PoisonPower
 import superstitio.DataManager
+import superstitio.cards.IsMasoCard
 import superstitio.cards.maso.MasoCard
 import superstitio.delayHpLose.DelayHpLosePower
 import superstitio.powers.SexualHeat.Orgasm
@@ -13,7 +14,7 @@ import superstitioapi.cards.addExhaustMod
 import superstitioapi.cards.addRetainMod
 import superstitioapi.utils.ActionUtility
 import java.util.function.ToIntFunction
-
+@IsMasoCard
 class DrinkPoison : MasoCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET)
 {
     init

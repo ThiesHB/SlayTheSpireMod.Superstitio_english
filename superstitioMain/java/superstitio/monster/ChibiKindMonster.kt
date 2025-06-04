@@ -18,6 +18,7 @@ import com.megacrit.cardcrawl.monsters.AbstractMonster
 import com.megacrit.cardcrawl.monsters.AbstractMonster.Intent.ATTACK
 import com.megacrit.cardcrawl.random.Random
 import superstitio.DataManager
+import superstitio.DataManager.Companion.ImgPath
 import superstitioapi.actions.AutoDoneInstantAction
 import superstitioapi.pet.MinionMonster
 import superstitioapi.utils.CardUtility
@@ -175,9 +176,9 @@ class ChibiKindMonster : CustomMonster(
     {
         val ID: String = DataManager.MakeTextID(ChibiKindMonster::class.java)
         val CHIBI_CHARACTER: Array<String> = arrayOf(
-            DataManager.makeImgFilesPath_Character("chibiCharacter0"),
-            DataManager.makeImgFilesPath_Character("chibiCharacter1"),
-            DataManager.makeImgFilesPath_Character("chibiCharacter2")
+            ImgPath.characterPath.resolveFile("chibiCharacter0"),
+            ImgPath.characterPath.resolveFile("chibiCharacter1"),
+            ImgPath.characterPath.resolveFile("chibiCharacter2")
         )
         private val willPlayCards: MutableList<AbstractCard> = ArrayList()
         private val monsterStrings: MonsterStrings = CardCrawlGame.languagePack.getMonsterStrings(ID)

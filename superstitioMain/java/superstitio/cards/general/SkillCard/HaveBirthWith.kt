@@ -8,7 +8,7 @@ import com.megacrit.cardcrawl.characters.AbstractPlayer
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon
 import com.megacrit.cardcrawl.monsters.AbstractMonster
 import superstitio.DataManager
-import superstitio.cards.general.GeneralCard
+import superstitio.cards.NormalCard
 import superstitio.cards.general.TempCard.GiveBirth
 import superstitio.monster.ChibiKindMonster
 import superstitioapi.hangUpCard.CardOrb
@@ -20,7 +20,7 @@ import superstitioapi.utils.CardUtility
 import superstitioapi.utils.CostSmart
 
 //@AutoAdd.Ignore
-class HaveBirthWith : GeneralCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET)
+class HaveBirthWith : NormalCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET)
 {
     init
     {

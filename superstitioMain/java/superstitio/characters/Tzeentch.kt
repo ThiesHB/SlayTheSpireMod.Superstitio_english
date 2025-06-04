@@ -17,7 +17,7 @@ import com.megacrit.cardcrawl.relics.AbstractRelic
 import com.megacrit.cardcrawl.screens.CharSelectInfo
 import com.megacrit.cardcrawl.screens.charSelect.CharacterOption
 import superstitio.DataManager
-import superstitio.DataManager.SPTT_DATA.*
+import superstitio.DataManager.*
 import superstitio.Logger
 import superstitio.characters.cardpool.GeneralCardPool
 import superstitio.characters.cardpool.LupaCardPool

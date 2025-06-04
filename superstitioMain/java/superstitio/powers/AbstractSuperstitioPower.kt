@@ -10,6 +10,7 @@ import com.megacrit.cardcrawl.powers.AbstractPower
 import superstitio.DataManager
 import superstitio.customStrings.interFace.StringSetUtility
 import superstitio.customStrings.stringsSet.PowerStringsSet
+import superstitioapi.DataUtility
 import superstitioapi.utils.UpdateDescriptionAdvanced
 
 abstract class AbstractSuperstitioPower : AbstractPower, UpdateDescriptionAdvanced
@@ -83,10 +84,7 @@ abstract class AbstractSuperstitioPower : AbstractPower, UpdateDescriptionAdvanc
 
     private fun makeImgPath(id: String, size: IconSize): String
     {
-        return DataManager.makeImgPath(
-            DEFAULT + returnSizeNum(size),
-            DataManager::makeImgFilesPath_Power, id + returnSizeNum(size)
-        )
+        return DataManager.tryGetImgPath(DataUtility.ImgSubPath.orbsPath, id + returnSizeNum(size), DEFAULT + returnSizeNum(size))
     }
 
     private fun returnSizeNum(size: IconSize): String

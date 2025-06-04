@@ -4,7 +4,6 @@ import basemod.ReflectionHacks
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.graphics.Color
 import com.evacipated.cardcrawl.modthespire.lib.SpireEnum
-import com.evacipated.cardcrawl.modthespire.lib.SpireInitializer
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.megacrit.cardcrawl.cards.AbstractCard
@@ -14,7 +13,9 @@ import com.megacrit.cardcrawl.characters.AbstractPlayer.PlayerClass
 import com.megacrit.cardcrawl.core.Settings
 import com.megacrit.cardcrawl.core.Settings.GameLanguage
 import com.megacrit.cardcrawl.helpers.CardLibrary.LibraryType
-import com.megacrit.cardcrawl.localization.*
+import com.megacrit.cardcrawl.localization.LocalizedStrings
+import com.megacrit.cardcrawl.localization.RelicStrings
+import superstitio.DataManager.*
 import superstitio.cards.CardOwnerPlayerManager
 import superstitio.cards.general.SkillCard.gainEnergy.TimeStop.TimeStopPower
 import superstitio.cards.lupa.LupaCard
@@ -42,110 +43,112 @@ import superstitio.powers.lupaOnly.OutsideSemen
 import superstitio.powers.sexualHeatNeedModifier.ChokeChokerPower
 import superstitioapi.DataUtility
 import superstitioapi.DataUtility.GetTypeOfMapByAComplexFunctionBecauseTheMotherfuckerGenericProgrammingWayTheFuckingJavaUse
+import superstitioapi.DataUtility.ImgSubPath
+import superstitioapi.utils.pathBuilder.*
 import java.io.File
 import java.io.IOException
 import java.lang.reflect.Field
 import java.lang.reflect.InvocationTargetException
 import java.nio.charset.StandardCharsets
 import java.nio.file.Files
-import java.util.*
-import java.util.function.*
 import java.util.regex.Pattern
+import kotlin.io.path.Path
 
 
 class DataManager
 {
-    val spttData: SPTT_DATA = SPTT_DATA()
-
-    @SpireInitializer class SPTT_DATA
+    //    @SpireInitializer
+    object SPTT_DATA
     {
         // 在卡牌和遗物描述中的能量图标
-        var SMALL_ORB: String = makeImgFilesPath_Character("small_orb")
+        val SMALL_ORB: String = ImgPath.characterPath.resolveFile("small_orb")
 
         // 在卡牌预览界面的能量图标
-        var BIG_ORB: String = makeImgFilesPath_Character("card_orb")
+        val BIG_ORB: String = ImgPath.characterPath.resolveFile("card_orb")
 
         // 小尺寸的能量图标（战斗中，牌堆预览）
-        var ENERGY_ORB: String = makeImgFilesPath_Character("cost_orb")
+        val ENERGY_ORB: String = ImgPath.characterPath.resolveFile("cost_orb")
+
+        private val BG_512: AbsoluteScopeWithFormat = ImgRootFolder.getImgFolder().createScope("512")
 
         // 攻击牌的背景（小尺寸）
-        var BG_ATTACK_512: String = makeImgFilesPath("bg_attack_512", "512")
+        val BG_ATTACK_512: String = BG_512.resolveFile("bg_attack_512")
 
         // 能力牌的背景（小尺寸）
-        var BG_POWER_512: String = makeImgFilesPath("bg_power_512", "512")
+        val BG_POWER_512: String = BG_512.resolveFile("bg_power_512")
 
         // 技能牌的背景（小尺寸）
-        var BG_SKILL_512: String = makeImgFilesPath("bg_skill_512", "512")
+        val BG_SKILL_512: String = BG_512.resolveFile("bg_skill_512")
+
+        private val BG_1024: AbsoluteScopeWithFormat = ImgRootFolder.getImgFolder().createScope("1024")
 
         // 攻击牌的背景（大尺寸）
-        var BG_ATTACK_1024: String = makeImgFilesPath("bg_attack", "1024")
+        val BG_ATTACK_1024: String = BG_1024.resolveFile("bg_attack")
 
         // 能力牌的背景（大尺寸）
-        var BG_POWER_1024: String = makeImgFilesPath("bg_power", "1024")
+        val BG_POWER_1024: String = BG_1024.resolveFile("bg_power")
 
         // 技能牌的背景（大尺寸）
-        var BG_SKILL_1024: String = makeImgFilesPath("bg_skill", "1024")
+        val BG_SKILL_1024: String = BG_1024.resolveFile("bg_skill")
 
         //选英雄界面的角色图标、选英雄时的背景图片
-        var LUPA_CHARACTER_BUTTON: String = makeImgFilesPath_Character("Character_Button")
+        val LUPA_CHARACTER_BUTTON: String = ImgPath.characterPath.resolveFile("Character_Button")
 
         // 人物选择界面的立绘
-        var LUPA_CHARACTER_PORTRAIT: String = makeImgFilesPath_Character("Character_Portrait")
-        var MASO_CHARACTER_PORTRAIT: String = makeImgFilesPath_Character("Character_Maso_Portrait")
+        val LUPA_CHARACTER_PORTRAIT: String = ImgPath.characterPath.resolveFile("Character_Portrait")
+        val MASO_CHARACTER_PORTRAIT: String = ImgPath.characterPath.resolveFile("Character_Maso_Portrait")
 
-        // 为原版人物枚举、卡牌颜色枚举扩展的枚举
-        object LupaEnums
-        {
-            @SpireEnum lateinit var LUPA_Character: PlayerClass
+        val SEX_COLOR: Color = Color(250.0f / 255.0f, 20.0f / 255.0f, 147.0f / 255.0f, 1.0f)
+        val BG_ATTACK_SEMEN: String = ImgPath.uiPath.resolveFile("bg_attack_semen")
+        val BG_ATTACK_512_SEMEN: String = ImgPath.uiPath.resolveFile("bg_attack_512_semen")
 
-            @SpireEnum(name = "SPTT_LUPA_PINK") lateinit var LUPA_CARD: CardColor
+//        @JvmStatic
+//        fun initialize()
+//        {
+//        }
 
-            @SpireEnum(name = "SPTT_LUPA_PINK") lateinit var LUPA_LIBRARY: LibraryType
-        }
+    }
 
-        object TzeentchEnums
-        {
-            @SpireEnum lateinit var TZEENTCH_Character: PlayerClass
-        }
+    // 为原版人物枚举、卡牌颜色枚举扩展的枚举
+    object LupaEnums
+    {
+        @SpireEnum lateinit var LUPA_Character: PlayerClass
 
-        object MasoEnums
-        {
-            @SpireEnum lateinit var MASO_Character: PlayerClass
+        @SpireEnum(name = "SPTT_LUPA_PINK") lateinit var LUPA_CARD: CardColor
 
-            @SpireEnum(name = "SPTT_MASO_PINK") lateinit var MASO_CARD: CardColor
+        @SpireEnum(name = "SPTT_LUPA_PINK") lateinit var LUPA_LIBRARY: LibraryType
+    }
 
-            @SpireEnum(name = "SPTT_MASO_PINK") lateinit var MASO_LIBRARY: LibraryType
-        }
+    object TzeentchEnums
+    {
+        @SpireEnum lateinit var TZEENTCH_Character: PlayerClass
+    }
 
-        object GeneralEnums
-        {
-            @SpireEnum lateinit var GENERAL_Virtual_Character: PlayerClass
+    object MasoEnums
+    {
+        @SpireEnum lateinit var MASO_Character: PlayerClass
 
-            @SpireEnum(name = "SPTT_GENERAL_PINK") lateinit var GENERAL_CARD: CardColor
+        @SpireEnum(name = "SPTT_MASO_PINK") lateinit var MASO_CARD: CardColor
 
-            @SpireEnum(name = "SPTT_GENERAL_PINK") lateinit var GENERAL_LIBRARY: LibraryType
-        }
+        @SpireEnum(name = "SPTT_MASO_PINK") lateinit var MASO_LIBRARY: LibraryType
+    }
 
-        object TempCardEnums
-        {
-            @SpireEnum lateinit var TempCard_Virtual_Character: PlayerClass
+    object GeneralEnums
+    {
+        @SpireEnum lateinit var GENERAL_Virtual_Character: PlayerClass
 
-            @SpireEnum(name = "SPTT_TEMP_PINK") lateinit var TempCard_CARD: CardColor
+        @SpireEnum(name = "SPTT_GENERAL_PINK") lateinit var GENERAL_CARD: CardColor
 
-            @SpireEnum(name = "SPTT_TEMP_PINK") lateinit var TempCard_LIBRARY: LibraryType
-        }
+        @SpireEnum(name = "SPTT_GENERAL_PINK") lateinit var GENERAL_LIBRARY: LibraryType
+    }
 
-        companion object
-        {
-            val SEX_COLOR: Color = Color(250.0f / 255.0f, 20.0f / 255.0f, 147.0f / 255.0f, 1.0f)
-            val BG_ATTACK_SEMEN: String = makeImgFilesPath_UI("bg_attack_semen")
-            val BG_ATTACK_512_SEMEN: String = makeImgFilesPath_UI("bg_attack_512_semen")
+    object TempCardEnums
+    {
+        @SpireEnum lateinit var TempCard_Virtual_Character: PlayerClass
 
-            @JvmStatic fun initialize()
-            {
-                SPTT_DATA()
-            }
-        }
+        @SpireEnum(name = "SPTT_TEMP_PINK") lateinit var TempCard_CARD: CardColor
+
+        @SpireEnum(name = "SPTT_TEMP_PINK") lateinit var TempCard_LIBRARY: LibraryType
     }
 
     object CanOnlyDamageDamageType
@@ -199,62 +202,58 @@ class DataManager
 
         fun getModID(): String = SuperstitioModSetup.MOD_NAME + "Mod"
 
-        fun makeImgFilesPath(fileName: String, vararg folderPaths: String): String
+
+        private val resourcesFilesPath = AbsoluteScope.create(getModID() + "Resources")
+        private val localizationPath = resourcesFilesPath.createScope("localization").withFormat("json")
+
+        fun makeLocalizationPath(language: GameLanguage?, filename: String): String
         {
-            return getImgFolderPath(makeFolderTotalString(*folderPaths), "$fileName.png")
+            val ret = when (language)
+            {
+                GameLanguage.ZHS -> "zhs"
+                GameLanguage.ZHT -> "zhs"
+                GameLanguage.ENG -> "zhs"
+                else             -> "zhs"
+            }
+            return localizationPath.createScope(ret).resolveFile(filename)
         }
 
-        fun makeFolderTotalString(vararg strings: String): String
+//
+//        fun makeFolderTotalString(vararg strings: String): String
+//        {
+//            if (strings.isEmpty()) return ""
+//            val totalString = StringBuilder()
+//            for (string in strings) totalString.append("/").append(string)
+//            return totalString.toString()
+//        }
+
+        object ImgRootFolder
         {
-            if (strings.isEmpty()) return ""
-            val totalString = StringBuilder()
-            for (string in strings) totalString.append("/").append(string)
-            return totalString.toString()
+            private val pngResourcesFilesPath = resourcesFilesPath.withFormat("png")
+            val imgNSFWFolder = pngResourcesFilesPath.createScope("img")
+            val imgSFWFolder = pngResourcesFilesPath.createScope("imgSFW")
+            // TODO GURO向卡牌还没有成功屏蔽，所以没办法上线（当然，现在本来也只是重构，上线不上线无所谓）
+            fun getImgFolder() = if (SuperstitioConfig.isEnableSFW())
+            {
+                imgSFWFolder
+            }
+            else
+            {
+                imgNSFWFolder
+            }
         }
 
-        fun makeImgFilesPath_Card(fileName: String, vararg subFolder: String): String
+        object ImgPath
         {
-            return makeImgFilesPath(fileName, "cards", makeFolderTotalString(*subFolder))
-        }
-
-        fun makeImgFilesPath_Relic(fileName: String, vararg subFolder: String): String
-        {
-            return makeImgFilesPath(fileName, "relics", makeFolderTotalString(*subFolder))
-        }
-
-        fun makeImgFilesPath_UI(fileName: String, vararg subFolder: String): String
-        {
-            return makeImgFilesPath(fileName, "ui", makeFolderTotalString(*subFolder))
-        }
-
-        fun makeImgFilesPath_Character(fileName: String, vararg subFolder: String): String
-        {
-            return makeImgFilesPath(fileName, "character", makeFolderTotalString(*subFolder))
-        }
-
-        fun makeImgFilesPath_RelicOutline(fileName: String, vararg subFolder: String): String
-        {
-            return makeImgFilesPath(fileName, "relics/outline", makeFolderTotalString(*subFolder))
-        }
-
-        fun makeImgFilesPath_RelicLarge(fileName: String, vararg subFolder: String): String
-        {
-            return makeImgFilesPath(fileName, "relics/large", makeFolderTotalString(*subFolder))
-        }
-
-        fun makeImgFilesPath_Orb(fileName: String, vararg subFolder: String): String
-        {
-            return makeImgFilesPath(fileName, "orbs", makeFolderTotalString(*subFolder))
-        }
-
-        fun makeImgFilesPath_Power(fileName: String, vararg subFolder: String): String
-        {
-            return makeImgFilesPath(fileName, "powers", makeFolderTotalString(*subFolder))
-        }
-
-        fun makeImgFilesPath_Event(fileName: String, vararg subFolder: String): String
-        {
-            return makeImgFilesPath(fileName, "events", makeFolderTotalString(*subFolder))
+            val cardsPath get() = ImgSubPath.cardsPath.pinToAbsolute(ImgRootFolder.getImgFolder())
+            val uiPath get() = ImgSubPath.uiPath.pinToAbsolute(ImgRootFolder.getImgFolder())
+            val characterPath get() = ImgSubPath.characterPath.pinToAbsolute(ImgRootFolder.getImgFolder())
+            val relicsPath get() = ImgSubPath.relicsPath.pinToAbsolute(ImgRootFolder.getImgFolder())
+            val relicsOutlinePath get() = ImgSubPath.relicsOutlinePath.pinToAbsolute(ImgRootFolder.getImgFolder())
+            val relicsLargePath get() = ImgSubPath.relicsLargePath.pinToAbsolute(ImgRootFolder.getImgFolder())
+            val orbsPath get() = ImgSubPath.orbsPath.pinToAbsolute(ImgRootFolder.getImgFolder())
+            val powersPath get() = ImgSubPath.powersPath.pinToAbsolute(ImgRootFolder.getImgFolder())
+            val eventsPath get() = ImgSubPath.eventsPath.pinToAbsolute(ImgRootFolder.getImgFolder())
         }
 
         fun MakeTextID(idText: String): String
@@ -278,39 +277,104 @@ class DataManager
             return getModID() + ":" + idText
         }
 
-        fun makeImgPath(
+        fun tryGetImgPath(
+            relativeScope: RelativeScope,
+            fileNameMaybeDirty: String,
             defaultFileName: String,
-            PathFinder: BiFunction<String, Array<String>, String>,
-            fileName: String,
-            vararg subFolder: String
         ): String
         {
-            val name = if (fileName.contains(MasoCard::class.java.simpleName))
-            {
-                fileName + GURO_VERSION_TIPS
-            }
-            else
-            {
-                fileName
-            }
+            return tryGetImgPath(relativeScope, fileNameMaybeDirty, relativeScope.resolveFile(defaultFileName))
+        }
 
-            return DataUtility.makeImgPath({
+        fun tryGetImgPath(
+            relativeScope: RelativeScope,
+            fileNameMaybeDirty: String,
+            defaultPath: RelativeFilePath,
+        ): String
+        {
+            val imgAbsoluteScope = ImgRootFolder.getImgFolder()
+            return DataUtility.tryGetImgPath(
+                relativeScope.resolveFile(DataUtility.getIdOnly(fileNameMaybeDirty)), defaultPath, imgAbsoluteScope,
+            )
+            {
+                    relativeFilePath: RelativeFilePath,
+                    defaultPath: RelativeFilePath,
+                    absoluteScope: AbsoluteScopeWithFormat,
+                ->
+                if (!isRunningInCoderComputer)
+                    return@tryGetImgPath
+
                 try
                 {
-                    if (isRunningInCoderComputer) makeNeedDrawPicture(
-                        defaultFileName,
-                        PathFinder,
-                        DataUtility.getIdOnly(name),
-                        DataUtility.makeDefaultPath(defaultFileName, PathFinder),
-                        *subFolder
-                    )
+                    makeNeedDrawPicture(relativeFilePath, defaultPath, absoluteScope)
                 }
                 catch (e: IOException)
                 {
                     Logger.error(e)
                 }
-            }, defaultFileName, PathFinder, name, *subFolder)
+            }
         }
+
+        //生成所有的需要绘制的图片，方便检查
+        @Throws(IOException::class)
+        private fun makeNeedDrawPicture(
+            relativeFilePath: RelativeFilePath,
+            defaultFilePath: RelativeFilePath,
+            absoluteScope: AbsoluteScopeWithFormat,
+        )
+        {
+            val relativePath = Path(relativeFilePath.pinToAbsolute(absoluteScope)).normalize()
+            val defaultPath = Path(defaultFilePath.pinToAbsolute(absoluteScope)).normalize()
+            val needDrawPath = Path("needDraw").resolve(relativePath).normalize()
+
+            val fileName = relativePath.fileName.toString()
+            val defaultName = defaultPath.fileName.toString()
+
+            val filePathString = relativePath.parent.toString()
+            val defaultPathString = defaultPath.parent.toString()
+
+
+            if (fileName.contains("32"))
+                return
+            if (fileName.contains("84") && noNeedDrawPower84(fileName))
+                return
+            if (noNeedImgName(fileName))
+                return
+
+            if (defaultPathString.contains("outline"))
+                return
+            if (defaultPathString.contains("large"))
+                return
+            if (filePathString.contains("orb"))
+                return
+
+            val isCard = filePathString.contains("card")
+            val defaultFileHandle = Gdx.files.internal(
+                if (isCard)
+                    relativeFilePath.withNewFileName(fileName + "_p").pinToAbsolute(absoluteScope)
+                else
+                    defaultFilePath.pinToAbsolute(absoluteScope)
+            )
+
+            val needDrawFilePath = relativeFilePath.withNewFileName(
+                if (isCard)
+                    fileName + "_p"
+                else
+                    fileName
+            ).pinToAbsolute(absoluteScope.createScope("needDraw"))
+
+            val defaultFileCopyTo = File(needDrawFilePath)
+            val pattern = Pattern.compile("^(.+/)[^/]+$")
+            val matcher = pattern.matcher(needDrawFilePath)
+            val totalFolderPath = if (matcher.find())
+                matcher.group(1)
+            else
+                needDrawFilePath
+            File(totalFolderPath).mkdirs()
+            if (!defaultFileCopyTo.exists())
+                Files.copy(defaultFileHandle.read(), defaultFileCopyTo.toPath())
+        }
+
 
         fun <T> makeJsonStringFromFile(fileName: String, objectClass: Class<T>?): T
         {
@@ -324,7 +388,7 @@ class DataManager
         {
 
             fun replaceOneField(
-                field: Field, obj: Any, wordReplace: WordReplace
+                field: Field, obj: Any, wordReplace: WordReplace,
             )
             {
                 val fieldObj = field[obj]
@@ -366,7 +430,7 @@ class DataManager
         }
 
         fun <T : HasDifferentVersionStringSet<*>> loadCustomStringsFile(
-            fileName: String, target: MutableMap<String, T>, tSetClass: Class<T>
+            fileName: String, target: MutableMap<String, T>, tSetClass: Class<T>,
         )
         {
             superstitioapi.Logger.debug("loadJsonStrings: " + tSetClass.typeName)
@@ -386,32 +450,26 @@ class DataManager
             target.putAll(map)
         }
 
-        //生成所有的SFW本地化
-        fun <T> makeSFWLocalization(data: Map<String, T>, fileName: String)
-        {
-            val gson = GsonBuilder().setPrettyPrinting().create()
-            val jsonString = gson.toJson(data)
-            Gdx.files.local(makeLocalizationPath(Settings.language, fileName + "_sfw"))
-                .writeString(jsonString, false, "UTF-8")
-        }
-
-        //生成所有的SFW本地化
-        //    public static <T> void makeSFWLocalization(Map<String, RelicStrings> data, String fileName, Class<T> tClass) {
-        //        Json json = new Json();
-        //        String jsonString = json.toJson(data);
-        //        Gdx.files.local(makeLocalizationPath(Settings.language, fileName + "_sfw")).writeString(jsonString, false);
-        //    }
-        //生成所有的SFW本地化
-        fun <T> makeSFWLocalization(data: List<T>, fileName: String)
-        {
-            val gson = GsonBuilder().setPrettyPrinting().create()
-            val jsonString = gson.toJson(data)
-            Gdx.files.local(makeLocalizationPath(Settings.language, fileName + "_sfw"))
-                .writeString(jsonString, false, "UTF-8")
-        }
-
         fun makeAllSFWLocalizationForCoder()
         {
+            //生成所有的SFW本地化
+            fun <T> makeSFWLocalization(data: Map<String, T>, fileName: String)
+            {
+                val gson = GsonBuilder().setPrettyPrinting().create()
+                val jsonString = gson.toJson(data)
+                Gdx.files.local(makeLocalizationPath(Settings.language, fileName + "_sfw"))
+                    .writeString(jsonString, false, "UTF-8")
+            }
+
+            //生成所有的SFW本地化
+            fun <T> makeSFWLocalization(data: List<T>, fileName: String)
+            {
+                val gson = GsonBuilder().setPrettyPrinting().create()
+                val jsonString = gson.toJson(data)
+                Gdx.files.local(makeLocalizationPath(Settings.language, fileName + "_sfw"))
+                    .writeString(jsonString, false, "UTF-8")
+            }
+
             if (!isRunningInCoderComputer) return
             if (!SuperstitioConfig.isEnableSFW()) return
             makeSFWLocalization(leaveOnlySFWMap(cards, CardStringsWillMakeFlavorSet::class.java), "cards")
@@ -483,95 +541,32 @@ class DataManager
             return copyData
         }
 
-        fun makeLocalizationPath(language: GameLanguage?, filename: String): String
-        {
-            var ret = "localization/"
-            ret = when (language)
-            {
-                GameLanguage.ZHS -> ret + "zhs/"
-                else             -> ret + "zhs/"
-            }
-            return "$resourcesFilesPath$ret$filename.json"
-        }
-
         private val isRunningInCoderComputer: Boolean
             get() = System.getenv()[COMPUTERNAME] == CODER_COMPUTER_NAME
 
-        private val resourcesFilesPath: String
-            get() = getModID() + "Resources/"
 
-        private fun getImgFolderPath(path: String, file: String): String
-        {
-            var allLevelPath = resourcesFilesPath + "img" + path + "/" + file
-            var sfwLevelPath = resourcesFilesPath + "imgSFW" + path + "/" + file
-
-            if (path.contains(GURO_VERSION_TIPS) || file.contains(GURO_VERSION_TIPS))
-            {
-                sfwLevelPath = sfwLevelPath.replace(GURO_VERSION_TIPS.toRegex(), "")
-                allLevelPath = allLevelPath.replace(GURO_VERSION_TIPS.toRegex(), "")
-                if (!SuperstitioConfig.isEnableGuroCharacter())
-                {
-                    return sfwLevelPath
-                }
-            }
-
-
-            return if (!SuperstitioConfig.isEnableSFW())
-            {
-                allLevelPath
-            }
-            else sfwLevelPath
-        }
-
-        //生成所有的需要绘制的图片，方便检查
-        @Throws(IOException::class)
-        private fun makeNeedDrawPicture(
-            defaultFileName: String,
-            PathFinder: BiFunction<String, Array<String>, String>,
-            fileName: String,
-            defaultPath: String,
-            vararg subFolder: String
-        )
-        {
-            val needDrawFileName: MutableList<String> = ArrayList()
-            needDrawFileName.add("needDraw")
-            needDrawFileName.addAll(subFolder)
-            if (fileName.contains("32"))
-                return
-            if (fileName.contains("84") && noNeedDrawPower84(fileName))
-                return
-            if (noNeedImgName(fileName))
-                return
-
-            if (defaultPath.contains("outline"))
-                return
-            if (defaultPath.contains("large"))
-                return
-
-            val PathWithSubFolder = PathFinder.apply("", subFolder.toList().toTypedArray())
-            val defaultFileHandle = if (PathWithSubFolder.contains("card"))
-                Gdx.files.internal(PathFinder.apply(defaultFileName + "_p", arrayOf("")))
-            else if (PathWithSubFolder.contains("orb"))
-                return
-            else
-                Gdx.files.internal(defaultPath)
-
-            val needDrawFilePath = if (PathWithSubFolder.contains("card"))
-                PathFinder.apply(fileName + "_p", needDrawFileName.toTypedArray())
-            else
-                PathFinder.apply(fileName, needDrawFileName.toTypedArray())
-
-            val defaultFileCopyTo = File(needDrawFilePath)
-            val pattern = Pattern.compile("^(.+/)[^/]+$")
-            val matcher = pattern.matcher(needDrawFilePath)
-            val totalFolderPath = if (matcher.find())
-                matcher.group(1)
-            else
-                needDrawFilePath
-            File(totalFolderPath).mkdirs()
-            if (!defaultFileCopyTo.exists())
-                Files.copy(defaultFileHandle.read(), defaultFileCopyTo.toPath())
-        }
+//        private fun getImgFolderPath(path: String, file: String): String
+//        {
+//            var allLevelPath = resourcesFilesPath.createScope("img") + "img" + path + "/" + file
+//            var sfwLevelPath = resourcesFilesPath.createScope("imgSFW") + "imgSFW" + path + "/" + file
+//
+//            if (path.contains(GURO_VERSION_TIPS) || file.contains(GURO_VERSION_TIPS))
+//            {
+//                sfwLevelPath = sfwLevelPath.replace(GURO_VERSION_TIPS.toRegex(), "")
+//                allLevelPath = allLevelPath.replace(GURO_VERSION_TIPS.toRegex(), "")
+//                if (!SuperstitioConfig.isEnableGuroCharacter())
+//                {
+//                    return sfwLevelPath
+//                }
+//            }
+//
+//
+//            return if (!SuperstitioConfig.isEnableSFW())
+//            {
+//                allLevelPath
+//            }
+//            else sfwLevelPath
+//        }
 
         private fun noNeedImgName(fileName: String): Boolean
         {
@@ -624,5 +619,16 @@ class DataManager
 
             return powerIds.any { DataUtility.getIdOnly(it) == checkName }
         }
+    }
+}
+
+fun SPTT_Color.ToColorEnums(): CardColor
+{
+    return when (this)
+    {
+        SPTT_Color.TempColor    -> TempCardEnums.TempCard_CARD
+        SPTT_Color.GeneralColor -> GeneralEnums.GENERAL_CARD
+        SPTT_Color.LupaColor    -> LupaEnums.LUPA_CARD
+        SPTT_Color.MasoColor    -> MasoEnums.MASO_CARD
     }
 }

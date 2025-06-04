@@ -8,7 +8,7 @@ import com.megacrit.cardcrawl.monsters.AbstractMonster
 import com.megacrit.cardcrawl.powers.StrengthPower
 import superstitio.DataManager
 import superstitio.cards.general.FuckJob_Card
-import superstitio.cards.general.GeneralCard
+import superstitio.cards.NormalCard
 import superstitioapi.SuperstitioApiSetup
 import superstitioapi.cards.patch.GoSomewhereElseAfterUse
 import superstitioapi.hangUpCard.CardOrb_CardTrigger
@@ -16,7 +16,7 @@ import superstitioapi.hangUpCard.CardOrb_EachCardTrigger
 import superstitioapi.utils.CostSmart
 import superstitioapi.utils.setDescriptionArgs
 
-class Job_Hand : GeneralCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET), FuckJob_Card, GoSomewhereElseAfterUse
+class Job_Hand : NormalCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET), FuckJob_Card, GoSomewhereElseAfterUse
 {
     init
     {

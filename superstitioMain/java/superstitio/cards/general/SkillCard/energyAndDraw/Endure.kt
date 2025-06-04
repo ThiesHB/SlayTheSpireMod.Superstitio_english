@@ -5,10 +5,10 @@ import com.megacrit.cardcrawl.dungeons.AbstractDungeon
 import com.megacrit.cardcrawl.monsters.AbstractMonster
 import superstitio.DataManager
 import superstitio.cardModifier.modifiers.block.SexBlock
-import superstitio.cards.general.GeneralCard
+import superstitio.cards.NormalCard
 import superstitio.powers.DelaySexualHeat
 
-class Endure : GeneralCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET)
+class Endure : NormalCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET)
 {
     init
     {

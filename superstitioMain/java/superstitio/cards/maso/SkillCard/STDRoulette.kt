@@ -6,13 +6,14 @@ import com.megacrit.cardcrawl.dungeons.AbstractDungeon
 import com.megacrit.cardcrawl.monsters.AbstractMonster
 import superstitio.DataManager
 import superstitio.DataManager.CanOnlyDamageDamageType
+import superstitio.cards.IsMasoCard
 import superstitio.cards.SuperstitioCard
 import superstitio.cards.maso.MasoCard
 import superstitio.delayHpLose.DelayRemoveDelayHpLoseBlock
 import superstitio.powers.EasyBuildAbstractPowerForPowerCard
 import superstitio.powers.SexualDamage
 import superstitioapi.utils.*
-
+@IsMasoCard
 class STDRoulette : MasoCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET)
 {
     init

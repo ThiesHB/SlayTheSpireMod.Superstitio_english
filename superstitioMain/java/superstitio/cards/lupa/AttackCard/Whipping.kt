@@ -5,11 +5,12 @@ import com.megacrit.cardcrawl.characters.AbstractPlayer
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon
 import com.megacrit.cardcrawl.monsters.AbstractMonster
 import superstitio.DataManager
+import superstitio.cards.IsLupaCard
 import superstitio.cards.lupa.LupaCard
 import superstitio.powers.SexualHeat
 import superstitioapi.utils.setDescriptionArgs
 import java.util.*
-
+@IsLupaCard
 class Whipping : LupaCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET)
 {
     init

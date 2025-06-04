@@ -3,7 +3,7 @@ package superstitio.cards.general.BaseCard
 import com.evacipated.cardcrawl.mod.stslib.blockmods.AbstractBlockModifier
 import com.megacrit.cardcrawl.characters.AbstractPlayer
 import com.megacrit.cardcrawl.monsters.AbstractMonster
-import superstitio.DataManager.SPTT_DATA.GeneralEnums
+import superstitio.DataManager.GeneralEnums
 import superstitio.cards.SuperstitioCard
 
 abstract class Invite(id: String) :

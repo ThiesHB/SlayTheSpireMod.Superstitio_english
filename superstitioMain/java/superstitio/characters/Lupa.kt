@@ -6,7 +6,7 @@ import com.megacrit.cardcrawl.characters.AbstractPlayer
 import com.megacrit.cardcrawl.core.EnergyManager
 import com.megacrit.cardcrawl.screens.CharSelectInfo
 import superstitio.DataManager
-import superstitio.DataManager.SPTT_DATA.LupaEnums
+import superstitio.DataManager.LupaEnums
 import superstitio.Logger
 import superstitio.cards.CardOwnerPlayerManager
 import superstitio.cards.general.BaseCard.Kiss

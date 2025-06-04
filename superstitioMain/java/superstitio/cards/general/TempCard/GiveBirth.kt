@@ -8,12 +8,14 @@ import com.megacrit.cardcrawl.dungeons.AbstractDungeon
 import com.megacrit.cardcrawl.monsters.AbstractMonster
 import com.megacrit.cardcrawl.powers.AbstractPower
 import superstitio.DataManager
+import superstitio.SPTT_Color
+import superstitio.cards.SetCardColor
 import superstitio.cards.general.AbstractTempCard
 import superstitioapi.cards.addExhaustMod
 import superstitioapi.hangUpCard.CardOrb
 import superstitioapi.hangUpCard.Card_TriggerHangCardManually
 import superstitioapi.hangUpCard.HangUpCardGroup
-
+@SetCardColor(SPTT_Color.TempColor)
 class GiveBirth() : AbstractTempCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET), Card_TriggerHangCardManually
 {
     var sealPower: MutableList<AbstractPower> = ArrayList()

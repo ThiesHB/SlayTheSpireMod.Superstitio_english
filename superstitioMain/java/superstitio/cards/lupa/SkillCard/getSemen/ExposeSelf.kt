@@ -8,8 +8,8 @@ import com.megacrit.cardcrawl.core.AbstractCreature
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon
 import com.megacrit.cardcrawl.monsters.AbstractMonster
 import superstitio.DataManager
+import superstitio.cards.IsLupaCard
 import superstitio.cards.lupa.LupaCard
-import superstitio.cards.lupa.SkillCard.getSemen.ExposeSelf.ExposeSelfPower
 import superstitio.delayHpLose.RemoveDelayHpLoseBlock
 import superstitio.powers.AbstractSuperstitioPower
 import superstitio.powers.lupaOnly.OutsideSemen
@@ -18,6 +18,7 @@ import superstitioapi.utils.addToBot_AutoRemoveOne
 /**
  * 抵消敌人的攻击，转换为精液
  */
+@IsLupaCard
 class ExposeSelf : LupaCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET)
 {
     init

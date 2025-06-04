@@ -12,6 +12,7 @@ import com.megacrit.cardcrawl.dungeons.AbstractDungeon
 import com.megacrit.cardcrawl.monsters.AbstractMonster
 import com.megacrit.cardcrawl.powers.*
 import superstitio.DataManager
+import superstitio.cards.IsMasoCard
 import superstitio.cards.general.TempCard.GiveBirth
 import superstitio.cards.general.TempCard.SelfReference
 import superstitio.cards.maso.MasoCard
@@ -24,6 +25,7 @@ import superstitioapi.utils.CardUtility
 import superstitioapi.utils.CostSmart
 
 //TODO 增加一个按照怪物体型获得格挡的效果
+@IsMasoCard
 class UnBirth : MasoCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET)
 {
     init

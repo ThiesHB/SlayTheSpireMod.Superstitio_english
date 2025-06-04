@@ -6,7 +6,7 @@ import com.megacrit.cardcrawl.dungeons.AbstractDungeon
 import com.megacrit.cardcrawl.monsters.AbstractMonster
 import com.megacrit.cardcrawl.powers.VulnerablePower
 import superstitio.DataManager
-import superstitio.cards.CardOwnerPlayerManager.IsNotLupaCard
+import superstitio.cards.IsMasoCard
 import superstitio.cards.general.FuckJob_Card
 import superstitio.cards.maso.MasoCard
 import superstitio.powers.SexualHeat
@@ -15,9 +15,8 @@ import superstitioapi.SuperstitioApiSetup
 import superstitioapi.actions.DamageAllEnemiesAction
 import superstitioapi.cards.DamageActionMaker
 import superstitioapi.cards.addRetainMod
-
-class Fuck_Navel : MasoCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET), FuckJob_Card, OnOrgasm_onOrgasm,
-    IsNotLupaCard
+@IsMasoCard
+class Fuck_Navel : MasoCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET), FuckJob_Card, OnOrgasm_onOrgasm
 {
     //    private int orgasmTimes;
     init

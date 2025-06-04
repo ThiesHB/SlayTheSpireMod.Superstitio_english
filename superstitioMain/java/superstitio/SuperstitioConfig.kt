@@ -10,6 +10,7 @@ import com.megacrit.cardcrawl.core.CardCrawlGame
 import com.megacrit.cardcrawl.core.Settings
 import com.megacrit.cardcrawl.helpers.FontHelper
 import com.megacrit.cardcrawl.helpers.ImageMaster
+import superstitio.DataManager.Companion.ImgPath
 import java.util.*
 
 object SuperstitioConfig
@@ -63,7 +64,7 @@ object SuperstitioConfig
     fun setUpModOptions()
     {
         Logger.run("Loading badge image and mod options")
-        val badgeTexture = ImageMaster.loadImage(DataManager.makeImgFilesPath_UI("ModIcon"))
+        val badgeTexture = ImageMaster.loadImage(ImgPath.uiPath.resolveFile("ModIcon"))
         setUpPanel()
 
         BaseMod.registerModBadge(

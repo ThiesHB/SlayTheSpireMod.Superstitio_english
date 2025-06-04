@@ -5,11 +5,14 @@ import com.evacipated.cardcrawl.mod.stslib.fields.cards.AbstractCard.AutoplayFie
 import com.megacrit.cardcrawl.characters.AbstractPlayer
 import com.megacrit.cardcrawl.monsters.AbstractMonster
 import superstitio.DataManager
+import superstitio.SPTT_Color
+import superstitio.cards.SetCardColor
 import superstitio.cards.general.AbstractTempCard
 import superstitio.delayHpLose.RemoveDelayHpLoseBlock
 import superstitioapi.utils.ActionUtility
 
 @AutoAdd.Ignore
+@SetCardColor(SPTT_Color.TempColor)
 class SelfReference : AbstractTempCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET)
 {
     init

@@ -10,6 +10,7 @@ import com.megacrit.cardcrawl.dungeons.AbstractDungeon
 import com.megacrit.cardcrawl.monsters.AbstractMonster
 import superstitio.DataManager
 import superstitio.cardModifier.modifiers.card.BodyModificationTag
+import superstitio.cards.IsMasoCard
 import superstitio.cards.SuperstitioCard
 import superstitio.cards.general.AbstractTempCard
 import superstitio.cards.general.FuckJob_Card
@@ -23,7 +24,7 @@ import superstitioapi.utils.CardUtility
 import superstitioapi.utils.setDescriptionArgs
 import java.util.*
 import java.util.stream.Collectors
-
+@IsMasoCard
 class BodyModification_CutOff : MasoCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET)
 {
     init

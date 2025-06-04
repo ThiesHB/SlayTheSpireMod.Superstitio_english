@@ -28,8 +28,9 @@ import com.megacrit.cardcrawl.monsters.AbstractMonster
 import com.megacrit.cardcrawl.rooms.RestRoom
 import com.megacrit.cardcrawl.unlock.UnlockTracker
 import superstitio.DataManager
+import superstitio.DataManager.Companion.ImgPath
+import superstitio.DataManager.GeneralEnums
 import superstitio.DataManager.SPTT_DATA
-import superstitio.DataManager.SPTT_DATA.GeneralEnums
 import superstitio.Logger
 import superstitio.SuperstitioConfig
 import superstitio.cards.general.BaseCard.Kiss
@@ -227,9 +228,9 @@ abstract class BaseCharacter(ID: String, name: String, playerClass: PlayerClass)
     {
         val panels = ArrayList<CutscenePanel>()
         // 有两个参数的，第二个参数表示出现图片时播放的音效
-        panels.add(CutscenePanel(DataManager.makeImgFilesPath_Character("Victory1"), "ATTACK_MAGIC_FAST_1"))
-        panels.add(CutscenePanel(DataManager.makeImgFilesPath_Character("Victory2")))
-        panels.add(CutscenePanel(DataManager.makeImgFilesPath_Character("Victory3")))
+        panels.add(CutscenePanel(ImgPath.characterPath.resolveFile("Victory1"), "ATTACK_MAGIC_FAST_1"))
+        panels.add(CutscenePanel(ImgPath.characterPath.resolveFile("Victory2")))
+        panels.add(CutscenePanel(ImgPath.characterPath.resolveFile("Victory3")))
         return panels
     }
 
@@ -302,48 +303,48 @@ abstract class BaseCharacter(ID: String, name: String, playerClass: PlayerClass)
     companion object
     {
         // 人物立绘
-        val LUPA_CHARACTER: String = DataManager.makeImgFilesPath_Character("character_Lupa")
-        val MASO_CHARACTER: String = DataManager.makeImgFilesPath_Character("character_Maso")
+        val LUPA_CHARACTER: String = ImgPath.characterPath.resolveFile("character_Lupa")
+        val MASO_CHARACTER: String = ImgPath.characterPath.resolveFile("character_Maso")
 
         // 火堆的人物立绘（行动前）
-        val LUPA_CHARACTER_SHOULDER_1: String = DataManager.makeImgFilesPath_Character("shoulder1_Lupa")
-        val MASO_CHARACTER_SHOULDER_1: String = DataManager.makeImgFilesPath_Character("shoulder1_Maso")
+        val LUPA_CHARACTER_SHOULDER_1: String = ImgPath.characterPath.resolveFile("shoulder1_Lupa")
+        val MASO_CHARACTER_SHOULDER_1: String = ImgPath.characterPath.resolveFile("shoulder1_Maso")
 
         // 火堆的人物立绘（行动后）
-        val LUPA_CHARACTER_SHOULDER_2: String = DataManager.makeImgFilesPath_Character("shoulder2_Lupa")
-        val MASO_CHARACTER_SHOULDER_2: String = DataManager.makeImgFilesPath_Character("shoulder2_Maso")
+        val LUPA_CHARACTER_SHOULDER_2: String = ImgPath.characterPath.resolveFile("shoulder2_Lupa")
+        val MASO_CHARACTER_SHOULDER_2: String =ImgPath.characterPath.resolveFile("shoulder2_Maso")
 
         // 人物死亡图像
-        val BlondHairBlueEyes_CORPSE_IMAGE: String = DataManager.makeImgFilesPath_Character("corpse")
+        val BlondHairBlueEyes_CORPSE_IMAGE: String = ImgPath.characterPath.resolveFile("corpse")
 
 
         val GuroText: UIStrings = CardCrawlGame.languagePack.getUIString(DataManager.MakeTextID("GuroText"))
         val GuroTip: PowerTip = PowerTip(GuroText.TEXT[0], GuroText.TEXT[1])
 
         private const val EnergyBall_Path = "EnergyBall_Lupa/"
-        private val EnergyBall_VFX_Path: String = DataManager.makeImgFilesPath_UI(EnergyBall_Path + "vfx")
+        private val EnergyBall_VFX_Path: String = ImgPath.uiPath.resolveFile(EnergyBall_Path + "vfx")
 
         // 战斗界面左下角能量图标的每个图层
         private val EnergyBall_TEXTURES = arrayOf(
-            DataManager.makeImgFilesPath_UI(EnergyBall_Path + "layer5"),
-            DataManager.makeImgFilesPath_UI(EnergyBall_Path + "layer4"),
-            DataManager.makeImgFilesPath_UI(
+            ImgPath.uiPath.resolveFile(EnergyBall_Path + "layer5"),
+            ImgPath.uiPath.resolveFile(EnergyBall_Path + "layer4"),
+            ImgPath.uiPath.resolveFile(
                 EnergyBall_Path + "layer3"
             ),
-            DataManager.makeImgFilesPath_UI(EnergyBall_Path + "layer2"),
-            DataManager.makeImgFilesPath_UI(
+            ImgPath.uiPath.resolveFile(EnergyBall_Path + "layer2"),
+            ImgPath.uiPath.resolveFile(
                 EnergyBall_Path + "layer1"
             ),
-            DataManager.makeImgFilesPath_UI(EnergyBall_Path + "layer6"),
-            DataManager.makeImgFilesPath_UI(
+            ImgPath.uiPath.resolveFile(EnergyBall_Path + "layer6"),
+            ImgPath.uiPath.resolveFile(
                 EnergyBall_Path + "layer5d"
             ),
-            DataManager.makeImgFilesPath_UI(EnergyBall_Path + "layer4d"),
-            DataManager.makeImgFilesPath_UI(
+            ImgPath.uiPath.resolveFile(EnergyBall_Path + "layer4d"),
+            ImgPath.uiPath.resolveFile(
                 EnergyBall_Path + "layer3d"
             ),
-            DataManager.makeImgFilesPath_UI(EnergyBall_Path + "layer2d"),
-            DataManager.makeImgFilesPath_UI(
+            ImgPath.uiPath.resolveFile(EnergyBall_Path + "layer2d"),
+            ImgPath.uiPath.resolveFile(
                 EnergyBall_Path + "layer1d"
             )
         )

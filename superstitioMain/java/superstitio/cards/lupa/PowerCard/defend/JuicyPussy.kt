@@ -5,6 +5,7 @@ import com.megacrit.cardcrawl.characters.AbstractPlayer
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon
 import com.megacrit.cardcrawl.monsters.AbstractMonster
 import superstitio.DataManager
+import superstitio.cards.IsLupaCard
 import superstitio.cards.SuperstitioCard
 import superstitio.cards.lupa.LupaCard
 import superstitio.delayHpLose.DelayHpLosePower
@@ -12,7 +13,7 @@ import superstitio.powers.EasyBuildAbstractPowerForPowerCard
 import superstitio.powers.SexualHeat
 import superstitio.powers.patchAndInterface.interfaces.orgasm.OnOrgasm_onSquirt
 import superstitioapi.utils.setDescriptionArgs
-
+@IsLupaCard
 class JuicyPussy : LupaCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET)
 {
     init

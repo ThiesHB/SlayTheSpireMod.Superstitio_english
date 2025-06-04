@@ -6,12 +6,12 @@ import com.megacrit.cardcrawl.dungeons.AbstractDungeon
 import com.megacrit.cardcrawl.monsters.AbstractMonster
 import superstitio.DataManager
 import superstitio.cards.SuperstitioCard
-import superstitio.cards.general.GeneralCard
+import superstitio.cards.NormalCard
 import superstitio.powers.EasyBuildAbstractPowerForPowerCard
 import superstitioapi.actions.ChoseCardFromHandCardSelectScreen
 import superstitioapi.utils.setDescriptionArgs
 
-class HideInPussy : GeneralCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET)
+class HideInPussy : NormalCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET)
 {
     init
     {

@@ -5,13 +5,13 @@ import com.megacrit.cardcrawl.dungeons.AbstractDungeon
 import com.megacrit.cardcrawl.monsters.AbstractMonster
 import superstitio.DataManager
 import superstitio.cards.general.FuckJob_Card
-import superstitio.cards.general.GeneralCard
+import superstitio.cards.NormalCard
 import superstitio.powers.SexualDamage
 import superstitioapi.SuperstitioApiSetup
 import superstitioapi.actions.AutoDoneInstantAction
 
 
-class Fuck_Anal : GeneralCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET), FuckJob_Card
+class Fuck_Anal : NormalCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET), FuckJob_Card
 {
     init
     {

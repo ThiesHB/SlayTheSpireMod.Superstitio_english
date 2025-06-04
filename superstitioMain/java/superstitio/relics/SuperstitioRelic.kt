@@ -5,9 +5,9 @@ import com.megacrit.cardcrawl.dungeons.AbstractDungeon
 import com.megacrit.cardcrawl.helpers.ImageMaster
 import superstitio.DataManager
 import superstitio.characters.BaseCharacter
+import superstitioapi.DataUtility
 import superstitioapi.utils.UpdateDescriptionAdvanced
 import superstitioapi.utils.getFormattedDescription
-import java.util.function.BiFunction
 
 abstract class SuperstitioRelic(id: String, relicTier: RelicTier?, landingSound: LandingSound?) : CustomRelic(
     id, ImageMaster.loadImage(
@@ -60,29 +60,17 @@ abstract class SuperstitioRelic(id: String, relicTier: RelicTier?, landingSound:
         const val DEFAULT_RELIC: String = "default_relic"
         private fun makeImgPath(id: String): String
         {
-            return DataManager.makeImgPath(
-                DEFAULT_RELIC,
-                BiFunction<String, Array<String>, String>(DataManager::makeImgFilesPath_Relic),
-                id
-            )
+            return DataManager.tryGetImgPath(DataUtility.ImgSubPath.relicsPath, id, DEFAULT_RELIC)
         }
 
         private fun makeImgPathOutLine(id: String): String
         {
-            return DataManager.makeImgPath(
-                DEFAULT_RELIC,
-                BiFunction<String, Array<String>, String>(DataManager::makeImgFilesPath_RelicOutline),
-                id
-            )
+            return DataManager.tryGetImgPath(DataUtility.ImgSubPath.relicsOutlinePath, id, DEFAULT_RELIC)
         }
 
         private fun makeImgPathLarge(id: String): String
         {
-            return DataManager.makeImgPath(
-                DEFAULT_RELIC,
-                BiFunction<String, Array<String>, String>(DataManager::makeImgFilesPath_RelicLarge),
-                id
-            )
+            return DataManager.tryGetImgPath(DataUtility.ImgSubPath.relicsLargePath, id, DEFAULT_RELIC)
         }
     }
 }

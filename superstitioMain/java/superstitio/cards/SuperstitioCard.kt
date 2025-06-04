@@ -43,30 +43,30 @@ import superstitioapi.utils.getFormattedDescription
 import java.util.*
 import java.util.stream.Collectors
 
-abstract class SuperstitioCard(
-    id: String,
-    cardType: CardType,
-    cost: Int,
-    cardRarity: CardRarity,
-    cardTarget: CardTarget,
-    cardColor: CardColor,
-    imgSubFolder: String
-) : CustomCard(
-    id, getCardStringsWithSFWAndFlavor(id).getNAME(), CardOwnerPlayerManager.getImgPath(imgSubFolder, id), cost,
-    getCardStringsWithSFWAndFlavor(id).getDESCRIPTION(), cardType, cardColor, cardRarity, cardTarget
-), UpdateDescriptionAdvanced
+abstract class SuperstitioCard : CustomCard, UpdateDescriptionAdvanced
 {
-
-    //调用父类的构造方法，传参为super(卡牌ID，卡牌名称，图片地址，能量花费，卡牌描述，卡牌类型，卡牌颜色，卡牌稀有度，卡牌目标)
-    var cardStrings: CardStringsWillMakeFlavorSet = getCardStringsWithSFWAndFlavor(id)
-    private var damageAutoUpgrade = 0
-    private var blockAutoUpgrade = 0
-    private var magicAutoUpgrade = 0
-
-    override var descriptionArgs: Array<out Any>? = null
-
-    init
+    @JvmOverloads
+    constructor(
+        id: String,
+        cardType: CardType,
+        cost: Int,
+        cardRarity: CardRarity,
+        cardTarget: CardTarget,
+        cardColor: CardColor = DataManager.GeneralEnums.GENERAL_CARD,
+        imgSubFolder: String
+    ) : super(
+        id,
+        getCardStringsWithSFWAndFlavor(id).getNAME(),
+        CardOwnerPlayerManager.getImgPath(imgSubFolder, id),
+        cost,
+        getCardStringsWithSFWAndFlavor(id).getDESCRIPTION(),
+        cardType,
+        cardColor,
+        cardRarity,
+        cardTarget
+    )
     {
+        this.cardStrings = getCardStringsWithSFWAndFlavor(id)
         Logger.debug("loadCard$id")
         val flavor = cardStrings.getFLAVOR()
         flavor.let { string: String? -> FlavorText.AbstractCardFlavorFields.flavor[this] = string }
@@ -74,7 +74,17 @@ abstract class SuperstitioCard(
         FlavorText.AbstractCardFlavorFields.flavorBoxType[this] = FlavorText.boxType.TRADITIONAL
         updateRawDescription()
         initializeDescription()
+        this.addedToolTips = ArrayList()
+        this.addedToolTipsTop = ArrayList()
     }
+
+    //调用父类的构造方法，传参为super(卡牌ID，卡牌名称，图片地址，能量花费，卡牌描述，卡牌类型，卡牌颜色，卡牌稀有度，卡牌目标)
+    var cardStrings: CardStringsWillMakeFlavorSet
+    private var damageAutoUpgrade = 0
+    private var blockAutoUpgrade = 0
+    private var magicAutoUpgrade = 0
+
+    override var descriptionArgs: Array<out Any>? = null
 
     override fun initializeDescription()
     {
@@ -420,7 +430,7 @@ abstract class SuperstitioCard(
         this.drawScale = temp
     }
 
-    val addedToolTips: ArrayList<TooltipInfo> = ArrayList()
+    val addedToolTips: ArrayList<TooltipInfo>
 
     override fun getCustomTooltips(): ArrayList<TooltipInfo>
     {
@@ -433,7 +443,7 @@ abstract class SuperstitioCard(
         return list
     }
 
-    val addedToolTipsTop: ArrayList<TooltipInfo> = ArrayList()
+    val addedToolTipsTop: ArrayList<TooltipInfo>
     override fun getCustomTooltipsTop(): ArrayList<TooltipInfo>
     {
         val list: ArrayList<TooltipInfo> = ArrayList()

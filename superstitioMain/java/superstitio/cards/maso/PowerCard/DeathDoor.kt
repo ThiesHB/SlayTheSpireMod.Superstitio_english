@@ -8,6 +8,7 @@ import com.megacrit.cardcrawl.characters.AbstractPlayer
 import com.megacrit.cardcrawl.core.AbstractCreature
 import com.megacrit.cardcrawl.monsters.AbstractMonster
 import superstitio.DataManager
+import superstitio.cards.IsMasoCard
 import superstitio.cards.SuperstitioCard
 import superstitio.cards.maso.MasoCard
 import superstitio.powers.AbstractSuperstitioPower
@@ -15,7 +16,7 @@ import superstitio.powers.EasyBuildAbstractPowerForPowerCard
 import superstitioapi.utils.addToBot_AutoRemoveOne
 import superstitioapi.utils.addToBot_applyPower
 import superstitioapi.utils.setDescriptionArgs
-
+@IsMasoCard
 class DeathDoor : MasoCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET)
 {
     init

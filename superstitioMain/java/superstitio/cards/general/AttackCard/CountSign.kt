@@ -6,12 +6,12 @@ import com.megacrit.cardcrawl.characters.AbstractPlayer
 import com.megacrit.cardcrawl.monsters.AbstractMonster
 import superstitio.DataManager
 import superstitio.InBattleDataManager
-import superstitio.cards.general.GeneralCard
+import superstitio.cards.NormalCard
 import superstitio.powers.SexualHeat.Orgasm
 import superstitioapi.SuperstitioApiSetup
 import superstitioapi.utils.ActionUtility
 
-class CountSign : GeneralCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET)
+class CountSign : NormalCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET)
 {
     init
     {

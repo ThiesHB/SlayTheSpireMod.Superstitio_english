@@ -7,11 +7,13 @@ import com.megacrit.cardcrawl.characters.AbstractPlayer
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon
 import com.megacrit.cardcrawl.monsters.AbstractMonster
 import superstitio.DataManager
+import superstitio.SPTT_Color
+import superstitio.cards.SetCardColor
 import superstitio.cards.general.AbstractTempCard
 import superstitioapi.cards.addExhaustMod
 import superstitioapi.utils.ActionUtility
 import superstitioapi.utils.CreatureUtility
-
+@SetCardColor(SPTT_Color.TempColor)
 class FeelPhantomBody @JvmOverloads constructor(private val sealCard: AbstractCard? = null) :
     AbstractTempCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET)
 {

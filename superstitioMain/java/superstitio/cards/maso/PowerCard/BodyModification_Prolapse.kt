@@ -11,6 +11,7 @@ import com.megacrit.cardcrawl.monsters.AbstractMonster
 import com.megacrit.cardcrawl.powers.AbstractPower
 import superstitio.DataManager
 import superstitio.cardModifier.modifiers.card.BodyModificationTag
+import superstitio.cards.IsMasoCard
 import superstitio.cards.SuperstitioCard
 import superstitio.cards.maso.MasoCard
 import superstitio.powers.EasyBuildAbstractPowerForPowerCard
@@ -20,7 +21,7 @@ import superstitioapi.utils.ListUtility
 import superstitioapi.utils.PowerUtility
 import superstitioapi.utils.setDescriptionArgs
 import kotlin.math.pow
-
+@IsMasoCard
 class BodyModification_Prolapse : MasoCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET)
 {
     init

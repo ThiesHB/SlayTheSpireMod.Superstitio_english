@@ -3,13 +3,14 @@ package superstitio.cards.maso.AttackCard
 import com.megacrit.cardcrawl.characters.AbstractPlayer
 import com.megacrit.cardcrawl.monsters.AbstractMonster
 import superstitio.DataManager
+import superstitio.cards.IsMasoCard
 import superstitio.cards.general.FuckJob_Card
 import superstitio.cards.maso.MasoCard
 import superstitio.powers.Milk
 import superstitioapi.SuperstitioApiSetup
 import superstitioapi.utils.CreatureUtility
 import superstitioapi.utils.setDescriptionArgs
-
+@IsMasoCard
 class Fuck_Nipple : MasoCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET), FuckJob_Card
 {
     init

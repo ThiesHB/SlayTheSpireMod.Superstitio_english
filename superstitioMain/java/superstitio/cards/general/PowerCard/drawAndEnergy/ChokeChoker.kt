@@ -4,10 +4,10 @@ import com.megacrit.cardcrawl.characters.AbstractPlayer
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon
 import com.megacrit.cardcrawl.monsters.AbstractMonster
 import superstitio.DataManager
-import superstitio.cards.general.GeneralCard
+import superstitio.cards.NormalCard
 import superstitio.powers.sexualHeatNeedModifier.ChokeChokerPower
 
-class ChokeChoker : GeneralCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET)
+class ChokeChoker : NormalCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET)
 {
     init
     {

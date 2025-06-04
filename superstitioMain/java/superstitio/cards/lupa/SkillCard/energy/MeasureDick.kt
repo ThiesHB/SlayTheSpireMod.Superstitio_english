@@ -6,11 +6,12 @@ import com.megacrit.cardcrawl.cards.AbstractCard
 import com.megacrit.cardcrawl.characters.AbstractPlayer
 import com.megacrit.cardcrawl.monsters.AbstractMonster
 import superstitio.DataManager
+import superstitio.cards.IsLupaCard
 import superstitio.cards.lupa.LupaCard
 import superstitioapi.actions.AutoDoneInstantAction
 import superstitioapi.actions.ChoseCardFromHandCardSelectScreen
 import kotlin.math.max
-
+@IsLupaCard
 class MeasureDick : LupaCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET)
 {
     init

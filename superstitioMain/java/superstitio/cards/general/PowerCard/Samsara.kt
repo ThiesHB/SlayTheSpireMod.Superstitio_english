@@ -9,12 +9,11 @@ import com.megacrit.cardcrawl.dungeons.AbstractDungeon
 import com.megacrit.cardcrawl.monsters.AbstractMonster
 import com.megacrit.cardcrawl.powers.EquilibriumPower
 import superstitio.DataManager
-import superstitio.cards.general.GeneralCard
-import superstitio.cards.general.PowerCard.Samsara.SamsaraPower
+import superstitio.cards.NormalCard
 import superstitio.powers.AbstractSuperstitioPower
 import superstitioapi.utils.ActionUtility
 
-class Samsara : GeneralCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET)
+class Samsara : NormalCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET)
 {
     init
     {

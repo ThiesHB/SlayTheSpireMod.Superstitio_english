@@ -6,6 +6,7 @@ import com.megacrit.cardcrawl.characters.AbstractPlayer
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon
 import com.megacrit.cardcrawl.monsters.AbstractMonster
 import superstitio.DataManager
+import superstitio.cards.IsLupaCard
 import superstitio.cards.lupa.LupaCard
 import superstitio.powers.SexualHeat
 import superstitioapi.cards.patch.GoSomewhereElseAfterUse
@@ -14,7 +15,7 @@ import superstitioapi.hangUpCard.CardOrb_WaitCardTrigger
 import superstitioapi.utils.CostSmart
 import superstitioapi.utils.PowerUtility
 import superstitioapi.utils.setDescriptionArgs
-
+@IsLupaCard
 class Masturbate : LupaCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET, "base"), GoSomewhereElseAfterUse
 {
     init

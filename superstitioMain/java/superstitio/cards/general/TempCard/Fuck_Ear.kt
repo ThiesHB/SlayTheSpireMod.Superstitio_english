@@ -5,6 +5,8 @@ import com.megacrit.cardcrawl.dungeons.AbstractDungeon
 import com.megacrit.cardcrawl.monsters.AbstractMonster
 import com.megacrit.cardcrawl.powers.FrailPower
 import superstitio.DataManager
+import superstitio.SPTT_Color
+import superstitio.cards.SetCardColor
 import superstitio.cards.general.AbstractTempCard
 import superstitio.cards.general.FuckJob_Card
 import superstitio.cards.maso.AttackCard.Fuck_Eye
@@ -12,7 +14,7 @@ import superstitio.delayHpLose.RemoveDelayHpLoseBlock
 import superstitioapi.SuperstitioApiSetup
 import superstitioapi.cards.addExhaustMod
 import superstitioapi.utils.ActionUtility
-
+@SetCardColor(SPTT_Color.TempColor)
 class Fuck_Ear(blank: Boolean) : AbstractTempCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET), FuckJob_Card
 {
     constructor() : this(false)

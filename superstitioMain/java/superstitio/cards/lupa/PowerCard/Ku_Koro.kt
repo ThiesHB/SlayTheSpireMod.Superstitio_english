@@ -7,6 +7,7 @@ import com.megacrit.cardcrawl.characters.AbstractPlayer
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon
 import com.megacrit.cardcrawl.monsters.AbstractMonster
 import superstitio.DataManager
+import superstitio.cards.IsLupaCard
 import superstitio.cards.SuperstitioCard
 import superstitio.cards.lupa.LupaCard
 import superstitio.powers.EasyBuildAbstractPowerForPowerCard
@@ -14,6 +15,7 @@ import superstitioapi.utils.ActionUtility
 import superstitioapi.utils.CardUtility
 
 //咕杀/くっころ
+@IsLupaCard
 class Ku_Koro : LupaCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET)
 {
     override fun use(player: AbstractPlayer?, monster: AbstractMonster?)

@@ -10,6 +10,7 @@ import com.megacrit.cardcrawl.powers.DexterityPower
 import com.megacrit.cardcrawl.powers.LoseDexterityPower
 import superstitio.DataManager
 import superstitio.cardModifier.modifiers.card.CruelTortureTag
+import superstitio.cards.IsMasoCard
 import superstitio.cards.maso.MasoCard
 import superstitioapi.cards.patch.GoSomewhereElseAfterUse
 import superstitioapi.hangUpCard.CardOrb_AtStartOfTurnEachTime
@@ -18,6 +19,7 @@ import superstitioapi.utils.CostSmart
 import superstitioapi.utils.setDescriptionArgs
 
 //炮烙
+@IsMasoCard
 class CruelTorture_HotPillar : MasoCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET), GoSomewhereElseAfterUse
 {
     init

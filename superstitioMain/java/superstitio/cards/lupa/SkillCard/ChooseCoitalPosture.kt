@@ -7,6 +7,7 @@ import com.megacrit.cardcrawl.helpers.CardLibrary
 import com.megacrit.cardcrawl.monsters.AbstractMonster
 import superstitio.DataManager
 import superstitio.cards.CardOwnerPlayerManager
+import superstitio.cards.IsLupaCard
 import superstitio.cards.general.FuckJob_Card
 import superstitio.cards.lupa.LupaCard
 import superstitioapi.cards.addExhaustMod
@@ -15,6 +16,7 @@ import superstitioapi.utils.ListUtility
 import java.util.stream.Collectors
 
 //随机生成一张Fuck/Job卡
+@IsLupaCard
 class ChooseCoitalPosture : LupaCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET)
 {
     override fun use(player: AbstractPlayer?, monster: AbstractMonster?)

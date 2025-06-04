@@ -6,7 +6,7 @@ import com.megacrit.cardcrawl.characters.AbstractPlayer
 import com.megacrit.cardcrawl.monsters.AbstractMonster
 import superstitio.DataManager
 import superstitio.cardModifier.modifiers.damage.SexDamage
-import superstitio.cards.general.GeneralCard
+import superstitio.cards.NormalCard
 import superstitioapi.SuperstitioApiSetup
 import superstitioapi.cards.DamageActionMaker
 import superstitioapi.cards.patch.GoSomewhereElseAfterUse
@@ -15,7 +15,7 @@ import superstitioapi.hangUpCard.CardOrb_EachCardTrigger
 import superstitioapi.utils.CostSmart
 import superstitioapi.utils.CreatureUtility
 
-class Ahegao : GeneralCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET), GoSomewhereElseAfterUse
+class Ahegao : NormalCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET), GoSomewhereElseAfterUse
 {
     init
     {

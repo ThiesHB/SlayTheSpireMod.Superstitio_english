@@ -5,10 +5,11 @@ import com.megacrit.cardcrawl.dungeons.AbstractDungeon
 import com.megacrit.cardcrawl.monsters.AbstractMonster
 import superstitio.DataManager
 import superstitio.cardModifier.modifiers.block.SexBlock
+import superstitio.cards.IsLupaCard
 import superstitio.cards.lupa.LupaCard
 import superstitio.delayHpLose.PreventHpLimit_Turns
 import superstitioapi.cards.addExhaustMod
-
+@IsLupaCard
 class NudeLive : LupaCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET)
 {
     init

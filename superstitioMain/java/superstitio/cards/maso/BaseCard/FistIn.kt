@@ -12,6 +12,7 @@ import com.megacrit.cardcrawl.dungeons.AbstractDungeon
 import com.megacrit.cardcrawl.monsters.AbstractMonster
 import com.megacrit.cardcrawl.ui.panels.EnergyPanel
 import superstitio.DataManager
+import superstitio.cards.IsMasoCard
 import superstitio.cards.general.TempCard.SelfReference
 import superstitio.cards.maso.MasoCard
 import superstitioapi.actions.AutoDoneInstantAction
@@ -20,7 +21,7 @@ import superstitioapi.cards.patch.GoSomewhereElseAfterUse
 import superstitioapi.hangUpCard.CardOrb_CardTrigger
 import superstitioapi.hangUpCard.CardOrb_WaitCardTrigger
 import superstitioapi.utils.*
-
+@IsMasoCard
 class FistIn : MasoCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET, "base"), GoSomewhereElseAfterUse
 {
     init

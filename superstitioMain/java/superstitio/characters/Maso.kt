@@ -12,7 +12,7 @@ import com.megacrit.cardcrawl.dungeons.Exordium
 import com.megacrit.cardcrawl.screens.CharSelectInfo
 import com.megacrit.cardcrawl.screens.charSelect.CharacterOption
 import superstitio.DataManager
-import superstitio.DataManager.SPTT_DATA.MasoEnums
+import superstitio.DataManager.MasoEnums
 import superstitio.Logger
 import superstitio.cards.CardOwnerPlayerManager
 import superstitio.cards.general.BaseCard.Kiss

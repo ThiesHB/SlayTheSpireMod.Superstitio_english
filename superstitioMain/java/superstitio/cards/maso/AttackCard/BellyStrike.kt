@@ -9,10 +9,12 @@ import com.megacrit.cardcrawl.monsters.AbstractMonster
 import com.megacrit.cardcrawl.powers.LoseStrengthPower
 import com.megacrit.cardcrawl.powers.StrengthPower
 import superstitio.DataManager
+import superstitio.cards.IsMasoCard
 import superstitio.cards.maso.MasoCard
 import superstitioapi.actions.AutoDoneInstantAction
 import superstitioapi.utils.CardUtility
 
+@IsMasoCard
 class BellyStrike : MasoCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET)
 {
     init

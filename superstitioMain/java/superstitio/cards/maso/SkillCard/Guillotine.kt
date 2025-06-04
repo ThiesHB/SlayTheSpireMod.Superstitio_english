@@ -9,7 +9,7 @@ import com.megacrit.cardcrawl.dungeons.AbstractDungeon
 import com.megacrit.cardcrawl.monsters.AbstractMonster
 import superstitio.DataManager
 import superstitio.DataManager.CanOnlyDamageDamageType
-import superstitio.cards.CardOwnerPlayerManager.IsNotLupaCard
+import superstitio.cards.IsMasoCard
 import superstitio.cards.SuperstitioCard
 import superstitio.cards.general.FuckJob_Card
 import superstitio.cards.maso.MasoCard
@@ -23,8 +23,8 @@ import superstitioapi.utils.CostSmart
 import superstitioapi.utils.addToBot_removeSelf
 import superstitioapi.utils.setDescriptionArgs
 
-class Guillotine : MasoCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET), FuckJob_Card, GoSomewhereElseAfterUse,
-    IsNotLupaCard
+@IsMasoCard
+class Guillotine : MasoCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET), FuckJob_Card, GoSomewhereElseAfterUse
 {
     init
     {

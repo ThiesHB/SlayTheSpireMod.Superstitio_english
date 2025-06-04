@@ -8,14 +8,20 @@ import com.megacrit.cardcrawl.characters.AbstractPlayer
 import com.megacrit.cardcrawl.monsters.AbstractMonster
 import superstitio.DataManager
 import superstitio.DataManager.SPTT_DATA
+import superstitio.SPTT_Color
 import superstitio.cardModifier.modifiers.block.DrySemenBlock
 import superstitio.cardModifier.modifiers.damage.SexDamage
+import superstitio.cards.SetCardColor
 import superstitio.cards.general.AbstractTempCard
 import superstitioapi.SuperstitioApiSetup
 import superstitioapi.cards.patch.GoSomewhereElseAfterUse
 import superstitioapi.hangUpCard.CardOrb_AtEndOfTurnEachTime
-import superstitioapi.utils.*
+import superstitioapi.utils.ActionUtility
+import superstitioapi.utils.CostSmart
+import superstitioapi.utils.CreatureUtility
+import superstitioapi.utils.setDescriptionArgs
 
+@SetCardColor(SPTT_Color.TempColor)
 class GangBang @JvmOverloads constructor(
     attackAmount: Int = DAMAGE,
     blockAmount: Int = BLOCK,

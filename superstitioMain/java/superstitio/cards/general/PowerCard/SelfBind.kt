@@ -5,9 +5,9 @@ import com.megacrit.cardcrawl.monsters.AbstractMonster
 import com.megacrit.cardcrawl.powers.DexterityPower
 import com.megacrit.cardcrawl.powers.StrengthPower
 import superstitio.DataManager
-import superstitio.cards.general.GeneralCard
+import superstitio.cards.NormalCard
 
-class SelfBind : GeneralCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET)
+class SelfBind : NormalCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET)
 {
     init
     {

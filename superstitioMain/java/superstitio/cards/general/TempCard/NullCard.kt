@@ -5,12 +5,12 @@ import com.megacrit.cardcrawl.cards.AbstractCard
 import com.megacrit.cardcrawl.characters.AbstractPlayer
 import com.megacrit.cardcrawl.monsters.AbstractMonster
 import superstitio.DataManager
-import superstitio.cards.general.GeneralCard
+import superstitio.cards.NormalCard
 import superstitioapi.cards.DamageActionMaker
 import superstitioapi.utils.CreatureUtility
 
 @AutoAdd.Ignore
-class NullCard : GeneralCard
+class NullCard : NormalCard
 {
     private val number: Int
 

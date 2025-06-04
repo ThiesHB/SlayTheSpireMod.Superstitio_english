@@ -7,10 +7,12 @@ import com.megacrit.cardcrawl.dungeons.AbstractDungeon
 import com.megacrit.cardcrawl.monsters.AbstractMonster
 import superstitio.DataManager
 import superstitio.cardModifier.modifiers.card.CruelTortureTag
+import superstitio.cards.IsMasoCard
 import superstitio.cards.maso.MasoCard
 import superstitioapi.utils.setDescriptionArgs
 
 //尖桩贯穿
+@IsMasoCard
 class CruelTorture_Impale : MasoCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET)
 {
     init

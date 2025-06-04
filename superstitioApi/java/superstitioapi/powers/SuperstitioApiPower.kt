@@ -80,10 +80,11 @@ abstract class SuperstitioApiPower(
 
     private fun makeImgPath(id: String, size: IconSize): String
     {
-        return DataUtility.makeImgPath(
+        return DataUtility.tryGetImgPath(
+            DataUtility.ImgSubPath.powersPath,
+            id + returnSizeNum(size),
             DEFAULT + returnSizeNum(size),
-            DataUtility::makeImgFilesPath_Power,
-            id + returnSizeNum(size)
+            DataUtility.DataRootPath.imagesPath
         )
     }
 

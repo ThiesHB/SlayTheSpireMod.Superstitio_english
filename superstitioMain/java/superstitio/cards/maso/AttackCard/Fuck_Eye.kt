@@ -8,7 +8,7 @@ import com.megacrit.cardcrawl.dungeons.AbstractDungeon
 import com.megacrit.cardcrawl.monsters.AbstractMonster
 import com.megacrit.cardcrawl.powers.WeakPower
 import superstitio.DataManager
-import superstitio.cards.CardOwnerPlayerManager.IsNotLupaCard
+import superstitio.cards.IsMasoCard
 import superstitio.cards.general.FuckJob_Card
 import superstitio.cards.general.TempCard.Fuck_Ear
 import superstitio.cards.maso.MasoCard
@@ -20,8 +20,8 @@ import superstitioapi.hangUpCard.CardOrb_WaitCardTrigger
 import superstitioapi.utils.ActionUtility
 import superstitioapi.utils.CostSmart
 
-class Fuck_Eye(blank: Boolean) : MasoCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET), FuckJob_Card,
-    GoSomewhereElseAfterUse, IsNotLupaCard
+@IsMasoCard
+class Fuck_Eye(blank: Boolean) : MasoCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET), FuckJob_Card, GoSomewhereElseAfterUse
 {
     constructor() : this(false)
     {

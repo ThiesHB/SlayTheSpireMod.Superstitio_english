@@ -7,13 +7,14 @@ import com.megacrit.cardcrawl.dungeons.AbstractDungeon
 import com.megacrit.cardcrawl.monsters.AbstractMonster
 import superstitio.DataManager
 import superstitio.cardModifier.modifiers.card.CruelTortureTag
+import superstitio.cards.IsMasoCard
 import superstitio.cards.maso.MasoCard
 import superstitio.delayHpLose.RemoveDelayHpLoseBlock
 import superstitioapi.cards.addRetainMod
 import superstitioapi.hangUpCard.CardOrb
 import superstitioapi.hangUpCard.Card_TriggerHangCardManually
 import superstitioapi.hangUpCard.HangUpCardGroup
-
+@IsMasoCard
 //凌迟
 class CruelTorture_Dismember : MasoCard(ID, CARD_TYPE, COST, CARD_RARITY, CARD_TARGET), Card_TriggerHangCardManually
 {
