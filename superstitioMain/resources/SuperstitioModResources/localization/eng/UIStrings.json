@@ -1,0 +1,28 @@
+{
+  "SuperstitioMod:OptionsMenu": {
+    "TEXT": [
+      "Enable SFW Mode",
+      "Enable guro content. Takes effect after restarting.\nBy selecting this option, you acknowledge that you will encounter large amounts of guro content,\nwhich may include gore, violence, excrement, or other disturbing elements,\nand you agree not to insult the author or request removal of such content if you find it upsetting.",
+      "Force guro character gameplay (all guro character-exclusive cards will hide their artwork)",
+      "Only display this character’s exclusive cards in the card compendium, instead of all usable cards",
+      "Enable performance mode. Some visual effects may be reduced.",
+      "[Not finished yet] After switching modes, click this button to refresh localization assets (a restart may be required for some changes)"
+    ]
+  },
+  "SuperstitioMod:BlockModifier": {
+    "TEXT": [
+      "Block:"
+    ]
+  },
+  "SuperstitioMod:DamageModifier": {
+    "TEXT": [
+      "Damage:"
+    ]
+  },
+  "SuperstitioMod:GuroText": {
+    "TEXT": [
+      "Unable to start game",
+      "You can play characters with #rGuro Content enabled while having #gSFW Mode on, or you can play freely with #gSFW Mode off and #rGuro Content enabled. NL Please configure this in the mod options tab on the main menu."
+    ]
+  }
+}

@@ -1,0 +1,27 @@
+﻿{
+  "SuperstitioMod:FindCardAndHang": {
+    "NAME": "Super Arousal Search",
+    "DESCRIPTION": "Select up to 10 cards from the draw pile and send them to the superstitiomod:Foreplay\u00A0Sequence. They gain: superstitiomod:Longing, Play !M! cards: Put this card into your hand.",
+    "NAME_SFW": "Jolly Cooperation",
+    "EXTENDED_DESCRIPTION": [
+      "Send them to the Foreplay\u00A0Sequence.",
+      "superstitiomod:Longing. NL After playing superstitioApi:!HANGING_TIME! cards, return this to your hand."
+    ]
+  },
+  "SuperstitioMod:GeneralPool": {
+    "NAME": "General Card Pool",
+    "DESCRIPTION": "Enables content from the general card pool."
+  },
+  "SuperstitioMod:LupaPool": {
+    "NAME": "Lustful Card Pool",
+    "DESCRIPTION": "Enables content from the Lustful Celestials card pool.",
+    "NAME_SFW": "Aggressive Card Pool",
+    "DESCRIPTION_SFW": "Enables content from the Aggressive Celestials card pool."
+  },
+  "SuperstitioMod:MasoPool": {
+    "NAME": "Masochistic Card Pool",
+    "DESCRIPTION": "Enables content from the Masochistic Celestials card pool.",
+    "NAME_SFW": "Vengeful Card Pool",
+    "DESCRIPTION_SFW": "Enables content from the Vengeful Celestials card pool."
+  }
+}

@@ -1,0 +1,183 @@
+﻿{
+  "SuperstitioMod:Job_Armpit": {
+    "NAME": "Armpit Play",
+    "NAME_SFW": "Elbow Jab",
+    "DESCRIPTION": "superstitiomod:Longing, Play !M! Attack cards: NL Deal !D! *damage. NL Add a copy of this card to superstitiomod:Foreplay\u00A0Sequence.",
+    "FLAVOR": "Always wanted to try singeing armpit hair with a lighter—too bad I don’t have one.",
+    "EXTENDED_DESCRIPTION": [
+      "Armpit",
+      "superstitiomod:Longing. NL After playing superstitioApi:!HANGING_TIME! Attack cards, deal !D! *damage."
+    ],
+    "EXTENDED_DESCRIPTION_SFW": [
+      "Helicopter hatch"
+    ]
+  },
+  "SuperstitioMod:Job_Blow": {
+    "NAME": "Blowjob",
+    "NAME_SFW": "Headbutt",
+    "DESCRIPTION": "Deal !D! *damage. NL superstitiomod:Desire, Play !M! *Sex cards: NL Gain 1 superstitiomod:Pleasure.",
+    "FLAVOR": "Heard some celestials pull all their teeth just to make blowjobs easier. Creepy.",
+    "EXTENDED_DESCRIPTION": [
+      "Face",
+      "superstitiomod:Desire. NL Gain 1 superstitiomod:Pleasure per *Sex card played."
+    ],
+    "ADD_KEYWORDS_ID": [
+      "SuperstitioMod:Orgasm"
+    ]
+  },
+  "SuperstitioMod:Job_Breast": {
+    "NAME": "Titjob",
+    "NAME_SFW": "Mulan Missile",
+    "DESCRIPTION": "Deal !D! *damage. NL Apply !M! stacks of superstitiomod:Milk to the target.",
+    "FLAVOR": "Train your tits a thousand days, use them in one shining moment. Bigger bust, prouder thrust.",
+    "EXTENDED_DESCRIPTION": [
+      "Chest"
+    ]
+  },
+  "SuperstitioMod:Job_Foot": {
+    "NAME": "Footjob",
+    "NAME_SFW": "Spinning Kick",
+    "DESCRIPTION": "Deal !D! *damage twice. NL superstitiomod:Desire, Play !M! *Sex cards: NL Draw %d cards. NL superstitiomod:Auto-Release.",
+    "FLAVOR": "Try shooting into the shoe—sticky walking is kinda fun.",
+    "EXTENDED_DESCRIPTION": [
+      "Shoe",
+      "superstitiomod:Desire. NL For each *Sex card played, draw %d cards. NL superstitiomod:Auto-Release."
+    ]
+  },
+  "SuperstitioMod:Job_Groin": {
+    "NAME": "Outer Course",
+    "NAME_SFW": "Shockwave Slam",
+    "DESCRIPTION": "Deal !D! *damage. NL Reduce the damage by !M! per [E] based on average card cost (not rounded).",
+    "FLAVOR": "Looks like a full-on gangbang—but I promise, it’s all on the outside.",
+    "EXTENDED_DESCRIPTION": [
+      "Groin"
+    ],
+    "EXTENDED_DESCRIPTION_SFW": [
+      "Bouncy Bounce"
+    ]
+  },
+  "SuperstitioMod:Job_Hair": {
+    "NAME": "Hairjob",
+    "NAME_SFW": "Ribbon Mastery",
+    "DESCRIPTION": "Deal !D! *damage. NL superstitiomod:Longing, Play !M! cards: NL Add an Exhaust copy with 0 cost to hand. NL superstitiomod:Auto-Release.",
+    "FLAVOR": "Kinda hurts when you pull. Don’t turn me bald, please?",
+    "EXTENDED_DESCRIPTION": [
+      "Hair",
+      "superstitiomod:Longing. NL After playing superstitioApi:!HANGING_TIME! cards, add a 0-cost Exhaust copy to hand. NL superstitiomod:Auto-Release."
+    ]
+  },
+  "SuperstitioMod:Job_Hand": {
+    "NAME": "Handjob",
+    "NAME_SFW": "Rising Dragon Fist",
+    "DESCRIPTION": "Deal !D! *damage twice. NL superstitiomod:Desire, Play !M! Attack cards: NL Gain %d Strength. NL superstitiomod:Auto-Release.",
+    "FLAVOR": "Why use anything else when hands do the job? Or is it your hunger, not my hands, that’s too much?",
+    "EXTENDED_DESCRIPTION": [
+      "Hand",
+      "superstitiomod:Desire. NL Gain %d Strength for each Attack card played. NL superstitiomod:Auto-Release."
+    ]
+  },
+  "SuperstitioMod:Job_LegPit": {
+    "NAME": "Thighjob",
+    "NAME_SFW": "Knee Strike",
+    "DESCRIPTION": "Deal !D! *damage twice. NL superstitiomod:In\u00A0Orgasm, draw 1 card for each unblocked damage dealt.",
+    "FLAVOR": "If there's no room during a gangbang, you make do like this. …Though some folks might be *really* into it?",
+    "EXTENDED_DESCRIPTION": [
+      "Thigh hollow"
+    ],
+    "EXTENDED_DESCRIPTION_SFW": [
+      "Knee"
+    ]
+  },
+    "SuperstitioMod:Fuck_Anal": {
+    "NAME": "Anal",
+    "NAME_SFW": "Hawk Fist",
+    "DESCRIPTION": "Deal !D! damage. NL Increase target's superstitiomod:Lust by !M!/10.",
+    "FLAVOR": "Take the dry path long enough, and you’ll still end up wet-footed."
+  },
+  "SuperstitioMod:Fuck_Ear": {
+    "NAME": "Earjob",
+    "NAME_SFW": "Dragon\u00A0Fist",
+    "DESCRIPTION": "Remove !B! *Corruption. NL Deal !D! damage twice. NL Add *Eyejob to your hand. NL Gain 1 Vulnerable.",
+    "FLAVOR": "It’s brain-fucking! If only brains had nerve endings... slurp~"
+  },
+  "SuperstitioMod:Fuck_Eye": {
+    "NAME": "Eyejob",
+    "NAME_SFW": "Snake\u00A0Fist",
+    "DESCRIPTION": "Deal !D! damage twice to both yourself and the target. Gain 1 Weak. NL superstitiomod:Longing, Play !M! cards: NL Add *Earjob to your hand.",
+    "FLAVOR": "Might be brain-fucking too. Really depends on whether the cock’s owner dares to push in hard.",
+    "EXTENDED_DESCRIPTION": [
+      "superstitiomod:Longing. NL After playing superstitioApi:!HANGING_TIME! cards, add *Earjob to your hand."
+    ]
+  },
+  "SuperstitioMod:Fuck_Navel": {
+    "NAME": "Navel",
+    "NAME_SFW": "Bear Fist",
+    "DESCRIPTION": "Deal !D! damage to *both sides. Gain Frail. NL While in hand, every superstitiomod:Orgasm increases this card’s damage by !M!.",
+    "FLAVOR": "Every hole must be tried. Try means thrust. If you shoot into the abdominal cavity, is that an ectopic pregnancy?"
+  },
+  "SuperstitioMod:Fuck_Nipple": {
+    "NAME": "Nipple",
+    "NAME_SFW": "Monkey Fist",
+    "DESCRIPTION": "Repeat twice: NL Deal !D! damage to a random enemy and apply !M! superstitiomod:Milk.",
+    "FLAVOR": "Big boob privileges."
+  },
+  "SuperstitioMod:Fuck_Throat": {
+    "NAME": "Deepthroat",
+    "NAME_SFW": "Tiger Fist",
+    "DESCRIPTION": "Deal !D! damage. If superstitiomod:Foreplay\u00A0Sequence is not empty, gain !M! [E].",
+    "FLAVOR": "With enough practice, you stop gagging. Love that for me."
+  },
+  "SuperstitioMod:Fuck_Vaginal": {
+    "NAME": "Vaginal",
+    "NAME_SFW": "Swallow Fist",
+    "DESCRIPTION": "Deal !D! damage. NL Trigger all cards in superstitiomod:Foreplay\u00A0Sequence with superstitiomod:Desire effects !M! times.",
+    "FLAVOR": "Plain and simple. Without any foreplay, I just get sleepy."
+  },
+  "SuperstitioMod:Invite": {
+    "NAME": "Invite",
+    "NAME_SFW": "Defend",
+    "DESCRIPTION": "Gain !B! Block.",
+    "FLAVOR": "Please, come in~"
+  },
+  "SuperstitioMod:Kiss": {
+    "NAME": "Kiss",
+    "NAME_SFW": "Strike",
+    "DESCRIPTION": "Deal !D! damage.",
+    "FLAVOR": "（づ￣3￣）づ╭❤～"
+  },
+  "SuperstitioMod:Masturbate": {
+    "NAME": "Masturbate",
+    "NAME_SFW": "Prep for Battle",
+    "DESCRIPTION": "Gain !M! superstitiomod:Pleasure. NL superstitiomod:Longing, Play %d cards: NL Draw %d cards. NL superstitiomod:Auto-Release.",
+    "FLAVOR": "What soothes the soul? A bit of self-love’ll do.",
+    "EXTENDED_DESCRIPTION": [
+      "Draw cards",
+      "superstitiomod:Longing. NL After playing superstitioApi:!HANGING_TIME! cards, draw %d cards. NL superstitiomod:Auto-Release."
+    ],
+    "ADD_KEYWORDS_ID": [
+      "SuperstitioMod:Orgasm"
+    ]
+  },
+  "SuperstitioMod:FistIn": {
+    "NAME": "Fisting",
+    "NAME_SFW": "Forced Play",
+    "DESCRIPTION": "Choose a card in hand. Lose HP equal to !M! times its cost and force it to be played. NL superstitiomod:Longing, Play %d cards: NL Draw %d cards.",
+    "FLAVOR": "Deeper. Just a little deeper.",
+    "EXTENDED_DESCRIPTION": [
+      "Force play.",
+      "superstitiomod:Longing. NL After playing superstitioApi:!HANGING_TIME! cards, draw %d cards."
+    ]
+  },
+  "SuperstitioMod:DrySemen": {
+    "NAME": "Semen Shield",
+    "NAME_SFW": "Blood Shield",
+    "DESCRIPTION": "superstitiomod:Cum\u00A0Hungry !M!: NL Gain !B! *Semen-Stains.",
+    "FLAVOR": ""
+  },
+  "SuperstitioMod:Spark": {
+    "NAME": "Spank",
+    "NAME_SFW": "One Punch",
+    "DESCRIPTION": "Deal !D! damage. NL Deal an additional !D! damage, if your *Corruption is greater than !M!.",
+    "FLAVOR": ""
+  }
+}

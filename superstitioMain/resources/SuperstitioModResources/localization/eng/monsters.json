@@ -1,0 +1,15 @@
+﻿{
+  "SuperstitioMod:ChibiKindMonster": {
+    "MOVES": [
+      "Strike",
+      "Defend"
+    ],
+    "NAME": "Daughter",
+    "DIALOG": [
+      "Strike",
+      "Play a #yStrike from your draw pile, hand, or discard pile.",
+      "Defend",
+      "Play a #yDefend from your draw pile, hand, or discard pile."
+    ]
+  }
+}

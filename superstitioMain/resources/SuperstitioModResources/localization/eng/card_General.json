@@ -1,0 +1,249 @@
+﻿{
+  "SuperstitioMod:JuicyPussy": {
+    "NAME": "Juicy Pussy",
+    "NAME_SFW": "In a Rage",
+    "DESCRIPTION": "When you superstitiomod:Squirt, remove !M! *Corruption.",
+    "FLAVOR": "This is why I don’t wear panties.",
+    "FLAVOR_SFW": "Got a little mad there."
+  },
+  "SuperstitioMod:Ahegao": {
+    "NAME": "Ahegao",
+    "NAME_SFW": "Frenzied Slash",
+    "DESCRIPTION": "superstitiomod:Desire, play an Attack: NL Deal !D! damage.",
+    "FLAVOR": "Trying to keep a professional smile, but I just can't.",
+    "FLAVOR_SFW": "Turns basic attacks into double strikes.",
+    "EXTENDED_DESCRIPTION": [
+      "superstitiomod:Desire. NL Each Attack played deals !D! damage."
+    ]
+  },
+  "SuperstitioMod:CountSign": {
+    "NAME": "Orgasm Tally",
+    "NAME_SFW": "Unchained Fury",
+    "DESCRIPTION": "Deal !D! damage. NL Deal additional damage equal to !M! × the number of *Orgasms this combat.",
+    "FLAVOR": "A mark of glory!",
+    "FLAVOR_SFW": "I was imprisoned for ten thousand years, then cast out from my homeland...",
+    "EXTENDED_DESCRIPTION": [
+      "Total Orgasms: %d"
+    ],
+    "EXTENDED_DESCRIPTION_SFW": [
+      "Total Frenzys: %d"
+    ]
+  },
+  "SuperstitioMod:FastWindUp": {
+    "NAME": "Quick Finish",
+    "NAME_SFW": "Silent Black Page",
+    "DESCRIPTION": "When you superstitiomod:Orgasm, superstitiomod:Auto-Release !M! times.",
+    "FLAVOR": "Let’s wrap this up. I’ve got places to be.",
+    "FLAVOR_SFW": "Strictly business."
+  },
+  "SuperstitioMod:CalmDown": {
+    "NAME": "Cool Off",
+    "DESCRIPTION": "Draw cards equal to the number of cards in your superstitiomod:Foreplay\u00A0Sequence. NL superstitiomod:Release all cards from superstitiomod:Foreplay\u00A0Sequence.",
+    "UPGRADE_DESCRIPTION": "Draw cards equal to your superstitiomod:Foreplay\u00A0Sequence +1. NL superstitiomod:Release all cards from superstitiomod:Foreplay\u00A0Sequence.",
+    "FLAVOR": "Meditate… chill… meditate… nope, still wanna masturbate. NL o(TヘTo)"
+  },
+  "SuperstitioMod:Ku_Koro": {
+    "NAME": "Ku-Kill",
+    "DESCRIPTION": "When taking damage from attacks, add 1 random Status card to your hand. NL All Exhaust cards go to the discard pile instead.",
+    "FLAVOR": "Guh... kill me... but I didn't enjoy it, nor did I give up!"
+  },
+  "SuperstitioMod:Tease": {
+    "NAME": "Tease",
+    "NAME_SFW": "Slow Boil",
+    "DESCRIPTION": "Target enemy gains Weak and Vulnerable and loses !M!% max HP. NL Convert lost HP to Block. NL They gain *Barricade. NL Exhaust.",
+    "FLAVOR": "Got them all stiff and me all wet."
+  },
+  "SuperstitioMod:BlindfoldWithMilk": {
+    "NAME": "Blindfold with Milk",
+    "NAME_SFW": "Blindfold with Blood",
+    "DESCRIPTION": "Deal !D! damage. NL Target skips one action. NL Gain !M! superstitiomod:Milk.",
+    "FLAVOR": "How do you like this move?",
+    "FLAVOR_SFW": "How do you like this move?"
+  },
+  "SuperstitioMod:SelfBind": {
+    "NAME": "Self-Binding",
+    "NAME_SFW": "Bound by Oath",
+    "DESCRIPTION": "Gain !M! Strength. NL Lose 1 Dexterity.",
+    "FLAVOR": "Boost allure, lose mobility ❤",
+    "FLAVOR_SFW": "Why instant cast spatial slash?"
+  },
+  "SuperstitioMod:UnBirth": {
+    "NAME": "Unbirthing",
+    "NAME_SFW": "Power Drain",
+    "DESCRIPTION": "Remove all superstitiomod:Generic\u00A0Debuffs and Artifacts from target. NL Add *Delivery to discard pile. NL Gain superstitiomod:Pregnancy !B!: NL When superstitiomod:Miscarry, gain double of the lost effects.",
+    "FLAVOR": "I’ll take all of you: your lust, your dreams, your love... NL Give it all to me.",
+    "EXTENDED_DESCRIPTION": [
+      "superstitiomod:Pregnant. NL When taking over superstitioApi:!HANGING_TIME! damage, block it and *Miscarry.",
+      "Upon Miscarry, you gain:",
+      "・",
+      "Contents:",
+      "Recursion."
+    ]
+  },
+  "SuperstitioMod:ChokeChoker": {
+    "NAME": "Choke Collar",
+    "NAME_SFW": "Burning Rage",
+    "DESCRIPTION": "Gain !M! stacks of superstitiomod:Asphyxiation.",
+    "FLAVOR": "All for that higher pleasure."
+  },
+  "SuperstitioMod:Samsara": {
+    "NAME": "Samsara",
+    "DESCRIPTION": "Add !M! *Wounds to your draw pile. NL Retain all cards at end of turn. NL When playing a card, draw 1 card.",
+    "FLAVOR": "It’s all just a cycle, so why not indulge?"
+  },
+  "SuperstitioMod:TimeStop": {
+    "NAME": "Time\u00A0Stop",
+    "NAME_SFW": "The\u00A0World",
+    "DESCRIPTION": "Lasts !M! turns. NL superstitiomod:Pleasure doesn’t change, and no cards are drawn. NL Buffs and debuffs last an extra turn. NL At the start of turn, gain 2x superstitiomod:Pleasure accumulated during stasis.",
+    "FLAVOR": "Go ahead—do whatever you want.",
+    "FLAVOR_SFW": "Time stopped, and blood spilled across the sand."
+  },
+  "SuperstitioMod:Endure": {
+    "NAME": "Endure",
+    "DESCRIPTION": "Gain !B! *Seduction *Block. NL Next turn gain !M! superstitiomod:Pleasure. NL Draw 2 cards.",
+    "FLAVOR": "Only by enduring the thickest can you be the true master of patience.",
+    "ADD_KEYWORDS_ID": [
+      "SuperstitioMod:Orgasm"
+    ]
+  },
+  "SuperstitioMod:BecomeTrash": {
+    "NAME": "Trash It",
+    "DESCRIPTION": "Exhaust up to !M! cards from your draw pile. NL Exhaust.",
+    "FLAVOR": "Mmh... Master... Master... Maaaaster~",
+    "EXTENDED_DESCRIPTION": [
+      "Select up to %d cards to exhaust."
+    ]
+  },
+  "SuperstitioMod:GloryHole": {
+    "NAME": "Glory Hole",
+    "NAME_SFW": "Medal of Glory",
+    "DESCRIPTION": "Choose 1 card from your deck and add a copy to your hand. NL Exhaust.",
+    "FLAVOR": "Open 24/7. Come and go as you please.",
+    "FLAVOR_SFW": "That winter was freezing. No heat, ice on the floor... I hugged the TV for warmth.",
+    "EXTENDED_DESCRIPTION": [
+      "Choose 1 card to copy into your hand."
+    ]
+  },
+  "SuperstitioMod:Overdraft": {
+    "NAME": "Overdraft",
+    "DESCRIPTION": "Draw !M! cards. NL Next turn, choose 1 card to exhaust.",
+    "FLAVOR": "Ugh, I'm tired after that... I’ll nap. You guys do what you want."
+  },
+  "SuperstitioMod:AddSexToy": {
+    "NAME": "Pleasure Parcel",
+    "NAME_SFW": "Flag Maker",
+    "DESCRIPTION": "Add !M! *Vibrators to your hand. NL Exhaust.",
+    "FLAVOR": "Surprise delivery~",
+    "FLAVOR_SFW": "Better make it sturdy—heard a guy in red likes to climb.",
+    "ADD_KEYWORDS_ID": [
+      "SuperstitioMod:SexToy",
+      "SuperstitioMod:SexualHeat"
+    ]
+  },
+  "SuperstitioMod:ForceOrgasm": {
+    "NAME": "Forced Orgasm",
+    "NAME_SFW": "Uncontainable Rage",
+    "DESCRIPTION": "Gain !M! superstitiomod:Pleasure. NL Next turn, choose 1 card to exhaust. NL Repeat X times. NL Exhaust.",
+    "FLAVOR": "Orgasm on 3! One, two, three! Three! THREE! THREE THREE THREEEEE!!",
+    "ADD_KEYWORDS_ID": [
+      "SuperstitioMod:Orgasm"
+    ]
+  },
+  "SuperstitioMod:ReadyToSex": {
+    "NAME": "Ready to Fuck",
+    "NAME_SFW": "Back to Training",
+    "DESCRIPTION": "Choose a card in hand, add it to superstitiomod:Foreplay\u00A0Sequence and it gains: superstitiomod:Longing, play !M! cards: NL Play a copy of this card.",
+    "FLAVOR": "Come on! All of you! I’ll take you all!",
+    "FLAVOR_SFW": "Start with horse stance and retrain from scratch!",
+    "EXTENDED_DESCRIPTION": [
+      "Add it to the Foreplay\u00A0Sequence.",
+      "superstitiomod:Longing. NL After playing superstitioApi:!HANGING_TIME! cards, play a copy of this card."
+    ]
+  },
+  "SuperstitioMod:PassiveGangBang": {
+    "NAME": "Passive Gangbang",
+    "NAME_SFW": "Superior Love",
+    "DESCRIPTION": "superstitiomod:Simultaneous. NL Remove !B! *Corruption. NL superstitiomod:Forced\u00A0Satisfaction !M! times.",
+    "FLAVOR": "Please, I don't want to move today.",
+    "FLAVOR_SFW": "Strengthen the impact of the twelfth level!"
+  },
+  "SuperstitioMod:OneMoreHour": { 
+    "NAME": "One More Round", 
+    "NAME_SFW": "Dreams Remembered", 
+    "DESCRIPTION": "superstitiomod:Simultaneous. NL Remove !B! *Corruption. NL The counter of cards in the superstitiomod:Foreplay\u00A0Sequence increases by !M!.", 
+    "FLAVOR": "Please, don't go. I will serve you well." , 
+    "FLAVOR_SFW": "Yet, they say the autumn is pleasantly cool." 
+  }, 
+  "SuperstitioMod:EroSion": { 
+    "NAME": "Corrosion", 
+    "DESCRIPTION": "Lose !M! life. NL Deal damage equal to your *Corruption. NL (Expected to be !D! points)", 
+    "FLAVOR": "Want to try my pussy? Then go ahead and insert it. What? Don't want to? But you've already inserted it." 
+  },
+  "SuperstitioMod:ForcePutSexToy": { 
+    "NAME": "Forced Insertion", 
+    "NAME_SFW": "Raise the Flags", 
+    "DESCRIPTION": "Equip !M! superstitiomod:Sex\u00A0Toys, NL Lose !M! Life. NL Trigger the effects of all superstitiomod:Sex\u00A0Toys.", 
+    "FLAVOR": "Packed to the brim? There's still room to stuff more!", 
+    "FLAVOR_SFW": "I've already seen the ending.",
+    "ADD_KEYWORDS_ID": [
+      "SuperstitioMod:SexualHeat"
+    ] 
+  }, 
+  "SuperstitioMod:MonsterGirlMode": { 
+    "NAME": "Monster Girl Morph", 
+    "NAME_SFW": "Control Evolution", 
+    "DESCRIPTION": "Choose one from multiple available transformations." , 
+    "FLAVOR": "What will today be like?" , 
+    "FLAVOR_SFW": "Natural evolution has always been described with a simple and blunt word: failure. NL Nowadays, we will define success ourselves." 
+  }, 
+  "SuperstitioMod:EscapeConjuring": { 
+    "NAME": "Escape Magic", 
+    "NAME_SFW": "Resolution", 
+    "DESCRIPTION": "Gain superstitiomod:Pleasure equal to !M! times your current debuffs. NL Discard all statuses and curses from your hand. For each card discarded, gain [E] and draw a card.", 
+    "FLAVOR": "Maybe not breaking free is a good choice?", 
+    "FLAVOR_SFW": "This card fills you with Determination", 
+    "ADD_KEYWORDS_ID": [ 
+      "SuperstitioMod:Orgasm" 
+    ] 
+  }, 
+  "SuperstitioMod:HideInPussy": { 
+    "NAME": "HideInPussy", 
+    "NAME_SFW": "Secret Weapon", 
+    "DESCRIPTION": "At the end of your turn, Retain up to !M! cards. They cost no energy until they are played." , 
+    "FLAVOR": "As long as it's bad enough, anything can be hidden in the crotch.",
+    "FLAVOR_SFW": "The big durian will give you countless surprises." , 
+    "EXTENDED_DESCRIPTION": [ 
+      "Keep and get one free, choose up to %d cards." 
+    ] 
+  }, 
+  "SuperstitioMod:HaveBirthWith": { 
+    "NAME": "Conception", 
+    "NAME_SFW": "Summon Guardian", 
+    "DESCRIPTION": "Add a *Delivery to the discard pile. NL Gain !B! superstitiomod:Pregnancy: NL superstitiomod:Natural\u00A0Birth: Generate a superstitiomod:Baby of the corresponding target." , 
+    "FLAVOR": "", 
+    "FLAVOR_SFW": "Is it a bird? Is it a plane? It's my guardian spirit! ", 
+    "EXTENDED_DESCRIPTION": [ 
+      "superstitiomod:Pregnancy\u00A0State. When receiving attack damage greater than superstitioApi:!HANGING_TIME!, block the damage and remove *Miscarry. In other cases, removing it will generate a superstitiomod:Baby corresponding to the target. ",
+      "Parental line:" ,
+      "Parthenogenesis." 
+    ], 
+    "EXTENDED_DESCRIPTION_SFW": [ 
+      "When receiving attack damage greater than superstitioApi:!HANGING_TIME!, block the damage and remove it. In other cases, removing it will generate a superstitiomod:Baby corresponding to the target.", 
+      "Summoning target:" ,
+      "Clone." ,
+      "Clones." 
+    ]
+  }, 
+  "SuperstitioMod:RideDildoBike": { 
+    "NAME": "Dildo Bike", 
+    "NAME_SFW": "Cavalry", 
+    "DESCRIPTION": "Choose up to %d cards, draw that many cards, and send the selected cards to the superstitiomod:Foreplay\u00A0Sequence. They gain superstitiomod:Longing, play !M! cards: return this to your hand, and reduce its cost by %d this turn. NL superstitiomod:Auto-Release." , 
+    "FLAVOR": "", 
+    "FLAVOR_SFW": "Not Lü Bu riding a dog.", 
+    "EXTENDED_DESCRIPTION": [ 
+      "Enter the Foreplay Sequence and draw one card, up to a maximum of %d cards." ,
+      "superstitiomod:Longing. NL Play superstitioApi:!HANGING_TIME! cards. Afterwards return this card to your hand, and reduce its cost by %d this turn. NL superstitiomod:Auto-release." 
+    ] 
+  } 
+}
+

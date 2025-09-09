@@ -1,0 +1,202 @@
+﻿[
+  {
+    "ID": "SuperstitioMod:WantSemen",
+    "PROPER_NAME": "Cum\u00A0Hungry",
+    "NAMES": [
+      "cum\u00A0hungry",
+      "bloodthirst"
+    ],
+    "DESCRIPTION": "You must spend enough Semen Value to activate the effect below. NL If the Semen Value is insufficient, this card cannot be played."
+  },
+  {
+    "ID": "SuperstitioMod:SexualHeat",
+    "PROPER_NAME": "Pleasure",
+    "NAMES": [
+      "pleasure",
+      "rage"
+    ],
+    "DESCRIPTION": "Accumulate 10 points to trigger a #yOrgasm. NL Lost at the end of your turn."
+  },
+  {
+    "PROPER_NAME": "#rEmbrace Corruption",
+    "NAMES": [
+      "embrace\u00A0corruption"
+    ],
+    "DESCRIPTION": "Only after embracing Corruption will you truly lose HP."
+  },
+  {
+    "PROPER_NAME": "#rFresh Corruption",
+    "NAMES": [
+      "fresh\u00A0corruption"
+    ],
+    "DESCRIPTION": "#rCorruption gained last turn."
+  },
+  {
+    "ID": "SuperstitioMod:Orgasm",
+    "PROPER_NAME": "Orgasm",
+    "NAMES": [
+      "orgasm",
+      "in\u00A0orgasm",
+      "orgasmed",
+      "frenzy",
+      "in\u00A0frenzy",
+      "frenzyed"
+    ],
+    "DESCRIPTION": "When you reach 10 #yPleasure, enter a state of #yOrgasm. NL Orgasm ends after you play a card that costs more than 0 Energy."
+  },
+  {
+    "ID": "SuperstitioMod:EnemyOrgasm",
+    "PROPER_NAME": "Enemy\u00A0Orgasm",
+    "NAMES": [
+      "enemy\u00A0orgasm",
+      "enemy\u00A0frenzy"
+    ],
+    "DESCRIPTION": "When an enemy enters #yOrgasm, they become Stunned for 1 turn."
+  },
+  {
+    "PROPER_NAME": "Multiple\u00A0Orgasms",
+    "NAMES": [
+      "multiple\u00A0orgasms",
+      "multiple\u00A0frenzys"
+    ],
+    "DESCRIPTION": "If you've already reached #yOrgasm this turn, gaining more #yPleasure will trigger #yMultiple\u00A0Orgasms."
+  },
+  {
+    "PROPER_NAME": "Squirt",
+    "NAMES": [
+      "squirt",
+      "go\u00A0berserk"
+    ],
+    "DESCRIPTION": "Play a card during #yOrgasm to trigger this."
+  },
+  {
+    "PROPER_NAME": "Orgasm Ends",
+    "NAMES": [
+      "orgasm\u00A0ends",
+      "frenzy\u00A0ends"
+    ],
+    "DESCRIPTION": "When your #yPleasure drops below the #yOrgasm threshold, the Orgasm ends."
+  },
+  {
+    "PROPER_NAME": "Pleasure Modifier",
+    "NAMES": [
+      "pleasure\u00A0modifier"
+    ],
+    "DESCRIPTION": "Adjusts the amount of #yPleasure needed to reach #yOrgasm this turn."
+  },
+  {
+    "PROPER_NAME": "Sadism",
+    "NAMES": [
+      "sadism",
+      "cruelty"
+    ],
+    "DESCRIPTION": "Triggers extra effects when used on enemies."
+  },
+  {
+    "PROPER_NAME": "Masochism",
+    "NAMES": [
+      "masochism",
+      "provoke"
+    ],
+    "DESCRIPTION": "Triggers extra effects when used on yourself."
+  },
+  {
+    "PROPER_NAME": "Muted\u00A0Melody",
+    "NAMES": [
+      "muted\u00A0melody"
+    ],
+    "DESCRIPTION": "Your personal BGM no longer plays during battle encounters."
+  },
+  {
+    "PROPER_NAME": "Dimming\u00A0Aura",
+    "NAMES": [
+      "dimming\u00A0aura"
+    ],
+    "DESCRIPTION": "Screen brightness is reduced from five billion percent to mortal levels when rendering images."
+  },
+  {
+    "PROPER_NAME": "Wet\u00A0and\u00A0Wild",
+    "NAMES": [
+      "wet\u00A0and\u00A0wild"
+    ],
+    "DESCRIPTION": "Falling into a puddle means you won’t escape the slime’s gooey embrace unscathed."
+  },
+  {
+    "PROPER_NAME": "Reluctant\u00A0Awakening",
+    "NAMES": [
+      "reluctant\u00A0awakening"
+    ],
+    "DESCRIPTION": "You must choose a Neow’s blessing option to proceed when starting the game."
+  },
+  {
+    "PROPER_NAME": "Uncertain\u00A0Foresight",
+    "NAMES": [
+      "uncertain\u00A0foresight"
+    ],
+    "DESCRIPTION": "You can’t see the exact event inside ‘?’ rooms on the map."
+  },
+  {
+    "PROPER_NAME": "Temporal\u00A0Recursion",
+    "NAMES": [
+      "temporal\u00A0recursion"
+    ],
+    "DESCRIPTION": "#bYou’ve shattered spacetime, you naughty little thing! NL #yAuto-played. NL Cannot escape. NL This card is shuffled into your draw pile."
+  },
+  {
+    "PROPER_NAME": "Baby",
+    "NAMES": [
+      "baby",
+      "clone"
+    ],
+    "DESCRIPTION": "The Baby is a friendly summon who attacks enemies and powers itself up. It has only 1/3 the attack and 1/10 the HP of a normal creature. NL Since the Baby system is still in beta, the Baby is immune to damage."
+  },
+  {
+    "PROPER_NAME": "Unplayable",
+    "NAMES": [
+      "unplayable"
+    ],
+    "DESCRIPTION": "This card is #yUnplayable, or is affected by another effect that makes it #yUnplayable. NL Does not include being unplayable due to insufficient Energy or after your turn ends."
+  },
+  {
+    "PROPER_NAME": "Debuffs\u00A0and\u00A0Buffs",
+    "NAMES": [
+      "debuffs\u00A0and\u00A0buffs"
+    ],
+    "DESCRIPTION": "All effects shown under the HP bar, including some that are normally hidden but should be there."
+  },
+  {
+    "PROPER_NAME": "End of Turn",
+    "NAMES": [
+      "end_of_turn"
+    ],
+    "DESCRIPTION": "Your actions and those of all enemies have ended. NL Effects that last “X turns” or “this turn” typically expire at this point."
+  },
+  {
+    "PROPER_NAME": "This Turn",
+    "NAMES": [
+      "this_turn"
+    ],
+    "DESCRIPTION": "Lasts until the #yEnd of Turn."
+  },
+  {
+    "PROPER_NAME": "End of Your Turn",
+    "NAMES": [
+      "end_of_your_turn"
+    ],
+    "DESCRIPTION": "Triggers after the monster finishes its move or the player presses End Turn. Doesn’t include effects that activate before discard at turn’s end."
+  },
+  {
+    "PROPER_NAME": "Generic\u00A0Debuffs",
+    "NAMES": [
+      "generic\u00A0debuffs"
+    ],
+    "DESCRIPTION": "Vulnerable, Weak, Frail."
+  },
+  {
+    "PROPER_NAME": "Death Defied",
+    "NAMES": [
+      "defy\u00A0death"
+    ],
+    "DESCRIPTION": "When you would die, survive with #b1 HP instead."
+  }
+]

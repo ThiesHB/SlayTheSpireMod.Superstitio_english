@@ -1,0 +1,20 @@
+{
+  "SuperstitioMod:SexMarkEmptySlot": {
+    "NAME": "Empty",
+    "DESCRIPTION": [
+      ""
+    ]
+  },
+  "SuperstitioMod:SexMarkOrb_Inside": {
+    "NAME": "Penetration: %s",
+    "DESCRIPTION": [
+      "#yCollect #b%d #yof these: NL Generate and play a #yGangbang, dealing AoE damage. NL Adds #b%d #ydamage to the generated #yGangbang."
+    ]
+  },
+  "SuperstitioMod:SexMarkOrb_Outside": {
+    "NAME": "Semen Coating: %s",
+    "DESCRIPTION": [
+      "#yCollect #b%d #yof these: NL Generate and play a #yGangbang, gaining *Semen-Stains. NL Adds #b%d #yBlock to the generated #yGangbang."
+    ]
+  }
+}

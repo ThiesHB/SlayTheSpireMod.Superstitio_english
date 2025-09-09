@@ -1,0 +1,163 @@
+﻿{
+  "SuperstitioMod:SexualHeat": {
+    "NAME": "Pleasure",
+    "DESCRIPTIONS": [
+      "Every accumulated #b%d Pleasure triggers an Orgasm. %s",
+      "Every accumulated #b%d Pleasure triggers an Orgasm. During Orgasm, you become Stunned. %s",
+      " NL In #yOrgasm, total Orgasms: #b%d.",
+      "Orgasm!",
+      "Back-to-back Orgasms!",
+      "The Pleasure fades...",
+      "Squirting!",
+      "Orgasm denied!"
+    ]
+  },
+  "SuperstitioMod:InTurnSexualHeatNeededModifier": {
+    "NAME": "Turn-Based Pleasure Modifier",
+    "DESCRIPTIONS": [
+      "This turn, Pleasure needed for Orgasm is #rreduced by #b%d.",
+      "This turn, Pleasure needed for Orgasm is #gincreased by #b%d."
+    ]
+  },
+  "SuperstitioMod:RefractoryPeriod": {
+    "NAME": "Refractory Period",
+    "DESCRIPTIONS": [
+      "Orgasm requires #b%d more Pleasure. If no #yOrgasm occurs before the end of next turn, this is removed.",
+      "Orgasm requires #b%d more Pleasure. If no #yOrgasm occurs this turn, this is removed."
+    ]
+  },
+  "SuperstitioMod:SexToy": {
+    "NAME": "Sex\u00A0Toys",
+    "DESCRIPTIONS": [
+      "At the start of each turn, every #b%d #ySex\u00A0Toys grant #b1 point of #yPleasure. NL Current Sex\u00A0Toys: %s",
+      " NL %s: #b%d;"
+    ],
+    "MAKE_KEYWORDS": [
+      {
+        "ID": "SuperstitioMod:SexToy",
+        "PROPER_NAME": "Sex\u00A0Toys",
+        "NAMES": [
+          "sex\u00A0toys",
+          "sex\u00A0toy(s)",
+          "banners",
+          "banner(s)"
+        ],
+        "DESCRIPTION": "At the start of each turn, #ySex\u00A0Toys grant #yPleasure."
+      }
+    ]
+  },
+  "SuperstitioMod:ChokeChokerPower": {
+    "NAME": "Asphyxiation",
+    "DESCRIPTIONS": [
+      "Pleasure required for Orgasm is reduced by #b%d. NL When entering #yOrgasm, lose #b%d HP."
+    ],
+    "MAKE_KEYWORDS": [
+      {
+        "PROPER_NAME": "Asphyxiation",
+        "NAMES": [
+          "asphyxiation",
+          "burning\u00A0heat"
+        ],
+        "DESCRIPTION": "Reduces #yPleasure required for #yOrgasm. NL When entering #yOrgasm, lose half your stacks as HP."
+      }
+    ]
+  },
+  "SuperstitioMod:SamsaraPower": {
+    "NAME": "Cycle of Desire",
+    "DESCRIPTIONS": [
+      "Whenever you play a card, draw 1 card."
+    ]
+  },
+  "SuperstitioMod:TimeStopPower": {
+    "NAME": "Time Freeze",
+    "DESCRIPTIONS": [
+      "Lasts for #b%d turn(s). Pleasure doesn't change this turn. NL At the end of turn, all your #ydebuffs\u00A0and\u00A0buffs are paused. NL At the start of your turn, all stored Pleasure is unleashed and multiplied by #b%d."
+    ]
+  },
+  "SuperstitioMod:DelaySexualHeat": {
+    "NAME": "Delayed Pleasure",
+    "DESCRIPTIONS": [
+      "After drawing cards next turn, gain #b%d Pleasure."
+    ]
+  },
+  "SuperstitioMod:Overdraft": {
+    "NAME": "Overdraw",
+    "DESCRIPTIONS": [
+      "At the start of your turn, exhaust #b%d cards."
+    ]
+  },
+  "SuperstitioMod:SexualDamage": {
+    "NAME": "Lust",
+    "DESCRIPTIONS": [
+      "At the start of next turn, take #b%d damage."
+    ],
+    "MAKE_KEYWORDS": [
+      {
+        "PROPER_NAME": "Lust",
+        "NAMES": [
+          "lust",
+          "fear"
+        ],
+        "DESCRIPTION": "Take damage at the start of next turn."
+      },
+      {
+        "ID": "SuperstitioMod:CardForSexualDamage",
+        "PROPER_NAME": "Sources of Lust",
+        "NAMES": [
+          "sources\u00A0of\u00A0lust",
+          "sources\u00A0of\u00A0fear"
+        ],
+        "DESCRIPTION": "Aside from cards that directly apply #yLust, any #ySexual Damage that gets delayed also manifests as #yLust."
+      }
+    ]
+  },
+  "SuperstitioMod:FastWindUpPower": {
+    "NAME": "Quick Finish",
+    "DESCRIPTIONS": [
+      "When you #yOrgasm, forcibly #ySatisfy #b%d time(s)."
+    ]
+  },
+  "SuperstitioMod:DelayRemoveDelayHpLosePower": {
+    "NAME": "Afterglow",
+    "DESCRIPTIONS": [
+      "At the start of your next turn, remove #b%d #rCorruption. NL Only removes Corruption gained between now and next turn."
+    ]
+  },
+  "SuperstitioMod:Milk": {
+    "NAME": "Milk",
+    "DESCRIPTIONS": [
+      "After your next attack, grant the player %d #yTemporary HP."
+    ],
+    "MAKE_KEYWORDS": [
+      {
+        "PROPER_NAME": "Milk",
+        "NAMES": [
+          "milk",
+          "mercy"
+        ],
+        "DESCRIPTION": "After your next attack, grant the player #yTemporary HP."
+      }
+    ]
+  },
+  "SuperstitioMod:PlayerFlightPower": {
+    "NAME": "Slime Resilience",
+    "DESCRIPTIONS": [
+      "Next #d attacks deal half damage."
+    ],
+    "MAKE_KEYWORDS": [
+      {
+        "PROPER_NAME": "Slime Resilience",
+        "NAMES": [
+          "slime\u00A0resilience"
+        ],
+        "DESCRIPTION": "Next attack received deals half damage."
+      }
+    ]
+  },
+  "SuperstitioMod:GetStrengthNextTurn": {
+    "NAME": "Delayed Strength",
+    "DESCRIPTIONS": [
+      "At the start of next turn, gain %d Strength."
+    ]
+  }
+}

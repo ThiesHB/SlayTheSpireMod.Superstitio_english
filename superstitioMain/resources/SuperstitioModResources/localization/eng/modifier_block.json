@@ -1,0 +1,36 @@
+﻿{
+  "SuperstitioMod:RemoveDelayHpLoseBlock": {
+    "NAME": "Lewdness",
+    "NAME_SFW": "Hot-Blooded",
+    "BASIC_INFO": "Lewdness",
+    "BASIC_INFO_SFW":"Hot-Blooded",
+    "DESCRIPTION": "Try something a little spicy to dispel #rCorruption."
+  },
+  "SuperstitioMod:SexBlock": {
+    "NAME": "Seduction",
+    "NAME_SFW": "Shield",
+    "BASIC_INFO": "Seduction",
+    "BASIC_INFO_SFW": "Shield",
+    "DESCRIPTION": "Lasts until the start of your next turn, blocking incoming damage. NL (Mechanics: Converts enemy’s physical attacks into sexual acts.)",
+    "DESCRIPTION_SFW": "Lasts until the start of your next turn, blocking incoming damage."
+  },
+  "SuperstitioMod:DrySemenBlock": {
+    "NAME": "Semen-Stains",
+    "NAME_SFW": "Blood-Stains",
+    "BASIC_INFO": "Semen-Stains",
+    "DESCRIPTION": "Does not disappear at the end of turn. Blocks damage. NL When damaged, lose #ySemen-Stains first."
+  },
+  "SuperstitioMod:DelayRemoveDelayHpLoseBlock": {
+    "NAME": "Afterglow",
+    "NAME_SFW": "Reminiscence",
+    "BASIC_INFO": "Afterglow",
+    "DESCRIPTION": "At the start of your next turn, savor the naughty memories to dispel #rFresh\u00A0Corruption.",
+    "DESCRIPTION_SFW": "At the start of your next turn, dispel #rFresh\u00A0Corruption."
+  },
+  "SuperstitioMod:WhenLostDrawCardBlock": {
+    "NAME": "Heavy Shackles",
+    "NAME_SFW": "Heavy Shackles",
+    "BASIC_INFO": "Shackles",
+    "DESCRIPTION": "Does not disappear at the end of turn. Blocks damage. NL When lost, draw #b%d cards."
+  }
+}

@@ -1,0 +1,125 @@
+﻿{
+  "SuperstitioMod:LupaCard:CoitalVocal": {
+    "NAME": "Moans of Pleasure",
+    "NAME_SFW": "Battle Cry",
+    "DESCRIPTION": "Gain *Seduction *Block equal to !B! times (the number of enemies present + 1)",
+    "FLAVOR": "Just going with the flow~",
+    "FLAVOR_SFW": "Draw a card. Place a card from your hand on top of your draw pile. Exhaust."
+  },
+  "SuperstitioMod:LupaCard:ExposeSelf": {
+    "NAME": "Expose Yourself",
+    "NAME_SFW": "Tactical Insight",
+    "DESCRIPTION": "Remove !B! *Corruption. NL Until your next turn, when you take damage from attacks, gain half that amount as superstitiomod:Smeared\u00A0Semen.",
+    "FLAVOR": "Make love, not war.",
+    "FLAVOR_SFW": "The situation is too unfavorable for our warriors. I need to regroup the troops."
+  },
+  "SuperstitioMod:LupaCard:DrinkSemenBeer": {
+    "NAME": "Drink the Cum",
+    "NAME_SFW": "Drink the Blood",
+    "DESCRIPTION": "Whenever you gain *Semen, also gain *Brew equal to its *Semen value. NL When you collect !M! *Brew or the battle ends, heal HP equal to your *Brew.",
+    "EXTENDED_DESCRIPTION": [
+      "Brew",
+      "Collect",
+      "Cup’s full!",
+      "Bottoms up!"
+    ],
+    "FLAVOR": "Collect it in a cup and drink it down.",
+    "FLAVOR_SFW": "Avoid the tiger in the morning, and the snake in the evening."
+  },
+  "SuperstitioMod:LupaCard:Philter": {
+    "NAME": "Aphrodisiac",
+    "NAME_SFW": "Iron Qi Technique",
+    "DESCRIPTION": "Lose all Block. NL Gain *Plated *Armor equal to 1/!M! of the lost Block.",
+    "FLAVOR": "Best injected through the clit. Overdosing may cause uterine contractions.",
+    "FLAVOR_SFW": "So, you can complete the task without the shield."
+  },
+  "SuperstitioMod:LupaCard:ChooseCoitalPosture": {
+    "NAME": "Pick a Position",
+    "NAME_SFW": "Martial Mastery",
+    "DESCRIPTION": "Add 1 random *Sex card to your hand. NL It costs 0 Energy this turn and gains Exhaust.",
+    "FLAVOR": "Hmm, let me think…"
+  },
+  "SuperstitioMod:LupaCard:GangBangPrepare": {
+    "NAME": "Gangbang Prep",
+    "NAME_SFW": "Essence of Martial Arts",
+    "DESCRIPTION": "When you play a *Sex card, gain its corresponding mark. After collecting 5 marks, automatically play a *Gangbang. NL For each unique mark beyond the base, *Gangbang's values increase by !M!%%.",
+    "FLAVOR": "All of you at once? I can take it all~",
+    "FLAVOR_SFW": "Brave warriors, martial masters, angels who lead the masses... Descend, God of War Lü Bu!"
+  },
+  "SuperstitioMod:LupaCard:CultaeForm": {
+    "NAME": "Eldritch Form",
+    "DESCRIPTION": "",
+    "FLAVOR": ""
+  },
+  "SuperstitioMod:LupaCard:PutEveryCumInBody": {
+    "NAME": "Cum Flood",
+    "NAME_SFW": "Blood Swirl",
+    "DESCRIPTION": "Lose all superstitiomod:Spilled\u00A0Semen and superstitiomod:Smeared\u00A0Semen. Gain an equivalent amount of superstitiomod:Pleasure and superstitiomod:Internal\u00A0Semen.",
+    "FLAVOR": "So full… feels amazing~"
+  },
+  "SuperstitioMod:LupaCard:SemenBath": {
+    "NAME": "Semen Bath",
+    "NAME_SFW": "Bloodbath",
+    "DESCRIPTION": "Lose all *Semen. NL For each 1 point of *Semen lost, remove !B! *Corruption.",
+    "FLAVOR": "Bathing in it feels so good. Filling a whole tub? Now *that’s* a challenge."
+  },
+  "SuperstitioMod:LupaCard:SemenLubricate": {
+    "NAME": "Slick\u00A0with\u00A0Cum",
+    "NAME_SFW": "Combo\u00A0Strike",
+    "DESCRIPTION": "Deal !D! damage. NL superstitiomod:Cascade: superstitiomod:Cum\u00A0Hungry !M!: NL Play a non- *Slick\u00A0with\u00A0Cum attack from your draw pile.",
+    "FLAVOR": "Nothing goes to waste."
+  },
+  "SuperstitioMod:LupaCard:SemenTattoo": {
+    "NAME": "Semen Scent",
+    "NAME_SFW": "Bloody Shield",
+    "DESCRIPTION": "When you gain *Semen, NL gain *Seduction *Block equal to !M! times its *Semen value.",
+    "FLAVOR": "Has a mysteriously aphrodisiac effect."
+  },
+  "SuperstitioMod:LupaCard:SemenMagic": {
+    "NAME": "Semen Magic",
+    "NAME_SFW": "Blood Control",
+    "DESCRIPTION": "superstitiomod:Cum\u00A0Hungry !M!: NL Deal !D! damage.",
+    "FLAVOR": "I’m a magical girl too—specialized in semen magic~"
+  },
+  "SuperstitioMod:LupaCard:PrivatePhoto": {
+    "NAME": "Private Pic",
+    "NAME_SFW": "Past Reflection",
+    "DESCRIPTION": "Gain !B! *Seduction *Block. NL Gain !M! instances of superstitiomod:Passion this turn.",
+    "FLAVOR": "Oops~ I “accidentally” posted my ID and address with the pic… and the door lock’s “accidentally” broken too… whatever shall I do~❤"
+  },
+  "SuperstitioMod:LupaCard:NudeLive": {
+    "NAME": "Nude Stream",
+    "NAME_SFW": "Days Gone By",
+    "DESCRIPTION": "Gain !B! *Seduction *Block. NL Gain superstitiomod:Passion for !M! turns.",
+    "FLAVOR": ""
+  },
+  "SuperstitioMod:LupaCard:Whipping": {
+    "NAME": "Whipping",
+    "NAME_SFW": "Storm Mastery",
+    "DESCRIPTION": "Deal !D! damage to ALL enemies. NL For every enemy dealt at least !M! damage, gain %d superstitiomod:Pleasure.",
+    "FLAVOR": ""
+  },
+  "SuperstitioMod:LupaCard:NakedToSchool": {
+    "NAME": "Naked School Day",
+    "NAME_SFW": "Speed Writing",
+    "DESCRIPTION": "Choose up to !M! cards from your discard pile. Upgrade them and shuffle them into your draw pile.",
+    "FLAVOR": ""
+  },
+  "SuperstitioMod:LupaCard:ZenState": {
+    "NAME": "Zen Mode",
+    "DESCRIPTION": "Remove !B! *Corruption. NL Choose !M! non-Exhaust cards from your hand to give Exhaust. Exhaust superstitiomod:Unplayable cards directly.",
+    "FLAVOR": "Stay still... deep breaths… gotta keep this position while being pounded.",
+    "EXTENDED_DESCRIPTION": [
+      "Give Exhaust to up to %d cards."
+    ]
+  },
+  "SuperstitioMod:LupaCard:MeasureDick": {
+    "NAME": "Size Queen",
+    "NAME_SFW": "Throw Technique",
+    "DESCRIPTION": "Choose and *Discard up to !M! cards from your hand. NL If a card’s current cost is less than its original cost, gain [E] equal to the difference.",
+    "FLAVOR": "Let’s see who goes in deepest~",
+    "EXTENDED_DESCRIPTION": [
+      "Discard up to %d cards."
+    ]
+  }
+}

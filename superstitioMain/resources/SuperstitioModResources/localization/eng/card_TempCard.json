@@ -1,0 +1,106 @@
+﻿{
+  "SuperstitioMod:GangBang": {
+    "NAME": "Gangbang",
+    "NAME_SFW": "Battle\u00A0Bloodbath",
+    "DESCRIPTION": "stslib:Autoplay. NL superstitiomod:Desire, ends in %d turns: NL Deal !D! damage to ALL enemies. Gain !B! *Semen-Stains.",
+    "FLAVOR": "Let the orgy begin! Everyone, join in!",
+    "EXTENDED_DESCRIPTION": [
+      "superstitiomod:Desire. NL At the end of turn, deal !D! damage to ALL enemies, gain !B! *Semen-Stains.",
+      "Drowsy",
+      "Meh",
+      "Pleased",
+      "Satisfied",
+      "Perfect"
+    ]
+  },
+  "SuperstitioMod:GiveBirth": {
+    "NAME": "Delivery",
+    "NAME_SFW": "Ritual\u00A0Initiation",
+    "DESCRIPTION": "Gain !B! temporary HP. NL Lose all superstitiomod:Pregnancy statuses. NL For each card removed, gain !B! temporary HP.",
+    "FLAVOR": "A rebirth of flesh and lust."
+  },
+  "SuperstitioMod:SexToy": {
+    "NAME": "Vibrators",
+    "NAME_SFW": "Sacred\u00A0Banner",
+    "DESCRIPTION": "Equip the target with !M! random superstitiomod:Sex\u00A0Toys.",
+    "FLAVOR": "The more, the merrier~",
+    "FLAVOR_SFW": "Everyone wants to march under a glorious flag.",
+    "ADD_KEYWORDS_ID": [
+      "SuperstitioMod:SexualHeat",
+      "SuperstitioMod:EnemyOrgasm"
+    ],
+    "EXTENDED_DESCRIPTION": [
+      "Vibrator, Butt Plug, Egg Vibrator"
+    ],
+    "EXTENDED_DESCRIPTION_SFW": [
+      "Dragon-Phoenix Flag, Flowery Flag, Sun-Moon Flag"
+    ]
+  },
+  "SuperstitioMod:SelfReference": {
+    "NAME": "Self-Pleasure",
+    "NAME_SFW": "Self-Reference",
+    "DESCRIPTION": "superstitiomod:Temporal\u00A0Recursion. NL Remove !B! *Corruption.",
+    "FLAVOR": "Screw it, might as well rub one out at this point.",
+    "FLAVOR_SFW": "Yes, you’ve achieved one of the optional endings of this mod."
+  },
+  "SuperstitioMod:FishGirlMode": {
+    "NAME": "Fishgirl Morph",
+    "NAME_SFW": "Fire Elemental Morph",
+    "DESCRIPTION": "At the start of each turn, gain !M! stacks of superstitiomod:Asphyxiation.",
+    "FLAVOR": "L-Land... I can't breathe~❤"
+  },
+  "SuperstitioMod:KakaaGirlMode": {
+    "NAME": "Cawcaw Morph",
+    "NAME_SFW": "Cawcaw Morph",
+    "DESCRIPTION": "At the start of each turn, gain !M! Strength.",
+    "FLAVOR": "Cawcaw~~",
+    "FLAVOR_SFW": "Cawcaw~~"
+  },
+  "SuperstitioMod:SlimeGirlMode": {
+    "NAME": "Slimegirl Morph",
+    "NAME_SFW": "Slime Morph",
+    "DESCRIPTION": "At the start of each turn, gain !M! superstitiomod:Slime\u00A0Resilience.",
+    "FLAVOR": "Slime Split~★"
+  },
+  "SuperstitioMod:FeelPhantomBody": {
+    "NAME": "Feel\u00A0Phantom\u00A0Limb",
+    "NAME_SFW": "Cyber\u00A0Limb",
+    "DESCRIPTION": "Draw a card and a random enemy loses !M! HP. NL If still in hand at end of turn, Exhaust this and return the original card to your discard pile.",
+    "FLAVOR": "Take it all... Strip me down... Turn me into a stump... Helpless and yours..."
+  },
+  "SuperstitioMod:VulnerableTogether": {
+    "NAME": "Vulnerable Together",
+    "NAME_SFW": "Vengeful Wrath",
+    "DESCRIPTION": "Apply !M! Vulnerable to *both sides.",
+    "FLAVOR": ""
+  },
+  "SuperstitioMod:NullCard": {
+    "NAME": "Null Card",
+    "DESCRIPTION": "Upon use, deal 114514 damage to all enemies. NL *Seeing *this card *means *your *reward pool *lacks *sufficient *cards.",
+    "FLAVOR": "Regroup your troops.",
+    "ADD_KEYWORDS_ID": [
+      "SuperstitioMod:NullCardDescription1",
+      "SuperstitioMod:NullCardDescription2"
+    ],
+    "MAKE_KEYWORDS": [
+      {
+        "ID": "SuperstitioMod:NullCardDescription1",
+        "PROPER_NAME": "Your warriors are falling apart",
+        "NAMES": [
+          "your warriors are falling apart",
+          "your\u00A0warriors\u00A0are\u00A0falling\u00A0apart"
+        ],
+        "DESCRIPTION": "Apparently, you need at least one attack and one skill card of every rarity, as well as power cards of uncommon and rare rarities. Total number should also exceed 20."
+      },
+      {
+        "ID": "SuperstitioMod:NullCardDescription2",
+        "PROPER_NAME": "Your forces are devastated",
+        "NAMES": [
+          "your forces are devastated",
+          "your\u00A0forces\u00A0are\u00A0devastated"
+        ],
+        "DESCRIPTION": "The game didn’t crash due to your error only because the author was merciful. But that doesn’t mean you should keep playing like this—defeat is part of war. Try again, hero."
+      }
+    ]
+  }
+}

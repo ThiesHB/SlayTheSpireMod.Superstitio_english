@@ -1,0 +1,88 @@
+﻿{
+  "SuperstitioMod:ExposeSelfPower": {
+    "NAME": "Self-Exposure",
+    "DESCRIPTIONS": [
+      "Lasts for %d turn(s). When you take attack damage, gain #ySmeared\u00A0Semen equal to half the damage taken."
+    ]
+  },
+  "SuperstitioMod:InsideSemen": {
+    "NAME": "Internal\u00A0Semen",
+    "DESCRIPTIONS": [
+      "Current amount: #b%d. NL Current value: #b%d. NL Used as a card resource.",
+      "Overflow!",
+      "Capacity increased!"
+    ]
+  },
+  "SuperstitioMod:OutsideSemen": {
+    "NAME": "Smeared\u00A0Semen",
+    "DESCRIPTIONS": [
+      "Current amount: #b%d. NL Current value: #b%d. NL Used as a card resource."
+    ]
+  },
+  "SuperstitioMod:FloorSemen": {
+    "NAME": "Spilled\u00A0Semen",
+    "DESCRIPTIONS": [
+      "Current amount: #b%d. NL Current value: #b%d. NL Used as a card resource."
+    ]
+  },
+  "SuperstitioMod:DelayHpLosePower_ApplyOnlyOnVictory": {
+    "NAME": "#rCorruption",
+    "DESCRIPTIONS": [
+      "At the end of combat: NL #rLose #r%d #rHP."
+    ]
+  },
+  "SuperstitioMod:DelayHpLosePower_ApplyOnAttacked": {
+    "NAME": "#rCorruption",
+    "DESCRIPTIONS": [
+      "Upon next time you take attack damage or at the end of combat: NL #rLose #r%d #rHP."
+    ]
+  },
+  "SuperstitioMod:SexPlateArmorPower": {
+    "NAME": "Layered Armor",
+    "DESCRIPTIONS": [
+      "At the end of your turn, gain #b%d #yBlock. When you lose HP from attack damage, reduce stacks by #b1."
+    ]
+  },
+  "SuperstitioMod:CanNotGetSemen": {
+    "NAME": "Semen Blocked",
+    "DESCRIPTIONS": [
+      "Cannot gain Semen."
+    ]
+  },
+  "SuperstitioMod:PreventHpLimit_Times": {
+    "NAME": "Passion",
+    "DESCRIPTIONS": [
+      "This turn, the next #b%d times you take attack damage and lose HP, you do *not* #rEmbrace\u00A0Corruption."
+    ]
+  },
+  "SuperstitioMod:PreventHpLimit_Turns": {
+    "NAME": "Passion",
+    "DESCRIPTIONS": [
+      "For #b%d turn(s), when you take attack damage and lose HP, you do *not* #rEmbrace\u00A0Corruption."
+    ],
+    "MAKE_KEYWORDS": [
+      {
+        "PROPER_NAME": "Passion",
+        "NAMES": [
+          "passion"
+        ],
+        "DESCRIPTION": "When taking attack damage and losing HP, you do *not* #rEmbrace\u00A0Corruption."
+      }
+    ]
+  },
+  "SuperstitioMod:RatherThanDeath": {
+    "NAME": "Cheat Death",
+    "DESCRIPTIONS": [
+      "Avoid death #b%d time(s)."
+    ],
+    "MAKE_KEYWORDS": [
+      {
+        "PROPER_NAME": "Cheat Death",
+        "NAMES": [
+          "cheat\u00A0death"
+        ],
+        "DESCRIPTION": "Avoid death once."
+      }
+    ]
+  }
+}

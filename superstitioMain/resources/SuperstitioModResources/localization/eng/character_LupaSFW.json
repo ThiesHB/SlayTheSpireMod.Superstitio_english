@@ -1,0 +1,22 @@
+﻿{
+  "SuperstitioMod:Lupa": {
+    "NAMES": [
+      "Wrathful Celestial",
+      "Wrathful Celestial"
+    ],
+    "TEXT": [
+      "Once a heavenly maiden from the Ninth Skies, now cast into the sea. NL A seething rage boils within her, desperate for release—no amount of bloodshed can calm the storm. NL Maybe it’s time to turn off the SFW filter in the mod settings?",
+      "\"Your heart? A sudden, burning fury wells up within you…\""
+    ]
+  },
+  "SuperstitioMod:Maso": {
+    "NAMES": [
+      "Vengeful Celestial",
+      "Vengeful Celestial"
+    ],
+    "TEXT": [
+      "She once lived a life of decadent luxury, but her kind, who defied nature’s order, has fallen from grace. NL The flames of vengeance may mend her wounds—but not the rot festering in her soul. NL Maybe it’s time to turn off the SFW filter in the mod settings?",
+      "\"Your heart? The fire of revenge crackles hungrily...\""
+    ]
+  }
+}

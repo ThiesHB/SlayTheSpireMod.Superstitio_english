@@ -1,0 +1,46 @@
+{
+  "SuperstitioMod:CruelTortureTag": {
+    "TEXT": [
+      "Torture: %s"
+    ],
+    "TEXT_SFW": [
+      "Magic: %s"
+    ]
+  },
+  "SuperstitioMod:InsideEjaculationTag": {
+    "TEXT": [
+      "Sex - Penetration: %s"
+    ],
+    "TEXT_SFW": [
+      "Martial Arts - Technique: %s"
+    ]
+  },
+  "SuperstitioMod:OutsideEjaculationTag": {
+    "TEXT": [
+      "Sex - Service: %s"
+    ],
+    "TEXT_SFW": [
+      "Martial Arts - Bloodshed: %s"
+    ]
+  },
+  "SuperstitioMod:BodyModificationTag": {
+    "TEXT": [
+      "Modification: %s"
+    ],
+    "TEXT_SFW": [
+      "Modification: %s"
+    ]
+  },
+  "SuperstitioMod:HowToPlayThisMod": {
+    "TEXT": [
+      "How to Start Playing",
+      "You can play characters with #rGuro Content enabled while having #gSFW Mode on, or you can play freely with #gSFW Mode off and #rGuro Content enabled. NL Please configure this in the mod options tab on the main menu."
+    ]
+  },
+  "SuperstitioMod:ModTips": {
+    "TEXT": [
+      "Got hurt? Don’t worry! NL After taking damage, all injury-related effects will trigger, but you won’t actually lose HP.",
+      "You can play characters with #rGuro Content enabled while having #gSFW Mode on, or you can play freely with #gSFW Mode off and #rGuro Content enabled. NL Please configure this in the mod options tab on the main menu."
+    ]
+  }
+}

@@ -1,0 +1,29 @@
+﻿{
+  "SuperstitioMod:SexDamage": {
+    "NAME": "Sex",
+    "NAME_SFW": "Martial Arts",
+    "BASIC_INFO": "Sex",
+    "BASIC_INFO_SFW": "Martial Arts",
+    "DESCRIPTION": "If the target is the player: only deals half damage. NL If the target is not the player: after breaking Block, deals only 1 damage, with the remaining damage applied at the start of the target's next turn."
+  },
+  "SuperstitioMod:SexDamage_Fuck": {
+    "NAME": "Sex",
+    "NAME_SFW": "Martial Arts",
+    "BASIC_INFO": "Sex - Penetration",
+    "BASIC_INFO_SFW": "Martial Arts - Technique",
+    "DESCRIPTION": "If the target is the player: only deals half damage. NL If the target is not the player: after breaking Block, deals only 1 damage, with the remaining damage applied at the start of the target's next turn."
+  },
+  "SuperstitioMod:SexDamage_Job": {
+    "NAME": "Sex",
+    "NAME_SFW": "Martial Arts",
+    "BASIC_INFO": "Sex - Service",
+    "BASIC_INFO_SFW": "Martial Arts - Bloodshed",
+    "DESCRIPTION": "If the target is the player: only deals half damage. NL If the target is not the player: after breaking Block, deals only 1 damage, with the remaining damage applied at the start of the target's next turn."
+  },
+  "SuperstitioMod:UnBlockAbleDamage": {
+    "NAME": "Unblockable Damage",
+    "NAME_SFW": "",
+    "BASIC_INFO": "Unblockable",
+    "DESCRIPTION": "Cannot be blocked, does not trigger Thorns, ignores temporary HP."
+  }
+}

@@ -1,0 +1,47 @@
+﻿{
+  "SuperstitioMod:JokeDescription": {
+    "NAME": "Five Signs of Decline - Minor",
+    "DESCRIPTIONS": [
+      "You've undergone the Minor Five Signs of Decline. Your once-divine body now bears flaws, bringing you closer to mere mortality. NL The signs you've experienced: NL #ysuperstitiomod:Muted\u00A0Melody, #ysuperstitiomod:Dimming\u00A0Aura, #ysuperstitiomod:Wet\u00A0and\u00A0Wild, #ysuperstitiomod:Uncertain\u00A0Foresight, #ysuperstitiomod:Reluctant\u00A0Awakening."
+    ],
+    "FLAVOR": "Dev note: I hope you’ve realized—this relic does absolutely nothing."
+  },
+  "SuperstitioMod:SorM": {
+    "NAME": "S or M Mode",
+    "DESCRIPTIONS": [
+      "Masochist: For every #b%d damage taken, gain %d point(s) of #ysuperstitiomod:Pleasure. NL Sadist: When you deal more than #b%d damage, gain %d point(s) of #ysuperstitiomod:Pleasure. NL Right-click outside combat to switch mode.",
+      "Currently in Masochist mode. NL For every #b%d damage taken, gain %d point(s) of #ysuperstitiomod:Pleasure. NL Right-click outside combat to switch to Sadist mode.",
+      "Currently in Sadist mode. NL When you deal more than #b%d damage, gain %d point(s) of #ysuperstitiomod:Pleasure. NL Right-click outside combat to switch to Masochist mode.",
+      "Currently in Dual mode. NL For every #b%d damage taken, gain %d point(s) of #ysuperstitiomod:Pleasure. NL When you deal more than #b%d damage, gain %d point(s) of #ysuperstitiomod:Pleasure."
+    ],
+    "FLAVOR": "Why choose? I like it both ways—ah! Ah! AHx99!"
+  },
+  "SuperstitioMod:NippleRings": {
+    "NAME": "Nipple Rings",
+    "DESCRIPTIONS": [
+      "Whenever you reach a #ysuperstitiomod:Orgasm, gain %d temporary Strength."
+    ],
+    "FLAVOR": "They make you extra tempting—especially when those nipples perk up."
+  },
+  "SuperstitioMod:Prostitution": {
+    "NAME": "Prostitution",
+    "DESCRIPTIONS": [
+      "For every %d times you play a #yPenetration or a #yService #ySex card, gain %d gold."
+    ],
+    "FLAVOR": "Flesh for coin—affordable and satisfying."
+  },
+  "SuperstitioMod:EjaculationMaster": {
+    "NAME": "Squirting Master",
+    "DESCRIPTIONS": [
+      "This battle: Every time you trigger #ysuperstitiomod:Squirt %d times, draw %d card(s)."
+    ],
+    "FLAVOR": "Look how far I can shoot!"
+  },
+  "SuperstitioMod:CumOnShoes": {
+    "NAME": "Cum-Stained Heels",
+    "DESCRIPTIONS": [
+      "This battle: For every %d #ySex card(s) you play, gain 1 stack of Agility."
+    ],
+    "FLAVOR": "Sticky, squishy, and oh-so-pleasant."
+  }
+}

@@ -1,0 +1,37 @@
+﻿{
+  "SuperstitioMod:Sensitive": {
+    "NAME": "Sensitive",
+    "DESCRIPTIONS": [
+      "Each [E] you use immediately gives you #b%d point(s) of #ysuperstitiomod:Pleasure. NL Upon #ysuperstitiomod:Orgasm, all card energy costs are temporarily reduced by [E] . NL #ysuperstitiomod:Multiple\u00A0Orgasms further reduce energy cost."
+    ],
+    "FLAVOR": "Your body is *very* responsive."
+  },
+  "SuperstitioMod:DevaBody_Lupa": {
+    "NAME": "Corrupted Wrath Deva",
+    "DESCRIPTIONS": [
+      "You no longer lose HP from any source. NL Instead, gain stacks of #rCorruption when you would lose HP. NL Taking damage from attacks causes you to #ysuperstitiomod:Embrace\u00A0Corruption. NL All #rCorruption is cleared at the end of combat."
+    ],
+    "FLAVOR": "Your body is invulnerable to swords and spears—but *guns* are a different story."
+  },
+  "SuperstitioMod:StartWithSexToy": {
+    "NAME": "Little\u00A0Toy",
+    "DESCRIPTIONS": [
+      "At the start of combat, you equip %d #ysuperstitiomod:Sex\u00A0Toy(s)."
+    ],
+    "FLAVOR": "Still not enough..."
+  },
+  "SuperstitioMod:SemenMagician": {
+    "NAME": "Semen Mage",
+    "DESCRIPTIONS": [
+      "Whenever you play an #yAttack card, you #ysuperstitiomod:gain\u00A0Semen."
+    ],
+    "FLAVOR": "Still not enough..."
+  },
+  "SuperstitioMod:LewdGirlComing": {
+    "NAME": "Lewd Girl Incoming!",
+    "DESCRIPTIONS": [
+      "Gain [E] at the start of each turn. At the start of battle, a random enemy gains #b%d stack(s) of #ysuperstitiomod:Cheat\u00A0Death."
+    ],
+    "FLAVOR": "Don’t run away now~"
+  }
+}

@@ -1,0 +1,172 @@
+﻿{
+  "SuperstitioMod:MasoCard:DeathDoor": {
+    "NAME": "Near-Death Thrill",
+    "NAME_SFW": "Second Wind",
+    "DESCRIPTION": "superstitiomod:Defy\u00A0Death !M! times. NL The first time you superstitiomod:Defy\u00A0Death, NL gain superstitiomod:On\u00A0Death's\u00A0Door.",
+    "FLAVOR": "So thrilling, so fun—can't wait to do it again!"
+  },
+  "SuperstitioMod:MasoCard:BellyStrike": {
+    "NAME": "Gut Punch",
+    "NAME_SFW": "Power Mode",
+    "DESCRIPTION": "Deal !D! damage to a target. NL Gain !M! Temporary Strength. NL superstitiomod:Masochism: Only deals half damage, but when unblocked, your Strength is doubled.",
+    "FLAVOR": "Hit me right here!",
+    "FLAVOR_SFW": "I’m Lawrence Barnes. They call me 'the Prophet.'"
+  },
+  "SuperstitioMod:MasoCard:DrinkPoison": {
+    "NAME": "Drug Play",
+    "NAME_SFW": "Poisonous Remedy",
+    "DESCRIPTION": "Remove half of *Corruption, NL Gain Poison equal to half the removed amount. NL (Expected Removal: !M!)",
+    "FLAVOR": "Sweet and silky... who’d have guessed? Not like I drink it for fun or anything~"
+  },
+  "SuperstitioMod:MasoCard:CutWrist": {
+    "NAME": "Wrist Slice",
+    "NAME_SFW": "Bloodletting Therapy",
+    "DESCRIPTION": "Lose !M! HP. NL Remove !B! *Corruption.",
+    "FLAVOR": "There's something irresistibly seductive about it.",
+    "FLAVOR_SFW": "You’re not bleeding out. You’re overflowing. Let me help relieve some pressure."
+  },
+  "SuperstitioMod:MasoCard:NailExtraction": {
+    "NAME": "Nail\u00A0Yank",
+    "NAME_SFW": "Tit\u00A0for\u00A0Tat",
+    "DESCRIPTION": "Lose %d HP, draw %d cards. NL Add %d *Nail\u00A0Yank cards to your draw pile. NL Can only play %d this turn. NL (Used: !M!)",
+    "UPGRADE_DESCRIPTION": "Lose %d HP, draw %d cards. NL Add %d *Nail\u00A0Yank cards to your draw pile. NL Can only play %d this turn. NL (Used: !M!)",
+    "FLAVOR": "Rip one off and it just grows back—can't even stick a needle in before it's healed!"
+  },
+  "SuperstitioMod:MasoCard:OrgasmWithLostBody": {
+    "NAME": "Crave the Crippling",
+    "NAME_SFW": "Augment Installed",
+    "DESCRIPTION": "When you draw a superstitiomod:Unplayable card, exhaust it and add *Feel\u00A0Phantom\u00A0Limb to your hand.",
+    "FLAVOR": "Sometimes I wish I never had those parts to begin with~ So helpless, so needy~❤"
+  },
+  "SuperstitioMod:MasoCard:BodyModification_CutOff": {
+    "NAME": "Missing Parts",
+    "NAME_SFW": "Cybernetic Upgrade",
+    "DESCRIPTION": "Remove !B! *Corruption and increase Attack damage by !M!%. NL Choose one body part: Its related *Sex Card becomes unplayable.",
+    "FLAVOR": "Should I cut it off with a knife, or just yank it out? Oh, the choices~",
+    "EXTENDED_DESCRIPTION": [
+      "Attack increased by #b%d%%."
+    ]
+  },
+  "SuperstitioMod:BodyModification_CutOff_Chose": {
+    "NAME": "Choose a Missing Part",
+    "NAME_SFW": "Part Selection",
+    "DESCRIPTION": "This card is for selection only—its name and description change during the choice.",
+    "FLAVOR": "So many tempting options… can’t I just pick them all?"
+  },
+  "SuperstitioMod:MasoCard:BodyModification_SuperHugeBreast": {
+    "NAME": "Hyper Boobs",
+    "NAME_SFW": "Merciful Heart",
+    "DESCRIPTION": "When losing HP from attack damage, gain !M! superstitiomod:Milk.",
+    "FLAVOR": "Bigger, bigger, BIGGER!",
+    "FLAVOR_SFW": "You should really know what LV and EXP stand for."
+  },
+  "SuperstitioMod:MasoCard:BodyModification_TattooAndPiercing": {
+    "NAME": "Tats & Piercings",
+    "NAME_SFW": "Battle Marks",
+    "DESCRIPTION": "Whenever a card is Exhausted or *Discarded, gain !M! superstitiomod:Pleasure.",
+    "FLAVOR_SFW": "So intense! So electric! Getting to see a true warrior in action makes life worth it!",
+    "EXTENDED_DESCRIPTION": [
+      " NL Current Modifications: %s",
+      " NL %s: #b%d ;",
+      "Permanent makeup, full-body dye, eyeball tattoos, dirty talk imprinting, tongue split, nipple skewers, cheek rings, hanging hooks, corset lacing, gaping lips, urethral piercing, clit charm"
+    ],
+    "EXTENDED_DESCRIPTION_SFW": [
+      " NL Current Marks: %s",
+      " NL %s: #b%d ;",
+      "Sea Tiger, Ogre, Heavenly Path, Hellfire, Azure Dream, Darkness"
+    ],
+    "ADD_KEYWORDS_ID": [
+      "SuperstitioMod:Orgasm"
+    ]
+  },
+  "SuperstitioMod:MasoCard:BodyModification_Prolapse": {
+    "NAME": "Prolapse",
+    "NAME_SFW": "Reactive Armor",
+    "DESCRIPTION": "When taking attack damage, *discard a random card from your hand. The damage is reduced to 1/ %d. NL If no cards in hand, *discard a random card from superstitiomod:Foreplay\u00A0Sequence.",
+    "FLAVOR_SFW": "Slapping random gear on won’t save you. Think smart.",
+    "EXTENDED_DESCRIPTION": [
+      " NL Current Prolapse Level: %s",
+      " NL %s: #b%d ;",
+      "Uterus, Urethra, Anus, Vagina"
+    ],
+    "EXTENDED_DESCRIPTION_SFW": [
+      " NL Current Armor Level: %s",
+      " NL %s: #b%d ;",
+      "Basic Armor, Normal Armor, Average Armor"
+    ]
+  },
+  "SuperstitioMod:MasoCard:CruelTorture_Dismember": {
+    "NAME": "Lingchi",
+    "NAME_SFW": "Bloody Aegis",
+    "DESCRIPTION": "superstitiomod:Simultaneous. NL For every card in your superstitiomod:Foreplay\u00A0Sequence, lose !M! HP and remove !B! *Corruption."
+  },
+  "SuperstitioMod:MasoCard:CruelTorture_HotPillar": {
+    "NAME": "Burning Pillar",
+    "NAME_SFW": "Overload",
+    "DESCRIPTION": "Add %d *Burns to your discard pile. Gain !M! Temporary Dexterity. NL Add this card to your superstitiomod:Foreplay\u00A0Sequence. Gain !M! Temporary Dexterity each turn.",
+    "EXTENDED_DESCRIPTION": [
+      "superstitiomod:Foreplay\u00A0Sequence. NL At the start of your turn, gain !M! Temporary Dexterity."
+    ]
+  },
+  "SuperstitioMod:MasoCard:CruelTorture_Impale": {
+    "NAME": "Impaling Stake",
+    "NAME_SFW": "Sacrifice",
+    "DESCRIPTION": "For every !M! *Corruption, draw 1 card. NL (Expected Draw: %d) NL Lose !M! HP, draw 1 card.",
+    "FLAVOR_SFW": "Isaac lived with his parents in a little house on a hill."
+  },
+  "SuperstitioMod:MasoCard:LoveDirty": {
+    "NAME": "Filthy Fetish",
+    "NAME_SFW": "Luminous Shield",
+    "DESCRIPTION": "If this card is *discarded or exhausted from your hand, gain !B! *Afterglow.",
+    "FLAVOR_SFW": "Hello, world!"
+  },
+  "SuperstitioMod:MasoCard:HeavyCuffs": {
+    "NAME": "Heavy Shackles",
+    "NAME_SFW": "Heavy Shackles",
+    "DESCRIPTION": "Gain !B! *Shackled Block. NL If you lose this Block, draw !M! cards."
+  },
+  "SuperstitioMod:MasoCard:Sensitive3000": {
+    "NAME": "Sensitivity 3000",
+    "NAME_SFW": "Soul Ablaze",
+    "DESCRIPTION": "During superstitiomod:Orgasm, gain !M! [E]."
+  },
+  "SuperstitioMod:MasoCard:SadismForm": {
+    "NAME": "Sadist Form",
+    "NAME_SFW": "Vengeance Form",
+    "DESCRIPTION": "Whenever you deal attack damage or lose HP, gain !M! Strength next turn."
+  },
+  "SuperstitioMod:MasoCard:STDRoulette": {
+    "NAME": "STD Roulette",
+    "NAME_SFW": "Roulette",
+    "DESCRIPTION": "Gain !B! *Afterglow. NL This turn, whenever you lose HP, apply !M! stacks of superstitiomod:Lust to all enemies.",
+    "EXTENDED_DESCRIPTION": [
+      "This turn, whenever you lose HP, apply %d stacks of #yLust to all enemies.",
+      "Safe!",
+      "Got infected!"
+    ]
+  },
+  "SuperstitioMod:MasoCard:HumanCentipede": {
+    "NAME": "Human\u00A0Centipede",
+    "NAME_SFW": "Linked\u00A0Chains",
+    "DESCRIPTION": "Apply !M! stacks of superstitiomod:Human\u00A0Centipede to a target.",
+    "EXTENDED_DESCRIPTION": [
+      "When hit by attack damage, deal %d damage to #yall characters."
+    ],
+    "MAKE_KEYWORDS": [
+      {
+        "PROPER_NAME": "Human\u00A0Centipede",
+        "NAMES": ["human\u00A0centipede", "linked\u00A0chains"],
+        "DESCRIPTION": "When hit by #yattack damage, deal damage to #yall characters."
+      }
+    ]
+  },
+  "SuperstitioMod:MasoCard:Guillotine": {
+    "NAME": "Guillotine",
+    "NAME_SFW": "Edge of Death",
+    "DESCRIPTION": "This turn, superstitiomod:Pleasure needed to superstitiomod:Orgasm increases by %d and attack damage increases by %d%%. NL superstitiomod:Longing, superstitiomod:Orgasm !M! times: *Instant *Death? NL superstitiomod:Auto-Release.",
+    "EXTENDED_DESCRIPTION": [
+      "This turn, Pleasure needed to Orgasm increases by #b%d, attack damage increases by #b%d%%.",
+      "superstitiomod:Longing. NL After Orgasming superstitioApi:!HANGING_TIME! times, *instant *death? NL superstitiomod:Auto-Release."
+    ]
+  }
+}

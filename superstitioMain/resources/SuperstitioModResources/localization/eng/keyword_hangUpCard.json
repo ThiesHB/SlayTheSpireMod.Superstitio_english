@@ -1,0 +1,111 @@
+﻿[
+  {
+    "PROPER_NAME": "Simultaneous",
+    "NAMES": [
+      "simultaneous",
+      "speed"
+    ],
+    "DESCRIPTION": "This card does *not* #ysatisfy any conditions in the #yForeplay\u00A0Sequence. (It won’t reduce their counters by being played, though its effects might still reduce them.)"
+  },
+  {
+    "PROPER_NAME": "Forced\u00A0Satisfaction",
+    "NAMES": [
+      "forced\u00A0satisfaction"
+    ],
+    "DESCRIPTION": "Forcibly satisfies all #yLonging and #yDesire effects in the #yForeplay\u00A0Sequence."
+  },
+  {
+    "PROPER_NAME": "Foreplay\u00A0Sequence",
+    "NAMES": [
+      "foreplay\u00A0sequence",
+      "cooperation\u00A0sequence"
+    ],
+    "DESCRIPTION": "Cards in the Foreplay\u00A0Sequence appear at the top of the screen. It's a new card zone where cards activate effects once their conditions are met."
+  },
+  {
+    "PROPER_NAME": "Pregnancy",
+    "NAMES": [
+      "pregnancy",
+      "pregnancy-",
+      "pregnancy\u00A0state",
+      "ritual"
+    ],
+    "DESCRIPTION": "When played, adds a card representing the Pregnancy to the #yForeplay\u00A0Sequence. Reduces damage equal to its counter."
+  },
+  {
+    "PROPER_NAME": "Longing",
+    "NAMES": [
+      "longing",
+      "longing-",
+      "delay"
+    ],
+    "DESCRIPTION": "When played, sent to the #yForeplay\u00A0Sequence. NL Once its condition is #ysatisfied, reduce its counter. NL When the counter reaches zero, it #ytriggers the listed effect and returns to the draw pile."
+  },
+  {
+    "PROPER_NAME": "Desire",
+    "NAMES": [
+      "desire",
+      "desire-",
+      "support"
+    ],
+    "DESCRIPTION": "When played, sent to the #yForeplay\u00A0Sequence. NL When its condition is #ysatisfied, reduce its counter and #ytrigger the listed effect. NL Once the counter hits zero, return it to the draw pile."
+  },
+  {
+    "ID": "SuperstitioMod:Connive",
+    "PROPER_NAME": "Indulgence",
+    "NAMES": [
+      "indulgence",
+      "indulgence-"
+    ],
+    "DESCRIPTION": "When played, sent to the #yForeplay\u00A0Sequence. NL Once its condition is #ysatisfied, reduce its counter. NL When the counter hits zero, return to the draw pile. NL If it leaves the #yForeplay\u00A0Sequence with counters remaining, #ytrigger the listed effect."
+  },
+  {
+    "ID": "SuperstitioMod:Release",
+    "PROPER_NAME": "Release",
+    "NAMES": [
+      "release",
+      "release\u00A0self"
+    ],
+    "DESCRIPTION": "Discard this card directly from the #yForeplay\u00A0Sequence."
+  },
+  {
+    "ID": "SuperstitioMod:AutoRelease",
+    "PROPER_NAME": "Auto-Release",
+    "NAMES": [
+      "auto-release"
+    ],
+    "DESCRIPTION": "If in the #yForeplay\u00A0Sequence: at the end of the turn, discard this card directly from the #yForeplay\u00A0Sequence."
+  },
+  {
+    "ID": "SuperstitioMod:ReleaseToDiscard",
+    "PROPER_NAME": "Remove",
+    "NAMES": [
+      "remove"
+    ],
+    "DESCRIPTION": "Discard this card directly from the #yForeplay\u00A0Sequence."
+  },
+  {
+    "ID": "SuperstitioMod:AutoReleaseToDiscard",
+    "PROPER_NAME": "Auto-Remove",
+    "NAMES": [
+      "auto-remove"
+    ],
+    "DESCRIPTION": "At the end of the turn, #yRelease this card — discard it directly from the #yForeplay\u00A0Sequence."
+  },
+  {
+    "PROPER_NAME": "Miscarry",
+    "NAMES": [
+      "miscarry",
+      "ritual\u00A0collapse"
+    ],
+    "DESCRIPTION": "If the #yPregnancy\u00A0State is broken by attack damage, trigger the #yMiscarry effect."
+  },
+  {
+    "PROPER_NAME": "Natural\u00A0Birth",
+    "NAMES": [
+      "natural\u00A0birth",
+      "ritual\u00A0success"
+    ],
+    "DESCRIPTION": "If the #yPregnancy\u00A0State is removed by non-attack damage, trigger the #yNatural\u00A0Birth effect."
+  }
+]

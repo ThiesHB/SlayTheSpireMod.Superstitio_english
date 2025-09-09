@@ -1,0 +1,30 @@
+﻿{
+  "SuperstitioMod:VulnerableTogetherRelic": {
+    "NAME": "Down Together",
+    "DESCRIPTIONS": [
+      "At the start of combat, add a #ysuperstitiomod:Mutual\u00A0Downfall to your hand."
+    ],
+    "FLAVOR": "Still not enough..."
+  },
+  "SuperstitioMod:MasochismMode": {
+    "NAME": "Masochistic",
+    "DESCRIPTIONS": [
+      "Gain #b%d point(s) of #ysuperstitiomod:Pleasure for every #b%d HP lost in a single hit. NL On #ysuperstitiomod:Orgasm, remove #b%d #rCorruption."
+    ],
+    "FLAVOR": "Yes, I *am* masochistic."
+  },
+  "SuperstitioMod:DevaBody_Masochism": {
+    "NAME": "Corrupted Vengance Deva",
+    "DESCRIPTIONS": [
+      "You no longer lose HP from any other source. NL When you would lose HP, gain #rCorruption instead. NL At end of turn, #ysuperstitiomod:Embrace\u00A0Corruption for each #ysuperstitiomod:Fresh\u00A0Corruption. NL All #rCorruption is cleared at the end of combat."
+    ],
+    "FLAVOR": "Your body heals in an instant... but the sensations leave their mark."
+  },
+  "SuperstitioMod:EnjoyAilment": {
+    "NAME": "Savor the Pain",
+    "DESCRIPTIONS": [
+      "While #yWeakened, increase card-based #rCorruption removal and #yBlock gained by #b1/%d. NL While #yFrail, increase damage dealt by #b1/%d. NL While #yVulnerable, increase card-based #rCorruption removal and #yBlock gained by #b1/%d and damage dealt by #b1/%d."
+    ],
+    "FLAVOR": ""
+  }
+}

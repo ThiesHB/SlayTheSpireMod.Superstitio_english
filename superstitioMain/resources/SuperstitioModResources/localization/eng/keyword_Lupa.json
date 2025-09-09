@@ -1,0 +1,46 @@
+﻿[
+  {
+    "PROPER_NAME": "Semen",
+    "NAMES": [
+      "gain semen",
+      "gain\u00A0semen",
+      "semen",
+      "blood",
+      "gain\u00A0blood"
+    ],
+    "DESCRIPTION": "#yPenetration cards generate #yInternal\u00A0Semen; NL #yService cards generate #ySmeared\u00A0Semen; NL Other #yAttack cards generate #ySpilled\u00A0Semen. NL All types of Semen can be used equally, but each has a different value."
+  },
+  {
+    "PROPER_NAME": "Spilled\u00A0Semen",
+    "NAMES": [
+      "spilled\u00A0semen",
+      "spilled\u00A0blood"
+
+    ],
+    "DESCRIPTION": "A card resource. Worth 1 point."
+  },
+  {
+    "PROPER_NAME": "Smeared\u00A0Semen",
+    "NAMES": [
+      "smeared\u00A0semen",
+      "smeared\u00A0blood"
+    ],
+    "DESCRIPTION": "A card resource. Worth 2 points."
+  },
+  {
+    "PROPER_NAME": "Internal\u00A0Semen",
+    "NAMES": [
+      "internal\u00A0semen",
+      "internal\u00A0blood"
+    ],
+    "DESCRIPTION": "A card resource. Worth 3 points."
+  },
+  {
+    "PROPER_NAME": "Cascade",
+    "NAMES": [
+      "cascade:",
+      "cascade"
+    ],
+    "DESCRIPTION": "Repeat the effect until it can no longer continue."
+  }
+]

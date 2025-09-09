@@ -1,0 +1,79 @@
+﻿{
+  "SuperstitioMod:DelayHpLosePower_HealOnVictory": {
+    "NAME": "#rCorruption",
+    "DESCRIPTIONS": [
+      "At the end of enemy turn: NL #rLose #r%d #rHP. NL Total Corruption: #r%d stacks."
+    ]
+  },
+  "SuperstitioMod:DoubleRemoveHpLostWhenHasVulnerablePower": {
+    "NAME": "Double Block",
+    "DESCRIPTIONS": [
+      "While you have #yVulnerable, the amount of #rCorruption removed by cards and #yBlock gained from cards are both doubled."
+    ]
+  },
+  "SuperstitioMod:LostBodyPart_Arm": {
+    "NAME": "Severed Arm",
+    "NAME_SFW": "Cybernetic Arm",
+    "DESCRIPTIONS": [
+      "Cannot play arm-related *Sex cards."
+    ],
+    "DESCRIPTIONS_SFW": [
+      "Cannot play Elbow Jab or Rising Dragon Fist."
+    ]
+  },
+  "SuperstitioMod:LostBodyPart_Breast": {
+    "NAME": "Breast Severed",
+    "NAME_SFW": "Muscle Cyberization",
+    "DESCRIPTIONS": [
+      "Cannot play breast-related *Sex cards."
+    ],
+    "DESCRIPTIONS_SFW": [
+      "Cannot play Mulan Missile or Monkey Fist."
+    ]
+  },
+  "SuperstitioMod:LostBodyPart_Castration": {
+    "NAME": "Castrated",
+    "NAME_SFW": "Bird Fist Forbidden",
+    "DESCRIPTIONS": [
+      "Cannot play genital-related *Sex cards."
+    ],
+    "DESCRIPTIONS_SFW": [
+      "Cannot play Swallow Fist or Kite Fist."
+    ]
+  },
+  "SuperstitioMod:LostBodyPart_Head": {
+    "NAME": "Decapitated",
+    "NAME_SFW": "Cybernetic Head",
+    "DESCRIPTIONS": [
+      "Cannot play head-related *Sex cards."
+    ],
+    "DESCRIPTIONS_SFW": [
+      "Cannot play head-based *Martial\u00A0Arts cards."
+    ]
+  },
+  "SuperstitioMod:LostBodyPart_Leg": {
+    "NAME": "Severed Leg",
+    "NAME_SFW": "Cybernetic Leg",
+    "DESCRIPTIONS": [
+      "Cannot play leg-related *Sex cards."
+    ],
+    "DESCRIPTIONS_SFW": [
+      "Cannot play leg-based *Martial\u00A0Arts cards."
+    ]
+  },
+  "SuperstitioMod:AtDeathDoor": {
+    "NAME": "On Death's Door",
+    "DESCRIPTIONS": [
+      "Immune to HP loss and Thorns damage."
+    ],
+    "MAKE_KEYWORDS": [
+      {
+        "PROPER_NAME": "On\u00A0Death's\u00A0Door",
+        "NAMES": [
+          "on\u00A0death's\u00A0door"
+        ],
+        "DESCRIPTION": "Immune to HP loss and Thorns damage."
+      }
+    ]
+  }
+}

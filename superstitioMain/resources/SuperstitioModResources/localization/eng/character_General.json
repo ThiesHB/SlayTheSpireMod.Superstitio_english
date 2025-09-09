@@ -1,0 +1,38 @@
+﻿{
+  "SuperstitioMod:TempCard": {
+    "NAMES": [
+      "Desecrated Celestial - Temp Card",
+      "Desecrated Celestial - Temp Card"
+    ],
+    "TEXT": [
+      "Error",
+      "Error"
+    ]
+  },
+  "SuperstitioMod:GeneralCard": {
+    "NAMES": [
+      "Desecrated Celestial - General Card",
+      "Desecrated Celestial - General Card"
+    ],
+    "TEXT": [
+      "Error",
+      "Error"
+    ]
+  },
+  "SuperstitioMod:Tzeentch": {
+    "NAMES": [
+      "Thousand Forms of the Celestial",
+      "Thousand Forms of the Celestial"
+    ],
+    "TEXT": [
+      "Once a celestial dweller of the ninth heaven, her form twists endlessly. NL Will the Spire offer her salvation?",
+      "\"You felt the call from a corrupted heart… and gave your love, already twisted beyond recognition...\"",
+      "Starting Relic",
+      "Carry the selected starting relic. NL This also affects your starting gold.",
+      "Celestial Body",
+      "Imitate the selected celestial body. NL This also affects your starting HP.",
+      "Personal Trait",
+      "Acquire the selected personal trait. NL This also affects your starting deck."
+    ]
+  }
+}
