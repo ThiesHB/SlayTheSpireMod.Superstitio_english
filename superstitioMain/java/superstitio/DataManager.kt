@@ -212,8 +212,8 @@ class DataManager
             {
                 GameLanguage.ZHS -> "zhs"
                 GameLanguage.ZHT -> "zhs"
-                GameLanguage.ENG -> "zhs"
-                else             -> "zhs"
+                GameLanguage.ENG -> "eng"
+                else             -> "eng"
             }
             return localizationPath.createScope(ret).resolveFile(filename)
         }
